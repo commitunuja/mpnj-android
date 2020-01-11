@@ -14,7 +14,6 @@ public interface API {
     @GET("produk")
     Call<RestProduk> tampilkan();
 
-
 }
 
 
