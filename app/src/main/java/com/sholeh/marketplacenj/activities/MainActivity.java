@@ -267,6 +267,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         String.valueOf(KontakList.size()));
                 mAdapter = new AllProductAdapter(KontakList);
                 mRecyclerView.setAdapter(mAdapter);
+
             }
 
             @Override
