@@ -26,7 +26,7 @@
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="7dp"
         android:layout_toRightOf="@id/itemcardImageView1"
-        android:text="Produk Lainnya"
+        android:text="Produk Lainnya (item grid)"
         android:textSize="20sp" />
 
     <View

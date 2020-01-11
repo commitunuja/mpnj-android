@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.0"
+        android:background="#FFFFFF">
+
+        <com.loopj.android.image.SmartImageView
+            android:id="@+id/itemproductImageView1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp" />
+
+        <TextView
+            android:id="@+id/itemproductTextViewDisc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|end"
+            android:layout_margin="10dp"
+            android:background="@drawable/box_discount"
+            android:padding="5dp"
+            android:text="25%"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#FFFFFF" />
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.0"
+        android:background="#FFFFFF"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <TextView
+            android:id="@+id/itemNamaproduct"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:maxLines="2"
+            android:minLines="2"
+            android:text="Samsung M20"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#3E3E3E" />
+
+        <TextView
+            android:id="@+id/itemhargaProduct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rp 540.000"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#E53D0C"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</LinearLayout>
+

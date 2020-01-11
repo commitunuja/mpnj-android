@@ -2,13 +2,14 @@ package com.sholeh.marketplacenj.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ImageView;
@@ -17,21 +18,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.graphics.drawable.DrawableCompat;
-import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.sholeh.marketplacenj.R;
-import com.sholeh.marketplacenj.adapter.ItemGridAdapter;
+import com.sholeh.marketplacenj.adapter.AllProductAdapter;
 import com.sholeh.marketplacenj.adapter.ProductAdapter;
 import com.sholeh.marketplacenj.adapter.SliderImageAdapter;
-import com.sholeh.marketplacenj.model.CategoryModel;
+import com.sholeh.marketplacenj.api.API;
+import com.sholeh.marketplacenj.api.koneksi;
+import com.sholeh.marketplacenj.model.AllProductModel;
 import com.sholeh.marketplacenj.model.ProductModel;
-import com.sholeh.marketplacenj.util.Constant;
+import com.sholeh.marketplacenj.rest.RestProduk;
 import com.smarteist.autoimageslider.IndicatorAnimations;
 import com.smarteist.autoimageslider.IndicatorView.draw.controller.DrawController;
 import com.smarteist.autoimageslider.SliderAnimations;
@@ -44,7 +45,14 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Map;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -54,9 +62,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private LinearLayout llroot;
 
     private ImageView  nav_home, nav_notifikasi, nav_transaksi, nav_profile;
-
-
     FloatingActionButton fb_favourite;
+
+    //http://localhost:8000/api/produk
+//    RecyclerView tampilproduk;
+//    private List<AllProductModel> results = new ArrayList<> ();
+//    private AllProductAdapter viewAdapter;
+
+    API mApiInterface;
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
+    public static MainActivity ma;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,29 +95,45 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         fb_favourite = findViewById(R.id.fab_menu);
         fb_favourite.setOnClickListener(this);
 
+
+        mRecyclerView =  findViewById(R.id.rvListViewProduk );
+//        mLayoutManager = new LinearLayoutManager(this);
+//        mRecyclerView.setLayoutManager(mLayoutManager);
+        mApiInterface = koneksi.getClient().create(API.class);
+        ma=this;
+//        tampilproduk.setHasFixedSize ( true );
+//        LinearLayoutManager llm = new LinearLayoutManager ( this );
+//        llm.setOrientation ( LinearLayoutManager.VERTICAL );
+//        tampilproduk.setLayoutManager ( llm );
+
+
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
         llroot = findViewById(R.id.mainLinearLayout1);
 
-        loadjson(llroot, "Terlaris", 0, 25);
-        for (String cardtitle : Constant.cards.keySet()) {
-            View card = getLayoutInflater().inflate(R.layout.item_card, null);
-            RecyclerView rv = card.findViewById(R.id.cardListView1);
-            rv.setNestedScrollingEnabled(false);
-            TextView tv = card.findViewById(R.id.cardTextView1);
-            tv.setText(cardtitle);
-            Map<Integer, String> cats = Constant.cards.get(cardtitle);
-            List<CategoryModel> datacat = new ArrayList<CategoryModel>();
-            for (int ic : cats.keySet()) {
-                datacat.add(new CategoryModel(ic, ic, cats.get(ic), false));
-            }
-            rv.addItemDecoration(new SimpleDividerItemDecoration(this));
-            rv.setAdapter(new ItemGridAdapter(datacat));
-            rv.setLayoutManager(new GridLayoutManager(this, 2));
+//        loadjson(llroot, "Terlaris", 0, 25);
 
-            llroot.addView(card);
-    }
-        loadjson(llroot, "Produk Terbaru", 26, 0);
+        // PERULANGAN untuk menampilkan tombol kategori
+//        for (String cardtitle : Constant.cards.keySet()) {
+//            View card = getLayoutInflater().inflate(R.layout.item_card, null);
+//            RecyclerView rv = card.findViewById(R.id.cardListView1);
+//            rv.setNestedScrollingEnabled(false);
+//            TextView tv = card.findViewById(R.id.cardTextView1Kategori);
+//            tv.setText(cardtitle);
+//            Map<Integer, String> cats = Constant.cards.get(cardtitle);
+//            List<CategoryModel> datacat = new ArrayList<CategoryModel>();
+//            for (int ic : cats.keySet()) {
+//                datacat.add(new CategoryModel(ic, ic, cats.get(ic), false));
+//            }
+//            rv.addItemDecoration(new SimpleDividerItemDecoration(this));
+//            rv.setAdapter(new ItemGridAdapter(datacat));
+//            rv.setLayoutManager(new GridLayoutManager(this, 2)); // tombol kategori
+//
+//            llroot.addView(card);
+//        }
+//        loadjson(llroot, "Produk Terbaru", 26, 0);
+
+       // loadjson(llroot, "Rekomendasi", 26, 0);
 
         final SliderImageAdapter sliderImageAdapter = new SliderImageAdapter(this);
         sliderImageAdapter.setCount(4);
@@ -116,12 +150,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-        greeting();
-
-
-
+        sapa();
+        tampilproduk();
     }
-    private void greeting() {
+    private void sapa() {
         Calendar calendar = Calendar.getInstance();
         int timeOfDay = calendar.get(Calendar.HOUR_OF_DAY);
 
@@ -205,25 +237,44 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             mDivider = context.getResources().getDrawable(R.drawable.line_divider);
         }
 
-        @Override
-        public void onDrawOver(Canvas c, RecyclerView parent, RecyclerView.State state) {
-            int left = parent.getPaddingLeft();
-            int right = parent.getWidth() - parent.getPaddingRight();
-            int childCount = parent.getChildCount();
-            for (int i = 0; i < childCount; i++) {
-                View child = parent.getChildAt(i);
-                RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child.getLayoutParams();
-                int top = child.getBottom() + params.bottomMargin;
-                int bottom = top + mDivider.getIntrinsicHeight();
-                mDivider.setBounds(left, top, right, bottom);
-                mDivider.draw(c);
-            }
-        }
+//        @Override
+//        public void onDrawOver(Canvas c, RecyclerView parent, RecyclerView.State state) {
+//            int left = parent.getPaddingLeft();
+//            int right = parent.getWidth() - parent.getPaddingRight();
+//            int childCount = parent.getChildCount();
+//            // tombol kategori baris  bawah
+//            for (int i = 0; i < childCount; i++) {
+//                View child = parent.getChildAt(i);
+//                RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child.getLayoutParams();
+//                int top = child.getBottom() + params.bottomMargin;
+//                int bottom = top + mDivider.getIntrinsicHeight();
+//                mDivider.setBounds(left, top, right, bottom);
+//                mDivider.draw(c);
+//            }
+//        }
     }
 
-    public static Drawable setTint(Drawable d, int color) {
-        Drawable wrappedDrawable = DrawableCompat.wrap(d);
-        DrawableCompat.setTint(wrappedDrawable, color);
-        return wrappedDrawable;
+    private void tampilproduk(){ // hampir sama dengan cari
+
+        Call<RestProduk> restProdukCall = mApiInterface.tampilkan();
+        restProdukCall.enqueue(new Callback<RestProduk>() {
+            @Override
+            public void onResponse(Call<RestProduk> call, Response<RestProduk>
+                    response) {
+                Toast.makeText(MainActivity.this, ""+response, Toast.LENGTH_SHORT).show();
+                List<AllProductModel> KontakList = response.body().getListDataproduk();
+                Log.d("Retrofit Get", "Jumlah data Kontak: " +
+                        String.valueOf(KontakList.size()));
+                mAdapter = new AllProductAdapter(KontakList);
+                mRecyclerView.setAdapter(mAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<RestProduk> call, Throwable t) {
+                Log.e("Retrofit Get", t.toString());
+                Toast.makeText(MainActivity.this, ""+t, Toast.LENGTH_LONG).show();
+            }
+        });
+
     }
 }

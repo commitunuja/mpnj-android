@@ -17,13 +17,13 @@
         android:padding="5dp">
 
         <TextView
-            android:id="@+id/cardTextView1Kategori"
+            android:id="@+id/cardTextViewAllproduk"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
-            android:text="Gaya Hidup (Item Card)"
+            android:text="Item All Product"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="#454545"
             android:textStyle="bold" />
@@ -35,7 +35,7 @@
             android:background="#ED2626" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/cardListView1"
+            android:id="@+id/rvListViewProduk"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:overScrollMode="never" />

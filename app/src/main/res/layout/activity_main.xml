@@ -32,7 +32,7 @@
         </androidx.core.widget.NestedScrollView>
 
         <com.google.android.material.bottomappbar.BottomAppBar
-            android:id="@+id/navigation"
+            android:id="@+id/navigation_bottombar"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_gravity="bottom"
@@ -61,7 +61,7 @@
             android:elevation="4dp"
             android:tint="@android:color/white"
             app:fabSize="normal"
-            app:layout_anchor="@+id/navigation"
+            app:layout_anchor="@+id/navigation_bottombar"
             app:srcCompat="@drawable/ic_favorite"
             app:itemIconTint="@drawable/bottom_navigation_selector"
             app:itemTextColor="@drawable/bottom_navigation_selector"/>
