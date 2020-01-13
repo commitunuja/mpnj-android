@@ -1,6 +1,6 @@
 <resources>
     <style name="AppTheme" parent="AppTheme.Base">
-        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+        <!-- All customizations that are NOT specific to a particular APIInterface-level can go here. -->
     </style>
     <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
 
