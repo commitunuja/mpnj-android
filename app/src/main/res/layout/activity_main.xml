@@ -25,8 +25,15 @@
 
                 <include layout="@layout/main_header" />
 
-                <include layout="@layout/content_main" />
+<!--                <include layout="@layout/content_main" />-->
+               <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/recyclerview"
+                    android:layout_margin="5dp">
 
+
+                </androidx.recyclerview.widget.RecyclerView>
             </LinearLayout>
 
         </androidx.core.widget.NestedScrollView>
