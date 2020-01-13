@@ -2,14 +2,12 @@ package com.sholeh.marketplacenj.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ImageView;
@@ -18,21 +16,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.sholeh.marketplacenj.R;
-import com.sholeh.marketplacenj.adapter.AllProductAdapter;
+import com.sholeh.marketplacenj.ServiceGenerator;
 import com.sholeh.marketplacenj.adapter.ProductAdapter;
+import com.sholeh.marketplacenj.adapter.ProdukAdapter;
 import com.sholeh.marketplacenj.adapter.SliderImageAdapter;
-import com.sholeh.marketplacenj.api.API;
-import com.sholeh.marketplacenj.api.koneksi;
-import com.sholeh.marketplacenj.model.AllProductModel;
+import com.sholeh.marketplacenj.APIInterface;
+import com.sholeh.marketplacenj.model.Model;
 import com.sholeh.marketplacenj.model.ProductModel;
-import com.sholeh.marketplacenj.rest.RestProduk;
 import com.smarteist.autoimageslider.IndicatorAnimations;
 import com.smarteist.autoimageslider.IndicatorView.draw.controller.DrawController;
 import com.smarteist.autoimageslider.SliderAnimations;
@@ -46,22 +43,18 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     Toolbar toolbar;
     SliderView sliderMyshop;
     TextView greetText;
-    private LinearLayout llroot;
+//    private LinearLayout llroot;
 
-    private ImageView  nav_home, nav_notifikasi, nav_transaksi, nav_profile;
+    private ImageView nav_home, nav_notifikasi, nav_transaksi, nav_profile;
     FloatingActionButton fb_favourite;
 
     //http://localhost:8000/api/produk
@@ -69,18 +62,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //    private List<AllProductModel> results = new ArrayList<> ();
 //    private AllProductAdapter viewAdapter;
 
-    API mApiInterface;
-    private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
-    public static MainActivity ma;
+//    APIInterface mApiInterfaceInterface;
+   private RecyclerView recyclerView;
+    //    private RecyclerView.Adapter mAdapter;
+    private ProdukAdapter produkAdapter;
+//    private RecyclerView.LayoutManager mLayoutManager;
+    private List<Model> tvDataProduk;
+    private GridLayoutManager gridLayoutManager;
+//    private TextView result;
+
+//    public static MainActivity ma;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         toolbar = findViewById(R.id.toolbar);
         sliderMyshop = findViewById(R.id.imageSlider);
         greetText = findViewById(R.id.greeting_text);
@@ -96,20 +93,43 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         fb_favourite.setOnClickListener(this);
 
 
-        mRecyclerView =  findViewById(R.id.rvListViewProduk );
+//        recyclerview = findViewById(R.id.rvListViewProduk);
 //        mLayoutManager = new LinearLayoutManager(this);
 //        mRecyclerView.setLayoutManager(mLayoutManager);
-        mApiInterface = koneksi.getClient().create(API.class);
-        ma=this;
+//        mApiInterfaceInterface = CONSTANTS.getClient().create(APIInterface.class);
+//        ma = this;
 //        tampilproduk.setHasFixedSize ( true );
-//        LinearLayoutManager llm = new LinearLayoutManager ( this );
-//        llm.setOrientation ( LinearLayoutManager.VERTICAL );
-//        tampilproduk.setLayoutManager ( llm );
+        recyclerView = findViewById(R.id.recyclerview);
+        gridLayoutManager = new GridLayoutManager(this,2);
+        gridLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(gridLayoutManager);
+
+
+        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+        Call<List<Model>> call = service.getProduk();
+
+        call.enqueue(new Callback<List<Model>>() {
+            @Override
+            public void onResponse(Call<List<Model>> call, Response<List<Model>> response) {
+                tvDataProduk = response.body();
+                produkAdapter = new ProdukAdapter(MainActivity.this, tvDataProduk);
+                recyclerView.setAdapter(produkAdapter);
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Model>> call, Throwable t) {
+
+                Toast.makeText(MainActivity.this, String.valueOf(t), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
 
 
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
-        llroot = findViewById(R.id.mainLinearLayout1);
+
 
 //        loadjson(llroot, "Terlaris", 0, 25);
 
@@ -133,7 +153,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        }
 //        loadjson(llroot, "Produk Terbaru", 26, 0);
 
-       // loadjson(llroot, "Rekomendasi", 26, 0);
+        // loadjson(llroot, "Rekomendasi", 26, 0);
 
         final SliderImageAdapter sliderImageAdapter = new SliderImageAdapter(this);
         sliderImageAdapter.setCount(4);
@@ -151,8 +171,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
 
         sapa();
-        tampilproduk();
+//        tampilproduk();
     }
+
+//    private void tampilproduk() {
+
+          /*  @Override
+            public void onResponse(Call<List<TVMazeDataModel>> call, Response<List<TVMazeDataModel>> response) {
+                loadProgress.setVisibility(View.GONE);
+                tvMazeDataModels=response.body();
+                recyclerAdapter=new RecyclerAdapter(MainActivity.this,tvMazeDataModels);
+                recyclerView.setAdapter(recyclerAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<List<TVMazeDataModel>> call, Throwable t) {
+                result.setText(t.getMessage());
+            }
+        });
+
+    }*/
+
+
     private void sapa() {
         Calendar calendar = Calendar.getInstance();
         int timeOfDay = calendar.get(Calendar.HOUR_OF_DAY);
@@ -210,7 +250,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
 
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.nav_home:
                 Toast.makeText(this, "nav home", Toast.LENGTH_SHORT).show();
 
@@ -254,17 +294,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        }
     }
 
-    private void tampilproduk(){ // hampir sama dengan cari
+    /*private void tampilproduk() throws FileNotFoundException { // hampir sama dengan cari
 
-        Call<RestProduk> restProdukCall = mApiInterface.tampilkan();
+        BufferedReader reader = new BufferedReader(new FileReader(new File("json.txt")));
+        Type type = new TypeToken<Map<String, Object>>() {}.getType();
+        Map<String, Object> map = new Gson().fromJson(reader, type);
+
+        Call<RestProduk> restProdukCall = mApiInterfaceInterface.tampilkan();
         restProdukCall.enqueue(new Callback<RestProduk>() {
             @Override
             public void onResponse(Call<RestProduk> call, Response<RestProduk>
                     response) {
                 Toast.makeText(MainActivity.this, ""+response, Toast.LENGTH_SHORT).show();
-                List<AllProductModel> KontakList = response.body().getListDataproduk();
+                Object[] KontakList = response.body().getListDataproduk().toArray(
+                        new Boolean[] {});
                 Log.d("Retrofit Get", "Jumlah data Kontak: " +
-                        String.valueOf(KontakList.size()));
+                        String.valueOf(KontakList.length));
+
+
                 mAdapter = new AllProductAdapter(KontakList);
                 mRecyclerView.setAdapter(mAdapter);
 
@@ -277,5 +324,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-    }
+    }*/
 }
