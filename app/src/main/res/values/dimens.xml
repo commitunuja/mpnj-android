@@ -2,5 +2,20 @@
 <resources>
 	<dimen name="grid_width">2.0px</dimen>
 	<dimen name="grid_height">2.4px</dimen>
+	<dimen name="padding_small_5">5dp</dimen>
+	<dimen name="padding_normal_8dp">8dp</dimen>
+	<dimen name="padding_medium_10dp">10dp</dimen>
+	<dimen name="paddinng_large_15">15dp</dimen>
+	<dimen name="padding_extra_large_20">20dp</dimen>
+	<dimen name="padding_too_large_30">30dp</dimen>
+	<dimen name="padding_50">50dp</dimen>
+
+	<dimen name="txt_size_small_5">5sp</dimen>
+	<dimen name="txt_size_normal_8">8sp</dimen>
+	<dimen name="txt_size_medium_10">10sp</dimen>
+	<dimen name="txt_size_large_12">12sp</dimen>
+	<dimen name="txt_size_extra_large_15">15sp</dimen>
+	<dimen name="txt_size_18">18sp</dimen>
+	<dimen name="txt_size_22">22sp</dimen>
 </resources>
 

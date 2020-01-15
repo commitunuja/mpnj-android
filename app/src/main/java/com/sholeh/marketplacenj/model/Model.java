@@ -7,7 +7,6 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class Model {
-
     @SerializedName("id_produk")
     @Expose
     private Integer idProduk;

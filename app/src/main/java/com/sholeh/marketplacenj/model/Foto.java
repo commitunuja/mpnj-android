@@ -5,7 +5,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Foto {
-
+    //respon
     @SerializedName("id_foto_poroduk")
     @Expose
     private Integer idFotoPoroduk;
