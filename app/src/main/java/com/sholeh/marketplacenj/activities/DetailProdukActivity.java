@@ -37,7 +37,6 @@ public class DetailProdukActivity extends AppCompatActivity {
     String namaproduk, urltoimage;
     int hargaproduk;
     Toolbar toolBarisi;
-    ilham kuda
 
 
     @Override
