@@ -38,7 +38,7 @@ public class DetailProdukActivity extends AppCompatActivity {
     int hargaproduk;
     Toolbar toolBarisi;
 
-
+// baru
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
