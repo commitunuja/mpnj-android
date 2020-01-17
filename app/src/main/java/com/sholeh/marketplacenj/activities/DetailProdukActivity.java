@@ -36,6 +36,7 @@ public class DetailProdukActivity extends AppCompatActivity {
     TextView nm_produk, hrg_produk;
     String namaproduk, urltoimage, hargaproduk;
     Toolbar toolBarisi;
+    ilham kuda
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
