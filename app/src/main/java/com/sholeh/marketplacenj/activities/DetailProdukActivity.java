@@ -34,8 +34,10 @@ public class DetailProdukActivity extends AppCompatActivity {
 
     ImageView imageDetailProduk;
     TextView nm_produk, hrg_produk;
-    String namaproduk, urltoimage, hargaproduk;
+    String namaproduk, urltoimage;
+    int hargaproduk;
     Toolbar toolBarisi;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +56,8 @@ public class DetailProdukActivity extends AppCompatActivity {
         nm_produk.setText(namaproduk);
         urltoimage = getIntent().getExtras().getString("foto_produk");
         Glide.with(getApplicationContext()).load(urltoimage).into(imageDetailProduk);
-//        hargaproduk = getIntent().getExtras().getString("harga_jual");
-//        nm_produk.setText(hargaproduk);
+        hargaproduk =  Integer.parseInt(getIntent().getStringExtra("harga_jual"));
+        hrg_produk.setText(String.valueOf(hargaproduk));
 
 
 

@@ -44,8 +44,6 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         tvDataProduk = tvDataProduks.get(i);
-
-
         viewHolder.namaProduk.setText(tvDataProduk.getNamaProduk()); // MODEL
         viewHolder.hargaProduk.setText(String.valueOf(tvDataProduk.getHargaJual()));
 
@@ -99,7 +97,7 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ViewHolder
                     Intent intent = new Intent(context, DetailProdukActivity.class);
                     intent.putExtra("nama_produk", myNewsmodel.getNamaProduk());
                     intent.putExtra("foto_produk",CONSTANTS.BASE_URL + "assets/foto_produk/"+myNewsmodel.getFoto().get(0).getFotoProduk());
-                    intent.putExtra("harga_jual", myNewsmodel.getHargaJual());
+                    intent.putExtra("harga_jual", String.valueOf(myNewsmodel.getHargaJual()));
                     context.startActivity(intent);
                 }
             });
