@@ -141,6 +141,19 @@
                     android:paddingBottom="@dimen/padding_medium_10dp">
 
                     <TextView
+                        android:text="Ongkos Kirim"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_hargaawal"
+                        android:layout_alignParentRight="right"
+                        android:layout_marginLeft="@dimen/padding_medium_10dp"
+                        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Small"
+                        android:gravity="center"
+                        android:layout_marginTop="@dimen/padding_medium_10dp"
+                        android:background="@drawable/strick_line"/>
+
+
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/tv_detailHarga"
@@ -151,7 +164,10 @@
                         android:layout_marginLeft="@dimen/padding_medium_10dp"
                         android:textColor="@color/black"
                         android:layout_alignParentLeft="true"/>
+
+
                     <TextView
+                        android:text=""
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/prod_qty_value"
@@ -165,8 +181,8 @@
                 </RelativeLayout>
 
 
-
                 <TextView
+                    android:text="Rincian Produk"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/stock_avail"
@@ -176,6 +192,7 @@
                     android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
                     />
                 <TextView
+                    android:text="Stok"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/price_old"
