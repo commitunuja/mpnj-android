@@ -12,14 +12,14 @@ import retrofit2.http.Part;
 
 
 public interface APIInterface {
-        @GET("api/produk")
+    @GET("api/produk")
         abstract Call<List<Model>> getProduk();
 
     // get detail
     @Multipart
-    @POST("api/produk")
-    Call<Model> getProductDetials(
-            @Part("id_produk") RequestBody id_produk);
+    @GET("api/produk/{id_produk}")
+    Call<Model> getIdProdukDetail(
+            @Part("id_produk") int getIdproduk);
 
     }
 
