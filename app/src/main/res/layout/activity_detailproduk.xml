@@ -67,7 +67,7 @@
                     <ImageView
                         android:layout_width="48dp"
                         android:layout_height="48dp"
-                        android:id="@+id/add_to_cart"
+                        android:id="@+id/add_to_keranjang"
                         android:src="@drawable/ic_keranjang_orence"
                         android:layout_alignParentBottom="true"
                         android:layout_alignParentRight="true"
@@ -78,7 +78,7 @@
                         android:id="@+id/add_to_wishlist"
                         android:src="@drawable/ic_like_fille_green_24dp"
                         android:layout_alignParentBottom="true"
-                        android:layout_toLeftOf="@+id/add_to_cart"
+                        android:layout_toLeftOf="@+id/add_to_keranjang"
                         android:layout_marginRight="@dimen/padding_medium_10dp"/>
 
                 </RelativeLayout>
@@ -140,30 +140,40 @@
                     android:paddingTop="@dimen/padding_small_5"
                     android:paddingBottom="@dimen/padding_medium_10dp">
 
-                    <TextView
-                        android:text="Ongkos Kirim"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/tv_hargaawal"
-                        android:layout_alignParentRight="right"
-                        android:layout_marginLeft="@dimen/padding_medium_10dp"
-                        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Small"
-                        android:gravity="center"
-                        android:layout_marginTop="@dimen/padding_medium_10dp"
-                        android:background="@drawable/strick_line"/>
 
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:visibility="gone"
+                            android:background="@drawable/strick_line"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/tv_detailHargamodal"
+                            android:text="Rp.500.000"
+                            android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
+                            android:gravity="right"
+                            android:layout_marginTop="@dimen/padding_small_5"
+                            android:layout_marginLeft="@dimen/padding_medium_10dp"
+                            android:textColor="#AFA5A5"
+                            android:layout_alignParentLeft="true"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/tv_detailHarga"
-                        android:text="Rp.500.000"
-                        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
-                        android:gravity="right"
-                        android:layout_marginTop="@dimen/padding_small_5"
-                        android:layout_marginLeft="@dimen/padding_medium_10dp"
-                        android:textColor="@color/black"
-                        android:layout_alignParentLeft="true"/>
+                        <TextView
+                            android:visibility="visible"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/tv_detailHargaJual"
+                            android:text="Rp.500.000"
+                            android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
+                            android:gravity="right"
+                            android:layout_marginTop="@dimen/padding_small_5"
+                            android:layout_marginLeft="@dimen/padding_medium_10dp"
+                            android:textColor="@color/black"
+                            android:layout_alignParentLeft="true"/>
+
+                    </LinearLayout>
+
 
 
                     <TextView
@@ -191,19 +201,68 @@
                     android:layout_marginTop="@dimen/padding_medium_10dp"
                     android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
                     />
-                <TextView
-                    android:text="Stok"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/price_old"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginLeft="@dimen/padding_medium_10dp"
-                    android:textAppearance="@android:style/TextAppearance.DeviceDefault.Small"
-                    android:gravity="center"
-                    android:layout_marginTop="@dimen/padding_medium_10dp"
-                    android:background="@drawable/strick_line"/>
 
+
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:text="Stok"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="@dimen/padding_medium_10dp"
+                        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Small"
+                        android:layout_marginTop="@dimen/padding_medium_10dp" />
+
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:text="8"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_detailstok"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="@dimen/padding_medium_10dp"
+                        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Small"
+                        android:layout_marginTop="@dimen/padding_medium_10dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:text="Terjual"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="@dimen/padding_medium_10dp"
+                        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Small"
+                        android:layout_marginTop="@dimen/padding_medium_10dp" />
+
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:text="2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_detailterjual"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="@dimen/padding_medium_10dp"
+                        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Small"
+                        android:layout_marginTop="@dimen/padding_medium_10dp" />
+
+                </LinearLayout>
                 <TextView
+                    android:text="Deskripsi"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/prod_price"
@@ -211,8 +270,19 @@
                     android:layout_toRightOf="@id/prod_rating"
                     android:gravity="right"
                     android:layout_marginTop="@dimen/padding_small_5"
+                    android:layout_marginLeft="@dimen/padding_medium_10dp" />
+
+                <TextView
+                    android:text="Keripik bayam adalah keripik yang terbuat dari daun bayam dan digoreng dengan menggunakan tepung yang telah dibumbui. Biasanya rasanya adalah asin dengan aroma bawang yang gurih."
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_detaildeskripsi"
+                    android:layout_alignParentRight="true"
                     android:layout_marginLeft="@dimen/padding_medium_10dp"
-                    android:textColor="@color/colorAccent"/>
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault.Small"
+                    android:layout_marginTop="@dimen/padding_medium_10dp" />
+
+
 
 
                 <com.google.android.material.tabs.TabLayout

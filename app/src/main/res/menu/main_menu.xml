@@ -1,12 +1,20 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
+<menu
+	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto">
 	<item
-        android:id="@+id/menu_mycart"
+        android:id="@+id/menu_keranjang"
 		android:iconTint="#fff"
 		android:icon="@drawable/ic_cart_outline"
 		app:showAsAction="always"
-        android:title="My Cart"/>
-    <item
-        android:id="@+id/menu_settings"
-        android:title="Settings"/>
+        android:title="Keranjang"/>
+
+	<item
+		android:id="@+id/cart"
+		android:title="Keranjang"
+		android:icon="@mipmap/ic_shopping_cart_white_24dp"
+		app:showAsAction="always"
+		android:actionLayout="@layout/cart_menu_item"
+		app:actionLayout="@layout/cart_menu_item"
+		xmlns:app="http://schemas.android.com/apk/res-auto"/>
+
 </menu>

@@ -10,6 +10,9 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +24,8 @@ import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.ServiceGenerator;
 import com.sholeh.marketplacenj.adapter.ProdukAdapter;
 import com.sholeh.marketplacenj.model.Model;
+import com.sholeh.marketplacenj.util.AppUtilits;
+import com.sholeh.marketplacenj.util.SharePreferenceUtils;
 
 import java.util.List;
 
@@ -29,14 +34,17 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DetailProdukActivity extends AppCompatActivity {
+public class DetailProdukActivity extends AppCompatActivity implements View.OnClickListener {
 
-
-    ImageView imageDetailProduk;
+    private String TAG ="productDetails";
+    ImageView imageDetailProduk, imgadd_tokeranjang;
     TextView nm_produk, hrg_produk, stok, terjual, deskripsi;
     String namaproduk, urltoimage, vdeskripsi;
     int vhargaproduk, vstok, vterjual, vid_produk;
     Toolbar toolBarisi;
+
+    private Menu mainmenu;
+
 
 
 // baru
@@ -55,6 +63,8 @@ public class DetailProdukActivity extends AppCompatActivity {
         stok = findViewById(R.id.tv_detailstok);
         terjual = findViewById(R.id.tv_detailterjual);
         deskripsi = findViewById(R.id.tv_detaildeskripsi);
+        imgadd_tokeranjang = findViewById(R.id.add_to_keranjang);
+        imgadd_tokeranjang.setOnClickListener(this);
 
         vid_produk =  Integer.parseInt(getIntent().getStringExtra("id_produk"));
         namaproduk = getIntent().getExtras().getString("nama_produk");
@@ -73,12 +83,45 @@ public class DetailProdukActivity extends AppCompatActivity {
         Glide.with(getApplicationContext()).load(urltoimage).into(imageDetailProduk);
 
 
-
     }
     @Override
     public boolean onSupportNavigateUp() {
         finish();
         return true;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        mainmenu = menu;
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id==R.id.menu_keranjang){
+            Intent intent = new Intent(this, KeranjangActivity.class);
+            startActivity(intent);
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.add_to_keranjang:
+                SharePreferenceUtils.getInstance().saveString(CONSTANTS.QUOTE_ID, "");
+                SharePreferenceUtils.getInstance().saveInt( CONSTANTS.CART_ITEM_COUNT,   SharePreferenceUtils.getInstance().getInteger(CONSTANTS.CART_ITEM_COUNT) +1);
+                AppUtilits.UpdateCartCount(mainmenu);
+                break;
+
+                default:
+                    break;
+        }
     }
 
 //    private void loadDetail(Integer ProdukId) {
