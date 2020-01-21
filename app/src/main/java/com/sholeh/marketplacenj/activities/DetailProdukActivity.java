@@ -114,14 +114,19 @@ public class DetailProdukActivity extends AppCompatActivity implements View.OnCl
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.add_to_keranjang:
-                SharePreferenceUtils.getInstance().saveString(CONSTANTS.QUOTE_ID, "");
+               /* SharePreferenceUtils.getInstance().saveString(CONSTANTS.QUOTE_ID, "");
                 SharePreferenceUtils.getInstance().saveInt( CONSTANTS.CART_ITEM_COUNT,   SharePreferenceUtils.getInstance().getInteger(CONSTANTS.CART_ITEM_COUNT) +1);
-                AppUtilits.UpdateCartCount(mainmenu);
+                AppUtilits.UpdateCartCount(mainmenu);*/ //dihapus karna berpengaruh ke method keranjang
+              keranjang();
                 break;
-
                 default:
                     break;
         }
+    }
+
+    private void keranjang() {
+        Intent intent = new Intent(DetailProdukActivity.this, KeranjangActivity.class);
+        startActivity(intent);
     }
 
 //    private void loadDetail(Integer ProdukId) {
