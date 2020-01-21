@@ -72,4 +72,14 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:background">@color/divider</item>
     </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="ratingBarMedium" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/ratingbar_custom_medium</item>
+        <item name="android:minHeight">16dip</item>
+        <item name="android:maxHeight">16dp</item>
+
+    </style>
 </resources>

@@ -54,4 +54,11 @@
     <color name="colorControlHighlight">@color/divider</color>
     <color name="text">#FFFFFF</color>
     <color name="icons">#FFFFFF</color>
+
+    <color name="txt_color">#000000</color>
+    <color name="grey">#424242</color>
+    <color name="grey_light">#9E9E9E</color>
+
+    <color name="green_light">#388E3C</color>
+    <color name="dark_gold">#bf9b30</color>
 </resources>

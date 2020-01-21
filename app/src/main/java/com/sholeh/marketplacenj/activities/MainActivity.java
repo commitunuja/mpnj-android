@@ -105,12 +105,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         recyclerView.setLayoutManager(gridLayoutManager);
 
 
+
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
         Call<List<Model>> call = service.getProduk();
 
         call.enqueue(new Callback<List<Model>>() {
             @Override
             public void onResponse(Call<List<Model>> call, Response<List<Model>> response) {
+
                 tvDataProduk = response.body();
                 produkAdapter = new ProdukAdapter(MainActivity.this, tvDataProduk);
                 recyclerView.setAdapter(produkAdapter);

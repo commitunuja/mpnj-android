@@ -8,14 +8,13 @@
     android:layout_marginRight="16dp"
     android:layout_marginBottom="10dp"
     app:cardCornerRadius="10dp"
+    android:id="@+id/card_produk"
     android:elevation="20dp">
 
-  <!--  <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="10dp"
-        android:layout_weight="1.0"
-        android:background="#FFFFFF">-->
+        android:layout_height="match_parent">
+
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="200dp"
@@ -32,6 +31,16 @@
             android:text="Samsung M20"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="#3E3E3E" />
+        <TextView
+            android:gravity="center"
+            android:layout_below="@+id/itemNamaproduct"
+            android:id="@+id/itemHargaproduct"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Rp 540.000"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#615F5F"
+            android:textStyle="bold" />
 
 
         <!--<com.loopj.android.image.SmartImageView
@@ -51,6 +60,15 @@
             android:text="25%"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#FFFFFF" />
+    </RelativeLayout>
+
+  <!--  <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1.0"
+        android:background="#FFFFFF">-->
+
    <!-- </FrameLayout>-->
 </androidx.cardview.widget.CardView>
 
