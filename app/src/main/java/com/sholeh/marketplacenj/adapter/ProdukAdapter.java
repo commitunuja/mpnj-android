@@ -46,6 +46,9 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ViewHolder
         tvDataProduk = tvDataProduks.get(i);
         viewHolder.namaProduk.setText(tvDataProduk.getNamaProduk()); // MODEL
         viewHolder.hargaProduk.setText(String.valueOf(tvDataProduk.getHargaJual()));
+//        viewHolder.stok.setText(String.valueOf(tvDataProduk.getStok()));
+//        viewHolder.terjual.setText(String.valueOf(tvDataProduk.getTerjual()));
+//        viewHolder.deskripsi.setText(String.valueOf(tvDataProduk.getKeterangan()));
 
         Picasso.with(context)
                     .load(CONSTANTS.BASE_URL + "assets/foto_produk/" +tvDataProduk.getFoto().get(0).getFotoProduk())
@@ -77,7 +80,7 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ViewHolder
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView namaProduk, hargaProduk;
+        private TextView namaProduk, hargaProduk, stok, terjual, deskripsi ;
         private ImageView foto_produk;
 
 
@@ -88,17 +91,25 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ViewHolder
             foto_produk = itemView.findViewById(R.id.foto_produk);
 
 
+
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Model myNewsmodel = tvDataProduks.get(getAdapterPosition());
-
                     Context context = view.getContext();
                     Intent intent = new Intent(context, DetailProdukActivity.class);
+                    intent.putExtra("id_produk",String.valueOf(myNewsmodel.getIdProduk()) );
                     intent.putExtra("nama_produk", myNewsmodel.getNamaProduk());
                     intent.putExtra("foto_produk",CONSTANTS.BASE_URL + "assets/foto_produk/"+myNewsmodel.getFoto().get(0).getFotoProduk());
                     intent.putExtra("harga_jual", String.valueOf(myNewsmodel.getHargaJual()));
+                    intent.putExtra("stok", String.valueOf(myNewsmodel.getStok()));
+                    intent.putExtra("terjual", String.valueOf(myNewsmodel.getHargaJual()));
+                    intent.putExtra("keterangan", myNewsmodel.getKeterangan());
                     context.startActivity(intent);
+
+
+
                 }
             });
         }
