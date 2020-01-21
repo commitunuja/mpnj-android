@@ -64,7 +64,7 @@
 
                     </RelativeLayout>
 
-                    
+
                     <ImageView
                         android:layout_width="48dp"
                         android:layout_height="48dp"
