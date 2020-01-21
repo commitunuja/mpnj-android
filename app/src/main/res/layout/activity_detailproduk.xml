@@ -145,7 +145,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/tv_hargaawal"
-                        android:layout_alignParentRight="right"
+                        android:layout_alignParentRight="true"
                         android:layout_marginLeft="@dimen/padding_medium_10dp"
                         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Small"
                         android:gravity="center"
