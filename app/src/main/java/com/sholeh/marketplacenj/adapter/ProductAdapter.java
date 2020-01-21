@@ -31,6 +31,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.Holdr> {
         DisplayMetrics dm = ctx.getResources().getDisplayMetrics();
         mWidth = dm.widthPixels / ctx.getResources().getDimension(R.dimen.grid_width);
         mHeight = dm.heightPixels / ctx.getResources().getDimension(R.dimen.grid_height);
+
     }
 
     @Override
