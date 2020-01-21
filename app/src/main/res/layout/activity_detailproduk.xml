@@ -142,6 +142,20 @@
                     android:paddingBottom="@dimen/padding_medium_10dp">
 
 
+
+                    <TextView
+                        android:text="Ongkos Kirim"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_hargaawal"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="@dimen/padding_medium_10dp"
+                        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Small"
+                        android:gravity="center"
+                        android:layout_marginTop="@dimen/padding_medium_10dp"
+                        android:background="@drawable/strick_line"/>
+
+
                     <LinearLayout
                         android:orientation="vertical"
                         android:layout_width="match_parent"
