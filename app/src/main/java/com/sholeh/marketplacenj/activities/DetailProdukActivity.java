@@ -5,10 +5,13 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,9 +27,11 @@ import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.ServiceGenerator;
 import com.sholeh.marketplacenj.adapter.ProdukAdapter;
 import com.sholeh.marketplacenj.model.Model;
+import com.sholeh.marketplacenj.model.NewModel;
 import com.sholeh.marketplacenj.util.AppUtilits;
 import com.sholeh.marketplacenj.util.SharePreferenceUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -34,22 +39,22 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DetailProdukActivity extends AppCompatActivity implements View.OnClickListener {
+public class DetailProdukActivity extends AppCompatActivity {
 
-    private String TAG ="productDetails";
+    private String TAG = "productDetails";
     ImageView imageDetailProduk, imgadd_tokeranjang;
     TextView nm_produk, hrg_produk, stok, terjual, deskripsi;
     String namaproduk, urltoimage, vdeskripsi;
     int vhargaproduk, vstok, vterjual, vid_produk;
     Toolbar toolBarisi;
-
+    private Model tvDataProduk;
+    private List<Model> tvDataProduks; // model / item
     private Menu mainmenu;
 
 
-
-// baru
+    // baru
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailproduk);
 
@@ -64,14 +69,13 @@ public class DetailProdukActivity extends AppCompatActivity implements View.OnCl
         terjual = findViewById(R.id.tv_detailterjual);
         deskripsi = findViewById(R.id.tv_detaildeskripsi);
         imgadd_tokeranjang = findViewById(R.id.add_to_keranjang);
-        imgadd_tokeranjang.setOnClickListener(this);
 
-        vid_produk =  Integer.parseInt(getIntent().getStringExtra("id_produk"));
+        vid_produk = Integer.parseInt(getIntent().getStringExtra("id_produk"));
         namaproduk = getIntent().getExtras().getString("nama_produk");
         urltoimage = getIntent().getExtras().getString("foto_produk");
-        vhargaproduk =  Integer.parseInt(getIntent().getStringExtra("harga_jual"));
-        vstok =  Integer.parseInt(getIntent().getStringExtra("stok"));
-        vterjual =  Integer.parseInt(getIntent().getStringExtra("terjual"));
+        vhargaproduk = Integer.parseInt(getIntent().getStringExtra("harga_jual"));
+        vstok = Integer.parseInt(getIntent().getStringExtra("stok"));
+        vterjual = Integer.parseInt(getIntent().getStringExtra("terjual"));
         vdeskripsi = getIntent().getExtras().getString("keterangan");
 
 
@@ -82,8 +86,23 @@ public class DetailProdukActivity extends AppCompatActivity implements View.OnCl
         deskripsi.setText(vdeskripsi);
         Glide.with(getApplicationContext()).load(urltoimage).into(imageDetailProduk);
 
+        imgadd_tokeranjang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Model myNewsmodel = new Model();
+                    Intent intent = new Intent(DetailProdukActivity.this, KeranjangActivity.class);
+                    intent.putExtra("nama_produk", namaproduk);
+                    intent.putExtra("harga_jual", String.valueOf(vhargaproduk));
+                    intent.putExtra("foto_produk", urltoimage);
+                    startActivity(intent);
+
+            }
+        });
+
 
     }
+
+
     @Override
     public boolean onSupportNavigateUp() {
         finish();
@@ -100,34 +119,35 @@ public class DetailProdukActivity extends AppCompatActivity implements View.OnCl
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id==R.id.menu_keranjang){
-            Intent intent = new Intent(this, KeranjangActivity.class);
-            startActivity(intent);
+        if (id == R.id.menu_keranjang) {
+
         }
 
         return super.onOptionsItemSelected(item);
     }
 
 
-
-    @Override
+   /* @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.add_to_keranjang:
-               /* SharePreferenceUtils.getInstance().saveString(CONSTANTS.QUOTE_ID, "");
+               *//* SharePreferenceUtils.getInstance().saveString(CONSTANTS.QUOTE_ID, "");
                 SharePreferenceUtils.getInstance().saveInt( CONSTANTS.CART_ITEM_COUNT,   SharePreferenceUtils.getInstance().getInteger(CONSTANTS.CART_ITEM_COUNT) +1);
-                AppUtilits.UpdateCartCount(mainmenu);*/ //dihapus karna berpengaruh ke method keranjang
-              keranjang();
+                AppUtilits.UpdateCartCount(mainmenu); //dihapus karna berpengaruh ke method keranjang*//*
+               keranjang(model);
                 break;
-                default:
-                    break;
+            default:
+                break;
         }
-    }
+    }*/
 
-    private void keranjang() {
-        Intent intent = new Intent(DetailProdukActivity.this, KeranjangActivity.class);
-        startActivity(intent);
-    }
+
+    /*  intent.putExtra("id_produk",String.valueOf(model.getIdProduk()));*/
+//        intent.putExtra("nama_produk", model.getNamaProduk());
+//        intent.putExtra("foto_produk",CONSTANTS.BASE_URL + "assets/foto_produk/"+model.getFoto().get(0).getFotoProduk());
+//        intent.putExtra("harga_jual", String.valueOf(model.getHargaJual()));
+//        startActivity(intent);
+}
 
 //    private void loadDetail(Integer ProdukId) {
 //
@@ -152,5 +172,3 @@ public class DetailProdukActivity extends AppCompatActivity implements View.OnCl
 
 
 
-
-}
