@@ -92,4 +92,66 @@ public class KeranjangActivity extends AppCompatActivity {
             progressBar.setVisibility(View.GONE);
         }*/
     }
+
+    private void initialize() {
+        tambahkeranjang.setOnClickListener(this);
+
+
+        quantityProductPage.setText("1");
+        quantityProductPage.addTextChangedListener(productcount);
+//        productprice.setText("₹ " + Float.toString(model.getCardprice()));
+    }
+
+    @SuppressLint("SetTextI18n")
+    public void decrement(View view) {
+        int hargaawal;
+        TextView harga = findViewById(R.id.tv_hargakeranjang);
+        vhargaproduk = Integer.parseInt(getIntent().getStringExtra("harga_jual"));
+
+
+        if (quantity > 1) {
+            quantity--;
+            quantityProductPage.setText(String.valueOf(quantity));
+
+            harga.setText("Rp." + String.valueOf(vhargaproduk*quantity));
+
+        }
+    }
+
+    public void increment(View view) {
+        TextView harga = findViewById(R.id.tv_hargakeranjang);
+        vhargaproduk = Integer.parseInt(getIntent().getStringExtra("harga_jual"));
+
+        if (quantity < 500) {
+            quantity++;
+            quantityProductPage.setText(String.valueOf(quantity));
+            harga.setText("Rp." + String.valueOf(vhargaproduk*quantity));
+
+        } else {
+            Toast.makeText(this, "Product Count Must be less than 500", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    TextWatcher productcount = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            //none
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            if (quantityProductPage.getText().toString().equals("")) {
+                quantityProductPage.setText("0");
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            //none
+            if (Integer.parseInt(quantityProductPage.getText().toString()) >= 500) {
+                Toast.makeText(KeranjangActivity.this, "Product Count Must be less than 500", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+    };
 }
