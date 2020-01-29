@@ -27,8 +27,8 @@ import com.sholeh.marketplacenj.ServiceGenerator;
 import com.sholeh.marketplacenj.adapter.ProductAdapter;
 import com.sholeh.marketplacenj.adapter.ProdukAdapter;
 import com.sholeh.marketplacenj.adapter.SliderImageAdapter;
-import com.sholeh.marketplacenj.APIInterface;
 import com.sholeh.marketplacenj.model.Model;
+import com.sholeh.marketplacenj.model.api.APIInterface;
 import com.sholeh.marketplacenj.model.ProductModel;
 import com.smarteist.autoimageslider.IndicatorAnimations;
 import com.smarteist.autoimageslider.IndicatorView.draw.controller.DrawController;
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     TextView greetText;
 //    private LinearLayout llroot;
 
-    private ImageView nav_home, nav_notifikasi, nav_transaksi, nav_profile;
+    private ImageView nav_home, nav_notifikasi, nav_transaksi, nav_profile, keranjang;
     FloatingActionButton fb_favourite;
 
     //http://localhost:8000/api/produk
@@ -62,11 +62,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //    private List<AllProductModel> results = new ArrayList<> ();
 //    private AllProductAdapter viewAdapter;
 
-//    APIInterface mApiInterfaceInterface;
-   private RecyclerView recyclerView;
+    //    APIInterface mApiInterfaceInterface;
+    private RecyclerView recyclerView;
     //    private RecyclerView.Adapter mAdapter;
     private ProdukAdapter produkAdapter;
-//    private RecyclerView.LayoutManager mLayoutManager;
+    //    private RecyclerView.LayoutManager mLayoutManager;
     private List<Model> tvDataProduk;
     private GridLayoutManager gridLayoutManager;
 //    private TextView result;
@@ -93,6 +93,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         fb_favourite.setOnClickListener(this);
 
 
+
 //        recyclerview = findViewById(R.id.rvListViewProduk);
 //        mLayoutManager = new LinearLayoutManager(this);
 //        mRecyclerView.setLayoutManager(mLayoutManager);
@@ -100,10 +101,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        ma = this;
 //        tampilproduk.setHasFixedSize ( true );
         recyclerView = findViewById(R.id.recyclerview);
-        gridLayoutManager = new GridLayoutManager(this,2);
+        gridLayoutManager = new GridLayoutManager(this, 2);
         gridLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(gridLayoutManager);
-
 
 
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
@@ -125,8 +125,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Toast.makeText(MainActivity.this, String.valueOf(t), Toast.LENGTH_SHORT).show();
             }
         });
-
-
 
 
         toolbar.setTitle("");
@@ -265,7 +263,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.fab_menu:
                 Toast.makeText(this, "nav fab", Toast.LENGTH_SHORT).show();
                 break;
-
 
             default:
                 break;

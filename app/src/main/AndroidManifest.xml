@@ -13,7 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.KeranjangActivity"></activity>
+        <activity android:name=".activities.KeranjangDetailActivity"></activity>
+        <activity
+            android:name=".activities.KeranjangActivity"
+            android:theme="@style/AppTheme.PopKeranjang"></activity>
         <activity android:name=".activities.DetailProdukActivity" />
         <activity android:name=".activities.MainActivity">
             <intent-filter>

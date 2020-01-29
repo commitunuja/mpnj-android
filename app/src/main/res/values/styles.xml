@@ -82,4 +82,9 @@
         <item name="android:maxHeight">16dp</item>
 
     </style>
+    <style name="AppTheme.PopKeranjang">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
+
+    </style>
 </resources>

@@ -1,67 +1,124 @@
 package com.sholeh.marketplacenj.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatTextView;
 
-import android.app.Activity;
-import android.media.Image;
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
-import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.model.Model;
-import com.sholeh.marketplacenj.model.NewModel;
+import com.sholeh.marketplacenj.model.api.APIInterface;
+import com.sholeh.marketplacenj.CONSTANTS;
+import com.sholeh.marketplacenj.R;
+import com.sholeh.marketplacenj.model.api.APIKeranjang;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class KeranjangActivity extends AppCompatActivity {
+    EditText quantityProductPage;
     private String TAG = "productDetails";
     public static final String EXTRA_PRODUK = "extra_produk";
-    String namaprodukkeranjang, urltoimagekeranjang;
-    int vid_produk, vhargaproduk;
+    String namaprodukkeranjang, urltoimagekeranjang, vid_produk;
+    int vhargaproduk, idproduk;
     ProgressBar progressBar;
     private Model tvDataProduk;
+    private int quantity = 1;
+    Button tambahkeranjang, belilagi;
+    TextView harga, nama, idkeranjang;
+    private ImageView foto;
+    private APIInterface apiInterface;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_keranjang);
 
-//        NewModel model = getIntent().getParcelableExtra(EXTRA_PRODUK);
-//        Log.d("yolo", String.valueOf(model));
-//        Toast.makeText(this, String.valueOf(model), Toast.LENGTH_SHORT).show();
-        TextView nama = findViewById(R.id.tv_name_product);
-        TextView harga = findViewById(R.id.tv_hargakeranjang);
-        ImageView foto = findViewById(R.id.posterkeranjang);
+        nama = findViewById(R.id.tv_name_product);
+        harga = findViewById(R.id.tv_hargakeranjang);
+        foto = findViewById(R.id.posterkeranjang);
+        quantityProductPage = findViewById(R.id.quantityProductPage);
+        tambahkeranjang = findViewById(R.id.btn_tbhkeranjang);
+        belilagi = findViewById(R.id.btn_belilagi);
+        idkeranjang = findViewById(R.id.tv_idkeranjang);
+
+        vid_produk = getIntent().getStringExtra("id_produk");
+        idkeranjang.setText(String.valueOf(vid_produk));
+
 
         namaprodukkeranjang = getIntent().getExtras().getString("nama_produk");
         urltoimagekeranjang = getIntent().getExtras().getString("foto_produk");
-        vhargaproduk = Integer.parseInt(getIntent().getStringExtra("harga_jual"));
-        Toast.makeText(this, namaprodukkeranjang, Toast.LENGTH_SHORT).show();
         nama.setText(namaprodukkeranjang);
-        harga.setText(String.valueOf(vhargaproduk));
         Glide.with(getApplicationContext()).load(urltoimagekeranjang).into(foto);
 
-        DisplayMetrics dm = new DisplayMetrics();
+
+        tambahkeranjang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String jumlah = quantityProductPage.getText().toString();
+                String produk_id = idkeranjang.getText().toString();
+                String harga_jual = harga.getText().toString();
+                Toast.makeText(KeranjangActivity.this, harga_jual, Toast.LENGTH_SHORT).show();
+
+                APIKeranjang apiKeranjang = CONSTANTS.getClient().create(APIKeranjang.class);
+                Call<List<Model>> sendData = apiKeranjang.simpanKeranjang(produk_id, "1", "konsumen", jumlah, harga_jual);
+//                Log.d("YOLO", String.valueOf(sendData));
+                sendData.enqueue(new Callback<List<Model>>() {
+                    @Override
+                    public void onResponse(Call<List<Model>> call, Response<List<Model>> response) {
+                        Log.d("RETRO", "respone :" + response.body());
+//                            List<Model> kode = response.body();
+
+                        Toast.makeText(KeranjangActivity.this, "Data Tersimpan", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<Model>> call, Throwable t) {
+                        Log.d("RETRO", "Falure :" + "Gagal Mengirim Request");
+                    }
+                });
+
+            }
+
+        });
+
+        belilagi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(KeranjangActivity.this, KeranjangDetailActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+      /*  DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
 
         int width = dm.widthPixels;
         int height = dm.heightPixels;
 
-        getWindow().setLayout((int)(height*.5),(int)(width*.7));
+        getWindow().setLayout((int) (height * .5), (int) (width * .7));
         WindowManager.LayoutParams params = getWindow().getAttributes();
         params.gravity = Gravity.CENTER;
         params.x = 0;
         params.y = -20;
 
-        getWindow().setAttributes(params);
+        getWindow().setAttributes(params);*/
+        initialize();
        /* vid_produk = Integer.parseInt(getIntent().getStringExtra("id_produk"));
         namaprodukkeranjang = getIntent().getExtras().getString("nama_produk");
         urltoimagekeranjang = getIntent().getExtras().getString("foto_produk");
@@ -85,16 +142,36 @@ public class KeranjangActivity extends AppCompatActivity {
         }
     }*/
 
-   /* private void showLoading(boolean b) {
-     *//*   if (b) {
+        /* private void showLoading(boolean b) {
+         *//*   if (b) {
             progressBar.setVisibility(View.VISIBLE);
         } else {
             progressBar.setVisibility(View.GONE);
         }*/
     }
 
+
+
+   /* public void sendPost(String idproduk) {
+        apiInterface.addNewDestination(idproduk).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    Log.i(TAG, "SUKSES" + response.body().toString());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.e(TAG, "gagal");
+
+            }
+        });
+
+    }*/
+
+
     private void initialize() {
-        tambahkeranjang.setOnClickListener(this);
 
 
         quantityProductPage.setText("1");
@@ -104,7 +181,7 @@ public class KeranjangActivity extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")
     public void decrement(View view) {
-        int hargaawal;
+
         TextView harga = findViewById(R.id.tv_hargakeranjang);
         vhargaproduk = Integer.parseInt(getIntent().getStringExtra("harga_jual"));
 
@@ -113,7 +190,7 @@ public class KeranjangActivity extends AppCompatActivity {
             quantity--;
             quantityProductPage.setText(String.valueOf(quantity));
 
-            harga.setText("Rp." + String.valueOf(vhargaproduk*quantity));
+            harga.setText(String.valueOf(vhargaproduk * quantity));
 
         }
     }
@@ -125,7 +202,7 @@ public class KeranjangActivity extends AppCompatActivity {
         if (quantity < 500) {
             quantity++;
             quantityProductPage.setText(String.valueOf(quantity));
-            harga.setText("Rp." + String.valueOf(vhargaproduk*quantity));
+            harga.setText(String.valueOf(vhargaproduk * quantity));
 
         } else {
             Toast.makeText(this, "Product Count Must be less than 500", Toast.LENGTH_SHORT).show();
@@ -154,4 +231,6 @@ public class KeranjangActivity extends AppCompatActivity {
         }
 
     };
+
+
 }

@@ -2,17 +2,9 @@ package com.sholeh.marketplacenj.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,31 +13,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.sholeh.marketplacenj.APIInterface;
-import com.sholeh.marketplacenj.CONSTANTS;
 import com.sholeh.marketplacenj.R;
-import com.sholeh.marketplacenj.ServiceGenerator;
-import com.sholeh.marketplacenj.adapter.ProdukAdapter;
 import com.sholeh.marketplacenj.model.Model;
-import com.sholeh.marketplacenj.model.NewModel;
-import com.sholeh.marketplacenj.util.AppUtilits;
-import com.sholeh.marketplacenj.util.SharePreferenceUtils;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.BindView;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class DetailProdukActivity extends AppCompatActivity {
 
     private String TAG = "productDetails";
     ImageView imageDetailProduk, imgadd_tokeranjang;
-    TextView nm_produk, hrg_produk, stok, terjual, deskripsi;
-    String namaproduk, urltoimage, vdeskripsi;
-    int vhargaproduk, vstok, vterjual, vid_produk;
+    TextView nm_produk, hrg_produk, stok, terjual, deskripsi, id;
+    String namaproduk, urltoimage, vdeskripsi, vid_produk;
+    int vhargaproduk, vstok, vterjual;
     Toolbar toolBarisi;
     private Model tvDataProduk;
     private List<Model> tvDataProduks; // model / item
@@ -69,8 +48,10 @@ public class DetailProdukActivity extends AppCompatActivity {
         terjual = findViewById(R.id.tv_detailterjual);
         deskripsi = findViewById(R.id.tv_detaildeskripsi);
         imgadd_tokeranjang = findViewById(R.id.add_to_keranjang);
+        id = findViewById(R.id.tv_id);
 
-        vid_produk = Integer.parseInt(getIntent().getStringExtra("id_produk"));
+        vid_produk = getIntent().getStringExtra("id_produk");
+        String.valueOf(vid_produk);
         namaproduk = getIntent().getExtras().getString("nama_produk");
         urltoimage = getIntent().getExtras().getString("foto_produk");
         vhargaproduk = Integer.parseInt(getIntent().getStringExtra("harga_jual"));
@@ -78,7 +59,7 @@ public class DetailProdukActivity extends AppCompatActivity {
         vterjual = Integer.parseInt(getIntent().getStringExtra("terjual"));
         vdeskripsi = getIntent().getExtras().getString("keterangan");
 
-
+//        id.setText(String.valueOf(vid_produk));
         nm_produk.setText(namaproduk);
         hrg_produk.setText(String.valueOf(vhargaproduk));
         stok.setText(String.valueOf(vstok));
@@ -89,12 +70,13 @@ public class DetailProdukActivity extends AppCompatActivity {
         imgadd_tokeranjang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Model myNewsmodel = new Model();
-                    Intent intent = new Intent(DetailProdukActivity.this, KeranjangActivity.class);
-                    intent.putExtra("nama_produk", namaproduk);
-                    intent.putExtra("harga_jual", String.valueOf(vhargaproduk));
-                    intent.putExtra("foto_produk", urltoimage);
-                    startActivity(intent);
+                Intent intent = new Intent(DetailProdukActivity.this, KeranjangActivity.class);
+                intent.putExtra("nama_produk", namaproduk);
+                intent.putExtra("harga_jual", String.valueOf(vhargaproduk));
+                intent.putExtra("foto_produk", urltoimage);
+                intent.putExtra("id_produk", String.valueOf(vid_produk));
+                Toast.makeText(DetailProdukActivity.this, "" + (vid_produk), Toast.LENGTH_SHORT).show();
+                startActivity(intent);
 
             }
         });
@@ -120,6 +102,8 @@ public class DetailProdukActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.menu_keranjang) {
+            Intent intent = new Intent (DetailProdukActivity.this,KeranjangDetailActivity.class);
+            startActivity(intent);
 
         }
 

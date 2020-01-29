@@ -10,7 +10,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sholeh.marketplacenj.CONSTANTS;
@@ -19,7 +18,6 @@ import com.sholeh.marketplacenj.activities.DetailProdukActivity;
 import com.sholeh.marketplacenj.model.Model;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ViewHolder> {
@@ -51,7 +49,8 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ViewHolder
 //        viewHolder.deskripsi.setText(String.valueOf(tvDataProduk.getKeterangan()));
 
         Picasso.with(context)
-                    .load(CONSTANTS.BASE_URL + "assets/foto_produk/" +tvDataProduk.getFoto().get(0).getFotoProduk())
+//                .load(CONSTANTS.BASE_URL + "assets/foto_produk/" +tvDataProduk.getFoto().get(0))
+                    .load(CONSTANTS.BASE_URL + "assets/foto_produk/" +tvDataProduk.getFotoProduk().get(0).getFotoProduk())
                     .resize(300, 300)
                     .into(viewHolder.foto_produk);
 //        int fotoLength = tvDataProduk.getFoto().size();
@@ -101,11 +100,12 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ViewHolder
                     Intent intent = new Intent(context, DetailProdukActivity.class);
                     intent.putExtra("id_produk",String.valueOf(myNewsmodel.getIdProduk()) );
                     intent.putExtra("nama_produk", myNewsmodel.getNamaProduk());
-                    intent.putExtra("foto_produk",CONSTANTS.BASE_URL + "assets/foto_produk/"+myNewsmodel.getFoto().get(0).getFotoProduk());
+                    intent.putExtra("foto_produk",CONSTANTS.BASE_URL + "assets/foto_produk/"+myNewsmodel.getFotoProduk().get(0).getFotoProduk());
                     intent.putExtra("harga_jual", String.valueOf(myNewsmodel.getHargaJual()));
                     intent.putExtra("stok", String.valueOf(myNewsmodel.getStok()));
                     intent.putExtra("terjual", String.valueOf(myNewsmodel.getHargaJual()));
                     intent.putExtra("keterangan", myNewsmodel.getKeterangan());
+                    Toast.makeText(context, "id_produk"+myNewsmodel.getIdProduk(), Toast.LENGTH_SHORT).show();
                     context.startActivity(intent);
 
 

@@ -6,12 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".activities.KeranjangDetailActivity">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tv_produk"
-        android:text="Nama Produk"
-        android:fontFamily="sans-serif-medium"
-        android:textSize="19dp"/>
-
+<androidx.recyclerview.widget.RecyclerView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/rv_detailkeranjang"/>
 </RelativeLayout>
