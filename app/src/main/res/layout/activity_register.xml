@@ -8,7 +8,6 @@
     android:fitsSystemWindows="true"
     tools:openDrawer="start"
     tools:context=".activities.RegisterActivity">
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -18,11 +17,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-
                 <LinearLayout
                     android:padding="15dp"
                     android:layout_width="match_parent"
@@ -195,7 +192,7 @@
                     <EditText
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
-                        android:inputType="textAutoCorrect"
+                        android:inputType="textPassword"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
                         android:id="@+id/edPassword"
@@ -253,8 +250,6 @@
                     android:textColor="@color/colorAccent" />
             </LinearLayout>
         </LinearLayout>
-
-
     </ScrollView>
 
 </LinearLayout>
