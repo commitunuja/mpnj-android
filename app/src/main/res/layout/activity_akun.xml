@@ -8,49 +8,37 @@
     android:layout_height="match_parent"
     android:background="@color/bg"
     android:orientation="vertical">
-
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:theme="@style/AppTheme.AppBarOverlay">
-
             <androidx.appcompat.widget.Toolbar
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:id="@+id/toolbar"
                 android:background="@color/colorAccent"
                 app:popupTheme="@style/AppTheme.PopupOverlay">
-
             </androidx.appcompat.widget.Toolbar>
-
         </com.google.android.material.appbar.AppBarLayout>
-
         <androidx.core.widget.NestedScrollView
             android:id="@+id/svHome"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true"
             android:overScrollMode="never">
-
             <LinearLayout
                 android:id="@+id/llMain"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -58,12 +46,10 @@
                         android:background="@drawable/account_bg"
                         android:gravity="center"
                         android:orientation="vertical">
-
                         <FrameLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center">
-
                             <de.hdodenhof.circleimageview.CircleImageView
                                 xmlns:app="http://schemas.android.com/apk/res-auto"
                                 android:id="@+id/profile_image"
@@ -72,7 +58,6 @@
                                 android:layout_gravity="center"
                                 android:padding="@dimen/value_5"
                                 app:srcCompat="@drawable/man" />
-
                             <ImageView
                                 android:id="@+id/ivEdit"
                                 android:layout_width="wrap_content"
@@ -85,7 +70,6 @@
                                 android:padding="3.5dp"
                                 app:srcCompat="@drawable/ic_edit" />
                         </FrameLayout>
-
                         <TextView
                             android:id="@+id/tvCustomerName"
                             style="@style/txt_black_small"
@@ -94,7 +78,6 @@
                             android:layout_marginTop="@dimen/value_5"
                             android:layout_marginBottom="@dimen/value_1"
                             android:gravity="center" />
-
                         <TextView
                             android:id="@+id/tvCustomerPhone"
                             style="@style/txt_black_micro"
@@ -103,7 +86,6 @@
                             android:layout_marginTop="@dimen/value_3"
                             android:layout_marginBottom="@dimen/value_1"
                             android:gravity="center" />
-
                         <TextView
                             android:id="@+id/tvCustomerEmail"
                             style="@style/txt_black_micro"
@@ -111,26 +93,21 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/value_1"
                             android:gravity="center" />
-
                     </LinearLayout>
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/white"
                         android:orientation="vertical">
-
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
                             android:background="@color/line_gray" />
-
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             android:paddingBottom="@dimen/value_2">
-
                             <TextView
                                 android:id="@+id/tvLogIn"
                                 style="@style/txt_black_medium"
@@ -145,7 +122,6 @@
                                 android:textAlignment="viewStart"
                                 android:textDirection="locale"
                                 app:drawableStartCompat="@drawable/ic_login" />
-
                             <TextView
                                 android:id="@+id/tvCustomerEmailLogin"
                                 style="@style/txt_black_small"
@@ -158,14 +134,11 @@
                                 android:singleLine="true"
                                 android:text="jon@yopmail.com"
                                 android:visibility="gone" />
-
                         </LinearLayout>
-
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
                             android:background="@color/line_gray" />
-
                         <TextView
                             android:id="@+id/tvMyOrder"
                             style="@style/txt_black_medium"
@@ -179,12 +152,10 @@
                             android:textAlignment="viewStart"
                             android:textDirection="locale"
                             app:drawableStartCompat="@drawable/ic_order_account" />
-
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
                             android:background="@color/line_gray" />
-
                         <TextView
                             android:id="@+id/tvAddress"
                             style="@style/txt_black_medium"
@@ -197,18 +168,10 @@
                             android:textAlignment="viewStart"
                             android:textDirection="locale"
                             app:drawableStartCompat="@drawable/ic_address_account" />
-
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
                             android:background="@color/line_gray" />
-
-
-
-
-
-
-
                         <TextView
                             android:id="@+id/tvAccountSetting"
                             style="@style/txt_black_small"
@@ -219,12 +182,10 @@
                             android:text="pengaturan akun"
                             android:textAlignment="viewStart"
                             android:textDirection="locale" />
-
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
                             android:background="@color/line_gray" />
-
                         <Switch
                             android:id="@+id/swNotification"
                             style="@style/txt_black_small"
@@ -241,28 +202,16 @@
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
                             android:background="@color/line_gray" />
-
-
-
-
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rvInfoPages"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
-
                         </androidx.recyclerview.widget.RecyclerView>
-
-
                     </LinearLayout>
                 </LinearLayout>
-
-
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
-
-
     </LinearLayout>
-
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/navigation_bottombar"
         android:layout_width="match_parent"
@@ -272,19 +221,14 @@
         app:fabAlignmentMode="center"
         app:fabCradleRoundedCornerRadius="50dp"
         app:hideOnScroll="true">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="55.0dip"
             android:layout_gravity="bottom"
             android:orientation="horizontal">
-
             <include layout="@layout/navigation_bar" />
-
         </LinearLayout>
-
     </com.google.android.material.bottomappbar.BottomAppBar>
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_menu"
         android:layout_width="wrap_content"
@@ -297,8 +241,4 @@
         app:srcCompat="@drawable/ic_favorite"
         app:itemIconTint="@drawable/bottom_navigation_selector"
         app:itemTextColor="@drawable/bottom_navigation_selector"/>
-
-
-
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
