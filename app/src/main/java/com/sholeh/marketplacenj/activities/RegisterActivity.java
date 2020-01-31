@@ -82,19 +82,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         simpank = findViewById(R.id.btnSimpank);
         simpank.setOnClickListener(this);
 
-
-
-
-
-
-
         spinProvinsi.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-//                Toast.makeText(RegisterActivity.this, listID_prov.get(position) + " selected", Toast.LENGTH_LONG).show();
-//
-////                tampilDataDesa(listID_kec.get(position));
                 if (spinProvinsi.getSelectedItem().equals("Pilih Provinsi")){
 
                 }else{
@@ -233,38 +223,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     }
 
-    public void simpan_konsumen(){
-//        final String namalengkap_ = ed_nama.getText ().toString ();
-//        final String username_ = ed_username.getText ().toString ();
-//        final String password_ = ed_password.getText ().toString ();
-//        final String idprov_ = (listID_prov.get(spinProvinsi.getSelectedItemPosition()));
-//        final String idkota_ = (listID_Kota.get(spinkota.getSelectedItemPosition()));
-//        final String alamat_ = ed_alamat.getText().toString();
-//        final String kodepos_ = ed_kodepos.getText().toString();
-//        final String nomorHp_ = ed_nomorHP.getText().toString();
-//        final String email_ = ed_email.getText().toString();
-//        final String statusA_ = "aktif";
-//
-//
-//        APIInterface api = ServiceGenerator.getRetrofit().create(APIInterface.class);
-//
-//        Call<ValueReg> simpank = api.registerKonsumenCall(namalengkap_, username_, idprov_, idkota_, alamat_, kodepos_, nomorHp_, email_, statusA_);// get
-//        simpank.enqueue ( new Callback<ValueReg> () {
-//            @Override
-//            public void onResponse(Call<ValueReg> call, Response<ValueReg> response) {
-//
-////                String message = response.body ().getMessage ();
-//                Toast.makeText ( RegisterActivity.this, "res: "+ response.toString(), Toast.LENGTH_SHORT ).show ();
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ValueReg> call, Throwable t) {
-//                Toast.makeText(RegisterActivity.this, "error: "+t, Toast.LENGTH_SHORT).show();
-//            }
-//        } );
-    }
 
-    public void sendRegristasi(){ //// v 2.9 4-:50
+    public void sendRegristasi(){
         final String namalengkap_ = ed_nama.getText ().toString ();
         final String username_ = ed_username.getText ().toString ();
         final String password_ = ed_password.getText ().toString ();
