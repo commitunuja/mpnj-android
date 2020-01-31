@@ -19,7 +19,6 @@ public class AkunActivity extends AppCompatActivity implements View.OnClickListe
 
     FloatingActionButton fb_favourite;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,9 +46,7 @@ public class AkunActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
 
             case R.id.nav_home:
-                Toast.makeText(this, "nav home", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(this, MainActivity.class);
-//                i.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(i);
                 finish();
                 break;

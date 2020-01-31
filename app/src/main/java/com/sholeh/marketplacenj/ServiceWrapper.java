@@ -22,7 +22,7 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class ServiceWrapper {
+public class ServiceWrapper { // ini service wrapper untuk konversi dan menampung semua respon
     private APIInterface mServiceInterface;
 
     public ServiceWrapper(Interceptor mInterceptorheader) {
@@ -37,15 +37,10 @@ public class ServiceWrapper {
         builder.connectTimeout(CONSTANTS.API_CONNECTION_TIMEOUT, TimeUnit.SECONDS);
         builder.readTimeout(CONSTANTS.API_READ_TIMEOUT, TimeUnit.SECONDS);
 
-//        if (BuildConfig.DEBUG)
-//            builder.addInterceptor(loggingInterceptor);
-
         if (BuildConfig.DEBUG) {
-//            HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
             builder.addInterceptor(loggingInterceptor);
         }
-
 
         mOkHttpClient = builder.build();
         Gson gson = new GsonBuilder().create();
@@ -56,7 +51,6 @@ public class ServiceWrapper {
                 .build();
         return retrofit;
     }
-
     public Call<ValueReg> newUserRegistrationCall(String namaLengkap, String username, String password,
                                                   String provinsiId, String cityId, String alamat,
                                                   String kodePos, String nomorHp, String email, String status) {
@@ -66,7 +60,6 @@ public class ServiceWrapper {
                                                     convertPlainString(alamat), convertPlainString(kodePos), convertPlainString(nomorHp),
                                                     convertPlainString(email), convertPlainString(status));
     }
-
 
     // convert aa param into plain text
     public RequestBody convertPlainString(String data) {

@@ -20,7 +20,6 @@ import com.sholeh.marketplacenj.CONSTANTS;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.ServiceGenerator;
 import com.sholeh.marketplacenj.ServiceWrapper;
-import com.sholeh.marketplacenj.adapter.CityAdapter;
 import com.sholeh.marketplacenj.adapter.adapterspin;
 import com.sholeh.marketplacenj.model.ValueReg;
 import com.sholeh.marketplacenj.model.city.ItemCity;
@@ -40,29 +39,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     EditText ed_nama, ed_username, ed_password, ed_alamat, ed_kodepos, ed_nomorHP, ed_email;
     Button simpank ;
-
-
-    TextView tvx_status, tvx_createdat, tvx_updatedat;
-
     Spinner spinProvinsi, spinkota;
     adapterspin adapterspinner;
     ArrayList<String> arrayProv = new ArrayList<>();
     ArrayList<String> listID_prov = new ArrayList<>();
     ArrayList<String> arrayKota = new ArrayList<>();
     ArrayList<String> listID_Kota = new ArrayList<>();
-
-
-
-
-    private CityAdapter adapter_city;
-    private List<com.sholeh.marketplacenj.model.city.Result> ListCity = new ArrayList<com.sholeh.marketplacenj.model.city.Result>();
-
-//    private ExpedisiAdapter adapter_expedisi;
-//    private List<ItemExpedisi> listItemExpedisi = new ArrayList<ItemExpedisi>();
-
-    private ProgressDialog progressDialog;
-
-    String statusAktif = "Aktif";
 
 
     @Override
@@ -157,7 +139,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
             @Override
             public void onFailure(Call<ItemProvince> call, Throwable t) {
-//                progressDialog.dismiss();
+
                 Toast.makeText(RegisterActivity.this, "Message : Error " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
@@ -165,7 +147,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     public void getCity(String id_province) {
-
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(CONSTANTS.URL_RAJAONGKIR)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -236,17 +217,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         final String email_ = ed_email.getText().toString();
         final String statusA_ = "aktif";
 
-
         ServiceWrapper serviceWrapper = new ServiceWrapper(null);
-
-
         Call<ValueReg> callNewREgistration= serviceWrapper.newUserRegistrationCall(
                 namalengkap_, username_, password_, idprov_, idkota_, alamat_, kodepos_, nomorHp_, email_, statusA_);
-
-
-//        Log.d("kocor","nama: "+namalengkap_+" user"+username_+" pass"+ password_+" id prov: "+idprov_+ "idkota "+idkota_+" alamat"+alamat_+" kodepos"+kodepos_+ " hp"+nomorHp_+ " email"+email_+ " status"+statusA_);
-        Log.d("kocor", serviceWrapper.newUserRegistrationCall(namalengkap_, username_, password_, idprov_, idkota_, alamat_, kodepos_, nomorHp_, email_, statusA_).toString());
-//        Toast.makeText(this, ""+ serviceWrapper.newUserRegistrationCall(namalengkap_, username_, password_, idprov_, idkota_, alamat_, kodepos_, nomorHp_, email_, statusA_).toString(), Toast.LENGTH_SHORT).show();
         callNewREgistration.enqueue(new Callback<ValueReg>() {
             @Override
             public void onResponse(Call<ValueReg> call, Response<ValueReg> response) {
@@ -260,19 +233,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         startActivity(intent);
                         finish();
 
-
                     }else{
                         Toast.makeText(RegisterActivity.this, "gagaal"+response.body().getPesan(), Toast.LENGTH_SHORT).show();
                     }
-//
                 }else{
                     Toast.makeText(RegisterActivity.this, "gagal", Toast.LENGTH_SHORT).show();
-
                 }
-
-
             }
-
             @Override
             public void onFailure(Call<ValueReg> call, Throwable t) {
                   Log.e(TAG, " failure "+ t.toString());
