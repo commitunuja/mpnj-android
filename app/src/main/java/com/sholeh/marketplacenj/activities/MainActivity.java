@@ -2,6 +2,7 @@ package com.sholeh.marketplacenj.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.content.Context;
@@ -121,7 +122,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void onFailure(Call<List<Model>> call, Throwable t) {
-
                 Toast.makeText(MainActivity.this, String.valueOf(t), Toast.LENGTH_SHORT).show();
             }
         });
@@ -253,10 +253,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
 
         switch (v.getId()) {
-            case R.id.nav_home:
-                Toast.makeText(this, "nav home", Toast.LENGTH_SHORT).show();
-
-                break;
 
             case R.id.nav_transaksi:
                 Toast.makeText(this, "nav transaksi", Toast.LENGTH_SHORT).show();
@@ -265,6 +261,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.fab_menu:
                 Toast.makeText(this, "nav fab", Toast.LENGTH_SHORT).show();
                 break;
+
+            case R.id.nav_notifikasi:
+                Toast.makeText(this, "nav notifikasi", Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.nav_profile:
+                Toast.makeText(this, "nav profil", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, AkunActivity.class);
+//                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+                finish();
 
 
             default:

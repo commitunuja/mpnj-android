@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:background="#fff"
     android:fitsSystemWindows="true"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:launchMode = "singleTop">
 
     <include layout="@layout/toolbar" />
 
