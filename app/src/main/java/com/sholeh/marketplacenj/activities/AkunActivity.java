@@ -67,7 +67,6 @@ public class AkunActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.tvLogIn:
-                Toast.makeText(this, "nav profil", Toast.LENGTH_SHORT).show();
                 Intent pindah = new Intent(this, LoginActivity.class);
                 startActivity(pindah);
 
