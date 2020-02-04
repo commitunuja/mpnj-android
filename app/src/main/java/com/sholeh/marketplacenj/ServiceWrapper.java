@@ -6,7 +6,7 @@ import retrofit2.Retrofit;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.sholeh.marketplacenj.respon.ValueReg;
+import com.sholeh.marketplacenj.respon.RegRegristasi;
 import com.sholeh.marketplacenj.respon.ResLogin;
 
 import java.util.concurrent.TimeUnit;
@@ -49,9 +49,9 @@ public class ServiceWrapper { // ini service wrapper untuk konversi dan menampun
     }
 
 //    new regristasi konsumen
-    public Call<ValueReg> newUserRegistrationCall(String namaLengkap, String username, String password,
-                                                  String provinsiId, String cityId, String alamat,
-                                                  String kodePos, String nomorHp, String email, String status) {
+    public Call<RegRegristasi> newUserRegistrationCall(String namaLengkap, String username, String password,
+                                                       String provinsiId, String cityId, String alamat,
+                                                       String kodePos, String nomorHp, String email, String status) {
         return mServiceInterface.registerKonsumenCall(
                                                     convertPlainString(namaLengkap), convertPlainString(username),
                                                     convertPlainString(password), convertPlainString(provinsiId), convertPlainString(cityId),
