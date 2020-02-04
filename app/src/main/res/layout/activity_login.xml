@@ -203,8 +203,6 @@
                         android:layout_height="wrap_content"
                         android:background="#C404D39F"
                         android:drawablePadding="@dimen/value_2"
-                        android:paddingStart="@dimen/font_16"
-                        android:paddingLeft="@dimen/font_16"
                         android:paddingTop="@dimen/value_8"
                         android:paddingBottom="@dimen/value_8"
                         android:text="Nomor HP"
