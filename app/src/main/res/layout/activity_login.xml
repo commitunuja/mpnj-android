@@ -22,12 +22,7 @@
             android:paddingEnd="@dimen/value_15"
             android:paddingRight="@dimen/value_15"
             android:paddingBottom="@dimen/value_15">
-            <ImageView
-                android:id="@+id/ivBlackBackButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/value_2"
-                app:srcCompat="@drawable/ic_back_black" />
+
             <TextView
                 android:textStyle="bold"
                 android:gravity="center"
@@ -66,7 +61,7 @@
                 android:theme="@style/TextLabegray">
 
                 <EditText
-                    android:id="@+id/etEmail"
+                    android:id="@+id/etUsername"
                     style="@style/txt_gray_medium"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
