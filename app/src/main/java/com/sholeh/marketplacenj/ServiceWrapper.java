@@ -1,25 +1,21 @@
 package com.sholeh.marketplacenj;
 
-import android.util.Log;
-import android.widget.Toast;
-
 import okhttp3.Interceptor;
 import retrofit2.Retrofit;
 
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.sholeh.marketplacenj.model.ValueReg;
+import com.sholeh.marketplacenj.respon.ValueReg;
+import com.sholeh.marketplacenj.respon.ResLogin;
 
 import java.util.concurrent.TimeUnit;
 
-import okhttp3.Interceptor;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
-import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ServiceWrapper { // ini service wrapper untuk konversi dan menampung semua respon
@@ -51,6 +47,8 @@ public class ServiceWrapper { // ini service wrapper untuk konversi dan menampun
                 .build();
         return retrofit;
     }
+
+//    new regristasi konsumen
     public Call<ValueReg> newUserRegistrationCall(String namaLengkap, String username, String password,
                                                   String provinsiId, String cityId, String alamat,
                                                   String kodePos, String nomorHp, String email, String status) {
@@ -60,6 +58,16 @@ public class ServiceWrapper { // ini service wrapper untuk konversi dan menampun
                                                     convertPlainString(alamat), convertPlainString(kodePos), convertPlainString(nomorHp),
                                                     convertPlainString(email), convertPlainString(status));
     }
+
+
+    // user signin konsumen
+    public Call<ResLogin> KonsumenSigninCall(String username, String password){
+        return mServiceInterface.loginKonsumenCall(convertPlainString(username),  convertPlainString(password));
+
+
+    }
+
+
 
     // convert aa param into plain text
     public RequestBody convertPlainString(String data) {
