@@ -1,7 +1,7 @@
 package com.sholeh.marketplacenj;
 
 import com.sholeh.marketplacenj.model.Model;
-import com.sholeh.marketplacenj.respon.ValueReg;
+import com.sholeh.marketplacenj.respon.RegRegristasi;
 import com.sholeh.marketplacenj.model.city.ItemCity;
 import com.sholeh.marketplacenj.model.province.ItemProvince;
 import com.sholeh.marketplacenj.respon.ResLogin;
@@ -36,16 +36,16 @@ public interface APIInterface {
     // signup konsumen
     @Multipart
     @POST("api/konsumen")
-    Call<ValueReg> registerKonsumenCall(@Part("nama_lengkap") RequestBody namaLengkap,
-                                        @Part("username") RequestBody username,
-                                        @Part("password") RequestBody password,
-                                        @Part("provinsi_id") RequestBody provinsiId,
-                                        @Part("city_id") RequestBody cityId,
-                                        @Part("alamat") RequestBody alamat,
-                                        @Part("kode_pos") RequestBody kodePos,
-                                        @Part("nomor_hp") RequestBody nomorHp,
-                                        @Part("email") RequestBody email,
-                                        @Part("status") RequestBody status);
+    Call<RegRegristasi> registerKonsumenCall(@Part("nama_lengkap") RequestBody namaLengkap,
+                                             @Part("username") RequestBody username,
+                                             @Part("password") RequestBody password,
+                                             @Part("provinsi_id") RequestBody provinsiId,
+                                             @Part("city_id") RequestBody cityId,
+                                             @Part("alamat") RequestBody alamat,
+                                             @Part("kode_pos") RequestBody kodePos,
+                                             @Part("nomor_hp") RequestBody nomorHp,
+                                             @Part("email") RequestBody email,
+                                             @Part("status") RequestBody status);
 
     //  user signin konsumen request
     @Multipart
