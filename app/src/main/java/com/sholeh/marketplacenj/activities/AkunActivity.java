@@ -15,7 +15,7 @@ import com.sholeh.marketplacenj.R;
 public class AkunActivity extends AppCompatActivity implements View.OnClickListener{
 
     private ImageView nav_home, nav_notifikasi, nav_transaksi, navprofile;
-    TextView tvx_login;
+    TextView tvx_login, tvx_namaCustomter, tvx_logout;
 
     FloatingActionButton fb_favourite;
 
@@ -37,6 +37,10 @@ public class AkunActivity extends AppCompatActivity implements View.OnClickListe
 
         tvx_login = findViewById(R.id.tvLogIn);
         tvx_login.setOnClickListener(this);
+
+        tvx_namaCustomter = findViewById(R.id.tvCustomerNama);
+        tvx_logout = findViewById(R.id.tvLogout);
+        tvx_logout.setOnClickListener(this);
 
 
     }

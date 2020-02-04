@@ -71,7 +71,9 @@
                                 app:srcCompat="@drawable/ic_edit" />
                         </FrameLayout>
                         <TextView
-                            android:id="@+id/tvCustomerName"
+                            android:textStyle="bold"
+                            android:text="sholeh"
+                            android:id="@+id/tvCustomerNama"
                             style="@style/txt_black_small"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -173,13 +175,26 @@
                             android:layout_height="1dp"
                             android:background="@color/line_gray" />
                         <TextView
+                            android:visibility="gone"
+                            android:id="@+id/tvLogout"
+                            style="@style/txt_black_medium"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="@dimen/value_10"
+                            android:gravity="start"
+                            android:padding="@dimen/value_8"
+                            android:text="Logout"
+                            android:textAlignment="viewStart"
+                            android:textDirection="locale"
+                            app:drawableStartCompat="@drawable/ic_login" />
+                        <TextView
                             android:id="@+id/tvAccountSetting"
                             style="@style/txt_black_small"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="start"
                             android:padding="@dimen/value_8"
-                            android:text="pengaturan akun"
+                            android:text="Pengaturan Akun"
                             android:textAlignment="viewStart"
                             android:textDirection="locale" />
                         <TextView
@@ -202,6 +217,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
                             android:background="@color/line_gray" />
+
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rvInfoPages"
                             android:layout_width="match_parent"
