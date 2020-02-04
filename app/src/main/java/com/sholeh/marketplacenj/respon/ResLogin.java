@@ -28,4 +28,15 @@ public class ResLogin {  // respon login konsumen
         this.token = token;
     }
 
+    public class Information {
+        @SerializedName("username")
+        @Expose
+        private String username;
+
+
+        public String getUsername() {
+            return username;
+        }
+    }
+
 }

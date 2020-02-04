@@ -18,7 +18,7 @@ import com.sholeh.marketplacenj.CONSTANTS;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.ServiceWrapper;
 import com.sholeh.marketplacenj.adapter.adapterspin;
-import com.sholeh.marketplacenj.respon.ValueReg;
+import com.sholeh.marketplacenj.respon.RegRegristasi;
 import com.sholeh.marketplacenj.model.city.ItemCity;
 import com.sholeh.marketplacenj.model.province.ItemProvince;
 
@@ -214,11 +214,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         final String statusA_ = "aktif";
 
         ServiceWrapper serviceWrapper = new ServiceWrapper(null);
-        Call<ValueReg> callNewREgistration= serviceWrapper.newUserRegistrationCall(
+        Call<RegRegristasi> callNewREgistration= serviceWrapper.newUserRegistrationCall(
                 namalengkap_, username_, password_, idprov_, idkota_, alamat_, kodepos_, nomorHp_, email_, statusA_);
-        callNewREgistration.enqueue(new Callback<ValueReg>() {
+        callNewREgistration.enqueue(new Callback<RegRegristasi>() {
             @Override
-            public void onResponse(Call<ValueReg> call, Response<ValueReg> response) {
+            public void onResponse(Call<RegRegristasi> call, Response<RegRegristasi> response) {
 
                 if (response.body()!= null && response.isSuccessful()){
                     if (response.body().getPesan().equalsIgnoreCase("Sukses!")){
@@ -237,7 +237,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 }
             }
             @Override
-            public void onFailure(Call<ValueReg> call, Throwable t) {
+            public void onFailure(Call<RegRegristasi> call, Throwable t) {
                   Log.e(TAG, " failure "+ t.toString());
 
                 Toast.makeText(RegisterActivity.this, "f"+t, Toast.LENGTH_SHORT).show();
