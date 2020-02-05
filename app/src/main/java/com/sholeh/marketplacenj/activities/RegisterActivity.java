@@ -21,7 +21,8 @@ import com.sholeh.marketplacenj.adapter.adapterspin;
 import com.sholeh.marketplacenj.respon.RegRegristasi;
 import com.sholeh.marketplacenj.model.city.ItemCity;
 import com.sholeh.marketplacenj.model.province.ItemProvince;
-import com.sholeh.marketplacenj.util.DataValidation;
+import com.sholeh.marketplacenj.util.AppUtilits;
+import com.sholeh.marketplacenj.util.NetworkUtility;
 
 import java.util.ArrayList;
 
@@ -32,10 +33,10 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
-    private String TAG ="RegisterActivity";
+    private String TAG = "RegisterActivity";
 
     EditText ed_nama, ed_username, ed_password, ed_konfirmasiPass, ed_alamat, ed_kodepos, ed_nomorHP, ed_email;
-    Button simpank ;
+    Button simpank;
     Spinner spinProvinsi, spinkota;
     adapterspin adapterspinner;
     ArrayList<String> arrayProv = new ArrayList<>();
@@ -65,10 +66,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         spinProvinsi.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (spinProvinsi.getSelectedItem().equals("Pilih Provinsi")){
+                if (spinProvinsi.getSelectedItem().equals("Pilih Provinsi")) {
 
 
-                }else{
+                } else {
 
                     getCity(listID_prov.get(position));
 
@@ -101,7 +102,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btnSimpank:
                 sendRegristasi();
                 break;
@@ -216,14 +217,18 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
 
-    public void sendRegristasi(){
-        if (spinProvinsi.getSelectedItem().toString().trim().equalsIgnoreCase("Pilih Provinsi")){
+    public void sendRegristasi() {
+
+        if (!NetworkUtility.isNetworkConnected(RegisterActivity.this)) {
+            AppUtilits.displayMessage(RegisterActivity.this, getString(R.string.network_not_connected));
+
+        }else if (spinProvinsi.getSelectedItem().toString().trim().equalsIgnoreCase("Pilih Provinsi")) {
             Toast.makeText(this, "Provinsi Belum  di Tentukan", Toast.LENGTH_SHORT).show();
 
-        } else if (spinkota.getSelectedItemPosition()<0 ||  spinkota.getSelectedItem().toString().trim().equalsIgnoreCase("Pilih Kota") ){
+        } else if (spinProvinsi.getSelectedItemPosition() < 0 || spinkota.getSelectedItemPosition() < 0 || spinkota.getSelectedItem().toString().trim().equalsIgnoreCase("Pilih Kota")) {
             Toast.makeText(this, "Kota Belum  di Tentukan", Toast.LENGTH_SHORT).show();
-        }else{
-            final String namalengkap_ = ed_nama.getText ().toString ();
+        } else {
+            final String namalengkap_ = ed_nama.getText().toString();
             final String username_ = ed_username.getText().toString();
             final String password_ = ed_password.getText().toString();
             final String konpassword_ = ed_konfirmasiPass.getText().toString();
@@ -237,42 +242,43 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
             if (!validasi()) return;
             ServiceWrapper serviceWrapper = new ServiceWrapper(null);
-        Call<RegRegristasi> callNewREgistration= serviceWrapper.newUserRegistrationCall(
-                namalengkap_, username_, password_, idprov_, idkota_, alamat_, kodepos_, nomorHp_, email_, statusA_);
-        callNewREgistration.enqueue(new Callback<RegRegristasi>() {
-            @Override
-            public void onResponse(Call<RegRegristasi> call, Response<RegRegristasi> response) {
+            Call<RegRegristasi> callNewREgistration = serviceWrapper.newUserRegistrationCall(
+                    namalengkap_, username_, password_, idprov_, idkota_, alamat_, kodepos_, nomorHp_, email_, statusA_);
+            callNewREgistration.enqueue(new Callback<RegRegristasi>() {
+                @Override
+                public void onResponse(Call<RegRegristasi> call, Response<RegRegristasi> response) {
 
-                if (response.body()!= null && response.isSuccessful()){
-                    if (response.body().getPesan().equalsIgnoreCase("Sukses!")){
-                        Toast.makeText(RegisterActivity.this, "berhasil", Toast.LENGTH_SHORT).show();
-                        // start home activity
-                        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                        //intent.putExtra("userid", "sdfsd");
-                        startActivity(intent);
-                        finish();
+                    if (response.body() != null && response.isSuccessful()) {
+                        if (response.body().getPesan().equalsIgnoreCase("Sukses!")) {
+                            Toast.makeText(RegisterActivity.this, "berhasil", Toast.LENGTH_SHORT).show();
+                            // start home activity
+                            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                            //intent.putExtra("userid", "sdfsd");
+                            startActivity(intent);
+                            finish();
 
-                    }else{
-                        Toast.makeText(RegisterActivity.this, "gagaal"+response.body().getPesan(), Toast.LENGTH_SHORT).show();
+                        } else {
+                            AppUtilits.displayMessage(RegisterActivity.this,  response.body().getPesan());
+                        }
+                    } else {
+                        AppUtilits.displayMessage(RegisterActivity.this,   getString(R.string.failed_request));
                     }
-                }else{
-                    Toast.makeText(RegisterActivity.this, "gagal", Toast.LENGTH_SHORT).show();
                 }
-            }
-            @Override
-            public void onFailure(Call<RegRegristasi> call, Throwable t) {
-                  Log.e(TAG, " failure "+ t.toString());
 
-                Toast.makeText(RegisterActivity.this, "f"+t, Toast.LENGTH_SHORT).show();
-            }
-        });
+                @Override
+                public void onFailure(Call<RegRegristasi> call, Throwable t) {
+                    Log.e(TAG, " failure " + t.toString());
+
+                    AppUtilits.displayMessage(RegisterActivity.this,   getString(R.string.failed_request));
+                }
+            });
 
         }
     }
 
     private boolean validasi() {
         boolean valid = true;
-        final String namalengkap_ = ed_nama.getText ().toString ();
+        final String namalengkap_ = ed_nama.getText().toString();
         final String username_ = ed_username.getText().toString();
         final String password_ = ed_password.getText().toString();
         final String konpassword_ = ed_konfirmasiPass.getText().toString();
@@ -283,19 +289,18 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         final String statusA_ = "aktif";
 
 
-        if (namalengkap_.isEmpty() ) {
+        if (namalengkap_.isEmpty()) {
             ed_nama.setError("isi nama lengkap anda");
             Toast.makeText(RegisterActivity.this, "isi nama lengkap anda", Toast.LENGTH_SHORT).show();
             valid = false;
-        } else if (namalengkap_.length() < 2){
+        } else if (namalengkap_.length() < 2) {
             Toast.makeText(RegisterActivity.this, "nama lengkap setidaknya minimal 2", Toast.LENGTH_SHORT).show();
             valid = false;
-        }
-        else {
+        } else {
             ed_nama.setError(null);
         }
 
-        if (username_.isEmpty() ) {
+        if (username_.isEmpty()) {
             ed_username.setError("username wajib di isi");
             Toast.makeText(RegisterActivity.this, "username wajib di isi", Toast.LENGTH_SHORT).show();
             valid = false;
@@ -307,22 +312,21 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             ed_password.setError("password wajib di isi");
             Toast.makeText(RegisterActivity.this, "password wajib di isi", Toast.LENGTH_SHORT).show();
             valid = false;
-        }else if (konpassword_.isEmpty()){
-                ed_password.setError("konfirmasi password wajib di isi");
-                Toast.makeText(RegisterActivity.this, "konfirmasi password wajib di isi", Toast.LENGTH_SHORT).show();
-                valid = false;
+        } else if (konpassword_.isEmpty()) {
+            ed_password.setError("konfirmasi password wajib di isi");
+            Toast.makeText(RegisterActivity.this, "konfirmasi password wajib di isi", Toast.LENGTH_SHORT).show();
+            valid = false;
 
         } else if (!ed_password.getText().toString().equals(ed_konfirmasiPass.getText().toString())) {
             Toast.makeText(RegisterActivity.this, "kata sandi tidak cocok", Toast.LENGTH_SHORT).show();
             valid = false;
-        }else if (password_.length() <= 6){
+        } else if (password_.length() <= 6) {
             Toast.makeText(RegisterActivity.this, "password minimal 6 digit", Toast.LENGTH_SHORT).show();
             valid = false;
-        }
-        else {
+        } else {
             ed_password.setError(null);
         }
-        if (alamat_.isEmpty() ) {
+        if (alamat_.isEmpty()) {
             ed_alamat.setError("alamat wajib di isi");
             Toast.makeText(RegisterActivity.this, "alamat wajib di isi", Toast.LENGTH_SHORT).show();
             valid = false;
@@ -330,7 +334,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             ed_alamat.setError(null);
         }
 
-        if (kodepos_.isEmpty() ) {
+        if (kodepos_.isEmpty()) {
             ed_kodepos.setError("kode pos wajib di isi");
             Toast.makeText(RegisterActivity.this, "kode pos wajib di isi", Toast.LENGTH_SHORT).show();
             valid = false;
@@ -338,7 +342,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             ed_kodepos.setError(null);
         }
 
-        if (nomorHp_.isEmpty() ) {
+        if (nomorHp_.isEmpty()) {
             ed_nomorHP.setError("nomor hp wajib di isi");
             Toast.makeText(RegisterActivity.this, "nomor hp wajib di isi", Toast.LENGTH_SHORT).show();
             valid = false;
@@ -346,15 +350,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             ed_nomorHP.setError(null);
         }
 
-        if (email_.isEmpty()|| !android.util.Patterns.EMAIL_ADDRESS.matcher(email_).matches() ) {
+        if (email_.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email_).matches()) {
             ed_email.setError("email tidak valid");
             Toast.makeText(RegisterActivity.this, "email tidak valid", Toast.LENGTH_SHORT).show();
             valid = false;
         } else {
             ed_email.setError(null);
         }
-
-
         return valid;
     }
 
