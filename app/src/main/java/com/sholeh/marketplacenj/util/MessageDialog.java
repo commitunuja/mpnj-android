@@ -20,9 +20,10 @@ public class MessageDialog {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         LayoutInflater inflater = LayoutInflater.from(mContext);
-        View g=    inflater.inflate(R.layout.display_message_popup, null);
-        TextView txtview = (TextView) g.findViewById(R.id.txt_msg);
-        TextView btn_ok = (TextView) g.findViewById(R.id.btn_ok);
+        View g=    inflater.inflate(R.layout.custompopup_message, null);
+        TextView txtview =  g.findViewById(R.id.tv_poprespon);
+        TextView btn_ok =  g.findViewById(R.id.tv_popOK);
+
 
         txtview.setText(message);
         builder.setView(g);
