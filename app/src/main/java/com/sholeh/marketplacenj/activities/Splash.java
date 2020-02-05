@@ -4,16 +4,20 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-
+import android.os.Handler;
+import android.util.Log;
+import android.widget.Toast;
 import com.romainpiel.shimmer.Shimmer;
 import com.romainpiel.shimmer.ShimmerTextView;
+import com.sholeh.marketplacenj.CONSTANTS;
 import com.sholeh.marketplacenj.R;
+import com.sholeh.marketplacenj.util.SharePreferenceUtils;
+
 
 public class Splash extends AppCompatActivity {
+    private String TAG = "splashAcctivity";
     ShimmerTextView tv;
     Shimmer shimmer;
-    Thread myThread;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,24 +27,21 @@ public class Splash extends AppCompatActivity {
         tv = findViewById(R.id.shimmerText);
         shimmer = new Shimmer();
         shimmer.start(tv);
+        Log.e(TAG, " splash start showing");
+        init();
+    }
 
-        myThread = new Thread() {
+    public void init(){
+
+        new Handler().postDelayed( new Runnable() {
             @Override
             public void run() {
-                try {
-                    sleep(1800);
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    Intent intent = new Intent(Splash.this, MainActivity.class);
                     startActivity(intent);
                     finish();
 
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
             }
-        };
-        myThread.start();
-
+        }, 1800);
 
     }
-
 }

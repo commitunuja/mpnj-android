@@ -11,4 +11,8 @@ public class CONSTANTS {
     public static final long API_CONNECTION_TIMEOUT = 1201;
     public static final long API_READ_TIMEOUT = 901;
 
+
+    public static final String USER_DATA = "USER_DATA";
+    public static final String USER_NAME = "USER_NAME";
+
 }

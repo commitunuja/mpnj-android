@@ -72,7 +72,7 @@
                         </FrameLayout>
                         <TextView
                             android:textStyle="bold"
-                            android:text="sholeh"
+                            android:text="Username"
                             android:id="@+id/tvCustomerNama"
                             style="@style/txt_black_small"
                             android:layout_width="match_parent"

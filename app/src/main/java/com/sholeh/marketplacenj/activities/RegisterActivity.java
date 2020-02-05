@@ -21,6 +21,7 @@ import com.sholeh.marketplacenj.adapter.adapterspin;
 import com.sholeh.marketplacenj.respon.RegRegristasi;
 import com.sholeh.marketplacenj.model.city.ItemCity;
 import com.sholeh.marketplacenj.model.province.ItemProvince;
+import com.sholeh.marketplacenj.util.DataValidation;
 
 import java.util.ArrayList;
 
@@ -33,7 +34,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
     private String TAG ="RegisterActivity";
 
-    EditText ed_nama, ed_username, ed_password, ed_alamat, ed_kodepos, ed_nomorHP, ed_email;
+    EditText ed_nama, ed_username, ed_password, ed_konfirmasiPass, ed_alamat, ed_kodepos, ed_nomorHP, ed_email;
     Button simpank ;
     Spinner spinProvinsi, spinkota;
     adapterspin adapterspinner;
@@ -53,6 +54,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         ed_nama = findViewById(R.id.edNama);
         ed_username = findViewById(R.id.edUsername);
         ed_password = findViewById(R.id.edPassword);
+        ed_konfirmasiPass = findViewById(R.id.edKonfirmasiPassword);
         ed_alamat = findViewById(R.id.edAlamat);
         ed_kodepos = findViewById(R.id.edKodePos);
         ed_nomorHP = findViewById(R.id.edNomorHP);
@@ -65,6 +67,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (spinProvinsi.getSelectedItem().equals("Pilih Provinsi")){
 
+
                 }else{
 
                     getCity(listID_prov.get(position));
@@ -72,6 +75,18 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 }
             }
 
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        spinkota.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+            }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
@@ -202,18 +217,26 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
 
     public void sendRegristasi(){
-        final String namalengkap_ = ed_nama.getText ().toString ();
-        final String username_ = ed_username.getText ().toString ();
-        final String password_ = ed_password.getText ().toString ();
-        final String idprov_ = (listID_prov.get(spinProvinsi.getSelectedItemPosition()));
-        final String idkota_ = (listID_Kota.get(spinkota.getSelectedItemPosition()));
-        final String alamat_ = ed_alamat.getText().toString();
-        final String kodepos_ = ed_kodepos.getText().toString();
-        final String nomorHp_ = ed_nomorHP.getText().toString();
-        final String email_ = ed_email.getText().toString();
-        final String statusA_ = "aktif";
+        if (spinProvinsi.getSelectedItem().toString().trim().equalsIgnoreCase("Pilih Provinsi")){
+            Toast.makeText(this, "Provinsi Belum  di Tentukan", Toast.LENGTH_SHORT).show();
 
-        ServiceWrapper serviceWrapper = new ServiceWrapper(null);
+        } else if (spinkota.getSelectedItemPosition()<0 ||  spinkota.getSelectedItem().toString().trim().equalsIgnoreCase("Pilih Kota") ){
+            Toast.makeText(this, "Kota Belum  di Tentukan", Toast.LENGTH_SHORT).show();
+        }else{
+            final String namalengkap_ = ed_nama.getText ().toString ();
+            final String username_ = ed_username.getText().toString();
+            final String password_ = ed_password.getText().toString();
+            final String konpassword_ = ed_konfirmasiPass.getText().toString();
+            final String idprov_ = listID_prov.get(spinProvinsi.getSelectedItemPosition());
+            final String idkota_ = listID_Kota.get(spinkota.getSelectedItemPosition());
+            final String alamat_ = ed_alamat.getText().toString();
+            final String kodepos_ = ed_kodepos.getText().toString();
+            final String nomorHp_ = ed_nomorHP.getText().toString();
+            final String email_ = ed_email.getText().toString();
+            final String statusA_ = "aktif";
+
+            if (!validasi()) return;
+            ServiceWrapper serviceWrapper = new ServiceWrapper(null);
         Call<RegRegristasi> callNewREgistration= serviceWrapper.newUserRegistrationCall(
                 namalengkap_, username_, password_, idprov_, idkota_, alamat_, kodepos_, nomorHp_, email_, statusA_);
         callNewREgistration.enqueue(new Callback<RegRegristasi>() {
@@ -244,7 +267,96 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             }
         });
 
-
+        }
     }
+
+    private boolean validasi() {
+        boolean valid = true;
+        final String namalengkap_ = ed_nama.getText ().toString ();
+        final String username_ = ed_username.getText().toString();
+        final String password_ = ed_password.getText().toString();
+        final String konpassword_ = ed_konfirmasiPass.getText().toString();
+        final String alamat_ = ed_alamat.getText().toString();
+        final String kodepos_ = ed_kodepos.getText().toString();
+        final String nomorHp_ = ed_nomorHP.getText().toString();
+        final String email_ = ed_email.getText().toString();
+        final String statusA_ = "aktif";
+
+
+        if (namalengkap_.isEmpty() ) {
+            ed_nama.setError("isi nama lengkap anda");
+            Toast.makeText(RegisterActivity.this, "isi nama lengkap anda", Toast.LENGTH_SHORT).show();
+            valid = false;
+        } else if (namalengkap_.length() < 2){
+            Toast.makeText(RegisterActivity.this, "nama lengkap setidaknya minimal 2", Toast.LENGTH_SHORT).show();
+            valid = false;
+        }
+        else {
+            ed_nama.setError(null);
+        }
+
+        if (username_.isEmpty() ) {
+            ed_username.setError("username wajib di isi");
+            Toast.makeText(RegisterActivity.this, "username wajib di isi", Toast.LENGTH_SHORT).show();
+            valid = false;
+        } else {
+            ed_username.setError(null);
+        }
+
+        if (password_.isEmpty()) {
+            ed_password.setError("password wajib di isi");
+            Toast.makeText(RegisterActivity.this, "password wajib di isi", Toast.LENGTH_SHORT).show();
+            valid = false;
+        }else if (konpassword_.isEmpty()){
+                ed_password.setError("konfirmasi password wajib di isi");
+                Toast.makeText(RegisterActivity.this, "konfirmasi password wajib di isi", Toast.LENGTH_SHORT).show();
+                valid = false;
+
+        } else if (!ed_password.getText().toString().equals(ed_konfirmasiPass.getText().toString())) {
+            Toast.makeText(RegisterActivity.this, "kata sandi tidak cocok", Toast.LENGTH_SHORT).show();
+            valid = false;
+        }else if (password_.length() <= 6){
+            Toast.makeText(RegisterActivity.this, "password minimal 6 digit", Toast.LENGTH_SHORT).show();
+            valid = false;
+        }
+        else {
+            ed_password.setError(null);
+        }
+        if (alamat_.isEmpty() ) {
+            ed_alamat.setError("alamat wajib di isi");
+            Toast.makeText(RegisterActivity.this, "alamat wajib di isi", Toast.LENGTH_SHORT).show();
+            valid = false;
+        } else {
+            ed_alamat.setError(null);
+        }
+
+        if (kodepos_.isEmpty() ) {
+            ed_kodepos.setError("kode pos wajib di isi");
+            Toast.makeText(RegisterActivity.this, "kode pos wajib di isi", Toast.LENGTH_SHORT).show();
+            valid = false;
+        } else {
+            ed_kodepos.setError(null);
+        }
+
+        if (nomorHp_.isEmpty() ) {
+            ed_nomorHP.setError("nomor hp wajib di isi");
+            Toast.makeText(RegisterActivity.this, "nomor hp wajib di isi", Toast.LENGTH_SHORT).show();
+            valid = false;
+        } else {
+            ed_nomorHP.setError(null);
+        }
+
+        if (email_.isEmpty()|| !android.util.Patterns.EMAIL_ADDRESS.matcher(email_).matches() ) {
+            ed_email.setError("email tidak valid");
+            Toast.makeText(RegisterActivity.this, "email tidak valid", Toast.LENGTH_SHORT).show();
+            valid = false;
+        } else {
+            ed_email.setError(null);
+        }
+
+
+        return valid;
+    }
+
 
 }
