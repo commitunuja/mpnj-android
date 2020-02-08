@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    tools:context=".activities.VerifikasiActivity">
+
+    <LinearLayout
+        android:id="@+id/ln1"
+        android:paddingRight="20dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="20dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textSize="30dp"
+            android:layout_centerHorizontal="true"
+            android:text="Verifikasi Data"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"/>
+
+        <TextView
+            android:layout_marginTop="20dp"
+            android:textSize="16sp"
+            android:layout_centerHorizontal="true"
+            android:text="Untuk lupa password, Anda perlu memferivikasi akun Anda dengan nomor telepon atau email."
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:layout_marginTop="20dp"
+            android:layout_width="200dp"
+            android:layout_height="300dp"
+            android:layout_gravity="center"
+            android:src="@drawable/icon_otp"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:paddingTop="20dp"
+        android:layout_below="@+id/ln1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp">
+
+        <Button
+            android:layout_marginTop="30dp"
+            android:id="@+id/btn_verEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rectbtn_ver"
+            android:text="Verifikasi Email" />
+
+        <Button
+            android:visibility="gone"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/rectbtn_ver"
+            android:id="@+id/btn_veremail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:text="Verifikasi Email" />
+
+
+    </LinearLayout>
+
+
+
+
+
+
+</RelativeLayout>
