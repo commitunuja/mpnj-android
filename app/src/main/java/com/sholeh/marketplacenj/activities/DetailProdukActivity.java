@@ -114,9 +114,9 @@ public class DetailProdukActivity extends AppCompatActivity implements View.OnCl
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.add_to_keranjang:
-                SharePreferenceUtils.getInstance().saveString(CONSTANTS.QUOTE_ID, "");
-                SharePreferenceUtils.getInstance().saveInt( CONSTANTS.CART_ITEM_COUNT,   SharePreferenceUtils.getInstance().getInteger(CONSTANTS.CART_ITEM_COUNT) +1);
-                AppUtilits.UpdateCartCount(mainmenu);
+//                SharePreferenceUtils.getInstance().saveString(CONSTANTS.QUOTE_ID, "");
+//                SharePreferenceUtils.getInstance().saveInt( CONSTANTS.CART_ITEM_COUNT,   SharePreferenceUtils.getInstance().getInteger(CONSTANTS.CART_ITEM_COUNT) +1);
+//                AppUtilits.UpdateCartCount(mainmenu);
                 break;
 
                 default:

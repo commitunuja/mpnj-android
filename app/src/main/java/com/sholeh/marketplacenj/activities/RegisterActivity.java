@@ -1,8 +1,11 @@
 package com.sholeh.marketplacenj.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.IntentCompat;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -189,7 +192,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
                         );
 
-                        arrayKota.add(response.body().getRajaongkir().getResults().get(a).getCityName());
+                        arrayKota.add(response.body().getRajaongkir().getResults().get(a).getType()+" "+response.body().getRajaongkir().getResults().get(a).getCityName());
                         listID_Kota.add(response.body().getRajaongkir().getResults().get(a).getCityId());
 
                     }
@@ -250,12 +253,22 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
                     if (response.body() != null && response.isSuccessful()) {
                         if (response.body().getPesan().equalsIgnoreCase("Sukses!")) {
-                            Toast.makeText(RegisterActivity.this, "berhasil", Toast.LENGTH_SHORT).show();
-                            // start home activity
-                            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                            //intent.putExtra("userid", "sdfsd");
-                            startActivity(intent);
-                            finish();
+                            for (int a = 0; a < response.body().getData().size() ; a++) {
+                                SharedPreferences preferences = getSharedPreferences("app", Context.MODE_PRIVATE);
+                                SharedPreferences.Editor edit = preferences.edit();
+                                edit.putString("id_konsumen", String.valueOf(response.body().getData().get(a).getIdKonsumen()));
+                                edit.putBoolean("bg",true);
+                                edit.commit();
+                                Toast.makeText(RegisterActivity.this, String.valueOf(response.body().getData().get(a).getIdKonsumen()), Toast.LENGTH_SHORT).show();
+                                // start home activity
+                                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                                //intent.putExtra("userid", "sdfsd");
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+                                        Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(intent);
+                                finish();
+                            }
+
 
                         } else {
                             AppUtilits.displayMessage(RegisterActivity.this,  response.body().getPesan());
