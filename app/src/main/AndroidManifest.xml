@@ -15,9 +15,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.ForgotPassword"></activity>
+        <activity android:name=".activities.AkunActivity"></activity>
+        <activity android:name=".activities.VerifikasiActivity" />
+        <activity android:name=".activities.ForgotPassword" />
         <activity android:name=".activities.MainActivity" />
-        <activity android:name=".activities.AkunActivity" />
+        <activity android:name=".activities.ProfileActivity" />
         <activity
             android:name=".activities.LoginActivity"
             android:launchMode="singleTop"
