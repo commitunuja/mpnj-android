@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import com.sholeh.marketplacenj.R;
+
 public class ForgotPassword extends AppCompatActivity {
 
     @Override
