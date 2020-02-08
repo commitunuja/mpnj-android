@@ -24,7 +24,8 @@ public class SharePreferenceUtils {
         return sharePreferenceUtils;
     }
 
-    // login response user_id 1234
+
+    // bg response user_id 1234
     public void saveString(String key,  String Val ){
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(key, Val);
@@ -40,13 +41,6 @@ public class SharePreferenceUtils {
         return sharedPreferences.getString(key, "");
     }
 
-    public void saveInt(String key,  int Val ){ // keranjang
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt(key, Val);
-        editor.commit();
-    }
-
-    public int getInteger(String key){ return sharedPreferences.getInt(key, 0 ); } // keranjang
 
 
 }

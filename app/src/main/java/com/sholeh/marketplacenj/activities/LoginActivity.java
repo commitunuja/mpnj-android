@@ -2,7 +2,9 @@ package com.sholeh.marketplacenj.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,9 +12,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sholeh.marketplacenj.CONSTANTS;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.ServiceWrapper;
 import com.sholeh.marketplacenj.respon.ResLogin;
+import com.sholeh.marketplacenj.util.SharePreferenceUtils;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -21,22 +25,29 @@ import retrofit2.Response;
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     private String TAG = "LoginActivity";
 
-    TextView tv_usernow, tvSignin;
+    TextView tv_usernow, tvSignin, tvLupaPass;
     EditText edUserName, edPass;
+
+    SharedPreferences preferences;
+    SharedPreferences.Editor input;
+    boolean status = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        preferences = getSharedPreferences("App",Context.MODE_PRIVATE);
 
         tv_usernow = findViewById(R.id.tvNewUser);
         edUserName = findViewById(R.id.etUsername);
         edPass = findViewById(R.id.etPass);
         tvSignin = findViewById(R.id.tvSignIn);
+        tvLupaPass = findViewById(R.id.tvForgetPass);
 
 
         tv_usernow.setOnClickListener(this);
         tvSignin.setOnClickListener(this);
+        tvLupaPass.setOnClickListener(this);
 
     }
 
@@ -49,6 +60,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.tvSignIn:
                 loginKonsumen();
+                break;
+            case R.id.tvForgetPass:
+                Intent pindah2 = new Intent(this, ForgotPassword.class);
+                startActivity(pindah2);
                 break;
 
                 default:
@@ -67,14 +82,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Log.d(TAG, "resLogin" + response.toString());
                 if (response.body() != null && response.isSuccessful()) {
                     if (response.body().getPesan().equalsIgnoreCase("Login Sukses!")){
-                        Toast.makeText(LoginActivity.this, "Berhasil Guys", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "Berhasil", Toast.LENGTH_SHORT).show();
+                        input = preferences.edit();
+                        input.putBoolean("aktif", true);
+                        input.commit();
+//                        SharePreferenceUtils.getInstance().saveString(CONSTANTS.ID_KONSUMEN, response.body().getIdKonsumen());
+                        startActivity(new Intent(LoginActivity.this,ProfileActivity.class));
+                        finish();
+
+
+                        // finish();
                     }else{
                         Toast.makeText(LoginActivity.this, "Gagal Guys", Toast.LENGTH_SHORT).show();
                     }
 
                 }else {
-
-                    Toast.makeText(LoginActivity.this, "gagal"+response, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "User Name dan Password Salah"+ response.toString(), Toast.LENGTH_LONG).show();
 
                 }
             }

@@ -4,13 +4,16 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 
-public class ResLogin {  // respon login konsumen
+public class ResLogin {  // respon bg konsumen
     @SerializedName("pesan")
     @Expose
     private String pesan;
     @SerializedName("token")
     @Expose
     private String token;
+    @SerializedName("id_konsumen")
+    @Expose
+    private String idKonsumen;
 
     public String getPesan() {
         return pesan;
@@ -28,15 +31,12 @@ public class ResLogin {  // respon login konsumen
         this.token = token;
     }
 
-    public class Information {
-        @SerializedName("username")
-        @Expose
-        private String username;
+    public String getIdKonsumen() {
+        return idKonsumen;
+    }
 
-
-        public String getUsername() {
-            return username;
-        }
+    public void setIdKonsumen(String idKonsumen) {
+        this.idKonsumen = idKonsumen;
     }
 
 }
