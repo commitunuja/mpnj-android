@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#fff">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="52.5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:padding="5dp"
+                android:background="#fbfaff">
+            </LinearLayout>
+
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line_gray" />
+            <TextView
+                android:id="@+id/tvMyOrder"
+                style="@style/txt_black_medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/value_2"
+                android:drawablePadding="@dimen/value_10"
+                android:gravity="start"
+                android:padding="@dimen/value_8"
+                android:text="Pesananku"
+                android:textAlignment="viewStart"
+                android:textDirection="locale"
+                app:drawableStartCompat="@drawable/ic_order_account"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line_gray" />
+            <TextView
+                android:id="@+id/tvAddress"
+                style="@style/txt_black_medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/value_10"
+                android:gravity="start"
+                android:padding="@dimen/value_8"
+                android:text="Alamat"
+                android:textAlignment="viewStart"
+                android:textDirection="locale"
+                app:drawableStartCompat="@drawable/ic_address_account" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line_gray" />
+
+            <TextView
+                android:id="@+id/tvAccountSetting"
+                style="@style/txt_black_small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:padding="@dimen/value_8"
+                android:text="Pengaturan Akun"
+                android:textAlignment="viewStart"
+                android:textDirection="locale" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line_gray" />
+            <TextView
+                android:id="@+id/tvLogout"
+                style="@style/txt_black_medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/value_10"
+                android:gravity="start"
+                android:padding="@dimen/value_8"
+                android:text="Logout"
+                android:textAlignment="viewStart"
+                android:textDirection="locale"
+                app:drawableStartCompat="@drawable/ic_login" />
+
+
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+
+</RelativeLayout>

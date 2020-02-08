@@ -61,4 +61,8 @@
 
     <color name="green_light">#388E3C</color>
     <color name="dark_gold">#bf9b30</color>
+    <color name="yellow">#ffff00</color>
+    <color name="color">#767578</color>
+    <color name="text_hitam">#223038</color>
+
 </resources>
