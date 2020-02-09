@@ -7,6 +7,7 @@ import retrofit2.Retrofit;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.sholeh.marketplacenj.respon.RegRegristasi;
+import com.sholeh.marketplacenj.respon.ResNewPassword;
 import com.sholeh.marketplacenj.respon.ResLogin;
 
 import java.util.concurrent.TimeUnit;
@@ -66,6 +67,12 @@ public class ServiceWrapper { // ini service wrapper untuk konversi dan menampun
 
 
     }
+
+    ///  user new password
+//    public Call<ResNewPassword> UserUbahPassword(String idKonsumen, String password){
+//        return mServiceInterface.KonsumenUbahPassword(convertPlainString(password), convertPlainString(password));
+//    }
+
 
 
 

@@ -4,17 +4,22 @@ import com.sholeh.marketplacenj.model.Model;
 import com.sholeh.marketplacenj.respon.RegRegristasi;
 import com.sholeh.marketplacenj.model.city.ItemCity;
 import com.sholeh.marketplacenj.model.province.ItemProvince;
+import com.sholeh.marketplacenj.respon.ResNewPassword;
 import com.sholeh.marketplacenj.respon.ResLogin;
 
 import java.util.List;
 
 import okhttp3.RequestBody;
 import retrofit2.Call;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Part;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 
@@ -52,6 +57,14 @@ public interface APIInterface {
     @POST("api/login")
     Call<ResLogin> loginKonsumenCall (@Part("username") RequestBody phone,
                                       @Part("password") RequestBody password);
+
+    ///  ubah password
+    @FormUrlEncoded
+    @PUT("api/password/{id_konsumen}")
+    Call<ResNewPassword> KonsumenUbahPassword(
+            @Path("id_konsumen") String idKonsumen,
+            @Field("password") String password
+    );
 
 }
 
