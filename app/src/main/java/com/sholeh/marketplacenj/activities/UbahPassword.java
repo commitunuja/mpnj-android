@@ -76,7 +76,7 @@ public class UbahPassword extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.tvBatal:
-
+                finish();
                 break;
 
                 default:
@@ -91,8 +91,7 @@ public class UbahPassword extends AppCompatActivity implements View.OnClickListe
             AppUtilits.displayMessage(UbahPassword.this,  getString(R.string.network_not_connected));
 
         }else {
-
-//            ServiceWrapper serviceWrapper = new ServiceWrapper(null);
+            if (!validasi()) return;
             APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
             Call<ResNewPassword> call = service.KonsumenUbahPassword(id_konsumen, edNewPass.getText().toString() );
 
@@ -113,7 +112,7 @@ public class UbahPassword extends AppCompatActivity implements View.OnClickListe
                            }
                     }else {
                         AppUtilits.displayMessage(UbahPassword.this,  getString(R.string.failed_request));
-                        
+
 
                     }
                 }
@@ -133,6 +132,34 @@ public class UbahPassword extends AppCompatActivity implements View.OnClickListe
 
 
 
+    }
+
+    private boolean validasi() {
+        boolean valid = true;
+        final String passwordBaru = edNewPass.getText().toString();
+        final String konpassword_ = edConfirmPass.getText().toString();
+
+
+        if (passwordBaru.isEmpty()) {
+            edNewPass.setError("password wajib di isi");
+            Toast.makeText(UbahPassword.this, "password wajib di isi", Toast.LENGTH_SHORT).show();
+            valid = false;
+        } else if (konpassword_.isEmpty()) {
+            edConfirmPass.setError("konfirmasi password wajib di isi");
+            Toast.makeText(UbahPassword.this, "konfirmasi password wajib di isi", Toast.LENGTH_SHORT).show();
+            valid = false;
+
+        } else if (!passwordBaru.equals(konpassword_)) {
+            Toast.makeText(UbahPassword.this, "kata sandi tidak cocok", Toast.LENGTH_SHORT).show();
+            valid = false;
+        } else if (edNewPass.length() <= 6) {
+            Toast.makeText(UbahPassword.this, "password minimal 6 digit", Toast.LENGTH_SHORT).show();
+            valid = false;
+        } else {
+            edNewPass.setError(null);
+        }
+
+        return valid;
     }
 
 }
