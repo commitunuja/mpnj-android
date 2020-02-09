@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment;
 
 import com.sholeh.marketplacenj.R;
 
-public class TabFragment2 extends Fragment {
+public class TabFragmentPelapak extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

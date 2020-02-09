@@ -268,15 +268,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.nav_profile:
-//
-
                 boolean login = preferences.getBoolean("aktif",false);
                 if (login){
-                    Toast.makeText(this, "re"+login, Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(this,ProfileActivity.class));
                     finish();
                 }else{
-                    Toast.makeText(this, "reee"+login, Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(this,LoginActivity.class));
                     finish();
                 }

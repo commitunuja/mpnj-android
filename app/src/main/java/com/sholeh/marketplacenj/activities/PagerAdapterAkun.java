@@ -5,10 +5,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-public class PagerAdapter1 extends FragmentStatePagerAdapter {
+public class PagerAdapterAkun extends FragmentStatePagerAdapter {
     int mNumOfTabs;
 
-    public PagerAdapter1(FragmentManager fm, int NumOfTabs) {
+    public PagerAdapterAkun(FragmentManager fm, int NumOfTabs) {
         super(fm);
         this.mNumOfTabs = NumOfTabs;
     }
@@ -18,10 +18,10 @@ public class PagerAdapter1 extends FragmentStatePagerAdapter {
 
         switch (position) {
             case 0:
-                TabFragment1 tab1 = new TabFragment1();
+                TabFragmentPembeli tab1 = new TabFragmentPembeli();
                 return tab1;
             case 1:
-                TabFragment2 tab2 = new TabFragment2();
+                TabFragmentPelapak tab2 = new TabFragmentPelapak();
                 return tab2;
 
             default:

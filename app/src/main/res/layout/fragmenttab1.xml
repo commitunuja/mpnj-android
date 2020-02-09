@@ -69,15 +69,17 @@
                 android:background="@color/line_gray" />
 
             <TextView
-                android:id="@+id/tvAccountSetting"
-                style="@style/txt_black_small"
+                android:id="@+id/tvSetting"
+                style="@style/txt_black_medium"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/value_10"
                 android:gravity="start"
                 android:padding="@dimen/value_8"
                 android:text="Pengaturan Akun"
                 android:textAlignment="viewStart"
-                android:textDirection="locale" />
+                android:textDirection="locale"
+                app:drawableStartCompat="@drawable/ic_settings_black_24dp"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="1dp"

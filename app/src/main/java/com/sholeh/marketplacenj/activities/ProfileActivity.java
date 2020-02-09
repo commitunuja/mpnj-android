@@ -54,7 +54,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         fb_favourite.setOnClickListener(this);
 
         String id_konsumen = SharePreferenceUtils.getInstance().getString(CONSTANTS.ID_KONSUMEN);
-        Toast.makeText(this, "id_konsumen"+id_konsumen, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "id_konsumen"+id_konsumen, Toast.LENGTH_SHORT).show();
 
 //        tvx_login = findViewById(R.id.tvLogIn);
 //        tvx_login.setOnClickListener(this);
@@ -73,7 +73,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
         final ViewPager viewPager = findViewById(R.id.pager);
 
-        PagerAdapter1 adapter = new PagerAdapter1(getSupportFragmentManager(), tabLayout.getTabCount());
+        PagerAdapterAkun adapter = new PagerAdapterAkun(getSupportFragmentManager(), tabLayout.getTabCount());
 
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));

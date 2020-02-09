@@ -64,5 +64,6 @@
     <color name="yellow">#ffff00</color>
     <color name="color">#767578</color>
     <color name="text_hitam">#223038</color>
+    <color name="devider">#ebebeb</color>
 
 </resources>
