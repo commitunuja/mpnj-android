@@ -12,7 +12,9 @@ public class CONSTANTS {
     public static final long API_READ_TIMEOUT = 901;
 
 
-    public static final String USER_DATA = "USER_DATA";
-    public static final String ID_KONSUMEN = "ID_KONSUMEN";
+
+    public static final String ID_KONSUMEN = "id_konsumen";
+    public static final String USER_NAME = "USER_NAME";
+    public static final String NAMA_LENGKAP = "NAMA_LENGKAP";
 
 }

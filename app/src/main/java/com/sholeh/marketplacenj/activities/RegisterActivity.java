@@ -243,46 +243,54 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             final String email_ = ed_email.getText().toString();
             final String statusA_ = "aktif";
 
-            if (!validasi()) return;
+//            if (!validasi()) return;
             ServiceWrapper serviceWrapper = new ServiceWrapper(null);
             Call<RegRegristasi> callNewREgistration = serviceWrapper.newUserRegistrationCall(
                     namalengkap_, username_, password_, idprov_, idkota_, alamat_, kodepos_, nomorHp_, email_, statusA_);
             callNewREgistration.enqueue(new Callback<RegRegristasi>() {
                 @Override
                 public void onResponse(Call<RegRegristasi> call, Response<RegRegristasi> response) {
+                    Toast.makeText(RegisterActivity.this, "res"+response, Toast.LENGTH_SHORT).show();
 
                     if (response.body() != null && response.isSuccessful()) {
                         if (response.body().getPesan().equalsIgnoreCase("Sukses!")) {
                             for (int a = 0; a < response.body().getData().size() ; a++) {
-                                SharedPreferences preferences = getSharedPreferences("app", Context.MODE_PRIVATE);
+                                SharedPreferences preferences = getSharedPreferences("App", Context.MODE_PRIVATE);
                                 SharedPreferences.Editor edit = preferences.edit();
                                 edit.putString("id_konsumen", String.valueOf(response.body().getData().get(a).getIdKonsumen()));
+                                edit.putString("nama_lengkap", String.valueOf(response.body().getData().get(a).getNamaLengkap()));
+
                                 edit.putBoolean("bg",true);
                                 edit.commit();
-                                Toast.makeText(RegisterActivity.this, String.valueOf(response.body().getData().get(a).getIdKonsumen()), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(RegisterActivity.this, "id "+String.valueOf(response.body().getData().get(a).getIdKonsumen()), Toast.LENGTH_SHORT).show();
                                 // start home activity
-                                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                                //intent.putExtra("userid", "sdfsd");
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
-                                        Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                startActivity(intent);
-                                finish();
+//                                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+//                                //intent.putExtra("userid", "sdfsd");
+//                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+//                                        Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                                startActivity(intent);
+//                                finish();
                             }
 
 
                         } else {
-                            AppUtilits.displayMessage(RegisterActivity.this,  response.body().getPesan());
+                            Toast.makeText(RegisterActivity.this, "r"+response.body().getPesan(), Toast.LENGTH_SHORT).show();
+//                            AppUtilits.displayMessage(RegisterActivity.this,  response.body().getPesan());
                         }
                     } else {
-                        AppUtilits.displayMessage(RegisterActivity.this,   getString(R.string.failed_request));
+                        Toast.makeText(RegisterActivity.this, "rr"+response.body().getPesan(), Toast.LENGTH_SHORT).show();
+
+//                        AppUtilits.displayMessage(RegisterActivity.this,   getString(R.string.failed_request));
                     }
                 }
 
                 @Override
                 public void onFailure(Call<RegRegristasi> call, Throwable t) {
                     Log.e(TAG, " failure " + t.toString());
+                    Toast.makeText(RegisterActivity.this, "rrr"+t, Toast.LENGTH_SHORT).show();
 
-                    AppUtilits.displayMessage(RegisterActivity.this,   getString(R.string.failed_request));
+
+//                    AppUtilits.displayMessage(RegisterActivity.this,   getString(R.string.failed_request));
                 }
             });
 
@@ -333,7 +341,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         } else if (!ed_password.getText().toString().equals(ed_konfirmasiPass.getText().toString())) {
             Toast.makeText(RegisterActivity.this, "kata sandi tidak cocok", Toast.LENGTH_SHORT).show();
             valid = false;
-        } else if (password_.length() <= 6) {
+        } else if (password_.length() < 7) {
             Toast.makeText(RegisterActivity.this, "password minimal 6 digit", Toast.LENGTH_SHORT).show();
             valid = false;
         } else {

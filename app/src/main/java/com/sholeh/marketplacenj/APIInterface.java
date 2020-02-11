@@ -6,11 +6,13 @@ import com.sholeh.marketplacenj.model.city.ItemCity;
 import com.sholeh.marketplacenj.model.province.ItemProvince;
 import com.sholeh.marketplacenj.respon.ResNewPassword;
 import com.sholeh.marketplacenj.respon.ResLogin;
+import com.sholeh.marketplacenj.respon.ResProfil;
 
 import java.util.List;
 
 import okhttp3.RequestBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -65,6 +67,15 @@ public interface APIInterface {
             @Path("id_konsumen") String idKonsumen,
             @Field("password") String password
     );
+
+
+    ///  tampil data profile
+    @FormUrlEncoded
+    @PUT("api/profil/{id_konsumen}")
+    Call<ResProfil> TampilDataProfil(
+            @Path("id_konsumen") String idKonsumen,
+            @Body ResProfil resProfil);
+
 
 }
 

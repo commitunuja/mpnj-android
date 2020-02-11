@@ -15,9 +15,18 @@ import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
+import com.sholeh.marketplacenj.APIInterface;
 import com.sholeh.marketplacenj.CONSTANTS;
 import com.sholeh.marketplacenj.R;
-import com.sholeh.marketplacenj.util.SharePreferenceUtils;
+import com.sholeh.marketplacenj.ServiceGenerator;
+import com.sholeh.marketplacenj.model.Model;
+import com.sholeh.marketplacenj.respon.ResNewPassword;
+import com.sholeh.marketplacenj.respon.ResProfil;
+
+
+import java.util.List;
+
+import retrofit2.Call;
 
 public class ProfileActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -30,12 +39,21 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     SharedPreferences preferences;
     SharedPreferences.Editor input;
     boolean status = false;
+    String id_konsumen, username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         preferences = getSharedPreferences("App", Context.MODE_PRIVATE);
+
+
+        String id = preferences.getString(CONSTANTS.ID_KONSUMEN, null);
+
+        Toast.makeText(this, "idNYA: "+id , Toast.LENGTH_SHORT).show();
+
+
+
 
         toolBarisi = findViewById(R.id.toolbar);
         toolBarisi.setTitle("Akun");
@@ -52,9 +70,16 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         navprofile.setOnClickListener(this);
         fb_favourite = findViewById(R.id.fab_menu);
         fb_favourite.setOnClickListener(this);
+        tvx_namaCustomter = findViewById(R.id.tvCustomerName);
 
-        String id_konsumen = SharePreferenceUtils.getInstance().getString(CONSTANTS.ID_KONSUMEN);
-//        Toast.makeText(this, "id_konsumen"+id_konsumen, Toast.LENGTH_SHORT).show();
+
+
+//        id_konsumen =  preferences.getString("id_konsume",);
+//        username = SharePreferenceUtils.getInstance().getString(CONSTANTS.USER_NAME);
+//
+
+
+//        Toast.makeText(this, "id_konsumen"+id_konsumen + "USER "+username, Toast.LENGTH_SHORT).show();
 
 //        tvx_login = findViewById(R.id.tvLogIn);
 //        tvx_login.setOnClickListener(this);
@@ -140,6 +165,12 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             default:
                 break;
         }
+    }
+
+    public void tampilProfi(){
+//
+//        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+//        Call<ResProfil> call = service.TampilDataProfil(id_konsumen);
     }
 }
 

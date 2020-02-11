@@ -16,7 +16,6 @@ import com.sholeh.marketplacenj.CONSTANTS;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.ServiceWrapper;
 import com.sholeh.marketplacenj.respon.ResLogin;
-import com.sholeh.marketplacenj.util.SharePreferenceUtils;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -84,14 +83,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     if (response.body().getPesan().equalsIgnoreCase("Login Sukses!")){
                         Toast.makeText(LoginActivity.this, "Berhasil", Toast.LENGTH_SHORT).show();
                         input = preferences.edit();
+                        input.putString(CONSTANTS.ID_KONSUMEN, String.valueOf(response.body().getIdKonsumen()));
                         input.putBoolean("aktif", true);
                         input.commit();
-//                        SharePreferenceUtils.getInstance().saveString(CONSTANTS.ID_KONSUMEN, response.body().getIdKonsumen());
-                        startActivity(new Intent(LoginActivity.this,ProfileActivity.class));
+
+                        Intent intent = new Intent(LoginActivity.this,ProfileActivity.class);
+                        startActivity(intent);
                         finish();
 
 
-                        // finish();
                     }else{
                         Toast.makeText(LoginActivity.this, "Gagal Guys", Toast.LENGTH_SHORT).show();
                     }

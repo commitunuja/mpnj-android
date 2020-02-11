@@ -1,16 +1,16 @@
 package com.sholeh.marketplacenj.respon;
 
-import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ResNewPassword {
+public class ResProfil {
     @SerializedName("pesan")
     @Expose
     private String pesan;
+
     @SerializedName("data")
     @Expose
-    private List<String> data = null;
+    private Data data;
 
     public String getPesan() {
         return pesan;
@@ -20,12 +20,11 @@ public class ResNewPassword {
         this.pesan = pesan;
     }
 
-    public List<String> getData() {
+    public Data getData() {
         return data;
     }
 
-    public void setData(List<String> data) {
+    public void setData(Data data) {
         this.data = data;
     }
-
 }

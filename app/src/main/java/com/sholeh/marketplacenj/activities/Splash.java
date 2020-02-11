@@ -6,12 +6,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.widget.Toast;
+
 import com.romainpiel.shimmer.Shimmer;
 import com.romainpiel.shimmer.ShimmerTextView;
-import com.sholeh.marketplacenj.CONSTANTS;
 import com.sholeh.marketplacenj.R;
-import com.sholeh.marketplacenj.util.SharePreferenceUtils;
 
 
 public class Splash extends AppCompatActivity {

@@ -2,37 +2,17 @@ package com.sholeh.marketplacenj.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.sholeh.marketplacenj.APIInterface;
-import com.sholeh.marketplacenj.CONSTANTS;
 import com.sholeh.marketplacenj.R;
-import com.sholeh.marketplacenj.ServiceGenerator;
-import com.sholeh.marketplacenj.adapter.ProdukAdapter;
-import com.sholeh.marketplacenj.model.Model;
-import com.sholeh.marketplacenj.util.AppUtilits;
-import com.sholeh.marketplacenj.util.SharePreferenceUtils;
-
-import java.util.List;
-
-import butterknife.BindView;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class DetailProdukActivity extends AppCompatActivity implements View.OnClickListener {
 

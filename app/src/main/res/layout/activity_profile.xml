@@ -85,7 +85,7 @@
 
                         <TextView
                             android:text="Nama Pembeli"
-                            android:id="@+id/tvCustomerEmail"
+                            android:id="@+id/tvCustomerName"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"

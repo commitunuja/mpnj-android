@@ -29,7 +29,6 @@ import com.sholeh.marketplacenj.adapter.SliderImageAdapter;
 import com.sholeh.marketplacenj.APIInterface;
 import com.sholeh.marketplacenj.model.Model;
 import com.sholeh.marketplacenj.model.ProductModel;
-import com.sholeh.marketplacenj.util.SharePreferenceUtils;
 import com.smarteist.autoimageslider.IndicatorAnimations;
 import com.smarteist.autoimageslider.IndicatorView.draw.controller.DrawController;
 import com.smarteist.autoimageslider.SliderAnimations;
@@ -254,7 +253,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
 
         switch (v.getId()) {
-
             case R.id.nav_transaksi:
                 Toast.makeText(this, "nav transaksi", Toast.LENGTH_SHORT).show();
                 break;
