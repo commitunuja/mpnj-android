@@ -121,10 +121,10 @@ public class AlamatActivity extends AppCompatActivity implements View.OnClickLis
                                 modellist.add(new AlamatModel(response.body().getData().getDaftarAlamat().get(i).getIdAlamat(),
                                         response.body().getData().getDaftarAlamat().get(i).getNama(),
                                         response.body().getData().getDaftarAlamat().get(i).getNomorTelepon(),
-                                                response.body().getData().getDaftarAlamat().get(i).getNamaProvinsi(),
-                                                response.body().getData().getDaftarAlamat().get(i).getNamaKota(),
-                                                response.body().getData().getDaftarAlamat().get(i).getAlamatLengkap(),
-                                                response.body().getData().getDaftarAlamat().get(i).getKodePos()));
+                                        response.body().getData().getDaftarAlamat().get(i).getAlamatLengkap(),
+                                        response.body().getData().getDaftarAlamat().get(i).getNamaKota(),
+                                        response.body().getData().getDaftarAlamat().get(i).getNamaProvinsi(),
+                                        response.body().getData().getDaftarAlamat().get(i).getKodePos()));
                             }
 
                             alamatAdapter.notifyDataSetChanged();
