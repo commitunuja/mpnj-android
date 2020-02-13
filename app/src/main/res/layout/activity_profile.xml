@@ -84,7 +84,7 @@
                         </FrameLayout>
 
                         <TextView
-                            android:text="Nama Pembeli"
+                            android:text="Sholeh"
                             android:id="@+id/tvCustomerName"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"

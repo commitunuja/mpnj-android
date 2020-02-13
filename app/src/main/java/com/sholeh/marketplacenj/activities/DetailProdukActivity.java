@@ -115,7 +115,7 @@ public class DetailProdukActivity extends AppCompatActivity implements View.OnCl
 //            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
 //                if (response.code() == 200) {
 //                    users.addAll(response.body());
-//                    adapter.setData(users);
+//                    adapter.setDataProfil(users);
 //                }
 //                Toast.makeText(getApplicationContext(), "status: " + response.code() + " list size: " + users.size(), Toast.LENGTH_LONG).show();
 //            }

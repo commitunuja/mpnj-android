@@ -49,7 +49,7 @@ public class Constant {
         put(R.drawable.ic_cat17, "Pascabayar");
         put(R.drawable.ic_cat32, "Tiket Kereta Api");
         put(R.drawable.ic_cat10, "Listrik PLN");
-        put(R.drawable.ic_cat29, "Paket Data");
+        put(R.drawable.ic_cat29, "Paket DataProfil");
         put(R.drawable.ic_cat9, "Kartu Kredit");
         put(R.drawable.ic_cat26, "Air PDAM");
         put(R.drawable.ic_cat27, "TV Kabel");

@@ -57,8 +57,8 @@ public interface APIInterface {
     //  user signin konsumen request
     @Multipart
     @POST("api/login")
-    Call<ResLogin> loginKonsumenCall (@Part("username") RequestBody phone,
-                                      @Part("password") RequestBody password);
+    Call<ResLogin> loginKonsumenCall(@Part("username") RequestBody phone,
+                                     @Part("password") RequestBody password);
 
     ///  ubah password
     @FormUrlEncoded
@@ -69,12 +69,11 @@ public interface APIInterface {
     );
 
 
-    ///  tampil data profile
-    @FormUrlEncoded
-    @PUT("api/profil/{id_konsumen}")
-    Call<ResProfil> TampilDataProfil(
-            @Path("id_konsumen") String idKonsumen,
-            @Body ResProfil resProfil);
+    //  tampil data profile
+    @GET("api/profil/{id_konsumen}")
+    Call<ResProfil> getDataProfil(
+            @Path("id_konsumen") String idKonsumen
+    );
 
 
 }

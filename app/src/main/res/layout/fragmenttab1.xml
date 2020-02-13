@@ -50,7 +50,7 @@
                 android:layout_height="1dp"
                 android:background="@color/line_gray" />
             <TextView
-                android:id="@+id/tvAddress"
+                android:id="@+id/tvAlamat"
                 style="@style/txt_black_medium"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

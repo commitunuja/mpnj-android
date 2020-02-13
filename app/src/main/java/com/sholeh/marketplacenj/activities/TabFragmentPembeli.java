@@ -16,7 +16,7 @@ import com.sholeh.marketplacenj.R;
 
 public class TabFragmentPembeli extends Fragment implements View.OnClickListener {
 
-    TextView tvx_logout, tvx_SettingAkun;
+    TextView tvx_logout, tvx_SettingAkun, tvx_Alamat;
     SharedPreferences preferences;
 
     @Override
@@ -25,9 +25,12 @@ public class TabFragmentPembeli extends Fragment implements View.OnClickListener
         preferences = this.getActivity().getSharedPreferences("App", Context.MODE_PRIVATE);
 
         tvx_logout = rootView.findViewById(R.id.tvLogout);
-        tvx_logout.setOnClickListener(this);
+        tvx_Alamat = rootView.findViewById(R.id.tvAlamat);
         tvx_SettingAkun = rootView.findViewById(R.id.tvSetting);
+
+        tvx_Alamat.setOnClickListener(this);
         tvx_SettingAkun.setOnClickListener(this);
+        tvx_logout.setOnClickListener(this);
 
         return rootView;
     }
@@ -41,6 +44,11 @@ public class TabFragmentPembeli extends Fragment implements View.OnClickListener
 
             case R.id.tvSetting:
                 SettingAkun();
+                break;
+
+            case R.id.tvAlamat:
+                Intent intent = new Intent(getActivity(), AlamatActivity.class);
+                getActivity().startActivity(intent);
                 break;
 
 

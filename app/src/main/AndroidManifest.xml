@@ -15,7 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.UbahPassword"></activity>
+        <activity android:name=".activities.AlamatActivity"></activity>
+        <activity android:name=".activities.UbahPassword" />
         <activity android:name=".activities.PengaturanAkun" />
         <activity android:name=".activities.AkunActivity" />
         <activity android:name=".activities.VerifikasiActivity" />

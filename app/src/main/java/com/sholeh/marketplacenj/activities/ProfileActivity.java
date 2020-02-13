@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,13 +21,14 @@ import com.sholeh.marketplacenj.CONSTANTS;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.ServiceGenerator;
 import com.sholeh.marketplacenj.model.Model;
-import com.sholeh.marketplacenj.respon.ResNewPassword;
 import com.sholeh.marketplacenj.respon.ResProfil;
 
 
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ProfileActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -40,17 +42,23 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     SharedPreferences.Editor input;
     boolean status = false;
     String id_konsumen, username;
+    private ResProfil tvDataProfil;
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         preferences = getSharedPreferences("App", Context.MODE_PRIVATE);
+        id_konsumen = preferences.getString(CONSTANTS.ID_KONSUMEN, null);
 
 
-        String id = preferences.getString(CONSTANTS.ID_KONSUMEN, null);
 
-        Toast.makeText(this, "idNYA: "+id , Toast.LENGTH_SHORT).show();
+
+        Toast.makeText(this, "idNYA: "+id_konsumen , Toast.LENGTH_SHORT).show();
 
 
 
@@ -121,6 +129,9 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
         });
 
+//        tampilProfi();
+        getDataProfi();
+
 
     }
 
@@ -168,10 +179,57 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     public void tampilProfi(){
+//        id_konsumen = preferences.getString(CONSTANTS.ID_KONSUMEN, null);
 //
 //        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-//        Call<ResProfil> call = service.TampilDataProfil(id_konsumen);
+//        Call<ResProfil> call = service.getProfil(id_konsumen);
+//
+//        call.enqueue(new Callback<ResProfil>() {
+//            @Override
+//            public void onResponse(Call<ResProfil> call, Response<ResProfil> response) {
+//                Toast.makeText(ProfileActivity.this, "res"+response, Toast.LENGTH_SHORT).show();
+//                Log.d("resprofil", response.toString());
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ResProfil> call, Throwable t) {
+//                Toast.makeText(ProfileActivity.this, "error"+t, Toast.LENGTH_SHORT).show();
+//            }
+//        });
     }
+
+    public void getDataProfi(){
+
+        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+        Call<ResProfil> call = service.getDataProfil(id_konsumen);
+
+        call.enqueue(new Callback<ResProfil>() {
+            @Override
+            public void onResponse(Call<ResProfil> call, Response<ResProfil> response) {
+
+                tvDataProfil = response.body();
+                String namaLengkap = tvDataProfil.getData().getNamaLengkap();
+                tvx_namaCustomter.setText(namaLengkap);
+
+            }
+
+            @Override
+            public void onFailure(Call<ResProfil> call, Throwable t) {
+                Toast.makeText(ProfileActivity.this, "no connection"+t, Toast.LENGTH_LONG).show();
+
+                //  Log.e(TAG, " failure "+ t.toString());
+//                    AppUtilits.displayMessage(UbahPassword.this,  getString(R.string.failed_request));
+            }
+        });
+
+
+
+
+    }
+
+
+
 }
 
 

@@ -147,7 +147,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     spinProvinsi.setAdapter(adapterspinner);
                     spinProvinsi.setSelection(adapterspinner.getCount());
                 } else {
-                    String error = "Error Retrive Data from Server !!!";
+                    String error = "Error Retrive DataProfil from Server !!!";
                     Toast.makeText(RegisterActivity.this, error, Toast.LENGTH_SHORT).show();
                 }
             }
@@ -204,7 +204,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     spinkota.setSelection(adapterspinner.getCount());
 
                 } else {
-                    String error = "Error Retrive Data from Server !!!";
+                    String error = "Error Retrive DataProfil from Server !!!";
                     Toast.makeText(RegisterActivity.this, error, Toast.LENGTH_SHORT).show();
                 }
 

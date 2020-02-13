@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    android:background="@drawable/boarder_black_rounder_white"
+
+    app:cardCornerRadius="8dp"
+    app:cardElevation="5dp"
+    android:id="@+id/cvlistAlamat">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_margin="10dp">
+
+            <LinearLayout
+                android:id="@+id/lnName"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_weight="1"
+                    android:textStyle="bold"
+                    android:id="@+id/tvx_namaCustomer"
+                    android:text="Muhammad Solehudin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:gravity="right"
+                    android:layout_weight="1"
+                    android:textColor="#F44336"
+                    android:id="@+id/tvx_statusAlamat"
+                    android:text="Status Alamat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_marginTop="5dp"
+                android:id="@+id/tvx_nohp"
+                android:layout_below="@+id/lnName"
+                android:text="+6282336181538"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tvx_alamat"
+                android:layout_below="@+id/tvx_nohp"
+                android:text="JL. Kyai Haji Zaini Mun'im, Karang Anyar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/tvx_kec"
+                android:layout_below="@+id/tvx_alamat"
+                android:text="Kec. Paiton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tvx_kab"
+                android:layout_below="@+id/tvx_kec"
+                android:text="Kab. Probolinggo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tvx_prov"
+                android:layout_below="@+id/tvx_kab"
+                android:text="Provinsi. Jawa Timur"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tvx_kodepos"
+                android:layout_below="@+id/tvx_prov"
+                android:text="ID 67291"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+            <ImageView
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageselect"
+                android:src="@mipmap/ic_select_done"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/paddinng_large_15"
+                />
+
+
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+
+
+</androidx.cardview.widget.CardView>
