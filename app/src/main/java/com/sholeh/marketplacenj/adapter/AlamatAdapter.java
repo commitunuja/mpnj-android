@@ -13,6 +13,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sholeh.marketplacenj.R;
+import com.sholeh.marketplacenj.activities.AlamatActivity;
 import com.sholeh.marketplacenj.model.AlamatModel;
 
 import java.util.ArrayList;
@@ -47,7 +48,7 @@ public class AlamatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             tvxKab = itemView.findViewById(R.id.tvx_kab);
             tvxProvinsi = itemView.findViewById(R.id.tvx_prov);
             tvxKodePos = itemView.findViewById(R.id.tvx_kodepos);
-
+            tvxStatusAlamat = itemView.findViewById(R.id.tvx_statusAlamat);
             imageselect = itemView.findViewById(R.id.imageselect);
             cvAlamat = itemView.findViewById(R.id.cvlistAlamat);
 
@@ -75,6 +76,20 @@ public class AlamatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         ((AlamatItemView) holder).tvxProvinsi.setText(model.getNamaProvinsi());
         ((AlamatItemView) holder).tvxKodePos.setText(model.getKodePos());
 
+
+        if (model.getStatus().equalsIgnoreCase("utama")){
+            ((AlamatItemView) holder).tvxStatusAlamat.setText("[Utama]");
+            ((AlamatItemView) holder).cvAlamat.setBackgroundResource(R.drawable.boarder_green_rounder_white);
+            ((AlamatItemView) holder).imageselect.setVisibility(View.VISIBLE);
+
+        }else{
+            ((AlamatItemView) holder).cvAlamat.setBackgroundResource(R.drawable.boarder_black_rounder_white);
+            ((AlamatItemView) holder).imageselect.setVisibility(View.GONE);
+            ((AlamatItemView) holder).tvxStatusAlamat.setVisibility(View.GONE);
+        }
+
+
+
         addrlayoutsList.add(((AlamatItemView) holder).cvAlamat);
         imagelist.add(((AlamatItemView) holder).imageselect);
 
@@ -86,15 +101,15 @@ public class AlamatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
                 //   Log.e(TAG, "  user select the addres " + model.getaddress_id() );
 
-//                (( OrderAddressActivity) mContext).addressid = model.getaddress_id();
-//
+//                ((AlamatActivity) mContext).addressid = model.getaddress_id();
+////
 //                for (int i=0; i<addrlayoutsList.size(); i++){
 //                    addrlayoutsList.get (i).setBackgroundResource(R.drawable.boarder_black_rounder_white);
 //                    imagelist.get(i).setVisibility(View.GONE);
 //                }
-//
-//                ((OrderAddressItemView) holder).address_layoutmain.setBackgroundResource(R.drawable.boarder_green_rounder_white);
-//                ((OrderAddressItemView) holder).imageselect.setVisibility(View.VISIBLE);
+////
+//                ((AlamatItemView) holder).cvAlamat.setBackgroundResource(R.drawable.boarder_green_rounder_white);
+//                ((AlamatItemView) holder).imageselect.setVisibility(View.VISIBLE);
             }
         });
 

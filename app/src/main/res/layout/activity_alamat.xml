@@ -52,7 +52,6 @@
                 android:layout_height="match_parent"
                 android:id="@+id/recycler_alamat"
                 android:layout_below="@id/line1"
-                android:padding="@dimen/padding_small_5"
                 android:layout_marginBottom="50dp"
                 tools:ignore="NotSibling,UnknownId">
 

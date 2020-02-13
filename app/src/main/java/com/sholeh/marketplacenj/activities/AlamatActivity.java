@@ -124,7 +124,8 @@ public class AlamatActivity extends AppCompatActivity implements View.OnClickLis
                                         response.body().getData().getDaftarAlamat().get(i).getAlamatLengkap(),
                                         response.body().getData().getDaftarAlamat().get(i).getNamaKota(),
                                         response.body().getData().getDaftarAlamat().get(i).getNamaProvinsi(),
-                                        response.body().getData().getDaftarAlamat().get(i).getKodePos()));
+                                        response.body().getData().getDaftarAlamat().get(i).getKodePos(),
+                                        response.body().getData().getDaftarAlamat().get(i).getStatus()));
                             }
 
                             alamatAdapter.notifyDataSetChanged();
