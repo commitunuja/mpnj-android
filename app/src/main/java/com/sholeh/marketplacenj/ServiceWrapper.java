@@ -50,13 +50,10 @@ public class ServiceWrapper { // ini service wrapper untuk konversi dan menampun
     }
 
 //    new regristasi konsumen
-    public Call<RegRegristasi> newUserRegistrationCall(String namaLengkap, String username, String password,
-                                                       String provinsiId, String cityId, String alamat,
-                                                       String kodePos, String nomorHp, String email, String status) {
+    public Call<RegRegristasi> newUserRegistrationCall(String namaLengkap, String username, String password, String nomorHp, String email, String status) {
         return mServiceInterface.registerKonsumenCall(
                                                     convertPlainString(namaLengkap), convertPlainString(username),
-                                                    convertPlainString(password), convertPlainString(provinsiId), convertPlainString(cityId),
-                                                    convertPlainString(alamat), convertPlainString(kodePos), convertPlainString(nomorHp),
+                                                    convertPlainString(password),  convertPlainString(nomorHp),
                                                     convertPlainString(email), convertPlainString(status));
     }
 

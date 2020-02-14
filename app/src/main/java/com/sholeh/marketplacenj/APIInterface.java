@@ -46,10 +46,6 @@ public interface APIInterface {
     Call<RegRegristasi> registerKonsumenCall(@Part("nama_lengkap") RequestBody namaLengkap,
                                              @Part("username") RequestBody username,
                                              @Part("password") RequestBody password,
-                                             @Part("provinsi_id") RequestBody provinsiId,
-                                             @Part("city_id") RequestBody cityId,
-                                             @Part("alamat") RequestBody alamat,
-                                             @Part("kode_pos") RequestBody kodePos,
                                              @Part("nomor_hp") RequestBody nomorHp,
                                              @Part("email") RequestBody email,
                                              @Part("status") RequestBody status);
