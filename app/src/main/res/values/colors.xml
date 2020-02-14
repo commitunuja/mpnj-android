@@ -25,7 +25,7 @@
     <color name="scratch_end_gradient">#cccccc</color>
     <color name="black">#000000</color>
     <color name="transparent">#00ffffff</color>
-    <color name="blackTransperent">#FF000000</color>
+    <color name="blackTransperent">#CB000000</color>
     <color name="gray">#d0505050</color>
     <color name="black_transparent">#66000000</color>
     <color name="bg">#EFF2FB</color>

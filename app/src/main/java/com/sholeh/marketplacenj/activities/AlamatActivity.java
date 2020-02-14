@@ -22,6 +22,8 @@ import com.sholeh.marketplacenj.ServiceGenerator;
 import com.sholeh.marketplacenj.adapter.AlamatAdapter;
 import com.sholeh.marketplacenj.model.AlamatModel;
 import com.sholeh.marketplacenj.respon.ResProfil;
+import com.sholeh.marketplacenj.util.AppUtilits;
+import com.sholeh.marketplacenj.util.NetworkUtility;
 
 import java.util.ArrayList;
 
@@ -35,11 +37,9 @@ public class AlamatActivity extends AppCompatActivity implements View.OnClickLis
     private FloatingActionButton fab_addAlamat;
     private String TAG = "AlamatActivity";
 
-
     SharedPreferences preferences;
     SharedPreferences.Editor input;
     String id_konsumen;
-
 
     private AlamatAdapter alamatAdapter;
     private ArrayList<AlamatModel> modellist = new ArrayList<>();
@@ -54,7 +54,6 @@ public class AlamatActivity extends AppCompatActivity implements View.OnClickLis
 
         fab_addAlamat = findViewById(R.id.fab_alamat);
         recyclerAlamat = findViewById(R.id.recycler_alamat);
-
         fab_addAlamat.setOnClickListener(this);
 
         toolBarisi = findViewById(R.id.toolbar);
@@ -94,23 +93,15 @@ public class AlamatActivity extends AppCompatActivity implements View.OnClickLis
 
 
     public void getAlamat() {
-
-//        if (!NetworkUtility.isNetworkConnected(OrderAddressActivity.this)){
-//            AppUtilits.displayMessage(OrderAddressActivity.this,  getString(R.string.network_not_connected));
-//
-//        }else {
-
-//            ServiceWrapper serviceWrapper = new ServiceWrapper(null);
+        if (!NetworkUtility.isNetworkConnected(AlamatActivity.this)){
+            AppUtilits.displayMessage(AlamatActivity.this,  getString(R.string.network_not_connected));
+        }else {
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
         Call<ResProfil> call = service.getDataProfil(id_konsumen);
-
         call.enqueue(new Callback<ResProfil>() {
             @Override
             public void onResponse(Call<ResProfil> call, Response<ResProfil> response) {
-                Log.e(TAG, "kocorr" + response.body() + "  ---- " + new Gson().toJson(response.body()));
-                //  Log.e(TAG, "  ss sixe 1 ");
                 if (response.body() != null && response.isSuccessful()) {
-                    //    Log.e(TAG, "  ss sixe 2 ");
                     if (response.body().getPesan().equalsIgnoreCase("Sukses!!")) {
 
                         if (response.body().getData().getDaftarAlamat().size() > 0) {
@@ -131,32 +122,24 @@ public class AlamatActivity extends AppCompatActivity implements View.OnClickLis
                             alamatAdapter.notifyDataSetChanged();
 
                         }
-
-
                     } else {
-                        Toast.makeText(AlamatActivity.this, "e" + response.body().getPesan(), Toast.LENGTH_SHORT).show();
-//                            AppUtilits.displayMessage(OrderAddressActivity.this, response.body().getMsg() );
+                            AppUtilits.displayMessage(AlamatActivity.this, response.body().getPesan() );
                     }
                 } else {
-                    Toast.makeText(AlamatActivity.this, "ee" + response.body().getPesan(), Toast.LENGTH_SHORT).show();
-
-//                        AppUtilits.displayMessage(OrderAddressActivity.this, getString(R.string.network_error));
+                        AppUtilits.displayMessage(AlamatActivity.this, getString(R.string.network_error));
                 }
 
             }
 
             @Override
             public void onFailure(Call<ResProfil> call, Throwable t) {
-                //   Log.e(TAG, "  fail- get user address "+ t.toString());
-                Toast.makeText(AlamatActivity.this, "t" + t, Toast.LENGTH_SHORT).show();
-
-//                    AppUtilits.displayMessage(OrderAddressActivity.this, getString(R.string.fail_togetaddress));
+                    AppUtilits.displayMessage(AlamatActivity.this, getString(R.string.fail_togetaddress));
 
 
             }
         });
 
 
-//        }
+        }
     }
 }
