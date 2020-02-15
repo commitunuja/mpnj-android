@@ -6,8 +6,8 @@ import retrofit2.Retrofit;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.sholeh.marketplacenj.respon.RegRegristasi;
-import com.sholeh.marketplacenj.respon.ResNewPassword;
+import com.sholeh.marketplacenj.respon.ResAddAlamat;
+import com.sholeh.marketplacenj.respon.ResRegristasi;
 import com.sholeh.marketplacenj.respon.ResLogin;
 
 import java.util.concurrent.TimeUnit;
@@ -50,7 +50,7 @@ public class ServiceWrapper { // ini service wrapper untuk konversi dan menampun
     }
 
 //    new regristasi konsumen
-    public Call<RegRegristasi> newUserRegistrationCall(String namaLengkap, String username, String password, String nomorHp, String email, String status) {
+    public Call<ResRegristasi> newUserRegistrationCall(String namaLengkap, String username, String password, String nomorHp, String email, String status) {
         return mServiceInterface.registerKonsumenCall(
                                                     convertPlainString(namaLengkap), convertPlainString(username),
                                                     convertPlainString(password),  convertPlainString(nomorHp),
@@ -61,14 +61,17 @@ public class ServiceWrapper { // ini service wrapper untuk konversi dan menampun
     // user signin konsumen
     public Call<ResLogin> KonsumenSigninCall(String username, String password){
         return mServiceInterface.loginKonsumenCall(convertPlainString(username),  convertPlainString(password));
-
-
     }
 
-    ///  user new password
-//    public Call<ResNewPassword> UserUbahPassword(String idKonsumen, String password){
-//        return mServiceInterface.KonsumenUbahPassword(convertPlainString(password), convertPlainString(password));
-//    }
+    //    new alamat
+    public Call<ResAddAlamat> newAlamatCall(String nama, String nomorHp, String provinsiId, String namaProvinsi, String cityId, String namaKota, String kodePos, String alamatLengkap, String userId) {
+        return mServiceInterface.addAlamatCall(
+                convertPlainString(nama), convertPlainString(nomorHp),
+                convertPlainString(provinsiId),  convertPlainString(namaProvinsi),
+                convertPlainString(cityId), convertPlainString(namaKota),
+                convertPlainString(kodePos), convertPlainString(alamatLengkap), convertPlainString(userId));
+    }
+
 
 
 

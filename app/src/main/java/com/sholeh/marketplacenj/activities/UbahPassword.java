@@ -45,8 +45,6 @@ public class UbahPassword extends AppCompatActivity implements View.OnClickListe
 
 
 
-//        Toast.makeText(this, "idkonsumen: "+id_konsumen , Toast.LENGTH_SHORT).show();
-
 
         toolBarisi = findViewById(R.id.toolbar);
         toolBarisi.setTitle("Ubah Password");

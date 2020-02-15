@@ -1,7 +1,6 @@
 package com.sholeh.marketplacenj.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.IntentCompat;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,31 +8,17 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.sholeh.marketplacenj.APIInterface;
-import com.sholeh.marketplacenj.CONSTANTS;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.ServiceWrapper;
-import com.sholeh.marketplacenj.adapter.adapterspin;
-import com.sholeh.marketplacenj.respon.RegRegristasi;
-import com.sholeh.marketplacenj.model.city.ItemCity;
-import com.sholeh.marketplacenj.model.province.ItemProvince;
-import com.sholeh.marketplacenj.util.AppUtilits;
-import com.sholeh.marketplacenj.util.NetworkUtility;
-
-import java.util.ArrayList;
+import com.sholeh.marketplacenj.respon.ResRegristasi;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
     private String TAG = "RegisterActivity";
@@ -137,11 +122,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
 //            if (!validasi()) return;
             ServiceWrapper serviceWrapper = new ServiceWrapper(null);
-            Call<RegRegristasi> callNewREgistration = serviceWrapper.newUserRegistrationCall(
+            Call<ResRegristasi> callNewREgistration = serviceWrapper.newUserRegistrationCall(
                     namalengkap_, username_, password_,  nomorHp_, email_, statusA_);
-            callNewREgistration.enqueue(new Callback<RegRegristasi>() {
+            callNewREgistration.enqueue(new Callback<ResRegristasi>() {
                 @Override
-                public void onResponse(Call<RegRegristasi> call, Response<RegRegristasi> response) {
+                public void onResponse(Call<ResRegristasi> call, Response<ResRegristasi> response) {
                     Toast.makeText(RegisterActivity.this, "res"+response, Toast.LENGTH_SHORT).show();
 
                     if (response.body() != null && response.isSuccessful()) {
@@ -177,7 +162,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 }
 
                 @Override
-                public void onFailure(Call<RegRegristasi> call, Throwable t) {
+                public void onFailure(Call<ResRegristasi> call, Throwable t) {
                     Log.e(TAG, " failure " + t.toString());
                     Toast.makeText(RegisterActivity.this, "rrr"+t, Toast.LENGTH_SHORT).show();
 
@@ -320,11 +305,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
 //            if (!validasi()) return;
 //            ServiceWrapper serviceWrapper = new ServiceWrapper(null);
-//            Call<RegRegristasi> callNewREgistration = serviceWrapper.newUserRegistrationCall(
+//            Call<ResRegristasi> callNewREgistration = serviceWrapper.newUserRegistrationCall(
 //                    namalengkap_, username_, password_, idprov_, idkota_, alamat_, kodepos_, nomorHp_, email_, statusA_);
-//            callNewREgistration.enqueue(new Callback<RegRegristasi>() {
+//            callNewREgistration.enqueue(new Callback<ResRegristasi>() {
 //                @Override
-//                public void onResponse(Call<RegRegristasi> call, Response<RegRegristasi> response) {
+//                public void onResponse(Call<ResRegristasi> call, Response<ResRegristasi> response) {
 //                    Toast.makeText(RegisterActivity.this, "res"+response, Toast.LENGTH_SHORT).show();
 //
 //                    if (response.body() != null && response.isSuccessful()) {
@@ -360,7 +345,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 //                }
 //
 //                @Override
-//                public void onFailure(Call<RegRegristasi> call, Throwable t) {
+//                public void onFailure(Call<ResRegristasi> call, Throwable t) {
 //                    Log.e(TAG, " failure " + t.toString());
 //                    Toast.makeText(RegisterActivity.this, "rrr"+t, Toast.LENGTH_SHORT).show();
 //

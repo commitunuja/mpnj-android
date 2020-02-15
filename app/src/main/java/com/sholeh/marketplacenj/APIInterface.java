@@ -1,7 +1,8 @@
 package com.sholeh.marketplacenj;
 
 import com.sholeh.marketplacenj.model.Model;
-import com.sholeh.marketplacenj.respon.RegRegristasi;
+import com.sholeh.marketplacenj.respon.ResAddAlamat;
+import com.sholeh.marketplacenj.respon.ResRegristasi;
 import com.sholeh.marketplacenj.model.city.ItemCity;
 import com.sholeh.marketplacenj.model.province.ItemProvince;
 import com.sholeh.marketplacenj.respon.ResNewPassword;
@@ -12,7 +13,6 @@ import java.util.List;
 
 import okhttp3.RequestBody;
 import retrofit2.Call;
-import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -43,7 +43,7 @@ public interface APIInterface {
     // signup konsumen
     @Multipart
     @POST("api/konsumen")
-    Call<RegRegristasi> registerKonsumenCall(@Part("nama_lengkap") RequestBody namaLengkap,
+    Call<ResRegristasi> registerKonsumenCall(@Part("nama_lengkap") RequestBody namaLengkap,
                                              @Part("username") RequestBody username,
                                              @Part("password") RequestBody password,
                                              @Part("nomor_hp") RequestBody nomorHp,
@@ -70,6 +70,18 @@ public interface APIInterface {
     Call<ResProfil> getDataProfil(
             @Path("id_konsumen") String idKonsumen
     );
+
+    @Multipart
+    @POST("api/konsumen/alamat")
+    Call<ResAddAlamat> addAlamatCall(@Part("nama") RequestBody nama,
+                                     @Part("nomor_telepon") RequestBody nomorTelepon,
+                                     @Part("provinsi_id") RequestBody provinsiId,
+                                     @Part("nama_provinsi") RequestBody namaProvinsi,
+                                     @Part("city_id") RequestBody cityId,
+                                     @Part("nama_kota") RequestBody namaKota,
+                                     @Part("kode_pos") RequestBody kodePos,
+                                     @Part("alamat_lengkap") RequestBody alamatLengkap,
+                                     @Part("user_id") RequestBody userId);
 
 
 }

@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -82,7 +83,8 @@ public class AlamatActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.fab_alamat:
-                Toast.makeText(this, "tambah alamat", Toast.LENGTH_SHORT).show();
+              startActivity(new Intent(this, AddAlamat.class));
+              finish();
                 break;
 
 

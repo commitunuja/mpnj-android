@@ -4,7 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 
-public class RegRegristasi { // respon NEW USER REGRISTRATION //
+public class ResRegristasi { // respon NEW USER REGRISTRATION //
     @SerializedName("pesan")
     @Expose
     private String pesan;

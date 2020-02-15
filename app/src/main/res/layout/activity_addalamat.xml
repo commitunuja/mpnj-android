@@ -48,7 +48,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Username"
+                        android:text="Nomor HP"
                         android:textColor="#000"
                         android:textSize="16dp"
                         android:layout_marginBottom="5dp"/>
@@ -56,9 +56,10 @@
                     <EditText
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
+                        android:inputType="number"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
-                        android:id="@+id/edUsername"
+                        android:id="@+id/edNomorHP"
                         android:layout_marginBottom="15dp"
                         android:background="@drawable/round_spinner"/>
                     <requestFocus/>
@@ -121,7 +122,6 @@
                         android:background="@drawable/round_spinner"/>
                     <requestFocus/>
                     <TextView
-
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Kode Pos"
@@ -142,81 +142,8 @@
                     <requestFocus/>
 
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Nomor HP"
-                        android:textColor="#000"
-                        android:textSize="16dp"
-                        android:layout_marginBottom="5dp"/>
-
-                    <EditText
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:inputType="number"
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:id="@+id/edNomorHP"
-                        android:layout_marginBottom="15dp"
-                        android:background="@drawable/round_spinner"/>
-                    <requestFocus/>
 
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Email"
-                        android:textColor="#000"
-                        android:textSize="16dp"
-                        android:layout_marginBottom="5dp"/>
-
-                    <EditText
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:inputType="textEmailAddress"
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:id="@+id/edEmail"
-                        android:layout_marginBottom="15dp"
-                        android:background="@drawable/round_spinner"/>
-                    <requestFocus/>
-
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Password"
-                        android:textColor="#000"
-                        android:textSize="16dp"
-                        android:layout_marginBottom="5dp"/>
-                    <EditText
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:inputType="textPassword"
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:id="@+id/edPassword"
-                        android:layout_marginBottom="15dp"
-                        android:background="@drawable/round_spinner"/>
-                    <requestFocus/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Konfirmasi Password"
-                        android:textColor="#000"
-                        android:textSize="16dp"
-                        android:layout_marginBottom="5dp"/>
-                    <EditText
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:inputType="textPassword"
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:id="@+id/edKonfirmasiPassword"
-                        android:layout_marginBottom="15dp"
-                        android:background="@drawable/round_spinner"/>
-                    <requestFocus/>
 
                 </LinearLayout>
                 <!--//-->
@@ -231,42 +158,18 @@
                 android:layout_height="wrap_content">
                 <Button
                     android:layout_marginTop="5dp"
-                    android:id="@+id/btnSimpank"
+                    android:id="@+id/btnSimpanAlamat"
                     android:layout_width="250dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:background="@drawable/rect1_2"
                     android:padding="15dp"
-                    android:text="Daftar"
+                    android:text="Simpan"
                     android:textColor="@color/white" />
                 <requestFocus/>
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:id="@+id/layout_signin"
-                android:layout_below="@id/lnBtnDaftar"
-                android:gravity="center_horizontal"
-                android:layout_marginTop="@dimen/padding_medium_10dp"
-                android:layout_marginBottom="@dimen/padding_medium_10dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/already_member"
-                    android:text="Sudah menjadi anggota"
-                    android:textColor="@color/txt_color"
-                    android:layout_marginRight="@dimen/padding_small_5"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/signin_here"
-                    android:text="Login"
-                    android:textColor="@color/colorAccent" />
-            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 
