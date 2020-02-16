@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/crMain"
@@ -13,18 +14,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/AppTheme.AppBarOverlay">
-            <androidx.appcompat.widget.Toolbar
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:id="@+id/toolbar"
-                android:background="@color/colorAccent"
-                app:popupTheme="@style/AppTheme.PopupOverlay">
-            </androidx.appcompat.widget.Toolbar>
-        </com.google.android.material.appbar.AppBarLayout>
+
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/svHome"
@@ -39,90 +29,62 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <LinearLayout
+            <RelativeLayout
+                android:id="@+id/rellay1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:orientation="horizontal"
-                android:padding="1dp">
+                android:background="@drawable/grad"
+                android:paddingBottom="20dp">
 
-
-                <FrameLayout
-
+                <RelativeLayout
+                    android:id="@+id/imgUser"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center">
-
-                    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-                        android:id="@+id/profile_image"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_alignParentTop="true"
-                        android:layout_centerHorizontal="true"
-                        android:layout_gravity="right"
-                        android:layout_marginTop="5dp"
-                        android:background="@drawable/man"
-                        android:padding="@dimen/value_5"
-                        android:paddingTop="5dp"
-                        android:scaleType="centerCrop"
-                        app:civ_border_color="@color/colorPrimaryDark"
-                        app:civ_border_width="1dp"
-                        app:srcCompat="@drawable/man" />
-
-                    <ImageView
-                        android:id="@+id/ivEdit"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/circle_border">
+                    <FrameLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="bottom|end"
-                        android:layout_marginEnd="@dimen/value_2"
-                        android:layout_marginRight="@dimen/value_2"
-                        android:layout_marginBottom="@dimen/value_8"
-                        android:background="@drawable/black_round_corner_button"
-                        android:padding="5dp"
-                        app:srcCompat="@drawable/ic_edit" />
-                </FrameLayout>
+                        android:layout_gravity="center">
 
+                        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                            android:id="@+id/profile_image"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true"
+                            android:layout_gravity="right"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/man"
+                            android:padding="@dimen/value_5"
+                            android:paddingTop="5dp"
+                            android:scaleType="centerCrop"
+                            app:civ_border_color="@color/colorPrimaryDark"
+                            app:civ_border_width="1dp"
+                            app:srcCompat="@drawable/man" />
 
-                <LinearLayout
-                    android:id="@+id/l_ex"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:orientation="vertical">
-
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <EditText
-                            android:id="@+id/tv_namaProfil"
+                        <ImageView
+                            android:id="@+id/ivEdit"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginTop="60dp"
-                            android:background="@drawable/custom_edittext"
-                            android:text="Nama"
-                            android:textAlignment="textStart"
-                            android:textColor="#102631"
-                            android:textSize="18dp"
-                            android:textStyle="bold" />
+                            android:layout_gravity="bottom|end"
+                            android:layout_marginEnd="@dimen/value_2"
+                            android:layout_marginRight="@dimen/value_2"
+                            android:layout_marginBottom="@dimen/value_8"
+                            android:background="@drawable/black_round_corner_button"
+                            android:padding="5dp"
+                            app:srcCompat="@drawable/ic_edit" />
+                    </FrameLayout>
 
-                    </LinearLayout>
+                </RelativeLayout>
+            </RelativeLayout>
 
-                </LinearLayout>
-
-
-            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/LinearTask"
                 android:layout_width="match_parent"
-
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
                 android:orientation="vertical">
 
 
@@ -132,12 +94,10 @@
                     android:layout_below="@+id/linlay1">
 
                     <LinearLayout
+                        android:padding="15dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginRight="30dp"
                         android:orientation="vertical">
 
                         <LinearLayout
@@ -153,13 +113,48 @@
                                 android:textSize="12sp" />
 
                             <EditText
-                                android:layout_width="wrap_content"
+                                android:inputType="textAutoCorrect"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/custom_edittext"
                                 android:fontFamily="sans-serif-light"
                                 android:text="user"
                                 android:textColor="#000000"
                                 android:textSize="14sp" />
+                            <requestFocus/>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_marginTop="15dp"
+                                android:background="@color/grey" />
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_marginTop="15dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Nama"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="12sp" />
+
+                            <EditText
+                                android:inputType="textAutoCorrect"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/custom_edittext"
+                                android:fontFamily="sans-serif-light"
+                                android:text="Sholeh"
+                                android:textColor="#000000"
+                                android:textSize="14sp" />
+                            <requestFocus/>
 
                             <View
                                 android:layout_width="match_parent"
@@ -183,13 +178,17 @@
                                 android:textSize="12sp" />
 
                             <EditText
-                                android:layout_width="wrap_content"
+                                android:drawableRight="@drawable/arrow"
+                                android:enabled="false"
+                                android:inputType="number"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/custom_edittext"
                                 android:fontFamily="sans-serif-light"
                                 android:text="+628834435"
                                 android:textColor="#000000"
                                 android:textSize="14sp" />
+                            <requestFocus/>
 
                             <View
                                 android:layout_width="match_parent"
@@ -213,13 +212,17 @@
                                 android:textSize="13sp" />
 
                             <EditText
-                                android:layout_width="wrap_content"
+                                android:drawableRight="@drawable/arrow"
+                                android:enabled="false"
+                                android:inputType="textEmailAddress"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/custom_edittext"
                                 android:fontFamily="sans-serif-light"
                                 android:text="sholeh@gmail.com"
                                 android:textColor="#000000"
                                 android:textSize="14sp" />
+                            <requestFocus/>
 
                             <View
                                 android:layout_width="match_parent"
@@ -237,8 +240,30 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/lnBtnDaftar"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <Button
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/btnSimpanProfil"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/rect1_2"
+                    android:padding="15dp"
+                    android:text="Update"
+                    android:textColor="@color/white" />
+                <requestFocus/>
+            </LinearLayout>
+
+
 
         </LinearLayout>
+
+
 
 
         </androidx.core.widget.NestedScrollView>

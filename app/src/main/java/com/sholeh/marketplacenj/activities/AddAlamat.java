@@ -46,6 +46,8 @@ public class AddAlamat extends AppCompatActivity implements View.OnClickListener
 
     SharedPreferences preferences;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -255,7 +257,7 @@ public class AddAlamat extends AppCompatActivity implements View.OnClickListener
 ////            if (!validasi()) return;
             ServiceWrapper serviceWrapper = new ServiceWrapper(null);
             Call<ResAddAlamat> callNewAlamat= serviceWrapper.newAlamatCall(
-                    namalengkap_, nomorHp_,idprov_, namaProvinsi, idkota_,namaKota, kodepos_, alamat_, userId);
+                    namalengkap_, nomorHp_,idprov_, namaProvinsi, idkota_,namaKota, kodepos_, alamat_, userId,"konsumen");
             callNewAlamat.enqueue(new Callback<ResAddAlamat>() {
                 @Override
                 public void onResponse(Call<ResAddAlamat> call, Response<ResAddAlamat> response) {
@@ -263,7 +265,6 @@ public class AddAlamat extends AppCompatActivity implements View.OnClickListener
 
                     if (response.body() != null && response.isSuccessful()) {
                         if (response.body().getPesan().equalsIgnoreCase("Sukses!")) {
-
                             Toast.makeText(AddAlamat.this, "Berhasil Menambah Alamat", Toast.LENGTH_SHORT).show();
 
                                 // start home activity

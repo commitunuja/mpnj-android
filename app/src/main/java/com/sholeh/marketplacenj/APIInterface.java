@@ -82,7 +82,9 @@ public interface APIInterface {
                                      @Part("nama_kota") RequestBody namaKota,
                                      @Part("kode_pos") RequestBody kodePos,
                                      @Part("alamat_lengkap") RequestBody alamatLengkap,
-                                     @Part("user_id") RequestBody userId);
+                                     @Part("user_id") RequestBody userId,
+                                     @Part("user_type") RequestBody userType);
+
 
 
 }

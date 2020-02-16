@@ -35,6 +35,7 @@
                         android:layout_marginBottom="5dp"/>
 
                     <EditText
+                        android:inputType="textAutoCorrect"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:layout_width="match_parent"
@@ -54,6 +55,7 @@
                         android:layout_marginBottom="5dp"/>
 
                     <EditText
+
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:inputType="number"
@@ -114,7 +116,6 @@
                     <EditText
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
-                        android:inputType="textAutoCorrect"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
                         android:id="@+id/edAlamat"
@@ -130,7 +131,6 @@
                         android:layout_marginBottom="5dp"/>
 
                     <EditText
-
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:inputType="number"

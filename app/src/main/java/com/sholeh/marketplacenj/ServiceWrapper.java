@@ -64,12 +64,12 @@ public class ServiceWrapper { // ini service wrapper untuk konversi dan menampun
     }
 
     //    new alamat
-    public Call<ResAddAlamat> newAlamatCall(String nama, String nomorHp, String provinsiId, String namaProvinsi, String cityId, String namaKota, String kodePos, String alamatLengkap, String userId) {
+    public Call<ResAddAlamat> newAlamatCall(String nama, String nomorHp, String provinsiId, String namaProvinsi, String cityId, String namaKota, String kodePos, String alamatLengkap, String userId, String userType) {
         return mServiceInterface.addAlamatCall(
                 convertPlainString(nama), convertPlainString(nomorHp),
                 convertPlainString(provinsiId),  convertPlainString(namaProvinsi),
                 convertPlainString(cityId), convertPlainString(namaKota),
-                convertPlainString(kodePos), convertPlainString(alamatLengkap), convertPlainString(userId));
+                convertPlainString(kodePos), convertPlainString(alamatLengkap), convertPlainString(userId),  convertPlainString(userType));
     }
 
 
