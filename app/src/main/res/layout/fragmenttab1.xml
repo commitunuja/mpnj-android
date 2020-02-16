@@ -50,6 +50,26 @@
                 android:layout_height="1dp"
                 android:background="@color/line_gray" />
             <TextView
+                android:id="@+id/tv_myprofil"
+                style="@style/txt_black_medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/value_10"
+                android:gravity="start"
+                android:padding="@dimen/value_8"
+                android:text="Profil"
+                android:textAlignment="viewStart"
+                android:textDirection="locale"
+                app:drawableStartCompat="@drawable/ic_orang_blue" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line_gray" />
+
+
+            <TextView
                 android:id="@+id/tvAlamat"
                 style="@style/txt_black_medium"
                 android:layout_width="match_parent"

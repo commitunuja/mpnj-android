@@ -1,320 +1,249 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/crMain"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:fab="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/bg">
+    android:background="@color/bg"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <LinearLayout
+        <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="1dp">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                app:civ_border_color="@color/colorPrimaryDark"
-                app:civ_border_width="1dp"
-                android:layout_centerHorizontal="true"
-                android:layout_alignParentTop="true"
-                android:src="@drawable/ic_orang_grey_24dp"
-                android:id="@+id/imagecircle_profile"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_gravity="right"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:paddingTop="5dp"
-                android:scaleType="centerCrop"
-
-                />
-
-
-
-            <LinearLayout
-                android:id="@+id/l_ex"
-                android:gravity="right"
-                android:orientation="vertical"
+            android:theme="@style/AppTheme.AppBarOverlay">
+            <androidx.appcompat.widget.Toolbar
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="?attr/actionBarSize"
+                android:id="@+id/toolbar"
+                android:background="@color/colorAccent"
+                app:popupTheme="@style/AppTheme.PopupOverlay">
+            </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.AppBarLayout>
 
-                <Button
-                    android:padding="10dp"
-                    android:id="@+id/btn_exit_profile"
-                    android:background="@drawable/ic_exit"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp" />
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/svHome"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:overScrollMode="never">
 
-                    <TextView
-                        android:textColor="#102631"
-                        android:id="@+id/tv_namaProfil"
-                        android:textSize="18dp"
-                        android:textAlignment="textStart"
-                        android:textStyle="bold"
-                        android:layout_marginLeft="15dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Nama" />
-                    <Button
-                        android:id="@+id/btn_EditProfil"
-                        android:layout_below="@+id/tv_namaProfil"
-                        android:paddingTop="5dp"
-                        android:textSize="12sp"
-                        android:textAppearance="?android:textAppearance"
-                        android:textColor="#102631"
-                        android:padding="1dp"
-                        android:background="@drawable/round2"
-                        android:layout_marginLeft="15dp"
-                        android:text="Edit Profil"
-                        android:layout_width="wrap_content"
-                        android:layout_height="25dp" />
-
-
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-
-
-
-
-
-
-        </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/LinearTask"
-            android:layout_marginTop="5dp"
-            android:background="#fff"
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-
-
-            <ScrollView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:orientation="horizontal"
+                android:padding="1dp">
+
+
+                <FrameLayout
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center">
+
+                    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/profile_image"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="right"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/man"
+                        android:padding="@dimen/value_5"
+                        android:paddingTop="5dp"
+                        android:scaleType="centerCrop"
+                        app:civ_border_color="@color/colorPrimaryDark"
+                        app:civ_border_width="1dp"
+                        app:srcCompat="@drawable/man" />
+
+                    <ImageView
+                        android:id="@+id/ivEdit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|end"
+                        android:layout_marginEnd="@dimen/value_2"
+                        android:layout_marginRight="@dimen/value_2"
+                        android:layout_marginBottom="@dimen/value_8"
+                        android:background="@drawable/black_round_corner_button"
+                        android:padding="5dp"
+                        app:srcCompat="@drawable/ic_edit" />
+                </FrameLayout>
+
 
                 <LinearLayout
+                    android:id="@+id/l_ex"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
                     android:orientation="vertical">
-
 
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <EditText
+                            android:id="@+id/tv_namaProfil"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginTop="60dp"
+                            android:background="@drawable/custom_edittext"
+                            android:text="Nama"
+                            android:textAlignment="textStart"
+                            android:textColor="#102631"
+                            android:textSize="18dp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LinearTask"
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="vertical">
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/linlay1">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="30dp"
+                        android:orientation="vertical">
 
                         <LinearLayout
-
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
 
-
-
                             <TextView
-                                android:padding="4dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Username"
-                                android:textSize="14dp"
-                                android:layout_marginBottom="5dp"/>
-                            <TextView
-                                android:id="@+id/tv_username"
-                                android:padding="4dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:hint=".."
-                                android:textSize="12dp"
-                                android:layout_marginBottom="5dp"/>
-                            <requestFocus/>
-                            <View
-                                android:background="#B1B1B1"
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"></View>
-                            <TextView
-                                android:padding="4dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Nama Lengkap"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="12sp" />
 
-                                android:textSize="14dp"
-                                android:layout_marginBottom="5dp"/>
-                            <TextView
-                                android:id="@+id/tv_namalengkap"
-                                android:padding="4dp"
+                            <EditText
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:hint=".."
-                                android:textSize="12dp"
-                                android:layout_marginBottom="5dp"/>
-                            <requestFocus/>
+                                android:background="@drawable/custom_edittext"
+                                android:fontFamily="sans-serif-light"
+                                android:text="user"
+                                android:textColor="#000000"
+                                android:textSize="14sp" />
 
                             <View
-                                android:background="#B1B1B1"
                                 android:layout_width="match_parent"
-                                android:layout_height="1dp"></View>
-                            <TextView
-                                android:padding="4dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Provinsi"
-                                android:textSize="14dp"
-                                android:layout_marginBottom="5dp"/>
-                            <TextView
-                                android:id="@+id/tv_provinsi"
-                                android:padding="4dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:hint=".."
-                                android:textSize="12dp"
-                                android:layout_marginBottom="5dp"/>
-                            <requestFocus/>
-                            <View
-                                android:background="#B1B1B1"
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"></View>
-                            <TextView
-                                android:padding="4dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Kota"
-                                android:textSize="14dp"
-                                android:layout_marginBottom="5dp"/>
-                            <TextView
-                                android:id="@+id/kota"
-                                android:padding="4dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:hint=".."
-                                android:textSize="12dp"
-                                android:layout_marginBottom="5dp"/>
-                            <requestFocus/>
-                            <View
-                                android:background="#B1B1B1"
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"></View>
-                            <TextView
-                                android:padding="4dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Alamat"
-                                android:textSize="14dp"
-                                android:layout_marginBottom="5dp"/>
-                            <TextView
-                                android:id="@+id/tv_alamat"
-                                android:padding="4dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:hint=".."
-                                android:textSize="12dp"
-                                android:layout_marginBottom="5dp"/>
-                            <requestFocus/>
-                            <View
-                                android:background="#B1B1B1"
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"></View>
-                            <TextView
-                                android:padding="5dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Kode Pos"
-                                android:textSize="14dp"
-                                android:layout_marginBottom="5dp"/>
-                            <TextView
-                                android:id="@+id/tv_kodepos"
-                                android:padding="4dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:hint=".."
-                                android:textSize="12dp"
-                                android:layout_marginBottom="5dp"/>
-                            <requestFocus/>
-                            <View
-                                android:background="#B1B1B1"
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"></View>
-
-                            <TextView
-                                android:padding="5dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Nomor HP"
-                                android:textSize="14dp"
-                                android:layout_marginBottom="5dp"/>
-                            <TextView
-                                android:id="@+id/tv_nomorHP"
-                                android:padding="4dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:hint=".."
-                                android:textSize="12dp"
-                                android:layout_marginBottom="5dp"/>
-                            <requestFocus/>
-                            <View
-                                android:background="#B1B1B1"
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"></View>
-
-                            <TextView
-                                android:padding="5dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Email"
-                                android:textSize="14dp"
-                                android:layout_marginBottom="5dp"/>
-                            <TextView
-                                android:id="@+id/tv_Email"
-                                android:padding="4dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:hint=".."
-                                android:textSize="12dp"
-                                android:layout_marginBottom="5dp"/>
-                            <requestFocus/>
-                            <View
-                                android:background="#B1B1B1"
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"></View>
+                                android:layout_height="1dp"
+                                android:layout_marginTop="15dp"
+                                android:background="@color/grey" />
 
                         </LinearLayout>
 
-                        <!--//-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Nomor Hp"
+                                android:textColor="@color/colorPrimaryTransperent"
+                                android:textSize="12sp" />
+
+                            <EditText
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/custom_edittext"
+                                android:fontFamily="sans-serif-light"
+                                android:text="+628834435"
+                                android:textColor="#000000"
+                                android:textSize="14sp" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_marginTop="15dp"
+                                android:background="@color/grey" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Email"
+                                android:textColor="@color/colorPrimaryTransperent"
+                                android:textSize="13sp" />
+
+                            <EditText
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/custom_edittext"
+                                android:fontFamily="sans-serif-light"
+                                android:text="sholeh@gmail.com"
+                                android:textColor="#000000"
+                                android:textSize="14sp" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_marginTop="15dp"
+                                android:background="@color/grey" />
+
+                        </LinearLayout>
+
+
                     </LinearLayout>
 
+                </RelativeLayout>
 
 
-                </LinearLayout>
-            </ScrollView>
-
-
+            </LinearLayout>
 
 
         </LinearLayout>
 
 
-
-
+        </androidx.core.widget.NestedScrollView>
 
 
     </LinearLayout>
 
-
-
-
-
-</RelativeLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

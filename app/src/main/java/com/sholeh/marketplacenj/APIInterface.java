@@ -71,6 +71,7 @@ public interface APIInterface {
             @Path("id_konsumen") String idKonsumen
     );
 
+    // add new address
     @Multipart
     @POST("api/konsumen/alamat")
     Call<ResAddAlamat> addAlamatCall(@Part("nama") RequestBody nama,
