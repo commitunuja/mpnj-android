@@ -113,6 +113,7 @@
                                 android:textSize="12sp" />
 
                             <EditText
+                                android:id="@+id/edUsername"
                                 android:inputType="textAutoCorrect"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -146,6 +147,7 @@
                                 android:textSize="12sp" />
 
                             <EditText
+                                android:id="@+id/edNama"
                                 android:inputType="textAutoCorrect"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -178,6 +180,7 @@
                                 android:textSize="12sp" />
 
                             <EditText
+                                android:id="@+id/edNohp"
                                 android:drawableRight="@drawable/arrow"
                                 android:enabled="false"
                                 android:inputType="number"
@@ -212,6 +215,7 @@
                                 android:textSize="13sp" />
 
                             <EditText
+                                android:id="@+id/edEmail"
                                 android:drawableRight="@drawable/arrow"
                                 android:enabled="false"
                                 android:inputType="textEmailAddress"
@@ -248,7 +252,7 @@
                 android:layout_height="wrap_content">
                 <Button
                     android:layout_marginTop="5dp"
-                    android:id="@+id/btnSimpanProfil"
+                    android:id="@+id/btnUpdateProfil"
                     android:layout_width="250dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
