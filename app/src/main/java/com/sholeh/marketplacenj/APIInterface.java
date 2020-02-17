@@ -65,6 +65,8 @@ public interface APIInterface {
     );
 
 
+
+
     //  tampil data profile
     @GET("api/profil/{id_konsumen}")
     Call<ResProfil> getDataProfil(
@@ -86,6 +88,21 @@ public interface APIInterface {
                                      @Part("user_type") RequestBody userType);
 
 
+    ///  ubah password
+    @FormUrlEncoded
+    @PUT("api/konsumen/edit/alamat/{id_alamat}")
+    Call<ResAddAlamat> KonsumenUbahAlamat(
+            @Path("id_alamat") String idAlamat,
+            @Field("nama") String nama,
+            @Field("nomor_telepon") String nomorTelepon,
+            @Field("provinsi_id") String provinsiId,
+            @Field("nama_provinsi") String namaProvinsi,
+            @Field("city_id") String cityId,
+            @Field("nama_kota") String namaKota,
+            @Field("kode_pos") String kodePos,
+            @Field("alamat_lengkap") String userId,
+            @Field("user_type") String userType
+    );
 
 }
 

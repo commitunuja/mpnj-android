@@ -65,5 +65,6 @@
     <color name="color">#767578</color>
     <color name="text_hitam">#223038</color>
     <color name="devider">#ebebeb</color>
+    <color name="vieb_black_transparant">#08000000</color>
 
 </resources>

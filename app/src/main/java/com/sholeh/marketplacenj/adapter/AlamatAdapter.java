@@ -1,6 +1,7 @@
 package com.sholeh.marketplacenj.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.activities.AlamatActivity;
+import com.sholeh.marketplacenj.activities.DetailAlamat;
 import com.sholeh.marketplacenj.model.AlamatModel;
 
 import java.util.ArrayList;
@@ -34,7 +36,7 @@ public class AlamatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     }
     private class AlamatItemView extends RecyclerView.ViewHolder {
-        TextView tvxnamaCustomer,  tvxNoHP, tvxAlamat, tvxKec, tvxKab, tvxProvinsi, tvxKodePos, tvxStatusAlamat ;
+        TextView tvxidAlamat, tvxnamaCustomer,  tvxNoHP, tvxAlamat, tvxKec, tvxKab, tvxProvinsi, tvxKodePos, tvxStatusAlamat ;
         ImageView imageselect;
         CardView cvAlamat;
 
@@ -69,6 +71,7 @@ public class AlamatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         //  Log.e(TAG, "bind view "+ position);
         final AlamatModel model =  alamat_models.get(position);
 
+
         ((AlamatItemView) holder).tvxnamaCustomer.setText(model.getNamaLengkap());
         ((AlamatItemView) holder).tvxNoHP.setText(model.getNomorHP());
         ((AlamatItemView) holder).tvxAlamat.setText(model.getAlamatLengkap());
@@ -97,11 +100,19 @@ public class AlamatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         ((AlamatItemView) holder).cvAlamat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(mContext, "klik", Toast.LENGTH_SHORT).show();
+
 
                 //   Log.e(TAG, "  user select the addres " + model.getaddress_id() );
 
-//                ((AlamatActivity) mContext).addressid = model.getaddress_id();
+//                ((AlamatItemView) holder).tvxnamaCustomer.setText(model.getIdAlamat());
+
+
+
+                Intent intent1 = new Intent(mContext, DetailAlamat.class);
+                intent1.putExtra("alamat_id", model.getIdAlamat());
+                mContext.startActivity(intent1);
+
+//                ((AlamatActivity) mContext).    addressid = model.getaddress_id();
 ////
 //                for (int i=0; i<addrlayoutsList.size(); i++){
 //                    addrlayoutsList.get (i).setBackgroundResource(R.drawable.boarder_black_rounder_white);
