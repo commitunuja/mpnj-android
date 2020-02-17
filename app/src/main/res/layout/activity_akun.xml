@@ -119,7 +119,6 @@
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/custom_edittext"
                                 android:fontFamily="sans-serif-light"
-                                android:text="user"
                                 android:textColor="#000000"
                                 android:textSize="14sp" />
                             <requestFocus/>
@@ -128,7 +127,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"
                                 android:layout_marginTop="15dp"
-                                android:background="@color/grey" />
+                                android:background="@color/vieb_black_transparant" />
 
                         </LinearLayout>
 
@@ -153,16 +152,14 @@
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/custom_edittext"
                                 android:fontFamily="sans-serif-light"
-                                android:text="Sholeh"
                                 android:textColor="#000000"
                                 android:textSize="14sp" />
-                            <requestFocus/>
 
                             <View
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"
                                 android:layout_marginTop="15dp"
-                                android:background="@color/grey" />
+                                android:background="@color/vieb_black_transparant" />
 
                         </LinearLayout>
 
@@ -181,23 +178,21 @@
 
                             <EditText
                                 android:id="@+id/edNohp"
-                                android:drawableRight="@drawable/arrow"
+                                android:drawableRight="@drawable/ic_keyboard_arrow_right"
                                 android:enabled="false"
                                 android:inputType="number"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/custom_edittext"
                                 android:fontFamily="sans-serif-light"
-                                android:text="+628834435"
                                 android:textColor="#000000"
                                 android:textSize="14sp" />
-                            <requestFocus/>
 
                             <View
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"
                                 android:layout_marginTop="15dp"
-                                android:background="@color/grey" />
+                                android:background="@color/vieb_black_transparant" />
 
                         </LinearLayout>
 
@@ -216,23 +211,21 @@
 
                             <EditText
                                 android:id="@+id/edEmail"
-                                android:drawableRight="@drawable/arrow"
+                                android:drawableRight="@drawable/ic_keyboard_arrow_right"
                                 android:enabled="false"
                                 android:inputType="textEmailAddress"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/custom_edittext"
                                 android:fontFamily="sans-serif-light"
-                                android:text="sholeh@gmail.com"
                                 android:textColor="#000000"
                                 android:textSize="14sp" />
-                            <requestFocus/>
 
                             <View
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"
                                 android:layout_marginTop="15dp"
-                                android:background="@color/grey" />
+                                android:background="@color/vieb_black_transparant" />
 
                         </LinearLayout>
 

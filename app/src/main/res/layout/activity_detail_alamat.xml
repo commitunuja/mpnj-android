@@ -79,13 +79,13 @@
                             android:textSize="12sp" />
 
                         <EditText
+                            android:id="@+id/ed_nama"
                             android:layout_width="match_parent"
                             android:layout_height="20sp"
                             android:layout_weight="1"
                             android:background="@drawable/custom_edittext"
                             android:gravity="right"
                             android:inputType="textAutoCorrect"
-                            android:text="Muhammad Solehudin"
                             android:textSize="12sp" />
 
                         <requestFocus />
@@ -122,13 +122,13 @@
                             android:textSize="12sp" />
 
                         <EditText
+                            android:id="@+id/ed_nohp"
                             android:layout_width="match_parent"
                             android:layout_height="20sp"
                             android:layout_weight="1"
                             android:background="@drawable/custom_edittext"
                             android:gravity="right"
-                            android:inputType="textAutoCorrect"
-                            android:text="+62882336181538"
+                            android:inputType="number"
                             android:textSize="12sp" />
 
 
@@ -165,13 +165,13 @@
                             android:textSize="12sp" />
 
                         <EditText
+                            android:id="@+id/ed_prov"
                             android:layout_width="match_parent"
                             android:layout_height="20sp"
                             android:layout_weight="1"
                             android:background="@drawable/custom_edittext"
                             android:gravity="right"
                             android:inputType="textAutoCorrect"
-                            android:text="Jawa Timur"
                             android:textSize="12sp" />
 
 
@@ -209,13 +209,13 @@
                             android:textSize="12sp" />
 
                         <EditText
+                            android:id="@+id/ed_kota"
                             android:layout_width="match_parent"
                             android:layout_height="20sp"
                             android:layout_weight="1"
                             android:background="@drawable/custom_edittext"
                             android:gravity="right"
                             android:inputType="textAutoCorrect"
-                            android:text="Probolinggo"
                             android:textSize="12sp" />
 
 
@@ -232,6 +232,7 @@
 
 
                 <LinearLayout
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/value_5"
@@ -254,6 +255,7 @@
                             android:textSize="12sp" />
 
                         <EditText
+                            android:id="@+id/ed_kec"
                             android:layout_width="match_parent"
                             android:layout_height="20sp"
                             android:layout_weight="1"
@@ -269,6 +271,7 @@
                 </LinearLayout>
 
                 <View
+                    android:visibility="gone"
                     android:layout_width="300dp"
                     android:layout_height="1dp"
                     android:layout_marginTop="10dp"
@@ -299,13 +302,13 @@
                             android:textSize="12sp" />
 
                         <EditText
+                            android:id="@+id/ed_kodepos"
+                            android:inputType="number"
                             android:layout_width="match_parent"
                             android:layout_height="20sp"
                             android:layout_weight="1"
                             android:background="@drawable/custom_edittext"
                             android:gravity="right"
-                            android:inputType="textAutoCorrect"
-                            android:text="67291"
                             android:textSize="12sp" />
 
 
@@ -343,13 +346,13 @@
                             android:textSize="12sp" />
 
                         <EditText
+                            android:id="@+id/ed_alamat"
                             android:layout_width="match_parent"
                             android:layout_height="20sp"
                             android:layout_weight="1"
                             android:background="@drawable/custom_edittext"
                             android:gravity="left"
                             android:inputType="textAutoCorrect"
-                            android:text="Jl. Kyai Haji Zaini Mun'im, Karanganyar, Paiton, Probolinggo, Jawatimur, Indonesia"
                             android:textSize="12sp" />
 
                     </LinearLayout>
@@ -387,7 +390,7 @@
 
 
                 <TextView
-                    android:textColor="#F44336"
+                    android:textColor="#FF5441"
                     android:id="@+id/tvHapus"
                     style="@style/txt_white_medium"
                     android:layout_width="0dp"

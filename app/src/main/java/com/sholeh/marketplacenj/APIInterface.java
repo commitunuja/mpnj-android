@@ -2,6 +2,7 @@ package com.sholeh.marketplacenj;
 
 import com.sholeh.marketplacenj.model.Model;
 import com.sholeh.marketplacenj.respon.ResAddAlamat;
+import com.sholeh.marketplacenj.respon.ResDetailAlamat;
 import com.sholeh.marketplacenj.respon.ResRegristasi;
 import com.sholeh.marketplacenj.model.city.ItemCity;
 import com.sholeh.marketplacenj.model.province.ItemProvince;
@@ -87,8 +88,14 @@ public interface APIInterface {
                                      @Part("user_id") RequestBody userId,
                                      @Part("user_type") RequestBody userType);
 
+    //  tampil detail alamat
+    @GET("api/konsumen/tampil/alamat/{id_alamat}")
+    Call<ResDetailAlamat> getDetailAlamat(
+            @Path("id_alamat") String idAlamat
+    );
 
-    ///  ubah password
+
+    ///  ubah alamat
     @FormUrlEncoded
     @PUT("api/konsumen/edit/alamat/{id_alamat}")
     Call<ResAddAlamat> KonsumenUbahAlamat(

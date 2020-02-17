@@ -6,6 +6,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -72,6 +73,7 @@ public class AkunActivity extends AppCompatActivity implements View.OnClickListe
         call.enqueue(new Callback<ResProfil>() {
             @Override
             public void onResponse(Call<ResProfil> call, Response<ResProfil> response) {
+
 
                 tvDataProfil = response.body();
 
