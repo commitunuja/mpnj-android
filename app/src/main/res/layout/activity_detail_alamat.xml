@@ -164,7 +164,14 @@
                             android:text="Provinsi"
                             android:textSize="12sp" />
 
-                        <EditText
+                        <TextView
+                            android:visibility="gone"
+                            android:id="@+id/ed_Idprov"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:textColor="#000000"
                             android:id="@+id/ed_prov"
                             android:layout_width="match_parent"
                             android:layout_height="20sp"
@@ -172,7 +179,8 @@
                             android:background="@drawable/custom_edittext"
                             android:gravity="right"
                             android:inputType="textAutoCorrect"
-                            android:textSize="12sp" />
+                            android:textSize="12sp"
+                             />
 
 
                     </LinearLayout>
@@ -208,7 +216,16 @@
                             android:text="Kota/Kabupaten"
                             android:textSize="12sp" />
 
-                        <EditText
+                        <TextView
+                            android:visibility="gone"
+                            android:id="@+id/ed_Idkota"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+
+                        <TextView
+
+                            android:textColor="#000000"
                             android:id="@+id/ed_kota"
                             android:layout_width="match_parent"
                             android:layout_height="20sp"
@@ -217,6 +234,7 @@
                             android:gravity="right"
                             android:inputType="textAutoCorrect"
                             android:textSize="12sp" />
+
 
 
                     </LinearLayout>
@@ -253,6 +271,12 @@
                             android:layout_weight="1"
                             android:text="Kecamatan"
                             android:textSize="12sp" />
+
+                        <TextView
+                            android:visibility="gone"
+                            android:id="@+id/ed_IdKec"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
 
                         <EditText
                             android:id="@+id/ed_kec"

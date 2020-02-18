@@ -15,7 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.DetailAlamat"></activity>
+        <activity android:name=".activities.DetailAlamat"
+            android:theme="@style/AppBlack" ></activity>
         <activity android:name=".activities.AddAlamat" />
         <activity
             android:name=".activities.AlamatActivity"
