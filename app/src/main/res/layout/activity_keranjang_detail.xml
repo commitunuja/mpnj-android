@@ -9,5 +9,6 @@
 <androidx.recyclerview.widget.RecyclerView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/rv_detailkeranjang"/>
+    android:id="@+id/rv_detailkeranjang"
+    tools:listitem="@layout/item_keranjang_detail"/>
 </RelativeLayout>

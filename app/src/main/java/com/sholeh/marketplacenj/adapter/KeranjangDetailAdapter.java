@@ -10,20 +10,25 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sholeh.marketplacenj.R;
+import com.sholeh.marketplacenj.activities.KeranjangDetailActivity;
 import com.sholeh.marketplacenj.model.Keranjang;
 import com.sholeh.marketplacenj.model.Model;
+import com.sholeh.marketplacenj.model.keranjang.toko;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class KeranjangDetailAdapter extends RecyclerView.Adapter<KeranjangDetailAdapter.MyViewHolder> {
     private List<Model> mList;
-    private List<Keranjang>mListKeranjang;
+//    private List<toko>mListToko;
+  private ArrayList<HashMap<String, String>> mListToko;
     private Context ctx;
 
     public KeranjangDetailAdapter(Context ctx, List<Model> mList, List<Keranjang> mListKeranjang) {
         this.ctx = ctx;
         this.mList = mList;
-        this.mListKeranjang = mListKeranjang;
+        this.mListToko = this.mListToko;
     }
 
     @NonNull
@@ -37,12 +42,13 @@ public class KeranjangDetailAdapter extends RecyclerView.Adapter<KeranjangDetail
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Model dm = mList.get(position);
-        Keranjang kj = mListKeranjang.get(position);
-        holder.nama.setText(String.valueOf(dm.getNamaProduk()));
-//        holder.namatoko.setText(String);
-        holder.harga.setText(dm.getHargaJual());
-        holder.jumlah.setText(kj.getJumlah());
-        holder.dm = dm;
+        HashMap<String, String> kj = mListToko.get(position);
+//        holder.nama.setText(String.valueOf(dm.getNamaProduk()));
+//        holder.namatoko.setText(kj.get("nama_toko"));
+        holder.namatoko.setText(kj.get("nama_toko"));
+//        holder.harga.setText(dm.getHargaJual());
+//        holder.jumlah.setText(kj.getJumlah());
+//        holder.dm = dm;
     }
 
 
@@ -59,7 +65,7 @@ public class KeranjangDetailAdapter extends RecyclerView.Adapter<KeranjangDetail
         public MyViewHolder(View v) {
             super(v);
 
-            nama = (TextView) v.findViewById(R.id.tv_nama);
+            nama = (TextView) v.findViewById(R.id.tv_namatoko);
             harga = (TextView) v.findViewById(R.id.tv_harga);
             jumlah = (TextView) v.findViewById(R.id.tv_jumlah);
 

@@ -1,19 +1,24 @@
 
 package com.sholeh.marketplacenj.model;
 
-import java.util.ArrayList;
-import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.sholeh.marketplacenj.model.Foto;
+import com.sholeh.marketplacenj.model.Kategori;
+import com.sholeh.marketplacenj.model.Pelapak;
+
+import java.util.List;
 
 public class Model {
-
     @SerializedName("id_produk")
     @Expose
     private Integer idProduk;
     @SerializedName("nama_produk")
     @Expose
     private String namaProduk;
+    @SerializedName("kategori")
+    @Expose
+    private Kategori kategori;
     @SerializedName("satuan")
     @Expose
     private String satuan;
@@ -26,51 +31,27 @@ public class Model {
     @SerializedName("harga_jual")
     @Expose
     private Integer hargaJual;
-    @SerializedName("diskon")
-    @Expose
-    private Integer diskon;
     @SerializedName("stok")
     @Expose
     private Integer stok;
     @SerializedName("keterangan")
     @Expose
     private String keterangan;
-    @SerializedName("foto")
-    @Expose
-    private Object foto;
     @SerializedName("tipe_produk")
     @Expose
     private String tipeProduk;
-    @SerializedName("pelapak_id")
-    @Expose
-    private Integer pelapakId;
     @SerializedName("wishlist")
     @Expose
     private Integer wishlist;
     @SerializedName("terjual")
     @Expose
     private Integer terjual;
-    @SerializedName("created_at")
+    @SerializedName("foto")
     @Expose
-    private String createdAt;
-    @SerializedName("updated_at")
-    @Expose
-    private String updatedAt;
-    @SerializedName("kategori_produk_id")
-    @Expose
-    private Integer kategoriProdukId;
-    @SerializedName("foto_produk")
-    @Expose
-    private List<FotoProduk> fotoProduk = null;
-    @SerializedName("kategori")
-    @Expose
-    private Kategori kategori;
+    private List<Foto> foto = null;
     @SerializedName("pelapak")
     @Expose
     private Pelapak pelapak;
-    @SerializedName("keranjang")
-    @Expose
-    private List<Keranjang> keranjang = new ArrayList<>();
 
     public Integer getIdProduk() {
         return idProduk;
@@ -86,6 +67,14 @@ public class Model {
 
     public void setNamaProduk(String namaProduk) {
         this.namaProduk = namaProduk;
+    }
+
+    public Kategori getKategori() {
+        return kategori;
+    }
+
+    public void setKategori(Kategori kategori) {
+        this.kategori = kategori;
     }
 
     public String getSatuan() {
@@ -120,14 +109,6 @@ public class Model {
         this.hargaJual = hargaJual;
     }
 
-    public Integer getDiskon() {
-        return diskon;
-    }
-
-    public void setDiskon(Integer diskon) {
-        this.diskon = diskon;
-    }
-
     public Integer getStok() {
         return stok;
     }
@@ -144,28 +125,12 @@ public class Model {
         this.keterangan = keterangan;
     }
 
-    public Object getFoto() {
-        return foto;
-    }
-
-    public void setFoto(Object foto) {
-        this.foto = foto;
-    }
-
     public String getTipeProduk() {
         return tipeProduk;
     }
 
     public void setTipeProduk(String tipeProduk) {
         this.tipeProduk = tipeProduk;
-    }
-
-    public Integer getPelapakId() {
-        return pelapakId;
-    }
-
-    public void setPelapakId(Integer pelapakId) {
-        this.pelapakId = pelapakId;
     }
 
     public Integer getWishlist() {
@@ -184,44 +149,12 @@ public class Model {
         this.terjual = terjual;
     }
 
-    public String getCreatedAt() {
-        return createdAt;
+    public List<Foto> getFoto() {
+        return foto;
     }
 
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public String getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(String updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public Integer getKategoriProdukId() {
-        return kategoriProdukId;
-    }
-
-    public void setKategoriProdukId(Integer kategoriProdukId) {
-        this.kategoriProdukId = kategoriProdukId;
-    }
-
-    public List<FotoProduk> getFotoProduk() {
-        return fotoProduk;
-    }
-
-    public void setFotoProduk(List<FotoProduk> fotoProduk) {
-        this.fotoProduk = fotoProduk;
-    }
-
-    public Kategori getKategori() {
-        return kategori;
-    }
-
-    public void setKategori(Kategori kategori) {
-        this.kategori = kategori;
+    public void setFoto(List<Foto> foto) {
+        this.foto = foto;
     }
 
     public Pelapak getPelapak() {
@@ -230,14 +163,6 @@ public class Model {
 
     public void setPelapak(Pelapak pelapak) {
         this.pelapak = pelapak;
-    }
-
-    public List<Keranjang> getKeranjang() {
-        return keranjang;
-    }
-
-    public void setKeranjang(List<Keranjang> keranjang) {
-        this.keranjang = keranjang;
     }
 
 }

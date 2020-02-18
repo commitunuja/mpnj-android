@@ -86,6 +86,11 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/linear"
+                    android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_marginTop="@dimen/padding_medium_10dp">
 
@@ -305,7 +310,6 @@
 
 
 
-
                 <com.google.android.material.tabs.TabLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -346,6 +350,7 @@
                         android:scrollbars="none">
 
                     </androidx.recyclerview.widget.RecyclerView>
+                </LinearLayout>
 
                 </LinearLayout>
 

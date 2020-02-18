@@ -50,7 +50,7 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ViewHolder
 
         Picasso.with(context)
 //                .load(CONSTANTS.BASE_URL + "assets/foto_produk/" +tvDataProduk.getFoto().get(0))
-                    .load(CONSTANTS.BASE_URL + "assets/foto_produk/" +tvDataProduk.getFotoProduk().get(0).getFotoProduk())
+                    .load(CONSTANTS.BASE_URL + "assets/foto_produk/" +tvDataProduk.getFoto().get(0).getFotoProduk())
                     .resize(300, 300)
                     .into(viewHolder.foto_produk);
 //        int fotoLength = tvDataProduk.getFoto().size();
@@ -100,7 +100,7 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ViewHolder
                     Intent intent = new Intent(context, DetailProdukActivity.class);
                     intent.putExtra("id_produk",String.valueOf(myNewsmodel.getIdProduk()) );
                     intent.putExtra("nama_produk", myNewsmodel.getNamaProduk());
-                    intent.putExtra("foto_produk",CONSTANTS.BASE_URL + "assets/foto_produk/"+myNewsmodel.getFotoProduk().get(0).getFotoProduk());
+                    intent.putExtra("foto_produk",CONSTANTS.BASE_URL + "assets/foto_produk/"+myNewsmodel.getFoto().get(0).getFotoProduk());
                     intent.putExtra("harga_jual", String.valueOf(myNewsmodel.getHargaJual()));
                     intent.putExtra("stok", String.valueOf(myNewsmodel.getStok()));
                     intent.putExtra("terjual", String.valueOf(myNewsmodel.getHargaJual()));
