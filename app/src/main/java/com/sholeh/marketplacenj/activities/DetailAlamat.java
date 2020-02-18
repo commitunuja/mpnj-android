@@ -6,6 +6,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
@@ -33,6 +34,7 @@ import com.sholeh.marketplacenj.model.AlamatModel;
 import com.sholeh.marketplacenj.model.city.ItemCity;
 import com.sholeh.marketplacenj.model.province.ItemProvince;
 import com.sholeh.marketplacenj.model.province.Result;
+import com.sholeh.marketplacenj.respon.ResAddAlamat;
 import com.sholeh.marketplacenj.respon.ResDetailAlamat;
 import com.sholeh.marketplacenj.respon.ResNewPassword;
 import com.sholeh.marketplacenj.respon.ResProfil;
@@ -53,10 +55,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class DetailAlamat extends AppCompatActivity implements View.OnClickListener {
 
     public String alamatId, userType, namaProvinsi, namaKota, userId;
-    EditText edNama, edNoHP,  edKodePos, edAlamatLengkap;
-    TextView tvx_hapus, tvx_simpan,  edProv, edKota, edKec,edIdProv, edIdKota, edIdKec ;
+    EditText edNama, edNoHP, edKodePos, edAlamatLengkap;
+    TextView tvx_hapus, tvx_simpan, edProv, edKota, edKec, edIdProv, edIdKota, edIdKec;
     Toolbar toolBarisi;
-
 
 
     adapterspin adapterspinner;
@@ -64,7 +65,6 @@ public class DetailAlamat extends AppCompatActivity implements View.OnClickListe
     ArrayList<String> listID_prov = new ArrayList<>();
     ArrayList<String> arrayKota = new ArrayList<>();
     ArrayList<String> listID_Kota = new ArrayList<>();
-
 
 
     private AlertDialog.Builder alert;
@@ -79,16 +79,17 @@ public class DetailAlamat extends AppCompatActivity implements View.OnClickListe
     private List<com.sholeh.marketplacenj.model.city.Result> ListCity = new ArrayList<com.sholeh.marketplacenj.model.city.Result>();
 
 
-
     private ProgressDialog progressDialog;
-
-
+    SharedPreferences preferences;
+    String id_konsumen;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_alamat);
+        preferences = getSharedPreferences("App", Context.MODE_PRIVATE);
+        id_konsumen = preferences.getString(CONSTANTS.ID_KONSUMEN, null);
 
         edNama = findViewById(R.id.ed_nama);
         edNoHP = findViewById(R.id.ed_nohp);
@@ -126,7 +127,7 @@ public class DetailAlamat extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.ed_prov:
                 popUpProvinsi(edProv, edKota);
                 break;
@@ -136,6 +137,7 @@ public class DetailAlamat extends AppCompatActivity implements View.OnClickListe
                     if (edProv.getTag().equals("")) {
                         edProv.setError("Silahkan Pilih Provinsi");
                     } else {
+
                         popUpKota(edKota, edProv);
                     }
 
@@ -148,17 +150,17 @@ public class DetailAlamat extends AppCompatActivity implements View.OnClickListe
                 ubahAlamat();
                 break;
 
-                default:
-                    break;
+            default:
+                break;
         }
 
     }
 
 
-    public void detailAlamat(){
-//        if (!NetworkUtility.isNetworkConnected(AlamatActivity.this)){
-//            AppUtilits.displayMessage(AlamatActivity.this,  getString(R.string.network_not_connected));
-//        }else {
+    public void detailAlamat() {
+        if (!NetworkUtility.isNetworkConnected(DetailAlamat.this)) {
+            AppUtilits.displayMessage(DetailAlamat.this, getString(R.string.network_not_connected));
+        } else {
 
             APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
             Call<ResDetailAlamat> call = service.getDetailAlamat(alamatId);
@@ -174,7 +176,7 @@ public class DetailAlamat extends AppCompatActivity implements View.OnClickListe
 //
                         if (response.body().getPesan().equalsIgnoreCase("Sukses!")) {
 
-                                if (response.body().getData().size() > 0) {
+                            if (response.body().getData().size() > 0) {
 //                                    arrayKota.clear();
 //                                    listID_Kota.clear();
                                 for (int i = 0; i < response.body().getData().size(); i++) {
@@ -193,7 +195,7 @@ public class DetailAlamat extends AppCompatActivity implements View.OnClickListe
                             }
 
                         } else {
-                            AppUtilits.displayMessage(DetailAlamat.this, response.body().getPesan() );
+                            AppUtilits.displayMessage(DetailAlamat.this, response.body().getPesan());
                         }
                     } else {
                         AppUtilits.displayMessage(DetailAlamat.this, getString(R.string.network_error));
@@ -208,325 +210,315 @@ public class DetailAlamat extends AppCompatActivity implements View.OnClickListe
             });
 
 
-//        }
+        }
 
-    }
+        }
 
-    public void popUpProvinsi(final TextView etProvince, final TextView etCity ) {
+        public void popUpProvinsi(final TextView etProvince, final TextView etCity){
 
-        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        View alertLayout = inflater.inflate(R.layout.custom_dialog_search, null);
+            View alertLayout = inflater.inflate(R.layout.custom_dialog_search, null);
 
-        alert = new AlertDialog.Builder(DetailAlamat.this);
-        alert.setTitle("List Provinsi");
-        alert.setView(alertLayout);
-        alert.setCancelable(true);
+            alert = new AlertDialog.Builder(DetailAlamat.this);
+            alert.setTitle("List Provinsi");
+            alert.setView(alertLayout);
+            alert.setCancelable(true);
 
-        ad = alert.show();
+            ad = alert.show();
 
-        searchList = alertLayout.findViewById(R.id.searchItem);
-        searchList.addTextChangedListener(new MyTextWatcherProvince(searchList));
-        searchList.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
+            searchList = alertLayout.findViewById(R.id.searchItem);
+            searchList.addTextChangedListener(new MyTextWatcherProvince(searchList));
+            searchList.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
 
-        mListView = alertLayout.findViewById(R.id.listItem);
+            mListView = alertLayout.findViewById(R.id.listItem);
 
-        ListProvince.clear();
-        adapter_province = new ProvinsiAdapter(DetailAlamat.this, ListProvince);
-        mListView.setClickable(true);
+            ListProvince.clear();
+            adapter_province = new ProvinsiAdapter(DetailAlamat.this, ListProvince);
+            mListView.setClickable(true);
 
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Object o = mListView.getItemAtPosition(i);
-                Result cn = (Result) o;
+            mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Object o = mListView.getItemAtPosition(i);
+                    Result cn = (Result) o;
 
-                etProvince.setError(null);
-                etProvince.setText(cn.getProvince());
-                etProvince.setTag(cn.getProvinceId());
+                    etProvince.setError(null);
+                    etProvince.setText(cn.getProvince());
+                    etProvince.setTag(cn.getProvinceId());
 
 //                Toast.makeText(DetailAlamat.this, "id :"+cn.getProvinceId()+" nama"+cn.getProvince(), Toast.LENGTH_SHORT).show();
 
-                etCity.setText("Pilih Kota");
-                etCity.setTag("Pilih Kota");
+                    etCity.setText("Pilih Kota");
+                    etCity.setTag("Pilih Kota");
 
-                ad.dismiss();
+                    ad.dismiss();
+                }
+            });
+
+            progressDialog = new ProgressDialog(DetailAlamat.this);
+            progressDialog.setMessage("Silahkan Tunggu...");
+            progressDialog.show();
+
+            getProvince();
+
+        }
+
+        private class MyTextWatcherProvince implements TextWatcher {
+
+            private View view;
+
+            private MyTextWatcherProvince(View view) {
+                this.view = view;
             }
-        });
 
-        progressDialog = new ProgressDialog(DetailAlamat.this);
-        progressDialog.setMessage("Silahkan Tunggu...");
-        progressDialog.show();
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
 
-        getProvince();
+            public void onTextChanged(CharSequence s, int i, int before, int i2) {
+            }
 
-    }
-
-    private class MyTextWatcherProvince implements TextWatcher {
-
-        private View view;
-
-        private MyTextWatcherProvince(View view) {
-            this.view = view;
-        }
-
-        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        }
-
-        public void onTextChanged(CharSequence s, int i, int before, int i2) {
-        }
-
-        public void afterTextChanged(Editable editable) {
-            switch (view.getId()) {
-                case R.id.searchItem:
-                    adapter_province.filter(editable.toString());
-                    break;
+            public void afterTextChanged(Editable editable) {
+                switch (view.getId()) {
+                    case R.id.searchItem:
+                        adapter_province.filter(editable.toString());
+                        break;
+                }
             }
         }
-    }
 
-    public void getProvince() {
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(CONSTANTS.URL_RAJAONGKIR)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+            public void getProvince() {
 
-        APIInterface service = retrofit.create(APIInterface.class);
-        Call<ItemProvince> call = service.getProvince();
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(CONSTANTS.URL_RAJAONGKIR)
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
 
-        call.enqueue(new Callback<ItemProvince>() {
-            @Override
-            public void onResponse(Call<ItemProvince> call, Response<ItemProvince> response) {
+                APIInterface service = retrofit.create(APIInterface.class);
+                Call<ItemProvince> call = service.getProvince();
 
-                progressDialog.dismiss();
-                Log.v("wow", "json : " + new Gson().toJson(response));
+                call.enqueue(new Callback<ItemProvince>() {
+                    @Override
+                    public void onResponse(Call<ItemProvince> call, Response<ItemProvince> response) {
 
-                if (response.isSuccessful()) {
+                        progressDialog.dismiss();
+                        Log.v("wow", "json : " + new Gson().toJson(response));
 
-                    int count_data = response.body().getRajaongkir().getResults().size();
-                    for (int a = 0; a <= count_data - 1; a++) {
-                        Result itemProvince = new Result(
-                                response.body().getRajaongkir().getResults().get(a).getProvinceId(),
-                                response.body().getRajaongkir().getResults().get(a).getProvince()
-                        );
+                        if (response.isSuccessful()) {
 
-                        ListProvince.add(itemProvince);
-                        mListView.setAdapter(adapter_province);
+                            int count_data = response.body().getRajaongkir().getResults().size();
+                            for (int a = 0; a <= count_data - 1; a++) {
+                                Result itemProvince = new Result(
+                                        response.body().getRajaongkir().getResults().get(a).getProvinceId(),
+                                        response.body().getRajaongkir().getResults().get(a).getProvince()
+                                );
+
+                                ListProvince.add(itemProvince);
+                                mListView.setAdapter(adapter_province);
+                            }
+
+                            adapter_province.setList(ListProvince);
+                            adapter_province.filter("");
+
+                        } else {
+                            String error = "Error Retrive Data from Server !!!";
+                            Toast.makeText(DetailAlamat.this, error, Toast.LENGTH_SHORT).show();
+                        }
+
                     }
 
-                    adapter_province.setList(ListProvince);
-                    adapter_province.filter("");
+                    @Override
+                    public void onFailure(Call<ItemProvince> call, Throwable t) {
+                        progressDialog.dismiss();
+                        Toast.makeText(DetailAlamat.this, "Message : Error " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
 
-                } else {
-                    String error = "Error Retrive Data from Server !!!";
-                    Toast.makeText(DetailAlamat.this, error, Toast.LENGTH_SHORT).show();
+            }
+
+            public void popUpKota(final TextView etCity, final TextView etProvince) {
+
+                LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+                View alertLayout = inflater.inflate(R.layout.custom_dialog_search, null);
+
+                alert = new AlertDialog.Builder(DetailAlamat.this);
+                alert.setTitle("List Kota");
+                alert.setView(alertLayout);
+                alert.setCancelable(true);
+
+                ad = alert.show();
+
+                searchList = alertLayout.findViewById(R.id.searchItem);
+                searchList.addTextChangedListener(new MyTextWatcherCity(searchList));
+                searchList.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
+
+                mListView = alertLayout.findViewById(R.id.listItem);
+
+                ListCity.clear();
+                adapter_city = new KotaAdapter(DetailAlamat.this, ListCity);
+                mListView.setClickable(true);
+
+                mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        Object o = mListView.getItemAtPosition(i);
+                        com.sholeh.marketplacenj.model.city.Result cn = (com.sholeh.marketplacenj.model.city.Result) o;
+
+                        etCity.setError(null);
+                        etCity.setText(cn.getType() + " " + cn.getCityName());
+                        etCity.setTag(cn.getCityId());
+
+                        ad.dismiss();
+                    }
+                });
+
+                progressDialog = new ProgressDialog(DetailAlamat.this);
+                progressDialog.setMessage("Silahkan Tunggu...");
+                progressDialog.show();
+
+                getCity(etProvince.getTag().toString());
+
+            }
+
+            private class MyTextWatcherCity implements TextWatcher {
+
+                private View view;
+
+                private MyTextWatcherCity(View view) {
+                    this.view = view;
                 }
 
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                }
+
+                public void onTextChanged(CharSequence s, int i, int before, int i2) {
+                }
+
+                public void afterTextChanged(Editable editable) {
+                    switch (view.getId()) {
+                        case R.id.searchItem:
+                            adapter_city.filter(editable.toString());
+                            break;
+                    }
+                }
             }
 
-            @Override
-            public void onFailure(Call<ItemProvince> call, Throwable t) {
-                progressDialog.dismiss();
-                Toast.makeText(DetailAlamat.this, "Message : Error " + t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+            public void getCity(String id_province) {
 
-    }
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(CONSTANTS.URL_RAJAONGKIR)
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
 
-    public void popUpKota(final TextView etCity, final TextView etProvince) {
+                APIInterface service = retrofit.create(APIInterface.class);
+                Call<ItemCity> call = service.getCity(id_province);
 
-        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                call.enqueue(new Callback<ItemCity>() {
+                    @Override
+                    public void onResponse(Call<ItemCity> call, Response<ItemCity> response) {
 
-        View alertLayout = inflater.inflate(R.layout.custom_dialog_search, null);
+                        progressDialog.dismiss();
+                        Log.v("wow", "json : " + new Gson().toJson(response));
 
-        alert = new AlertDialog.Builder(DetailAlamat.this);
-        alert.setTitle("List Kota");
-        alert.setView(alertLayout);
-        alert.setCancelable(true);
+                        if (response.isSuccessful()) {
 
-        ad = alert.show();
+                            int count_data = response.body().getRajaongkir().getResults().size();
+                            for (int a = 0; a <= count_data - 1; a++) {
+                                com.sholeh.marketplacenj.model.city.Result itemProvince = new com.sholeh.marketplacenj.model.city.Result(
+                                        response.body().getRajaongkir().getResults().get(a).getCityId(),
+                                        response.body().getRajaongkir().getResults().get(a).getProvinceId(),
+                                        response.body().getRajaongkir().getResults().get(a).getProvince(),
+                                        response.body().getRajaongkir().getResults().get(a).getType(),
+                                        response.body().getRajaongkir().getResults().get(a).getCityName(),
+                                        response.body().getRajaongkir().getResults().get(a).getPostalCode()
+                                );
 
-        searchList = alertLayout.findViewById(R.id.searchItem);
-        searchList.addTextChangedListener(new MyTextWatcherCity(searchList));
-        searchList.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
+                                ListCity.add(itemProvince);
+                                mListView.setAdapter(adapter_city);
+                            }
 
-        mListView =  alertLayout.findViewById(R.id.listItem);
+                            adapter_city.setList(ListCity);
+                            adapter_city.filter("");
 
-        ListCity.clear();
-        adapter_city = new KotaAdapter(DetailAlamat.this, ListCity);
-        mListView.setClickable(true);
+                        } else {
+                            String error = "Error Retrive Data from Server !!!";
+                            Toast.makeText(DetailAlamat.this, error, Toast.LENGTH_SHORT).show();
+                        }
 
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Object o = mListView.getItemAtPosition(i);
-                com.sholeh.marketplacenj.model.city.Result cn = (com.sholeh.marketplacenj.model.city.Result) o;
-
-                etCity.setError(null);
-                etCity.setText(cn.getType()+" "+cn.getCityName());
-                etCity.setTag(cn.getCityId());
-
-                ad.dismiss();
-            }
-        });
-
-        progressDialog = new ProgressDialog(DetailAlamat.this);
-        progressDialog.setMessage("Silahkan Tunggu...");
-        progressDialog.show();
-
-        getCity(etProvince.getTag().toString());
-
-    }
-
-    private class MyTextWatcherCity implements TextWatcher {
-
-        private View view;
-
-        private MyTextWatcherCity(View view) {
-            this.view = view;
-        }
-
-        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        }
-
-        public void onTextChanged(CharSequence s, int i, int before, int i2) {
-        }
-
-        public void afterTextChanged(Editable editable) {
-            switch (view.getId()) {
-                case R.id.searchItem:
-                    adapter_city.filter(editable.toString());
-                    break;
-            }
-        }
-    }
-
-    public void getCity(String id_province) {
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(CONSTANTS.URL_RAJAONGKIR)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        APIInterface service = retrofit.create(APIInterface.class);
-        Call<ItemCity> call = service.getCity(id_province);
-
-        call.enqueue(new Callback<ItemCity>() {
-            @Override
-            public void onResponse(Call<ItemCity> call, Response<ItemCity> response) {
-
-                progressDialog.dismiss();
-                Log.v("wow", "json : " + new Gson().toJson(response));
-
-                if (response.isSuccessful()) {
-
-                    int count_data = response.body().getRajaongkir().getResults().size();
-                    for (int a = 0; a <= count_data - 1; a++) {
-                        com.sholeh.marketplacenj.model.city.Result itemProvince = new com.sholeh.marketplacenj.model.city.Result(
-                                response.body().getRajaongkir().getResults().get(a).getCityId(),
-                                response.body().getRajaongkir().getResults().get(a).getProvinceId(),
-                                response.body().getRajaongkir().getResults().get(a).getProvince(),
-                                response.body().getRajaongkir().getResults().get(a).getType(),
-                                response.body().getRajaongkir().getResults().get(a).getCityName(),
-                                response.body().getRajaongkir().getResults().get(a).getPostalCode()
-                        );
-
-                        ListCity.add(itemProvince);
-                        mListView.setAdapter(adapter_city);
                     }
 
-                    adapter_city.setList(ListCity);
-                    adapter_city.filter("");
-
-                } else {
-                    String error = "Error Retrive Data from Server !!!";
-                    Toast.makeText(DetailAlamat.this, error, Toast.LENGTH_SHORT).show();
-                }
+                    @Override
+                    public void onFailure(Call<ItemCity> call, Throwable t) {
+                        progressDialog.dismiss();
+                        Toast.makeText(DetailAlamat.this, "Message : Error " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
 
             }
 
-            @Override
-            public void onFailure(Call<ItemCity> call, Throwable t) {
-                progressDialog.dismiss();
-                Toast.makeText(DetailAlamat.this, "Message : Error " + t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
 
-    }
-
-
-
-
-    public void  ubahAlamat() {
+            public void ubahAlamat() {
 
 //        if (!NetworkUtility.isNetworkConnected(UbahPassword.this)){
 //            AppUtilits.displayMessage(UbahPassword.this,  getString(R.string.network_not_connected));
 //
 //        }else {
-
-
-        final String namalengkap_ = edNama.getText().toString();
-        final String nomorHp_ = edNoHP.getText().toString();
-        final String idprov_ = edIdProv.getText().toString();
-        final String namaProv_ = edProv.getText().toString();
-        Toast.makeText(this, "id: "+idprov_+" "+namaProv_ , Toast.LENGTH_SHORT).show();
-        // nama prov
-//        final String idkota_ = listID_Kota.get(spinkota.getSelectedItemPosition());
-        // nama kota
-        final String alamat_ = edAlamatLengkap.getText().toString();
-        final String kodepos_ = edKodePos.getText().toString();
-        // userid
+                final String namalengkap_ = edNama.getText().toString();
+                final String nomorHp_ = edNoHP.getText().toString();
+                final String idprov_ = edIdProv.getText().toString();
+                final String namaProv_ = edProv.getText().toString();
+                final String idkota_ = edIdKota.getText().toString();
+                final String namakota_ = edKota.getText().toString();
+                final String alamat_ = edAlamatLengkap.getText().toString();
+                final String kodepos_ = edKodePos.getText().toString();
+                // userid
 
 
 //            if (!validasi()) return;
-//            APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-//            Call<ResNewPassword> call = service.KonsumenUbahPassword(id_konsumen, edNewPass.getText().toString() );
+                APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+                Call<ResAddAlamat> call = service.KonsumenUbahAlamat(alamatId, namalengkap_, nomorHp_, idprov_, namaProv_, idkota_, namakota_, kodepos_, alamat_, id_konsumen, "konsumen");
+
+                call.enqueue(new Callback<ResAddAlamat>() {
+                    @Override
+                    public void onResponse(Call<ResAddAlamat> call, Response<ResAddAlamat> response) {
+
+                        if (response.body() != null && response.isSuccessful()) {
+                            if (response.body().getPesan().equalsIgnoreCase("Sukses!")) {
 //
-//            call.enqueue(new Callback<ResNewPassword>() {
-//                @Override
-//                public void onResponse(Call<ResNewPassword> call, Response<ResNewPassword> response) {
-//
-//                    Log.d(TAG, "re"+ response.toString());
-//                    if (response.body()!= null && response.isSuccessful()){
-//                        if (response.body().getPesan().equalsIgnoreCase("Sukses!")){
-////
-//                            Toast.makeText(UbahPassword.this, "Password Berhasil di Rubah", Toast.LENGTH_LONG).show();
-//                            finish();
-////
-////
-//                        }else {
-//                            Toast.makeText(UbahPassword.this, "Password Gagal di Rubah"+response.body().getPesan(), Toast.LENGTH_LONG).show();
-//
-////                            AppUtilits.displayMessage(UbahPassword.this,  response.body().getPesan());
-//                        }
-//                    }else {
-//                        Toast.makeText(UbahPassword.this, "Password Gagal di Rubahh"+response.body(), Toast.LENGTH_LONG).show();
-//
-////                        AppUtilits.displayMessage(UbahPassword.this,  getString(R.string.failed_request));
+                                Toast.makeText(DetailAlamat.this, "Alamat berhasil di perbarui", Toast.LENGTH_LONG).show();
+                                finish();
 //
 //
-//                    }
-//                }
-//
-//                @Override
-//                public void onFailure(Call<ResNewPassword> call, Throwable t) {
-//                    Toast.makeText(UbahPassword.this, "Password Gagal di Rubahh"+t, Toast.LENGTH_LONG).show();
-//
-//                    //  Log.e(TAG, " failure "+ t.toString());
-////                    AppUtilits.displayMessage(UbahPassword.this,  getString(R.string.failed_request));
-//                }
-//            });
+                            } else {
+                                Toast.makeText(DetailAlamat.this, "Alamat gagal di perbarui" + response.body().getPesan(), Toast.LENGTH_LONG).show();
+
+//                            AppUtilits.displayMessage(UbahPassword.this,  response.body().getPesan());
+                            }
+                        } else {
+                            Toast.makeText(DetailAlamat.this, "Alamat gagal di perbarui" + response.body(), Toast.LENGTH_LONG).show();
+
+//                        AppUtilits.displayMessage(UbahPassword.this,  getString(R.string.failed_request));
+
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResAddAlamat> call, Throwable t) {
+                        Toast.makeText(DetailAlamat.this, "Koneksi Gagal", Toast.LENGTH_SHORT).show();
+                        //  Log.e(TAG, " failure "+ t.toString());
+//                    AppUtilits.displayMessage(UbahPassword.this,  getString(R.string.failed_request));
+                    }
+
+                });
 
 
 
 
-//        }
-
+            }
 
 
 
     }
-
-
-}

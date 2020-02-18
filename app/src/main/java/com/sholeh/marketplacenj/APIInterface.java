@@ -107,7 +107,8 @@ public interface APIInterface {
             @Field("city_id") String cityId,
             @Field("nama_kota") String namaKota,
             @Field("kode_pos") String kodePos,
-            @Field("alamat_lengkap") String userId,
+            @Field("alamat_lengkap") String alamatLengkap,
+            @Field("user_id") String userId,
             @Field("user_type") String userType
     );
 
