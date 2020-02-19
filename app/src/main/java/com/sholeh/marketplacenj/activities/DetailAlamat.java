@@ -113,6 +113,7 @@ public class DetailAlamat extends AppCompatActivity implements View.OnClickListe
         edProv.setOnClickListener(this);
         edKota.setOnClickListener(this);
         tvx_simpan.setOnClickListener(this);
+        tvx_hapus.setOnClickListener(this);
 
         detailAlamat();
 
@@ -148,6 +149,10 @@ public class DetailAlamat extends AppCompatActivity implements View.OnClickListe
 
             case R.id.tvSave:
                 ubahAlamat();
+                break;
+
+            case R.id.tvHapus:
+
                 break;
 
             default:

@@ -12,8 +12,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.sholeh.marketplacenj.APIInterface;
 import com.sholeh.marketplacenj.R;
-import com.sholeh.marketplacenj.ServiceWrapper;
+import com.sholeh.marketplacenj.ServiceGenerator;
 import com.sholeh.marketplacenj.respon.ResRegristasi;
 
 import retrofit2.Call;
@@ -121,8 +122,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             final String statusA_ = "aktif";
 
 //            if (!validasi()) return;
-            ServiceWrapper serviceWrapper = new ServiceWrapper(null);
-            Call<ResRegristasi> callNewREgistration = serviceWrapper.newUserRegistrationCall(
+        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+
+//            ServiceWrapper serviceWrapper = new ServiceWrapper(null);
+            Call<ResRegristasi> callNewREgistration = service.registerKonsumenCall(
                     namalengkap_, username_, password_,  nomorHp_, email_, statusA_);
             callNewREgistration.enqueue(new Callback<ResRegristasi>() {
                 @Override

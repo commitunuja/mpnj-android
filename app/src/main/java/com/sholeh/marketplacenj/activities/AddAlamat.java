@@ -17,7 +17,7 @@ import com.google.gson.Gson;
 import com.sholeh.marketplacenj.APIInterface;
 import com.sholeh.marketplacenj.CONSTANTS;
 import com.sholeh.marketplacenj.R;
-import com.sholeh.marketplacenj.ServiceWrapper;
+import com.sholeh.marketplacenj.ServiceGenerator;
 import com.sholeh.marketplacenj.adapter.adapterspin;
 import com.sholeh.marketplacenj.model.city.ItemCity;
 import com.sholeh.marketplacenj.model.province.ItemProvince;
@@ -255,8 +255,9 @@ public class AddAlamat extends AppCompatActivity implements View.OnClickListener
 //            final String statusA_ = "aktif";
 //
 ////            if (!validasi()) return;
-            ServiceWrapper serviceWrapper = new ServiceWrapper(null);
-            Call<ResAddAlamat> callNewAlamat= serviceWrapper.newAlamatCall(
+//            ServiceWrapper serviceWrapper = new ServiceWrapper(null);
+            APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+            Call<ResAddAlamat> callNewAlamat= service.addAlamatCall(
                     namalengkap_, nomorHp_,idprov_, namaProvinsi, idkota_,namaKota, kodepos_, alamat_, userId,"konsumen");
             callNewAlamat.enqueue(new Callback<ResAddAlamat>() {
                 @Override
@@ -273,7 +274,7 @@ public class AddAlamat extends AppCompatActivity implements View.OnClickListener
 //                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
 //                                        Intent.FLAG_ACTIVITY_CLEAR_TASK);
 //                                startActivity(intent);
-//                                finish();
+                                finish();
 
 
 

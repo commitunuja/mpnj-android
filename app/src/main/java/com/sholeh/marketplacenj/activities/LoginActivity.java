@@ -12,9 +12,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sholeh.marketplacenj.APIInterface;
 import com.sholeh.marketplacenj.CONSTANTS;
 import com.sholeh.marketplacenj.R;
-import com.sholeh.marketplacenj.ServiceWrapper;
+import com.sholeh.marketplacenj.ServiceGenerator;
 import com.sholeh.marketplacenj.respon.ResLogin;
 
 import retrofit2.Call;
@@ -73,8 +74,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void loginKonsumen(){
         final String username_ = edUserName.getText ().toString ();
         final String password_ = edPass.getText ().toString ();
-        ServiceWrapper serviceWrapper = new ServiceWrapper(null);
-        Call<ResLogin> userSigninCall = serviceWrapper.KonsumenSigninCall(username_, password_);
+//        ServiceWrapper serviceWrapper = new ServiceWrapper(null);
+        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+        Call<ResLogin> userSigninCall = service.loginKonsumenCall(username_, password_);
         userSigninCall.enqueue(new Callback<ResLogin>() {
             @Override
             public void onResponse(Call<ResLogin> call, Response<ResLogin> response) {

@@ -42,20 +42,20 @@ public interface APIInterface {
     Call<ItemCity> getCity(@Query("province") String province);
 
     // signup konsumen
-    @Multipart
+    @FormUrlEncoded
     @POST("api/konsumen")
-    Call<ResRegristasi> registerKonsumenCall(@Part("nama_lengkap") RequestBody namaLengkap,
-                                             @Part("username") RequestBody username,
-                                             @Part("password") RequestBody password,
-                                             @Part("nomor_hp") RequestBody nomorHp,
-                                             @Part("email") RequestBody email,
-                                             @Part("status") RequestBody status);
+    Call<ResRegristasi> registerKonsumenCall(@Field("nama_lengkap") String namaLengkap,
+                                             @Field("username") String username,
+                                             @Field("password") String password,
+                                             @Field("nomor_hp") String nomorHp,
+                                             @Field("email") String email,
+                                             @Field("status") String status);
 
     //  user signin konsumen request
-    @Multipart
+    @FormUrlEncoded
     @POST("api/login")
-    Call<ResLogin> loginKonsumenCall(@Part("username") RequestBody phone,
-                                     @Part("password") RequestBody password);
+    Call<ResLogin> loginKonsumenCall(@Field("username") String username,
+                                     @Field("password") String password);
 
     ///  ubah password
     @FormUrlEncoded
@@ -75,18 +75,18 @@ public interface APIInterface {
     );
 
     // add new address
-    @Multipart
+    @FormUrlEncoded
     @POST("api/konsumen/alamat")
-    Call<ResAddAlamat> addAlamatCall(@Part("nama") RequestBody nama,
-                                     @Part("nomor_telepon") RequestBody nomorTelepon,
-                                     @Part("provinsi_id") RequestBody provinsiId,
-                                     @Part("nama_provinsi") RequestBody namaProvinsi,
-                                     @Part("city_id") RequestBody cityId,
-                                     @Part("nama_kota") RequestBody namaKota,
-                                     @Part("kode_pos") RequestBody kodePos,
-                                     @Part("alamat_lengkap") RequestBody alamatLengkap,
-                                     @Part("user_id") RequestBody userId,
-                                     @Part("user_type") RequestBody userType);
+    Call<ResAddAlamat> addAlamatCall(@Field("nama") String nama,
+                                     @Field("nomor_telepon") String nomorTelepon,
+                                     @Field("provinsi_id") String provinsiId,
+                                     @Field("nama_provinsi") String namaProvinsi,
+                                     @Field("city_id") String cityId,
+                                     @Field("nama_kota")String namaKota,
+                                     @Field("kode_pos")String kodePos,
+                                     @Field("alamat_lengkap")String alamatLengkap,
+                                     @Field("user_id") String userId,
+                                     @Field("user_type") String userType);
 
     //  tampil detail alamat
     @GET("api/konsumen/tampil/alamat/{id_alamat}")
