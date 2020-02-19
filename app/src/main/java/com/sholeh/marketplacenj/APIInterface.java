@@ -13,6 +13,7 @@ import com.sholeh.marketplacenj.respon.ResProfil;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -108,6 +109,10 @@ public interface APIInterface {
             @Field("user_id") String userId,
             @Field("user_type") String userType
     );
+
+    //  delete alamat
+    @DELETE("api/konsumen/hapus/alamat/{id_alamat}")
+    Call<ResAlamat> hapusItemAlamat( @Path("id_alamat") String idAlamat);
 
 }
 
