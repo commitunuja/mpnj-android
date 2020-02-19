@@ -21,7 +21,7 @@ import com.sholeh.marketplacenj.ServiceGenerator;
 import com.sholeh.marketplacenj.adapter.adapterspin;
 import com.sholeh.marketplacenj.model.city.ItemCity;
 import com.sholeh.marketplacenj.model.province.ItemProvince;
-import com.sholeh.marketplacenj.respon.ResAddAlamat;
+import com.sholeh.marketplacenj.respon.ResAlamat;
 
 import java.util.ArrayList;
 
@@ -257,11 +257,11 @@ public class AddAlamat extends AppCompatActivity implements View.OnClickListener
 ////            if (!validasi()) return;
 //            ServiceWrapper serviceWrapper = new ServiceWrapper(null);
             APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-            Call<ResAddAlamat> callNewAlamat= service.addAlamatCall(
+            Call<ResAlamat> callNewAlamat= service.addAlamatCall(
                     namalengkap_, nomorHp_,idprov_, namaProvinsi, idkota_,namaKota, kodepos_, alamat_, userId,"konsumen");
-            callNewAlamat.enqueue(new Callback<ResAddAlamat>() {
+            callNewAlamat.enqueue(new Callback<ResAlamat>() {
                 @Override
-                public void onResponse(Call<ResAddAlamat> call, Response<ResAddAlamat> response) {
+                public void onResponse(Call<ResAlamat> call, Response<ResAlamat> response) {
                     Toast.makeText(AddAlamat.this, "res"+response, Toast.LENGTH_SHORT).show();
 
                     if (response.body() != null && response.isSuccessful()) {
@@ -290,7 +290,7 @@ public class AddAlamat extends AppCompatActivity implements View.OnClickListener
                 }
 
                 @Override
-                public void onFailure(Call<ResAddAlamat> call, Throwable t) {
+                public void onFailure(Call<ResAlamat> call, Throwable t) {
 //                    Log.e(TAG, " failure " + t.toString());
                     Toast.makeText(AddAlamat.this, "rrr"+t, Toast.LENGTH_SHORT).show();
 

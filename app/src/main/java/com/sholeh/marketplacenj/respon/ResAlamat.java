@@ -3,14 +3,13 @@ import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-
-public class ResRegristasi { // respon NEW USER REGRISTRATION //
+public class ResAlamat {
     @SerializedName("pesan")
     @Expose
     private String pesan;
     @SerializedName("data")
     @Expose
-    private List<ValReg> data = null;
+    private List<ValAddress> data = null;
 
     public String getPesan() {
         return pesan;
@@ -20,16 +19,14 @@ public class ResRegristasi { // respon NEW USER REGRISTRATION //
         this.pesan = pesan;
     }
 
-    public List<ValReg> getData() {
+    public List<ValAddress> getData() {
         return data;
     }
 
-    public void setData(List<ValReg> data) {
+    public void setData(List<ValAddress> data) {
         this.data = data;
     }
 
 
 
 }
-
-

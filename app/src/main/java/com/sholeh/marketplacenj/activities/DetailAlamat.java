@@ -15,10 +15,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,18 +28,13 @@ import com.sholeh.marketplacenj.ServiceGenerator;
 import com.sholeh.marketplacenj.adapter.KotaAdapter;
 import com.sholeh.marketplacenj.adapter.ProvinsiAdapter;
 import com.sholeh.marketplacenj.adapter.adapterspin;
-import com.sholeh.marketplacenj.model.AlamatModel;
 import com.sholeh.marketplacenj.model.city.ItemCity;
 import com.sholeh.marketplacenj.model.province.ItemProvince;
 import com.sholeh.marketplacenj.model.province.Result;
-import com.sholeh.marketplacenj.respon.ResAddAlamat;
+import com.sholeh.marketplacenj.respon.ResAlamat;
 import com.sholeh.marketplacenj.respon.ResDetailAlamat;
-import com.sholeh.marketplacenj.respon.ResNewPassword;
-import com.sholeh.marketplacenj.respon.ResProfil;
 import com.sholeh.marketplacenj.util.AppUtilits;
 import com.sholeh.marketplacenj.util.NetworkUtility;
-
-import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -483,11 +476,11 @@ public class DetailAlamat extends AppCompatActivity implements View.OnClickListe
 
 //            if (!validasi()) return;
                 APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-                Call<ResAddAlamat> call = service.KonsumenUbahAlamat(alamatId, namalengkap_, nomorHp_, idprov_, namaProv_, idkota_, namakota_, kodepos_, alamat_, id_konsumen, "konsumen");
+                Call<ResAlamat> call = service.KonsumenUbahAlamat(alamatId, namalengkap_, nomorHp_, idprov_, namaProv_, idkota_, namakota_, kodepos_, alamat_, id_konsumen, "konsumen");
 
-                call.enqueue(new Callback<ResAddAlamat>() {
+                call.enqueue(new Callback<ResAlamat>() {
                     @Override
-                    public void onResponse(Call<ResAddAlamat> call, Response<ResAddAlamat> response) {
+                    public void onResponse(Call<ResAlamat> call, Response<ResAlamat> response) {
 
                         if (response.body() != null && response.isSuccessful()) {
                             if (response.body().getPesan().equalsIgnoreCase("Sukses!")) {
@@ -511,7 +504,7 @@ public class DetailAlamat extends AppCompatActivity implements View.OnClickListe
                     }
 
                     @Override
-                    public void onFailure(Call<ResAddAlamat> call, Throwable t) {
+                    public void onFailure(Call<ResAlamat> call, Throwable t) {
                         Toast.makeText(DetailAlamat.this, "Koneksi Gagal", Toast.LENGTH_SHORT).show();
                         //  Log.e(TAG, " failure "+ t.toString());
 //                    AppUtilits.displayMessage(UbahPassword.this,  getString(R.string.failed_request));

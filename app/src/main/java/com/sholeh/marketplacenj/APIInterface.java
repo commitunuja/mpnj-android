@@ -1,7 +1,7 @@
 package com.sholeh.marketplacenj;
 
 import com.sholeh.marketplacenj.model.Model;
-import com.sholeh.marketplacenj.respon.ResAddAlamat;
+import com.sholeh.marketplacenj.respon.ResAlamat;
 import com.sholeh.marketplacenj.respon.ResDetailAlamat;
 import com.sholeh.marketplacenj.respon.ResRegristasi;
 import com.sholeh.marketplacenj.model.city.ItemCity;
@@ -12,16 +12,13 @@ import com.sholeh.marketplacenj.respon.ResProfil;
 
 import java.util.List;
 
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
-import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
-import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -77,16 +74,16 @@ public interface APIInterface {
     // add new address
     @FormUrlEncoded
     @POST("api/konsumen/alamat")
-    Call<ResAddAlamat> addAlamatCall(@Field("nama") String nama,
-                                     @Field("nomor_telepon") String nomorTelepon,
-                                     @Field("provinsi_id") String provinsiId,
-                                     @Field("nama_provinsi") String namaProvinsi,
-                                     @Field("city_id") String cityId,
-                                     @Field("nama_kota")String namaKota,
-                                     @Field("kode_pos")String kodePos,
-                                     @Field("alamat_lengkap")String alamatLengkap,
-                                     @Field("user_id") String userId,
-                                     @Field("user_type") String userType);
+    Call<ResAlamat> addAlamatCall(@Field("nama") String nama,
+                                  @Field("nomor_telepon") String nomorTelepon,
+                                  @Field("provinsi_id") String provinsiId,
+                                  @Field("nama_provinsi") String namaProvinsi,
+                                  @Field("city_id") String cityId,
+                                  @Field("nama_kota")String namaKota,
+                                  @Field("kode_pos")String kodePos,
+                                  @Field("alamat_lengkap")String alamatLengkap,
+                                  @Field("user_id") String userId,
+                                  @Field("user_type") String userType);
 
     //  tampil detail alamat
     @GET("api/konsumen/tampil/alamat/{id_alamat}")
@@ -98,7 +95,7 @@ public interface APIInterface {
     ///  ubah alamat
     @FormUrlEncoded
     @PUT("api/konsumen/edit/alamat/{id_alamat}")
-    Call<ResAddAlamat> KonsumenUbahAlamat(
+    Call<ResAlamat> KonsumenUbahAlamat(
             @Path("id_alamat") String idAlamat,
             @Field("nama") String nama,
             @Field("nomor_telepon") String nomorTelepon,
