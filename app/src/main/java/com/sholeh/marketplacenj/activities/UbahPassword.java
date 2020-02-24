@@ -98,22 +98,24 @@ public class UbahPassword extends AppCompatActivity implements View.OnClickListe
         }else {
 //            if (!validasi()) return;
             APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-            Call<ResNewPassword> call = service.KonsumenUbahPassword(id_konsumen, edNewPass.getText().toString() );
+            Call<ResNewPassword> call = service.KonsumenUbahPassword(id_konsumen,edPasslama.getText().toString(), edNewPass.getText().toString() );
 
             call.enqueue(new Callback<ResNewPassword>() {
                 @Override
                 public void onResponse(Call<ResNewPassword> call, Response<ResNewPassword> response) {
 
-                    Log.d(TAG, "re"+ response.toString());
-                    if (response.body()!= null && response.isSuccessful()){
-                        if (response.body().getPesan().equalsIgnoreCase("Sukses!")){
-//
+
+                    if (response.body()!= null && response.isSuccessful()){ // true
+
+                        if (response.body().getPesan().equalsIgnoreCase("Berhasil Diganti")){
+
+////
                             Toast.makeText(UbahPassword.this, "Password Berhasil di Rubah", Toast.LENGTH_LONG).show();
                             finish();
-//
-//
+////
+////
                         }else {
-                            Toast.makeText(UbahPassword.this, "Password Gagal di Rubah"+response.body().getPesan(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(UbahPassword.this, "Password Sekarang Salah", Toast.LENGTH_LONG).show();
 
 //                            AppUtilits.displayMessage(UbahPassword.this,  response.body().getPesan());
                            }

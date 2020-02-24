@@ -60,6 +60,7 @@ public interface APIInterface {
     @PUT("api/password/{id_konsumen}")
     Call<ResNewPassword> KonsumenUbahPassword(
             @Path("id_konsumen") String idKonsumen,
+            @Field("cekpassword") String cekPassword,
             @Field("password") String password
     );
 
