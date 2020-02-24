@@ -2,9 +2,7 @@ package com.sholeh.marketplacenj.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,9 +11,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.sholeh.marketplacenj.APIInterface;
+import com.sholeh.marketplacenj.CONSTANTS;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.ServiceGenerator;
 import com.sholeh.marketplacenj.respon.ResRegristasi;
+import com.sholeh.marketplacenj.util.Preferences;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -39,6 +39,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
 
 //        spinProvinsi = findViewById(R.id.spin_provinsi);
 //        spinkota = findViewById(R.id.spin_kota);
@@ -113,66 +114,70 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 //            Toast.makeText(this, "Kota Belum  di Tentukan", Toast.LENGTH_SHORT).show();
 //        } else {
 
-            final String namalengkap_ = ed_nama.getText().toString();
-            final String username_ = ed_username.getText().toString();
-            final String password_ = ed_password.getText().toString();
-            final String konpassword_ = ed_konfirmasiPass.getText().toString();
-            final String nomorHp_ = ed_nomorHP.getText().toString();
-            final String email_ = ed_email.getText().toString();
-            final String statusA_ = "aktif";
+        final String namalengkap_ = ed_nama.getText().toString();
+        final String username_ = ed_username.getText().toString();
+        final String password_ = ed_password.getText().toString();
+        final String konpassword_ = ed_konfirmasiPass.getText().toString();
+        final String nomorHp_ = ed_nomorHP.getText().toString();
+        final String email_ = ed_email.getText().toString();
+        final String statusA_ = "aktif";
 
 //            if (!validasi()) return;
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
 
 //            ServiceWrapper serviceWrapper = new ServiceWrapper(null);
-            Call<ResRegristasi> callNewREgistration = service.registerKonsumenCall(
-                    namalengkap_, username_, password_,  nomorHp_, email_, statusA_);
-            callNewREgistration.enqueue(new Callback<ResRegristasi>() {
-                @Override
-                public void onResponse(Call<ResRegristasi> call, Response<ResRegristasi> response) {
-                    Toast.makeText(RegisterActivity.this, "res"+response, Toast.LENGTH_SHORT).show();
+        Call<ResRegristasi> callNewREgistration = service.registerKonsumenCall(
+                namalengkap_, username_, password_, nomorHp_, email_, statusA_);
+        callNewREgistration.enqueue(new Callback<ResRegristasi>() {
+            @Override
+            public void onResponse(Call<ResRegristasi> call, Response<ResRegristasi> response) {
+                Toast.makeText(RegisterActivity.this, "res" + response, Toast.LENGTH_SHORT).show();
 
-                    if (response.body() != null && response.isSuccessful()) {
-                        if (response.body().getPesan().equalsIgnoreCase("Sukses!")) {
-                            for (int a = 0; a < response.body().getData().size() ; a++) {
-                                SharedPreferences preferences = getSharedPreferences("App", Context.MODE_PRIVATE);
-                                SharedPreferences.Editor edit = preferences.edit();
-                                edit.putString("id_konsumen", String.valueOf(response.body().getData().get(a).getIdKonsumen()));
-                                edit.putString("nama_lengkap", String.valueOf(response.body().getData().get(a).getNamaLengkap()));
+                if (response.body() != null && response.isSuccessful()) {
+                    if (response.body().getPesan().equalsIgnoreCase("Sukses!")) {
+                        for (int a = 0; a < response.body().getData().size(); a++) {
+//                                SharedPreferences preferences = getSharedPreferences("App", Context.MODE_PRIVATE);
+//                                SharedPreferences.Editor edit = preferences.edit();
+//                                edit.putString("id_konsumen", String.valueOf(response.body().getData().get(a).getIdKonsumen()));
+//                                edit.putString("nama_lengkap", String.valueOf(response.body().getData().get(a).getNamaLengkap()));
+//
+//                                edit.putBoolean("bg",true);
+//                                edit.commit();
 
-                                edit.putBoolean("bg",true);
-                                edit.commit();
-                                Toast.makeText(RegisterActivity.this, "Registrasi Berhasil", Toast.LENGTH_SHORT).show();
-                                // start home activity
-                                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-//                                //intent.putExtra("userid", "sdfsd");
-//                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
-//                                        Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                startActivity(intent);
-                                finish();
-                            }
+//                            Preferences.getInstance().getString(CONSTANTS.ID_KONSUMEN, String.valueOf(response.body().getData().get(a).getIdKonsumen()));
+//                            Preferences.getInstance().getString(CONSTANTS.USER_NAME, String.valueOf(response.body().getData().get(a).getUsername()));
+//                            Preferences.getInstance().getString(CONSTANTS.NAMA_LENGKAP, String.valueOf(response.body().getData().get(a).getNamaLengkap()));
+//                            Preferences.getInstance().getString(CONSTANTS.PHONE, String.valueOf(response.body().getData().get(a).getNomorHp()));
+//                            Preferences.getInstance().getString(CONSTANTS.EMAIL, String.valueOf(response.body().getData().get(a).getEmail()));
 
 
-                        } else {
-                            Toast.makeText(RegisterActivity.this, "r"+response.body().getPesan(), Toast.LENGTH_SHORT).show();
-//                            AppUtilits.displayMessage(RegisterActivity.this,  response.body().getPesan());
+                            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                            startActivity(intent);
+                            finish();
+
                         }
+
+
                     } else {
-                        Toast.makeText(RegisterActivity.this, "rr"+response.body().getPesan(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegisterActivity.this, "r" + response.body().getPesan(), Toast.LENGTH_SHORT).show();
+//                            AppUtilits.displayMessage(RegisterActivity.this,  response.body().getPesan());
+                    }
+                } else {
+                    Toast.makeText(RegisterActivity.this, "rr" + response.body().getPesan(), Toast.LENGTH_SHORT).show();
 
 //                        AppUtilits.displayMessage(RegisterActivity.this,   getString(R.string.failed_request));
-                    }
                 }
+            }
 
-                @Override
-                public void onFailure(Call<ResRegristasi> call, Throwable t) {
-                    Log.e(TAG, " failure " + t.toString());
-                    Toast.makeText(RegisterActivity.this, "rrr"+t, Toast.LENGTH_SHORT).show();
+            @Override
+            public void onFailure(Call<ResRegristasi> call, Throwable t) {
+                Log.e(TAG, " failure " + t.toString());
+                Toast.makeText(RegisterActivity.this, "rrr" + t, Toast.LENGTH_SHORT).show();
 
 
 //                    AppUtilits.displayMessage(RegisterActivity.this,   getString(R.string.failed_request));
-                }
-            });
+            }
+        });
 
 //        }
     }

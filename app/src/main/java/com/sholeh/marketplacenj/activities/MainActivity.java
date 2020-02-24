@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.sholeh.marketplacenj.CONSTANTS;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.ServiceGenerator;
 import com.sholeh.marketplacenj.adapter.ProductAdapter;
@@ -29,6 +30,7 @@ import com.sholeh.marketplacenj.adapter.SliderImageAdapter;
 import com.sholeh.marketplacenj.APIInterface;
 import com.sholeh.marketplacenj.model.Model;
 import com.sholeh.marketplacenj.model.ProductModel;
+import com.sholeh.marketplacenj.util.Preferences;
 import com.smarteist.autoimageslider.IndicatorAnimations;
 import com.smarteist.autoimageslider.IndicatorView.draw.controller.DrawController;
 import com.smarteist.autoimageslider.SliderAnimations;
@@ -72,13 +74,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 //    public static MainActivity ma;
 
-    SharedPreferences preferences;
+//    SharedPreferences preferences;
+    Preferences preferences;
+    String id_konsumen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        preferences = getSharedPreferences("App",Context.MODE_PRIVATE);
+        preferences = new Preferences(getApplication());
+        id_konsumen = preferences.getIdKonsumen();
+
+
         toolbar = findViewById(R.id.toolbar);
         sliderMyshop = findViewById(R.id.imageSlider);
         greetText = findViewById(R.id.greeting_text);
@@ -266,7 +273,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.nav_profile:
-                boolean login = preferences.getBoolean("aktif",false);
+                boolean login = preferences.getSPSudahLogin();
+
                 if (login){
                     startActivity(new Intent(this,ProfileActivity.class));
                     finish();
@@ -274,6 +282,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     startActivity(new Intent(this,LoginActivity.class));
                     finish();
                 }
+
+                break;
 
 
 

@@ -22,6 +22,7 @@ import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.ServiceGenerator;
 import com.sholeh.marketplacenj.model.Model;
 import com.sholeh.marketplacenj.respon.ResProfil;
+import com.sholeh.marketplacenj.util.Preferences;
 
 
 import java.util.List;
@@ -38,9 +39,10 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     FloatingActionButton fb_favourite;
     Toolbar toolBarisi;
 
-    SharedPreferences preferences;
-    SharedPreferences.Editor input;
-    boolean status = false;
+//    SharedPreferences preferences;
+//    SharedPreferences.Editor input;
+//    boolean status = false;
+    Preferences preferences;
     String id_konsumen, username;
     private ResProfil tvDataProfil;
 
@@ -52,17 +54,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        preferences = getSharedPreferences("App", Context.MODE_PRIVATE);
-        id_konsumen = preferences.getString(CONSTANTS.ID_KONSUMEN, null);
-
-
-
-
-        Toast.makeText(this, "idNYA: "+id_konsumen , Toast.LENGTH_SHORT).show();
-
-
-
-
+        preferences = new Preferences(getApplication());
+        id_konsumen = preferences.getIdKonsumen();
         toolBarisi = findViewById(R.id.toolbar);
         toolBarisi.setTitle("Akun");
         setSupportActionBar(toolBarisi);
@@ -82,12 +75,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
 
 
-//        id_konsumen =  preferences.getString("id_konsume",);
-//        username = SharePreferenceUtils.getInstance().getString(CONSTANTS.USER_NAME);
-//
-
-
-//        Toast.makeText(this, "id_konsumen"+id_konsumen + "USER "+username, Toast.LENGTH_SHORT).show();
 
 //        tvx_login = findViewById(R.id.tvLogIn);
 //        tvx_login.setOnClickListener(this);
@@ -125,12 +112,10 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             public void onTabReselected(TabLayout.Tab tab) {
 
             }
-
-
         });
 
 //        tampilProfi();
-        getDataProfi();
+        getDataProfil();
 
 
     }
@@ -146,9 +131,10 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         switch (v.getId()) {
 
             case R.id.nav_home:
-                input = preferences.edit();
-                input.putBoolean("aktif", true);
-                input.commit();
+//                input = preferences.edit();
+//                input.putBoolean("aktif", true);
+//                input.commit();
+                preferences.saveSPBoolean(Preferences.SP_SUDAH_LOGIN, true);
                 Intent i = new Intent(this, MainActivity.class);
                 startActivity(i);
                 finish();
@@ -199,7 +185,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 //        });
     }
 
-    public void getDataProfi(){
+    public void getDataProfil(){
 
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
         Call<ResProfil> call = service.getDataProfil(id_konsumen);
@@ -207,6 +193,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         call.enqueue(new Callback<ResProfil>() {
             @Override
             public void onResponse(Call<ResProfil> call, Response<ResProfil> response) {
+
+//                Log.d("nama", String.valueOf(response));
 
                 tvDataProfil = response.body();
                 String namaLengkap = tvDataProfil.getData().getNamaLengkap();

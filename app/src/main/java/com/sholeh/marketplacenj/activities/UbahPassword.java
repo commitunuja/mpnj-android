@@ -19,6 +19,7 @@ import com.sholeh.marketplacenj.ServiceGenerator;
 import com.sholeh.marketplacenj.respon.ResNewPassword;
 import com.sholeh.marketplacenj.util.AppUtilits;
 import com.sholeh.marketplacenj.util.NetworkUtility;
+import com.sholeh.marketplacenj.util.Preferences;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -30,20 +31,19 @@ public class UbahPassword extends AppCompatActivity implements View.OnClickListe
 
     EditText edPasslama, edNewPass, edConfirmPass;
     TextView tvbatal, tvSimpan;
-    String id_konsumen;
+
 
     private String TAG ="New_Password";
 
-    SharedPreferences preferences;
-
+    Preferences preferences;
+    String id_konsumen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ubah_password);
-        preferences = getSharedPreferences("App", Context.MODE_PRIVATE);
-
-
+        preferences = new Preferences(getApplication());
+        id_konsumen = preferences.getIdKonsumen();
 
 
         toolBarisi = findViewById(R.id.toolbar);
@@ -91,7 +91,7 @@ public class UbahPassword extends AppCompatActivity implements View.OnClickListe
 
 
     public void sendNewPasswordReq() {
-        id_konsumen = preferences.getString(CONSTANTS.ID_KONSUMEN, null);
+
         if (!NetworkUtility.isNetworkConnected(UbahPassword.this)){
             AppUtilits.displayMessage(UbahPassword.this,  getString(R.string.network_not_connected));
 

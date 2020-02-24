@@ -35,6 +35,7 @@ import com.sholeh.marketplacenj.respon.ResAlamat;
 import com.sholeh.marketplacenj.respon.ResDetailAlamat;
 import com.sholeh.marketplacenj.util.AppUtilits;
 import com.sholeh.marketplacenj.util.NetworkUtility;
+import com.sholeh.marketplacenj.util.Preferences;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,7 +74,7 @@ public class DetailAlamat extends AppCompatActivity implements View.OnClickListe
 
 
     private ProgressDialog progressDialog;
-    SharedPreferences preferences;
+    Preferences preferences;
     String id_konsumen;
 
 
@@ -81,8 +82,8 @@ public class DetailAlamat extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_alamat);
-        preferences = getSharedPreferences("App", Context.MODE_PRIVATE);
-        id_konsumen = preferences.getString(CONSTANTS.ID_KONSUMEN, null);
+        preferences = new Preferences(getApplication());
+        id_konsumen = preferences.getIdKonsumen();
 
         edNama = findViewById(R.id.ed_nama);
         edNoHP = findViewById(R.id.ed_nohp);

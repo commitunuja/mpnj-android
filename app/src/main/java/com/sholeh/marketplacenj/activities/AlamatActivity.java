@@ -25,6 +25,7 @@ import com.sholeh.marketplacenj.model.AlamatModel;
 import com.sholeh.marketplacenj.respon.ResProfil;
 import com.sholeh.marketplacenj.util.AppUtilits;
 import com.sholeh.marketplacenj.util.NetworkUtility;
+import com.sholeh.marketplacenj.util.Preferences;
 
 import java.util.ArrayList;
 
@@ -38,9 +39,9 @@ public class AlamatActivity extends AppCompatActivity implements View.OnClickLis
     private FloatingActionButton fab_addAlamat;
     private String TAG = "AlamatActivity";
 
-    SharedPreferences preferences;
-    SharedPreferences.Editor input;
+    Preferences preferences;
     String id_konsumen;
+
 
     private AlamatAdapter alamatAdapter;
     private ArrayList<AlamatModel> modellist = new ArrayList<>();
@@ -50,8 +51,8 @@ public class AlamatActivity extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alamat);
-        preferences = getSharedPreferences("App", Context.MODE_PRIVATE);
-        id_konsumen = preferences.getString(CONSTANTS.ID_KONSUMEN, null);
+        preferences = new Preferences(getApplication());
+        id_konsumen = preferences.getIdKonsumen();
 
         fab_addAlamat = findViewById(R.id.fab_alamat);
         recyclerAlamat = findViewById(R.id.recycler_alamat);

@@ -22,6 +22,7 @@ import com.sholeh.marketplacenj.adapter.adapterspin;
 import com.sholeh.marketplacenj.model.city.ItemCity;
 import com.sholeh.marketplacenj.model.province.ItemProvince;
 import com.sholeh.marketplacenj.respon.ResAlamat;
+import com.sholeh.marketplacenj.util.Preferences;
 
 import java.util.ArrayList;
 
@@ -44,16 +45,16 @@ public class AddAlamat extends AppCompatActivity implements View.OnClickListener
     ArrayList<String> arrayKota = new ArrayList<>();
     ArrayList<String> listID_Kota = new ArrayList<>();
 
-    SharedPreferences preferences;
-
+    Preferences preferences;
+    String id_konsumen;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addalamat);
-        preferences = getSharedPreferences("App", Context.MODE_PRIVATE);
-        userId = preferences.getString(CONSTANTS.ID_KONSUMEN, null);
+        preferences = new Preferences(getApplication());
+        id_konsumen = preferences.getIdKonsumen();
 
         spinProvinsi = findViewById(R.id.spin_provinsi);
         spinkota = findViewById(R.id.spin_kota);

@@ -17,6 +17,7 @@ import com.sholeh.marketplacenj.CONSTANTS;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.ServiceGenerator;
 import com.sholeh.marketplacenj.respon.ResProfil;
+import com.sholeh.marketplacenj.util.Preferences;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -26,20 +27,20 @@ public class AkunActivity extends AppCompatActivity implements View.OnClickListe
     EditText ed_username, ed_nama, ed_nohp, ed_email;
     Button btn_UpdateProfil;
 
-    SharedPreferences preferences;
-    SharedPreferences.Editor input;
-    String id_konsumen;
+
 
     private ResProfil tvDataProfil;
+
+    Preferences preferences;
+    String id_konsumen;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_akun);
-
-        preferences = getSharedPreferences("App", Context.MODE_PRIVATE);
-        id_konsumen = preferences.getString(CONSTANTS.ID_KONSUMEN, null);
+        preferences = new Preferences(getApplication());
+        id_konsumen = preferences.getIdKonsumen();
 
 
         ed_username = findViewById(R.id.edUsername);

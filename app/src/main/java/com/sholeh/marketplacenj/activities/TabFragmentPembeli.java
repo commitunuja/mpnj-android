@@ -8,21 +8,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
 import com.sholeh.marketplacenj.R;
+import com.sholeh.marketplacenj.util.Preferences;
 
 
 public class TabFragmentPembeli extends Fragment implements View.OnClickListener {
 
     TextView tvx_logout, tvx_SettingAkun, tvx_Alamat, tvx_myprofil;
-    SharedPreferences preferences;
+    Preferences preferences;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragmenttab1, container, false);
-        preferences = this.getActivity().getSharedPreferences("App", Context.MODE_PRIVATE);
+        preferences = new Preferences(getActivity());
 
         tvx_logout = rootView.findViewById(R.id.tvLogout);
         tvx_Alamat = rootView.findViewById(R.id.tvAlamat);
@@ -67,11 +69,14 @@ public class TabFragmentPembeli extends Fragment implements View.OnClickListener
     }
 
     public void logout() {
-        SharedPreferences.Editor proses = preferences.edit();
-        proses.clear().commit();
-        Intent intent = new Intent(getActivity(), LoginActivity.class);
-        getActivity().startActivity(intent);
+        preferences.saveSPBoolean(preferences.SP_SUDAH_LOGIN, false);
+
+//        SharedPreferences.Editor proses = preferences.edit();
+//        proses.clear().commit();
+        startActivity(new Intent(getActivity(), LoginActivity.class)
+                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
         getActivity().finish();
+        Toast.makeText(getActivity(), "Berhasil Keluar", Toast.LENGTH_LONG).show();
 
     }
 

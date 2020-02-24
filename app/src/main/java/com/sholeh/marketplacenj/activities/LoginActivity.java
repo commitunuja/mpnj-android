@@ -17,6 +17,7 @@ import com.sholeh.marketplacenj.CONSTANTS;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.ServiceGenerator;
 import com.sholeh.marketplacenj.respon.ResLogin;
+import com.sholeh.marketplacenj.util.Preferences;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,15 +29,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     TextView tv_usernow, tvSignin, tvLupaPass;
     EditText edUserName, edPass;
 
-    SharedPreferences preferences;
-    SharedPreferences.Editor input;
-    boolean status = false;
+    Preferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        preferences = getSharedPreferences("App",Context.MODE_PRIVATE);
+        preferences = new Preferences(this);
 
         tv_usernow = findViewById(R.id.tvNewUser);
         edUserName = findViewById(R.id.etUsername);
@@ -83,16 +82,25 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Log.d(TAG, "resLogin" + response.toString());
                 if (response.body() != null && response.isSuccessful()) {
                     if (response.body().getPesan().equalsIgnoreCase("Login Sukses!")){
-                        Toast.makeText(LoginActivity.this, "Berhasil", Toast.LENGTH_SHORT).show();
-                        input = preferences.edit();
-                        input.putString(CONSTANTS.ID_KONSUMEN, String.valueOf(response.body().getIdKonsumen()));
-                        input.putBoolean("aktif", true);
-                        input.commit();
+//                        Toast.makeText(LoginActivity.this, "Berhasil", Toast.LENGTH_SHORT).show();
+//                        input = preferences.edit();
+//                        input.putString(CONSTANTS.ID_KONSUMEN, String.valueOf(response.body().getIdKonsumen()));
+//                        input.putBoolean("aktif", true);
+//                        input.commit();
+
+//                   Preferences.getInstance().getString(CONSTANTS.ID_KONSUMEN, String.valueOf(response.body().getIdKonsumen()));
+
+//                        String id = response.body().getIdKonsumen();
+//                        Toast.makeText(LoginActivity.this, ""+id, Toast.LENGTH_SHORT).show();
+
+                       preferences.saveSPString(Preferences.SP_IdKonsumen,response.body().getIdKonsumen());
+                       preferences.saveSPBoolean(Preferences.SP_SUDAH_LOGIN, true);
+
 
                         Intent intent = new Intent(LoginActivity.this,ProfileActivity.class);
                         startActivity(intent);
                         finish();
-
+////
 
                     }else{
                         Toast.makeText(LoginActivity.this, "User Name dan Password Salah", Toast.LENGTH_SHORT).show();

@@ -16,8 +16,6 @@ import com.sholeh.marketplacenj.R;
 
 
 public class AppUtilits {
-
-
     public static void displayMessage(Context mContext, String message){
 
         MessageDialog messageDialog = null;
