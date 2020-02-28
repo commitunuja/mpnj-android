@@ -130,8 +130,6 @@ public class FragmentProfil extends Fragment {
             @Override
             public void onResponse(Call<ResProfil> call, Response<ResProfil> response) {
 
-//                Log.d("nama", String.valueOf(response));
-
                 tvDataProfil = response.body();
                 String namaLengkap = tvDataProfil.getData().getNamaLengkap();
                 tvx_namaCustomter.setText(namaLengkap);

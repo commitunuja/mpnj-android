@@ -1,5 +1,4 @@
 package com.sholeh.marketplacenj.activities;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -16,7 +15,11 @@ import com.sholeh.marketplacenj.APIInterface;
 import com.sholeh.marketplacenj.CONSTANTS;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.ServiceGenerator;
+import com.sholeh.marketplacenj.respon.ResNewPassword;
 import com.sholeh.marketplacenj.respon.ResProfil;
+import com.sholeh.marketplacenj.respon.ResRegristasi;
+import com.sholeh.marketplacenj.util.AppUtilits;
+import com.sholeh.marketplacenj.util.NetworkUtility;
 import com.sholeh.marketplacenj.util.Preferences;
 
 import retrofit2.Call;
@@ -54,7 +57,7 @@ public class AkunActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btnUpdateProfil:
-                Toast.makeText(this, "klik", Toast.LENGTH_SHORT).show();
+               updateProfil();
                 break;
 
                 default:
@@ -93,9 +96,51 @@ public class AkunActivity extends AppCompatActivity implements View.OnClickListe
 //                    AppUtilits.displayMessage(UbahPassword.this,  getString(R.string.failed_request));
             }
         });
+    }
 
 
+    public void updateProfil() {
+
+//        if (!NetworkUtility.isNetworkConnected(UbahPassword.this)){
+//            AppUtilits.displayMessage(UbahPassword.this,  getString(R.string.network_not_connected));
+//
+//        }else {
+//            if (!validasi()) return;
+            APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+            Call<ResRegristasi> call = service.updateKonsumen(id_konsumen,ed_nama.getText().toString(), ed_nohp.getText().toString(), ed_email.getText().toString(),"aktif" );
+
+            call.enqueue(new Callback<ResRegristasi>() {
+                @Override
+                public void onResponse(Call<ResRegristasi> call, Response<ResRegristasi> response) {
 
 
+                    if (response.body()!= null && response.isSuccessful()){ // true
+                        if (response.body().getPesan().equalsIgnoreCase("Sukses!")){
+                            Toast.makeText(AkunActivity.this, "Berhasil diperbarui", Toast.LENGTH_LONG).show();
+                            finish();
+////
+////
+                        }else {
+                            Toast.makeText(AkunActivity.this, "Gagal diperbarui", Toast.LENGTH_LONG).show();
+
+//                            AppUtilits.displayMessage(UbahPassword.this,  response.body().getPesan());
+                        }
+                    }else {
+                        Toast.makeText(AkunActivity.this, "Gagal diperbarui", Toast.LENGTH_LONG).show();
+
+//                        AppUtilits.displayMessage(UbahPassword.this,  getString(R.string.failed_request));
+
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResRegristasi> call, Throwable t) {
+                    Toast.makeText(AkunActivity.this, "Gagal diperbarui"+t, Toast.LENGTH_LONG).show();
+
+                    //  Log.e(TAG, " failure "+ t.toString());
+//                    AppUtilits.displayMessage(UbahPassword.this,  getString(R.string.failed_request));
+                }
+            });
+//        }
     }
 }

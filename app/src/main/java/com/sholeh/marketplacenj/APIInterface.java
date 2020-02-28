@@ -115,6 +115,16 @@ public interface APIInterface {
     @DELETE("api/konsumen/hapus/alamat/{id_alamat}")
     Call<ResAlamat> hapusItemAlamat( @Path("id_alamat") String idAlamat);
 
+    //  ubah alamat
+    @FormUrlEncoded
+    @PUT("api/konsumen/{id_konsumen}")
+    Call<ResRegristasi> updateKonsumen(
+            @Path("id_konsumen") String idKonsumen,
+            @Field("nama_lengkap") String namaLengkap,
+            @Field("nomor_hp") String nomorHp,
+            @Field("email") String email,
+            @Field("status") String status);
+
 }
 
 
