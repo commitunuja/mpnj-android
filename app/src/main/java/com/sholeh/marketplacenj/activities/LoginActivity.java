@@ -16,6 +16,7 @@ import com.sholeh.marketplacenj.APIInterface;
 import com.sholeh.marketplacenj.CONSTANTS;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.ServiceGenerator;
+import com.sholeh.marketplacenj.mfragment.FragmentProfil;
 import com.sholeh.marketplacenj.respon.ResLogin;
 import com.sholeh.marketplacenj.util.Preferences;
 
@@ -82,32 +83,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Log.d(TAG, "resLogin" + response.toString());
                 if (response.body() != null && response.isSuccessful()) {
                     if (response.body().getPesan().equalsIgnoreCase("Login Sukses!")){
-//                        Toast.makeText(LoginActivity.this, "Berhasil", Toast.LENGTH_SHORT).show();
-//                        input = preferences.edit();
-//                        input.putString(CONSTANTS.ID_KONSUMEN, String.valueOf(response.body().getIdKonsumen()));
-//                        input.putBoolean("aktif", true);
-//                        input.commit();
-
-//                   Preferences.getInstance().getString(CONSTANTS.ID_KONSUMEN, String.valueOf(response.body().getIdKonsumen()));
-
-//                        String id = response.body().getIdKonsumen();
-//                        Toast.makeText(LoginActivity.this, ""+id, Toast.LENGTH_SHORT).show();
-
                        preferences.saveSPString(Preferences.SP_IdKonsumen,response.body().getIdKonsumen());
                        preferences.saveSPBoolean(Preferences.SP_SUDAH_LOGIN, true);
 
-
-                        Intent intent = new Intent(LoginActivity.this,ProfileActivity.class);
+                        Toast.makeText(LoginActivity.this, "Sukses", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(LoginActivity.this,Utama.class);
                         startActivity(intent);
                         finish();
-////
+
 
                     }else{
-                        Toast.makeText(LoginActivity.this, "User Name dan Password Salah", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "User Name dan Password Salah"+response.body().getPesan(), Toast.LENGTH_SHORT).show();
                     }
 
                 }else {
-                    Toast.makeText(LoginActivity.this, "User Name dan Password Salah", Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this, "User Name dan Password Salah"+response.body(), Toast.LENGTH_LONG).show();
 
                 }
             }

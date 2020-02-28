@@ -273,15 +273,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.nav_profile:
-                boolean login = preferences.getSPSudahLogin();
-
-                if (login){
-                    startActivity(new Intent(this,ProfileActivity.class));
-                    finish();
-                }else{
-                    startActivity(new Intent(this,LoginActivity.class));
-                    finish();
-                }
+//                boolean login = preferences.getSPSudahLogin();
+//
+//                if (login){
+//                    startActivity(new Intent(this,ProfileActivity.class));
+//                    finish();
+//                }else{
+//                    startActivity(new Intent(this,LoginActivity.class));
+//                    finish();
+//                }
 
                 break;
 

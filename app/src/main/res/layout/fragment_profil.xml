@@ -14,18 +14,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/AppTheme.AppBarOverlay">
-            <androidx.appcompat.widget.Toolbar
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:id="@+id/toolbar"
-                android:background="@color/colorAccent"
-                app:popupTheme="@style/AppTheme.PopupOverlay">
-            </androidx.appcompat.widget.Toolbar>
-        </com.google.android.material.appbar.AppBarLayout>
+
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/svHome"
@@ -84,7 +73,6 @@
                         </FrameLayout>
 
                         <TextView
-                            android:text="Sholeh"
                             android:id="@+id/tvCustomerName"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -124,7 +112,7 @@
 
 
                         <androidx.viewpager.widget.ViewPager
-                            android:id="@+id/pager"
+                            android:id="@+id/pagerprofil"
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
                             android:layout_below="@id/tab_layout"/>
@@ -140,33 +128,5 @@
     </LinearLayout>
 
 
-    <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/navigation_bottombar"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_gravity="bottom"
-        android:backgroundTint="@color/colorPrimary"
-        app:fabAlignmentMode="center"
-        app:fabCradleRoundedCornerRadius="50dp"
-        app:hideOnScroll="true">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="55.0dip"
-            android:layout_gravity="bottom"
-            android:orientation="horizontal">
-            <include layout="@layout/navigation_bar" />
-        </LinearLayout>
-    </com.google.android.material.bottomappbar.BottomAppBar>
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_menu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:elevation="4dp"
-        android:tint="@android:color/white"
-        app:fabSize="normal"
-        app:layout_anchor="@+id/navigation_bottombar"
-        app:srcCompat="@drawable/ic_favorite"
-        app:itemIconTint="@drawable/bottom_navigation_selector"
-        app:itemTextColor="@drawable/bottom_navigation_selector"/>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

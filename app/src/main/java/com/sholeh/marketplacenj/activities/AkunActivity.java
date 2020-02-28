@@ -27,13 +27,9 @@ public class AkunActivity extends AppCompatActivity implements View.OnClickListe
     EditText ed_username, ed_nama, ed_nohp, ed_email;
     Button btn_UpdateProfil;
 
-
-
     private ResProfil tvDataProfil;
-
     Preferences preferences;
     String id_konsumen;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

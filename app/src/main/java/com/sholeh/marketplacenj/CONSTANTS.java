@@ -2,7 +2,7 @@ package com.sholeh.marketplacenj;
 
 public class CONSTANTS {
     public static final String BASE_URL="http://192.168.43.157/mpnj/public/"; //rubah dengan IP devicenya
-//    public static final String BASE_URL="http://192.168.101.12/mpnj/public/"; //rubah dengan IP devicenya
+//    public static final String BASE_URL="http://192.168.137.154/mpnj/public/"; //rubah dengan IP devicenya
 
     public static final String URL_RAJAONGKIR = "https://api.rajaongkir.com/starter/";
 
