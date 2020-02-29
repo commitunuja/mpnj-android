@@ -10,26 +10,31 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.sholeh.marketplacenj.R;
+import com.sholeh.marketplacenj.model.Model;
+import com.sholeh.marketplacenj.test.KeranjangDetailActivity2;
 
-public class DetailProdukActivity extends AppCompatActivity implements View.OnClickListener {
+import java.util.List;
 
-    private String TAG ="productDetails";
+public class DetailProdukActivity extends AppCompatActivity {
+
+    private String TAG = "productDetails";
     ImageView imageDetailProduk, imgadd_tokeranjang;
-    TextView nm_produk, hrg_produk, stok, terjual, deskripsi;
-    String namaproduk, urltoimage, vdeskripsi;
-    int vhargaproduk, vstok, vterjual, vid_produk;
+    TextView nm_produk, hrg_produk, stok, terjual, deskripsi, id;
+    String namaproduk, urltoimage, vdeskripsi, vid_produk;
+    int vhargaproduk, vstok, vterjual;
     Toolbar toolBarisi;
-
+    private Model tvDataProduk;
+    private List<Model> tvDataProduks; // model / item
     private Menu mainmenu;
 
 
-
-// baru
+    // baru
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailproduk);
 
@@ -44,17 +49,18 @@ public class DetailProdukActivity extends AppCompatActivity implements View.OnCl
         terjual = findViewById(R.id.tv_detailterjual);
         deskripsi = findViewById(R.id.tv_detaildeskripsi);
         imgadd_tokeranjang = findViewById(R.id.add_to_keranjang);
-        imgadd_tokeranjang.setOnClickListener(this);
+        id = findViewById(R.id.tv_id);
 
-        vid_produk =  Integer.parseInt(getIntent().getStringExtra("id_produk"));
+        vid_produk = getIntent().getStringExtra("id_produk");
+        String.valueOf(vid_produk);
         namaproduk = getIntent().getExtras().getString("nama_produk");
         urltoimage = getIntent().getExtras().getString("foto_produk");
-        vhargaproduk =  Integer.parseInt(getIntent().getStringExtra("harga_jual"));
-        vstok =  Integer.parseInt(getIntent().getStringExtra("stok"));
-        vterjual =  Integer.parseInt(getIntent().getStringExtra("terjual"));
+        vhargaproduk = Integer.parseInt(getIntent().getStringExtra("harga_jual"));
+        vstok = Integer.parseInt(getIntent().getStringExtra("stok"));
+        vterjual = Integer.parseInt(getIntent().getStringExtra("terjual"));
         vdeskripsi = getIntent().getExtras().getString("keterangan");
 
-
+//        id.setText(String.valueOf(vid_produk));
         nm_produk.setText(namaproduk);
         hrg_produk.setText(String.valueOf(vhargaproduk));
         stok.setText(String.valueOf(vstok));
@@ -62,8 +68,24 @@ public class DetailProdukActivity extends AppCompatActivity implements View.OnCl
         deskripsi.setText(vdeskripsi);
         Glide.with(getApplicationContext()).load(urltoimage).into(imageDetailProduk);
 
+        imgadd_tokeranjang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DetailProdukActivity.this, KeranjangActivity.class);
+                intent.putExtra("nama_produk", namaproduk);
+                intent.putExtra("harga_jual", String.valueOf(vhargaproduk));
+                intent.putExtra("foto_produk", urltoimage);
+                intent.putExtra("id_produk", String.valueOf(vid_produk));
+                Toast.makeText(DetailProdukActivity.this, "" + (vid_produk), Toast.LENGTH_SHORT).show();
+                startActivity(intent);
+
+            }
+        });
+
 
     }
+
+
     @Override
     public boolean onSupportNavigateUp() {
         finish();
@@ -80,29 +102,37 @@ public class DetailProdukActivity extends AppCompatActivity implements View.OnCl
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id==R.id.menu_keranjang){
-            Intent intent = new Intent(this, KeranjangActivity.class);
+        if (id == R.id.menu_keranjang) {
+            Intent intent = new Intent (DetailProdukActivity.this, KeranjangDetailActivity2.class);
             startActivity(intent);
+
         }
 
         return super.onOptionsItemSelected(item);
     }
 
 
-
-    @Override
+   /* @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.add_to_keranjang:
-//                SharePreferenceUtils.getInstance().saveString(CONSTANTS.QUOTE_ID, "");
-//                SharePreferenceUtils.getInstance().saveInt( CONSTANTS.CART_ITEM_COUNT,   SharePreferenceUtils.getInstance().getInteger(CONSTANTS.CART_ITEM_COUNT) +1);
-//                AppUtilits.UpdateCartCount(mainmenu);
+               *//* SharePreferenceUtils.getInstance().saveString(CONSTANTS.QUOTE_ID, "");
+                SharePreferenceUtils.getInstance().saveInt( CONSTANTS.CART_ITEM_COUNT,   SharePreferenceUtils.getInstance().getInteger(CONSTANTS.CART_ITEM_COUNT) +1);
+                AppUtilits.UpdateCartCount(mainmenu); //dihapus karna berpengaruh ke method keranjang*//*
+               keranjang(model);
                 break;
-
-                default:
-                    break;
+            default:
+                break;
         }
-    }
+    }*/
+
+
+    /*  intent.putExtra("id_produk",String.valueOf(model.getIdProduk()));*/
+//        intent.putExtra("nama_produk", model.getNamaProduk());
+//        intent.putExtra("foto_produk",CONSTANTS.BASE_URL + "assets/foto_produk/"+model.getFoto().get(0).getFotoProduk());
+//        intent.putExtra("harga_jual", String.valueOf(model.getHargaJual()));
+//        startActivity(intent);
+}
 
 //    private void loadDetail(Integer ProdukId) {
 //
@@ -115,7 +145,7 @@ public class DetailProdukActivity extends AppCompatActivity implements View.OnCl
 //            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
 //                if (response.code() == 200) {
 //                    users.addAll(response.body());
-//                    adapter.setDataProfil(users);
+//                    adapter.setData(users);
 //                }
 //                Toast.makeText(getApplicationContext(), "status: " + response.code() + " list size: " + users.size(), Toast.LENGTH_LONG).show();
 //            }
@@ -127,5 +157,3 @@ public class DetailProdukActivity extends AppCompatActivity implements View.OnCl
 
 
 
-
-}

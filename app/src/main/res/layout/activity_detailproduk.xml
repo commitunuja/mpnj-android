@@ -86,6 +86,11 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/linear"
+                    android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_marginTop="@dimen/padding_medium_10dp">
 
@@ -186,6 +191,12 @@
                             android:layout_marginLeft="@dimen/padding_medium_10dp"
                             android:textColor="@color/black"
                             android:layout_alignParentLeft="true"/>
+                        <TextView
+                            android:id="@+id/tv_id"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="id"
+                            android:visibility="invisible"/>
 
                     </LinearLayout>
 
@@ -299,7 +310,6 @@
 
 
 
-
                 <com.google.android.material.tabs.TabLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -340,6 +350,7 @@
                         android:scrollbars="none">
 
                     </androidx.recyclerview.widget.RecyclerView>
+                </LinearLayout>
 
                 </LinearLayout>
 
