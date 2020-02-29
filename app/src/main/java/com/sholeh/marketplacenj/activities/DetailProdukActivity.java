@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.model.Model;
+import com.sholeh.marketplacenj.test.KeranjangDetailActivity2;
 
 import java.util.List;
 
@@ -102,7 +103,7 @@ public class DetailProdukActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.menu_keranjang) {
-            Intent intent = new Intent (DetailProdukActivity.this,KeranjangDetailActivity.class);
+            Intent intent = new Intent (DetailProdukActivity.this, KeranjangDetailActivity2.class);
             startActivity(intent);
 
         }
