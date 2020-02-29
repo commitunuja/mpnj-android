@@ -5,24 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.ptlmh.scannercontrol.Model.ChildModel;
-import com.ptlmh.scannercontrol.Model.HeaderModel;
-import com.ptlmh.scannercontrol.R;
+import com.sholeh.marketplacenj.R;
 
-import java.text.DateFormat;
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -84,14 +71,10 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
         }
         TextView nama_kk = convertView.findViewById(R.id.txNamaKKHeader);
         TextView no_pelanggan = convertView.findViewById(R.id.txNoRegHeader);
-        ImageView img = convertView.findViewById(R.id.imgExpan);
-        nama_kk.setText(model.getNama_pelanggan());
-        no_pelanggan.setText(model.getNo_pelanggan());
-        if (isExpanded){
-            img.setImageResource(R.drawable.ic_keyboard_arrow_up_grey_24dp);
-        } else {
-            img.setImageResource(R.drawable.ic_keyboard_arrow_down_grey_24dp);
-        }
+//        ImageView img = convertView.findViewById(R.id.imgExpan);
+        nama_kk.setText(model.getNama_toko());
+        no_pelanggan.setText(model.getId_toko());
+
         return convertView;
     }
 
@@ -102,57 +85,13 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
             LayoutInflater inflater = (LayoutInflater)this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.desain_child,null);
         }
-        TextView tanggal = convertView.findViewById(R.id.txtglChild);
-        TextView kwh = convertView.findViewById(R.id.txkwh_child);
-        TextView status_lunas = convertView.findViewById(R.id.txstatus_child);
-        ImageView img = convertView.findViewById(R.id.imgcheck_child);
-        TextView bln = convertView.findViewById(R.id.txBulanDetail);
-        TextView tagihan = convertView.findViewById(R.id.txharga_child);
-        String bulan_kwh = null;
-        try {
-            Date tgl = new SimpleDateFormat("yyyy-MM-dd").parse(model.getTanggal());
-            int a = tgl.getMonth();
-            if (a == 1){ bulan_kwh = "Januari";
-            } else if (a == 2){ bulan_kwh = "Februari";
-            } else if (a == 3){ bulan_kwh = "Maret";
-            } else if (a == 4){ bulan_kwh = "April";
-            } else if (a == 5){ bulan_kwh = "Mei";
-            } else if (a == 6){ bulan_kwh = "Juni";
-            } else if (a == 7){ bulan_kwh = "Juli";
-            } else if (a == 8){ bulan_kwh = "Agustus";
-            } else if (a == 9){ bulan_kwh = "September";
-            } else if (a == 10){ bulan_kwh = "Oktober";
-            } else if (a == 11){ bulan_kwh = "November";
-            } else{ bulan_kwh = "Desember"; }
+        TextView idproduk = convertView.findViewById(R.id.txtIDPRODUK);
+        TextView nama = convertView.findViewById(R.id.txtnamaPRODUK);
+        TextView harga = convertView.findViewById(R.id.txtnamaHARGA);
 
-            tanggal.setText(String.valueOf(new SimpleDateFormat("EEEE, dd MMMM yyyy").format(tgl)));
-            bln.setText(bulan_kwh);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        if (model.getStatus_bayar().equals("y")){
-            status_lunas.setText("Lunas");
-            status_lunas.setTextColor(context.getResources().getColor(R.color.colorgreen));
-        } else {
-            status_lunas.setText("Belum Lunas");
-            status_lunas.setTextColor(context.getResources().getColor(R.color.colorOrange));
-        }
-        kwh.setText(model.getKwh_tercatat()+" KWh");
-
-        DecimalFormat kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance();
-        DecimalFormatSymbols formatRp = new DecimalFormatSymbols();
-        formatRp.setCurrencySymbol("Rp. ");
-        formatRp.setMonetaryDecimalSeparator(',');
-        formatRp.setGroupingSeparator('.');
-        kursIndonesia.setDecimalFormatSymbols(formatRp);
-
-        tagihan.setText(kursIndonesia.format(Double.parseDouble(model.getTagihan())));
-        if (model.getSinkron().equals("1")){
-            img.setImageResource(R.drawable.ic_check_green_24dp);
-        } else {
-            img.setImageResource(R.drawable.ic_check_orange_24dp);
-        }
-
+        idproduk.setText(model.getId_produk());
+        nama.setText(model.getNama_produk());
+        harga.setText(model.getHarga());
         return convertView;
     }
 
@@ -161,35 +100,4 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
         return true;
     }
 
-//    @Override
-//    public Filter getFilter() {
-//        return new Filter() {
-//            @Override
-//            protected FilterResults performFiltering(CharSequence constraint) {
-//                String charString = constraint.toString();
-//                if (charString.isEmpty()) {
-//                    listHeaderFilter = listHeader;
-//                } else {
-//                    List<HeaderModel> filteredList = new ArrayList<>();
-//                    for (HeaderModel row : listHeader) {
-//                        if (row.getNama_pelanggan().toLowerCase().contains(charString.toLowerCase())) {
-//                            filteredList.add(row);
-//                        }
-//                    }
-//
-//                    listHeaderFilter = filteredList;
-//                }
-//
-//                FilterResults filterResults = new FilterResults();
-//                filterResults.values = listHeaderFilter;
-//                return filterResults;
-//            }
-//
-//            @Override
-//            protected void publishResults(CharSequence constraint, FilterResults results) {
-//                listHeaderFilter = (ArrayList<HeaderModel>) results.values;
-//                notifyDataSetChanged();
-//            }
-//        };
-//    }
 }

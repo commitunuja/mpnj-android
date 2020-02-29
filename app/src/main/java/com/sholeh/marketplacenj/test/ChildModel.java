@@ -1,69 +1,64 @@
-package com.ptlmh.scannercontrol.Model;
+package com.sholeh.marketplacenj.test;
 
 public class ChildModel {
 
-    String no_pelanggan;
-    String tanggal;
-    String kwh_tercatat;
-    String status_bayar;
-    String sinkron;
-    String tagihan;
 
-    public ChildModel(String no_pelanggan, String tanggal, String kwh_tercatat, String status_bayar, String sinkron, String tagihan) {
-        this.no_pelanggan = no_pelanggan;
-        this.tanggal = tanggal;
-        this.kwh_tercatat = kwh_tercatat;
-        this.status_bayar = status_bayar;
-        this.sinkron = sinkron;
-        this.tagihan = tagihan;
+    String id_toko, id_produk, nama_produk, harga, jumlah, subtotal, gambar;
+
+    public ChildModel(String id_toko, String id_produk, String nama_produk, String harga, String jumlah) {
+        this.id_toko = id_toko;
+        this.id_produk = id_produk;
+        this.nama_produk = nama_produk;
+        this.harga = harga;
+        this.jumlah = jumlah;
+//        this.gambar = gambar;
     }
 
-    public String getTagihan() {
-        return tagihan;
+    public String getId_produk() {
+        return id_produk;
     }
 
-    public void setTagihan(String tagihan) {
-        this.tagihan = tagihan;
+    public void setId_produk(String id_produk) {
+        this.id_produk = id_produk;
     }
 
-    public String getSinkron() {
-        return sinkron;
+    public String getId_toko() {
+        return id_toko;
     }
 
-    public void setSinkron(String sinkron) {
-        this.sinkron = sinkron;
+    public void setId_toko(String id_toko) {
+        this.id_toko = id_toko;
     }
 
-    public String getNo_pelanggan() {
-        return no_pelanggan;
+    public String getNama_produk() {
+        return nama_produk;
     }
 
-    public void setNo_pelanggan(String no_pelanggan) {
-        this.no_pelanggan = no_pelanggan;
+    public void setNama_produk(String nama_produk) {
+        this.nama_produk = nama_produk;
     }
 
-    public String getTanggal() {
-        return tanggal;
+    public String getHarga() {
+        return harga;
     }
 
-    public void setTanggal(String tanggal) {
-        this.tanggal = tanggal;
+    public void setHarga(String harga) {
+        this.harga = harga;
     }
 
-    public String getKwh_tercatat() {
-        return kwh_tercatat;
+    public String getJumlah() {
+        return jumlah;
     }
 
-    public void setKwh_tercatat(String kwh_tercatat) {
-        this.kwh_tercatat = kwh_tercatat;
+    public void setJumlah(String jumlah) {
+        this.jumlah = jumlah;
     }
 
-
-    public String getStatus_bayar() {
-        return status_bayar;
+    public String getSubtotal() {
+        return subtotal;
     }
 
-    public void setStatus_bayar(String status_bayar) {
-        this.status_bayar = status_bayar;
+    public void setSubtotal(String subtotal) {
+        this.subtotal = subtotal;
     }
 }

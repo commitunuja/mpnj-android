@@ -1,27 +1,27 @@
 package com.sholeh.marketplacenj.test;
 
 public class HeaderModel {
-    String no_pelanggan;
-    String nama_pelanggan;
+    String id_toko;
+    String nama_toko;
 
-    public HeaderModel(String no_pelanggan, String nama_pelanggan) {
-        this.no_pelanggan = no_pelanggan;
-        this.nama_pelanggan = nama_pelanggan;
+    public HeaderModel(String id_toko, String nama_toko) {
+        this.id_toko = id_toko;
+        this.nama_toko = nama_toko;
     }
 
-    public String getNo_pelanggan() {
-        return no_pelanggan;
+    public String getId_toko() {
+        return id_toko;
     }
 
-    public void setNo_pelanggan(String no_pelanggan) {
-        this.no_pelanggan = no_pelanggan;
+    public void setId_toko(String id_toko) {
+        this.id_toko = id_toko;
     }
 
-    public String getNama_pelanggan() {
-        return nama_pelanggan;
+    public String getNama_toko() {
+        return nama_toko;
     }
 
-    public void setNama_pelanggan(String nama_pelanggan) {
-        this.nama_pelanggan = nama_pelanggan;
+    public void setNama_toko(String nama_toko) {
+        this.nama_toko = nama_toko;
     }
 }
