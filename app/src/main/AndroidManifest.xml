@@ -38,6 +38,7 @@
         <activity android:name=".activities.RegisterActivity" />
         <activity android:name=".activities.KeranjangActivity" />
         <activity android:name=".activities.DetailProdukActivity" />
+        <activity android:name=".test.KeranjangDetailActivity2" />
         <activity
             android:name=".activities.Utama"
             android:launchMode="singleTop"
