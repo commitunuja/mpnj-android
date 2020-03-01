@@ -1,5 +1,5 @@
 
-package com.sholeh.marketplacenj.model;
+package com.example;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
