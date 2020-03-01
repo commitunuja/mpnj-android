@@ -4,7 +4,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class CONSTANTS {
-    public static final String BASE_URL="http://192.168.43.157/mpnj/public/"; //rubah dengan IP devicenya
+    public static final String BASE_URL="http://192.168.1.14/mpnj/public/"; //rubah dengan IP devicenya
 //    public static final String BASE_URL="http://192.168.137.154/mpnj/public/"; //rubah dengan IP devicenya
 
     public static final String URL_RAJAONGKIR = "https://api.rajaongkir.com/starter/";
@@ -21,5 +21,19 @@ public class CONSTANTS {
     public static final String NAMA_LENGKAP = "nama_lengkap";
     public static final String PHONE = "nomor_hp";
     public static final String EMAIL = "email";
+    private static Retrofit retrofit;
 
+
+    public static Retrofit getClient()
+    {
+        if(retrofit == null)
+        {
+            retrofit = new Retrofit.Builder()
+                    .baseUrl(BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+        }
+
+        return  retrofit;
+    }
 }
