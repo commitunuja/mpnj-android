@@ -7,7 +7,4 @@
 		android:icon="@drawable/ic_cart_outline"
 		app:showAsAction="always"
         android:title="Keranjang"/>
-
-
-
 </menu>

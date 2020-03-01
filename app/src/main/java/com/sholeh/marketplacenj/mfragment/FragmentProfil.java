@@ -1,9 +1,18 @@
 package com.sholeh.marketplacenj.mfragment;
 
 
+import android.app.Activity;
+import android.content.ContentValues;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -11,6 +20,9 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.viewpager.widget.ViewPager;
 
+import android.provider.MediaStore;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,26 +35,42 @@ import com.google.android.material.tabs.TabLayout;
 import com.sholeh.marketplacenj.APIInterface;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.ServiceGenerator;
+import com.sholeh.marketplacenj.activities.ImageProfilActivity;
+import com.sholeh.marketplacenj.activities.PengaturanAkun;
 import com.sholeh.marketplacenj.activities.TabFragmentPelapak;
 import com.sholeh.marketplacenj.activities.TabFragmentPembeli;
 import com.sholeh.marketplacenj.respon.ResProfil;
 import com.sholeh.marketplacenj.util.Preferences;
 
+import java.io.ByteArrayOutputStream;
+
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FragmentProfil extends Fragment {
+import static android.app.Activity.RESULT_CANCELED;
+import static android.app.Activity.RESULT_OK;
 
-    private ImageView nav_home, nav_notifikasi, nav_transaksi, navprofile;
+public class FragmentProfil extends Fragment implements View.OnClickListener {
+    private ImageView imgProfil, nav_home, nav_notifikasi, nav_transaksi, navprofile;
     TextView tvx_login, tvx_namaCustomter, tvx_logout;
 
     FloatingActionButton fb_favourite;
     Toolbar toolBarisi;
-
     Preferences preferences;
     String id_konsumen, username;
     private ResProfil tvDataProfil;
+
+    Bitmap bitmap = null;
+    Uri imageUri;
+    private static final int PICK_IMAGE = 1;
+    private static final int PICK_Camera_IMAGE = 2;
+    private static final int REQUEST_GALLERY_CODE = 200;
+    private static final int READ_REQUEST_CODE = 300;
+
+
 
 
 
@@ -52,11 +80,13 @@ public class FragmentProfil extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_profil,container,false);
+
         preferences = new Preferences(getActivity());
         id_konsumen = preferences.getIdKonsumen();
 
         tvx_namaCustomter = rootView.findViewById(R.id.tvCustomerName);
-
+        imgProfil = rootView.findViewById(R.id.imgProfil);
+        imgProfil.setOnClickListener(this);
 
         TabLayout tabLayout =  rootView.findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("AKUN PEMBELI"));
@@ -90,6 +120,19 @@ public class FragmentProfil extends Fragment {
         getDataProfil();
 
         return rootView;
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.imgProfil:
+//                Toast.makeText(getActivity(), "klik", Toast.LENGTH_SHORT).show();
+//                Intent intent = new Intent(getActivity(), ImageProfilActivity.class);
+//                getActivity().startActivity(intent);
+                selectImage();
+                default:
+                    break;
+        }
     }
 
     public class PagerAdapter extends FragmentStatePagerAdapter {
@@ -129,11 +172,9 @@ public class FragmentProfil extends Fragment {
         call.enqueue(new Callback<ResProfil>() {
             @Override
             public void onResponse(Call<ResProfil> call, Response<ResProfil> response) {
-
                 tvDataProfil = response.body();
                 String namaLengkap = tvDataProfil.getData().getNamaLengkap();
                 tvx_namaCustomter.setText(namaLengkap);
-
             }
 
             @Override
@@ -145,4 +186,39 @@ public class FragmentProfil extends Fragment {
             }
         });
     }
+
+    private void selectImage() {
+        Intent openGalleryIntent = new Intent(Intent.ACTION_PICK);
+        openGalleryIntent.setType("image/*");
+        startActivityForResult(openGalleryIntent, REQUEST_GALLERY_CODE);
+    }
+
+
+
+//    private void uploadToServer(String filePath) {
+//        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+//        UploadAPIs uploadAPIs = retrofit.create(UploadAPIs.class);
+//        //Create a file object using file path
+//        File file = new File(filePath);
+//        // Create a request body with file and image media type
+//        RequestBody fileReqBody = RequestBody.create(MediaType.parse("image/*"), file);
+//        // Create MultipartBody.Part using file request-body,file name and part name
+//        MultipartBody.Part part = MultipartBody.Part.createFormData("upload", file.getName(), fileReqBody);
+//        //Create request body with text description and text media type
+//        RequestBody description = RequestBody.create(MediaType.parse("text/plain"), "image-type");
+//        //
+//        Call call = uploadAPIs.uploadImage(part, description);
+//        call.enqueue(new Callback() {
+//            @Override
+//            public void onResponse(Call call, Response response) {
+//            }
+//            @Override
+//            public void onFailure(Call call, Throwable t) {
+//            }
+//        });
+//    }
+
+
+
+
 }

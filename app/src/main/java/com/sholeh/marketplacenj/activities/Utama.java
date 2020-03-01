@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -70,6 +71,7 @@ public class Utama extends AppCompatActivity implements  BottomAppBar.OnClickLis
         fb_favourite.setOnClickListener(this);
 
         loadFragment(new FragmentHome());
+        perizinan();
     }
 
     @Override
@@ -187,6 +189,12 @@ public class Utama extends AppCompatActivity implements  BottomAppBar.OnClickLis
 
     }
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
 
     private boolean loadFragment(Fragment fragment) {

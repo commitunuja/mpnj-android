@@ -19,6 +19,9 @@ public class ValDataProfil {
     @SerializedName("nomor_hp")
     @Expose
     private String nomorHp;
+    @SerializedName("foto_profil")
+    @Expose
+    private String fotoProfil;
     @SerializedName("email")
     @Expose
     private String email;
@@ -68,6 +71,14 @@ public class ValDataProfil {
 
     public void setNomorHp(String nomorHp) {
         this.nomorHp = nomorHp;
+    }
+
+    public String getFotoProfil() {
+        return fotoProfil;
+    }
+
+    public void setFotoProfil(String fotoProfil) {
+        this.fotoProfil = fotoProfil;
     }
 
     public String getEmail() {

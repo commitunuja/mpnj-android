@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#000"
+    android:id="@+id/layProfil"
+    tools:context=".activities.ImageProfilActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_collapseMode="pin"
+        android:background="@drawable/bg_transparant2"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:titleTextColor="@color/white"/>
+
+
+    <ImageView
+        android:id="@+id/img_profile"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        tools:srcCompat="@tools:sample/backgrounds/scenic[1]" />
+
+    <Button
+        android:textColor="#fff"
+        android:background="#000"
+        android:id="@+id/btn_pilih_gambar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Pilih Gambar"/>
+    <Button
+        android:textColor="#fff"
+        android:background="#000"
+        android:id="@+id/btn_ubahfoto_profile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Selesai"/>
+</LinearLayout>

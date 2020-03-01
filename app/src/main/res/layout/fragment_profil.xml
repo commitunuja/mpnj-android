@@ -60,7 +60,7 @@
                                 app:srcCompat="@drawable/man" />
 
                             <ImageView
-                                android:id="@+id/ivEdit"
+                                android:id="@+id/imgProfil"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="bottom|end"

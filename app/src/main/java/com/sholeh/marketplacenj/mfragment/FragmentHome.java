@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -72,6 +73,7 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_home,container,false);
+        setHasOptionsMenu(true);
         preferences = new Preferences(getActivity());
         id_konsumen = preferences.getIdKonsumen();
 
@@ -143,10 +145,14 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
 
 
 
-    @Override
+//    @Override
+//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+//        inflater.inflate(R.menu.main_menu, menu);
+//        super.onCreateOptionsMenu(menu,inflater);
+//    }
+
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.main_menu, menu);
-        super.onCreateOptionsMenu(menu,inflater);
     }
 
     @Override
@@ -160,6 +166,22 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
                 break;
         }
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+
+        String message = "You click fragment ";
+
+        if(itemId == R.id.menu_keranjang)
+        {
+            Toast.makeText(getActivity(), "klik", Toast.LENGTH_SHORT).show();
+        }
+
+
+        return super.onOptionsItemSelected(item);
+    }
+
 
 
 
