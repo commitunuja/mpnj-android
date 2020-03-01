@@ -55,12 +55,13 @@
         android:orientation="vertical">
 
         <ImageView
+
             android:layout_width="80dp"
             android:layout_height="80dp"
            android:padding="10dp"
             android:paddingBottom="10dp"
             android:id="@+id/img_gambarkeranjang"
-            android:background="@color/colorPrimary"/>
+            />
     </LinearLayout>
 
 
