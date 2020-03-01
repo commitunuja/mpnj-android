@@ -8,6 +8,8 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.sholeh.marketplacenj.R;
 
 import java.util.HashMap;
@@ -73,6 +75,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
         TextView no_pelanggan = convertView.findViewById(R.id.txNoRegHeader);
 //        ImageView img = convertView.findViewById(R.id.imgExpan);
         nama_kk.setText(model.getNama_toko());
+
         no_pelanggan.setText(model.getId_toko());
 
         return convertView;
