@@ -92,6 +92,12 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
         idproduk.setText(model.getId_produk());
         nama.setText(model.getNama_produk());
         harga.setText(model.getHarga());
+        Glide.with(convertView.getContext())
+                .load(model.getGambar())
+                .apply(new RequestOptions().override(350, 550))
+//                .placeholder(R.drawable.img_placeholder)
+//                .error(R.drawable.ic_missing)
+                .into(gambar);
         return convertView;
     }
 

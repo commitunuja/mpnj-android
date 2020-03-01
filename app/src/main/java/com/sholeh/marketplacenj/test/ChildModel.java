@@ -5,13 +5,22 @@ public class ChildModel {
 
     String id_toko, id_produk, nama_produk, harga, jumlah, subtotal, gambar;
 
-    public ChildModel(String id_toko, String id_produk, String nama_produk, String harga, String jumlah) {
+
+    public ChildModel(String id_toko, String id_produk, String nama_produk, String harga, String jumlah, String gambar) {
         this.id_toko = id_toko;
         this.id_produk = id_produk;
         this.nama_produk = nama_produk;
         this.harga = harga;
         this.jumlah = jumlah;
-//        this.gambar = gambar;
+        this.gambar = gambar;
+    }
+
+    public String getGambar() {
+        return gambar;
+    }
+
+    public void setGambar(String gambar) {
+        this.gambar = gambar;
     }
 
     public String getId_produk() {
