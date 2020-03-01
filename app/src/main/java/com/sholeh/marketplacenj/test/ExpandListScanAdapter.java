@@ -88,6 +88,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
         TextView idproduk = convertView.findViewById(R.id.txtIDPRODUK);
         TextView nama = convertView.findViewById(R.id.txtnamaPRODUK);
         TextView harga = convertView.findViewById(R.id.txtnamaHARGA);
+        ImageView gambar = convertView.findViewById(R.id.img_gambarkeranjang);
 
         idproduk.setText(model.getId_produk());
         nama.setText(model.getNama_produk());
