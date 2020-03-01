@@ -15,7 +15,7 @@
         android:layout_gravity="center"
         android:textColor="@android:color/black"
         android:gravity="center"
-        android:text="@string/keranjang" />
+        android:text="keranjang" />
     <TextView
         android:id="@+id/tv_name_product"
         android:layout_width="wrap_content"
@@ -24,7 +24,7 @@
         android:layout_marginTop="10dp"
         android:textColor="@android:color/black"
         android:gravity="center"
-        android:text="@string/nameproduct" />
+        android:text="nama produk" />
 
     <ImageView
         android:layout_marginTop="30dp"
@@ -101,7 +101,7 @@
         android:id="@+id/btn_tbhkeranjang"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:text="@string/tambah_ke_keranjang"
+        android:text="tambah ke keranjang"
         android:background="@drawable/pop_bg"
         android:layout_gravity="center"
         android:textColor="#ffff"/>
@@ -111,7 +111,7 @@
         android:id="@+id/btn_belilagi"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:text="@string/beli_lagi"
+        android:text="Beli Lagi"
         android:background="@drawable/pop_bg"
         android:layout_gravity="center"
         android:textColor="#ffff"/>
