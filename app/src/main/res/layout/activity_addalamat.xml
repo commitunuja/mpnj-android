@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:openDrawer="start"
+    tools:context=".activities.AddAlamat">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <LinearLayout
+                    android:padding="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Nama"
+                        android:textColor="#000"
+                        android:textSize="16dp"
+                        android:layout_marginBottom="5dp"/>
+
+                    <EditText
+                        android:inputType="textAutoCorrect"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:id="@+id/edNama"
+                        android:layout_marginBottom="15dp"
+                        android:background="@drawable/round_spinner"/>
+                    <requestFocus/>
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Nomor HP"
+                        android:textColor="#000"
+                        android:textSize="16dp"
+                        android:layout_marginBottom="5dp"/>
+
+                    <EditText
+
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:inputType="number"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:id="@+id/edNomorHP"
+                        android:layout_marginBottom="15dp"
+                        android:background="@drawable/round_spinner"/>
+                    <requestFocus/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Provinsi"
+                        android:textColor="#000"
+                        android:textSize="16dp"
+                        android:layout_marginBottom="5dp"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@drawable/round_spinner">
+                        <Spinner
+                            android:id="@+id/spin_provinsi"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:gravity="center">
+                        </Spinner>
+                    </LinearLayout>
+                    <requestFocus/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Kota"
+                        android:textColor="#000"
+                        android:textSize="16dp"
+                        android:layout_marginBottom="5dp"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@drawable/round_spinner">
+                        <Spinner
+                            android:id="@+id/spin_kota"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:gravity="center">
+                        </Spinner>
+                    </LinearLayout>
+                    <requestFocus/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Alamat"
+                        android:textColor="#000"
+                        android:textSize="16dp"
+                        android:layout_marginBottom="5dp"/>
+                    <EditText
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:id="@+id/edAlamat"
+                        android:layout_marginBottom="15dp"
+                        android:background="@drawable/round_spinner"/>
+                    <requestFocus/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Kode Pos"
+                        android:textColor="#000"
+                        android:textSize="16dp"
+                        android:layout_marginBottom="5dp"/>
+
+                    <EditText
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:inputType="number"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:id="@+id/edKodePos"
+                        android:layout_marginBottom="15dp"
+                        android:background="@drawable/round_spinner"/>
+                    <requestFocus/>
+
+
+
+
+
+                </LinearLayout>
+                <!--//-->
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/lnBtnDaftar"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <Button
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/btnSimpanAlamat"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/rect1_2"
+                    android:padding="15dp"
+                    android:text="Simpan"
+                    android:textColor="@color/white" />
+                <requestFocus/>
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

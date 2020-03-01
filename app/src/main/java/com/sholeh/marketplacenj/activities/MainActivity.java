@@ -1,9 +1,10 @@
 package com.sholeh.marketplacenj.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import android.content.Intent;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -14,14 +15,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.sholeh.marketplacenj.CONSTANTS;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.ServiceGenerator;
 import com.sholeh.marketplacenj.adapter.ProductAdapter;
@@ -30,6 +30,7 @@ import com.sholeh.marketplacenj.adapter.SliderImageAdapter;
 import com.sholeh.marketplacenj.model.Model;
 import com.sholeh.marketplacenj.model.api.APIInterface;
 import com.sholeh.marketplacenj.model.ProductModel;
+import com.sholeh.marketplacenj.util.Preferences;
 import com.smarteist.autoimageslider.IndicatorAnimations;
 import com.smarteist.autoimageslider.IndicatorView.draw.controller.DrawController;
 import com.smarteist.autoimageslider.SliderAnimations;
@@ -47,7 +48,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-
+//2.8
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     Toolbar toolbar;
     SliderView sliderMyshop;
@@ -73,11 +74,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 //    public static MainActivity ma;
 
+//    SharedPreferences preferences;
+    Preferences preferences;
+    String id_konsumen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        preferences = new Preferences(getApplication());
+        id_konsumen = preferences.getIdKonsumen();
+
+
         toolbar = findViewById(R.id.toolbar);
         sliderMyshop = findViewById(R.id.imageSlider);
         greetText = findViewById(R.id.greeting_text);
@@ -121,7 +129,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void onFailure(Call<List<Model>> call, Throwable t) {
-
                 Toast.makeText(MainActivity.this, String.valueOf(t), Toast.LENGTH_SHORT).show();
             }
         });
@@ -251,11 +258,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
 
         switch (v.getId()) {
-            case R.id.nav_home:
-                Toast.makeText(this, "nav home", Toast.LENGTH_SHORT).show();
-
-                break;
-
             case R.id.nav_transaksi:
                 Toast.makeText(this, "nav transaksi", Toast.LENGTH_SHORT).show();
                 break;
@@ -263,6 +265,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.fab_menu:
                 Toast.makeText(this, "nav fab", Toast.LENGTH_SHORT).show();
                 break;
+
+            case R.id.nav_notifikasi:
+                Toast.makeText(this, "nav notifikasi", Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.nav_profile:
+//                boolean login = preferences.getSPSudahLogin();
+//
+//                if (login){
+//                    startActivity(new Intent(this,ProfileActivity.class));
+//                    finish();
+//                }else{
+//                    startActivity(new Intent(this,LoginActivity.class));
+//                    finish();
+//                }
+
+                break;
+
+
 
             default:
                 break;

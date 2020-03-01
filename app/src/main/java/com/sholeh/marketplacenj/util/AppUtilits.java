@@ -1,6 +1,7 @@
 package com.sholeh.marketplacenj.util;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
@@ -15,7 +16,6 @@ import com.sholeh.marketplacenj.R;
 
 
 public class AppUtilits {
-
     public static void displayMessage(Context mContext, String message){
 
         MessageDialog messageDialog = null;
@@ -25,20 +25,6 @@ public class AppUtilits {
 
     }
 
-    public static void UpdateCartCount(Menu mainmenu){ // cart menu item.xml
-        MenuItem item = mainmenu.findItem(R.id.menu_keranjang);
-        Log.e("apputil ", " menu title "+ item.getTitle() );
-
-        TextView cartcount =   item.getActionView().findViewById(R.id.cart_count);
-        cartcount.setText( String.valueOf(SharePreferenceUtils.getInstance().getInteger(CONSTANTS.CART_ITEM_COUNT)));
-
-        if (SharePreferenceUtils.getInstance().getInteger(CONSTANTS.CART_ITEM_COUNT)>0){
-            cartcount.setVisibility(View.VISIBLE);
-        }else {
-            cartcount.setVisibility(View.GONE);
-        }
-
-    }
 
 }
 

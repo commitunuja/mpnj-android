@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/crMain"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/colorAccent"
+                app:popupTheme="@style/AppTheme.PopupOverlay"></androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/svHome"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:overScrollMode="never">
+
+
+
+        <LinearLayout
+            android:id="@+id/llMain"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_weight="0.9"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/vieb_black_transparant" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/value_5"
+                    android:layout_marginLeft="@dimen/value_5"
+                    android:layout_marginEnd="@dimen/value_5"
+                    android:layout_marginRight="@dimen/value_5"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="20sp"
+                            android:layout_weight="1"
+                            android:text="Nama"
+                            android:textSize="12sp" />
+
+                        <EditText
+                            android:id="@+id/ed_nama"
+                            android:layout_width="match_parent"
+                            android:layout_height="20sp"
+                            android:layout_weight="1"
+                            android:background="@drawable/custom_edittext"
+                            android:gravity="right"
+                            android:inputType="textAutoCorrect"
+                            android:textSize="12sp" />
+
+                        <requestFocus />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/vieb_black_transparant" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/value_5"
+                    android:layout_marginLeft="@dimen/value_5"
+                    android:layout_marginEnd="@dimen/value_5"
+                    android:layout_marginRight="@dimen/value_5"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="20sp"
+                            android:layout_weight="1"
+                            android:text="No. Hp"
+                            android:textSize="12sp" />
+
+                        <EditText
+                            android:id="@+id/ed_nohp"
+                            android:layout_width="match_parent"
+                            android:layout_height="20sp"
+                            android:layout_weight="1"
+                            android:background="@drawable/custom_edittext"
+                            android:gravity="right"
+                            android:inputType="number"
+                            android:textSize="12sp" />
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+                <View
+                    android:layout_width="300dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/vieb_black_transparant" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/value_5"
+                    android:layout_marginLeft="@dimen/value_5"
+                    android:layout_marginEnd="@dimen/value_5"
+                    android:layout_marginRight="@dimen/value_5"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="20sp"
+                            android:layout_weight="1"
+                            android:text="Provinsi"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:visibility="gone"
+                            android:id="@+id/ed_Idprov"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:textColor="#000000"
+                            android:id="@+id/ed_prov"
+                            android:layout_width="match_parent"
+                            android:layout_height="20sp"
+                            android:layout_weight="1"
+                            android:background="@drawable/custom_edittext"
+                            android:gravity="right"
+                            android:inputType="textAutoCorrect"
+                            android:textSize="12sp"
+                             />
+
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="250dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/vieb_black_transparant" />
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/value_5"
+                    android:layout_marginLeft="@dimen/value_5"
+                    android:layout_marginEnd="@dimen/value_5"
+                    android:layout_marginRight="@dimen/value_5"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="20sp"
+                            android:layout_weight="1"
+                            android:text="Kota/Kabupaten"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:visibility="gone"
+                            android:id="@+id/ed_Idkota"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+
+                        <TextView
+
+                            android:textColor="#000000"
+                            android:id="@+id/ed_kota"
+                            android:layout_width="match_parent"
+                            android:layout_height="20sp"
+                            android:layout_weight="1"
+                            android:background="@drawable/custom_edittext"
+                            android:gravity="right"
+                            android:inputType="textAutoCorrect"
+                            android:textSize="12sp" />
+
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="250dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/vieb_black_transparant" />
+
+
+                <LinearLayout
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/value_5"
+                    android:layout_marginLeft="@dimen/value_5"
+                    android:layout_marginEnd="@dimen/value_5"
+                    android:layout_marginRight="@dimen/value_5"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="20sp"
+                            android:layout_weight="1"
+                            android:text="Kecamatan"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:visibility="gone"
+                            android:id="@+id/ed_IdKec"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <EditText
+                            android:id="@+id/ed_kec"
+                            android:layout_width="match_parent"
+                            android:layout_height="20sp"
+                            android:layout_weight="1"
+                            android:background="@drawable/custom_edittext"
+                            android:gravity="right"
+                            android:inputType="textAutoCorrect"
+                            android:text="Paiton"
+                            android:textSize="12sp" />
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <View
+                    android:visibility="gone"
+                    android:layout_width="300dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/vieb_black_transparant" />
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/value_5"
+                    android:layout_marginLeft="@dimen/value_5"
+                    android:layout_marginEnd="@dimen/value_5"
+                    android:layout_marginRight="@dimen/value_5"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="20sp"
+                            android:layout_weight="1"
+                            android:text="Kode Pos"
+                            android:textSize="12sp" />
+
+                        <EditText
+                            android:id="@+id/ed_kodepos"
+                            android:inputType="number"
+                            android:layout_width="match_parent"
+                            android:layout_height="20sp"
+                            android:layout_weight="1"
+                            android:background="@drawable/custom_edittext"
+                            android:gravity="right"
+                            android:textSize="12sp" />
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/vieb_black_transparant" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/value_5"
+                    android:layout_marginLeft="@dimen/value_5"
+                    android:layout_marginEnd="@dimen/value_5"
+                    android:layout_marginRight="@dimen/value_5"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="20sp"
+                            android:layout_weight="1"
+                            android:text="Alamat Lengkap"
+                            android:textSize="12sp" />
+
+                        <EditText
+                            android:id="@+id/ed_alamat"
+                            android:layout_width="match_parent"
+                            android:layout_height="20sp"
+                            android:layout_weight="1"
+                            android:background="@drawable/custom_edittext"
+                            android:gravity="left"
+                            android:inputType="textAutoCorrect"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:background="@color/line_gray" />
+
+
+
+
+
+            </LinearLayout>
+
+
+
+
+            <LinearLayout
+                android:id="@+id/llButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/value_5"
+                android:layout_marginLeft="@dimen/value_5"
+                android:layout_marginTop="@dimen/value_5"
+                android:layout_marginEnd="@dimen/value_5"
+                android:layout_marginRight="@dimen/value_5"
+                android:layout_marginBottom="15dp"
+                android:background="@color/colorPrimary"
+                android:gravity="center"
+                android:padding="@dimen/value_5">
+
+
+                <TextView
+                    android:textColor="#FF5441"
+                    android:id="@+id/tvHapus"
+                    style="@style/txt_white_medium"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:gravity="center"
+                    android:text="Hapus" />
+
+
+                <TextView
+                    android:layout_width="3dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/white" />
+
+
+                <TextView
+                    android:id="@+id/tvSave"
+                    style="@style/txt_white_medium"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:gravity="center"
+                    android:text="Simpan" />
+
+
+
+
+            </LinearLayout>
+
+
+
+
+
+        </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+
+
+    </LinearLayout>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

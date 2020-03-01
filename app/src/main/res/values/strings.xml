@@ -12,8 +12,9 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="keranjang">Keranjang</string>
-    <string name="nameproduct">Nama Product</string>
-    <string name="tambah_ke_keranjang">Tambah ke Keranjang</string>
-    <string name="beli_lagi">Beli Lagi</string>
+    <string name="login_with_google">GOOGLE+</string>
+    <string name="network_not_connected"> Tidak ada koneksi jaringan saat ini. Silakan coba lagi.</string>
+    <string name="failed_request">Silakan coba lagi ...</string>
+    <string name="network_error">Silakan coba lagi. Jaringan tidak merespon</string>
+    <string name="fail_togetaddress">Gagal mendapatkan alamat pengguna, Silakan coba lagi.</string>
 </resources>

@@ -4,8 +4,10 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
+        android:name=".util.MyApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launchermarketplace"
         android:label="@string/app_name"
@@ -13,13 +15,33 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.KeranjangDetailActivity"></activity>
-        <activity android:name=".test.KeranjangDetailActivity2"></activity>
+        <activity android:name=".activities.Splash"></activity>
         <activity
-            android:name=".activities.KeranjangActivity"
-            android:theme="@style/AppTheme.PopKeranjang"></activity>
+            android:name=".activities.DetailAlamat"
+            android:theme="@style/AppBlack" />
+        <activity android:name=".activities.AddAlamat" />
+        <activity
+            android:name=".activities.AlamatActivity"
+            android:theme="@style/AppBlack" />
+        <activity android:name=".activities.UbahPassword" />
+        <activity android:name=".activities.PengaturanAkun" />
+        <activity
+            android:name=".activities.AkunActivity"
+            android:theme="@style/AppBlack" />
+        <activity android:name=".activities.VerifikasiActivity" />
+        <activity android:name=".activities.ForgotPassword" />
+        <activity android:name=".activities.MainActivity" />
+        <activity
+            android:name=".activities.LoginActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activities.RegisterActivity" />
+        <activity android:name=".activities.KeranjangActivity" />
         <activity android:name=".activities.DetailProdukActivity" />
-        <activity android:name=".activities.MainActivity">
+        <activity
+            android:name=".activities.Utama"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

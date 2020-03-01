@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    app:cardCornerRadius="5dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_white"
+    android:layout_gravity="center">
+    <LinearLayout
+        android:background="@drawable/shape_white"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+
+            <TextView
+                android:id="@+id/tv_poprespon"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="No Connection"
+
+                android:textColor="@color/black"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="5dp"/>
+
+            <TextView
+                android:padding="10dp"
+                android:layout_gravity="end"
+                android:id="@+id/tv_popOK"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="OK"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_marginTop="5dp"/>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
