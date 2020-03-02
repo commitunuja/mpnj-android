@@ -1,4 +1,5 @@
 package com.sholeh.marketplacenj.activities;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -23,17 +24,21 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.sholeh.marketplacenj.APIInterface;
 import com.sholeh.marketplacenj.R;
+import com.sholeh.marketplacenj.ServiceGenerator;
+import com.sholeh.marketplacenj.respon.ResProfil;
 import com.sholeh.marketplacenj.util.Preferences;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.ByteArrayOutputStream;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.File;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class ImageProfilActivity extends AppCompatActivity implements View.OnClickListener {
@@ -46,42 +51,43 @@ public class ImageProfilActivity extends AppCompatActivity implements View.OnCli
     private static final int PICK_IMAGE = 1;
     private static final int PICK_Camera_IMAGE = 2;
     Preferences preferences;
+    String id_konsumen;
 
     private ProgressDialog progres;
     Toolbar toolBarisi;
+    String imagePath;
+
+    //Uri to store the image uri
+
+
+
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-//
-
-        if(bitmap != null){
-            Toast.makeText(this, "tampil activity", Toast.LENGTH_SHORT).show();
-            super.onCreate(savedInstanceState);
-           setContentView(R.layout.activity_image_profil);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_image_profil);
 //            setTheme(R.style.Theme_Transparent);
-//        toolBarisi = findViewById(R.id.toolbar);
-//        toolBarisi.setTitle("Foto Profil");
-//        setSupportActionBar(toolBarisi);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolBarisi = findViewById(R.id.toolbar);
+        toolBarisi.setTitle("Foto Profil");
+        setSupportActionBar(toolBarisi);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        preferences = new Preferences(getApplication());
+        id_konsumen = preferences.getIdKonsumen();
 //        preferences = new Preferences(getApplication());
 //        layImg= findViewById(R.id.layProfil);
 //        layImg.setVisibility(View.GONE);
 
-            imgProfil = findViewById(R.id.img_profile);
-            pilih = findViewById(R.id.btn_pilih_gambar);
-            upload = findViewById(R.id.btn_ubahfoto_profile);
+        imgProfil = findViewById(R.id.img_profile);
+        pilih = findViewById(R.id.btn_pilih_gambar);
+        upload = findViewById(R.id.btn_ubahfoto_profile);
 
 
-            preferences = new Preferences(getApplication());
-            pilih.setOnClickListener(this);
-            upload.setOnClickListener(this);
+        preferences = new Preferences(getApplication());
+        pilih.setOnClickListener(this);
+        upload.setOnClickListener(this);
 
-        }else{
-            Toast.makeText(this, "tidak tampil activity", Toast.LENGTH_SHORT).show();
-            selectImage();
-        }
 
 //
 //        urltoimageProfil = getIntent().getExtras().getString("fotoprofil");
@@ -98,12 +104,13 @@ public class ImageProfilActivity extends AppCompatActivity implements View.OnCli
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_ubahfoto_profile:
-                Toast.makeText(this, "klik", Toast.LENGTH_SHORT).show();
-//                upload();
+
+                uploadImage();
                 break;
             case R.id.btn_pilih_gambar:
                 selectImage();
 //                Toast.makeText(this, "klik", Toast.LENGTH_SHORT).show();
+
                 break;
             default:
                 break;
@@ -229,4 +236,77 @@ public class ImageProfilActivity extends AppCompatActivity implements View.OnCli
         String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
         return encodedImage;
     }
+//
+//
+
+
+
+
+    private void uploadImage() {
+
+
+        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+//        UploadAPIs uploadAPIs = retrofit.create(UploadAPIs.class);
+        //Create a file object using file path
+//        File file = new File(filePath);
+        // Create a request body with file and image media type
+//        RequestBody fileReqBody = RequestBody.create(MediaType.parse("image/*"), file);
+        // Create MultipartBody.Part using file request-body,file name and part name
+//        MultipartBody.Part part = MultipartBody.Part.createFormData("upload", file.getName(), fileReqBody);
+        //Create request body with text description and text media type
+//        RequestBody description = RequestBody.create(MediaType.parse("text/plain"), "image-type");
+        //
+        //Create a file object using file path
+//        File file = new File(getStringImage(bitmap));
+//        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+//        MultipartBody.Part body = MultipartBody.Part.createFormData("file", file.getName(), requestFile);
+
+
+//        RequestBody filename = RequestBody.create(MediaType.parse("text/plain"), imgname);
+
+
+
+        Call<ResProfil> call  = service.uploadProfiKonsumen(id_konsumen, bitmap);
+
+        call.enqueue(new Callback<ResProfil>() {
+            @Override
+            public void onResponse(Call<ResProfil> call, Response<ResProfil> response) {
+                Log.d("ress", String.valueOf(response));
+                Toast.makeText(ImageProfilActivity.this, ""+response, Toast.LENGTH_SHORT).show();
+
+
+//                if (response.body()!= null && response.isSuccessful()){ // true
+//                    if (response.body().getPesan().equalsIgnoreCase("Sukses!")){
+//                        Toast.makeText(ImageProfilActivity.this, "Berhasil diperbarui", Toast.LENGTH_LONG).show();
+//                        finish();
+//////
+//////
+//                    }else {
+//                        Toast.makeText(ImageProfilActivity.this, "Gagal diperbarui", Toast.LENGTH_LONG).show();
+//
+////                            AppUtilits.displayMessage(UbahPassword.this,  response.body().getPesan());
+//                    }
+//                }else {
+//                    Toast.makeText(ImageProfilActivity.this, "Gagal diperbarui", Toast.LENGTH_LONG).show();
+//
+////                        AppUtilits.displayMessage(UbahPassword.this,  getString(R.string.failed_request));
+//
+//                }
+            }
+
+            @Override
+            public void onFailure(Call<ResProfil> call, Throwable t) {
+                Toast.makeText(ImageProfilActivity.this, "Gagal diperbarui"+t, Toast.LENGTH_LONG).show();
+                Log.d("tes", String.valueOf(t));
+
+                //  Log.e(TAG, " failure "+ t.toString());
+//                    AppUtilits.displayMessage(UbahPassword.this,  getString(R.string.failed_request));
+            }
+        });
+    }
+
+
+
+
+
 }
