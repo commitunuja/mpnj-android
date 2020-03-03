@@ -13,6 +13,7 @@ import com.sholeh.marketplacenj.respon.ResProfil;
 import java.util.List;
 
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.DELETE;
 import retrofit2.http.Field;
@@ -133,7 +134,7 @@ public interface APIInterface {
     @POST("api/konsumen/upload")
     Call<ResProfil> uploadProfiKonsumen(
             @Part("id_konsumen") String idKonsumen,
-            @Part("file") MultipartBody.Part image);
+            @Part MultipartBody.Part image, @Part("file") RequestBody description);
 
 
 }
