@@ -30,11 +30,13 @@ import com.google.android.material.snackbar.Snackbar;
 import com.sholeh.marketplacenj.APIInterface;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.ServiceGenerator;
+import com.sholeh.marketplacenj.respon.ResImg;
 import com.sholeh.marketplacenj.respon.ResProfil;
 import com.sholeh.marketplacenj.util.Preferences;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.util.HashMap;
 
 import butterknife.Unbinder;
 import okhttp3.MediaType;
@@ -307,21 +309,22 @@ public class ImageProfilActivity extends AppCompatActivity implements View.OnCli
         }
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mUnbinder.unbind();
-    }
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//        mUnbinder.unbind();
+//    }
 
 
 
     private void uploadImage() {
+
+
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
         File file = new File(selectImagePath);
-        RequestBody reqFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        RequestBody reqFile = RequestBody.create(MediaType.parse("image"), file);
         MultipartBody.Part imageBody = MultipartBody.Part.createFormData("file", file.getName(), reqFile);
-        RequestBody ImageName = RequestBody.create(MediaType.parse("multipart/form-data"), file.getName());
-
+//        RequestBody ImageName = RequestBody.create(MediaType.parse("multipart/form-data"), file.getName());
 
 
 //        UploadAPIs uploadAPIs = retrofit.create(UploadAPIs.class);
@@ -342,38 +345,39 @@ public class ImageProfilActivity extends AppCompatActivity implements View.OnCli
 
 //        RequestBody filename = RequestBody.create(MediaType.parse("text/plain"), imgname);
 
+//        Toast.makeText(this, "id"+, Toast.LENGTH_SHORT).show();
 
 
-        Call<ResProfil> call  = service.uploadProfiKonsumen(id_konsumen, imageBody, ImageName);
-        call.enqueue(new Callback<ResProfil>() {
+        Call<ResImg> call  = service.uploadProfiKonsumen(id_konsumen, imageBody);
+        call.enqueue(new Callback<ResImg>() {
             @Override
-            public void onResponse(Call<ResProfil> call, Response<ResProfil> response) {
-                Log.d("ress", String.valueOf(response));
-                Toast.makeText(ImageProfilActivity.this, ""+response, Toast.LENGTH_SHORT).show();
-
+            public void onResponse(Call<ResImg> call, Response<ResImg> response) {
+                Log.d("resimg", String.valueOf(response));
+                Toast.makeText(ImageProfilActivity.this, "pesan "+response.body().getPesan(), Toast.LENGTH_SHORT).show();
 
 //                if (response.body()!= null && response.isSuccessful()){ // true
+//                    Toast.makeText(ImageProfilActivity.this, ""+response.body(), Toast.LENGTH_SHORT).show();
 //                    if (response.body().getPesan().equalsIgnoreCase("Sukses!")){
 //                        Toast.makeText(ImageProfilActivity.this, "Berhasil diperbarui", Toast.LENGTH_LONG).show();
-//                        finish();
-//////
-//////
+////                        finish();
+////////
+////////
 //                    }else {
-//                        Toast.makeText(ImageProfilActivity.this, "Gagal diperbarui", Toast.LENGTH_LONG).show();
+//                        Toast.makeText(ImageProfilActivity.this, "Gagal diperbarui"+response.body().getPesan(), Toast.LENGTH_LONG).show();
 //
 ////                            AppUtilits.displayMessage(UbahPassword.this,  response.body().getPesan());
 //                    }
 //                }else {
 //                    Toast.makeText(ImageProfilActivity.this, "Gagal diperbarui", Toast.LENGTH_LONG).show();
-//
-////                        AppUtilits.displayMessage(UbahPassword.this,  getString(R.string.failed_request));
-//
+////
+//////                        AppUtilits.displayMessage(UbahPassword.this,  getString(R.string.failed_request));
+////
 //                }
             }
 
             @Override
-            public void onFailure(Call<ResProfil> call, Throwable t) {
-                Toast.makeText(ImageProfilActivity.this, "Gagal diperbarui"+t, Toast.LENGTH_LONG).show();
+            public void onFailure(Call<ResImg> call, Throwable t) {
+                Toast.makeText(ImageProfilActivity.this, "Gagal"+t, Toast.LENGTH_LONG).show();
                 Log.d("kocor", String.valueOf(t));
 
                 //  Log.e(TAG, " failure "+ t.toString());
@@ -383,6 +387,11 @@ public class ImageProfilActivity extends AppCompatActivity implements View.OnCli
     }
 
 
+    @NonNull
+    private RequestBody createPartFromString(String descriptionString) {
+        return RequestBody.create(
+                okhttp3.MultipartBody.FORM, descriptionString);
+    }
 
 
 
