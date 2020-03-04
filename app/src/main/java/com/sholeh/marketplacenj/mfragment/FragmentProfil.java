@@ -73,9 +73,6 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
 
 
 
-
-
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -126,10 +123,9 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.imgProfil:
-//                Toast.makeText(getActivity(), "klik", Toast.LENGTH_SHORT).show();
-//                Intent intent = new Intent(getActivity(), ImageProfilActivity.class);
-//                getActivity().startActivity(intent);
-                selectImage();
+                Intent intent = new Intent(getActivity(), ImageProfilActivity.class);
+                getActivity().startActivity(intent);
+//                selectImage();
                 default:
                     break;
         }

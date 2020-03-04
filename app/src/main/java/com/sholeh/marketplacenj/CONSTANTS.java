@@ -4,7 +4,6 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class CONSTANTS {
-//    public static final String BASE_URL="http://192.168.137.154/mpnj/public/"; //rubah dengan IP devicenya
     public static final String BASE_URL="http://192.168.1.17/mpnj/public/"; //rubah dengan IP devicenya
 
     public static final String URL_RAJAONGKIR = "https://api.rajaongkir.com/starter/";

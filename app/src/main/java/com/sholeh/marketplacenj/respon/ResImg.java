@@ -5,13 +5,15 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class ResProfil {
+public class ResImg {
+
+
     @SerializedName("pesan")
     @Expose
     private String pesan;
     @SerializedName("data")
     @Expose
-    private ValDataProfil data;
+    private List<ValDataProfil> data = null;
 
     public String getPesan() {
         return pesan;
@@ -21,19 +23,12 @@ public class ResProfil {
         this.pesan = pesan;
     }
 
-    public ValDataProfil getData() {
+    public List<ValDataProfil> getData() {
         return data;
     }
 
-    public void setData(ValDataProfil data) {
+    public void setData(List<ValDataProfil> data) {
         this.data = data;
     }
-//
-//
-
-
-
 
 }
-
-
