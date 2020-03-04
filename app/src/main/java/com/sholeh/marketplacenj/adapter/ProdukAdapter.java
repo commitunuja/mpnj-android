@@ -50,9 +50,9 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ViewHolder
 
         Picasso.with(context)
 //                .load(CONSTANTS.BASE_URL + "assets/foto_produk/" +tvDataProduk.getFoto().get(0))
-                    .load(CONSTANTS.BASE_URL + "assets/foto_produk/" +tvDataProduk.getFoto().get(0).getFotoProduk())
-                    .resize(300, 300)
-                    .into(viewHolder.foto_produk);
+                .load(CONSTANTS.BASE_URL + "assets/foto_produk/" +tvDataProduk.getFoto().get(0).getFotoProduk())
+                .resize(300, 300)
+                .into(viewHolder.foto_produk);
 //        int fotoLength = tvDataProduk.getFoto().size();
 //        for (int j = i; j <= fotoLength; j++) {
 //            Picasso.with(context)
@@ -71,6 +71,8 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ViewHolder
 //                context.startActivity(i);
 //            }
 //        });
+
+
     }
 
     @Override
@@ -88,9 +90,6 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ViewHolder
             namaProduk = itemView.findViewById(R.id.itemNamaproduct);
             hargaProduk = itemView.findViewById(R.id.itemHargaproduct);
             foto_produk = itemView.findViewById(R.id.foto_produk);
-
-
-
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -113,6 +112,9 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ViewHolder
                 }
             });
         }
+
+
+
 
 
     }
