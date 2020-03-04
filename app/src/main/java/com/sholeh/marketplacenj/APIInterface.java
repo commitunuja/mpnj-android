@@ -136,7 +136,7 @@ public interface APIInterface {
     @Multipart
     @POST("api/konsumen/upload")
     Call<ResImg> uploadProfiKonsumen(
-            @Part("id_konsumen") String idKonsumen,
+            @Part("id_konsumen") RequestBody idKonsumen,
             @Part MultipartBody.Part file);
 
 }

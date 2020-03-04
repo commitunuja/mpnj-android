@@ -318,15 +318,12 @@ public class ImageProfilActivity extends AppCompatActivity implements View.OnCli
 
 
     private void uploadImage() {
-
-
-        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
         File file = new File(selectImagePath);
-        RequestBody reqFile = RequestBody.create(MediaType.parse("image"), file);
+        RequestBody reqFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
         MultipartBody.Part imageBody = MultipartBody.Part.createFormData("file", file.getName(), reqFile);
-//        RequestBody ImageName = RequestBody.create(MediaType.parse("multipart/form-data"), file.getName());
-
-
+        RequestBody ImageName = RequestBody.create(MediaType.parse("text/plain"), file.getName());
+        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+        RequestBody _id_konsumen = RequestBody.create(MediaType.parse("text/plain"), id_konsumen);
 //        UploadAPIs uploadAPIs = retrofit.create(UploadAPIs.class);
         //Create a file object using file path
 //        File file = new File(filePath);
@@ -348,11 +345,12 @@ public class ImageProfilActivity extends AppCompatActivity implements View.OnCli
 //        Toast.makeText(this, "id"+, Toast.LENGTH_SHORT).show();
 
 
-        Call<ResImg> call  = service.uploadProfiKonsumen(id_konsumen, imageBody);
+        Call<ResImg> call  = service.uploadProfiKonsumen(_id_konsumen, imageBody);
         call.enqueue(new Callback<ResImg>() {
             @Override
             public void onResponse(Call<ResImg> call, Response<ResImg> response) {
                 Log.d("resimg", String.valueOf(response));
+
                 Toast.makeText(ImageProfilActivity.this, "pesan "+response.body().getPesan(), Toast.LENGTH_SHORT).show();
 
 //                if (response.body()!= null && response.isSuccessful()){ // true
