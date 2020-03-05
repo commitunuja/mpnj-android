@@ -35,7 +35,7 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ViewHolder
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.itemgrid_allproduct,viewGroup,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_top_ten_list,viewGroup,false);
         return new ViewHolder(view);
     }
 
@@ -87,9 +87,13 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ViewHolder
 
         public ViewHolder(View itemView) {
             super(itemView);
-            namaProduk = itemView.findViewById(R.id.itemNamaproduct);
-            hargaProduk = itemView.findViewById(R.id.itemHargaproduct);
-            foto_produk = itemView.findViewById(R.id.foto_produk);
+          /*  foto_produk = (ImageView) view.findViewById(R.id.imageproduk);
+            namaProduk = (TextView) view.findViewById(R.id.titleproduk);
+            stok = (TextView) view.findViewById(R.id.typeproduk);*/
+
+            namaProduk = itemView.findViewById(R.id.titleproduk);
+            hargaProduk = itemView.findViewById(R.id.typeproduk);
+            foto_produk = itemView.findViewById(R.id.imageproduk);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
