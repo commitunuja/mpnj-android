@@ -22,4 +22,6 @@
     <string name="tambah_ke_keranjang">tambah ke keranjang</string>
     <string name="beli_lagi">beli lagi</string>
     <string name="searchproduk">Cari Produk</string>
+    <string name="top_rated_products">top rated products</string>
+    <string name="you_may_like">you may like</string>
 </resources>
