@@ -22,3 +22,17 @@
     private Integer image2[]={R.drawable.mobile1,R.drawable.mobile2,R.drawable.mobile1,R.drawable.mobile2};
     private String title2[] ={"Samsung On Mask 2GB Ram","Samsung Galaxy 8 6GB Ram","Samsung On Mask 2GB Ram","Samsung Galaxy 8 6GB Ram"};
     private String type2[] = {"Phones","Phones","Phones","Phones"};
+
+        recyclerView = (RecyclerView)findViewById(R.id.recyclerview);
+
+        homeBannerModelClasses = new ArrayList<>();
+
+
+
+        for (int i = 0; i < image.length; i++) {
+            HomeBannerModelClass beanClassForRecyclerView_contacts = new HomeBannerModelClass(image[i]);
+
+            homeBannerModelClasses.add(beanClassForRecyclerView_contacts);
+        }
+
+
