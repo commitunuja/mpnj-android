@@ -58,3 +58,26 @@
         mAdapter1 = new RecycleAdapteHomeCategory(Homepage.this, homeCategoryModelClasses);
         RecyclerView.LayoutManager mLayoutManager1 = new LinearLayoutManager(Homepage.this, LinearLayoutManager.HORIZONTAL, false);
         category_recyclerView.setLayoutManager(mLayoutManager1);
+        //      Like  Recyclerview Code is here
+        //untuk produk
+
+        like_recyclerview = (RecyclerView)findViewById(R.id.like_recyclerview);
+        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+        Call<List<Model>> call = service.getProduk();
+
+        call.enqueue(new Callback<List<Model>>() {
+            @Override
+            public void onResponse(Call<List<Model>> call, Response<List<Model>> response) {
+
+                tvDataProduk = response.body();
+                produkAdapter = new ProdukAdapter(getBaseContext(), tvDataProduk);
+                like_recyclerview.setAdapter(produkAdapter);
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Model>> call, Throwable t) {
+                Toast.makeText(getBaseContext(), String.valueOf(t), Toast.LENGTH_SHORT).show();
+            }
+        });
+        //untuk produk
