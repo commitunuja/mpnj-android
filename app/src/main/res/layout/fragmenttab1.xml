@@ -40,7 +40,7 @@
                 android:drawablePadding="@dimen/value_10"
                 android:gravity="start"
                 android:padding="@dimen/value_8"
-                android:text="Pesananku"
+                android:text="Rekening Bank"
                 android:textAlignment="viewStart"
                 android:textDirection="locale"
                 app:drawableStartCompat="@drawable/ic_order_account"
