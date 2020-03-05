@@ -49,6 +49,7 @@
         <activity android:name=".activities.VerifikasiActivity" />
         <activity android:name=".activities.ForgotPassword" />
         <activity android:name=".activities.MainActivity" />
+        <activity android:name=".activities.dashboard.Homepage"/>
         <activity
             android:name=".activities.LoginActivity"
             android:launchMode="singleTop"
