@@ -4,7 +4,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class CONSTANTS {
-    public static final String BASE_URL="http://192.168.1.17/mpnj/public/"; //rubah dengan IP devicenya
+    public static final String BASE_URL="http://192.168.1.28/mpnj/public/"; //rubah dengan IP devicenya
+//    public static final String BASE_URL="http://192.168.137.154/mpnj/public/"; //rubah dengan IP devicenya
 
     public static final String URL_RAJAONGKIR = "https://api.rajaongkir.com/starter/";
 
@@ -14,15 +15,16 @@ public class CONSTANTS {
     public static final long API_READ_TIMEOUT = 901;
 
 
+
     public static final String ID_KONSUMEN = "id_konsumen";
     public static final String USER_NAME = "username";
     public static final String NAMA_LENGKAP = "nama_lengkap";
     public static final String PHONE = "nomor_hp";
     public static final String EMAIL = "email";
-    public static Retrofit retrofit;
+    private static Retrofit retrofit;
+
 
     public static Retrofit getClient()
-
     {
         if(retrofit == null)
         {
@@ -34,5 +36,4 @@ public class CONSTANTS {
 
         return  retrofit;
     }
-
 }

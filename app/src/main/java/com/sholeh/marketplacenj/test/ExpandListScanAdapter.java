@@ -8,6 +8,8 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.sholeh.marketplacenj.R;
 
 import java.util.HashMap;
@@ -73,6 +75,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
         TextView no_pelanggan = convertView.findViewById(R.id.txNoRegHeader);
 //        ImageView img = convertView.findViewById(R.id.imgExpan);
         nama_kk.setText(model.getNama_toko());
+
         no_pelanggan.setText(model.getId_toko());
 
         return convertView;
@@ -85,13 +88,22 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
             LayoutInflater inflater = (LayoutInflater)this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.desain_child,null);
         }
-        TextView idproduk = convertView.findViewById(R.id.txtIDPRODUK);
+//        TextView idproduk = convertView.findViewById(R.id.txtIDPRODUK);
         TextView nama = convertView.findViewById(R.id.txtnamaPRODUK);
         TextView harga = convertView.findViewById(R.id.txtnamaHARGA);
+        ImageView gambar = convertView.findViewById(R.id.img_gambarkeranjang);
+        TextView jumlah = convertView.findViewById(R.id.txtjumlah);
 
-        idproduk.setText(model.getId_produk());
+//        idproduk.setText(model.getId_produk());
         nama.setText(model.getNama_produk());
         harga.setText(model.getHarga());
+        jumlah.setText(model.getJumlah());
+        Glide.with(convertView.getContext())
+                .load(model.getGambar())
+                .apply(new RequestOptions().override(350, 550))
+//                .placeholder(R.drawable.img_placeholder)
+//                .error(R.drawable.ic_missing)
+                .into(gambar);
         return convertView;
     }
 

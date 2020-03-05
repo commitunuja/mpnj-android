@@ -44,6 +44,7 @@
     <color name="green">#FF009900</color>
     <color name="oranges">#FF9300</color>
     <color name="reds">#FF2600</color>
+    <color name="primarytext">#0f0d0d</color>
 
     <color name="textColorPrimary">#212121</color>
     <color name="textColorSecondary">#727272</color>
