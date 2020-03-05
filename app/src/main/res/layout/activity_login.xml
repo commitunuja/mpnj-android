@@ -43,7 +43,7 @@
                     android:inputType="text"
                     android:maxLength="10"
                     android:maxLines="1"
-                    android:hint="username"
+                    android:hint="Username"
                     android:letterSpacing="0.03"
                     android:paddingRight="10dp"
                     android:drawablePadding="10dp"
