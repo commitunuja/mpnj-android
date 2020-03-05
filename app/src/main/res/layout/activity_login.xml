@@ -1,17 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/crMain"
-    android:background="@drawable/bg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+
     tools:context="com.sholeh.marketplacenj.activities.LoginActivity">
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+
+
+
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:src="@drawable/logo_mpnj"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="5.7dp"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="23dp"
+                android:layout_marginLeft="24.7dp"
+                android:textColorHint="@color/black"
+                android:layout_marginTop="50.3dp">
+
+                <customfonts.EditText_SF_Pro_Display_Medium
+                    android:id="@+id/etUsername"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:maxLength="10"
+                    android:maxLines="1"
+                    android:hint="username"
+                    android:letterSpacing="0.03"
+                    android:paddingRight="10dp"
+                    android:drawablePadding="10dp"
+                    android:paddingBottom="18dp"
+                    android:drawableRight="@drawable/icperson"
+                    android:paddingTop="10dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/black"
+                    android:textSize="14.7sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="23dp"
+                android:layout_marginLeft="24.7dp"
+                android:textColorHint="@color/black"
+                app:passwordToggleEnabled="true"
+                android:layout_marginTop="3dp">
+
+                <customfonts.EditText_SF_Pro_Display_Medium
+                    android:drawableRight="@drawable/ic_visibility_off_black_24dp"
+                    android:id="@+id/etPass"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLength="10"
+                    android:maxLines="1"
+                    android:hint="Password"
+                    android:letterSpacing="0.03"
+                    android:paddingRight="10dp"
+                    android:drawablePadding="10dp"
+                    android:paddingBottom="18dp"
+                    android:inputType="textPassword"
+                    android:paddingTop="10dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/black"
+                    android:textSize="14.7sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <customfonts.TextViewSFProDisplayMedium
+                android:id="@+id/tvForgetPass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="12.7sp"
+                android:text="Lupa Password?"
+                android:textColor="#89000000"
+                android:gravity="right"
+                android:layout_marginRight="22dp"
+                android:layout_marginTop="22.3dp"/>
+
+            <customfonts.TextViewSFProDisplayMedium
+                android:id="@+id/tvSignIn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="Login"
+                android:textSize="16.7sp"
+                android:gravity="center_horizontal"
+                android:paddingBottom="16dp"
+                android:paddingTop="12dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="30dp"
+                android:background="@color/colorPrimary"/>
+
+            <customfonts.TextViewSFProDisplayMedium
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="11.3sp"
+                android:textColor="@color/black"
+                android:text="Atau mendaftar dengan"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="28dp"/>
+
+
+
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -23,148 +136,12 @@
             android:paddingRight="@dimen/value_15"
             android:paddingBottom="@dimen/value_15">
 
-            <TextView
-                android:textStyle="bold"
-                android:gravity="center"
-                android:text="MARKETPLACE"
-                android:textSize="@dimen/padding_too_large_30"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/value_25"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/value_20"
-                android:layout_marginBottom="5sp"
-                android:scaleType="fitCenter"
-                 />
-            <TextView
-                android:textSize="@dimen/padding_extra_large_20"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:text="NURUL JADID"
-                android:id="@+id/ivLogo"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/value_25"
-                android:layout_gravity="center"
-                android:layout_marginBottom="@dimen/value_10"
-                android:scaleType="fitCenter"
-                />
 
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="start"
-                android:layout_marginTop="@dimen/value_20"
-                android:gravity="start"
-                android:textAlignment="viewStart"
-                android:textDirection="locale"
-                android:theme="@style/TextLabegray">
-
-                <EditText
-                    android:id="@+id/etUsername"
-                    style="@style/txt_gray_medium"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="start"
-                    android:drawablePadding="@dimen/value_8"
-                    android:hint="username"
-                    android:inputType="textEmailAddress"
-                    android:paddingBottom="@dimen/value_8"
-                    android:singleLine="true"
-                    android:textAlignment="viewStart"
-                    android:textDirection="locale"
-                    android:theme="@style/Theme.App.Base"
-                    app:drawableStartCompat="@drawable/ic_user" />
-            </com.google.android.material.textfield.TextInputLayout>
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/value_5"
-                android:theme="@style/TextLabegray">
-                <EditText
-                    android:id="@+id/etPass"
-                    style="@style/txt_gray_medium"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="start"
-                    android:drawablePadding="@dimen/value_8"
-                    android:hint="password"
-                    android:inputType="textPassword"
-                    android:paddingBottom="@dimen/value_8"
-                    android:singleLine="true"
-                    android:textAlignment="viewStart"
-                    android:textDirection="locale"
-                    android:theme="@style/Theme.App.Base"
-                    app:drawableStartCompat="@drawable/ic_password" />
-            </com.google.android.material.textfield.TextInputLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/value_25"
-                android:gravity="center"
-                android:orientation="horizontal">
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/value_2"
-                    android:layout_marginRight="@dimen/value_2"
-                    android:layout_weight="0.5">
-                    <TextView
-                        android:id="@+id/tvSignIn"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/colorPrimary"
-                        android:gravity="center"
-                        android:paddingTop="@dimen/value_8"
-                        android:paddingBottom="@dimen/value_8"
-                        android:text="Login"
-                        android:textColor="@color/white"
-                        android:textStyle="bold" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/value_2"
-                    android:layout_marginLeft="@dimen/value_2"
-                    android:layout_weight="0.5"
-                    android:gravity="center">
-                    <TextView
-                        android:id="@+id/tvForgetPass"
-                        style="@style/txt_color_primary_medium"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="end"
-                        android:layout_marginTop="@dimen/value_3"
-                        android:background="@android:color/transparent"
-                        android:text="Lupa Password?" />
-                </LinearLayout>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/value_25"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="0.1"
-                    android:gravity="center">
-                    <TextView
-                        style="@style/txt_black_medium"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="atau mendaftar dengan" />
-
-                </LinearLayout>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/value_25"
+                android:layout_marginTop="20dp"
                 android:gravity="center"
                 android:orientation="horizontal">
                 <LinearLayout
@@ -183,7 +160,7 @@
                         android:paddingTop="@dimen/value_8"
                         android:paddingBottom="@dimen/value_8"
                         android:singleLine="true"
-                        android:text="@string/login_with_google"
+                        android:text="Gmail"
                         android:textColor="@color/white"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -225,5 +202,7 @@
                 android:layout_height="@dimen/value_150"
                 android:visibility="invisible"/>
         </LinearLayout>
-    </ScrollView>
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</RelativeLayout>
