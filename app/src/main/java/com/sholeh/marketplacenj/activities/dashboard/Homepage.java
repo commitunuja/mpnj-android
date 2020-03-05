@@ -45,3 +45,6 @@
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
 
+        category_recyclerView = (RecyclerView)findViewById(R.id.category_recyclerview);
+
+        homeCategoryModelClasses = new ArrayList<>();
