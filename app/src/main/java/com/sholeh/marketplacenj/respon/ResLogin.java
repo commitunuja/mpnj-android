@@ -5,6 +5,8 @@ import com.google.gson.annotations.SerializedName;
 
 
 public class ResLogin {  // respon bg konsumen
+
+
     @SerializedName("pesan")
     @Expose
     private String pesan;
@@ -38,5 +40,7 @@ public class ResLogin {  // respon bg konsumen
     public void setIdKonsumen(String idKonsumen) {
         this.idKonsumen = idKonsumen;
     }
+
+
 
 }

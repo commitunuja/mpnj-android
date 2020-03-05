@@ -18,17 +18,23 @@ import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.ServiceGenerator;
 import com.sholeh.marketplacenj.mfragment.FragmentProfil;
 import com.sholeh.marketplacenj.respon.ResLogin;
+import com.sholeh.marketplacenj.respon.ResProfil;
+import com.sholeh.marketplacenj.respon.ResRegristasi;
+import com.sholeh.marketplacenj.respon.ValDataProfil;
 import com.sholeh.marketplacenj.util.Preferences;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.sholeh.marketplacenj.util.MyApp.getContext;
+
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     private String TAG = "LoginActivity";
 
     TextView tv_usernow, tvSignin, tvLupaPass;
     EditText edUserName, edPass;
+
 
     Preferences preferences;
 
@@ -37,6 +43,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         preferences = new Preferences(this);
+
 
         tv_usernow = findViewById(R.id.tvNewUser);
         edUserName = findViewById(R.id.etUsername);
@@ -80,11 +87,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         userSigninCall.enqueue(new Callback<ResLogin>() {
             @Override
             public void onResponse(Call<ResLogin> call, Response<ResLogin> response) {
+
                 Log.d(TAG, "resLogin" + response.toString());
                 if (response.body() != null && response.isSuccessful()) {
+
                     if (response.body().getPesan().equalsIgnoreCase("Login Sukses!")){
+
                        preferences.saveSPString(Preferences.SP_IdKonsumen,response.body().getIdKonsumen());
                        preferences.saveSPBoolean(Preferences.SP_SUDAH_LOGIN, true);
+
+
 
                         Toast.makeText(LoginActivity.this, "Sukses", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(LoginActivity.this,Utama.class);

@@ -41,6 +41,15 @@ public class ValDataProfil {
     @Expose
     private List<ValDaftarAlamat> daftarAlamat = null;
 
+    public ValDataProfil(int id_konsumen, String nama_lengkap, String email, String nomor_hp, String foto_profil) {
+        this.idKonsumen = id_konsumen;
+        this.namaLengkap = nama_lengkap;
+        this.email = email;
+        this.nomorHp = nomor_hp;
+        this.fotoProfil = foto_profil;
+    }
+
+
     public Integer getIdKonsumen() {
         return idKonsumen;
     }

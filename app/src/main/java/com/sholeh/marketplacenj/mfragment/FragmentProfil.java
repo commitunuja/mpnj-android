@@ -30,9 +30,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.sholeh.marketplacenj.APIInterface;
+import com.sholeh.marketplacenj.CONSTANTS;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.ServiceGenerator;
 import com.sholeh.marketplacenj.activities.ImageProfilActivity;
@@ -40,10 +42,13 @@ import com.sholeh.marketplacenj.activities.PengaturanAkun;
 import com.sholeh.marketplacenj.activities.TabFragmentPelapak;
 import com.sholeh.marketplacenj.activities.TabFragmentPembeli;
 import com.sholeh.marketplacenj.respon.ResProfil;
+import com.sholeh.marketplacenj.respon.ValDataProfil;
 import com.sholeh.marketplacenj.util.Preferences;
+import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -54,13 +59,17 @@ import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 
 public class FragmentProfil extends Fragment implements View.OnClickListener {
-    private ImageView imgProfil, nav_home, nav_notifikasi, nav_transaksi, navprofile;
+    private ImageView btnImgProfil, nav_home, nav_notifikasi, nav_transaksi, navprofile;
     TextView tvx_login, tvx_namaCustomter, tvx_logout;
+
+    private CircleImageView imageProfil;
+
+
 
     FloatingActionButton fb_favourite;
     Toolbar toolBarisi;
     Preferences preferences;
-    String id_konsumen, username;
+    String id_konsumen, username, imgprofil;
     private ResProfil tvDataProfil;
 
     Bitmap bitmap = null;
@@ -81,9 +90,21 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
         preferences = new Preferences(getActivity());
         id_konsumen = preferences.getIdKonsumen();
 
+
         tvx_namaCustomter = rootView.findViewById(R.id.tvCustomerName);
-        imgProfil = rootView.findViewById(R.id.imgProfil);
-        imgProfil.setOnClickListener(this);
+        btnImgProfil = rootView.findViewById(R.id.imgProfil);
+        btnImgProfil.setOnClickListener(this);
+        imageProfil = rootView.findViewById(R.id.cirprofile_image);
+
+//        ValDataProfil userImg = Preferences.getInstance(getContext()).getProfil();
+//        ValDataProfil d = Preferences.getInstance(getContext()).getProfil().getFotoProfil();
+
+//
+//        Toast.makeText(getActivity(), ""+id_konsumen, Toast.LENGTH_SHORT).show();
+//
+//        Picasso.with(getContext()).load(imgprofil.gey).into(imageProfil);
+//
+//
 
         TabLayout tabLayout =  rootView.findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("AKUN PEMBELI"));
@@ -170,7 +191,16 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
             public void onResponse(Call<ResProfil> call, Response<ResProfil> response) {
                 tvDataProfil = response.body();
                 String namaLengkap = tvDataProfil.getData().getNamaLengkap();
+                String foto = tvDataProfil.getData().getFotoProfil();
                 tvx_namaCustomter.setText(namaLengkap);
+//                Toast.makeText(getActivity(), ""+foto, Toast.LENGTH_SHORT).show();
+
+//                Glide.with(getActivity()).load(foto).into(imageProfil);
+
+              //  Picasso.with(getContext()).load(tvDataProfil.getData().getFotoProfil()).into(imageProfil);
+                Picasso.with(getContext()).load(CONSTANTS.BASE_URL + "assets/foto_profil_konsumen/"+tvDataProfil.getData().getFotoProfil()).into(imageProfil);
+
+
             }
 
             @Override
