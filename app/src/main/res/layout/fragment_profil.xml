@@ -90,7 +90,7 @@
                             android:layout_height="wrap_content"
                             android:textColor="@color/white"
                             android:textSize="13.3sp"
-                            android:text="sholeh@gmail.com"/>
+                            android:text="user sholeh"/>
                     </LinearLayout>
 
                 </LinearLayout>
