@@ -3,12 +3,12 @@ package com.sholeh.marketplacenj.test;
 public class ChildModel {
 
 
-    String id_toko, id_produk, nama_produk, harga, jumlah, subtotal, gambar;
+    String id_toko,  nama_produk, harga, jumlah, subtotal, gambar;
 
 
-    public ChildModel(String id_toko, String id_produk, String nama_produk, String harga, String jumlah, String gambar) {
+    public ChildModel(String id_toko, String nama_produk, String harga, String jumlah, String gambar) {
         this.id_toko = id_toko;
-        this.id_produk = id_produk;
+//        this.id_produk = id_produk;
         this.nama_produk = nama_produk;
         this.harga = harga;
         this.jumlah = jumlah;
@@ -23,13 +23,13 @@ public class ChildModel {
         this.gambar = gambar;
     }
 
-    public String getId_produk() {
-        return id_produk;
-    }
-
-    public void setId_produk(String id_produk) {
-        this.id_produk = id_produk;
-    }
+//    public String getId_produk() {
+//        return id_produk;
+//    }
+//
+//    public void setId_produk(String id_produk) {
+//        this.id_produk = id_produk;
+//    }
 
     public String getId_toko() {
         return id_toko;

@@ -17,14 +17,6 @@
         android:paddingLeft="40dp"
         android:gravity="center_vertical">
 
-        <TextView
-            android:id="@+id/txtIDPRODUK"
-            android:paddingLeft="15dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:text="Sabtu, 28 Agustus 2019"
-            android:textSize="14sp"/>
 
         <TextView
             android:id="@+id/txtnamaPRODUK"
@@ -43,6 +35,15 @@
             android:layout_centerVertical="true"
             android:text="Sabtu, 28 Agustus 2019"
             android:textSize="14sp"/>
+        <TextView
+            android:id="@+id/txtjumlah"
+            android:paddingLeft="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="Sabtu, 28 Agustus 2019"
+            android:textSize="14sp"/>
+
 
 
 

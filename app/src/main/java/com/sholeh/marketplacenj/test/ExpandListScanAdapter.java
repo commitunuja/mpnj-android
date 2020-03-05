@@ -88,14 +88,16 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
             LayoutInflater inflater = (LayoutInflater)this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.desain_child,null);
         }
-        TextView idproduk = convertView.findViewById(R.id.txtIDPRODUK);
+//        TextView idproduk = convertView.findViewById(R.id.txtIDPRODUK);
         TextView nama = convertView.findViewById(R.id.txtnamaPRODUK);
         TextView harga = convertView.findViewById(R.id.txtnamaHARGA);
         ImageView gambar = convertView.findViewById(R.id.img_gambarkeranjang);
+        TextView jumlah = convertView.findViewById(R.id.txtjumlah);
 
-        idproduk.setText(model.getId_produk());
+//        idproduk.setText(model.getId_produk());
         nama.setText(model.getNama_produk());
         harga.setText(model.getHarga());
+        jumlah.setText(model.getJumlah());
         Glide.with(convertView.getContext())
                 .load(model.getGambar())
                 .apply(new RequestOptions().override(350, 550))

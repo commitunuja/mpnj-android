@@ -41,7 +41,7 @@ public class KeranjangDetailActivity2 extends AppCompatActivity {
     private void tampil() {
         listHeader = new ArrayList<>();
         listChild = new HashMap<>();
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://192.168.1.14/mpnj/public/api/keranjang?role=konsumen&id=1", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://192.168.1.28/mpnj/public/api/keranjang?role=konsumen&id=1", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -60,13 +60,13 @@ public class KeranjangDetailActivity2 extends AppCompatActivity {
                         for (int j = 0; j < jsonArray.length(); j++) {
                             JSONObject object = jsonArray.getJSONObject(j);
                             String id_keranjang = object.getString("id_keranjang");
-                            String id_produk = object.getString("id_produk");
-                            String created_at = object.getString("nama_produk");
-                            String updated_at = object.getString("harga_jual");
-                            String status = object.getString("jumlah");
+//                            String id_produk = object.getString("id_produk");
+                            String nama_produk = object.getString("nama_produk");
+                            String harga = object.getString("harga_jual");
+                            String jumlah = object.getString("jumlah");
                             String gambar = object.getString("foto");
 
-                            child.add(new ChildModel(id_keranjang, id_produk, created_at, updated_at, status, gambar));
+                            child.add(new ChildModel(id_keranjang, nama_produk, harga, jumlah, gambar));
                         }
                         listChild.put(listHeader.get(i), child);
                     }
