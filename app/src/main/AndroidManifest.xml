@@ -59,7 +59,6 @@
         <activity android:name=".activities.KeranjangDetailActivity" />
 
         <activity android:name=".activities.DetailProdukActivity" />
-
         <activity
             android:name=".activities.Utama"
             android:launchMode="singleTop"
