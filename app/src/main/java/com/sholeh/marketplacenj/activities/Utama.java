@@ -1,29 +1,25 @@
 package com.sholeh.marketplacenj.activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.Fragment;
+
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomappbar.BottomAppBar;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.sholeh.marketplacenj.R;
+import com.sholeh.marketplacenj.activities.dashboard.Homepage;
 import com.sholeh.marketplacenj.mfragment.FragmentFavorite;
 import com.sholeh.marketplacenj.mfragment.FragmentHome;
 import com.sholeh.marketplacenj.mfragment.FragmentNotifikasi;
@@ -150,10 +146,11 @@ public class Utama extends AppCompatActivity implements  BottomAppBar.OnClickLis
 
         switch (v.getId()) {
             case R.id.nav_home:
-                fragment =   new FragmentHome();
-                loadFragment(fragment);
+                Intent intent = new Intent(this, Homepage.class);
+                startActivity(intent);
+               /* fragment =   new FragmentHome();
+                loadFragment(fragment);*/
                 break;
-
             case R.id.nav_notifikasi:
                 fragment =   new FragmentNotifikasi();
                 loadFragment(fragment);
