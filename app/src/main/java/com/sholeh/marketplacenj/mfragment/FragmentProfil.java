@@ -91,10 +91,12 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
         id_konsumen = preferences.getIdKonsumen();
 
 
+
         tvx_namaCustomter = rootView.findViewById(R.id.tvCustomerName);
         btnImgProfil = rootView.findViewById(R.id.imgProfil);
         btnImgProfil.setOnClickListener(this);
         imageProfil = rootView.findViewById(R.id.cirprofile_image);
+
 
 //        ValDataProfil userImg = Preferences.getInstance(getContext()).getProfil();
 //        ValDataProfil d = Preferences.getInstance(getContext()).getProfil().getFotoProfil();
