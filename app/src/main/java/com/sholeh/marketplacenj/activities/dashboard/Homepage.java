@@ -48,3 +48,13 @@
         category_recyclerView = (RecyclerView)findViewById(R.id.category_recyclerview);
 
         homeCategoryModelClasses = new ArrayList<>();
+        for (int i = 0; i < title.length; i++) {
+            HomeCategoryModelClass beanClassForRecyclerView_contacts = new HomeCategoryModelClass(title[i]);
+
+            homeCategoryModelClasses.add(beanClassForRecyclerView_contacts);
+        }
+
+
+        mAdapter1 = new RecycleAdapteHomeCategory(Homepage.this, homeCategoryModelClasses);
+        RecyclerView.LayoutManager mLayoutManager1 = new LinearLayoutManager(Homepage.this, LinearLayoutManager.HORIZONTAL, false);
+        category_recyclerView.setLayoutManager(mLayoutManager1);
