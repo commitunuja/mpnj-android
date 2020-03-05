@@ -31,7 +31,7 @@
             android:layout_marginBottom="20dp">
 
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clipToPadding="false"
@@ -48,13 +48,14 @@
 
     <!--Category Recyclerview-->
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clipToPadding="false"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
         android:nestedScrollingEnabled="false"
+
         android:id="@+id/category_recyclerview"/>
 
     <LinearLayout
@@ -83,7 +84,7 @@
 
     <!--Top Rated Recyclerview-->
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clipToPadding="false"
@@ -91,7 +92,8 @@
         android:paddingLeft="5dp"
         android:paddingRight="15dp"
         android:nestedScrollingEnabled="false"
-        android:id="@+id/top_ten_recyclerview"/>
+        android:id="@+id/like_recyclerview" />
+
 
 
 
@@ -120,7 +122,7 @@
 
         <!--Like Recyclerview-->
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clipToPadding="false"
@@ -128,7 +130,8 @@
             android:paddingLeft="5dp"
             android:paddingRight="15dp"
             android:nestedScrollingEnabled="false"
-            android:id="@+id/like_recyclerview"/>
+
+            android:id="@+id/top_ten_recyclerview"/>
         
         
         <ImageView
@@ -165,7 +168,7 @@
 
         <!--Top Rated Recyclerview-->
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clipToPadding="false"
