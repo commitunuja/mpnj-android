@@ -80,6 +80,13 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
     private static final int READ_REQUEST_CODE = 300;
 
 
+    @Override
+    public void onResume()
+    {
+        getDataProfil();
+        super.onResume();
+        // Load data and do stuff
+    }
 
 
     @Nullable
@@ -96,7 +103,7 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
         btnImgProfil = rootView.findViewById(R.id.imgProfil);
         btnImgProfil.setOnClickListener(this);
         imageProfil = rootView.findViewById(R.id.cirprofile_image);
-
+        imageProfil.setOnClickListener(this);
 
 //        ValDataProfil userImg = Preferences.getInstance(getContext()).getProfil();
 //        ValDataProfil d = Preferences.getInstance(getContext()).getProfil().getFotoProfil();
@@ -137,7 +144,7 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
             }
         });
 
-        getDataProfil();
+
 
         return rootView;
     }
@@ -149,8 +156,16 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
                 Intent intent = new Intent(getActivity(), ImageProfilActivity.class);
                 getActivity().startActivity(intent);
 //                selectImage();
-                default:
-                    break;
+                break;
+
+            case R.id.cirprofile_image:
+                Intent intent2 = new Intent(getActivity(), ImageProfilActivity.class);
+                getActivity().startActivity(intent2);
+//                selectImage();
+                break;
+
+            default:
+                break;
         }
     }
 
