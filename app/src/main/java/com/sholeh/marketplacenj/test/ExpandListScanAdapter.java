@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -66,17 +67,32 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
+//        View v = super.getGroupView(groupPosition, isExpanded, convertView, parent);
+//        ExpandableListView mExpandableListview = (ExpandableListView) parent;
+//        mExpandableListview.expandGroup(groupPosition);
+//        return v;
+
+
+
+
+        // set on click change
         HeaderModel model = (HeaderModel) getGroup(groupPosition);
         if (convertView==null){
             LayoutInflater inflater = (LayoutInflater)this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.desain_parent,null);
         }
-        TextView nama_kk = convertView.findViewById(R.id.txNamaKKHeader);
-        TextView no_pelanggan = convertView.findViewById(R.id.txNoRegHeader);
+        TextView nama_kk = convertView.findViewById(R.id.txNamaToko);
+        TextView no_pelanggan = convertView.findViewById(R.id.tvxIdToko);
 //        ImageView img = convertView.findViewById(R.id.imgExpan);
         nama_kk.setText(model.getNama_toko());
-
         no_pelanggan.setText(model.getId_toko());
+
+//        ImageView img = convertView.findViewById(R.id.imgpanah);
+//        if (isExpanded){
+//            img.setImageResource(R.drawable.ic_keyboard_arrow_up_grey_24dp);
+//        } else {
+//            img.setImageResource(R.drawable.ic_keyboard_arrow_down_grey_24dp);
+//        }
 
         return convertView;
     }
