@@ -17,3 +17,30 @@
 //        }
 
         tab_layout.setTabGravity(TabLayout.GRAVITY_FILL);
+        final ViewPager viewPager1 = (ViewPager) findViewById(R.id.pager);
+        Details4TabAdapter adapter = new Details4TabAdapter(getSupportFragmentManager(), 3);
+        viewPager1.setAdapter(adapter);
+        viewPager1.setOffscreenPageLimit(1);
+        viewPager1.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tab_layout));
+        tab_layout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager1.setCurrentItem(tab.getPosition());
+
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+
+    }
+}
