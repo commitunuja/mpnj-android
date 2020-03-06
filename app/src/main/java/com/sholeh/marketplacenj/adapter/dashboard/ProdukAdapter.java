@@ -1,4 +1,4 @@
-package com.sholeh.marketplacenj.adapter;
+package com.sholeh.marketplacenj.adapter.dashboard;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.sholeh.marketplacenj.CONSTANTS;
 import com.sholeh.marketplacenj.R;
-import com.sholeh.marketplacenj.activities.DetailProdukActivity;
+import com.sholeh.marketplacenj.activities.details.ProductDetailActivity;
 import com.sholeh.marketplacenj.model.Model;
 import com.squareup.picasso.Picasso;
 
@@ -35,7 +35,7 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ViewHolder
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.itemgrid_allproduct,viewGroup,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_top_ten_list,viewGroup,false);
         return new ViewHolder(view);
     }
 
@@ -44,35 +44,12 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ViewHolder
         tvDataProduk = tvDataProduks.get(i);
         viewHolder.namaProduk.setText(tvDataProduk.getNamaProduk()); // MODEL
         viewHolder.hargaProduk.setText(String.valueOf(tvDataProduk.getHargaJual()));
-//        viewHolder.stok.setText(String.valueOf(tvDataProduk.getStok()));
-//        viewHolder.terjual.setText(String.valueOf(tvDataProduk.getTerjual()));
-//        viewHolder.deskripsi.setText(String.valueOf(tvDataProduk.getKeterangan()));
+        viewHolder.type.setText(tvDataProduk.getKategori().getNamaKategori());
 
         Picasso.with(context)
-//                .load(CONSTANTS.BASE_URL + "assets/foto_produk/" +tvDataProduk.getFoto().get(0))
                 .load(CONSTANTS.BASE_URL + "assets/foto_produk/" +tvDataProduk.getFoto().get(0).getFotoProduk())
                 .resize(300, 300)
                 .into(viewHolder.foto_produk);
-//        int fotoLength = tvDataProduk.getFoto().size();
-//        for (int j = i; j <= fotoLength; j++) {
-//            Picasso.with(context)
-//                    .load("http://192.168.43.25/mpnj-web/public/assets/foto_produk/"+tvDataProduk.getFoto().get(j).getFotoProduk())
-//                    .resize(100, 100)
-//                    .into(viewHolder.foto_produk);
-//        }
-
-
-//        viewHolder.cardproduk.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent i = new Intent(context, DetailProdukActivity.class);
-//                i.putExtra("nama_produk", tvDataProduk.getNamaProduk());
-//
-//                context.startActivity(i);
-//            }
-//        });
-
-
     }
 
     @Override
@@ -81,22 +58,24 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ViewHolder
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView namaProduk, hargaProduk, stok, terjual, deskripsi ;
+        private TextView namaProduk, hargaProduk, stok, terjual, deskripsi , type;
         private ImageView foto_produk;
 
 
         public ViewHolder(View itemView) {
             super(itemView);
-            namaProduk = itemView.findViewById(R.id.itemNamaproduct);
-            hargaProduk = itemView.findViewById(R.id.itemHargaproduct);
-            foto_produk = itemView.findViewById(R.id.foto_produk);
+
+            namaProduk = itemView.findViewById(R.id.titleproduk);
+            hargaProduk = itemView.findViewById(R.id.txthargaawal);
+            type = itemView.findViewById(R.id.typeproduk);
+            foto_produk = itemView.findViewById(R.id.imageproduk);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Model myNewsmodel = tvDataProduks.get(getAdapterPosition());
                     Context context = view.getContext();
-                    Intent intent = new Intent(context, DetailProdukActivity.class);
+                    Intent intent = new Intent(context, ProductDetailActivity.class);
                     intent.putExtra("id_produk",String.valueOf(myNewsmodel.getIdProduk()) );
                     intent.putExtra("nama_produk", myNewsmodel.getNamaProduk());
                     intent.putExtra("foto_produk",CONSTANTS.BASE_URL + "assets/foto_produk/"+myNewsmodel.getFoto().get(0).getFotoProduk());
@@ -104,10 +83,10 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ViewHolder
                     intent.putExtra("stok", String.valueOf(myNewsmodel.getStok()));
                     intent.putExtra("terjual", String.valueOf(myNewsmodel.getHargaJual()));
                     intent.putExtra("keterangan", myNewsmodel.getKeterangan());
+                    intent.putExtra("kategori", myNewsmodel.getKategori().getNamaKategori());
+                    intent.putExtra("diskon", String.valueOf(myNewsmodel.getDiskon()));
                     Toast.makeText(context, "id_produk"+myNewsmodel.getIdProduk(), Toast.LENGTH_SHORT).show();
                     context.startActivity(intent);
-
-
 
                 }
             });

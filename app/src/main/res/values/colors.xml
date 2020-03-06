@@ -6,13 +6,27 @@
     <color name="colorPrimaryTransperent">#aa04d39f</color>
     <color name="colorPrimaryVeryLight">#4404d39f</color>
     <color name="colorAccent">#04d39f</color>
-    <color name="colorgreen">#04d39f</color>
-    <color name="green_semi_transparent">#a0008577</color>
+    <color name="backgroundcolor">#f5f6f7</color>
 
+   <!-- detail-->
+    <color name="whitebureng">#E7E7E7</color>
+    <color name="Titletext">#000000</color>
+    <color name="blackbold">#0f0d0d</color>
+    <color name="secondarytext">#666666</color>
+    <color name="LightcolorText">#95989a</color>
+    <color name="viewline">#ebeced</color>
+    <color name="viewline_ver">#40707070</color>
+    <color name="SubtitleText">#666666</color>
+    <color name="lightred">#f09f9f</color>
+    <color name="cut_price">#95989a</color>
+    <color name="storage">#666666</color>
+    <color name="blackcolor">#1d1d1d</color>
+    <color name="brown">#524848</color>
+    <color name="trans">#00000000</color>
+    <!-- detail-->
 
     <color name="spark_image_tint">#00000000</color>
     <color name="white">#FFFFFF</color>
-    <color name="toolbarTextColor">#ffffff</color>
     <color name="transparent_white">#00FFFFFF</color>
     <color name="blue">#5f81c9</color>
     <color name="darkgray">#353434</color>
@@ -22,10 +36,6 @@
     <color name="round_corner_progress_bar_secondary_progress_default">@android:color/transparent
     </color>
 
-
-    <color name="lightgrey">#EEEEEE</color>
-    <color name="goodgrey">#535353</color>
-    <color name="black_trasnparent">#8F000000</color>
 
     <color name="transparent_black">#dd000000</color>
     <color name="scratch_start_gradient">#e5e5e5</color>

@@ -14,6 +14,7 @@ public class Produk {
     @SerializedName("pelapak")
     @Expose
     private String pelapak;
+    @SerializedName("nama_kategori")
 
     public Integer getProdukId() {
         return produkId;

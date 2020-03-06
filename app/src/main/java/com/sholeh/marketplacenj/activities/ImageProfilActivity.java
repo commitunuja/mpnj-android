@@ -1,19 +1,15 @@
 package com.sholeh.marketplacenj.activities;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.ContentValues;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.provider.MediaStore;
 import android.os.Bundle;
-import android.util.Base64;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -22,7 +18,6 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -36,9 +31,7 @@ import com.sholeh.marketplacenj.respon.ResProfil;
 import com.sholeh.marketplacenj.util.Preferences;
 import com.squareup.picasso.Picasso;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.util.HashMap;
 
 import butterknife.Unbinder;
 import okhttp3.MediaType;
@@ -105,6 +98,8 @@ public class ImageProfilActivity extends AppCompatActivity implements View.OnCli
         preferences = new Preferences(getApplication());
         pilih.setOnClickListener(this);
         upload.setOnClickListener(this);
+
+
 
         getDataProfil();
 

@@ -1,37 +1,19 @@
 package com.sholeh.marketplacenj.activities;
 
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Bundle;
-import android.util.Log;
-
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
-import com.sholeh.marketplacenj.CONSTANTS;
 import com.sholeh.marketplacenj.R;
-import com.sholeh.marketplacenj.ServiceGenerator;
 import com.sholeh.marketplacenj.adapter.KeranjangDetailAdapter;
-import com.sholeh.marketplacenj.adapter.ProdukAdapter;
 import com.sholeh.marketplacenj.model.Keranjang;
 import com.sholeh.marketplacenj.model.Model;
-import com.sholeh.marketplacenj.model.api.APIKeranjang;
-import com.sholeh.marketplacenj.model.keranjang.toko;
 import com.sholeh.marketplacenj.test.ExpandListScanAdapter;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class KeranjangDetailActivity extends AppCompatActivity {
     private RecyclerView mRecycler;
