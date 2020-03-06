@@ -4,10 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:layout_marginTop="50dp"
     android:background="#ffffff"
     android:foreground="?android:selectableItemBackground">
 
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#0F000000"/>
 
     <LinearLayout
         android:layout_width="match_parent"

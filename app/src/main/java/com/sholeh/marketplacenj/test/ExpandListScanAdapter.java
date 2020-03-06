@@ -8,6 +8,7 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -22,6 +23,10 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
     private List<HeaderModel> listHeader;
     private List<HeaderModel> listHeaderFilter;
     private HashMap<HeaderModel, List<ChildModel>> listChild;
+
+
+    private boolean buka = true;
+    private static int currentPosition = 0;
 
     public ExpandListScanAdapter(Context context, List<HeaderModel> listHeader, HashMap<HeaderModel, List<ChildModel>> listChild) {
         this.context = context;
@@ -67,10 +72,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-//        View v = super.getGroupView(groupPosition, isExpanded, convertView, parent);
-//        ExpandableListView mExpandableListview = (ExpandableListView) parent;
-//        mExpandableListview.expandGroup(groupPosition);
-//        return v;
+//
 
 
 
@@ -78,6 +80,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
         // set on click change
         HeaderModel model = (HeaderModel) getGroup(groupPosition);
         if (convertView==null){
+            Toast.makeText(context, ""+groupPosition, Toast.LENGTH_SHORT).show();
             LayoutInflater inflater = (LayoutInflater)this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.desain_parent,null);
         }
@@ -87,23 +90,32 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
         nama_kk.setText(model.getNama_toko());
         no_pelanggan.setText(model.getId_toko());
 
-//        ImageView img = convertView.findViewById(R.id.imgpanah);
+        ImageView img = convertView.findViewById(R.id.imgpanah);
+
 //        if (isExpanded){
+//            Toast.makeText(context, ""+isExpanded, Toast.LENGTH_SHORT).show();
 //            img.setImageResource(R.drawable.ic_keyboard_arrow_up_grey_24dp);
 //        } else {
 //            img.setImageResource(R.drawable.ic_keyboard_arrow_down_grey_24dp);
+//            Toast.makeText(context, ""+isExpanded, Toast.LENGTH_SHORT).show();
 //        }
+        if (currentPosition != groupPosition) {
+            Toast.makeText(context, ""+groupPosition, Toast.LENGTH_SHORT).show();
+
+
+        }
 
         return convertView;
     }
 
+
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         ChildModel model = (ChildModel)getChild(groupPosition,childPosition);
-        if (convertView==null){
-            LayoutInflater inflater = (LayoutInflater)this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.desain_child,null);
-        }
+
+        LayoutInflater inflater2 = (LayoutInflater)this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        convertView = inflater2.inflate(R.layout.desain_child,null);
+
 //        TextView idproduk = convertView.findViewById(R.id.txtIDPRODUK);
         TextView nama = convertView.findViewById(R.id.txtnamaPRODUK);
         TextView harga = convertView.findViewById(R.id.txtnamaHARGA);
@@ -120,6 +132,8 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 //                .placeholder(R.drawable.img_placeholder)
 //                .error(R.drawable.ic_missing)
                 .into(gambar);
+
+
         return convertView;
     }
 

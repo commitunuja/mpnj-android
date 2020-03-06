@@ -17,7 +17,7 @@
 
 
         <LinearLayout
-
+            android:layout_marginBottom="110dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/rect_recycler"
@@ -38,6 +38,7 @@
 
     </LinearLayout>
     <LinearLayout
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
