@@ -105,7 +105,7 @@
                 android:text="Login"
                 android:textSize="16.7sp"
                 android:gravity="center_horizontal"
-                android:paddingBottom="16dp"
+                android:paddingBottom="12dp"
                 android:paddingTop="12dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginLeft="16dp"

@@ -6,6 +6,7 @@
     <color name="colorPrimaryTransperent">#aa04d39f</color>
     <color name="colorPrimaryVeryLight">#4404d39f</color>
     <color name="colorAccent">#04d39f</color>
+    <color name="colorgreen">#04d39f</color>
 
 
     <color name="spark_image_tint">#00000000</color>
@@ -19,6 +20,8 @@
     <color name="round_corner_progress_bar_secondary_progress_default">@android:color/transparent
     </color>
 
+    <color name="lightgrey">#EEEEEE</color>
+    <color name="goodgrey">#535353</color>
 
     <color name="transparent_black">#dd000000</color>
     <color name="scratch_start_gradient">#e5e5e5</color>
