@@ -220,7 +220,7 @@
                             android:textSize="12.3sp"
                             android:textColor="#89000000"
                             android:layout_marginRight="3dp"
-                            android:text="Edit omor"/>
+                            android:text="Edit Nomor"/>
                     </LinearLayout>
                     <LinearLayout
                         android:orientation="vertical"
@@ -241,12 +241,12 @@
                                 />
 
                             <customfonts.MyTextView_Roboto_Medium
-                                android:layout_weight="1"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:textSize="13.3sp"
+                                android:layout_marginLeft="20dp"
+                                android:layout_weight="1"
                                 android:textColor="@color/black"
-                                android:layout_marginLeft="20dp" />
+                                android:textSize="13.3sp" />
 
                             <customfonts.MyTextView_Roboto_Medium
                                 android:layout_width="wrap_content"
