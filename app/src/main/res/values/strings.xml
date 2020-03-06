@@ -13,6 +13,18 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="login_with_google">GOOGLE+</string>
+    <!--detail produk-->
+    <string name="view_all_54_reviews">View All 54 Reviews</string>
+    <string name="top_review">Top Review</string>
+    <string name="by_guest_on_24_march_2017">By Guest on Commit Unuja</string>
+    <string name="_233_ratings_amp_54_reviews"><![CDATA[233 Ratings & 54 Reviews]]></string>
+    <string name="customer_review_and_q_amp_a"><![CDATA[Customer Review And Q&A]]></string>
+    <string name="select_color">Select color</string>
+    <string name="additional_tax_may_apply_charged_at_checkout">Additional tax may apply, charged at checkout.</string>
+    <string name="_1_70_999"><strike>₹1,70,999</strike></string>
+    <string name="rs_16_1499">Rs. 16,1499</string>
+    <string name="model_number_12837jf21">Model number : 12837Jf21</string>
+    <!--detail produk-->
     <string name="network_not_connected"> Tidak ada koneksi jaringan saat ini. Silakan coba lagi.</string>
     <string name="failed_request">Silakan coba lagi ...</string>
     <string name="network_error">Silakan coba lagi. Jaringan tidak merespon</string>
@@ -24,4 +36,18 @@
     <string name="searchproduk">Cari Produk</string>
     <string name="top_rated_products">top rated products</string>
     <string name="you_may_like">you may like</string>
+    <string name="apple">Apple</string>
+    <string name="titletxt">Nama Produk</string>
+    <string name="black">Hitam</string>
+    <string name="blue">Biru</string>
+    <string name="green">Hijau</string>
+    <string name="storage">Penyimpanan</string>
+    <string name="_16_gb">16GB</string>
+    <string name="_32_gb">32GB</string>
+    <string name="_64_gb">64GB</string>
+    <string name="Rs">\u20B9</string>
+    <string name="review">253 Ratings &amp; 50 Reviews</string>
+    <string name="_128_gb">128GB</string>
+    <string name="kategori">Kategori</string>
+    <string name="stock">Stok: </string>
 </resources>

@@ -50,6 +50,7 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_marginTop="5dp"
+              android:visibility="gone"
               android:src="@drawable/three_dots"/>
 
             </LinearLayout>
@@ -87,6 +88,7 @@
                     android:layout_marginLeft="10dp"/>
 
                 <customfonts.MyTextView_Roboto_Medium
+                    android:id="@+id/txthargaawal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="$288"

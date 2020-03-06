@@ -1,9 +1,7 @@
 package com.sholeh.marketplacenj.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import android.content.Intent;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.content.Context;
 import android.content.res.Resources;
@@ -21,11 +19,10 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.sholeh.marketplacenj.CONSTANTS;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.ServiceGenerator;
 import com.sholeh.marketplacenj.adapter.ProductAdapter;
-import com.sholeh.marketplacenj.adapter.ProdukAdapter;
+import com.sholeh.marketplacenj.adapter.dashboard.ProdukAdapter;
 import com.sholeh.marketplacenj.adapter.SliderImageAdapter;
 import com.sholeh.marketplacenj.model.Model;
 import com.sholeh.marketplacenj.model.api.APIInterface;

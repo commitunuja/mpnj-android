@@ -1,8 +1,5 @@
 package com.sholeh.marketplacenj.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,6 +8,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 import com.sholeh.marketplacenj.R;
@@ -60,7 +60,6 @@ public class DetailProdukActivity extends AppCompatActivity {
         vterjual = Integer.parseInt(getIntent().getStringExtra("terjual"));
         vdeskripsi = getIntent().getExtras().getString("keterangan");
 
-//        id.setText(String.valueOf(vid_produk));
         nm_produk.setText(namaproduk);
         hrg_produk.setText(String.valueOf(vhargaproduk));
         stok.setText(String.valueOf(vstok));

@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.sholeh.marketplacenj.CONSTANTS;
 import com.sholeh.marketplacenj.R;
-import com.sholeh.marketplacenj.activities.details.ProductDetails;
+import com.sholeh.marketplacenj.activities.details.ProductDetailActivity;
 import com.sholeh.marketplacenj.model.Model;
 import com.squareup.picasso.Picasso;
 
@@ -44,6 +44,7 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ViewHolder
         tvDataProduk = tvDataProduks.get(i);
         viewHolder.namaProduk.setText(tvDataProduk.getNamaProduk()); // MODEL
         viewHolder.hargaProduk.setText(String.valueOf(tvDataProduk.getHargaJual()));
+        viewHolder.type.setText(tvDataProduk.getKategori().getNamaKategori());
 
         Picasso.with(context)
                 .load(CONSTANTS.BASE_URL + "assets/foto_produk/" +tvDataProduk.getFoto().get(0).getFotoProduk())
@@ -57,7 +58,7 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ViewHolder
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView namaProduk, hargaProduk, stok, terjual, deskripsi ;
+        private TextView namaProduk, hargaProduk, stok, terjual, deskripsi , type;
         private ImageView foto_produk;
 
 
@@ -65,7 +66,8 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ViewHolder
             super(itemView);
 
             namaProduk = itemView.findViewById(R.id.titleproduk);
-            hargaProduk = itemView.findViewById(R.id.typeproduk);
+            hargaProduk = itemView.findViewById(R.id.txthargaawal);
+            type = itemView.findViewById(R.id.typeproduk);
             foto_produk = itemView.findViewById(R.id.imageproduk);
 
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -73,7 +75,7 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ViewHolder
                 public void onClick(View view) {
                     Model myNewsmodel = tvDataProduks.get(getAdapterPosition());
                     Context context = view.getContext();
-                    Intent intent = new Intent(context, ProductDetails.class);
+                    Intent intent = new Intent(context, ProductDetailActivity.class);
                     intent.putExtra("id_produk",String.valueOf(myNewsmodel.getIdProduk()) );
                     intent.putExtra("nama_produk", myNewsmodel.getNamaProduk());
                     intent.putExtra("foto_produk",CONSTANTS.BASE_URL + "assets/foto_produk/"+myNewsmodel.getFoto().get(0).getFotoProduk());
@@ -82,6 +84,7 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ViewHolder
                     intent.putExtra("terjual", String.valueOf(myNewsmodel.getHargaJual()));
                     intent.putExtra("keterangan", myNewsmodel.getKeterangan());
                     intent.putExtra("kategori", myNewsmodel.getKategori().getNamaKategori());
+                    intent.putExtra("diskon", String.valueOf(myNewsmodel.getDiskon()));
                     Toast.makeText(context, "id_produk"+myNewsmodel.getIdProduk(), Toast.LENGTH_SHORT).show();
                     context.startActivity(intent);
 

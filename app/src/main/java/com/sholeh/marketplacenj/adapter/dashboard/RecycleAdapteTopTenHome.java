@@ -32,7 +32,7 @@ public class RecycleAdapteTopTenHome extends RecyclerView.Adapter<RecycleAdapteT
 
 
         ImageView image;
-        TextView title, type;
+        TextView title, harga, type;
         LinearLayout linear;
 
 
@@ -41,7 +41,8 @@ public class RecycleAdapteTopTenHome extends RecyclerView.Adapter<RecycleAdapteT
 
             image = (ImageView) view.findViewById(R.id.imageproduk);
             title = (TextView) view.findViewById(R.id.titleproduk);
-            type = (TextView) view.findViewById(R.id.typeproduk);
+            harga = (TextView) view.findViewById(R.id.txthargaawal);
+            type  = view.findViewById(R.id.typeproduk);
 
 //            linear = (LinearLayout) view.findViewById(R.id.linear);
 
@@ -73,7 +74,8 @@ public class RecycleAdapteTopTenHome extends RecyclerView.Adapter<RecycleAdapteT
         TopTenModelClass movie = moviesList.get(position);
         holder.image.setImageResource(movie.getImage());
         holder.title.setText(movie.getTitle());
-        holder.type.setText(movie.getType());
+//        holder.harga.setText(movie.get());
+
 
 
     }
