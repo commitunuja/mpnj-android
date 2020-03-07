@@ -197,7 +197,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
 //                Toast.makeText(ProductDetailActivity.this, harga_jual, Toast.LENGTH_SHORT).show();
 
-                        APIKeranjang apiKeranjang = CONSTANTS.getClient().create(APIKeranjang.class);
+                APIKeranjang apiKeranjang = CONSTANTS.getClient().create(APIKeranjang.class);
                 Call<List<Model>> sendData = apiKeranjang.simpanKeranjang(produk_id, "1", "konsumen", jumlah, harga_jual);
                 Log.d("YOLO", String.valueOf(sendData));
                 sendData.enqueue(new Callback<List<Model>>() {
@@ -206,7 +206,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                         Log.d("RETRO", "respone :" + response.body());
 //                            List<Model> kode = response.body();
 
-                        Toast.makeText(ProductDetailActivity.this, "Data Tersimpan", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getBaseContext(), "Data Tersimpan", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -214,9 +214,13 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                         Log.d("RETRO", "Falure :" + "Gagal Mengirim Request" + t);
                     }
                 });
+                break;
             case R.id.imgkeranjang:
-                Intent intent = new Intent(ProductDetailActivity.this, KeranjangDetailActivity2.class);
+                Intent intent = new Intent(this, KeranjangDetailActivity2.class);
                 startActivity(intent);
+                break;
+
+
             case R.id.linear1:
 
                 linear1.setBackgroundResource(R.drawable.red_rect_normal);

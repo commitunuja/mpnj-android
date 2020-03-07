@@ -93,8 +93,5 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ViewHolder
         }
 
 
-
-
-
     }
 }
