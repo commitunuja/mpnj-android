@@ -25,6 +25,7 @@
     <color name="brown">#524848</color>
     <color name="trans">#00000000</color>
     <color name="goodgrey">#535353</color>
+    <color name="toolbarTextColor">#ffffff</color>
     <!-- detail-->
 
     <color name="spark_image_tint">#00000000</color>
