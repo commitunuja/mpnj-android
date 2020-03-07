@@ -41,7 +41,7 @@ public class KeranjangDetailActivity2 extends AppCompatActivity {
     private void tampil() {
         listHeader = new ArrayList<>();
         listChild = new HashMap<>();
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://192.168.137.201/mpnj/public/api/keranjang?role=konsumen&id=1", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://192.168.137.112/mpnj/public/api/keranjang?role=konsumen&id=1", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
