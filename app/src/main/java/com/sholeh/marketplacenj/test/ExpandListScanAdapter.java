@@ -20,7 +20,6 @@ import java.util.List;
 public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 
     private Context context;
-    private List<HeaderModel> listHeader;
     private List<HeaderModel> listHeaderFilter;
     private HashMap<HeaderModel, List<ChildModel>> listChild;
 
@@ -30,7 +29,6 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 
     public ExpandListScanAdapter(Context context, List<HeaderModel> listHeader, HashMap<HeaderModel, List<ChildModel>> listChild) {
         this.context = context;
-        this.listHeader = listHeader;
         this.listHeaderFilter = listHeader;
         this.listChild = listChild;
     }
@@ -47,7 +45,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getGroup(int groupPosition) {
-        return this.listHeader.get(groupPosition);
+        return this.listHeaderFilter.get(groupPosition);
     }
 
     @Override
@@ -99,11 +97,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 //            img.setImageResource(R.drawable.ic_keyboard_arrow_down_grey_24dp);
 //            Toast.makeText(context, ""+isExpanded, Toast.LENGTH_SHORT).show();
 //        }
-        if (currentPosition != groupPosition) {
-            Toast.makeText(context, ""+groupPosition, Toast.LENGTH_SHORT).show();
 
-
-        }
 
         return convertView;
     }

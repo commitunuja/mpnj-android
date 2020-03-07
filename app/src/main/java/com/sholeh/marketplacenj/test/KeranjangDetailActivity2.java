@@ -72,6 +72,10 @@ public class KeranjangDetailActivity2 extends AppCompatActivity {
                     }
                     expanAdapter = new ExpandListScanAdapter(KeranjangDetailActivity2.this, listHeader, listChild);
                     listView.setAdapter(expanAdapter);
+                    int count = expanAdapter.getGroupCount();
+                    for (int i = 0; i < count; i++) {
+                        listView.expandGroup(i);
+                    }
                 } catch (JSONException e) {
                     Log.d("KOCENG", e.getMessage());
                 }
@@ -84,6 +88,13 @@ public class KeranjangDetailActivity2 extends AppCompatActivity {
         });
         RequestQueue requestQueue = Volley.newRequestQueue(KeranjangDetailActivity2.this);
         requestQueue.add(stringRequest);
+    }
+
+    private void expandAll() {
+        int count = expanAdapter.getGroupCount();
+        for (int i = 0; i < count; i++) {
+            listView.expandGroup(i);
+        }
     }
 
 }
