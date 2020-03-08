@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -78,7 +79,6 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
         // set on click change
         HeaderModel model = (HeaderModel) getGroup(groupPosition);
         if (convertView==null){
-            Toast.makeText(context, ""+groupPosition, Toast.LENGTH_SHORT).show();
             LayoutInflater inflater = (LayoutInflater)this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.desain_parent,null);
         }
@@ -105,27 +105,48 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-        ChildModel model = (ChildModel)getChild(groupPosition,childPosition);
+        final ChildModel model = (ChildModel)getChild(groupPosition,childPosition);
 
         LayoutInflater inflater2 = (LayoutInflater)this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         convertView = inflater2.inflate(R.layout.desain_child,null);
 
+        LinearLayout viewline,increment,decrement;
+        final TextView addjumlah;
+
 //        TextView idproduk = convertView.findViewById(R.id.txtIDPRODUK);
         TextView nama = convertView.findViewById(R.id.txtnamaPRODUK);
-        TextView harga = convertView.findViewById(R.id.txtnamaHARGA);
+        TextView hargaTotalProduk = convertView.findViewById(R.id.txtTotalHargaProduk);
         ImageView gambar = convertView.findViewById(R.id.img_gambarkeranjang);
-        TextView jumlah = convertView.findViewById(R.id.txtjumlah);
+        addjumlah = convertView.findViewById(R.id.txt_addjumlah);
+        increment= convertView.findViewById(R.id.increment);
+        decrement= convertView.findViewById(R.id.decrement);
+
 
 //        idproduk.setText(model.getId_produk());
         nama.setText(model.getNama_produk());
-        harga.setText(model.getHarga());
-        jumlah.setText(model.getJumlah());
+        hargaTotalProduk.setText(model.getHarga());
+        addjumlah.setText(model.getJumlah());
         Glide.with(convertView.getContext())
                 .load(model.getGambar())
                 .apply(new RequestOptions().override(350, 550))
 //                .placeholder(R.drawable.img_placeholder)
 //                .error(R.drawable.ic_missing)
                 .into(gambar);
+        increment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int count= Integer.parseInt(String.valueOf(model.getJumlah()));
+                count++;
+                addjumlah.setText(String.valueOf(count));
+                Toast.makeText(context,"cont"+ String.valueOf(count), Toast.LENGTH_SHORT).show();
+            }
+        });
+        decrement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "-", Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
         return convertView;

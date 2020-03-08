@@ -64,7 +64,7 @@
                     </LinearLayout>
 
                     <customfonts.MyTextView_Roboto_Medium
-                        android:id="@+id/txtjumlah"
+                        android:id="@+id/txt_addjumlah"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10.7dp"
@@ -90,7 +90,7 @@
                 </LinearLayout>
 
                 <customfonts.MyTextView_Roboto_Medium
-                    android:id="@+id/txtnamaHARGA"
+                    android:id="@+id/txtTotalHargaProduk"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="24.3dp"
