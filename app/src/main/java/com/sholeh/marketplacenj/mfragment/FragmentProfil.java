@@ -73,7 +73,8 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
     FloatingActionButton fb_favourite;
     Toolbar toolBarisi;
     Preferences preferences;
-    String id_konsumen, username, namaLengkap, nomorHP, email,  simgprofil;
+    String id_konsumen, username, namaLengkap, nomorHP, email;
+    String sfoto = null;
     private ResProfil tvDataProfil;
 
     Bitmap bitmap = null;
@@ -88,6 +89,7 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
     public void onResume()
     {
         getDataProfil();
+
         super.onResume();
         // Load data and do stuff
     }
@@ -157,7 +159,7 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
 
             }
         });
-
+        getDataPref();
 
 
         return rootView;
@@ -216,52 +218,49 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
         }
     }
 
-    public void getDataProfil(){
+    public void getDataPref(){
         preferences = new Preferences(getActivity());
         id_konsumen = preferences.getIdKonsumen();
         username = preferences.getUsername();
         namaLengkap = preferences.getNamaLengkap();
         email = preferences.getEmailnya();
         nomorHP = preferences.getNomorHp();
-        simgprofil = preferences.getFotoAkun();
         tvx_namaCustomter.setText(namaLengkap);
         tvx_username.setText(username);
-        tvx_namaCustomter.setText(namaLengkap);
         tvx_Email.setText(email);
         tvx_Hp.setText(nomorHP);
-        Picasso.with(getContext()).load(CONSTANTS.BASE_URL + "assets/foto_profil_konsumen/"+simgprofil).into(imageProfil);
+
+    }
 
 
+    public void getDataProfil(){
 
-//
-//        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-//        Call<ResProfil> call = service.getDataProfil(id_konsumen);
-//
-//        call.enqueue(new Callback<ResProfil>() {
-//            @Override
-//            public void onResponse(Call<ResProfil> call, Response<ResProfil> response) {
-//                tvDataProfil = response.body();
-//                String namaLengkap = tvDataProfil.getData().getNamaLengkap();
-//                String foto = tvDataProfil.getData().getFotoProfil();
-//                tvx_namaCustomter.setText(namaLengkap);
-////                Toast.makeText(getActivity(), ""+foto, Toast.LENGTH_SHORT).show();
-//
-////                Glide.with(getActivity()).load(foto).into(imageProfil);
-//
-//              //  Picasso.with(getContext()).load(tvDataProfil.getData().getFotoProfil()).into(imageProfil);
-//                Picasso.with(getContext()).load(CONSTANTS.BASE_URL + "assets/foto_profil_konsumen/"+tvDataProfil.getData().getFotoProfil()).into(imageProfil);
-//
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ResProfil> call, Throwable t) {
-//                Toast.makeText(getActivity(), "no connection"+t, Toast.LENGTH_SHORT).show();
-//
-//                //  Log.e(TAG, " failure "+ t.toString());
-////                    AppUtilits.displayMessage(UbahPassword.this,  getString(R.string.failed_request));
-//            }
-//        });
+        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+        Call<ResProfil> call = service.getDataProfil(id_konsumen);
+
+        call.enqueue(new Callback<ResProfil>() {
+            @Override
+            public void onResponse(Call<ResProfil> call, Response<ResProfil> response) {
+                tvDataProfil = response.body();
+              // validasi error null
+                if (tvDataProfil.getData().getFotoProfil() == null){
+                   // Picasso.with(getContext()).load(R.drawable.man).into(imageProfil);
+                }else{
+                    Picasso.with(getContext()).load(CONSTANTS.BASE_URL + "assets/foto_profil_konsumen/"+tvDataProfil.getData().getFotoProfil()).into(imageProfil);
+                }
+
+//                Glide.with(getActivity()).load(foto).into(imageProfil);
+
+            }
+
+            @Override
+            public void onFailure(Call<ResProfil> call, Throwable t) {
+                Toast.makeText(getActivity(), "no connection"+t, Toast.LENGTH_SHORT).show();
+
+                //  Log.e(TAG, " failure "+ t.toString());
+//                    AppUtilits.displayMessage(UbahPassword.this,  getString(R.string.failed_request));
+            }
+        });
     }
 
     private void selectImage() {

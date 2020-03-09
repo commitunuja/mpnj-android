@@ -98,7 +98,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                        preferences.saveSPString(Preferences.SP_NamaLengkap,String.valueOf(response.body().getNamaLengkap()));
                        preferences.saveSPString(Preferences.SP_NomorHP,String.valueOf(response.body().getNomorHp()));
                        preferences.saveSPString(Preferences.SP_Email,String.valueOf(response.body().getEmail()));
-                       preferences.saveSPString(Preferences.SP_FotoAkun,String.valueOf(response.body().getFoto()));
+//                       preferences.saveSPString(Preferences.SP_FotoAkun,String.valueOf(response.body().getFoto()));
                        preferences.saveSPBoolean(Preferences.SP_SUDAH_LOGIN, true);
 
 

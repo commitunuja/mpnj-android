@@ -54,7 +54,7 @@
                             android:layout_height="70dp"
                             android:text="NJ"
                             android:textColor="@color/black"
-                            android:background="@drawable/black_round_corner_button"
+                            android:background="@drawable/man"
                             android:gravity="center"
                             android:textSize="30sp" />
 
