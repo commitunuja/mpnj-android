@@ -379,6 +379,8 @@ public class ImageProfilActivity extends AppCompatActivity implements View.OnCli
             public void onResponse(Call<ResImg> call, Response<ResImg> response) {
                 Log.d("resimg", String.valueOf(response));
                 Toast.makeText(ImageProfilActivity.this, "Sukses", Toast.LENGTH_SHORT).show();
+//                preferences.saveSPString(Preferences.SP_UserName,String.valueOf(response.body().getUsername()));
+
                 finish();
 
 //                if (response.body()!= null && response.isSuccessful()){ // true

@@ -11,8 +11,6 @@ public class Preferences {
     public static final boolean SP_Akses = true;
     SharedPreferences sp;
     SharedPreferences.Editor spEditor;
-    private Context mContext;
-    private static Preferences mInstance;
 
 
     public static final String SP_MPNJAPP = "spMpnjApp";
@@ -21,8 +19,14 @@ public class Preferences {
     public static final String SP_SUDAH_LOGIN = "spSudahLogin";
     public static  final String SP_STATUS = "spStatus";
     public static  final String SP_Aktif = "spAktif";
-    public static  final String SP_UserName = "spUserName";
+
     public static  final String SP_IdKonsumen = "spIdKonsumen";
+    public static  final String SP_UserName = "spUserName";
+    public static  final String SP_NamaLengkap = "spNamaLengkap";
+    public static  final String SP_NomorHP = "spNomorHp";
+    public static  final String SP_Email = "spEmail";
+    public static  final String SP_FotoAkun = "spFotoAkun";
+
 
 
 
@@ -31,16 +35,10 @@ public class Preferences {
     public Preferences(Context context){
         sp = context.getSharedPreferences(SP_MPNJAPP, Context.MODE_PRIVATE);
         spEditor = sp.edit();
-        this.mContext = context;
+
     }
 
-    public static synchronized Preferences getInstance(Context context){
 
-        if (mInstance == null){
-            mInstance = new Preferences(context);
-        }
-        return mInstance;
-    }
 
     public void saveSPString(String keySP, String value){
         spEditor.putString(keySP, value);
@@ -57,32 +55,6 @@ public class Preferences {
         spEditor.commit();
     }
 
-
-    public void saveUser(ValDataProfil userProfil){
-
-        SharedPreferences sharedPreferences = mContext.getSharedPreferences(SP_MPNJAPP, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-
-        editor.putInt("id_konsumen",userProfil.getIdKonsumen());
-        editor.putString("nama_lengkap",userProfil.getNamaLengkap());
-        editor.putString("email",userProfil.getEmail());
-        editor.putString("nomor_hp",userProfil.getNomorHp());
-        editor.putString("foto_profil",userProfil.getFotoProfil());
-        editor.apply();
-
-    }
-//
-    public ValDataProfil getProfil(){
-        sp = mContext.getSharedPreferences(SP_MPNJAPP,Context.MODE_PRIVATE);
-        return
-                new ValDataProfil(
-                        sp.getInt("id_konsumen",-1),
-                        sp.getString("nama_lengkap",null),
-                        sp.getString("email",null),
-                        sp.getString("nomor_hp",null),
-                        sp.getString("foto_profil",null)
-                );
-    }
 
 
     public String getSPNama(){
@@ -104,6 +76,11 @@ public class Preferences {
     public String getUsername(){return sp.getString(SP_UserName,"");}
 
     public String getIdKonsumen(){return sp.getString(SP_IdKonsumen,"");}
+
+    public String getNamaLengkap(){return sp.getString(SP_NamaLengkap,"");}
+    public String getNomorHp(){return sp.getString(SP_NomorHP,"");}
+    public String getEmailnya(){return sp.getString(SP_Email,"");}
+    public String getFotoAkun(){return sp.getString(SP_FotoAkun,"");}
 
 
 }

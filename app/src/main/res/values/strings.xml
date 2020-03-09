@@ -10,9 +10,12 @@
         <item>INBOX</item>
     </string-array>
 
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="login_with_google">GOOGLE+</string>
+    <string name="policy">Kebijakan, Syarat &amp; Ketentuan</string>
     <!--detail produk-->
     <string name="view_all_54_reviews">View All 54 Reviews</string>
     <string name="top_review">Top Review</string>

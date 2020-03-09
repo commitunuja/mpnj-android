@@ -38,6 +38,7 @@ import com.sholeh.marketplacenj.CONSTANTS;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.ServiceGenerator;
 import com.sholeh.marketplacenj.activities.ImageProfilActivity;
+import com.sholeh.marketplacenj.activities.LoginActivity;
 import com.sholeh.marketplacenj.activities.PengaturanAkun;
 import com.sholeh.marketplacenj.activities.TabFragmentPelapak;
 import com.sholeh.marketplacenj.activities.TabFragmentPembeli;
@@ -60,7 +61,10 @@ import static android.app.Activity.RESULT_OK;
 
 public class FragmentProfil extends Fragment implements View.OnClickListener {
     private ImageView btnImgProfil, nav_home, nav_notifikasi, nav_transaksi, navprofile;
-    TextView tvx_login, tvx_namaCustomter, tvx_logout;
+    TextView tvx_login, tvx_namaCustomter, tvx_title, tvx_logout,tvx_edit, tvx_username,
+              tvx_Hp, tvx_Email;
+
+
 
     private CircleImageView imageProfil;
 
@@ -69,7 +73,8 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
     FloatingActionButton fb_favourite;
     Toolbar toolBarisi;
     Preferences preferences;
-    String id_konsumen, username, imgprofil;
+    String id_konsumen, username, namaLengkap, nomorHP, email;
+    String sfoto = null;
     private ResProfil tvDataProfil;
 
     Bitmap bitmap = null;
@@ -84,6 +89,7 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
     public void onResume()
     {
         getDataProfil();
+
         super.onResume();
         // Load data and do stuff
     }
@@ -94,16 +100,26 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_profil,container,false);
 
-        preferences = new Preferences(getActivity());
-        id_konsumen = preferences.getIdKonsumen();
+
 
 
 
         tvx_namaCustomter = rootView.findViewById(R.id.tvCustomerName);
+        tvx_username = rootView.findViewById(R.id.tvx_username);
+        tvx_Email = rootView.findViewById(R.id.tvx_Email);
+        tvx_Hp = rootView.findViewById(R.id.tvx_nomorhp);
+
         btnImgProfil = rootView.findViewById(R.id.imgProfil);
         btnImgProfil.setOnClickListener(this);
         imageProfil = rootView.findViewById(R.id.cirprofile_image);
         imageProfil.setOnClickListener(this);
+        tvx_title = rootView.findViewById(R.id.title);
+        tvx_edit = rootView.findViewById(R.id.edit_txt);
+        tvx_edit.setVisibility(View.GONE);
+        tvx_logout = rootView.findViewById(R.id.logout_akun);
+        tvx_logout.setOnClickListener(this);
+        tvx_logout.setVisibility(View.VISIBLE);
+        tvx_title.setVisibility(View.VISIBLE);
 
 //        ValDataProfil userImg = Preferences.getInstance(getContext()).getProfil();
 //        ValDataProfil d = Preferences.getInstance(getContext()).getProfil().getFotoProfil();
@@ -143,7 +159,7 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
 
             }
         });
-
+        getDataPref();
 
 
         return rootView;
@@ -162,6 +178,10 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
                 Intent intent2 = new Intent(getActivity(), ImageProfilActivity.class);
                 getActivity().startActivity(intent2);
 //                selectImage();
+                break;
+
+            case R.id.logout_akun:
+              logoutAkun();
                 break;
 
             default:
@@ -198,6 +218,21 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
         }
     }
 
+    public void getDataPref(){
+        preferences = new Preferences(getActivity());
+        id_konsumen = preferences.getIdKonsumen();
+        username = preferences.getUsername();
+        namaLengkap = preferences.getNamaLengkap();
+        email = preferences.getEmailnya();
+        nomorHP = preferences.getNomorHp();
+        tvx_namaCustomter.setText(namaLengkap);
+        tvx_username.setText(username);
+        tvx_Email.setText(email);
+        tvx_Hp.setText(nomorHP);
+
+    }
+
+
     public void getDataProfil(){
 
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
@@ -207,16 +242,14 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
             @Override
             public void onResponse(Call<ResProfil> call, Response<ResProfil> response) {
                 tvDataProfil = response.body();
-                String namaLengkap = tvDataProfil.getData().getNamaLengkap();
-                String foto = tvDataProfil.getData().getFotoProfil();
-                tvx_namaCustomter.setText(namaLengkap);
-//                Toast.makeText(getActivity(), ""+foto, Toast.LENGTH_SHORT).show();
+              // validasi error null
+                if (tvDataProfil.getData().getFotoProfil() == null){
+                   // Picasso.with(getContext()).load(R.drawable.man).into(imageProfil);
+                }else{
+                    Picasso.with(getContext()).load(CONSTANTS.BASE_URL + "assets/foto_profil_konsumen/"+tvDataProfil.getData().getFotoProfil()).into(imageProfil);
+                }
 
 //                Glide.with(getActivity()).load(foto).into(imageProfil);
-
-              //  Picasso.with(getContext()).load(tvDataProfil.getData().getFotoProfil()).into(imageProfil);
-                Picasso.with(getContext()).load(CONSTANTS.BASE_URL + "assets/foto_profil_konsumen/"+tvDataProfil.getData().getFotoProfil()).into(imageProfil);
-
 
             }
 
@@ -262,6 +295,29 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
 //    }
 
 
+    public  void logoutAkun(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage("Apakah anda yakin, ingin logout?");
+        builder.setCancelable(true);
+        builder.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                preferences.saveSPBoolean(preferences.SP_SUDAH_LOGIN, false);
+                startActivity(new Intent(getActivity(), LoginActivity.class)
+                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
+                getActivity().finish();
+                Toast.makeText(getActivity(), "Berhasil Keluar", Toast.LENGTH_LONG).show();
+            }
+        });
+        builder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
 
 
 }
