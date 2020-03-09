@@ -86,11 +86,12 @@
                             android:textColor="@color/white"/>
 
                         <customfonts.MyTextView_Roboto_Regular
+                            android:id="@+id/tvx_username"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/white"
                             android:textSize="13.3sp"
-                            android:text="gautamrokde@gmail.com"/>
+                            android:text="username"/>
                     </LinearLayout>
 
                 </LinearLayout>
@@ -202,6 +203,7 @@
                             android:src="@drawable/ic_smartphone"/>
 
                         <customfonts.MyTextView_Roboto_Medium
+                            android:id="@+id/tvx_nomorhp"
                             android:layout_weight="1"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -236,24 +238,12 @@
                                 android:layout_marginLeft="10dp"
                                 />
 
-                            <customfonts.MyTextView_Roboto_Medium
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="20dp"
-                                android:layout_weight="1"
-                                android:textColor="@color/black"
-                                android:textSize="13.3sp" />
 
-                            <customfonts.MyTextView_Roboto_Medium
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="12.3sp"
-                                android:textColor="#89000000"
-                                android:layout_marginRight="3dp"
-                                />
+
+
                         </LinearLayout>
                         <LinearLayout
-                            android:visibility="gone"
+
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:padding="12sp"
@@ -267,6 +257,7 @@
                                 android:src="@drawable/ic_email_black"/>
 
                             <customfonts.MyTextView_Roboto_Medium
+                                android:id="@+id/tvx_Email"
                                 android:layout_weight="1"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
@@ -288,6 +279,8 @@
 
 
                 </androidx.cardview.widget.CardView>
+
+
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
