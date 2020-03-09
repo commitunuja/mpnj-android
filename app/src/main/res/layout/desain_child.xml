@@ -54,7 +54,8 @@
                         android:layout_height="22.6dp"
                         android:layout_gravity="center"
                         android:background="@drawable/add_minus_rect"
-                        android:gravity="center">
+                        android:gravity="center"
+                        android:onClick="decrement">
 
                         <ImageView
                             android:layout_width="8dp"
@@ -78,7 +79,8 @@
                         android:layout_width="22.6dp"
                         android:layout_height="22.6dp"
                         android:background="@drawable/add_minus_rect"
-                        android:gravity="center">
+                        android:gravity="center"
+                        android:onClick="increment">
 
                         <ImageView
                             android:layout_width="8dp"
@@ -90,7 +92,7 @@
                 </LinearLayout>
 
                 <customfonts.MyTextView_Roboto_Medium
-                    android:id="@+id/txtnamaHARGA"
+                    android:id="@+id/txttotal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="24.3dp"

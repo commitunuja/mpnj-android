@@ -49,7 +49,7 @@
         <activity android:name=".activities.VerifikasiActivity" />
         <activity android:name=".activities.ForgotPassword" />
         <activity android:name=".activities.MainActivity" />
-        <activity android:name=".activities.dashboard.Homepage"/>
+        <activity android:name=".activities.Utama"/>
         <activity android:name=".activities.details.ProductDetails"/>
         <activity android:name=".activities.details.ProductDetailActivity"/>
         <activity
@@ -63,7 +63,7 @@
 
         <activity android:name=".activities.DetailProdukActivity" />
         <activity
-            android:name=".activities.Utama"
+            android:name=".activities.dashboard.Homepage"
             android:launchMode="singleTop"
             android:screenOrientation="portrait">
             <intent-filter>

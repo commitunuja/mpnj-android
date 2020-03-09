@@ -192,19 +192,15 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
             case R.id.imgtambah:
                 String produk_id = idkeranjang.getText().toString();
                 String harga_jual = harga.getText().toString();
-                String jumlah = (String) jumlahproduk.getText();
+                String jumlah = jumlahproduk.getText().toString();
 
-
-//                Toast.makeText(ProductDetailActivity.this, harga_jual, Toast.LENGTH_SHORT).show();
-
-                        APIKeranjang apiKeranjang = CONSTANTS.getClient().create(APIKeranjang.class);
+                APIKeranjang apiKeranjang = CONSTANTS.getClient().create(APIKeranjang.class);
                 Call<List<Model>> sendData = apiKeranjang.simpanKeranjang(produk_id, "1", "konsumen", jumlah, harga_jual);
                 Log.d("YOLO", String.valueOf(sendData));
                 sendData.enqueue(new Callback<List<Model>>() {
                     @Override
                     public void onResponse(Call<List<Model>> call, Response<List<Model>> response) {
                         Log.d("RETRO", "respone :" + response.body());
-//                            List<Model> kode = response.body();
 
                         Toast.makeText(ProductDetailActivity.this, "Data Tersimpan", Toast.LENGTH_SHORT).show();
                     }
@@ -213,7 +209,9 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                     public void onFailure(Call<List<Model>> call, Throwable t) {
                         Log.d("RETRO", "Falure :" + "Gagal Mengirim Request" + t);
                     }
+
                 });
+                break;
             case R.id.imgkeranjang:
                 Intent intent = new Intent(ProductDetailActivity.this, KeranjangDetailActivity2.class);
                 startActivity(intent);

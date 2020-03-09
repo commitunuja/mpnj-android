@@ -26,8 +26,49 @@
     <color name="trans">#00000000</color>
     <color name="goodgrey">#535353</color>
     <color name="toolbarTextColor">#ffffff</color>
+    <color name="toolbarColor">#d44334</color>
+
     <!-- detail-->
 
+<!--semua-->
+
+    <color name="dark_red">#b63418</color>
+    <color name="navigation_txt">#b1b1b1</color>
+    <color name="tabtxt_color">#f09f9f</color>
+    <color name="view_line">#8e8b8b</color>
+    <color name="view_line_grid">#8e8b8b</color>
+    <color name="duskyellow">#f9a72d</color>
+    <color name="lightgray">#b2b2b2</color>
+
+    <color name="greyText">#8b8a8a</color>
+    <color name="viewLineColor">#48707070</color>
+    <color name="blackTextColor">#070707</color>
+
+
+    <color name="titletxt">#0f0d0d</color>
+    <color name="lightcolortext">#95989a</color>
+    <color name="Background">#f5f6f7</color>
+    <color name="Primarytext">#0f0d0d</color>
+
+
+
+    <color name="toolbarbg">#d44334</color>
+    <color name="Primary">#D44334</color>
+
+
+
+
+    <color name="ToolBarBG">#d44334</color>
+    <color name="trance">#00000000</color>
+
+    <color name="greencolor">#488d29</color>
+
+
+
+
+
+    <color name="lightgreen">#2cb384</color>
+<!--    semua-->
     <color name="spark_image_tint">#00000000</color>
     <color name="white">#FFFFFF</color>
     <color name="transparent_white">#00FFFFFF</color>

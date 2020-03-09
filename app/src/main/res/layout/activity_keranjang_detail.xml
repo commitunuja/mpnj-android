@@ -15,10 +15,10 @@
         <include layout="@layout/toolbar_keranjang"/>
 
 
-
         <LinearLayout
             android:layout_marginBottom="110dp"
             android:layout_width="match_parent"
+            android:orientation="vertical"
             android:layout_height="wrap_content"
             android:background="@drawable/rect_recycler"
             android:elevation="3dp">
@@ -32,6 +32,8 @@
                 android:clipToPadding="false"
                 android:divider="@color/green_semi_transparent"
                 android:groupIndicator="@null" />
+
+            <include layout="@layout/itemcheckout"/>
         </LinearLayout>
 
 
@@ -83,6 +85,7 @@
                         android:text="Total sudah termasuk biaya pengiriman"/>
                 </LinearLayout>
                 <customfonts.MyTextView_Roboto_Medium
+                    android:id="@+id/total"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Rp.2.100.000"

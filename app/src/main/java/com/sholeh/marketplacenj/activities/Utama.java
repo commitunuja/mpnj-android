@@ -21,7 +21,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.activities.dashboard.Homepage;
 import com.sholeh.marketplacenj.mfragment.FragmentFavorite;
-import com.sholeh.marketplacenj.mfragment.FragmentHome;
 import com.sholeh.marketplacenj.mfragment.FragmentNotifikasi;
 import com.sholeh.marketplacenj.mfragment.FragmentProfil;
 import com.sholeh.marketplacenj.mfragment.FragmentTransaksi;
@@ -40,6 +39,8 @@ public class Utama extends AppCompatActivity implements  BottomAppBar.OnClickLis
     Preferences preferences;
     String id_konsumen;
     boolean doubleBackToExitPressedOnce = false;
+    private Object Homepage;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +67,8 @@ public class Utama extends AppCompatActivity implements  BottomAppBar.OnClickLis
         fb_favourite = findViewById(R.id.fab_menu);
         fb_favourite.setOnClickListener(this);
 
-        loadFragment(new FragmentHome());
+        Homepage = new Homepage();
+
         perizinan();
     }
 
@@ -148,8 +150,8 @@ public class Utama extends AppCompatActivity implements  BottomAppBar.OnClickLis
             case R.id.nav_home:
                 Intent intent = new Intent(this, Homepage.class);
                 startActivity(intent);
-               /* fragment =   new FragmentHome();
-                loadFragment(fragment);*/
+
+                loadFragment(fragment);
                 break;
             case R.id.nav_notifikasi:
                 fragment =   new FragmentNotifikasi();
