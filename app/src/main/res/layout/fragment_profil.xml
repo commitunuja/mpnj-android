@@ -37,7 +37,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:paddingBottom="16sp"
-                    android:paddingTop="16sp"
+                    android:paddingTop="12sp"
                     android:paddingLeft="20dp"
                     android:background="@drawable/green_rect">
 
@@ -50,8 +50,8 @@
                             app:civ_border_color="@color/yellow"
                             xmlns:app="http://schemas.android.com/apk/res-auto"
                             android:id="@+id/cirprofile_image"
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
                             android:text="NJ"
                             android:textColor="@color/black"
                             android:background="@drawable/black_round_corner_button"
@@ -66,7 +66,7 @@
                             android:layout_marginEnd="@dimen/value_2"
                             android:layout_marginRight="@dimen/value_2"
                             android:background="@drawable/black_round_corner_button"
-                            android:padding="2dp"
+
                             app:srcCompat="@drawable/ic_edit" />
                     </FrameLayout>
 
@@ -78,19 +78,19 @@
                         android:orientation="vertical">
 
                         <customfonts.MyTextView_Roboto_Medium
+                            android:text="Gautam Rokde"
                             android:id="@+id/tvCustomerName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="15sp"
-                            android:textColor="@color/white"
-                            android:text="Sholeh"/>
+                            android:textColor="@color/white"/>
 
                         <customfonts.MyTextView_Roboto_Regular
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/white"
                             android:textSize="13.3sp"
-                            android:text="user sholeh"/>
+                            android:text="gautamrokde@gmail.com"/>
                     </LinearLayout>
 
                 </LinearLayout>
@@ -129,6 +129,7 @@
                                 android:orientation="vertical">
 
                                 <customfonts.MyTextView_Roboto_Medium
+                                    android:id="@+id/tvMyPesanan"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:textSize="13.3sp"
@@ -169,13 +170,8 @@
                                     android:layout_height="wrap_content"
                                     android:textSize="13.3sp"
                                     android:textColor="@color/black"
-                                    android:text="Kupon"/>
+                                    android:text="Rekening Bank"/>
 
-                                <View
-                                    android:layout_width="match_parent"
-                                    android:layout_height="0.7dp"
-                                    android:layout_marginTop="12sp"
-                                    android:background="#93c1c1c9"/>
                             </LinearLayout>
                         </LinearLayout>
 
@@ -257,6 +253,7 @@
                                 />
                         </LinearLayout>
                         <LinearLayout
+                            android:visibility="gone"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:padding="12sp"
@@ -303,6 +300,59 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <customfonts.MyTextView_Roboto_Medium
+                            android:id="@+id/tv_myprofil"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:textSize="13sp"
+                            android:layout_marginLeft="23dp"
+                            android:layout_marginTop="23dp"
+                            android:text="Profil"/>
+                        <customfonts.MyTextView_Roboto_Medium
+                            android:id="@+id/tvAlamat"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:textSize="13sp"
+                            android:layout_marginLeft="23dp"
+                            android:layout_marginTop="23dp"
+                            android:text="Alamat"/>
+
+                        <customfonts.MyTextView_Roboto_Medium
+                            android:id="@+id/tvSetting"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:textSize="13sp"
+                            android:layout_marginLeft="23dp"
+                            android:layout_marginTop="23dp"
+                            android:text="Pengaturan"/>
+
+
+                        <customfonts.MyTextView_Roboto_Medium
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:textSize="13sp"
+                            android:layout_marginLeft="23dp"
+                            android:layout_marginTop="23dp"
+                            android:layout_marginBottom="20dp"
+                            android:text="@string/policy"/>
+
+
+
+
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:background="@color/white"
                         android:orientation="vertical">
 
@@ -339,6 +389,19 @@
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
+                <customfonts.Button_Roboto_Medium
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:background="@drawable/rect_green_btn"
+                    android:text="Keluar"
+                    android:textSize="13.3sp"
+                    android:layout_marginBottom="18dp"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"/>
 
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>

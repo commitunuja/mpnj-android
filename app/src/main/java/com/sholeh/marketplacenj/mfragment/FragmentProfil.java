@@ -60,7 +60,7 @@ import static android.app.Activity.RESULT_OK;
 
 public class FragmentProfil extends Fragment implements View.OnClickListener {
     private ImageView btnImgProfil, nav_home, nav_notifikasi, nav_transaksi, navprofile;
-    TextView tvx_login, tvx_namaCustomter, tvx_logout;
+    TextView tvx_login, tvx_namaCustomter, tvx_logout,  title,logout,test,edit_txt;
 
     private CircleImageView imageProfil;
 
@@ -104,6 +104,12 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
         btnImgProfil.setOnClickListener(this);
         imageProfil = rootView.findViewById(R.id.cirprofile_image);
         imageProfil.setOnClickListener(this);
+        title = rootView.findViewById(R.id.title);
+        edit_txt = rootView.findViewById(R.id.edit_txt);
+        edit_txt.setVisibility(View.GONE);
+        logout = rootView.findViewById(R.id.logout_akun);
+        logout.setVisibility(View.VISIBLE);
+        title.setVisibility(View.VISIBLE);
 
 //        ValDataProfil userImg = Preferences.getInstance(getContext()).getProfil();
 //        ValDataProfil d = Preferences.getInstance(getContext()).getProfil().getFotoProfil();
