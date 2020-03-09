@@ -12,6 +12,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.sholeh.marketplacenj.CONSTANTS;
 import com.sholeh.marketplacenj.R;
 
 import org.json.JSONArray;
@@ -39,7 +42,7 @@ public class KeranjangDetailActivity2 extends AppCompatActivity {
     private void tampil() {
         listHeader = new ArrayList<>();
         listChild = new HashMap<>();
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://192.168.1.39/mpnj/public/api/keranjang?role=konsumen&id=1", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, CONSTANTS.BASE_URL+"api/keranjang?role=konsumen&id=1", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -70,6 +73,10 @@ public class KeranjangDetailActivity2 extends AppCompatActivity {
                     }
                     expanAdapter = new ExpandListScanAdapter(KeranjangDetailActivity2.this, listHeader, listChild);
                     listView.setAdapter(expanAdapter);
+                    int count = expanAdapter.getGroupCount();
+                    for (int i = 0; i < count; i++) {
+                        listView.expandGroup(i);
+                    }
                 } catch (JSONException e) {
                     Log.d("KOCENG", e.getMessage());
                 }
@@ -82,6 +89,13 @@ public class KeranjangDetailActivity2 extends AppCompatActivity {
         });
         RequestQueue requestQueue = Volley.newRequestQueue(KeranjangDetailActivity2.this);
         requestQueue.add(stringRequest);
+    }
+
+    private void expandAll() {
+        int count = expanAdapter.getGroupCount();
+        for (int i = 0; i < count; i++) {
+            listView.expandGroup(i);
+        }
     }
 
 }

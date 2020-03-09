@@ -54,8 +54,7 @@
                         android:layout_height="22.6dp"
                         android:layout_gravity="center"
                         android:background="@drawable/add_minus_rect"
-                        android:gravity="center"
-                        android:onClick="decrement">
+                        android:gravity="center">
 
                         <ImageView
                             android:layout_width="8dp"
@@ -65,7 +64,7 @@
                     </LinearLayout>
 
                     <customfonts.MyTextView_Roboto_Medium
-                        android:id="@+id/txtjumlah"
+                        android:id="@+id/txt_addjumlah"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10.7dp"
@@ -79,8 +78,7 @@
                         android:layout_width="22.6dp"
                         android:layout_height="22.6dp"
                         android:background="@drawable/add_minus_rect"
-                        android:gravity="center"
-                        android:onClick="increment">
+                        android:gravity="center">
 
                         <ImageView
                             android:layout_width="8dp"
@@ -92,7 +90,7 @@
                 </LinearLayout>
 
                 <customfonts.MyTextView_Roboto_Medium
-                    android:id="@+id/txttotal"
+                    android:id="@+id/txtTotalHargaProduk"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="24.3dp"

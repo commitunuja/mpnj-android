@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,7 +21,6 @@ import java.util.List;
 public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 
     private Context context;
-    private List<HeaderModel> listHeader;
     private List<HeaderModel> listHeaderFilter;
     private HashMap<HeaderModel, List<ChildModel>> listChild;
 
@@ -30,7 +30,6 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 
     public ExpandListScanAdapter(Context context, List<HeaderModel> listHeader, HashMap<HeaderModel, List<ChildModel>> listChild) {
         this.context = context;
-        this.listHeader = listHeader;
         this.listHeaderFilter = listHeader;
         this.listChild = listChild;
     }
@@ -47,7 +46,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getGroup(int groupPosition) {
-        return this.listHeader.get(groupPosition);
+        return this.listHeaderFilter.get(groupPosition);
     }
 
     @Override
@@ -75,12 +74,13 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 //
 
 
+
+
         // set on click change
         HeaderModel model = (HeaderModel) getGroup(groupPosition);
-        if (convertView == null) {
-            Toast.makeText(context, "" + groupPosition, Toast.LENGTH_SHORT).show();
-            LayoutInflater inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.desain_parent, null);
+        if (convertView==null){
+            LayoutInflater inflater = (LayoutInflater)this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = inflater.inflate(R.layout.desain_parent,null);
         }
         TextView nama_kk = convertView.findViewById(R.id.txNamaToko);
         TextView no_pelanggan = convertView.findViewById(R.id.tvxIdToko);
@@ -97,11 +97,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 //            img.setImageResource(R.drawable.ic_keyboard_arrow_down_grey_24dp);
 //            Toast.makeText(context, ""+isExpanded, Toast.LENGTH_SHORT).show();
 //        }
-        if (currentPosition != groupPosition) {
-            Toast.makeText(context, "" + groupPosition, Toast.LENGTH_SHORT).show();
 
-
-        }
 
         return convertView;
     }
@@ -109,87 +105,53 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-        ChildModel model = (ChildModel) getChild(groupPosition, childPosition);
+        final ChildModel model = (ChildModel)getChild(groupPosition,childPosition);
 
-        LayoutInflater inflater2 = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        convertView = inflater2.inflate(R.layout.desain_child, null);
-        LinearLayout increment, decrement;
+        LayoutInflater inflater2 = (LayoutInflater)this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        convertView = inflater2.inflate(R.layout.desain_child,null);
 
-        increment = convertView.findViewById(R.id.increment);
-        decrement = convertView.findViewById(R.id.decrement);
+        LinearLayout viewline,increment,decrement;
+        final TextView addjumlah;
+
+//        TextView idproduk = convertView.findViewById(R.id.txtIDPRODUK);
         TextView nama = convertView.findViewById(R.id.txtnamaPRODUK);
+        TextView hargaTotalProduk = convertView.findViewById(R.id.txtTotalHargaProduk);
         ImageView gambar = convertView.findViewById(R.id.img_gambarkeranjang);
-        final TextView jumlah = convertView.findViewById(R.id.txtjumlah);
-        final TextView total = convertView.findViewById(R.id.txttotal);
-        final int harga = Integer.parseInt(model.getHarga());
-        int jumlahbarang = Integer.parseInt(model.getJumlah());
+        addjumlah = convertView.findViewById(R.id.txt_addjumlah);
+        increment= convertView.findViewById(R.id.increment);
+        decrement= convertView.findViewById(R.id.decrement);
 
+
+//        idproduk.setText(model.getId_produk());
         nama.setText(model.getNama_produk());
-        total.setText(String.valueOf(harga * jumlahbarang));
-        jumlah.setText(model.getJumlah());
+        hargaTotalProduk.setText(model.getHarga());
+        addjumlah.setText(model.getJumlah());
         Glide.with(convertView.getContext())
                 .load(model.getGambar())
                 .apply(new RequestOptions().override(350, 550))
 //                .placeholder(R.drawable.img_placeholder)
 //                .error(R.drawable.ic_missing)
                 .into(gambar);
-
-
-        /*increment.setOnClickListener(new View.OnClickListener() {
+        increment.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                int count = Integer.parseInt(String.valueOf(jumlah.getText()));
+            public void onClick(View v) {
+                int count= Integer.parseInt(String.valueOf(model.getJumlah()));
                 count++;
-                total.setText(String.valueOf(count));
+                addjumlah.setText(String.valueOf(count));
+                Toast.makeText(context,"cont"+ String.valueOf(count), Toast.LENGTH_SHORT).show();
             }
-
         });
-
         decrement.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                int count = Integer.parseInt(String.valueOf(jumlah.getText()));
-                if (count > 1)
-                    count--;
-               total.setText(String.valueOf(count));
-
-
+            public void onClick(View v) {
+                Toast.makeText(context, "-", Toast.LENGTH_SHORT).show();
             }
         });
-*/
+
 
         return convertView;
     }
 
-    /* @SuppressLint("SetTextI18n")
-     public void decrement(View view) {
-
-         TextView harga = view.findViewById(R.id.tv_hargakeranjang);
-         harga = Integer.parseInt(getIntent().getStringExtra("harga_jual"));
-
-
-         if (quantity > 1) {
-             quantity--;
-             quantityProductPage.setText(String.valueOf(quantity));
-
-             harga.setText(String.valueOf(vhargaproduk * quantity));
-
-         }
-     }
-
-     public void increment(View view) {
-         TextView harga = findViewById(R.id.tv_hargakeranjang);
-         vhargaproduk = Integer.parseInt(getIntent().getStringExtra("harga_jual"));
-
-         if (quantity < 500) {
-             quantity++;
-             quantityProductPage.setText(String.valueOf(quantity));
-             harga.setText(String.valueOf(vhargaproduk * quantity));
-
-         } else {
-             Toast.makeText(this, "Product Count Must be less than 500", Toast.LENGTH_SHORT).show();
-         }
-     }*/
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return true;
