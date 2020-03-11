@@ -21,7 +21,7 @@ public class CocoProductDetailsAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int i) {
         switch (i) {
 
-            case 0:
+            /*case 0:
                 Details3Fragment tab1 = new Details3Fragment();
                 return tab1;
             case 1:
@@ -43,7 +43,7 @@ public class CocoProductDetailsAdapter extends FragmentPagerAdapter {
             case 6:
                 Details3Fragment tab7 = new Details3Fragment();
                 return tab7;
-
+*/
 
             default:
                 return null;
