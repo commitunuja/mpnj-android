@@ -48,6 +48,7 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ViewHolder
 
         Picasso.with(context)
                 .load(CONSTANTS.BASE_URL + "assets/foto_produk/" +tvDataProduk.getFoto().get(0).getFotoProduk())
+                .load(CONSTANTS.SUB_DOMAIN +tvDataProduk.getFoto().get(0).getFotoProduk())
                 .resize(300, 300)
                 .into(viewHolder.foto_produk);
     }
