@@ -80,6 +80,7 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ViewHolder
                     intent.putExtra("id_produk",String.valueOf(myNewsmodel.getIdProduk()) );
                     intent.putExtra("nama_produk", myNewsmodel.getNamaProduk());
                     intent.putExtra("foto_produk",CONSTANTS.BASE_URL + "assets/foto_produk/"+myNewsmodel.getFoto().get(0).getFotoProduk());
+                    intent.putExtra("foto_produk",CONSTANTS.SUB_DOMAIN+myNewsmodel.getFoto().get(0).getFotoProduk());
                     intent.putExtra("harga_jual", String.valueOf(myNewsmodel.getHargaJual()));
                     intent.putExtra("stok", String.valueOf(myNewsmodel.getStok()));
                     intent.putExtra("terjual", String.valueOf(myNewsmodel.getHargaJual()));
