@@ -32,12 +32,12 @@ public class Viewpager_product_details extends Fragment {
 
 
 
-            vid_produk = getActivity().getIntent().getStringExtra("id_produk");
-            String.valueOf(vid_produk);
-//        namaproduk = getActivity().getIntent().getExtras().getString("nama_produk");
-            urltoimage = getActivity().getIntent().getExtras().getString("foto_produk");
-
-//            Glide.with(getContext()).load(urltoimage).into(foto);
+//            vid_produk = getActivity().getIntent().getStringExtra("id_produk");
+//            String.valueOf(vid_produk);
+////        namaproduk = getActivity().getIntent().getExtras().getString("nama_produk");
+//            urltoimage = getActivity().getIntent().getExtras().getString("foto_produk");
+//
+////            Glide.with(getContext()).load(urltoimage).into(foto);
             return view;
 
 
