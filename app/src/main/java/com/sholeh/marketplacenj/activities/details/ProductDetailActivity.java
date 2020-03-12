@@ -53,7 +53,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
 
     private ViewPager viewPager;
-    private ViewpagerProductDetailsAdapter viewpagerAdapter;
+//    private ViewpagerProductDetailsAdapter viewpagerAdapter;
 
 
     private ArrayList<TopTenModelClass> topTenModelClasses;
