@@ -23,7 +23,7 @@ public class ViewpagerProductDetailsAdapter extends FragmentStatePagerAdapter {
                 Viewpager_product_details tab1 = new Viewpager_product_details();
                 return tab1;
 
-            case 1:
+          /*  case 1:
                 Viewpager_product_details tab2 = new Viewpager_product_details();
 
                 return tab2;
@@ -34,7 +34,7 @@ public class ViewpagerProductDetailsAdapter extends FragmentStatePagerAdapter {
 
             case 3:
                 Viewpager_product_details tab4 = new Viewpager_product_details();
-                return tab4;
+                return tab4;*/
           /*      Viewpager_product_details2 tab2 = new Viewpager_product_details2();
 
                 return tab2;
@@ -56,6 +56,6 @@ public class ViewpagerProductDetailsAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return 4;
+        return 1;
     }
 }

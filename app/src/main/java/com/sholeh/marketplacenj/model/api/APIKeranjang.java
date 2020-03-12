@@ -23,6 +23,9 @@ public interface APIKeranjang {
             @Field("harga_jual") String harga_jual
     );
 
+    @GET("api/produk")
+    Call<Model> getProdukId(String vid_produk);
+
 
     //    @GET("/api/keranjang?role={pelapak/konsumen}&id={id ketika login}")
     @GET("api/keranjang")
