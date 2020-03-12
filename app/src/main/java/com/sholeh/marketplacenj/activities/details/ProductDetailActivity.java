@@ -44,19 +44,19 @@ import retrofit2.Response;
 
 public class ProductDetailActivity extends AppCompatActivity implements View.OnClickListener {
 
-    TextView offer;
+
     RelativeLayout rightNav;
     ArrayList<Foto> tampil = new ArrayList<Foto>();
     ViewPagerAdapter viewPagerAdapter;
 
     LinearLayout linear1, linear2, linear3, linear4;
-    TextView txt1, txt2, txt3, txt4, idkeranjang, nama, harga, kategori, diskripsi, jumlahproduk;
+    TextView txt1, txt2, txt3, txt4, idkeranjang, nama, harga, kategori, diskripsi, jumlahproduk, offer;
 
     LinearLayout right1, right2, right3;
     ImageView right1_imag, right2_imag, right3_imag, tambah, keranjang;
 
     String namaproduk, kategoriproduk, vdeskripsi, vid_produk;
-    int vhargaproduk, vstok, vterjual;
+    int vhargaproduk, vstok, vterjual, vdiskon;
     int jumlahlagi = 1;
 
 
@@ -144,27 +144,29 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         diskripsi = findViewById(R.id.txtdiskripsi);
         tambah = findViewById(R.id.imgtambah);
         jumlahproduk = findViewById(R.id.txtjumlah);
-        idkeranjang = findViewById(R.id.txtidkeranjang);
+
         tambah.setOnClickListener(this);
 
 
         vid_produk = getIntent().getStringExtra("id_produk");
         String.valueOf(vid_produk);
-        idkeranjang.setText(String.valueOf(vid_produk));
+
         namaproduk = getIntent().getExtras().getString("nama_produk");
         vhargaproduk = Integer.parseInt(getIntent().getStringExtra("harga_jual"));
         vstok = Integer.parseInt(getIntent().getStringExtra("stok"));
         vterjual = Integer.parseInt(getIntent().getStringExtra("terjual"));
         kategoriproduk = getIntent().getStringExtra("kategori");
-//        vdiskon = Integer.parseInt(getIntent().getStringExtra("diskon"));
+        vdiskon = Integer.parseInt(getIntent().getStringExtra("diskon"));
         vdeskripsi = getIntent().getExtras().getString("keterangan");
+        Log.d("YOLO", "diskon");
+
 
 
 //        id.setText(String.valueOf(vid_produk));
         nama.setText(namaproduk);
         kategori.setText(kategoriproduk);
-//        offer.setText("Rp" + vdiskon);
-        harga.setText(String.valueOf("Rp " +vhargaproduk));
+        offer.setText("Rp " + vdiskon);
+        harga.setText("Rp " +vhargaproduk);
         diskripsi.setText(vdeskripsi);
         kategori.setText(kategoriproduk);
         jumlahproduk.setText(String.valueOf(jumlahlagi));

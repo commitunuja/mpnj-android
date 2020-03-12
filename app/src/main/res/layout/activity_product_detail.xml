@@ -221,11 +221,7 @@
                     android:layout_marginLeft="15dp"
                     android:textColor="@color/cut_price"
                     android:textSize="12.3sp"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="IDKRAM"
-                    android:id="@+id/txtidkeranjang"/>
+
 
                 <TextView
                     android:layout_width="wrap_content"
