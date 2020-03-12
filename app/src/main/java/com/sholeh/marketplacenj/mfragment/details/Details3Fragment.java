@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.bumptech.glide.Glide;
 import com.sholeh.marketplacenj.R;
 
 public class Details3Fragment extends Fragment {
@@ -26,12 +25,12 @@ public class Details3Fragment extends Fragment {
 
 
 
-        vid_produk = getActivity().getIntent().getStringExtra("id_produk");
-        String.valueOf(vid_produk);
-//        namaproduk = getActivity().getIntent().getExtras().getString("nama_produk");
-        urltoimage = getActivity().getIntent().getExtras().getString("foto_produk");
-
-        Glide.with(getContext()).load(urltoimage).into(foto);
+//        vid_produk = getActivity().getIntent().getStringExtra("id_produk");
+//        String.valueOf(vid_produk);
+////        namaproduk = getActivity().getIntent().getExtras().getString("nama_produk");
+//        urltoimage = getActivity().getIntent().getExtras().getString("foto_produk");
+//
+//        Glide.with(getContext()).load(urltoimage).into(foto);
       /*  vhargaproduk = Integer.parseInt(getIntent().getStringExtra("harga_jual"));
         vstok = Integer.parseInt(getIntent().getStringExtra("stok"));
         vterjual = Integer.parseInt(getIntent().getStringExtra("terjual"));

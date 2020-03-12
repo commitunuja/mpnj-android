@@ -47,7 +47,7 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ViewHolder
         viewHolder.type.setText(tvDataProduk.getKategori().getNamaKategori());
 
         Picasso.with(context)
-                .load(CONSTANTS.BASE_URL + "assets/foto_produk/" +tvDataProduk.getFoto().get(0).getFotoProduk())
+                .load(CONSTANTS.SUB_DOMAIN +tvDataProduk.getFoto().get(0).getFotoProduk())
                 .resize(300, 300)
                 .into(viewHolder.foto_produk);
     }
@@ -78,7 +78,7 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ViewHolder
                     Intent intent = new Intent(context, ProductDetailActivity.class);
                     intent.putExtra("id_produk",String.valueOf(myNewsmodel.getIdProduk()) );
                     intent.putExtra("nama_produk", myNewsmodel.getNamaProduk());
-                    intent.putExtra("foto_produk",CONSTANTS.BASE_URL + "assets/foto_produk/"+myNewsmodel.getFoto().get(0).getFotoProduk());
+                    intent.putExtra("foto_produk",CONSTANTS.SUB_DOMAIN+myNewsmodel.getFoto().get(0).getFotoProduk());
                     intent.putExtra("harga_jual", String.valueOf(myNewsmodel.getHargaJual()));
                     intent.putExtra("stok", String.valueOf(myNewsmodel.getStok()));
                     intent.putExtra("terjual", String.valueOf(myNewsmodel.getHargaJual()));
@@ -91,9 +91,6 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ViewHolder
                 }
             });
         }
-
-
-
 
 
     }

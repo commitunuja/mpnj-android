@@ -18,14 +18,22 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import com.google.gson.JsonObject;
 import com.sholeh.marketplacenj.CONSTANTS;
 import com.sholeh.marketplacenj.R;
+import com.sholeh.marketplacenj.ServiceGenerator;
 import com.sholeh.marketplacenj.adapter.dashboard.RecycleAdapteTopTenHome;
-import com.sholeh.marketplacenj.adapter.details.ViewpagerProductDetailsAdapter;
+import com.sholeh.marketplacenj.adapter.details.ViewPagerAdapter;
+import com.sholeh.marketplacenj.model.Foto;
 import com.sholeh.marketplacenj.model.Model;
+import com.sholeh.marketplacenj.model.api.APIInterface;
 import com.sholeh.marketplacenj.model.api.APIKeranjang;
 import com.sholeh.marketplacenj.model.dashboard.TopTenModelClass;
 import com.sholeh.marketplacenj.test.KeranjangDetailActivity2;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +46,8 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
     TextView offer;
     RelativeLayout rightNav;
+    ArrayList<Foto> tampil = new ArrayList<Foto>();
+    ViewPagerAdapter viewPagerAdapter;
 
     LinearLayout linear1, linear2, linear3, linear4;
     TextView txt1, txt2, txt3, txt4, idkeranjang, nama, harga, kategori, diskripsi, jumlahproduk;
@@ -51,7 +61,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
 
     private ViewPager viewPager;
-    private ViewpagerProductDetailsAdapter viewpagerAdapter;
+//    private ViewpagerProductDetailsAdapter viewpagerAdapter;
 
 
     private ArrayList<TopTenModelClass> topTenModelClasses;
@@ -114,8 +124,8 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
         rightNav = (RelativeLayout) findViewById(R.id.rightNav);
         viewPager = (ViewPager) findViewById(R.id.viewpager_product_detail);
-        viewpagerAdapter = new ViewpagerProductDetailsAdapter(getSupportFragmentManager());
-        viewPager.setAdapter(viewpagerAdapter);
+        viewPagerAdapter = new ViewPagerAdapter(tampil);
+        viewPager.setAdapter(viewPagerAdapter);
 
         // Images right navigatin
         rightNav.setOnClickListener(new View.OnClickListener() {
@@ -183,6 +193,39 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         top_ten_crecyclerview.setItemAnimator(new DefaultItemAnimator());
         top_ten_crecyclerview.setAdapter(mAdapter2);
 
+        getProdukId();
+
+    }
+
+    public void getProdukId() {
+        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+        Call<JsonObject> call = service.getProdukId(vid_produk);
+
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                try {
+                    JSONObject jsonObject;
+                    jsonObject = new JSONObject(String.valueOf(response.body()));
+                    JSONArray jsonArray = jsonObject.getJSONArray("data");
+                    Log.d("YOLO", "getNama          -->  " + jsonArray.getJSONObject(0).getString("id_produk"));
+                    for (int i = 0; i < jsonArray.getJSONObject(0).getJSONArray("foto").length(); i++) {
+                        JSONObject c = jsonArray.getJSONObject(0).getJSONArray("foto").getJSONObject(i);
+                        Foto foto = new Foto(c.getString("id_foto_poroduk"), c.getString("foto_produk"));
+                        tampil.add(foto);
+                    }
+                    viewPagerAdapter = new ViewPagerAdapter(getApplicationContext(), tampil);
+                    viewPager.setAdapter(viewPagerAdapter);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), String.valueOf(t), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -192,7 +235,10 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
             case R.id.imgtambah:
                 String produk_id = idkeranjang.getText().toString();
                 String harga_jual = harga.getText().toString();
-                String jumlah = jumlahproduk.getText().toString();
+                String jumlah = (String) jumlahproduk.getText();
+
+
+//                Toast.makeText(ProductDetailActivity.this, harga_jual, Toast.LENGTH_SHORT).show();
 
                 APIKeranjang apiKeranjang = CONSTANTS.getClient().create(APIKeranjang.class);
                 Call<List<Model>> sendData = apiKeranjang.simpanKeranjang(produk_id, "1", "konsumen", jumlah, harga_jual);
@@ -201,20 +247,23 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                     @Override
                     public void onResponse(Call<List<Model>> call, Response<List<Model>> response) {
                         Log.d("RETRO", "respone :" + response.body());
+//                            List<Model> kode = response.body();
 
-                        Toast.makeText(ProductDetailActivity.this, "Data Tersimpan", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getBaseContext(), "Data Tersimpan", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onFailure(Call<List<Model>> call, Throwable t) {
                         Log.d("RETRO", "Falure :" + "Gagal Mengirim Request" + t);
                     }
-
                 });
                 break;
             case R.id.imgkeranjang:
-                Intent intent = new Intent(ProductDetailActivity.this, KeranjangDetailActivity2.class);
+                Intent intent = new Intent(this, KeranjangDetailActivity2.class);
                 startActivity(intent);
+                break;
+
+
             case R.id.linear1:
 
                 linear1.setBackgroundResource(R.drawable.red_rect_normal);
