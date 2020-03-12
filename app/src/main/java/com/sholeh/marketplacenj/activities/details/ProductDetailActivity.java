@@ -18,14 +18,22 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import com.google.gson.JsonObject;
 import com.sholeh.marketplacenj.CONSTANTS;
 import com.sholeh.marketplacenj.R;
+import com.sholeh.marketplacenj.ServiceGenerator;
 import com.sholeh.marketplacenj.adapter.dashboard.RecycleAdapteTopTenHome;
-import com.sholeh.marketplacenj.adapter.details.ViewpagerProductDetailsAdapter;
+import com.sholeh.marketplacenj.adapter.details.ViewPagerAdapter;
+import com.sholeh.marketplacenj.model.Foto;
 import com.sholeh.marketplacenj.model.Model;
+import com.sholeh.marketplacenj.model.api.APIInterface;
 import com.sholeh.marketplacenj.model.api.APIKeranjang;
 import com.sholeh.marketplacenj.model.dashboard.TopTenModelClass;
 import com.sholeh.marketplacenj.test.KeranjangDetailActivity2;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -116,8 +124,8 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
         rightNav = (RelativeLayout) findViewById(R.id.rightNav);
         viewPager = (ViewPager) findViewById(R.id.viewpager_product_detail);
-        viewpagerAdapter = new ViewpagerProductDetailsAdapter(getSupportFragmentManager());
-        viewPager.setAdapter(viewpagerAdapter);
+        viewPagerAdapter = new ViewPagerAdapter(tampil);
+        viewPager.setAdapter(viewPagerAdapter);
 
         // Images right navigatin
         rightNav.setOnClickListener(new View.OnClickListener() {
