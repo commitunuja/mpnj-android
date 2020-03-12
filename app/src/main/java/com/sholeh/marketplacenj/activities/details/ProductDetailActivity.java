@@ -195,6 +195,8 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
         getProdukId();
 
+    }
+
     public void getProdukId() {
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
         Call<JsonObject> call = service.getProdukId(vid_produk);
