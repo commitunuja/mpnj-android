@@ -38,6 +38,8 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
     TextView offer;
     RelativeLayout rightNav;
+    ArrayList<Foto> tampil = new ArrayList<Foto>();
+    ViewPagerAdapter viewPagerAdapter;
 
     LinearLayout linear1, linear2, linear3, linear4;
     TextView txt1, txt2, txt3, txt4, idkeranjang, nama, harga, kategori, diskripsi, jumlahproduk;
