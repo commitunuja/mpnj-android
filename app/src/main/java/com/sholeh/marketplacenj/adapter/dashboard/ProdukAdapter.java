@@ -43,7 +43,6 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ViewHolder
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         tvDataProduk = tvDataProduks.get(i);
         viewHolder.namaProduk.setText(tvDataProduk.getNamaProduk()); // MODEL
-        viewHolder.hargaProduk.setText(String.valueOf(tvDataProduk.getHargaJual()));
         viewHolder.hargaProduk.setText(String.valueOf("Rp " + tvDataProduk.getHargaJual()));
         viewHolder.type.setText(tvDataProduk.getKategori().getNamaKategori());
 
