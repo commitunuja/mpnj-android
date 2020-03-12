@@ -1,11 +1,13 @@
 package com.sholeh.marketplacenj.model.api;
 
+import com.google.gson.JsonObject;
 import com.sholeh.marketplacenj.model.Model;
 
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 
 
 public interface APIInterface {
@@ -32,6 +34,8 @@ public interface APIInterface {
     @GET("api/keranjang")
     Call<List<Model>> getData();
 
+    @GET("api/produk/{id}")
+    Call<JsonObject> getProdukId(@Path("id") String id);
 }
 
 
