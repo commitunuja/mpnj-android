@@ -185,6 +185,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         top_ten_crecyclerview.setItemAnimator(new DefaultItemAnimator());
         top_ten_crecyclerview.setAdapter(mAdapter2);
 
+        getProdukId();
     }
 
     @Override
