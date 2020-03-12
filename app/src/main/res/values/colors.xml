@@ -3,12 +3,12 @@
     <!--Green Cololr-->
     <color name="colorPrimary">#04d39f</color>
     <color name="colorPrimaryDark">#00b517</color>
-    <color name="colorPrimaryTransperent">#aa04d39f</color>
+    <color name="colorPrimaryTransperent">#00b517</color>
     <color name="colorPrimaryVeryLight">#4404d39f</color>
-    <color name="colorAccent">#04d39f</color>
+    <color name="colorAccent">#00b517</color>
     <color name="colorutama">#00b517</color>
     <color name="backgroundcolor">#f5f6f7</color>
-    <color name="green_semi_transparent">#F204D39F</color>
+    <color name="green_semi_transparent">#00b517</color>
 
    <!-- detail-->
     <color name="whitebureng">#E7E7E7</color>
