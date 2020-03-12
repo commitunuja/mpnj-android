@@ -165,6 +165,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         kategori.setText(kategoriproduk);
 //        offer.setText("Rp" + vdiskon);
         harga.setText(String.valueOf(vhargaproduk));
+        harga.setText(String.valueOf("Rp " +vhargaproduk));
         diskripsi.setText(vdeskripsi);
         kategori.setText(kategoriproduk);
         jumlahproduk.setText(String.valueOf(jumlahlagi));
