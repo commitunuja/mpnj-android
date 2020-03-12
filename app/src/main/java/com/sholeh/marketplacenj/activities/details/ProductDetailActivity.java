@@ -186,8 +186,36 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         top_ten_crecyclerview.setAdapter(mAdapter2);
 
         getProdukId();
+
+    public void getProdukId() {
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
         Call<JsonObject> call = service.getProdukId(vid_produk);
+
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                try {
+                    JSONObject jsonObject;
+                    jsonObject = new JSONObject(String.valueOf(response.body()));
+                    JSONArray jsonArray = jsonObject.getJSONArray("data");
+                    Log.d("YOLO", "getNama          -->  " + jsonArray.getJSONObject(0).getString("id_produk"));
+                    for (int i = 0; i < jsonArray.getJSONObject(0).getJSONArray("foto").length(); i++) {
+                        JSONObject c = jsonArray.getJSONObject(0).getJSONArray("foto").getJSONObject(i);
+                        Foto foto = new Foto(c.getString("id_foto_poroduk"), c.getString("foto_produk"));
+                        tampil.add(foto);
+                    }
+                    viewPagerAdapter = new ViewPagerAdapter(getApplicationContext(), tampil);
+                    viewPager.setAdapter(viewPagerAdapter);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), String.valueOf(t), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
