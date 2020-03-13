@@ -15,7 +15,7 @@ import androidx.appcompat.widget.Toolbar;
 import com.bumptech.glide.Glide;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.model.Model;
-import com.sholeh.marketplacenj.test.KeranjangDetailActivity2;
+import com.sholeh.marketplacenj.activities.keranjang.KeranjangDetailActivity2;
 
 import java.util.List;
 

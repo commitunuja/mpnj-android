@@ -29,7 +29,7 @@ import com.sholeh.marketplacenj.model.Model;
 import com.sholeh.marketplacenj.model.api.APIInterface;
 import com.sholeh.marketplacenj.model.api.APIKeranjang;
 import com.sholeh.marketplacenj.model.dashboard.TopTenModelClass;
-import com.sholeh.marketplacenj.test.KeranjangDetailActivity2;
+import com.sholeh.marketplacenj.activities.keranjang.KeranjangDetailActivity2;
 
 import org.json.JSONArray;
 import org.json.JSONException;
