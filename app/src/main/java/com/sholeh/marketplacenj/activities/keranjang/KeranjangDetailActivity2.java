@@ -67,8 +67,11 @@ public class KeranjangDetailActivity2 extends AppCompatActivity {
                             String harga = object.getString("harga_jual");
                             String jumlah = object.getString("jumlah");
                             String gambar = object.getString("foto");
-
-                            child.add(new ChildModel(id_keranjang, nama_produk, harga, jumlah, gambar));
+                            String subtotal = object.getString("total");
+                            TextView total = findViewById(R.id.total);
+                            total.setText(subtotal);
+                            Log.d("YOLO", gambar);
+                            child.add(new ChildModel(id_keranjang, nama_produk, harga, jumlah, gambar, subtotal));
                         }
                         listChild.put(listHeader.get(i), child);
                     }
