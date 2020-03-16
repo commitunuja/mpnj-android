@@ -160,6 +160,8 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         vdeskripsi = getIntent().getExtras().getString("keterangan");
         Log.d("YOLO", "diskon");
 
+        double h = vdiskon / 100 * vhargaproduk;
+        double p = vhargaproduk - h;
         String dStr = String.valueOf(p);
         String value = dStr.matches("\\d+\\.\\d*[1-9]\\d*") ? dStr : dStr.substring(0, dStr.indexOf("."));
 
