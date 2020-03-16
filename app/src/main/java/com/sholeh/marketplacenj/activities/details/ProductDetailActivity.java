@@ -22,6 +22,7 @@ import com.google.gson.JsonObject;
 import com.sholeh.marketplacenj.CONSTANTS;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.ServiceGenerator;
+import com.sholeh.marketplacenj.activities.keranjang.KeranjangDetailActivity2;
 import com.sholeh.marketplacenj.adapter.dashboard.RecycleAdapteTopTenHome;
 import com.sholeh.marketplacenj.adapter.details.ViewPagerAdapter;
 import com.sholeh.marketplacenj.model.Foto;
@@ -29,7 +30,6 @@ import com.sholeh.marketplacenj.model.Model;
 import com.sholeh.marketplacenj.model.api.APIInterface;
 import com.sholeh.marketplacenj.model.api.APIKeranjang;
 import com.sholeh.marketplacenj.model.dashboard.TopTenModelClass;
-import com.sholeh.marketplacenj.activities.keranjang.KeranjangDetailActivity2;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,6 +41,9 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static java.lang.Integer.parseInt;
+import static java.lang.String.valueOf;
 
 public class ProductDetailActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -56,14 +59,13 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
     ImageView right1_imag, right2_imag, right3_imag, tambah, keranjang;
 
     String namaproduk, kategoriproduk, vdeskripsi, vid_produk;
-    int vhargaproduk, vstok, vterjual, vdiskon;
-    int jumlahlagi = 1;
-
-
+    int vhargaproduk;
+    int vstok;
+    int vterjual;
+    Double vdiskon;
     private ViewPager viewPager;
+
 //    private ViewpagerProductDetailsAdapter viewpagerAdapter;
-
-
     private ArrayList<TopTenModelClass> topTenModelClasses;
     private RecyclerView top_ten_crecyclerview;
     private RecycleAdapteTopTenHome mAdapter2;
@@ -102,14 +104,12 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         keranjang = findViewById(R.id.imgkeranjang);
 
         offer = (TextView) findViewById(R.id.txtdiskon);
-//        offer.setText("\u20B9 63,999");
         offer.setPaintFlags(offer.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
         linear1 = (LinearLayout) findViewById(R.id.linear1);
         linear2 = (LinearLayout) findViewById(R.id.linear2);
         linear3 = (LinearLayout) findViewById(R.id.linear3);
         linear4 = (LinearLayout) findViewById(R.id.linear4);
-
 
         txt1 = (TextView) findViewById(R.id.txt1);
         txt2 = (TextView) findViewById(R.id.txt2);
@@ -145,32 +145,30 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         tambah = findViewById(R.id.imgtambah);
         jumlahproduk = findViewById(R.id.txtjumlah);
 
+
         tambah.setOnClickListener(this);
 
 
         vid_produk = getIntent().getStringExtra("id_produk");
-        String.valueOf(vid_produk);
+        valueOf(vid_produk);
 
         namaproduk = getIntent().getExtras().getString("nama_produk");
-        vhargaproduk = Integer.parseInt(getIntent().getStringExtra("harga_jual"));
-        vstok = Integer.parseInt(getIntent().getStringExtra("stok"));
-        vterjual = Integer.parseInt(getIntent().getStringExtra("terjual"));
+        vhargaproduk = parseInt(getIntent().getStringExtra("harga_jual"));
+        vstok = parseInt(getIntent().getStringExtra("stok"));
+        vterjual = parseInt(getIntent().getStringExtra("terjual"));
         kategoriproduk = getIntent().getStringExtra("kategori");
-        vdiskon = Integer.parseInt(getIntent().getStringExtra("diskon"));
+        vdiskon = Double.valueOf(parseInt(getIntent().getStringExtra("diskon")));
         vdeskripsi = getIntent().getExtras().getString("keterangan");
         Log.d("YOLO", "diskon");
 
+        nama.setText(namaproduk);
         double h = vdiskon / 100 * vhargaproduk;
         double p = vhargaproduk - h;
         String dStr = String.valueOf(p);
         String value = dStr.matches("\\d+\\.\\d*[1-9]\\d*") ? dStr : dStr.substring(0, dStr.indexOf("."));
 
 
-//        id.setText(String.valueOf(vid_produk));
-        nama.setText(namaproduk);
         kategori.setText(kategoriproduk);
-        offer.setText("Rp " + vdiskon);
-        harga.setText("Rp " +vhargaproduk);
         if (vdiskon == 0) {
             harga.setText("Rp " + vhargaproduk);
             offer.setText("");
@@ -178,12 +176,10 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
             offer.setText("Rp " + vhargaproduk);
             harga.setText("Rp " + value);
         }
+
         diskripsi.setText(vdeskripsi);
         kategori.setText(kategoriproduk);
-        jumlahproduk.setText(String.valueOf(jumlahlagi));
 
-
-        //        Top Ten  Recyclerview Code is here
 
         top_ten_crecyclerview = (RecyclerView) findViewById(R.id.top_ten_recyclerview);
 
@@ -219,7 +215,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 try {
                     JSONObject jsonObject;
-                    jsonObject = new JSONObject(String.valueOf(response.body()));
+                    jsonObject = new JSONObject(valueOf(response.body()));
                     JSONArray jsonArray = jsonObject.getJSONArray("data");
                     Log.d("YOLO", "getNama          -->  " + jsonArray.getJSONObject(0).getString("id_produk"));
                     for (int i = 0; i < jsonArray.getJSONObject(0).getJSONArray("foto").length(); i++) {
@@ -236,7 +232,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), String.valueOf(t), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), valueOf(t), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -255,7 +251,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
                 APIKeranjang apiKeranjang = CONSTANTS.getClient().create(APIKeranjang.class);
                 Call<List<Model>> sendData = apiKeranjang.simpanKeranjang(produk_id, "1", "konsumen", jumlah, harga_jual);
-                Log.d("YOLO", String.valueOf(sendData));
+                Log.d("YOLO", valueOf(sendData));
                 sendData.enqueue(new Callback<List<Model>>() {
                     @Override
                     public void onResponse(Call<List<Model>> call, Response<List<Model>> response) {
