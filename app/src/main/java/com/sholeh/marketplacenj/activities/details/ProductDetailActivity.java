@@ -84,7 +84,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         right2 = findViewById(R.id.right2);
         right3 = findViewById(R.id.right3);
 
-        relative1 = findViewById(R.id.relative1);
+     /*   relative1 = findViewById(R.id.relative1);
         relative2 = findViewById(R.id.relative2);
         relative3 = findViewById(R.id.relative3);
         relative4 = findViewById(R.id.relative4);
@@ -92,7 +92,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         relative1.setOnClickListener(this);
         relative2.setOnClickListener(this);
         relative3.setOnClickListener(this);
-        relative4.setOnClickListener(this);
+        relative4.setOnClickListener(this);*/
 
         right1.setOnClickListener(this);
         right2.setOnClickListener(this);
@@ -144,7 +144,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         diskripsi = findViewById(R.id.txtdiskripsi);
         tambah = findViewById(R.id.imgtambah);
         jumlahproduk = findViewById(R.id.txtjumlah);
-
+        idkeranjang = findViewById(R.id.txtidkerenjang);
 
         tambah.setOnClickListener(this);
 
@@ -346,7 +346,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                 right1_imag.setVisibility(View.GONE);
                 break;
 
-            case R.id.relative1:
+         /*   case R.id.relative1:
                 viewPager.setCurrentItem(0);
                 break;
 
@@ -365,7 +365,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
             case R.id.relative4:
 
                 viewPager.setCurrentItem(3);
-                break;
+                break;*/
 
         }
     }
