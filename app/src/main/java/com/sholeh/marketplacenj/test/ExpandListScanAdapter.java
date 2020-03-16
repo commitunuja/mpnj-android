@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -13,6 +12,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.sholeh.marketplacenj.CONSTANTS;
 import com.sholeh.marketplacenj.R;
 
 import java.util.HashMap;
@@ -90,13 +90,13 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 
         ImageView img = convertView.findViewById(R.id.imgpanah);
 
-//        if (isExpanded){
-//            Toast.makeText(context, ""+isExpanded, Toast.LENGTH_SHORT).show();
-//            img.setImageResource(R.drawable.ic_keyboard_arrow_up_grey_24dp);
-//        } else {
-//            img.setImageResource(R.drawable.ic_keyboard_arrow_down_grey_24dp);
-//            Toast.makeText(context, ""+isExpanded, Toast.LENGTH_SHORT).show();
-//        }
+        if (isExpanded){
+            Toast.makeText(context, ""+isExpanded, Toast.LENGTH_SHORT).show();
+            img.setImageResource(R.drawable.ic_keyboard_arrow_up_grey_24dp);
+        } else {
+            img.setImageResource(R.drawable.ic_keyboard_arrow_down_grey_24dp);
+            Toast.makeText(context, ""+isExpanded, Toast.LENGTH_SHORT).show();
+        }
 
 
         return convertView;
@@ -112,11 +112,13 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 
         LinearLayout viewline,increment,decrement;
         final TextView addjumlah;
+        final int hargaproduk;
 
 //        TextView idproduk = convertView.findViewById(R.id.txtIDPRODUK);
         TextView nama = convertView.findViewById(R.id.txtnamaPRODUK);
-        TextView hargaTotalProduk = convertView.findViewById(R.id.txtTotalHargaProduk);
+        TextView harga = convertView.findViewById(R.id.txtharga);
         ImageView gambar = convertView.findViewById(R.id.img_gambarkeranjang);
+//        TextView subtotal = convertView.findViewById(R.id.)
         addjumlah = convertView.findViewById(R.id.txt_addjumlah);
         increment= convertView.findViewById(R.id.increment);
         decrement= convertView.findViewById(R.id.decrement);
@@ -124,17 +126,26 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 
 //        idproduk.setText(model.getId_produk());
         nama.setText(model.getNama_produk());
-        hargaTotalProduk.setText(model.getHarga());
+        harga.setText("Rp " +model.getHarga());
         addjumlah.setText(model.getJumlah());
         Glide.with(convertView.getContext())
-                .load(model.getGambar())
+                .load(CONSTANTS.SUB_DOMAIN + model.getGambar())
                 .apply(new RequestOptions().override(350, 550))
-//                .placeholder(R.drawable.img_placeholder)
-//                .error(R.drawable.ic_missing)
+                .placeholder(R.drawable.img)
+                .error(R.drawable.img1)
                 .into(gambar);
         increment.setOnClickListener(new View.OnClickListener() {
+
+
             @Override
             public void onClick(View v) {
+//                int jumlah = 1;
+//                if (jumlah > 1){
+//                    jumlah++ ;
+//                    addjumlah.setText(String.valueOf(addjumlah));
+//                    hargaTotalProduk.setText(hargaproduk*jumlah);
+//                }
+
                 int count= Integer.parseInt(String.valueOf(model.getJumlah()));
                 count++;
                 addjumlah.setText(String.valueOf(count));
@@ -158,3 +169,4 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
     }
 
 }
+
