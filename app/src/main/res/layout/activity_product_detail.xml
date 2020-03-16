@@ -77,7 +77,7 @@
         </FrameLayout>
 
 
-        <LinearLayout
+       <!-- <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -174,7 +174,7 @@
 
 
 
-        </LinearLayout>
+        </LinearLayout>-->
 
 
         <View
@@ -222,13 +222,31 @@
                     android:textColor="@color/cut_price"
                     android:textSize="12.3sp"/>
 
+                <customfonts.MyTextView_Roboto_Medium
+                    android:id="@+id/cobadiskon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" 60,999"
+                    android:visibility="invisible"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="15dp"
+                    android:textColor="@color/cut_price"
+                    android:textSize="12.3sp"/>
+
+
+                <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="22222"
+                android:visibility="gone"
+                android:id="@+id/txtjumlah"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="22222"
                     android:visibility="gone"
-                    android:id="@+id/txtjumlah"/>
+                    android:id="@+id/txtidkerenjang"/>
 
             </LinearLayout>
 
