@@ -103,6 +103,7 @@
             android:layout_marginTop="13.3dp"
             android:gravity="center_horizontal">
             <customfonts.MyTextView_Roboto_Medium
+                android:id="@+id/txtmetode"
                 android:layout_width="158dp"
                 android:layout_height="40dp"
                 android:background="@drawable/button_rect2"
