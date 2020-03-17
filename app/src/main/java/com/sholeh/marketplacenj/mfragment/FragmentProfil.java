@@ -37,6 +37,8 @@ import com.sholeh.marketplacenj.APIInterface;
 import com.sholeh.marketplacenj.CONSTANTS;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.ServiceGenerator;
+import com.sholeh.marketplacenj.activities.AkunActivity;
+import com.sholeh.marketplacenj.activities.AlamatActivity;
 import com.sholeh.marketplacenj.activities.ImageProfilActivity;
 import com.sholeh.marketplacenj.activities.LoginActivity;
 import com.sholeh.marketplacenj.activities.PengaturanAkun;
@@ -62,7 +64,7 @@ import static android.app.Activity.RESULT_OK;
 public class FragmentProfil extends Fragment implements View.OnClickListener {
     private ImageView btnImgProfil, nav_home, nav_notifikasi, nav_transaksi, navprofile;
     TextView tvx_login, tvx_namaCustomter, tvx_title, tvx_logout,tvx_edit, tvx_username,
-              tvx_Hp, tvx_Email;
+              tvx_Hp, tvx_Email, tvx_myprofil, tvx_alamat, tvx_setting, tvx_kebijakan ;
 
 
 
@@ -101,13 +103,18 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
         View rootView = inflater.inflate(R.layout.fragment_profil,container,false);
 
 
-
-
-
         tvx_namaCustomter = rootView.findViewById(R.id.tvCustomerName);
         tvx_username = rootView.findViewById(R.id.tvx_username);
         tvx_Email = rootView.findViewById(R.id.tvx_Email);
         tvx_Hp = rootView.findViewById(R.id.tvx_nomorhp);
+        tvx_myprofil = rootView.findViewById(R.id.tv_myprofil);
+        tvx_alamat = rootView.findViewById(R.id.tvAlamat);
+        tvx_setting = rootView.findViewById(R.id.tvSetting);
+        tvx_kebijakan = rootView.findViewById(R.id.tv_kebijakan);
+        tvx_myprofil.setOnClickListener(this);
+        tvx_alamat.setOnClickListener(this);
+        tvx_setting.setOnClickListener(this);
+        tvx_kebijakan .setOnClickListener(this);
 
         btnImgProfil = rootView.findViewById(R.id.imgProfil);
         btnImgProfil.setOnClickListener(this);
@@ -180,9 +187,23 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
 //                selectImage();
                 break;
 
-            case R.id.logout_akun:
-              logoutAkun();
+            case R.id.tv_myprofil:
+                Intent i = new Intent(getActivity(), AkunActivity.class);
+                getActivity().startActivity(i);
                 break;
+
+            case R.id.tvAlamat:
+                Intent inten = new Intent(getActivity(), AlamatActivity.class);
+                getActivity().startActivity(inten);
+                break;
+
+            case R.id.tvSetting:
+                Intent intentt = new Intent(getActivity(), PengaturanAkun.class);
+                getActivity().startActivity(intentt);
+                break;
+
+
+
 
             default:
                 break;
