@@ -6,14 +6,14 @@ public class ChildModel {
     String id_toko,  nama_produk, harga, jumlah, subtotal, gambar;
 
 
-    public ChildModel(String id_toko, String nama_produk, String harga, String jumlah, String gambar, String subtotal) {
+    public ChildModel(String id_toko, String nama_produk, String harga, String jumlah, String gambar) {
         this.id_toko = id_toko;
 //        this.id_produk = id_produk;
         this.nama_produk = nama_produk;
         this.harga = harga;
         this.jumlah = jumlah;
         this.gambar = gambar;
-        this.subtotal = subtotal;
+
     }
 
     public String getGambar() {
@@ -64,11 +64,5 @@ public class ChildModel {
         this.jumlah = jumlah;
     }
 
-    public String getSubtotal() {
-        return subtotal;
-    }
 
-    public void setSubtotal(String subtotal) {
-        this.subtotal = subtotal;
-    }
 }
