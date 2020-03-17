@@ -3,7 +3,6 @@ package com.sholeh.marketplacenj.activities.keranjang;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ExpandableListView;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -44,7 +43,7 @@ public class KeranjangDetailActivity2 extends AppCompatActivity {
     private void tampil() {
         listHeader = new ArrayList<>();
         listChild = new HashMap<>();
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, CONSTANTS.BASE_URL+"api/keranjang?role=konsumen&id=1", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, CONSTANTS.BASE_URL + "api/keranjang?role=konsumen&id=1", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -68,11 +67,8 @@ public class KeranjangDetailActivity2 extends AppCompatActivity {
                             String harga = object.getString("harga_jual");
                             String jumlah = object.getString("jumlah");
                             String gambar = object.getString("foto");
-                            String subtotal = object.getString("total");
-                            TextView total = findViewById(R.id.total);
-                            total.setText(subtotal);
                             Log.d("YOLO", gambar);
-                            child.add(new ChildModel(id_keranjang, nama_produk, harga, jumlah, gambar, subtotal));
+                            child.add(new ChildModel(id_keranjang, nama_produk, harga, jumlah, gambar));
                         }
                         listChild.put(listHeader.get(i), child);
                     }
