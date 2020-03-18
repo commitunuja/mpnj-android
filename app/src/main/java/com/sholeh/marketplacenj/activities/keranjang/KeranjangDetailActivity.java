@@ -38,6 +38,14 @@ public class KeranjangDetailActivity extends AppCompatActivity {
 
 
     @Override
+    public void onResume()
+    {
+        getDetailKeranjang();
+        super.onResume();
+        // Load data and do stuff
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_keranjang_detail);
@@ -47,8 +55,7 @@ public class KeranjangDetailActivity extends AppCompatActivity {
 
 
         listView = findViewById(R.id.expListhistori);
-//        tampil();
-        getDetailKeranjang();
+
     }
 
 
@@ -110,7 +117,6 @@ public class KeranjangDetailActivity extends AppCompatActivity {
                         AppUtilits.displayMessage(KeranjangDetailActivity.this, getString(R.string.network_error));
                     }
                     String totalnya = String.valueOf(response.body().getTotal());
-                    Toast.makeText(KeranjangDetailActivity.this, ""+totalnya, Toast.LENGTH_SHORT).show();
                     tvx_total.setText("Rp "+totalnya);
 
 
