@@ -2,6 +2,7 @@ package com.sholeh.marketplacenj.model.api;
 
 import com.google.gson.JsonObject;
 import com.sholeh.marketplacenj.model.Model;
+import com.sholeh.marketplacenj.respon.ResKeranjang;
 
 import java.util.List;
 
@@ -15,12 +16,13 @@ import retrofit2.http.Query;
 public interface APIKeranjang {
     @FormUrlEncoded
     @POST("api/keranjang")
-    Call<List<Model>> simpanKeranjang(
-            @Field("produk_id") String produk_id,
-            @Field("pembeli_id") String pembeli_id,
-            @Field("pembeli_type") String pembeli_type,
+    Call<ResKeranjang> simpanKeranjang(
+            @Field("produk_id") String produkId,
+            @Field("pembeli_id") String pembeliId,
+            @Field("pembeli_type") String pembeliType,
+            @Field("status") String status,
             @Field("jumlah") String jumlah,
-            @Field("harga_jual") String harga_jual
+            @Field("harga_jual") String hargaJual
     );
 
     @GET("api/produk")
