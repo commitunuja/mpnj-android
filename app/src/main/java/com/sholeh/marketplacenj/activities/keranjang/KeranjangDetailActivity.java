@@ -1,6 +1,7 @@
 package com.sholeh.marketplacenj.activities.keranjang;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -122,9 +123,13 @@ public class KeranjangDetailActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ResDetailKeranjang> call, Throwable t) {
-                Toast.makeText(KeranjangDetailActivity.this, ""+t, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(KeranjangDetailActivity.this, "e"+t, Toast.LENGTH_SHORT).show();
                 //  Log.e(TAG, "  fail- add to cart item "+ t.toString());
 //                AppUtilits.displayMessage(KeranjangDetailActivity.this, getString(R.string.fail_toGetcart));
+
+                Log.d("cekkk", String.valueOf(t));
+                Toast.makeText(KeranjangDetailActivity.this, "cekk"+t, Toast.LENGTH_SHORT).show();
+
 
             }
         });

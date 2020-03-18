@@ -193,7 +193,8 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
                     public void onResponse(Call<ResHapusKeranjang> call, Response<ResHapusKeranjang> response) {
                         if (response.body() != null && response.isSuccessful()) {
                             if (response.body().getPesan().equalsIgnoreCase("sukses")) {
-                                Toast.makeText(context, "berhasil", Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(context, "berhasil", Toast.LENGTH_SHORT).show();
+                                AppUtilits.displayMessage(context, "Sukses hapus produk dari keranjang");
 
                                 ((KeranjangDetailActivity) context).getDetailKeranjang();
 
@@ -202,7 +203,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
                                 //    AppUtilits.UpdateCartCount(mContext, CartDetails.mainmenu);
 
                             }else {
-//                                AppUtilits.displayMessage(mContext,  response.body().getMsg());
+                                AppUtilits.displayMessage(context, "Gagal hapus produk dari keranjang");
                             }
                         }else {
 //                            AppUtilits.displayMessage(mContext, mContext.getString(R.string.network_error));

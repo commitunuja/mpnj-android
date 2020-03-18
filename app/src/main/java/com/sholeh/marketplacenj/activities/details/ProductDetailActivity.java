@@ -241,7 +241,8 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), valueOf(t), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), "ini"+valueOf(t), Toast.LENGTH_SHORT).show();
+
             }
         });
     }
@@ -384,11 +385,11 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                         AppUtilits.displayMessage(ProductDetailActivity.this, getString(R.string.add_to_cart));
 
                     } else {
-                        Toast.makeText(ProductDetailActivity.this, "r"+response.body().getPesan(), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(ProductDetailActivity.this, "r"+response.body().getPesan(), Toast.LENGTH_SHORT).show();
 //                            AppUtilits.displayMessage(RegisterActivity.this,  response.body().getPesan());
                     }
                 } else {
-                    Toast.makeText(ProductDetailActivity.this, "rr"+response.body().getPesan(), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(ProductDetailActivity.this, "rr"+response.body().getPesan(), Toast.LENGTH_SHORT).show();
 
 //                        AppUtilits.displayMessage(RegisterActivity.this,   getString(R.string.failed_request));
                 }
@@ -397,7 +398,8 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
             @Override
             public void onFailure(Call<ResKeranjang> call, Throwable t) {
 //                    Log.e(TAG, " failure " + t.toString());
-                Toast.makeText(ProductDetailActivity.this, "rrr"+t, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(ProductDetailActivity.this, "rrr"+t, Toast.LENGTH_SHORT).show();
+                Log.d("ok", String.valueOf(t));
 
 
 //                    AppUtilits.displayMessage(RegisterActivity.this,   getString(R.string.failed_request));
