@@ -1,11 +1,14 @@
 package com.sholeh.marketplacenj;
 
+import com.google.gson.JsonObject;
 import com.sholeh.marketplacenj.model.Model;
 import com.sholeh.marketplacenj.model.city.ItemCity;
 import com.sholeh.marketplacenj.model.province.ItemProvince;
 import com.sholeh.marketplacenj.respon.ResAlamat;
 import com.sholeh.marketplacenj.respon.ResDetailAlamat;
+import com.sholeh.marketplacenj.respon.ResDetailKeranjang;
 import com.sholeh.marketplacenj.respon.ResImg;
+import com.sholeh.marketplacenj.respon.ResKeranjang;
 import com.sholeh.marketplacenj.respon.ResLogin;
 import com.sholeh.marketplacenj.respon.ResNewPassword;
 import com.sholeh.marketplacenj.respon.ResProfil;
@@ -130,12 +133,39 @@ public interface APIInterface {
             @Field("email") String email,
             @Field("status") String status);
 
-    // upload foto konsumen
+
+
+
     @Multipart
     @POST("api/konsumen/upload")
     Call<ResImg> uploadProfiKonsumen(
             @Part("id_konsumen") RequestBody idKonsumen,
             @Part MultipartBody.Part file);
+
+
+    @GET("api/keranjang")
+    Call<List<Model>> getData();
+
+    @GET("api/produk/{id}")
+    Call<JsonObject> getProdukId(@Path("id") String id);
+
+
+    @FormUrlEncoded
+    @POST("api/keranjang")
+    Call<ResKeranjang> simpanKeranjang(
+            @Field("produk_id") String produkId,
+            @Field("pembeli_id") String pembeliId,
+            @Field("pembeli_type") String pembeliType,
+            @Field("status") String status,
+            @Field("jumlah") String jumlah,
+            @Field("harga_jual") String hargaJual
+    );
+
+
+
+    @GET("api/keranjang")
+    Call<ResDetailKeranjang> getDataDetailKeranjang(
+            @Query("role") String role, @Query("id") String id);
 
 }
 
