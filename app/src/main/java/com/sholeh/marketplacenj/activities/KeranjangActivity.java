@@ -17,15 +17,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.sholeh.marketplacenj.APIInterface;
 import com.sholeh.marketplacenj.model.Model;
-import com.sholeh.marketplacenj.model.api.APIInterface;
 import com.sholeh.marketplacenj.CONSTANTS;
 import com.sholeh.marketplacenj.R;
-import com.sholeh.marketplacenj.model.api.APIKeranjang;
 import com.sholeh.marketplacenj.respon.ResKeranjang;
-import com.sholeh.marketplacenj.test.ExpandListScanAdapter;
-
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -43,7 +39,7 @@ public class KeranjangActivity extends AppCompatActivity {
     Button tambahkeranjang, belilagi;
     TextView harga, nama, idkeranjang;
     private ImageView foto;
-    private APIInterface apiInterface;
+//    private APIInterface apiInterface;
 
 
     @Override
@@ -77,7 +73,7 @@ public class KeranjangActivity extends AppCompatActivity {
                 String harga_jual = harga.getText().toString();
                 Toast.makeText(KeranjangActivity.this, harga_jual, Toast.LENGTH_SHORT).show();
 
-                APIKeranjang apiKeranjang = CONSTANTS.getClient().create(APIKeranjang.class);
+                APIInterface apiKeranjang = CONSTANTS.getClient().create(APIInterface.class);
                 Call<ResKeranjang> sendData = apiKeranjang.simpanKeranjang(produk_id, "1", "konsumen", "N",jumlah, harga_jual);
 //                Log.d("YOLO", String.valueOf(sendData));
                 sendData.enqueue(new Callback<ResKeranjang>() {

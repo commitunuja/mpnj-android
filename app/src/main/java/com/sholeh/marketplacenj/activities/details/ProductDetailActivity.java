@@ -19,14 +19,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.gson.JsonObject;
+import com.sholeh.marketplacenj.APIInterface;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.ServiceGenerator;
 import com.sholeh.marketplacenj.activities.keranjang.KeranjangDetailActivity2;
 import com.sholeh.marketplacenj.adapter.dashboard.RecycleAdapteTopTenHome;
 import com.sholeh.marketplacenj.adapter.details.ViewPagerAdapter;
 import com.sholeh.marketplacenj.model.Foto;
-import com.sholeh.marketplacenj.model.api.APIInterface;
-import com.sholeh.marketplacenj.model.api.APIKeranjang;
 import com.sholeh.marketplacenj.model.dashboard.TopTenModelClass;
 import com.sholeh.marketplacenj.respon.ResKeranjang;
 import com.sholeh.marketplacenj.util.Preferences;
@@ -398,7 +397,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 //
 ////            if (!validasi()) return;
 
-        APIKeranjang apiKeranjang = ServiceGenerator.getRetrofit().create(APIKeranjang.class);
+        APIInterface apiKeranjang = ServiceGenerator.getRetrofit().create(APIInterface.class);
         Call<ResKeranjang> sendData = apiKeranjang.simpanKeranjang(vid_produk, id_konsumen, "konsumen", "N", String.valueOf(1),hargaJual );
         sendData.enqueue(new Callback<ResKeranjang>() {
             @Override

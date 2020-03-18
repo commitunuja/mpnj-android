@@ -18,7 +18,6 @@ import com.sholeh.marketplacenj.CONSTANTS;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.ServiceGenerator;
 import com.sholeh.marketplacenj.activities.AlamatActivity;
-import com.sholeh.marketplacenj.model.api.APIKeranjang;
 import com.sholeh.marketplacenj.respon.DataKeranjang;
 import com.sholeh.marketplacenj.respon.ItemKeranjang;
 import com.sholeh.marketplacenj.respon.ResDetailKeranjang;
@@ -72,7 +71,7 @@ public class KeranjangDetailActivity2 extends AppCompatActivity {
 //        }else {
         //  Log.e(TAG, "  user value "+ SharePreferenceUtils.getInstance().getString(Constant.USER_DATA));
 
-        APIKeranjang service = ServiceGenerator.getRetrofit().create(APIKeranjang.class);
+        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
 
         Call<ResDetailKeranjang> call = service.getDataDetailKeranjang("konsumen",id_konsumen);
 
