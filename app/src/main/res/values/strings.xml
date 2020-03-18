@@ -53,4 +53,5 @@
     <string name="_128_gb">128GB</string>
     <string name="kategori">Kategori</string>
     <string name="stock">Stok: </string>
+    <string name="add_to_cart">Berhasil ditambahkan ke keranjang</string>
 </resources>

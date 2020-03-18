@@ -35,7 +35,7 @@ public class KeranjangDetailActivity extends AppCompatActivity {
 
     Preferences preferences;
     String id_konsumen;
-    
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.gson.JsonObject;
+import com.sholeh.marketplacenj.util.AppUtilits;
 import com.sholeh.marketplacenj.util.api.APIInterface;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.util.ServiceGenerator;
@@ -378,12 +379,9 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         sendData.enqueue(new Callback<ResKeranjang>() {
             @Override
             public void onResponse(Call<ResKeranjang> call, Response<ResKeranjang> response) {
-                Toast.makeText(ProductDetailActivity.this, "cekkk"+response, Toast.LENGTH_SHORT).show();
-                Log.d("cek koneksi", String.valueOf(response));
-
                 if (response.body() != null && response.isSuccessful()) {
                     if (response.body().getPesan().equalsIgnoreCase("sukses")) {
-                        Toast.makeText(ProductDetailActivity.this, "Berhasil dimasukkan keranjang", Toast.LENGTH_SHORT).show();
+                        AppUtilits.displayMessage(ProductDetailActivity.this, getString(R.string.add_to_cart));
 
                     } else {
                         Toast.makeText(ProductDetailActivity.this, "r"+response.body().getPesan(), Toast.LENGTH_SHORT).show();
