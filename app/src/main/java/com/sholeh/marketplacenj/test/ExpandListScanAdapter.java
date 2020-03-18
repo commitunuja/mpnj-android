@@ -88,11 +88,11 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
         ImageView img = convertView.findViewById(R.id.imgpanah);
 
         if (isExpanded){
-            Toast.makeText(context, ""+isExpanded, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(context, ""+isExpanded, Toast.LENGTH_SHORT).show();
             img.setImageResource(R.drawable.ic_keyboard_arrow_up_grey_24dp);
         } else {
             img.setImageResource(R.drawable.ic_keyboard_arrow_down_grey_24dp);
-            Toast.makeText(context, ""+isExpanded, Toast.LENGTH_SHORT).show();
+           // Toast.makeText(context, ""+isExpanded, Toast.LENGTH_SHORT).show();
         }
 
 
@@ -149,7 +149,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
                 int count= Integer.parseInt(String.valueOf(model.getJumlah()));
                 count++;
                 addjumlah.setText(String.valueOf(count));
-                Toast.makeText(context,"cont"+ String.valueOf(count), Toast.LENGTH_SHORT).show();
+             //   Toast.makeText(context,"cont"+ String.valueOf(count), Toast.LENGTH_SHORT).show();
             }
         });
         decrement.setOnClickListener(new View.OnClickListener() {

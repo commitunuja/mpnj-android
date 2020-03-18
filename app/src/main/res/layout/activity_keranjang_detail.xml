@@ -26,18 +26,18 @@
             <ExpandableListView
                 android:id="@+id/expListhistori"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:background="#ffffff"
                 android:childDivider="@color/green_semi_transparent"
                 android:clipToPadding="false"
                 android:divider="@color/green_semi_transparent"
                 android:groupIndicator="@null" />
 
-            <include layout="@layout/itemcheckout"/>
+<!--            <include layout="@layout/itemcheckout"/>-->
         </LinearLayout>
 
 
 
     </LinearLayout>
- <include layout="@layout/item_total_keranjang"/>
+<!-- <include layout="@layout/item_total_keranjang"/>-->
 </RelativeLayout>
