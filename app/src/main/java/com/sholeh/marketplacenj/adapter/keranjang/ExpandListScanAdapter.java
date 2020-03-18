@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.sholeh.marketplacenj.activities.keranjang.KeranjangDetailActivity;
 import com.sholeh.marketplacenj.respon.ResDetailKeranjang;
 import com.sholeh.marketplacenj.respon.ResHapusKeranjang;
 import com.sholeh.marketplacenj.respon.ResKeranjang;
@@ -193,6 +194,8 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
                         if (response.body() != null && response.isSuccessful()) {
                             if (response.body().getPesan().equalsIgnoreCase("sukses")) {
                                 Toast.makeText(context, "berhasil", Toast.LENGTH_SHORT).show();
+
+                                ((KeranjangDetailActivity) context).getDetailKeranjang();
 
                                 // update cart count
                                 //    SharePreferenceUtils.getInstance().saveInt( Constant.CART_ITEM_COUNT,   SharePreferenceUtils.getInstance().getInteger(Constant.CART_ITEM_COUNT) -1);

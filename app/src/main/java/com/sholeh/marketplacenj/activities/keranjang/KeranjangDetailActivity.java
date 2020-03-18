@@ -35,15 +35,7 @@ public class KeranjangDetailActivity extends AppCompatActivity {
 
     Preferences preferences;
     String id_konsumen;
-
-
-    @Override
-    public void onResume()
-    {
-        getDetailKeranjang();
-        super.onResume();
-        // Load data and do stuff
-    }
+    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +45,8 @@ public class KeranjangDetailActivity extends AppCompatActivity {
         id_konsumen = preferences.getIdKonsumen();
         tvx_total = findViewById(R.id.total);
 
-
         listView = findViewById(R.id.expListhistori);
+        getDetailKeranjang();
 
     }
 
