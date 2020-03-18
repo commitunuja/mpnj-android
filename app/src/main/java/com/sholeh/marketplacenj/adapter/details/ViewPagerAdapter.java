@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
-import com.sholeh.marketplacenj.CONSTANTS;
+import com.sholeh.marketplacenj.util.CONSTANTS;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.model.Foto;
 

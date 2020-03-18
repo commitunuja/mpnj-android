@@ -1,13 +1,9 @@
 package com.sholeh.marketplacenj.mfragment;
 
 
-import android.app.Activity;
-import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -20,9 +16,6 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.viewpager.widget.ViewPager;
 
-import android.provider.MediaStore;
-import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,34 +23,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
-import com.sholeh.marketplacenj.APIInterface;
-import com.sholeh.marketplacenj.CONSTANTS;
+import com.sholeh.marketplacenj.util.api.APIInterface;
+import com.sholeh.marketplacenj.util.CONSTANTS;
 import com.sholeh.marketplacenj.R;
-import com.sholeh.marketplacenj.ServiceGenerator;
+import com.sholeh.marketplacenj.util.ServiceGenerator;
 import com.sholeh.marketplacenj.activities.ImageProfilActivity;
 import com.sholeh.marketplacenj.activities.LoginActivity;
-import com.sholeh.marketplacenj.activities.PengaturanAkun;
 import com.sholeh.marketplacenj.activities.TabFragmentPelapak;
 import com.sholeh.marketplacenj.activities.TabFragmentPembeli;
 import com.sholeh.marketplacenj.respon.ResProfil;
-import com.sholeh.marketplacenj.respon.ValDataProfil;
 import com.sholeh.marketplacenj.util.Preferences;
 import com.squareup.picasso.Picasso;
 
-import java.io.ByteArrayOutputStream;
-
 import de.hdodenhof.circleimageview.CircleImageView;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static android.app.Activity.RESULT_CANCELED;
-import static android.app.Activity.RESULT_OK;
 
 public class FragmentProfil extends Fragment implements View.OnClickListener {
     private ImageView btnImgProfil, nav_home, nav_notifikasi, nav_transaksi, navprofile;

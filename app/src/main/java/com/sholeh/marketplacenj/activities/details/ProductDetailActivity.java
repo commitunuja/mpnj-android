@@ -19,10 +19,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.gson.JsonObject;
-import com.sholeh.marketplacenj.APIInterface;
+import com.sholeh.marketplacenj.util.api.APIInterface;
 import com.sholeh.marketplacenj.R;
-import com.sholeh.marketplacenj.ServiceGenerator;
-import com.sholeh.marketplacenj.activities.keranjang.KeranjangDetailActivity2;
+import com.sholeh.marketplacenj.util.ServiceGenerator;
+import com.sholeh.marketplacenj.activities.keranjang.KeranjangDetailActivity;
 import com.sholeh.marketplacenj.adapter.dashboard.RecycleAdapteTopTenHome;
 import com.sholeh.marketplacenj.adapter.details.ViewPagerAdapter;
 import com.sholeh.marketplacenj.model.Foto;
@@ -251,33 +251,9 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         switch (v.getId()) {
             case R.id.imgtambah:
                 addKeranjang();
-//                String produk_id = idkeranjang.getText().toString();
-//                String harga_jual = harga.getText().toString();
-//                String jumlah = (String) jumlahproduk.getText();
-
-
-//                Toast.makeText(ProductDetailActivity.this, harga_jual, Toast.LENGTH_SHORT).show();
-
-//                APIKeranjang apiKeranjang = ServiceGenerator.getRetrofit().create(APIKeranjang.class);
-//                Call<ResKeranjang> sendData = apiKeranjang.simpanKeranjang(produk_id, "1", "konsumen", "N", jumlah, harga_jual);
-//                Log.d("YOLO", valueOf(sendData));
-//                sendData.enqueue(new Callback<ResKeranjang>() {
-//                    @Override
-//                    public void onResponse(Call<ResKeranjang> call, Response<ResKeranjang> response) {
-//                        Log.d("RETRO", "respone :" + response.body());
-////                            List<Model> kode = response.body();
-//
-//                        Toast.makeText(getBaseContext(), "re"+response, Toast.LENGTH_SHORT).show();
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<ResKeranjang> call, Throwable t) {
-//                        Log.d("RETRO", "Falure :" + "Gagal Mengirim Request" + t);
-//                    }
-//                });
                 break;
             case R.id.imgkeranjang:
-                Intent intent = new Intent(this, KeranjangDetailActivity2.class);
+                Intent intent = new Intent(this, KeranjangDetailActivity.class);
                 startActivity(intent);
                 break;
 

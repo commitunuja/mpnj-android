@@ -2,9 +2,7 @@ package com.sholeh.marketplacenj.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,22 +10,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.sholeh.marketplacenj.APIInterface;
-import com.sholeh.marketplacenj.CONSTANTS;
+import com.sholeh.marketplacenj.util.api.APIInterface;
 import com.sholeh.marketplacenj.R;
-import com.sholeh.marketplacenj.ServiceGenerator;
-import com.sholeh.marketplacenj.mfragment.FragmentProfil;
+import com.sholeh.marketplacenj.util.ServiceGenerator;
 import com.sholeh.marketplacenj.respon.ResLogin;
-import com.sholeh.marketplacenj.respon.ResProfil;
-import com.sholeh.marketplacenj.respon.ResRegristasi;
-import com.sholeh.marketplacenj.respon.ValDataProfil;
 import com.sholeh.marketplacenj.util.Preferences;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static com.sholeh.marketplacenj.util.MyApp.getContext;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     private String TAG = "LoginActivity";

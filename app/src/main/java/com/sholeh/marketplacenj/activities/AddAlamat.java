@@ -2,8 +2,6 @@ package com.sholeh.marketplacenj.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,10 +12,10 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.sholeh.marketplacenj.APIInterface;
-import com.sholeh.marketplacenj.CONSTANTS;
+import com.sholeh.marketplacenj.util.api.APIInterface;
+import com.sholeh.marketplacenj.util.CONSTANTS;
 import com.sholeh.marketplacenj.R;
-import com.sholeh.marketplacenj.ServiceGenerator;
+import com.sholeh.marketplacenj.util.ServiceGenerator;
 import com.sholeh.marketplacenj.adapter.adapterspin;
 import com.sholeh.marketplacenj.model.city.ItemCity;
 import com.sholeh.marketplacenj.model.province.ItemProvince;

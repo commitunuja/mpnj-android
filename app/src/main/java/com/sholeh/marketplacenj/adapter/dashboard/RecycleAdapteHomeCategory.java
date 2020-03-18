@@ -17,10 +17,6 @@ import com.sholeh.marketplacenj.model.dashboard.HomeCategoryModelClass;
 
 import java.util.List;
 
-
-/**
- * Created by Rp on 6/14/2016.
- */
 public class RecycleAdapteHomeCategory extends RecyclerView.Adapter<RecycleAdapteHomeCategory.MyViewHolder> {
     Context context;
 

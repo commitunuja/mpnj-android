@@ -3,7 +3,6 @@ package com.sholeh.marketplacenj.activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -17,9 +16,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.sholeh.marketplacenj.APIInterface;
+import com.sholeh.marketplacenj.util.api.APIInterface;
 import com.sholeh.marketplacenj.model.Model;
-import com.sholeh.marketplacenj.CONSTANTS;
+import com.sholeh.marketplacenj.util.CONSTANTS;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.respon.ResKeranjang;
 
@@ -99,8 +98,8 @@ public class KeranjangActivity extends AppCompatActivity {
         belilagi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(KeranjangActivity.this, KeranjangDetailActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(KeranjangActivity.this, KeranjangDetailActivity.class);
+//                startActivity(intent);
             }
         });
 
