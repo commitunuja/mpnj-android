@@ -20,8 +20,7 @@
             android:layout_width="match_parent"
             android:orientation="vertical"
             android:layout_height="wrap_content"
-            android:background="@drawable/rect_recycler"
-           >
+            android:background="@drawable/rect_recycler">
 
             <ExpandableListView
                 android:id="@+id/expListhistori"
@@ -33,11 +32,11 @@
                 android:divider="@color/green_semi_transparent"
                 android:groupIndicator="@null" />
 
-<!--            <include layout="@layout/itemcheckout"/>-->
         </LinearLayout>
 
 
 
+
     </LinearLayout>
-<!-- <include layout="@layout/item_total_keranjang"/>-->
+ <include layout="@layout/item_total_keranjang"/>
 </RelativeLayout>
