@@ -2,7 +2,9 @@ package com.sholeh.marketplacenj.model.api;
 
 import com.google.gson.JsonObject;
 import com.sholeh.marketplacenj.model.Model;
+import com.sholeh.marketplacenj.respon.ResDetailKeranjang;
 import com.sholeh.marketplacenj.respon.ResKeranjang;
+import com.sholeh.marketplacenj.respon.ResProfil;
 
 import java.util.List;
 
@@ -11,6 +13,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface APIKeranjang {
@@ -32,4 +35,10 @@ public interface APIKeranjang {
     //    @GET("/api/keranjang?role={pelapak/konsumen}&id={id ketika login}")
     @GET("api/keranjang")
     Call<JsonObject> getToko(@Query("role") String role, @Query("id") String id);
+
+
+    @GET("api/keranjang")
+    Call<ResDetailKeranjang> getDataDetailKeranjang(
+            @Query("role") String role, @Query("id") String id);
+
 }
