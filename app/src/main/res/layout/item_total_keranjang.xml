@@ -23,44 +23,44 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
+            android:orientation="vertical">
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15.7dp"
-                android:layout_marginTop="21dp"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <customfonts.TextViewSFProDisplayRegular
+                android:orientation="horizontal">
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:letterSpacing="0.03"
-                    android:text="Total Order"
+                    android:orientation="vertical"
+                    android:layout_marginTop="12dp"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="15.7dp">
+                    <customfonts.TextViewSFProDisplayRegular
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Total Pesanan"
+                        android:letterSpacing="0.03"
+                        android:textSize="17sp"
+                        android:textColor="@color/black"/>
+                    <customfonts.TextViewSFProDisplayMedium
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#99000000"
+                        android:textSize="12sp"
+                        android:letterSpacing="0.02"
+                        android:text="Belum termasuk biaya pengiriman"/>
+                </LinearLayout>
+                <customfonts.MyTextView_Roboto_Medium
+                    android:id="@+id/total"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rp 2000000"
+                    android:textSize="18.3sp"
+                    android:letterSpacing="0"
                     android:textColor="@color/black"
-                    android:textSize="17sp" />
-
-                <customfonts.TextViewSFProDisplayMedium
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:letterSpacing="0.02"
-                    android:text="Total sudah termasuk biaya pengiriman"
-                    android:textColor="#99000000"
-                    android:textSize="12sp"
-                    android:visibility="gone" />
+                    android:layout_marginTop="21dp"
+                    android:layout_marginRight="21dp"/>
             </LinearLayout>
-
-            <customfonts.MyTextView_Roboto_Medium
-                android:id="@+id/total"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="21dp"
-                android:layout_marginRight="21dp"
-                android:letterSpacing="0"
-                android:text="Rp.2.100.000"
-                android:textColor="@color/black"
-                android:textSize="18.3sp" />
         </LinearLayout>
     </LinearLayout>
 
@@ -72,6 +72,7 @@
         android:orientation="horizontal">
 
         <customfonts.MyTextView_Roboto_Medium
+            android:visibility="gone"
             android:id="@+id/txtmetode"
             android:layout_width="158dp"
             android:layout_height="40dp"
