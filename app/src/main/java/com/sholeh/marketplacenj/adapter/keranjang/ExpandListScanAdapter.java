@@ -1,6 +1,7 @@
 package com.sholeh.marketplacenj.adapter.keranjang;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,13 +13,23 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.sholeh.marketplacenj.respon.ResDetailKeranjang;
+import com.sholeh.marketplacenj.respon.ResHapusKeranjang;
+import com.sholeh.marketplacenj.respon.ResKeranjang;
+import com.sholeh.marketplacenj.util.AppUtilits;
 import com.sholeh.marketplacenj.util.CONSTANTS;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.model.keranjang.ChildModel;
 import com.sholeh.marketplacenj.model.keranjang.HeaderModel;
+import com.sholeh.marketplacenj.util.ServiceGenerator;
+import com.sholeh.marketplacenj.util.api.APIInterface;
 
 import java.util.HashMap;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 
@@ -114,6 +125,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
         LinearLayout viewline,increment,decrement;
         final TextView addjumlah;
         final int hargaproduk;
+        final ImageView delete_item;
 
 //        TextView idproduk = convertView.findViewById(R.id.txtIDPRODUK);
         TextView nama = convertView.findViewById(R.id.txtnamaPRODUK);
@@ -123,6 +135,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
         addjumlah = convertView.findViewById(R.id.txt_addjumlah);
         increment= convertView.findViewById(R.id.increment);
         decrement= convertView.findViewById(R.id.decrement);
+        delete_item= convertView.findViewById(R.id.cart_delete);
 
 
 //        idproduk.setText(model.getId_produk());
@@ -161,6 +174,49 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
             }
         });
 
+        delete_item.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String id_keranjang = model.getId_keranjang();
+
+                //        if (!NetworkUtility.isNetworkConnected(mContext)){
+//            AppUtilits.displayMessage(mContext,  mContext.getString(R.string.network_not_connected));
+//
+//        }else {
+//            //  Log.e(TAG, "  user value "+ SharePreferenceUtils.getInstance().getString(Constant.USER_DATA));
+                APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+
+                Call<ResHapusKeranjang> call = service.hapusProdukKeranjang(id_keranjang);
+                call.enqueue(new Callback<ResHapusKeranjang>() {
+                    @Override
+                    public void onResponse(Call<ResHapusKeranjang> call, Response<ResHapusKeranjang> response) {
+                        if (response.body() != null && response.isSuccessful()) {
+                            if (response.body().getPesan().equalsIgnoreCase("sukses")) {
+                                Toast.makeText(context, "berhasil", Toast.LENGTH_SHORT).show();
+
+                                // update cart count
+                                //    SharePreferenceUtils.getInstance().saveInt( Constant.CART_ITEM_COUNT,   SharePreferenceUtils.getInstance().getInteger(Constant.CART_ITEM_COUNT) -1);
+                                //    AppUtilits.UpdateCartCount(mContext, CartDetails.mainmenu);
+
+                            }else {
+//                                AppUtilits.displayMessage(mContext,  response.body().getMsg());
+                            }
+                        }else {
+//                            AppUtilits.displayMessage(mContext, mContext.getString(R.string.network_error));
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResHapusKeranjang> call, Throwable t) {
+                        AppUtilits.displayMessage(context, context.getString(R.string.failed_request));
+
+                    }
+                });
+//        }
+            }
+        });
+
 
         return convertView;
     }
@@ -169,6 +225,10 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return true;
     }
+
+
+
+
 
 }
 
