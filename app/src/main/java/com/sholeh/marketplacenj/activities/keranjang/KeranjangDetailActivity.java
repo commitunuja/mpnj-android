@@ -2,6 +2,7 @@ package com.sholeh.marketplacenj.activities.keranjang;
 
 import android.os.Bundle;
 import android.widget.ExpandableListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,6 +31,7 @@ public class KeranjangDetailActivity extends AppCompatActivity {
     private ExpandListScanAdapter expanAdapter;
     private List<HeaderModel> listHeader;
     private HashMap<HeaderModel, List<ChildModel>> listChild;
+    private TextView tvx_total;
 
     Preferences preferences;
     String id_konsumen;
@@ -41,6 +43,7 @@ public class KeranjangDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_keranjang_detail);
         preferences = new Preferences(getApplication());
         id_konsumen = preferences.getIdKonsumen();
+        tvx_total = findViewById(R.id.total);
 
 
         listView = findViewById(R.id.expListhistori);
@@ -67,6 +70,7 @@ public class KeranjangDetailActivity extends AppCompatActivity {
         call.enqueue(new Callback<ResDetailKeranjang>() {
             @Override
             public void onResponse(Call<ResDetailKeranjang> call, retrofit2.Response<ResDetailKeranjang> response) {
+
                 //   Log.e(TAG, "response is "+ response.body() + "  ---- "+ new Gson().toJson(response.body()));
                 //  Log.e(TAG, "  ss sixe 1 ");
                 if (response.body() != null && response.isSuccessful()) {
@@ -105,6 +109,9 @@ public class KeranjangDetailActivity extends AppCompatActivity {
                     }else {
                         AppUtilits.displayMessage(KeranjangDetailActivity.this, getString(R.string.network_error));
                     }
+                    String totalnya = String.valueOf(response.body().getTotal());
+                    Toast.makeText(KeranjangDetailActivity.this, ""+totalnya, Toast.LENGTH_SHORT).show();
+                    tvx_total.setText("Rp "+totalnya);
 
 
 //                    Toast.makeText(KeranjangDetailActivity.this, ""+response.body().getTotal(), Toast.LENGTH_SHORT).show();
