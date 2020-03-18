@@ -22,6 +22,7 @@ import com.sholeh.marketplacenj.model.api.APIInterface;
 import com.sholeh.marketplacenj.CONSTANTS;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.model.api.APIKeranjang;
+import com.sholeh.marketplacenj.respon.ResKeranjang;
 import com.sholeh.marketplacenj.test.ExpandListScanAdapter;
 
 import java.util.List;
@@ -77,19 +78,20 @@ public class KeranjangActivity extends AppCompatActivity {
                 Toast.makeText(KeranjangActivity.this, harga_jual, Toast.LENGTH_SHORT).show();
 
                 APIKeranjang apiKeranjang = CONSTANTS.getClient().create(APIKeranjang.class);
-                Call<List<Model>> sendData = apiKeranjang.simpanKeranjang(produk_id, "1", "konsumen", jumlah, harga_jual);
+                Call<ResKeranjang> sendData = apiKeranjang.simpanKeranjang(produk_id, "1", "konsumen", "N",jumlah, harga_jual);
 //                Log.d("YOLO", String.valueOf(sendData));
-                sendData.enqueue(new Callback<List<Model>>() {
+                sendData.enqueue(new Callback<ResKeranjang>() {
                     @Override
-                    public void onResponse(Call<List<Model>> call, Response<List<Model>> response) {
-                        Log.d("RETRO", "respone :" + response.body());
+                    public void onResponse(Call<ResKeranjang> call, Response<ResKeranjang> response) {
+
+//                        Log.d("RETRO", "respone :" + response.body());
 //                            List<Model> kode = response.body();
 
-                        Toast.makeText(KeranjangActivity.this, "Data Tersimpan", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(KeranjangActivity.this, "ress"+response, Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
-                    public void onFailure(Call<List<Model>> call, Throwable t) {
+                    public void onFailure(Call<ResKeranjang> call, Throwable t) {
                         Log.d("RETRO", "Falure :" + "Gagal Mengirim Request");
                     }
                 });

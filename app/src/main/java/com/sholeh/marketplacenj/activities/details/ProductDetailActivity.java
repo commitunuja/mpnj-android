@@ -19,24 +19,24 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.gson.JsonObject;
-import com.sholeh.marketplacenj.CONSTANTS;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.ServiceGenerator;
 import com.sholeh.marketplacenj.activities.keranjang.KeranjangDetailActivity2;
 import com.sholeh.marketplacenj.adapter.dashboard.RecycleAdapteTopTenHome;
 import com.sholeh.marketplacenj.adapter.details.ViewPagerAdapter;
 import com.sholeh.marketplacenj.model.Foto;
-import com.sholeh.marketplacenj.model.Model;
 import com.sholeh.marketplacenj.model.api.APIInterface;
 import com.sholeh.marketplacenj.model.api.APIKeranjang;
 import com.sholeh.marketplacenj.model.dashboard.TopTenModelClass;
+import com.sholeh.marketplacenj.respon.ResKeranjang;
+import com.sholeh.marketplacenj.util.Preferences;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.StringTokenizer;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -75,10 +75,17 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
     RelativeLayout relative1, relative2, relative3, relative4;
 
+    Preferences preferences;
+    String id_konsumen;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_detail);
+        preferences = new Preferences(getApplication());
+        id_konsumen = preferences.getIdKonsumen();
+
 
         right1 = findViewById(R.id.right1);
         right2 = findViewById(R.id.right2);
@@ -150,7 +157,9 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
 
         vid_produk = getIntent().getStringExtra("id_produk");
-        valueOf(vid_produk);
+
+
+
 
         namaproduk = getIntent().getExtras().getString("nama_produk");
         vhargaproduk = parseInt(getIntent().getStringExtra("harga_jual"));
@@ -242,30 +251,31 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
         switch (v.getId()) {
             case R.id.imgtambah:
-                String produk_id = idkeranjang.getText().toString();
-                String harga_jual = harga.getText().toString();
-                String jumlah = (String) jumlahproduk.getText();
+                addKeranjang();
+//                String produk_id = idkeranjang.getText().toString();
+//                String harga_jual = harga.getText().toString();
+//                String jumlah = (String) jumlahproduk.getText();
 
 
 //                Toast.makeText(ProductDetailActivity.this, harga_jual, Toast.LENGTH_SHORT).show();
 
-                APIKeranjang apiKeranjang = CONSTANTS.getClient().create(APIKeranjang.class);
-                Call<List<Model>> sendData = apiKeranjang.simpanKeranjang(produk_id, "1", "konsumen", jumlah, harga_jual);
-                Log.d("YOLO", valueOf(sendData));
-                sendData.enqueue(new Callback<List<Model>>() {
-                    @Override
-                    public void onResponse(Call<List<Model>> call, Response<List<Model>> response) {
-                        Log.d("RETRO", "respone :" + response.body());
-//                            List<Model> kode = response.body();
-
-                        Toast.makeText(getBaseContext(), "Data Tersimpan", Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onFailure(Call<List<Model>> call, Throwable t) {
-                        Log.d("RETRO", "Falure :" + "Gagal Mengirim Request" + t);
-                    }
-                });
+//                APIKeranjang apiKeranjang = ServiceGenerator.getRetrofit().create(APIKeranjang.class);
+//                Call<ResKeranjang> sendData = apiKeranjang.simpanKeranjang(produk_id, "1", "konsumen", "N", jumlah, harga_jual);
+//                Log.d("YOLO", valueOf(sendData));
+//                sendData.enqueue(new Callback<ResKeranjang>() {
+//                    @Override
+//                    public void onResponse(Call<ResKeranjang> call, Response<ResKeranjang> response) {
+//                        Log.d("RETRO", "respone :" + response.body());
+////                            List<Model> kode = response.body();
+//
+//                        Toast.makeText(getBaseContext(), "re"+response, Toast.LENGTH_SHORT).show();
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<ResKeranjang> call, Throwable t) {
+//                        Log.d("RETRO", "Falure :" + "Gagal Mengirim Request" + t);
+//                    }
+//                });
                 break;
             case R.id.imgkeranjang:
                 Intent intent = new Intent(this, KeranjangDetailActivity2.class);
@@ -368,5 +378,59 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                 break;*/
 
         }
+    }
+
+
+    public void addKeranjang() {
+//        if (!NetworkUtility.isNetworkConnected(RegisterActivity.this)) {
+//            AppUtilits.displayMessage(RegisterActivity.this, getString(R.string.network_not_connected));
+//
+//        } else {
+
+        final String harga_jual = harga.getText().toString();
+        StringTokenizer st = new StringTokenizer(harga_jual, "Rp");
+        String hargaJual = st.nextToken().trim();
+
+
+
+//        Toast.makeText(this, ""+vid_produk+" "+" "+jumlah+" "+harga_jual+ "Split :"+SplitRp, Toast.LENGTH_SHORT).show();
+        // userid
+//
+////            if (!validasi()) return;
+
+        APIKeranjang apiKeranjang = ServiceGenerator.getRetrofit().create(APIKeranjang.class);
+        Call<ResKeranjang> sendData = apiKeranjang.simpanKeranjang(vid_produk, id_konsumen, "konsumen", "N", String.valueOf(1),hargaJual );
+        sendData.enqueue(new Callback<ResKeranjang>() {
+            @Override
+            public void onResponse(Call<ResKeranjang> call, Response<ResKeranjang> response) {
+                Toast.makeText(ProductDetailActivity.this, "cekkk"+response, Toast.LENGTH_SHORT).show();
+                Log.d("cek koneksi", String.valueOf(response));
+
+                if (response.body() != null && response.isSuccessful()) {
+                    if (response.body().getPesan().equalsIgnoreCase("sukses")) {
+                        Toast.makeText(ProductDetailActivity.this, "Berhasil dimasukkan keranjang", Toast.LENGTH_SHORT).show();
+
+                    } else {
+                        Toast.makeText(ProductDetailActivity.this, "r"+response.body().getPesan(), Toast.LENGTH_SHORT).show();
+//                            AppUtilits.displayMessage(RegisterActivity.this,  response.body().getPesan());
+                    }
+                } else {
+                    Toast.makeText(ProductDetailActivity.this, "rr"+response.body().getPesan(), Toast.LENGTH_SHORT).show();
+
+//                        AppUtilits.displayMessage(RegisterActivity.this,   getString(R.string.failed_request));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResKeranjang> call, Throwable t) {
+//                    Log.e(TAG, " failure " + t.toString());
+                Toast.makeText(ProductDetailActivity.this, "rrr"+t, Toast.LENGTH_SHORT).show();
+
+
+//                    AppUtilits.displayMessage(RegisterActivity.this,   getString(R.string.failed_request));
+            }
+        });
+
+
     }
 }
