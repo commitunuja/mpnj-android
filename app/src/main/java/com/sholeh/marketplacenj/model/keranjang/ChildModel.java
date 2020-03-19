@@ -7,6 +7,13 @@ public class ChildModel {
 
 
     public ChildModel(String id_keranjang, String nama_produk, String harga, String jumlah, String gambar) {
+    public String getStock() {
+        return stock;
+    }
+
+    public void setStock(String stock) {
+        this.stock = stock;
+    }
         this.id_keranjang = id_keranjang;
 //        this.id_produk = id_produk;
         this.nama_produk = nama_produk;
