@@ -1,22 +1,23 @@
 package com.sholeh.marketplacenj.activities.keranjang;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.sholeh.marketplacenj.util.api.APIInterface;
 import com.sholeh.marketplacenj.R;
-import com.sholeh.marketplacenj.util.ServiceGenerator;
+import com.sholeh.marketplacenj.adapter.keranjang.ExpandListScanAdapter;
+import com.sholeh.marketplacenj.model.keranjang.ChildModel;
+import com.sholeh.marketplacenj.model.keranjang.HeaderModel;
 import com.sholeh.marketplacenj.respon.DataKeranjang;
 import com.sholeh.marketplacenj.respon.ItemKeranjang;
 import com.sholeh.marketplacenj.respon.ResDetailKeranjang;
-import com.sholeh.marketplacenj.model.keranjang.ChildModel;
-import com.sholeh.marketplacenj.adapter.keranjang.ExpandListScanAdapter;
-import com.sholeh.marketplacenj.model.keranjang.HeaderModel;
 import com.sholeh.marketplacenj.util.AppUtilits;
 import com.sholeh.marketplacenj.util.Preferences;
+import com.sholeh.marketplacenj.util.ServiceGenerator;
+import com.sholeh.marketplacenj.util.api.APIInterface;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -52,12 +53,6 @@ public class KeranjangDetailActivity extends AppCompatActivity {
 
 
     public void getDetailKeranjang(){
-//        if (!NetworkUtility.isNetworkConnected(KeranjangDetailActivity.this)){
-//            AppUtilits.displayMessage(KeranjangDetailActivity.this,  getString(R.string.network_not_connected));
-//
-//        }else {
-        //  Log.e(TAG, "  user value "+ SharePreferenceUtils.getInstance().getString(Constant.USER_DATA));
-
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
 
         Call<ResDetailKeranjang> call = service.getDataDetailKeranjang("konsumen",id_konsumen);
@@ -67,8 +62,6 @@ public class KeranjangDetailActivity extends AppCompatActivity {
         call.enqueue(new Callback<ResDetailKeranjang>() {
             @Override
             public void onResponse(Call<ResDetailKeranjang> call, retrofit2.Response<ResDetailKeranjang> response) {
-                //   Log.e(TAG, "response is "+ response.body() + "  ---- "+ new Gson().toJson(response.body()));
-                //  Log.e(TAG, "  ss sixe 1 ");
                 if (response.body() != null && response.isSuccessful()) {
                     if (response.body().getDataKeranjang().size() > 0) {
 
@@ -89,8 +82,9 @@ public class KeranjangDetailActivity extends AppCompatActivity {
                                 String hargaJual = childLink.get(j).getHargaJual();
                                 String jumlah = childLink.get(j).getJumlah();
                                 String foto = childLink.get(j).getFoto();
-                                child.add(new ChildModel(idKeranjang, namaProduk, hargaJual, jumlah, foto));
                                 String stock = childLink.get(j).getStok();
+                                Log.d("YOLO", "error" +stock);
+                                child.add(new ChildModel(idKeranjang, namaProduk, hargaJual, jumlah, foto, stock));
 
                             }
                             listChild.put(listHeader.get(i), child);
