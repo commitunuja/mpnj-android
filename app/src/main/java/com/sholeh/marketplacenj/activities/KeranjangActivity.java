@@ -1,7 +1,5 @@
 package com.sholeh.marketplacenj.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.Editable;
@@ -15,12 +13,14 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.bumptech.glide.Glide;
-import com.sholeh.marketplacenj.util.api.APIInterface;
-import com.sholeh.marketplacenj.model.Model;
-import com.sholeh.marketplacenj.util.CONSTANTS;
 import com.sholeh.marketplacenj.R;
+import com.sholeh.marketplacenj.model.Model;
 import com.sholeh.marketplacenj.respon.ResKeranjang;
+import com.sholeh.marketplacenj.util.CONSTANTS;
+import com.sholeh.marketplacenj.util.api.APIInterface;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -148,27 +148,6 @@ public class KeranjangActivity extends AppCompatActivity {
             progressBar.setVisibility(View.GONE);
         }*/
     }
-
-
-
-   /* public void sendPost(String idproduk) {
-        apiInterface.addNewDestination(idproduk).enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if (response.isSuccessful()) {
-                    Log.i(TAG, "SUKSES" + response.body().toString());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Log.e(TAG, "gagal");
-
-            }
-        });
-
-    }*/
-
 
     private void initialize() {
 
