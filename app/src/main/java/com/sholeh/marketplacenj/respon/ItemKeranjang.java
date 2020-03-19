@@ -131,6 +131,14 @@ public class ItemKeranjang {
         this.hargaJual = hargaJual;
     }
 
+    public String getStok() {
+        return stok;
+    }
+
+    public void setStok(String stok) {
+        this.stok = stok;
+    }
+
     public String getDiskon() {
         return diskon;
     }
@@ -139,20 +147,36 @@ public class ItemKeranjang {
         this.diskon = diskon;
     }
 
-    public Integer getIdProduk() {
-        return idProduk;
+    public String getKeterangan() {
+        return keterangan;
     }
 
-    public void setIdProduk(Integer idProduk) {
-        this.idProduk = idProduk;
+    public void setKeterangan(String keterangan) {
+        this.keterangan = keterangan;
     }
 
-    public String getNamaProduk() {
-        return namaProduk;
+    public String getTipeProduk() {
+        return tipeProduk;
     }
 
-    public void setNamaProduk(String namaProduk) {
-        this.namaProduk = namaProduk;
+    public void setTipeProduk(String tipeProduk) {
+        this.tipeProduk = tipeProduk;
+    }
+
+    public String getWishlist() {
+        return wishlist;
+    }
+
+    public void setWishlist(String wishlist) {
+        this.wishlist = wishlist;
+    }
+
+    public String getTerjual() {
+        return terjual;
+    }
+
+    public void setTerjual(String terjual) {
+        this.terjual = terjual;
     }
 
     public String getFoto() {
@@ -162,4 +186,13 @@ public class ItemKeranjang {
     public void setFoto(String foto) {
         this.foto = foto;
     }
+
+    public Pelapak getPelapak() {
+        return pelapak;
+    }
+
+    public void setPelapak(Pelapak pelapak) {
+        this.pelapak = pelapak;
+    }
+
 }
