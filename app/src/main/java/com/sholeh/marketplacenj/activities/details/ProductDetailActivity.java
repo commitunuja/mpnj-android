@@ -167,7 +167,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         kategoriproduk = getIntent().getStringExtra("kategori");
         vdiskon = Double.valueOf(parseInt(getIntent().getStringExtra("diskon")));
         vdeskripsi = getIntent().getExtras().getString("keterangan");
-        Log.d("YOLO", "diskon");
+//        Log.d("YOLO", "diskon");
 
         nama.setText(namaproduk);
         double h = vdiskon / 100 * vhargaproduk;
