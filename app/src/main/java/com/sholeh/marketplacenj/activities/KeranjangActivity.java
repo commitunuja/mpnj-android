@@ -103,55 +103,10 @@ public class KeranjangActivity extends AppCompatActivity {
             }
         });
 
-
-      /*  DisplayMetrics dm = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(dm);
-
-        int width = dm.widthPixels;
-        int height = dm.heightPixels;
-
-        getWindow().setLayout((int) (height * .5), (int) (width * .7));
-        WindowManager.LayoutParams params = getWindow().getAttributes();
-        params.gravity = Gravity.CENTER;
-        params.x = 0;
-        params.y = -20;
-
-        getWindow().setAttributes(params);*/
         initialize();
-       /* vid_produk = Integer.parseInt(getIntent().getStringExtra("id_produk"));
-        namaprodukkeranjang = getIntent().getExtras().getString("nama_produk");
-        urltoimagekeranjang = getIntent().getExtras().getString("foto_produk");
-        vhargaproduk = Integer.parseInt(getIntent().getStringExtra("harga_jual"));
-
-        title.setText(namaprodukkeranjang);
-        harga.setText(String.valueOf(vhargaproduk));
-        Glide.with(this)
-                .load(urltoimagekeranjang)
-                .into(foto);*/
-   /*    showLoading(true);
-        if (model != null){
-            title.setText(model.getNamaProduk());
-            harga.setText(String.valueOf(model.getHargaJual()));
-            Glide.with(this)
-                    .load(model.getFoto())
-                    .into(foto);
-       }
-        else {
-            Toast.makeText(this, "ERROR", Toast.LENGTH_SHORT).show();
-        }
-    }*/
-
-        /* private void showLoading(boolean b) {
-         *//*   if (b) {
-            progressBar.setVisibility(View.VISIBLE);
-        } else {
-            progressBar.setVisibility(View.GONE);
-        }*/
     }
 
     private void initialize() {
-
-
         quantityProductPage.setText("1");
         quantityProductPage.addTextChangedListener(productcount);
 //        productprice.setText("₹ " + Float.toString(model.getCardprice()));

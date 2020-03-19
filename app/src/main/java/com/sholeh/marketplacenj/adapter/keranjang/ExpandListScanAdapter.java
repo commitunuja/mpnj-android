@@ -120,8 +120,6 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 
         LayoutInflater inflater2 = (LayoutInflater)this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         convertView = inflater2.inflate(R.layout.desain_child,null);
-//        convertView = inflater2.inflate(R.layout.activity_keranjang_detail, null);
-//        LayoutInflater inflater3 = (LayoutInflater)this.context.getSystemService(context.LAYOUT_INFLATER_SERVICE)
 
         LinearLayout viewline,increment,decrement;
         final TextView addjumlah, stok, harga;
@@ -142,7 +140,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 //        idproduk.setText(model.getId_produk());
         stok.setText(model.getStok());
         nama.setText(model.getNama_produk());
-        harga.setText("Rp " +model.getHarga());
+        harga.setText(String.valueOf(model.getHarga()));
         addjumlah.setText(model.getJumlah());
         Glide.with(convertView.getContext())
                 .load(CONSTANTS.SUB_DOMAIN + model.getGambar())
@@ -158,7 +156,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
             public void onClick(View v) {
                 int count = Integer.valueOf(addjumlah.getText().toString());
                 int stokproduk = Integer.valueOf(stok.getText().toString());
-//                int hargatotalproduk = Integer.valueOf(harga.getText().toString());
+                int hargatotalproduk = Integer.valueOf(harga.getText().toString());
 
                 if (count < stokproduk) {
                     count++;
@@ -174,7 +172,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
             @Override
             public void onClick(View v) {
                 int count = Integer.valueOf(addjumlah.getText().toString());
-//                int hargatotalproduk = Integer.valueOf(harga.getText().toString());
+                int hargatotalproduk = Integer.valueOf(harga.getText().toString());
                 if (count > 1) {
                     count--;
                     addjumlah.setText("" + count);
