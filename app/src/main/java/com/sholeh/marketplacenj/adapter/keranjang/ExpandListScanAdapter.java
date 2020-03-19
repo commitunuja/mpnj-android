@@ -124,22 +124,23 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 //        LayoutInflater inflater3 = (LayoutInflater)this.context.getSystemService(context.LAYOUT_INFLATER_SERVICE)
 
         LinearLayout viewline,increment,decrement;
-        final TextView addjumlah;
+        final TextView addjumlah, stok, harga;
         final int hargaproduk;
         final ImageView delete_item;
 
 //        TextView idproduk = convertView.findViewById(R.id.txtIDPRODUK);
         TextView nama = convertView.findViewById(R.id.txtnamaPRODUK);
-        TextView harga = convertView.findViewById(R.id.txtharga);
+        harga = convertView.findViewById(R.id.txtharga);
         ImageView gambar = convertView.findViewById(R.id.img_gambarkeranjang);
-//        TextView subtotal = convertView.findViewById(R.);
+        stok = convertView.findViewById(R.id.txtstock);
         addjumlah = convertView.findViewById(R.id.txt_addjumlah);
-        increment= convertView.findViewById(R.id.increment);
-        decrement= convertView.findViewById(R.id.decrement);
+        increment = convertView.findViewById(R.id.increment);
+        decrement = convertView.findViewById(R.id.decrement);
         delete_item= convertView.findViewById(R.id.cart_delete);
 
 
 //        idproduk.setText(model.getId_produk());
+        stok.setText(model.getStok());
         nama.setText(model.getNama_produk());
         harga.setText("Rp " +model.getHarga());
         addjumlah.setText(model.getJumlah());
@@ -155,23 +156,30 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 
             @Override
             public void onClick(View v) {
-//                int jumlah = 1;
-//                if (jumlah > 1){
-//                    jumlah++ ;
-//                    addjumlah.setText(String.valueOf(addjumlah));
-//                    hargaTotalProduk.setText(hargaproduk*jumlah);
-//                }
+                int count = Integer.valueOf(addjumlah.getText().toString());
+                int stokproduk = Integer.valueOf(stok.getText().toString());
+//                int hargatotalproduk = Integer.valueOf(harga.getText().toString());
 
-                int count= Integer.parseInt(String.valueOf(model.getJumlah()));
-                count++;
-                addjumlah.setText(String.valueOf(count));
-             //   Toast.makeText(context,"cont"+ String.valueOf(count), Toast.LENGTH_SHORT).show();
+                if (count < stokproduk) {
+                    count++;
+                    addjumlah.setText("" + count);
+//                    harga.setText(String.valueOf(hargatotalproduk *count));
+                } else if (count == stokproduk) {
+                    Toast.makeText(context, "Stok Barang Hanya Tersedia " + stokproduk, Toast.LENGTH_SHORT).show();
+                }
             }
         });
+
         decrement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "-", Toast.LENGTH_SHORT).show();
+                int count = Integer.valueOf(addjumlah.getText().toString());
+//                int hargatotalproduk = Integer.valueOf(harga.getText().toString());
+                if (count > 1) {
+                    count--;
+                    addjumlah.setText("" + count);
+//                    harga.setText(String.valueOf(hargatotalproduk *count));
+                }
             }
         });
 
