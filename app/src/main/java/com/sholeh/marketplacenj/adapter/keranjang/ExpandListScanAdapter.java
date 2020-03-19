@@ -1,7 +1,7 @@
 package com.sholeh.marketplacenj.adapter.keranjang;
 
 import android.content.Context;
-import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,20 +13,30 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.sholeh.marketplacenj.activities.keranjang.KeranjangDetailActivity;
+import com.sholeh.marketplacenj.respon.ResDetailKeranjang;
+import com.sholeh.marketplacenj.respon.ResHapusKeranjang;
+import com.sholeh.marketplacenj.respon.ResKeranjang;
+import com.sholeh.marketplacenj.util.AppUtilits;
+import com.sholeh.marketplacenj.util.CONSTANTS;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.model.keranjang.ChildModel;
 import com.sholeh.marketplacenj.model.keranjang.HeaderModel;
-import com.sholeh.marketplacenj.util.CONSTANTS;
+import com.sholeh.marketplacenj.util.ServiceGenerator;
+import com.sholeh.marketplacenj.util.api.APIInterface;
 
 import java.util.HashMap;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 
     private Context context;
     private List<HeaderModel> listHeaderFilter;
     private HashMap<HeaderModel, List<ChildModel>> listChild;
-    private TextWatcher watcher;
 
 
 //    private boolean buka = true;
@@ -77,9 +87,9 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         // set on click change
         HeaderModel model = (HeaderModel) getGroup(groupPosition);
-        if (convertView == null) {
-            LayoutInflater inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.desain_parent, null);
+        if (convertView==null){
+            LayoutInflater inflater = (LayoutInflater)this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = inflater.inflate(R.layout.desain_parent,null);
         }
         TextView nama_kk = convertView.findViewById(R.id.txNamaToko);
         TextView no_pelanggan = convertView.findViewById(R.id.tvxIdToko);
@@ -91,11 +101,12 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 
         ImageView img = convertView.findViewById(R.id.imgpanah);
 
-        if (isExpanded) {
+        if (isExpanded){
+            //Toast.makeText(context, ""+isExpanded, Toast.LENGTH_SHORT).show();
             img.setImageResource(R.drawable.ic_keyboard_arrow_up_grey_24dp);
         } else {
             img.setImageResource(R.drawable.ic_keyboard_arrow_down_grey_24dp);
-            // Toast.makeText(context, ""+isExpanded, Toast.LENGTH_SHORT).show();
+           // Toast.makeText(context, ""+isExpanded, Toast.LENGTH_SHORT).show();
         }
 
 
@@ -105,17 +116,19 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-        final ChildModel model = (ChildModel) getChild(groupPosition, childPosition);
+        final ChildModel model = (ChildModel)getChild(groupPosition,childPosition);
 
-        LayoutInflater inflater2 = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        convertView = inflater2.inflate(R.layout.desain_child, null);
+        LayoutInflater inflater2 = (LayoutInflater)this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        convertView = inflater2.inflate(R.layout.desain_child,null);
+//        convertView = inflater2.inflate(R.layout.activity_keranjang_detail, null);
+//        LayoutInflater inflater3 = (LayoutInflater)this.context.getSystemService(context.LAYOUT_INFLATER_SERVICE)
 
-        LinearLayout viewline, increment, decrement;
-
+        LinearLayout viewline,increment,decrement;
         final TextView addjumlah, stok, harga;
         final int hargaproduk;
+        final ImageView delete_item;
 
-
+//        TextView idproduk = convertView.findViewById(R.id.txtIDPRODUK);
         TextView nama = convertView.findViewById(R.id.txtnamaPRODUK);
         harga = convertView.findViewById(R.id.txtharga);
         ImageView gambar = convertView.findViewById(R.id.img_gambarkeranjang);
@@ -123,19 +136,24 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
         addjumlah = convertView.findViewById(R.id.txt_addjumlah);
         increment = convertView.findViewById(R.id.increment);
         decrement = convertView.findViewById(R.id.decrement);
+        delete_item= convertView.findViewById(R.id.cart_delete);
 
+
+//        idproduk.setText(model.getId_produk());
+        stok.setText(model.getStok());
         nama.setText(model.getNama_produk());
-        harga.setText("Rp " + model.getHarga());
+        harga.setText("Rp " +model.getHarga());
         addjumlah.setText(model.getJumlah());
-        stok.setText(model.getStock());
         Glide.with(convertView.getContext())
                 .load(CONSTANTS.SUB_DOMAIN + model.getGambar())
                 .apply(new RequestOptions().override(350, 550))
                 .placeholder(R.drawable.img)
                 .error(R.drawable.img1)
                 .into(gambar);
-
+//        subtotal.setText(model.getHarga() + model.getJumlah());
         increment.setOnClickListener(new View.OnClickListener() {
+
+
             @Override
             public void onClick(View v) {
                 int count = Integer.valueOf(addjumlah.getText().toString());
@@ -165,15 +183,64 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
             }
         });
 
+        delete_item.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String id_keranjang = model.getId_keranjang();
+
+                //        if (!NetworkUtility.isNetworkConnected(mContext)){
+//            AppUtilits.displayMessage(mContext,  mContext.getString(R.string.network_not_connected));
+//
+//        }else {
+//            //  Log.e(TAG, "  user value "+ SharePreferenceUtils.getInstance().getString(Constant.USER_DATA));
+                APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+
+                Call<ResHapusKeranjang> call = service.hapusProdukKeranjang(id_keranjang);
+                call.enqueue(new Callback<ResHapusKeranjang>() {
+                    @Override
+                    public void onResponse(Call<ResHapusKeranjang> call, Response<ResHapusKeranjang> response) {
+                        if (response.body() != null && response.isSuccessful()) {
+                            if (response.body().getPesan().equalsIgnoreCase("sukses")) {
+//                                Toast.makeText(context, "berhasil", Toast.LENGTH_SHORT).show();
+                                AppUtilits.displayMessage(context, "Sukses hapus produk dari keranjang");
+
+                                ((KeranjangDetailActivity) context).getDetailKeranjang();
+
+                                // update cart count
+                                //    SharePreferenceUtils.getInstance().saveInt( Constant.CART_ITEM_COUNT,   SharePreferenceUtils.getInstance().getInteger(Constant.CART_ITEM_COUNT) -1);
+                                //    AppUtilits.UpdateCartCount(mContext, CartDetails.mainmenu);
+
+                            }else {
+                                AppUtilits.displayMessage(context, "Gagal hapus produk dari keranjang");
+                            }
+                        }else {
+//                            AppUtilits.displayMessage(mContext, mContext.getString(R.string.network_error));
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResHapusKeranjang> call, Throwable t) {
+                        AppUtilits.displayMessage(context, context.getString(R.string.failed_request));
+
+                    }
+                });
+//        }
+            }
+        });
+
 
         return convertView;
     }
-
 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return true;
     }
+
+
+
+
 
 }
 

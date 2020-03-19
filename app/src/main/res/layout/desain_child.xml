@@ -5,6 +5,25 @@
     android:background="#ffffff"
     android:orientation="vertical">
 
+    <RelativeLayout
+        android:id="@+id/cart_relative1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true">
+
+        <ImageView
+            android:id="@+id/cart_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="10dp"
+            android:src="@mipmap/ic_highlight_off_black_24dp" />
+    </RelativeLayout>
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,46 +34,53 @@
             android:layout_width="66.2dp"
             android:layout_height="66.7dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="17.5dp" />
+            android:layout_marginTop="5dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10.4dp"
-            android:layout_marginTop="17.3dp"
+            android:layout_marginTop="5dp"
             android:orientation="vertical">
+
 
             <customfonts.MyTextView_Roboto_Medium
                 android:id="@+id/txtnamaPRODUK"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:letterSpacing="0.03"
                 android:text="Iphone X | 128 GB, Black | 6 GB ram |
 12000 mAh battry"
                 android:textColor="@color/black"
                 android:textSize="13.3sp" />
 
-
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-            <customfonts.MyTextView_Roboto_Medium
+
+                <customfonts.MyTextView_Roboto_Medium
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:letterSpacing="0.03"
-                android:text="Stok : "
+                android:text="Stok :"
                 android:textColor="@color/black"
                 android:textSize="13.3sp" />
+
                 <customfonts.MyTextView_Roboto_Medium
                     android:id="@+id/txtstock"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:letterSpacing="0.03"
-                    android:text="20 "
+                    android:text="2000"
                     android:textColor="@color/black"
                     android:textSize="13.3sp" />
+
             </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -84,7 +110,7 @@
                             android:src="@drawable/ic_minus" />
                     </LinearLayout>
 
-                    <TextView
+                    <customfonts.MyTextView_Roboto_Medium
                         android:id="@+id/txt_addjumlah"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -108,7 +134,6 @@
                             android:src="@drawable/ic_add" />
                     </LinearLayout>
 
-
                 </LinearLayout>
 
                 <customfonts.MyTextView_Roboto_Medium
@@ -123,7 +148,6 @@
             </LinearLayout>
 
         </LinearLayout>
-
 
     </LinearLayout>
 

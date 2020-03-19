@@ -1,11 +1,11 @@
 package com.sholeh.marketplacenj.respon;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.sholeh.marketplacenj.model.Kategori;
 import com.sholeh.marketplacenj.model.Pelapak;
 
 public class ItemKeranjang {
+
     @SerializedName("id_keranjang")
     @Expose
     private String idKeranjang;

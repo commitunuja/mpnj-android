@@ -3,25 +3,25 @@ package com.sholeh.marketplacenj.model.keranjang;
 public class ChildModel {
 
 
-    String id_keranjang,  nama_produk, harga, jumlah, subtotal, gambar , stock;
+    String id_keranjang,  nama_produk, harga, jumlah, subtotal, gambar, stok;
 
 
-    public String getStock() {
-        return stock;
+    public String getStok() {
+        return stok;
     }
 
-    public void setStock(String stock) {
-        this.stock = stock;
+    public void setStok(String stok) {
+        this.stok = stok;
     }
 
-    public ChildModel(String id_keranjang, String nama_produk, String harga, String jumlah, String gambar, String stock) {
+    public ChildModel(String id_keranjang, String nama_produk, String harga, String jumlah, String gambar, String stok) {
         this.id_keranjang = id_keranjang;
 //        this.id_produk = id_produk;
         this.nama_produk = nama_produk;
         this.harga = harga;
         this.jumlah = jumlah;
         this.gambar = gambar;
-        this.stock = stock;
+        this.stok = stok;
 
     }
 

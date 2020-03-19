@@ -3,21 +3,22 @@ package com.sholeh.marketplacenj.activities.keranjang;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ExpandableListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.sholeh.marketplacenj.util.api.APIInterface;
 import com.sholeh.marketplacenj.R;
-import com.sholeh.marketplacenj.adapter.keranjang.ExpandListScanAdapter;
-import com.sholeh.marketplacenj.model.keranjang.ChildModel;
-import com.sholeh.marketplacenj.model.keranjang.HeaderModel;
+import com.sholeh.marketplacenj.util.ServiceGenerator;
 import com.sholeh.marketplacenj.respon.DataKeranjang;
 import com.sholeh.marketplacenj.respon.ItemKeranjang;
 import com.sholeh.marketplacenj.respon.ResDetailKeranjang;
+import com.sholeh.marketplacenj.model.keranjang.ChildModel;
+import com.sholeh.marketplacenj.adapter.keranjang.ExpandListScanAdapter;
+import com.sholeh.marketplacenj.model.keranjang.HeaderModel;
 import com.sholeh.marketplacenj.util.AppUtilits;
 import com.sholeh.marketplacenj.util.Preferences;
-import com.sholeh.marketplacenj.util.ServiceGenerator;
-import com.sholeh.marketplacenj.util.api.APIInterface;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,6 +32,7 @@ public class KeranjangDetailActivity extends AppCompatActivity {
     private ExpandListScanAdapter expanAdapter;
     private List<HeaderModel> listHeader;
     private HashMap<HeaderModel, List<ChildModel>> listChild;
+    private TextView tvx_total;
 
     Preferences preferences;
     String id_konsumen;
@@ -42,17 +44,23 @@ public class KeranjangDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_keranjang_detail);
         preferences = new Preferences(getApplication());
         id_konsumen = preferences.getIdKonsumen();
-
+        tvx_total = findViewById(R.id.total);
 
         listView = findViewById(R.id.expListhistori);
-//        tampil();
         getDetailKeranjang();
+
     }
 
 
 
 
     public void getDetailKeranjang(){
+//        if (!NetworkUtility.isNetworkConnected(KeranjangDetailActivity.this)){
+//            AppUtilits.displayMessage(KeranjangDetailActivity.this,  getString(R.string.network_not_connected));
+//
+//        }else {
+        //  Log.e(TAG, "  user value "+ SharePreferenceUtils.getInstance().getString(Constant.USER_DATA));
+
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
 
         Call<ResDetailKeranjang> call = service.getDataDetailKeranjang("konsumen",id_konsumen);
@@ -62,6 +70,9 @@ public class KeranjangDetailActivity extends AppCompatActivity {
         call.enqueue(new Callback<ResDetailKeranjang>() {
             @Override
             public void onResponse(Call<ResDetailKeranjang> call, retrofit2.Response<ResDetailKeranjang> response) {
+
+                //   Log.e(TAG, "response is "+ response.body() + "  ---- "+ new Gson().toJson(response.body()));
+                //  Log.e(TAG, "  ss sixe 1 ");
                 if (response.body() != null && response.isSuccessful()) {
                     if (response.body().getDataKeranjang().size() > 0) {
 
@@ -82,9 +93,8 @@ public class KeranjangDetailActivity extends AppCompatActivity {
                                 String hargaJual = childLink.get(j).getHargaJual();
                                 String jumlah = childLink.get(j).getJumlah();
                                 String foto = childLink.get(j).getFoto();
-                                String stock = childLink.get(j).getStok();
-                                Log.d("YOLO", "error" +stock);
-                                child.add(new ChildModel(idKeranjang, namaProduk, hargaJual, jumlah, foto, stock));
+                                String stok = childLink.get(j).getStok();
+                                child.add(new ChildModel(idKeranjang, namaProduk, hargaJual, jumlah, foto, stok));
 
                             }
                             listChild.put(listHeader.get(i), child);
@@ -100,6 +110,8 @@ public class KeranjangDetailActivity extends AppCompatActivity {
                     }else {
                         AppUtilits.displayMessage(KeranjangDetailActivity.this, getString(R.string.network_error));
                     }
+                    String totalnya = String.valueOf(response.body().getTotal());
+                    tvx_total.setText("Rp "+totalnya);
 
 
 //                    Toast.makeText(KeranjangDetailActivity.this, ""+response.body().getTotal(), Toast.LENGTH_SHORT).show();
@@ -112,9 +124,13 @@ public class KeranjangDetailActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ResDetailKeranjang> call, Throwable t) {
-                Toast.makeText(KeranjangDetailActivity.this, ""+t, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(KeranjangDetailActivity.this, "e"+t, Toast.LENGTH_SHORT).show();
                 //  Log.e(TAG, "  fail- add to cart item "+ t.toString());
 //                AppUtilits.displayMessage(KeranjangDetailActivity.this, getString(R.string.fail_toGetcart));
+
+                Log.d("cekkk", String.valueOf(t));
+                Toast.makeText(KeranjangDetailActivity.this, "cekk"+t, Toast.LENGTH_SHORT).show();
+
 
             }
         });

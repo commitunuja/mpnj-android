@@ -7,6 +7,7 @@ import com.sholeh.marketplacenj.model.province.ItemProvince;
 import com.sholeh.marketplacenj.respon.ResAlamat;
 import com.sholeh.marketplacenj.respon.ResDetailAlamat;
 import com.sholeh.marketplacenj.respon.ResDetailKeranjang;
+import com.sholeh.marketplacenj.respon.ResHapusKeranjang;
 import com.sholeh.marketplacenj.respon.ResImg;
 import com.sholeh.marketplacenj.respon.ResKeranjang;
 import com.sholeh.marketplacenj.respon.ResLogin;
@@ -166,6 +167,10 @@ public interface APIInterface {
     @GET("api/keranjang")
     Call<ResDetailKeranjang> getDataDetailKeranjang(
             @Query("role") String role, @Query("id") String id);
+
+    //  delete produk keranjang
+    @DELETE("api/keranjang/{id_keranjang}")
+    Call<ResHapusKeranjang> hapusProdukKeranjang(@Path("id_keranjang") String idKeranjang);
 
 }
 

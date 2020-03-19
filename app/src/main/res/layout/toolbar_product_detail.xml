@@ -16,7 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="25dp"
-        android:fontFamily="@font/roboto_medium"
+
         android:text="Search : Mobile"
         android:textColor="@color/white"
         android:textSize="16.7sp" />
@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginRight="15dp"
-            android:fontFamily="@font/roboto_medium"
+
             android:text="2 items"
             android:textColor="@color/white"
             android:textSize="13.3sp" />
