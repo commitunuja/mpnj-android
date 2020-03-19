@@ -129,6 +129,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
         nama.setText(model.getNama_produk());
         harga.setText("Rp " +model.getHarga());
         addjumlah.setText(model.getJumlah());
+        stok.setText(model.getStock());
         Glide.with(convertView.getContext())
                 .load(CONSTANTS.SUB_DOMAIN + model.getGambar())
                 .apply(new RequestOptions().override(350, 550))
