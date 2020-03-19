@@ -90,6 +90,7 @@ public class KeranjangDetailActivity extends AppCompatActivity {
                                 String jumlah = childLink.get(j).getJumlah();
                                 String foto = childLink.get(j).getFoto();
                                 child.add(new ChildModel(idKeranjang, namaProduk, hargaJual, jumlah, foto));
+                                String stock = childLink.get(j).getStok();
 
                             }
                             listChild.put(listHeader.get(i), child);
