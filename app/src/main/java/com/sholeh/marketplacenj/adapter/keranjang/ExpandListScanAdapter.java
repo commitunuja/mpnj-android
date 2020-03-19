@@ -153,6 +153,17 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
                 count++;
                 addjumlah.setText(String.valueOf(count));
              //   Toast.makeText(context,"cont"+ String.valueOf(count), Toast.LENGTH_SHORT).show();
+                int count = Integer.valueOf(addjumlah.getText().toString());
+                int stokproduk = Integer.valueOf(stok.getText().toString());
+//                int hargatotalproduk = Integer.valueOf(harga.getText().toString());
+
+                if (count < stokproduk) {
+                    count++;
+                    addjumlah.setText("" + count);
+//                    harga.setText(String.valueOf(hargatotalproduk *count));
+                } else if (count == stokproduk) {
+                    Toast.makeText(context, "Stok Barang Hanya Tersedia " + stokproduk, Toast.LENGTH_SHORT).show();
+                }
             }
         });
         decrement.setOnClickListener(new View.OnClickListener() {
