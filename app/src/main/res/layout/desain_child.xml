@@ -35,6 +35,28 @@
                 android:textColor="@color/black"
                 android:textSize="13.3sp" />
 
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+            <customfonts.MyTextView_Roboto_Medium
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:letterSpacing="0.03"
+                android:text="Stok : "
+                android:textColor="@color/black"
+                android:textSize="13.3sp" />
+                <customfonts.MyTextView_Roboto_Medium
+                    android:id="@+id/txtstock"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:letterSpacing="0.03"
+                    android:text="20 "
+                    android:textColor="@color/black"
+                    android:textSize="13.3sp" />
+            </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
