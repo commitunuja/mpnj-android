@@ -47,14 +47,10 @@ public class KeranjangDetailActivity extends AppCompatActivity {
     Preferences preferences;
     String id_konsumen;
     int hargaJual;
-    private double hargaTotal;
+    private double setharga, hargaTotal;
     Locale localeID = new Locale("in", "ID");
     NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
-
-
-
-
-
+    StringTokenizer st;
 
 
     @Override
@@ -75,9 +71,7 @@ public class KeranjangDetailActivity extends AppCompatActivity {
     }
 
 
-
-
-    public void getDetailKeranjang(){
+    public void getDetailKeranjang() {
 //        if (!NetworkUtility.isNetworkConnected(KeranjangDetailActivity.this)){
 //            AppUtilits.displayMessage(KeranjangDetailActivity.this,  getString(R.string.network_not_connected));
 //
@@ -86,7 +80,7 @@ public class KeranjangDetailActivity extends AppCompatActivity {
 
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
 
-        Call<ResDetailKeranjang> call = service.getDataDetailKeranjang("konsumen",id_konsumen);
+        Call<ResDetailKeranjang> call = service.getDataDetailKeranjang("konsumen", id_konsumen);
 
         listHeader = new ArrayList<>();
         listChild = new HashMap<>();
@@ -110,7 +104,7 @@ public class KeranjangDetailActivity extends AppCompatActivity {
 
                             List<ChildModel> child = new ArrayList<>();
                             List<ItemKeranjang> childLink = array.get(i).getItem();
-                            for (int j = 0; j < childLink.size();  j++) {
+                            for (int j = 0; j < childLink.size(); j++) {
                                 String idKeranjang = childLink.get(j).getIdKeranjang();
                                 String namaProduk = childLink.get(j).getNamaProduk();
                                 hargaJual = Integer.parseInt(String.valueOf(childLink.get(j).getHargaJual()));
@@ -133,16 +127,17 @@ public class KeranjangDetailActivity extends AppCompatActivity {
                             listView.expandGroup(i);
                         }
 
-                    }else {
+                    } else {
                         AppUtilits.displayMessage(KeranjangDetailActivity.this, getString(R.string.network_error));
                     }
-                    String totalnya = String.valueOf(response.body().getTotalHarganya());
-                    tvx_total.setText("Rp "+totalnya);
+
+                    double totalnya = response.body().getTotalHarganya();
+                    st = new StringTokenizer(formatRupiah.format(totalnya), ",");
+                    String splitotal = st.nextToken().trim();
+                    tvx_total.setText(splitotal);
 
 
-//                    Toast.makeText(KeranjangDetailActivity.this, ""+response.body().getTotal(), Toast.LENGTH_SHORT).show();
-
-                }else {
+                } else {
                     AppUtilits.displayMessage(KeranjangDetailActivity.this, getString(R.string.network_error));
                 }
 
@@ -155,7 +150,7 @@ public class KeranjangDetailActivity extends AppCompatActivity {
 //                AppUtilits.displayMessage(KeranjangDetailActivity.this, getString(R.string.fail_toGetcart));
 
                 Log.d("cekkk", String.valueOf(t));
-                Toast.makeText(KeranjangDetailActivity.this, "cekk"+t, Toast.LENGTH_SHORT).show();
+                Toast.makeText(KeranjangDetailActivity.this, "cekk" + t, Toast.LENGTH_SHORT).show();
                 listHeader.clear();
                 listChild.clear();
 
@@ -169,9 +164,9 @@ public class KeranjangDetailActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             String qty = intent.getStringExtra("total");
-            hargaTotal =Double.parseDouble(qty);
-            StringTokenizer st = new StringTokenizer(formatRupiah.format(hargaTotal), ",");
-            String harganya =  st.nextToken().trim();
+            hargaTotal = Double.parseDouble(qty);
+            st = new StringTokenizer(formatRupiah.format(hargaTotal), ",");
+            String harganya = st.nextToken().trim();
             tvx_total.setText(harganya);
 
 
