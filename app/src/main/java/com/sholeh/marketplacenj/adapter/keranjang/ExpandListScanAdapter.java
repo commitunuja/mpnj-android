@@ -56,7 +56,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
     Double vdiskon;
     Locale localeID = new Locale("in", "ID");
     NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
-
+    StringTokenizer st;
 
 //    private boolean buka = true;
 //    private static int currentPosition = 0;
@@ -174,7 +174,9 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 
         addjumlah.setText(String.valueOf(jumlah));
         int hitungJumHarga = jumlah * hargaProduk;
-        harga.setText("Rp " + hitungJumHarga);
+        st = new StringTokenizer(formatRupiah.format(hitungJumHarga), ",");
+        String hargajum =  st.nextToken().trim();
+        harga.setText(hargajum);
 
         Glide.with(convertView.getContext())
                 .load(CONSTANTS.SUB_DOMAIN + model.getGambar())
@@ -185,9 +187,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 
         double h = vdiskon / 100 * hargaProduk;
         double p = hargaProduk - h;
-//        String dStr = String.valueOf(p);
-//        String value = dStr.matches("\\d+\\.\\d*[1-9]\\d*") ? dStr : dStr.substring(0, dStr.indexOf("."));
-        StringTokenizer st = new StringTokenizer(formatRupiah.format(p), ",");
+        st = new StringTokenizer(formatRupiah.format(hitungJumHarga), ",");
         String harganya =  st.nextToken().trim();
         if (model.getDiskon() == 0) {
 
@@ -198,7 +198,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
             hargaDiskon.setText(harganya);
 
         }
-//        subtotal.setText(model.getHarga() + model.getJumlah());
+
         increment.setOnClickListener(new View.OnClickListener() {
 
 
