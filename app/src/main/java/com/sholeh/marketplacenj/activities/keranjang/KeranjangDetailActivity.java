@@ -1,5 +1,9 @@
 package com.sholeh.marketplacenj.activities.keranjang;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ExpandableListView;
@@ -7,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.sholeh.marketplacenj.util.api.APIInterface;
 import com.sholeh.marketplacenj.R;
@@ -36,6 +41,7 @@ public class KeranjangDetailActivity extends AppCompatActivity {
 
     Preferences preferences;
     String id_konsumen;
+    int hargaJual;
 
 
     @Override
@@ -48,6 +54,9 @@ public class KeranjangDetailActivity extends AppCompatActivity {
 
         listView = findViewById(R.id.expListhistori);
         getDetailKeranjang();
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
+                new IntentFilter("custom-message"));
 
     }
 
@@ -75,10 +84,10 @@ public class KeranjangDetailActivity extends AppCompatActivity {
                 //  Log.e(TAG, "  ss sixe 1 ");
                 if (response.body() != null && response.isSuccessful()) {
                     if (response.body().getDataKeranjang().size() > 0) {
+                        response.body().getTotalHarganya();
 
                         listHeader.clear();
                         listChild.clear();
-
                         List<DataKeranjang> array = response.body().getDataKeranjang();
                         for (int i = 0; i < array.size(); i++) {
                             listHeader.add(new HeaderModel(response.body().getDataKeranjang().get(i).getIdToko(),
@@ -90,11 +99,14 @@ public class KeranjangDetailActivity extends AppCompatActivity {
                             for (int j = 0; j < childLink.size();  j++) {
                                 String idKeranjang = childLink.get(j).getIdKeranjang();
                                 String namaProduk = childLink.get(j).getNamaProduk();
-                                String hargaJual = childLink.get(j).getHargaJual();
-                                String jumlah = childLink.get(j).getJumlah();
+                                hargaJual = Integer.parseInt(String.valueOf(childLink.get(j).getHargaJual()));
+                                int diskon = Integer.parseInt((childLink.get(j).getDiskon()));
+                                int jumlah = Integer.parseInt(String.valueOf(childLink.get(j).getJumlah()));
                                 String foto = childLink.get(j).getFoto();
-                                String stok = childLink.get(j).getStok();
-                                child.add(new ChildModel(idKeranjang, namaProduk, hargaJual, jumlah, foto, stok));
+                                int stok = Integer.parseInt(String.valueOf(childLink.get(j).getStok()));
+
+
+                                child.add(new ChildModel(idKeranjang, namaProduk, hargaJual, diskon, jumlah, foto, stok));
 
                             }
                             listChild.put(listHeader.get(i), child);
@@ -110,7 +122,7 @@ public class KeranjangDetailActivity extends AppCompatActivity {
                     }else {
                         AppUtilits.displayMessage(KeranjangDetailActivity.this, getString(R.string.network_error));
                     }
-                    String totalnya = String.valueOf(response.body().getTotal());
+                    String totalnya = String.valueOf(response.body().getTotalHarganya());
                     tvx_total.setText("Rp "+totalnya);
 
 
@@ -130,6 +142,8 @@ public class KeranjangDetailActivity extends AppCompatActivity {
 
                 Log.d("cekkk", String.valueOf(t));
                 Toast.makeText(KeranjangDetailActivity.this, "cekk"+t, Toast.LENGTH_SHORT).show();
+                listHeader.clear();
+                listChild.clear();
 
 
             }
@@ -137,4 +151,14 @@ public class KeranjangDetailActivity extends AppCompatActivity {
 //        }
     }
 
+    public BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Get extra data included in the Intent
+
+            String qty = intent.getStringExtra("total");
+            tvx_total.setText("Rp "+qty);
+
+        }
+    };
 }
