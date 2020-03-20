@@ -25,9 +25,11 @@ import com.sholeh.marketplacenj.model.keranjang.HeaderModel;
 import com.sholeh.marketplacenj.util.AppUtilits;
 import com.sholeh.marketplacenj.util.Preferences;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -42,6 +44,9 @@ public class KeranjangDetailActivity extends AppCompatActivity {
     Preferences preferences;
     String id_konsumen;
     int hargaJual;
+    Locale localeID = new Locale("in", "ID");
+    NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
+
 
 
     @Override
@@ -154,10 +159,11 @@ public class KeranjangDetailActivity extends AppCompatActivity {
     public BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            // Get extra data included in the Intent
-
             String qty = intent.getStringExtra("total");
-            tvx_total.setText("Rp "+qty);
+            
+
+//            tvx_total.setText("Rp "+ Double.parseDouble(formatRupiah.format(String.valueOf((double)qty))));
+
 
         }
     };

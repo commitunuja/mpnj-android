@@ -81,6 +81,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
     String id_konsumen;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

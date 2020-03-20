@@ -33,9 +33,11 @@ import com.sholeh.marketplacenj.util.Preferences;
 import com.sholeh.marketplacenj.util.ServiceGenerator;
 import com.sholeh.marketplacenj.util.api.APIInterface;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -51,6 +53,8 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
     Preferences preferences;
     String id_konsumen;
     Double vdiskon;
+    Locale localeID = new Locale("in", "ID");
+    NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
 
 
 //    private boolean buka = true;
@@ -380,4 +384,3 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
     }
 
 }
-
