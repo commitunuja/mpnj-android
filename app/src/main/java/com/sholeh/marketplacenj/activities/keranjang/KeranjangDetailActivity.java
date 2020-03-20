@@ -25,11 +25,14 @@ import com.sholeh.marketplacenj.model.keranjang.HeaderModel;
 import com.sholeh.marketplacenj.util.AppUtilits;
 import com.sholeh.marketplacenj.util.Preferences;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.StringTokenizer;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -44,8 +47,13 @@ public class KeranjangDetailActivity extends AppCompatActivity {
     Preferences preferences;
     String id_konsumen;
     int hargaJual;
+    private double hargaTotal;
     Locale localeID = new Locale("in", "ID");
     NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
+
+
+
+
 
 
 
@@ -56,6 +64,7 @@ public class KeranjangDetailActivity extends AppCompatActivity {
         preferences = new Preferences(getApplication());
         id_konsumen = preferences.getIdKonsumen();
         tvx_total = findViewById(R.id.total);
+
 
         listView = findViewById(R.id.expListhistori);
         getDetailKeranjang();
@@ -160,9 +169,10 @@ public class KeranjangDetailActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             String qty = intent.getStringExtra("total");
-            
-
-//            tvx_total.setText("Rp "+ Double.parseDouble(formatRupiah.format(String.valueOf((double)qty))));
+            hargaTotal =Double.parseDouble(qty);
+            StringTokenizer st = new StringTokenizer(formatRupiah.format(hargaTotal), ",");
+            String harganya =  st.nextToken().trim();
+            tvx_total.setText(harganya);
 
 
         }
