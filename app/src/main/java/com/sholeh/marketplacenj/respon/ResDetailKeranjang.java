@@ -14,7 +14,7 @@ public class ResDetailKeranjang {
     private Pembeli pembeli;
     @SerializedName("total")
     @Expose
-    private Integer total;
+    private Integer totalHarganya;
 
     public List<DataKeranjang> getDataKeranjang() {
         return dataKeranjang;
@@ -32,11 +32,11 @@ public class ResDetailKeranjang {
         this.pembeli = pembeli;
     }
 
-    public Integer getTotal() {
-        return total;
+    public Integer getTotalHarganya() {
+        return totalHarganya;
     }
 
-    public void setTotal(Integer total) {
-        this.total = total;
+    public void setTotalHarganya(Integer total) {
+        this.totalHarganya = total;
     }
 }
