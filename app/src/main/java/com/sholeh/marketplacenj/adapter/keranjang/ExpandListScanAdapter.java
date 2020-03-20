@@ -56,7 +56,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
     Double vdiskon;
     Locale localeID = new Locale("in", "ID");
     NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
-    StringTokenizer st;
+    StringTokenizer st, st2, st3;
 
 //    private boolean buka = true;
 //    private static int currentPosition = 0;
@@ -185,16 +185,18 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
                 .error(R.drawable.img1)
                 .into(gambar);
 
-        double h = vdiskon / 100 * hargaProduk;
-        double p = hargaProduk - h;
-        st = new StringTokenizer(formatRupiah.format(hitungJumHarga), ",");
-        String harganya =  st.nextToken().trim();
+
         if (model.getDiskon() == 0) {
 
 
         } else {
+            double h = vdiskon / 100 * hargaProduk;
+            double p = hargaProduk - h;
+            st2 = new StringTokenizer(formatRupiah.format(p), ",");
+            String harganya =  st2.nextToken().trim();
             harga.setVisibility(View.GONE);
             hargaDiskon.setVisibility(View.VISIBLE);
+
             hargaDiskon.setText(harganya);
 
         }
@@ -217,8 +219,11 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
                         public void onResponse(Call<ResUbahJumlahProduk> call, Response<ResUbahJumlahProduk> response) {
 
                             if (response.body() != null && response.isSuccessful()) {
+                               double totjumlah = response.body().getJumlah();
+                               st3 = new StringTokenizer(formatRupiah.format(totjumlah), ",");
+                                String set =  st3.nextToken().trim();
+                                harga.setText(set);
 
-                                harga.setText("Rp " + response.body().getJumlah());
                                 getTotal();
 
 //
@@ -266,8 +271,10 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
                         public void onResponse(Call<ResUbahJumlahProduk> call, Response<ResUbahJumlahProduk> response) {
 
                             if (response.body() != null && response.isSuccessful()) {
-
-                                harga.setText("Rp " + response.body().getJumlah());
+                                double totjumlah = response.body().getJumlah();
+                                st3 = new StringTokenizer(formatRupiah.format(totjumlah), ",");
+                                String set =  st3.nextToken().trim();
+                                harga.setText(set);
                                 getTotal();
 
 //
