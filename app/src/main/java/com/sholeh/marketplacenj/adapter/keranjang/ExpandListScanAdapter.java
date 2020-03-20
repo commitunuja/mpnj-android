@@ -38,6 +38,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.StringTokenizer;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -184,15 +185,17 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 
         double h = vdiskon / 100 * hargaProduk;
         double p = hargaProduk - h;
-        String dStr = String.valueOf(p);
-        String value = dStr.matches("\\d+\\.\\d*[1-9]\\d*") ? dStr : dStr.substring(0, dStr.indexOf("."));
+//        String dStr = String.valueOf(p);
+//        String value = dStr.matches("\\d+\\.\\d*[1-9]\\d*") ? dStr : dStr.substring(0, dStr.indexOf("."));
+        StringTokenizer st = new StringTokenizer(formatRupiah.format(p), ",");
+        String harganya =  st.nextToken().trim();
         if (model.getDiskon() == 0) {
 
 
         } else {
             harga.setVisibility(View.GONE);
             hargaDiskon.setVisibility(View.VISIBLE);
-            hargaDiskon.setText("Rp"+value);
+            hargaDiskon.setText(harganya);
 
         }
 //        subtotal.setText(model.getHarga() + model.getJumlah());
