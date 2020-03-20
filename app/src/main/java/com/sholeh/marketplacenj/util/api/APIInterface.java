@@ -14,6 +14,7 @@ import com.sholeh.marketplacenj.respon.ResLogin;
 import com.sholeh.marketplacenj.respon.ResNewPassword;
 import com.sholeh.marketplacenj.respon.ResProfil;
 import com.sholeh.marketplacenj.respon.ResRegristasi;
+import com.sholeh.marketplacenj.respon.ResUbahJumlahProduk;
 
 import java.util.List;
 
@@ -171,6 +172,16 @@ public interface APIInterface {
     //  delete produk keranjang
     @DELETE("api/keranjang/{id_keranjang}")
     Call<ResHapusKeranjang> hapusProdukKeranjang(@Path("id_keranjang") String idKeranjang);
+
+
+    //  ubah jumlah keranjang
+    @FormUrlEncoded
+    @PUT("api/keranjang/ganti_jumlah/{id_keranjang}")
+    Call<ResUbahJumlahProduk> updateJumlah(
+            @Path("id_keranjang") String idKeranjang,
+            @Field("jumlah") String Jumlah);
+
+
 
 }
 
