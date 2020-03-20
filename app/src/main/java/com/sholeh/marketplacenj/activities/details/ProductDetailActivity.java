@@ -19,6 +19,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.gson.JsonObject;
+import com.sholeh.marketplacenj.activities.LoginActivity;
+import com.sholeh.marketplacenj.mfragment.FragmentProfil;
 import com.sholeh.marketplacenj.util.AppUtilits;
 import com.sholeh.marketplacenj.util.api.APIInterface;
 import com.sholeh.marketplacenj.R;
@@ -85,6 +87,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         setContentView(R.layout.activity_product_detail);
         preferences = new Preferences(getApplication());
         id_konsumen = preferences.getIdKonsumen();
+
 
 
         right1 = findViewById(R.id.right1);
@@ -167,6 +170,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         vterjual = parseInt(getIntent().getStringExtra("terjual"));
         kategoriproduk = getIntent().getStringExtra("kategori");
         vdiskon = Double.valueOf(parseInt(getIntent().getStringExtra("diskon")));
+
         vdeskripsi = getIntent().getExtras().getString("keterangan");
 //        Log.d("YOLO", "diskon");
 
@@ -181,9 +185,12 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         if (vdiskon == 0) {
             harga.setText("Rp " + vhargaproduk);
             offer.setText("");
+
         } else {
             offer.setText("Rp " + vhargaproduk);
+
             harga.setText("Rp " + value);
+
         }
 
         diskripsi.setText(vdeskripsi);
@@ -249,14 +256,31 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
     @Override
     public void onClick(View v) {
+        boolean login = preferences.getSPSudahLogin();
 
         switch (v.getId()) {
             case R.id.imgtambah:
-                addKeranjang();
+
+
+                if (login){
+                    addKeranjang();
+                }else{
+                    startActivity(new Intent(this, LoginActivity.class));
+                    finish();
+                }
+
+
+
                 break;
             case R.id.imgkeranjang:
-                Intent intent = new Intent(this, KeranjangDetailActivity.class);
-                startActivity(intent);
+                if (login){
+                    Intent intent = new Intent(this, KeranjangDetailActivity.class);
+                    startActivity(intent);
+                }else{
+                    startActivity(new Intent(this, LoginActivity.class));
+                    finish();
+                }
+
                 break;
 
 

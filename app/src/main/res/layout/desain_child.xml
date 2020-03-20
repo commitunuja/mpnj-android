@@ -81,6 +81,14 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+            </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -142,6 +150,15 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="24.3dp"
                     android:text="$288"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+                <customfonts.MyTextView_Roboto_Medium
+                    android:visibility="gone"
+                    android:id="@+id/txthargaDiskon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="24.3dp"
+                    android:text="Rp 5000"
                     android:textColor="@color/black"
                     android:textSize="15sp" />
 
