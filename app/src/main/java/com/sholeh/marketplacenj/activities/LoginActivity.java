@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sholeh.marketplacenj.activities.dashboard.Homepage;
 import com.sholeh.marketplacenj.util.api.APIInterface;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.util.ServiceGenerator;
@@ -95,7 +96,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
                         Toast.makeText(LoginActivity.this, "Sukses", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(LoginActivity.this,Utama.class);
+                        Intent intent = new Intent(LoginActivity.this, Homepage.class);
                         startActivity(intent);
                         finish();
 
