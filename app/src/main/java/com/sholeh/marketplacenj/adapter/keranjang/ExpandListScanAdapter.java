@@ -50,7 +50,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
     private List<HeaderModel> listHeaderFilter;
     private HashMap<HeaderModel, List<ChildModel>> listChild;
     String id_keranjang;
-    int hargaProduk, totalHarga,  stokProduk, jumlah;
+    int hargaProduk, totalHarga, stokProduk, jumlah;
     Preferences preferences;
     String id_konsumen;
     Double vdiskon;
@@ -175,7 +175,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
         addjumlah.setText(String.valueOf(jumlah));
         int hitungJumHarga = jumlah * hargaProduk;
         st = new StringTokenizer(formatRupiah.format(hitungJumHarga), ",");
-        String hargajum =  st.nextToken().trim();
+        String hargajum = st.nextToken().trim();
         harga.setText(hargajum);
 
         Glide.with(convertView.getContext())
@@ -192,11 +192,11 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
         } else {
             double h = vdiskon / 100 * hargaProduk;
             double p = hargaProduk - h;
-            st2 = new StringTokenizer(formatRupiah.format(p), ",");
-            String harganya =  st2.nextToken().trim();
+            double hitung = jumlah * p;
+            st2 = new StringTokenizer(formatRupiah.format(hitung), ",");
+            String harganya = st2.nextToken().trim();
             harga.setVisibility(View.GONE);
             hargaDiskon.setVisibility(View.VISIBLE);
-
             hargaDiskon.setText(harganya);
 
         }
@@ -219,10 +219,16 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
                         public void onResponse(Call<ResUbahJumlahProduk> call, Response<ResUbahJumlahProduk> response) {
 
                             if (response.body() != null && response.isSuccessful()) {
-                               double totjumlah = response.body().getJumlah();
-                               st3 = new StringTokenizer(formatRupiah.format(totjumlah), ",");
-                                String set =  st3.nextToken().trim();
+                                double totjumlah = response.body().getJumlah();
+                                st3 = new StringTokenizer(formatRupiah.format(totjumlah), ",");
+                                String set = st3.nextToken().trim();
+                                double h = vdiskon / 100 * totjumlah;
+                                double p = totjumlah - h;
+                                st2 = new StringTokenizer(formatRupiah.format(p), ",");
+                                String harganya = st2.nextToken().trim();
                                 harga.setText(set);
+                                hargaDiskon.setText(harganya);
+
 
                                 getTotal();
 
@@ -273,8 +279,15 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
                             if (response.body() != null && response.isSuccessful()) {
                                 double totjumlah = response.body().getJumlah();
                                 st3 = new StringTokenizer(formatRupiah.format(totjumlah), ",");
-                                String set =  st3.nextToken().trim();
+                                String set = st3.nextToken().trim();
+                                double h = vdiskon / 100 * totjumlah;
+                                double p = totjumlah - h;
+                                st2 = new StringTokenizer(formatRupiah.format(p), ",");
+                                String harganya =  st2.nextToken().trim();
+                                hargaDiskon.setText(harganya);
                                 harga.setText(set);
+
+
                                 getTotal();
 
 //
