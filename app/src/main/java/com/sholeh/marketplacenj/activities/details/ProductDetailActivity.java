@@ -79,6 +79,8 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
     Preferences preferences;
     String id_konsumen;
+    StringTokenizer st1, st2;
+
 
 
     @Override
@@ -113,7 +115,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         right3_imag = findViewById(R.id.right3_img);
         keranjang = findViewById(R.id.imgkeranjang);
 
-        offer = (TextView) findViewById(R.id.txtdiskon);
+        offer = findViewById(R.id.txtdiskon);
         offer.setPaintFlags(offer.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
         linear1 = (LinearLayout) findViewById(R.id.linear1);
@@ -386,16 +388,13 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 //
 //        } else {
 
-        final String harga_jual = harga.getText().toString();
-        StringTokenizer st = new StringTokenizer(harga_jual, "Rp");
-        String hargaJual = st.nextToken().trim();
 
 
 
-//        Toast.makeText(this, ""+vid_produk+" "+" "+jumlah+" "+harga_jual+ "Split :"+SplitRp, Toast.LENGTH_SHORT).show();
-        // userid
-//
-////            if (!validasi()) return;
+        if (vdiskon == 0){ // tidak ada diskon
+            final String harga_jual = harga.getText().toString();
+            st1 = new StringTokenizer(harga_jual, "Rp");
+            String hargaJual = st1.nextToken().trim();
 
         APIInterface apiKeranjang = ServiceGenerator.getRetrofit().create(APIInterface.class);
         Call<ResKeranjang> sendData = apiKeranjang.simpanKeranjang(vid_produk, id_konsumen, "konsumen", "N", String.valueOf(1),hargaJual );
@@ -427,6 +426,47 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 //                    AppUtilits.displayMessage(RegisterActivity.this,   getString(R.string.failed_request));
             }
         });
+
+        }else{
+            final String harga_ = offer.getText().toString();
+            st2 = new StringTokenizer(harga_, "Rp");
+            String hargaJual = st2.nextToken().trim();
+
+            APIInterface apiKeranjang = ServiceGenerator.getRetrofit().create(APIInterface.class);
+            Call<ResKeranjang> sendData = apiKeranjang.simpanKeranjang(vid_produk, id_konsumen, "konsumen", "N", String.valueOf(1),hargaJual );
+            sendData.enqueue(new Callback<ResKeranjang>() {
+                @Override
+                public void onResponse(Call<ResKeranjang> call, Response<ResKeranjang> response) {
+                    if (response.body() != null && response.isSuccessful()) {
+                        if (response.body().getPesan().equalsIgnoreCase("sukses")) {
+                            AppUtilits.displayMessage(ProductDetailActivity.this, getString(R.string.add_to_cart));
+
+                        } else {
+//                        Toast.makeText(ProductDetailActivity.this, "r"+response.body().getPesan(), Toast.LENGTH_SHORT).show();
+//                            AppUtilits.displayMessage(RegisterActivity.this,  response.body().getPesan());
+                        }
+                    } else {
+//                    Toast.makeText(ProductDetailActivity.this, "rr"+response.body().getPesan(), Toast.LENGTH_SHORT).show();
+
+//                        AppUtilits.displayMessage(RegisterActivity.this,   getString(R.string.failed_request));
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResKeranjang> call, Throwable t) {
+//                    Log.e(TAG, " failure " + t.toString());
+//                Toast.makeText(ProductDetailActivity.this, "rrr"+t, Toast.LENGTH_SHORT).show();
+                    Log.d("ok", String.valueOf(t));
+
+
+//                    AppUtilits.displayMessage(RegisterActivity.this,   getString(R.string.failed_request));
+                }
+            });
+
+        }
+
+
+
 
 
     }
