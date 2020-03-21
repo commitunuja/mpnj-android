@@ -269,8 +269,6 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                     finish();
                 }
 
-
-
                 break;
             case R.id.imgkeranjang:
                 if (login){
