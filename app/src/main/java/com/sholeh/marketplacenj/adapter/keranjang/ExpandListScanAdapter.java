@@ -49,17 +49,14 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
     private Context context;
     private List<HeaderModel> listHeaderFilter;
     private HashMap<HeaderModel, List<ChildModel>> listChild;
-    String id_keranjang;
     int hargaProduk, totalHarga, stokProduk, jumlah;
     Preferences preferences;
     String id_konsumen;
     Double vdiskon;
     Locale localeID = new Locale("in", "ID");
     NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
-    StringTokenizer st, st2, st3;
+    StringTokenizer st;
 
-//    private boolean buka = true;
-//    private static int currentPosition = 0;
 
 
     public ExpandListScanAdapter(Context context, List<HeaderModel> listHeader, HashMap<HeaderModel, List<ChildModel>> listChild) {
@@ -115,11 +112,9 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
         TextView no_pelanggan = convertView.findViewById(R.id.tvxIdToko);
 
 
-//        ImageView img = convertView.findViewById(R.id.imgExpan);
+
         nama_kk.setText(model.getNama_toko());
         no_pelanggan.setText(model.getId_toko());
-
-
         ImageView img = convertView.findViewById(R.id.imgpanah);
 
         if (isExpanded) {
@@ -129,8 +124,6 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
             img.setImageResource(R.drawable.ic_keyboard_arrow_down_grey_24dp);
             // Toast.makeText(context, ""+isExpanded, Toast.LENGTH_SHORT).show();
         }
-
-
         return convertView;
     }
 
@@ -138,22 +131,19 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         final ChildModel model = (ChildModel) getChild(groupPosition, childPosition);
-        id_keranjang = model.getId_keranjang();
+        String id_keranjang = model.getId_keranjang();
         preferences = new Preferences(context);
         id_konsumen = preferences.getIdKonsumen();
 
-
         LayoutInflater inflater2 = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         convertView = inflater2.inflate(R.layout.desain_child, null);
-//        convertView = inflater2.inflate(R.layout.activity_keranjang_detail, null);
-//        LayoutInflater inflater3 = (LayoutInflater)this.context.getSystemService(context.LAYOUT_INFLATER_SERVICE)
 
         LinearLayout viewline, increment, decrement;
         final TextView addjumlah, stok, harga, hargaDiskon;
         final ImageView delete_item;
 
-//        TextView idproduk = convertView.findViewById(R.id.txtIDPRODUK);
         TextView nama = convertView.findViewById(R.id.txtnamaPRODUK);
+        TextView tvxIdKeranjang = convertView.findViewById(R.id.txtIdkerenjang);
         harga = convertView.findViewById(R.id.txtharga);
         hargaDiskon = convertView.findViewById(R.id.txthargaDiskon);
         ImageView gambar = convertView.findViewById(R.id.img_gambarkeranjang);
@@ -163,14 +153,13 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
         decrement = convertView.findViewById(R.id.decrement);
         delete_item = convertView.findViewById(R.id.cart_delete);
 
-
-//        idproduk.setText(model.getId_produk());
         hargaProduk = model.getHarga();
         stokProduk = model.getStok();
         jumlah = model.getJumlah();
         vdiskon = Double.parseDouble(String.valueOf(Integer.parseInt(String.valueOf(model.getDiskon()))));
         stok.setText(String.valueOf(stokProduk));
         nama.setText(model.getNama_produk());
+        tvxIdKeranjang.setText(String.valueOf(id_keranjang));
 
         addjumlah.setText(String.valueOf(jumlah));
         int hitungJumHarga = jumlah * hargaProduk;
@@ -193,21 +182,20 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
             double h = vdiskon / 100 * hargaProduk;
             double p = hargaProduk - h;
             double hitung = jumlah * p;
-            st2 = new StringTokenizer(formatRupiah.format(hitung), ",");
-            String harganya = st2.nextToken().trim();
+            st = new StringTokenizer(formatRupiah.format(hitung), ",");
+            String harganya = st.nextToken().trim();
             harga.setVisibility(View.GONE);
             hargaDiskon.setVisibility(View.VISIBLE);
             hargaDiskon.setText(harganya);
 
         }
-
         increment.setOnClickListener(new View.OnClickListener() {
-
-
             @Override
             public void onClick(View v) {
                 int count = Integer.valueOf(addjumlah.getText().toString());
                 int stokproduk = Integer.valueOf(stok.getText().toString());
+                String id_keranjang = model.getId_keranjang();
+                final double potongandiskon = Double.parseDouble(String.valueOf(Integer.parseInt(String.valueOf(model.getDiskon()))));
 
                 if (count < stokproduk) {
                     count++;
@@ -219,31 +207,24 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
                         public void onResponse(Call<ResUbahJumlahProduk> call, Response<ResUbahJumlahProduk> response) {
 
                             if (response.body() != null && response.isSuccessful()) {
-                                double totjumlah = response.body().getJumlah();
-                                st3 = new StringTokenizer(formatRupiah.format(totjumlah), ",");
-                                String set = st3.nextToken().trim();
-                                double h = vdiskon / 100 * totjumlah;
-                                double p = totjumlah - h;
-                                st2 = new StringTokenizer(formatRupiah.format(p), ",");
-                                String harganya = st2.nextToken().trim();
-                                harga.setText(set);
+                                double tot = response.body().getJumlah();
+                                st = new StringTokenizer(formatRupiah.format(tot), ",");
+                                String sett = st.nextToken().trim();
+                                harga.setText(sett);
+
+                                double h = potongandiskon / 100 * tot;
+                                double p = tot - h;
+                                st = new StringTokenizer(formatRupiah.format(p), ",");
+                                String harganya = st.nextToken().trim();
+
                                 hargaDiskon.setText(harganya);
-
-
                                 getTotal();
 
-//
-//                                    if (response.body().getInformation().getStatus().equalsIgnoreCase("successful update cart")){
-//                                        ((KeranjangDetailActivity) mContext).cart_totalamt.setText(  "$ " + response.body().getInformation().getTotalprice());
-//                                    }
-//
-//
                             } else {
                                 Toast.makeText(context, "" + response.body(), Toast.LENGTH_SHORT).show();
 //                                AppUtilits.displayMessage(mContext, mContext.getString(R.string.network_error));
                             }
                         }
-
 
                         @Override
                         public void onFailure(Call<ResUbahJumlahProduk> call, Throwable t) {
@@ -253,8 +234,6 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
                     });
 
 //        }
-
-
                 } else if (count == stokproduk) {
                     Toast.makeText(context, "Stok Barang Hanya Tersedia " + stokproduk, Toast.LENGTH_SHORT).show();
                 }
@@ -265,7 +244,9 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
             @Override
             public void onClick(View v) {
                 int count = Integer.valueOf(addjumlah.getText().toString());
-                int hargatotalproduk = Integer.valueOf(harga.getText().toString());
+                String id_keranjang = model.getId_keranjang();
+                final double potongandiskon = Double.parseDouble(String.valueOf(Integer.parseInt(String.valueOf(model.getDiskon()))));
+
                 if (count > 1) {
                     count--;
                     addjumlah.setText("" + count);
@@ -277,24 +258,18 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
                         public void onResponse(Call<ResUbahJumlahProduk> call, Response<ResUbahJumlahProduk> response) {
 
                             if (response.body() != null && response.isSuccessful()) {
+
                                 double totjumlah = response.body().getJumlah();
-                                st3 = new StringTokenizer(formatRupiah.format(totjumlah), ",");
-                                String set = st3.nextToken().trim();
-                                double h = vdiskon / 100 * totjumlah;
+                                st = new StringTokenizer(formatRupiah.format(totjumlah), ",");
+                                String set = st.nextToken().trim();
+                                double h = potongandiskon / 100 * totjumlah;
                                 double p = totjumlah - h;
-                                st2 = new StringTokenizer(formatRupiah.format(p), ",");
-                                String harganya =  st2.nextToken().trim();
+                                st = new StringTokenizer(formatRupiah.format(p), ",");
+                                String harganya =  st.nextToken().trim();
                                 hargaDiskon.setText(harganya);
                                 harga.setText(set);
 
-
                                 getTotal();
-
-//
-//                                    if (response.body().getInformation().getStatus().equalsIgnoreCase("successful update cart")){
-//                                        ((KeranjangDetailActivity) mContext).cart_totalamt.setText(  "$ " + response.body().getInformation().getTotalprice());
-//                                    }
-//
 //
                             } else {
                                 Toast.makeText(context, "" + response.body(), Toast.LENGTH_SHORT).show();
@@ -316,6 +291,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
         delete_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String id_keranjang = model.getId_keranjang();
 
                 //        if (!NetworkUtility.isNetworkConnected(mContext)){
 //            AppUtilits.displayMessage(mContext,  mContext.getString(R.string.network_not_connected));
@@ -376,9 +352,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
         //  Log.e(TAG, "  user value "+ SharePreferenceUtils.getInstance().getString(Constant.USER_DATA));
 
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-
         Call<ResDetailKeranjang> call = service.getDataDetailKeranjang("konsumen", id_konsumen);
-
         call.enqueue(new Callback<ResDetailKeranjang>() {
             @Override
             public void onResponse(Call<ResDetailKeranjang> call, retrofit2.Response<ResDetailKeranjang> response) {
@@ -388,7 +362,6 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
                 LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
 
                 //    tvx_total.setText("Rp "+totalHarga);
-
             }
 
             @Override
@@ -399,8 +372,6 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 
                 Log.d("cekkk", String.valueOf(t));
                 Toast.makeText(context, "cekk" + t, Toast.LENGTH_SHORT).show();
-
-
             }
         });
 //        }
