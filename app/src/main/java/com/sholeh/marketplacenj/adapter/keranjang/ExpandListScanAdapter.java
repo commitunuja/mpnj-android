@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -17,6 +18,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.sholeh.marketplacenj.activities.keranjang.KeranjangDetailActivity;
+import com.sholeh.marketplacenj.model.keranjang.FirstModel;
 import com.sholeh.marketplacenj.respon.DataKeranjang;
 import com.sholeh.marketplacenj.respon.ItemKeranjang;
 import com.sholeh.marketplacenj.respon.ResDetailKeranjang;
@@ -375,6 +377,21 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
             }
         });
 //        }
+    }
+
+    class FirstHolder {
+        TextView tv;
+        CheckBox cb;
+    }
+
+    class SecondHolder {
+        TextView tv;
+        CheckBox cb;
+    }
+
+    class ThirdHolder{
+        TextView tv;
+        CheckBox cb;
     }
 
 }
