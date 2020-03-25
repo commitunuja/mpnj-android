@@ -54,7 +54,7 @@
                     android:id="@+id/total"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Rp 0"
+                    android:text="Rp0"
                     android:textSize="18.3sp"
                     android:letterSpacing="0"
                     android:textColor="@color/black"

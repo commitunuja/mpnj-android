@@ -91,6 +91,8 @@ public class KeranjangDetailActivity extends AppCompatActivity {
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
                 new IntentFilter("custom-message"));
 
+
+
     }
 
 
@@ -155,10 +157,10 @@ public class KeranjangDetailActivity extends AppCompatActivity {
                         AppUtilits.displayMessage(KeranjangDetailActivity.this, getString(R.string.network_error));
                     }
 
-                    double totalnya = response.body().getTotalHarganya();
-                    st = new StringTokenizer(formatRupiah.format(totalnya), ",");
-                    String splitotal = st.nextToken().trim();
-                    tvx_total.setText(splitotal);
+//                    double totalnya = response.body().getTotalHarganya();
+//                    st = new StringTokenizer(formatRupiah.format(totalnya), ",");
+//                    String splitotal = st.nextToken().trim();
+//                    tvx_total.setText(splitotal);
 
 
                 } else {

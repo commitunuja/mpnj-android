@@ -50,6 +50,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ExpandListScanAdapter extends BaseExpandableListAdapter {
+    int totot = 0;
     private Context context;
     private List<HeaderModel> listHeaderFilter;
 
@@ -265,6 +266,79 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
             harga.setText(harganya);
 
         }
+
+        cbchild.setChecked(childModel.isChecked());
+        cbchild.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final boolean nowBeanChecked = childModel.isChecked();
+                childModel.setIsChecked(!nowBeanChecked);
+
+                String harganya = harga.getText().toString();
+                String[] nomor = harganya.split("Rp");
+                String[] nomor2 = nomor[1].split("\\.");
+                String har = "";
+                for (int i = 0; i < nomor2.length; i++){
+                    har = har+ nomor2[i];
+                }
+                if(childModel.isChecked()){
+                    totot +=  Integer.parseInt(har);
+                }else{
+                    totot -=  Integer.parseInt(har);
+                }
+                Intent intent = new Intent("custom-message");
+                intent.putExtra("total", String.valueOf(totot));
+                LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+
+
+//               int jumlah = 0;
+//               String harganormal =harga.getText().toString();
+//                st = new StringTokenizer(harganormal, "Rp");
+//                String sett = st.nextToken().trim();
+
+//                Toast.makeText(context, ""+, Toast.LENGTH_SHORT).show();
+
+//               int hargandiskon = Integer.parseInt(hargaDiskon.getText().toString());
+
+//
+//                if (model.getDiskon() == 0) {
+////                    jumlah += harganormal+hargandiskon;
+//                    Toast.makeText(context, ""+sett, Toast.LENGTH_SHORT).show();
+//
+//
+//                } else {
+//                    Toast.makeText(context, ""+hargaDiskon.getText(), Toast.LENGTH_SHORT).show();
+////                    double h = vdiskon / 100 * hargaProduk;
+////                    double p = hargaProduk - h;
+////                    double hitung = jumlah * p;
+////                    st = new StringTokenizer(formatRupiah.format(hitung), ",");
+////                    String harganya = st.nextToken().trim();
+//////            harga.setVisibility(View.GONE);
+////                    harga.setPaintFlags(harga.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+////                    harga.setTextColor(context.getResources().getColor(R.color.redTransparent));
+////                    harga.setTypeface(harga.getTypeface(), Typeface.NORMAL);
+////                    hargaDiskon.setVisibility(View.VISIBLE);
+////                    hargaDiskon.setText(harganya);
+//
+//                }
+
+
+//
+//                boolean isOneParentAllChildIsChecked = dealOneParentAllChildIsChecked(groupPosition);
+//                Log.d(TAG, "getChildView:onClick:  ==============");
+//                Log.d(TAG, "getChildView:onClick:isOneParentAllChildIsChecked:" + isOneParentAllChildIsChecked);
+//
+//                HeaderModel headerModel = (HeaderModel) listHeaderFilter.get(groupPosition);
+//                headerModel.setIsChecked(isOneParentAllChildIsChecked);
+//
+//
+//                notifyDataSetChanged();
+
+//                onAllCheckedBoxNeedChangeListener.onCheckedBoxNeedChange(dealAllParentIsChecked());
+//                dealPrice();
+            }
+        });
+
         increment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -437,61 +511,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
             }
         });
 
-        cbchild.setChecked(childModel.isChecked());
-        cbchild.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final boolean nowBeanChecked = childModel.isChecked();
-                //更新数据
-                childModel.setIsChecked(!nowBeanChecked);
 
-//               int jumlah = 0;
-//               String harganormal =harga.getText().toString();
-//                st = new StringTokenizer(harganormal, "Rp");
-//                String sett = st.nextToken().trim();
-
-//                Toast.makeText(context, ""+, Toast.LENGTH_SHORT).show();
-
-//               int hargandiskon = Integer.parseInt(hargaDiskon.getText().toString());
-
-
-                if (model.getDiskon() == 0) {
-//                    jumlah += harganormal+hargandiskon;
-//                    Toast.makeText(context, ""+sett, Toast.LENGTH_SHORT).show();
-
-
-                } else {
-                    Toast.makeText(context, ""+hargaDiskon.getText(), Toast.LENGTH_SHORT).show();
-//                    double h = vdiskon / 100 * hargaProduk;
-//                    double p = hargaProduk - h;
-//                    double hitung = jumlah * p;
-//                    st = new StringTokenizer(formatRupiah.format(hitung), ",");
-//                    String harganya = st.nextToken().trim();
-////            harga.setVisibility(View.GONE);
-//                    harga.setPaintFlags(harga.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-//                    harga.setTextColor(context.getResources().getColor(R.color.redTransparent));
-//                    harga.setTypeface(harga.getTypeface(), Typeface.NORMAL);
-//                    hargaDiskon.setVisibility(View.VISIBLE);
-//                    hargaDiskon.setText(harganya);
-
-                }
-
-
-//
-//                boolean isOneParentAllChildIsChecked = dealOneParentAllChildIsChecked(groupPosition);
-//                Log.d(TAG, "getChildView:onClick:  ==============");
-//                Log.d(TAG, "getChildView:onClick:isOneParentAllChildIsChecked:" + isOneParentAllChildIsChecked);
-//
-//                HeaderModel headerModel = (HeaderModel) listHeaderFilter.get(groupPosition);
-//                headerModel.setIsChecked(isOneParentAllChildIsChecked);
-//
-//
-//                notifyDataSetChanged();
-
-//                onAllCheckedBoxNeedChangeListener.onCheckedBoxNeedChange(dealAllParentIsChecked());
-//                dealPrice();
-            }
-        });
 
 
         return convertView;
@@ -602,9 +622,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
             @Override
             public void onResponse(Call<ResDetailKeranjang> call, retrofit2.Response<ResDetailKeranjang> response) {
                 totalHarga = Integer.parseInt(String.valueOf(response.body().getTotalHarganya()));
-                Intent intent = new Intent("custom-message");
-                intent.putExtra("total", String.valueOf(totalHarga));
-                LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+
 
                 //    tvx_total.setText("Rp "+totalHarga);
             }
