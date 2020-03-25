@@ -64,12 +64,21 @@
         </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="13.3dp"
-        android:gravity="center_horizontal"
         android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/cb_select_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:background="@null"
+            android:text=" Pilih semua" />
 
         <customfonts.MyTextView_Roboto_Medium
             android:visibility="gone"
@@ -84,14 +93,15 @@
             android:textSize="13.3sp" />
 
         <customfonts.MyTextView_Roboto_Medium
-            android:layout_width="158dp"
+            android:layout_marginRight="21dp"
+            android:layout_alignParentEnd="true"
+            android:layout_width="108dp"
             android:layout_height="40dp"
-            android:layout_marginLeft="10dp"
             android:background="@drawable/button_rect"
             android:gravity="center"
             android:letterSpacing="0.03"
             android:text="Checkout"
             android:textColor="@color/white"
             android:textSize="13.3sp" />
-    </LinearLayout>
+    </RelativeLayout>
 </LinearLayout>
