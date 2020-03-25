@@ -54,6 +54,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
     private Context context;
     private List<HeaderModel> listHeaderFilter;
 
+
     private HashMap<HeaderModel, List<ChildModel>> listChild;
     private List<ChildModel> anak;
     int hargaProduk, totalHarga, stokProduk, jumlah;
@@ -283,8 +284,12 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
                 }
                 if(childModel.isChecked()){
                     totot +=  Integer.parseInt(har);
+                    Toast.makeText(context, "tot"+totot, Toast.LENGTH_SHORT).show();
+
                 }else{
                     totot -=  Integer.parseInt(har);
+                    Toast.makeText(context, "tot"+totot, Toast.LENGTH_SHORT).show();
+
                 }
                 Intent intent = new Intent("custom-message");
                 intent.putExtra("total", String.valueOf(totot));
@@ -339,9 +344,11 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
             }
         });
 
+        cbchild.setChecked(childModel.isChecked());
         increment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 int count = Integer.valueOf(addjumlah.getText().toString());
                 int stokproduk = Integer.valueOf(stok.getText().toString());
                 String id_keranjang = model.getId_keranjang();
@@ -368,12 +375,29 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
                                     harga.setText(sett);
 //                                    hargaDiskon.setText(hargajum);
 
+//                                    String hargaaa = harga.getText().toString();
+//                                    String[] nomor = hargaaa.split("Rp");
+//                                    String[] nomor2 = nomor[1].split("\\.");
+//                                    String har = "";
+//                                    for (int i = 0; i < nomor2.length; i++){
+//                                        har = har+ nomor2[i];
+//                                    }
+                                    if(childModel.isChecked()){
+
+                                        totot +=  model.getHarga();
+                                        Intent intent = new Intent("custom-message");
+                                        intent.putExtra("total", String.valueOf(totot));
+                                        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+                                        Toast.makeText(context, "epele"+totot, Toast.LENGTH_SHORT).show();
+                                    }
+
                                 }else {
                                     int hargaProduk = model.getHarga();
                                     int jumlahProduk = Integer.parseInt(String.valueOf(addjumlah.getText()));
                                     int hitung = jumlahProduk* hargaProduk;
-                                    double h = potongandiskon / 100 * tot;
-                                    double p = tot - h;
+                                    double h = potongandiskon / 100 * hargaProduk;
+                                    double v = hargaProduk - h;
+                                    double p = v * jumlahProduk;
                                     st = new StringTokenizer(formatRupiah.format(p), ",");
                                     st2 = new StringTokenizer(formatRupiah.format(hitung), ",");
                                     String harganya = st.nextToken().trim();
@@ -381,6 +405,21 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
                                     harga.setText(harganya);
                                     hargaDiskon.setText(String.valueOf(totalnya));
 //                                    harga.setVisibility(View.GONE);
+//                                    String hargaaa = harga.getText().toString();
+//                                    String[] nomor = hargaaa.split("Rp");
+//                                    String[] nomor2 = nomor[1].split("\\.");
+//                                    String har = "";
+//                                    for (int i = 0; i < nomor2.length; i++){
+//                                        har = har+ nomor2[i];
+//                                    }
+                                    if(childModel.isChecked()){
+
+                                        totot +=  v;
+                                        Intent intent = new Intent("custom-message");
+                                        intent.putExtra("total", String.valueOf(totot));
+                                        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+                                        Toast.makeText(context, "epele"+totot, Toast.LENGTH_SHORT).show();
+                                    }
                                 }
 
 
@@ -410,6 +449,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
             }
         });
 
+        cbchild.setChecked(childModel.isChecked());
         decrement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -426,6 +466,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
                     call.enqueue(new Callback<ResUbahJumlahProduk>() {
                         @Override
                         public void onResponse(Call<ResUbahJumlahProduk> call, Response<ResUbahJumlahProduk> response) {
+                            int totot2 = 0;
 
                             if (response.body() != null && response.isSuccessful()) {
                                 int tot = response.body().getJumlah();
@@ -437,12 +478,29 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
                                     harga.setText(sett);
 //                                    hargaDiskon.setText(hargajum);
 
+                                    String hargaaa = harga.getText().toString();
+                                    String[] nomor = hargaaa.split("Rp");
+                                    String[] nomor2 = nomor[1].split("\\.");
+                                    String har = "";
+                                    for (int i = 0; i < nomor2.length; i++){
+                                        har = har+ nomor2[i];
+                                    }
+                                    if(childModel.isChecked()){
+
+                                        totot -=  model.getHarga();
+//                                        Intent intent = new Intent("custom-message");
+//                                        intent.putExtra("total", String.valueOf(totot));
+//                                        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+                                        Toast.makeText(context, "epele"+totot2, Toast.LENGTH_SHORT).show();
+                                    }
+
                                 }else {
                                     int hargaProduk = model.getHarga();
                                     int jumlahProduk = Integer.parseInt(String.valueOf(addjumlah.getText()));
                                     int hitung = jumlahProduk* hargaProduk;
-                                    double h = potongandiskon / 100 * tot;
-                                    double p = tot - h;
+                                    double h = potongandiskon / 100 * hargaProduk;
+                                    double v = hargaProduk - h;
+                                    double p = v * jumlahProduk;
                                     st = new StringTokenizer(formatRupiah.format(p), ",");
                                     st2 = new StringTokenizer(formatRupiah.format(hitung), ",");
                                     String harganya = st.nextToken().trim();
@@ -450,7 +508,24 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
                                     harga.setText(harganya);
                                     hargaDiskon.setText(String.valueOf(totalnya));
 //                                    harga.setVisibility(View.GONE);
+                                    String hargaaa = harga.getText().toString();
+                                    String[] nomor = hargaaa.split("Rp");
+                                    String[] nomor2 = nomor[1].split("\\.");
+                                    String har = "";
+                                    for (int i = 0; i < nomor2.length; i++){
+                                        har = har+ nomor2[i];
+                                    }
+                                    if(childModel.isChecked()){
+
+                                        totot -=  v;
+                                        Intent intent = new Intent("custom-message");
+                                        intent.putExtra("total", String.valueOf(totot));
+                                        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+                                        Toast.makeText(context, "epele"+totot, Toast.LENGTH_SHORT).show();
+                                    }
                                 }
+
+
 
                                 getTotal();
 //
