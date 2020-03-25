@@ -1,8 +1,10 @@
 package com.sholeh.marketplacenj.model.keranjang;
 
-public class HeaderModel {
+public class HeaderModel { // storebean
     String id_toko;
     String nama_toko;
+
+    private boolean isChecked;
 //    String total;
 
    /* public String getTotal() {
@@ -13,9 +15,10 @@ public class HeaderModel {
         this.total = total;
     }*/
 
-    public HeaderModel(String id_toko, String nama_toko) {
+    public HeaderModel(String id_toko, String nama_toko, boolean isChecked) {
         this.id_toko = id_toko;
         this.nama_toko = nama_toko;
+        this.isChecked = isChecked;
 //        this.total = total;
     }
 
@@ -33,5 +36,13 @@ public class HeaderModel {
 
     public void setNama_toko(String nama_toko) {
         this.nama_toko = nama_toko;
+    }
+
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setIsChecked(boolean isChecked) {
+        this.isChecked = isChecked;
     }
 }
