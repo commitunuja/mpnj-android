@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.CheckBox;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -13,6 +15,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import com.google.gson.Gson;
 import com.sholeh.marketplacenj.adapter.keranjang.ExpandListScanAdapter;
 import com.sholeh.marketplacenj.util.api.APIInterface;
 import com.sholeh.marketplacenj.R;
@@ -41,6 +44,8 @@ public class KeranjangDetailActivity extends AppCompatActivity {
     private List<HeaderModel> listHeader;
     private HashMap<HeaderModel, List<ChildModel>> listChild;
     private TextView tvx_total;
+    List<ChildModel> child;
+    CheckBox cb_select_all;
 
     Preferences preferences;
     String id_konsumen;
@@ -61,6 +66,26 @@ public class KeranjangDetailActivity extends AppCompatActivity {
 
 
         listView = findViewById(R.id.expListhistori);
+        cb_select_all = findViewById(R.id.cb_select_all);
+
+        cb_select_all.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (v instanceof CheckBox) {
+//                    CheckBox checkBox = (CheckBox) v;
+//                    expanAdapter.setupAllChecked(checkBox.isChecked());
+                    Toast.makeText(KeranjangDetailActivity.this, "Pilih semua", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+//        expanAdapter.setOnAllCheckedBoxNeedChangeListener(new ExpandListScanAdapter.OnAllCheckedBoxNeedChangeListener() {
+//            @Override
+//            public void onCheckedBoxNeedChange(boolean allParentIsChecked) {
+//                cb_select_all.setChecked(allParentIsChecked);
+//            }
+//        });
+
         getDetailKeranjang();
 
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
@@ -97,10 +122,10 @@ public class KeranjangDetailActivity extends AppCompatActivity {
                         List<DataKeranjang> array = response.body().getDataKeranjang();
                         for (int i = 0; i < array.size(); i++) {
                             listHeader.add(new HeaderModel(response.body().getDataKeranjang().get(i).getIdToko(),
-                                    response.body().getDataKeranjang().get(i).getNamaToko()));
+                                    response.body().getDataKeranjang().get(i).getNamaToko(), false));
 
 
-                            List<ChildModel> child = new ArrayList<>();
+                            child = new ArrayList<>();
                             List<ItemKeranjang> childLink = array.get(i).getItem();
                             for (int j = 0; j < childLink.size(); j++) {
                                 String idKeranjang = childLink.get(j).getIdKeranjang();
@@ -112,12 +137,13 @@ public class KeranjangDetailActivity extends AppCompatActivity {
                                 int stok = Integer.parseInt(String.valueOf(childLink.get(j).getStok()));
 
 
-                                child.add(new ChildModel(idKeranjang, namaProduk, hargaJual, diskon, jumlah, foto, stok));
+                                child.add(new ChildModel(idKeranjang, namaProduk, hargaJual, diskon, jumlah, foto, stok, false));
 
                             }
                             listChild.put(listHeader.get(i), child);
 
                         }
+//                        Log.d("sholceng", new Gson().toJson(listChild));
                         expanAdapter = new ExpandListScanAdapter(KeranjangDetailActivity.this, listHeader, listChild);
                         listView.setAdapter(expanAdapter);
                         int count = expanAdapter.getGroupCount();
