@@ -53,8 +53,6 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
     int totot = 0;
     private Context context;
     private List<HeaderModel> listHeaderFilter;
-
-
     private HashMap<HeaderModel, List<ChildModel>> listChild;
     private List<ChildModel> anak;
     int hargaProduk, totalHarga, stokProduk, jumlah;
@@ -155,7 +153,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 
         TextView nama_kk = convertView.findViewById(R.id.txNamaToko);
         TextView no_pelanggan = convertView.findViewById(R.id.tvxIdToko);
-        CheckBox cbparent= convertView.findViewById(R.id.cb_select_parent);
+        final CheckBox cbparent= convertView.findViewById(R.id.cb_select_parent);
 
 
         nama_kk.setText(model.getNama_toko());
@@ -176,7 +174,19 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
             @Override
             public void onClick(View v) {
 
+//                Toast.makeText(context, "parent klik", Toast.LENGTH_SHORT).show();
 //                setupOneParentAllChildChecked(!nowBeanChecked, groupPosition);
+
+                if (cbparent.isChecked()){
+
+//                    listHeaderFilter.get(groupPosition).isChecked();
+                    for (int i = 0; i < listChild.get(); i++) {
+                        Toast.makeText(context, "truee", Toast.LENGTH_SHORT).show();
+                    }
+                    notifyDataSetChanged();
+                }else{
+                    Toast.makeText(context, "falsee", Toast.LENGTH_SHORT).show();
+                }
 //
 //                onAllCheckedBoxNeedChangeListener.onCheckedBoxNeedChange(dealAllParentIsChecked());
             }
@@ -597,21 +607,25 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
         return true;
     }
 
-//    private void setupOneParentAllChildChecked(boolean isChecked, int groupPosition) {
-//        Log.d(TAG, "setupOneParentAllChildChecked: ============");
-//        Log.d(TAG, "setupOneParentAllChildChecked: groupPosition:" + groupPosition);
-//        Log.d(TAG, "setupOneParentAllChildChecked: isChecked：" + isChecked);
-//        HeaderModel headerModel = (HeaderModel) listHeaderFilter.get(groupPosition);
-//        headerModel.setIsChecked(isChecked);
+    private void setupOneParentAllChildChecked(boolean isChecked, int groupPosition) { //b
+        Log.d(TAG, "setupOneParentAllChildChecked: ============");
+        Log.d(TAG, "setupOneParentAllChildChecked: groupPosition:" + groupPosition);
+        Log.d(TAG, "setupOneParentAllChildChecked: isChecked：" + isChecked);
+
+
+        HeaderModel headerModel =  listHeaderFilter.get(groupPosition);
+        headerModel.setIsChecked(isChecked);
 //
-//        List<ChildModel> childMapList = listChild.get(groupPosition);
+        List<ChildModel> childMapList = listChild.get(groupPosition); //b x
+
+        Toast.makeText(context, ""+childMapList, Toast.LENGTH_SHORT).show();
 //        for (int j = 0; j < childMapList.size(); j++) {
-//            ChildModel childModel = (ChildModel) childMapList.get(j);
+//            ChildModel childModel =  childMapList.get(j);
 //            childModel.setIsChecked(isChecked);
 //        }
 //        notifyDataSetChanged();
-////        dealPrice();
-//    }
+//        dealPrice();
+    }
 
 
 //
@@ -684,6 +698,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 //        TextView id_tv_goods_delete;
 
     }
+
     public void getTotal() {
 //        if (!NetworkUtility.isNetworkConnected(KeranjangDetailActivity.this)){
 //            AppUtilits.displayMessage(KeranjangDetailActivity.this,  getString(R.string.network_not_connected));
