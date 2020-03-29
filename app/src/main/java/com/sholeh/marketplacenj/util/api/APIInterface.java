@@ -38,6 +38,14 @@ public interface APIInterface {
     @GET("api/produk")
     abstract Call<List<Model>> getProduk();
 
+//    @GET("api/produk")
+//    Call<Model> getSearch(
+//            @Query("q") String nama_produk;
+//    )
+
+
+
+
     // Province get from raja ongkir
     @GET("province")
     @Headers("key:1c082f667d455277ed87334b364c9ac3")
@@ -150,6 +158,9 @@ public interface APIInterface {
 
     @GET("api/produk/{id}")
     Call<JsonObject> getProdukId(@Path("id") String id);
+
+    @GET("api/produk/cari/{nama_produk}")
+    Call<List<Model>> getAllData(@Path("nama_produk") String nama_produk);
 
 
     @FormUrlEncoded

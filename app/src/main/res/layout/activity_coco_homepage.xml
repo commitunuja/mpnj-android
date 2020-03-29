@@ -132,7 +132,18 @@
             android:nestedScrollingEnabled="false"
 
             android:id="@+id/top_ten_recyclerview"/>
-        
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:paddingTop="15dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="15dp"
+            android:nestedScrollingEnabled="false"
+
+            android:id="@+id/barang"/>
+
         
         <ImageView
             android:layout_width="match_parent"

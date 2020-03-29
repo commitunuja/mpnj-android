@@ -1,13 +1,28 @@
 package com.sholeh.marketplacenj.activities.dashboard;
 
+import android.app.SearchManager;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.app.SearchManager;
+import android.view.MenuItem;
+import android.widget.SearchView;
+import android.widget.SearchView.OnQueryTextListener;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import androidx.core.view.MenuItemCompat;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.JsonObject;
+import com.sholeh.marketplacenj.adapter.details.ViewPagerAdapter;
+import com.sholeh.marketplacenj.model.Foto;
+import com.sholeh.marketplacenj.util.CONSTANTS;
 import com.sholeh.marketplacenj.util.api.APIInterface;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.util.ServiceGenerator;
@@ -20,12 +35,19 @@ import com.sholeh.marketplacenj.model.dashboard.HomeBannerModelClass;
 import com.sholeh.marketplacenj.model.dashboard.HomeCategoryModelClass;
 import com.sholeh.marketplacenj.model.dashboard.TopTenModelClass;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static java.lang.String.valueOf;
 
 public class Homepage extends AppCompatActivity {
 
@@ -41,6 +63,7 @@ public class Homepage extends AppCompatActivity {
     private String title[] = {"All Categories", "Mens", "Womens", "Electronics", "Home and Furniture", "Sports"};
 
     //produk
+    ArrayList<Foto> tampil = new ArrayList<Foto>();
     private ProdukAdapter produkAdapter;
     private List<Model> tvDataProduk;
     private ArrayList<TopTenModelClass> topTenModelClasses;
@@ -161,13 +184,13 @@ public class Homepage extends AppCompatActivity {
 
 
         //mobile/hp samsung
-        topTenModelClasses1 = new ArrayList<>();
-
-        for (int i = 0; i < image2.length; i++) {
-            TopTenModelClass beanClassForRecyclerView_contacts = new TopTenModelClass(image2[i], title2[i], type2[i]);
-
-            topTenModelClasses1.add(beanClassForRecyclerView_contacts);
-        }
+//        topTenModelClasses1 = new ArrayList<>();
+//
+//        for (int i = 0; i < image2.length; i++) {
+//            TopTenModelClass beanClassForRecyclerView_contacts = new TopTenModelClass(image2[i], title2[i], type2[i]);
+//
+//            topTenModelClasses1.add(beanClassForRecyclerView_contacts);
+//        }
 
 
         mAdapter3 = new RecycleAdapteTopTenHome(Homepage.this, topTenModelClasses1);
@@ -206,4 +229,95 @@ public class Homepage extends AppCompatActivity {
 
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.search, menu);
+
+        Log.w("myApp", "onCreateOptionsMenu -started- ");
+
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        MenuItem menuItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) menuItem.getActionView();
+
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setQueryHint(getResources().getString(R.string.hint));
+        searchView.setOnQueryTextListener(
+                new SearchView.OnQueryTextListener() {
+                    @Override
+                    public boolean onQueryTextSubmit(String query) {
+                        Log.w("myApp", "onQueryTextSubmit ");
+                        produkAdapter.getFilter().filter(query);
+                        topTenModelClasses.clear();
+                        homeCategoryModelClasses.clear();
+                        topTenModelClasses1.clear();
+                        topTenModelClasses.clear();
+                        homeBannerModelClasses.clear();
+//                        Intent intent = new Intent(Homepage.this, SearchActivity.class);
+//                        intent.putExtra("query" , query);
+//                        startActivity(intent);
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onQueryTextChange(String newText) {
+//                        getAllData();
+//                        topTenModelClasses.addAll(topTenModelClasses);
+//                        homeCategoryModelClasses.addAll(Collections.<HomeCategoryModelClass>emptyList());
+//                        topTenModelClasses1.clear();
+//                        topTenModelClasses.clear();
+//                        homeBannerModelClasses.clear();
+//                        produkAdapter.getFilter().filter(newText);
+
+                        return false;
+                    }
+                });
+
+        return true;
+    }
+
+
+    public void getAllData() {
+        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+        Call<List<Model>> call = service.getProduk();
+
+        call.enqueue(new Callback<List<Model>>() {
+            @Override
+            public void onResponse(Call<List<Model>> call, Response<List<Model>> response) {
+                Log.d("YOLO", "coba" + response.body());
+                tvDataProduk = response.body();
+                produkAdapter = new ProdukAdapter(getBaseContext(), tvDataProduk);
+                like_recyclerview.setAdapter(produkAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<List<Model>> call, Throwable t) {
+//                Toast.makeText(getApplicationContext(), "ini"+valueOf(t), Toast.LENGTH_SHORT).show();
+
+            }
+        });
+    }
+
+//    private void LoadJson() {
+//        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+//        Call<List<Model>> call = service.getProduk();
+//
+//        call.enqueue(new Callback<List<Model>>() {
+//            @Override
+//            public void onResponse(Call<List<Model>> call, Response<List<Model>> response) {
+//
+//                tvDataProduk = response.body();
+//                produkAdapter = new ProdukAdapter(getBaseContext(), tvDataProduk);
+//                like_recyclerview.setAdapter(produkAdapter);
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<Model>> call, Throwable t) {
+//                Toast.makeText(getBaseContext(), String.valueOf(t), Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//
+//    }
 }
