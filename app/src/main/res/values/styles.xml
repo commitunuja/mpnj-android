@@ -2,7 +2,7 @@
     <style name="AppTheme" parent="AppTheme.Base">
         <!-- All customizations that are NOT specific to a particular APIInterface-level can go here. -->
     </style>
-    <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
 
         <item name="colorPrimaryDark">@color/green_semi_transparent</item>
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -15,12 +15,12 @@
         <item name="colorControlActivated">@color/colorControlActivated</item>
         <item name="colorControlHighlight">@color/colorControlHighlight</item>
 
-        <item name="android:windowNoTitle">true</item>
-        <item name="windowActionBar">false</item>  <!-- For 2.x version  -->
+<!--        <item name="android:windowNoTitle">true</item>-->
+<!--        <item name="windowActionBar">false</item>  &lt;!&ndash; For 2.x version  &ndash;&gt;-->
 
-        <item name="alertDialogTheme">@style/AppCompatAlertDialogStyle</item>
+<!--        <item name="alertDialogTheme">@style/AppCompatAlertDialogStyle</item>-->
 
-        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+<!--        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>-->
 
     </style>
     <style name="MyMenuTextAppearance1" parent="TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse">
