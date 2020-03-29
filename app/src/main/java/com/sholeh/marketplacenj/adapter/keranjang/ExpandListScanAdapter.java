@@ -140,12 +140,6 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
         GroupViewHolder groupViewHolder = null;
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.desain_parent, null);
-//            groupViewHolder = new GroupViewHolder();
-//            groupViewHolder.cb_select_parent = (CheckBox) convertView
-//                    .findViewById(R.id.cb_select_parent);
-//
-//            convertView.setTag(groupViewHolder);
-
         }else{
             groupViewHolder = (GroupViewHolder) convertView.getTag();
         }
@@ -176,32 +170,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
         cbparent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-//                Toast.makeText(context, "parent klik", Toast.LENGTH_SHORT).show();
                 setupOneParentAllChildChecked(!nowBeanChecked, groupPosition);
-//                onAllCheckedBoxNeedChangeListener.onCheckedBoxNeedChange(dealAllParentIsChecked());
-
-//                if (cbparent.isChecked()){
-//
-////                    listHeaderFilter.get(groupPosition).isChecked();
-////                    Toast.makeText(context, ""+ listChild.get(listHeaderFilter.get(groupPosition)).size(), Toast.LENGTH_SHORT).show();
-//                    for (int i = 0; i < listChild.get(listHeaderFilter.get(groupPosition)).size(); i++) {
-////                        ChildModel childModel = listChild.get(listHeaderFilter.get(groupPosition)).get(i);
-////
-////                        if (!childModel.isChecked()) {
-////                            Toast.makeText(context, "cek "+!childModel.isChecked(), Toast.LENGTH_SHORT).show();  // true
-////                        }
-//                        ChildModel childModel = listChild.get(listHeaderFilter.get(groupPosition)).get(i);
-//                        childModel.setIsChecked(true);
-//
-////                        Toast.makeText(context, "truee", Toast.LENGTH_SHORT).show();
-//                    }
-////                    notifyDataSetChanged();
-//                }else{
-//                    Toast.makeText(context, "falsee", Toast.LENGTH_SHORT).show();
-//                }
-////
-////
             }
         });
 
@@ -221,18 +190,9 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.desain_child, null);
-//            childViewHolder = new ChildViewHolder();
-//            childViewHolder.cb_select_child = (CheckBox) convertView
-//                    .findViewById(R.id.cb_select_child);
         }
 
-//        final ChildModel childModel =  listChild.get(groupPosition).get(childPosition);
         final ChildModel childModel =  model;
-//        Toast.makeText(context, "c"+childModel, Toast.LENGTH_SHORT).show();
-//        Log.d("sholcor", anak.get(childPosition).toString());
-
-
-
 
         LinearLayout viewline, increment, decrement;
         final TextView addjumlah, stok, harga, hargaDiskon;
@@ -318,51 +278,6 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
                 intent.putExtra("total", String.valueOf(totot));
                 LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
 
-
-//               int jumlah = 0;
-//               String harganormal =harga.getText().toString();
-//                st = new StringTokenizer(harganormal, "Rp");
-//                String sett = st.nextToken().trim();
-
-//                Toast.makeText(context, ""+, Toast.LENGTH_SHORT).show();
-
-//               int hargandiskon = Integer.parseInt(hargaDiskon.getText().toString());
-
-//
-//                if (model.getDiskon() == 0) {
-////                    jumlah += harganormal+hargandiskon;
-//                    Toast.makeText(context, ""+sett, Toast.LENGTH_SHORT).show();
-//
-//
-//                } else {
-//                    Toast.makeText(context, ""+hargaDiskon.getText(), Toast.LENGTH_SHORT).show();
-////                    double h = vdiskon / 100 * hargaProduk;
-////                    double p = hargaProduk - h;
-////                    double hitung = jumlah * p;
-////                    st = new StringTokenizer(formatRupiah.format(hitung), ",");
-////                    String harganya = st.nextToken().trim();
-//////            harga.setVisibility(View.GONE);
-////                    harga.setPaintFlags(harga.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-////                    harga.setTextColor(context.getResources().getColor(R.color.redTransparent));
-////                    harga.setTypeface(harga.getTypeface(), Typeface.NORMAL);
-////                    hargaDiskon.setVisibility(View.VISIBLE);
-////                    hargaDiskon.setText(harganya);
-//
-//                }
-
-
-//
-//                boolean isOneParentAllChildIsChecked = dealOneParentAllChildIsChecked(groupPosition);
-//                Log.d(TAG, "getChildView:onClick:  ==============");
-//                Log.d(TAG, "getChildView:onClick:isOneParentAllChildIsChecked:" + isOneParentAllChildIsChecked);
-//
-//                HeaderModel headerModel = (HeaderModel) listHeaderFilter.get(groupPosition);
-//                headerModel.setIsChecked(isOneParentAllChildIsChecked);
-//
-//
-//                notifyDataSetChanged();
-
-//                onAllCheckedBoxNeedChangeListener.onCheckedBoxNeedChange(dealAllParentIsChecked());
 //                dealPrice();
             }
         });
@@ -631,6 +546,30 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 //        dealPrice();
     }
 
+    public void setupAllChecked(boolean isChecked) {
+        Log.d(TAG, "setupAllChecked: ============");
+        Log.d(TAG, "setupAllChecked: isChecked：" + isChecked);
+
+        for (int i = 0; i < listHeaderFilter.size(); i++) {
+            HeaderModel headerModel =  listHeaderFilter.get(i);
+            headerModel.setIsChecked(isChecked);
+
+
+
+            List<ChildModel> childMapList = listChild.get(listHeaderFilter.get(i));
+
+//            Toast.makeText(context, ""+childMapList, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(context, ""+listChild.get(headerModel).size(), Toast.LENGTH_SHORT).show();
+            for (int j = 0; j < childMapList.size(); j++) {
+                ChildModel childModel = childMapList.get(j);
+                childModel.setIsChecked(isChecked);
+
+            }
+        }
+        notifyDataSetChanged();
+//        dealPrice();
+    }
+
 
 //
 //    public boolean dealOneParentAllChildIsChecked(int groupPosition) {
@@ -735,5 +674,8 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
     }
 
 
+    public void totalHarga(){
+
+    }
 
 }

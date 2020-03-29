@@ -72,9 +72,9 @@ public class KeranjangDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (v instanceof CheckBox) {
-//                    CheckBox checkBox = (CheckBox) v;
-//                    expanAdapter.setupAllChecked(checkBox.isChecked());
-                    Toast.makeText(KeranjangDetailActivity.this, "Pilih semua", Toast.LENGTH_SHORT).show();
+                    CheckBox checkBox = (CheckBox) v;
+                    expanAdapter.setupAllChecked(checkBox.isChecked());
+
                 }
             }
         });
