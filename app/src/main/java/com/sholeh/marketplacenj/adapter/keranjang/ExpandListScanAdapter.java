@@ -66,7 +66,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 
     private static CheckBox lastChecked = null;
     private static int lastCheckedPos = 0;
-//    OnAllCheckedBoxNeedChangeListener onAllCheckedBoxNeedChangeListener;
+    OnAllCheckedBoxNeedChangeListener onAllCheckedBoxNeedChangeListener;
 //    OnGoodsCheckedChangeListener onGoodsCheckedChangeListener;
 //    OnCheckHasGoodsListener onCheckHasGoodsListener;
 
@@ -84,9 +84,9 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 //        this.onGoodsCheckedChangeListener = onGoodsCheckedChangeListener;
 //    }
 //
-//    public void setOnAllCheckedBoxNeedChangeListener(OnAllCheckedBoxNeedChangeListener onAllCheckedBoxNeedChangeListener) {
-//        this.onAllCheckedBoxNeedChangeListener = onAllCheckedBoxNeedChangeListener;
-//    }
+    public void setOnAllCheckedBoxNeedChangeListener(OnAllCheckedBoxNeedChangeListener onAllCheckedBoxNeedChangeListener) {
+        this.onAllCheckedBoxNeedChangeListener = onAllCheckedBoxNeedChangeListener;
+    }
 
 
     public ExpandListScanAdapter(Context context, List<HeaderModel> listHeader, HashMap<HeaderModel, List<ChildModel>> listChild) {
@@ -178,22 +178,30 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
             public void onClick(View v) {
 
 //                Toast.makeText(context, "parent klik", Toast.LENGTH_SHORT).show();
-//                setupOneParentAllChildChecked(!nowBeanChecked, groupPosition);
-
-                if (cbparent.isChecked()){
-
-//                    listHeaderFilter.get(groupPosition).isChecked();
-//                    Toast.makeText(context, ""+ listChild.get(listHeaderFilter.get(groupPosition)).size(), Toast.LENGTH_SHORT).show();
-                    for (int i = 0; i < listChild.get(listHeaderFilter.get(groupPosition)).size(); i++) {
-
-//                        Toast.makeText(context, "truee", Toast.LENGTH_SHORT).show();
-                    }
-                    notifyDataSetChanged();
-                }else{
-                    Toast.makeText(context, "falsee", Toast.LENGTH_SHORT).show();
-                }
-//
+                setupOneParentAllChildChecked(!nowBeanChecked, groupPosition);
 //                onAllCheckedBoxNeedChangeListener.onCheckedBoxNeedChange(dealAllParentIsChecked());
+
+//                if (cbparent.isChecked()){
+//
+////                    listHeaderFilter.get(groupPosition).isChecked();
+////                    Toast.makeText(context, ""+ listChild.get(listHeaderFilter.get(groupPosition)).size(), Toast.LENGTH_SHORT).show();
+//                    for (int i = 0; i < listChild.get(listHeaderFilter.get(groupPosition)).size(); i++) {
+////                        ChildModel childModel = listChild.get(listHeaderFilter.get(groupPosition)).get(i);
+////
+////                        if (!childModel.isChecked()) {
+////                            Toast.makeText(context, "cek "+!childModel.isChecked(), Toast.LENGTH_SHORT).show();  // true
+////                        }
+//                        ChildModel childModel = listChild.get(listHeaderFilter.get(groupPosition)).get(i);
+//                        childModel.setIsChecked(true);
+//
+////                        Toast.makeText(context, "truee", Toast.LENGTH_SHORT).show();
+//                    }
+////                    notifyDataSetChanged();
+//                }else{
+//                    Toast.makeText(context, "falsee", Toast.LENGTH_SHORT).show();
+//                }
+////
+////
             }
         });
 
@@ -613,22 +621,13 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
     }
 
     private void setupOneParentAllChildChecked(boolean isChecked, int groupPosition) { //b
-        Log.d(TAG, "setupOneParentAllChildChecked: ============");
-        Log.d(TAG, "setupOneParentAllChildChecked: groupPosition:" + groupPosition);
-        Log.d(TAG, "setupOneParentAllChildChecked: isChecked：" + isChecked);
-
-
         HeaderModel headerModel =  listHeaderFilter.get(groupPosition);
         headerModel.setIsChecked(isChecked);
-//
-        List<ChildModel> childMapList = listChild.get(groupPosition); //b x
-
-        Toast.makeText(context, ""+childMapList, Toast.LENGTH_SHORT).show();
-//        for (int j = 0; j < childMapList.size(); j++) {
-//            ChildModel childModel =  childMapList.get(j);
-//            childModel.setIsChecked(isChecked);
-//        }
-//        notifyDataSetChanged();
+        for ( int i = 0; i < listChild.get(listHeaderFilter.get(groupPosition)).size(); i++) {
+            ChildModel childModel = listChild.get(listHeaderFilter.get(groupPosition)).get(i);
+            childModel.setIsChecked(isChecked);
+        }
+        notifyDataSetChanged();
 //        dealPrice();
     }
 
@@ -642,7 +641,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 //        for (int j = 0; j < listChild.get(listHeaderFilter.get(groupPosition)).size(); j++) {
 //            ChildModel childModel = listChild.get(listHeaderFilter.get(groupPosition)).get(j);
 //            if (!childModel.isChecked()) {
-//                return false;//如果有一个没选择  就false
+//                return false;
 //            }
 //        }
 //        return true;
@@ -653,16 +652,16 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 //        for (int i = 0; i < listHeaderFilter.size(); i++) {
 //            HeaderModel headerModel = (HeaderModel) listHeaderFilter.get(i);
 //            if (!headerModel.isChecked()) {
-//                return false;//如果有一个没选择  就false
+//                return false;
 //            }
 //        }
 //        return true;
 //    }
 //
 //
-//    public interface OnAllCheckedBoxNeedChangeListener {
-//        void onCheckedBoxNeedChange(boolean allParentIsChecked);
-//    }
+    public interface OnAllCheckedBoxNeedChangeListener {
+        void onCheckedBoxNeedChange(boolean allParentIsChecked);
+    }
 //
 //    public interface OnEditingTvChangeListener {
 //        void onEditingTvChange(boolean allIsEditing);
