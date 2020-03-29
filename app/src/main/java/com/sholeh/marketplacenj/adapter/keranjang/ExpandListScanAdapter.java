@@ -63,6 +63,9 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
     NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
     StringTokenizer st, st2;
     private static final String TAG = "MyExpandAdapter";
+
+    private static CheckBox lastChecked = null;
+    private static int lastCheckedPos = 0;
 //    OnAllCheckedBoxNeedChangeListener onAllCheckedBoxNeedChangeListener;
 //    OnGoodsCheckedChangeListener onGoodsCheckedChangeListener;
 //    OnCheckHasGoodsListener onCheckHasGoodsListener;
@@ -133,7 +136,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
     @Override
     public View getGroupView(final int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         // set on click change
-        HeaderModel model = (HeaderModel) getGroup(groupPosition);
+        final HeaderModel model = (HeaderModel) getGroup(groupPosition);
         GroupViewHolder groupViewHolder = null;
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.desain_parent, null);
@@ -180,8 +183,10 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
                 if (cbparent.isChecked()){
 
 //                    listHeaderFilter.get(groupPosition).isChecked();
-                    for (int i = 0; i < listChild.get(); i++) {
-                        Toast.makeText(context, "truee", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(context, ""+ listChild.get(listHeaderFilter.get(groupPosition)).size(), Toast.LENGTH_SHORT).show();
+                    for (int i = 0; i < listChild.get(listHeaderFilter.get(groupPosition)).size(); i++) {
+
+//                        Toast.makeText(context, "truee", Toast.LENGTH_SHORT).show();
                     }
                     notifyDataSetChanged();
                 }else{
