@@ -71,10 +71,16 @@ public class KeranjangDetailActivity extends AppCompatActivity {
         cb_select_all.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if (v instanceof CheckBox) {
                     CheckBox checkBox = (CheckBox) v;
                     expanAdapter.setupAllChecked(checkBox.isChecked());
 
+                    if(cb_select_all.isChecked()){
+                        getTotal();
+                    }else {
+                        tvx_total.setText("Rp0");
+                    }
                 }
             }
         });
@@ -180,6 +186,40 @@ public class KeranjangDetailActivity extends AppCompatActivity {
                 listHeader.clear();
                 listChild.clear();
 
+
+            }
+        });
+//        }
+    }
+
+
+    public void getTotal() {
+//        if (!NetworkUtility.isNetworkConnected(KeranjangDetailActivity.this)){
+//            AppUtilits.displayMessage(KeranjangDetailActivity.this,  getString(R.string.network_not_connected));
+//
+//        }else {
+        //  Log.e(TAG, "  user value "+ SharePreferenceUtils.getInstance().getString(Constant.USER_DATA));
+
+        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+        Call<ResDetailKeranjang> call = service.getDataDetailKeranjang("konsumen", id_konsumen);
+        call.enqueue(new Callback<ResDetailKeranjang>() {
+            @Override
+            public void onResponse(Call<ResDetailKeranjang> call, retrofit2.Response<ResDetailKeranjang> response) {
+
+                double totalnya = response.body().getTotalHarganya();
+                    st = new StringTokenizer(formatRupiah.format(totalnya), ",");
+                    String splitotal = st.nextToken().trim();
+                    tvx_total.setText(splitotal);
+
+            }
+
+            @Override
+            public void onFailure(Call<ResDetailKeranjang> call, Throwable t) {
+//                Toast.makeText(KeranjangDetailActivity.this, "e"+t, Toast.LENGTH_SHORT).show();
+                //  Log.e(TAG, "  fail- add to cart item "+ t.toString());
+//                AppUtilits.displayMessage(KeranjangDetailActivity.this, getString(R.string.fail_toGetcart));
+
+                Log.d("cekkk", String.valueOf(t));
 
             }
         });

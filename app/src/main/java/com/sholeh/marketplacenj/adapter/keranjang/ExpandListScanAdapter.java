@@ -365,7 +365,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 
 
 
-                                getTotal();
+//                                getTotal();
 
                             } else {
                                 Toast.makeText(context, "" + response.body(), Toast.LENGTH_SHORT).show();
@@ -465,7 +465,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 
 
 
-                                getTotal();
+//                                getTotal();
 //
                             } else {
                                 Toast.makeText(context, "" + response.body(), Toast.LENGTH_SHORT).show();
@@ -567,7 +567,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
             }
         }
         notifyDataSetChanged();
-//        dealPrice();
+//        getTotal();
     }
 
 
@@ -655,6 +655,9 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
             @Override
             public void onResponse(Call<ResDetailKeranjang> call, retrofit2.Response<ResDetailKeranjang> response) {
                 totalHarga = Integer.parseInt(String.valueOf(response.body().getTotalHarganya()));
+                Intent intent = new Intent("custom-message");
+                intent.putExtra("total", String.valueOf(totot));
+                LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
 
 
                 //    tvx_total.setText("Rp "+totalHarga);
