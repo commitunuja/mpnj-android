@@ -258,6 +258,9 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
                 final boolean nowBeanChecked = childModel.isChecked();
                 childModel.setIsChecked(!nowBeanChecked);
 
+                boolean parentIsChecked = dealOneParentAllChildIsChecked(groupPosition);
+
+
                 String harganya = harga.getText().toString();
                 String[] nomor = harganya.split("Rp");
                 String[] nomor2 = nomor[1].split("\\.");
@@ -267,7 +270,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
                 }
                 if(childModel.isChecked()){
                     totot +=  Integer.parseInt(har);
-                    Toast.makeText(context, "tot"+totot, Toast.LENGTH_SHORT).show();
+
 
                 }else{
                     totot -=  Integer.parseInt(har);
@@ -277,6 +280,11 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
                 Intent intent = new Intent("custom-message");
                 intent.putExtra("total", String.valueOf(totot));
                 LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+
+                HeaderModel headerModel =  listHeaderFilter.get(groupPosition);
+                headerModel.setIsChecked(parentIsChecked );
+                notifyDataSetChanged();
+
 
 //                dealPrice();
             }
@@ -326,7 +334,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
                                         Intent intent = new Intent("custom-message");
                                         intent.putExtra("total", String.valueOf(totot));
                                         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
-                                        Toast.makeText(context, "epele"+totot, Toast.LENGTH_SHORT).show();
+
                                     }
 
                                 }else {
@@ -356,7 +364,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
                                         Intent intent = new Intent("custom-message");
                                         intent.putExtra("total", String.valueOf(totot));
                                         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
-                                        Toast.makeText(context, "epele"+totot, Toast.LENGTH_SHORT).show();
+
                                     }
                                 }
 
@@ -429,7 +437,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 //                                        Intent intent = new Intent("custom-message");
 //                                        intent.putExtra("total", String.valueOf(totot));
 //                                        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
-                                        Toast.makeText(context, "epele"+totot2, Toast.LENGTH_SHORT).show();
+
                                     }
 
                                 }else {
@@ -459,7 +467,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
                                         Intent intent = new Intent("custom-message");
                                         intent.putExtra("total", String.valueOf(totot));
                                         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
-                                        Toast.makeText(context, "epele"+totot, Toast.LENGTH_SHORT).show();
+
                                     }
                                 }
 
@@ -572,19 +580,18 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 
 
 //
-//    public boolean dealOneParentAllChildIsChecked(int groupPosition) {
-//        Log.d(TAG, "dealOneParentAllChildIsChecked: ============");
-//        Log.d(TAG, "dealOneParentAllChildIsChecked: groupPosition：" + groupPosition);
-//        // StoreBean storeBean= (StoreBean) parentMapList.get(groupPosition).get("parentName");
-////        HashMap<String, List<ChildModel>>  childMapList = (HashMap<String, List<ChildModel>>) listChild.get(groupPosition);
-//        for (int j = 0; j < listChild.get(listHeaderFilter.get(groupPosition)).size(); j++) {
-//            ChildModel childModel = listChild.get(listHeaderFilter.get(groupPosition)).get(j);
-//            if (!childModel.isChecked()) {
-//                return false;
-//            }
-//        }
-//        return true;
-//    }
+    public boolean dealOneParentAllChildIsChecked(int groupPosition) {
+
+        // StoreBean storeBean= (StoreBean) parentMapList.get(groupPosition).get("parentName");
+//        HashMap<String, List<ChildModel>>  childMapList = (HashMap<String, List<ChildModel>>) listChild.get(groupPosition);
+        for (int j = 0; j < listChild.get(listHeaderFilter.get(groupPosition)).size(); j++) {
+            ChildModel childModel = listChild.get(listHeaderFilter.get(groupPosition)).get(j);
+            if (!childModel.isChecked()) { // jika sudah tidak di pilih
+                return false;
+            }
+        }
+        return true;
+    }
 //
 //    public boolean dealAllParentIsChecked() {
 //        Log.d(TAG, "dealAllParentIsChecked: ============");
