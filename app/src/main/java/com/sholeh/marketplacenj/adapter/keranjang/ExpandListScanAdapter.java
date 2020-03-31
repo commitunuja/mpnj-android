@@ -134,28 +134,38 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
             public void onClick(View v) {
                 setupOneParentAllChildChecked(!nowBeanChecked, groupPosition);
 
-                getSubTotal();
-//                String[] nomor = harganya.split("Rp");
-//                String[] nomor2 = nomor[1].split("\\.");
-//                String har = "";
-//                for (int i = 0; i < nomor2.length; i++){
-//                    har = har+ nomor2[i];
-//                }
-//                if(headerModel.isChecked()){
-//                    totot +=  Integer.parseInt(har);
-//
-//
-//                }else{
-//                    totot -=  Integer.parseInt(har);
-//                    Toast.makeText(context, "tot"+totot, Toast.LENGTH_SHORT).show();
-//
-//                }
-//                Intent intent = new Intent("custom-message");
-//                intent.putExtra("total", String.valueOf(totot));
-//                LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+                int totalCountParent = 0;
+                double totalPrice = 0;
+                for (int i = 0; i < listHeaderFilter.size(); i++) {
+                    List<ChildModel> childMapList = listChild.get(listHeaderFilter.get(i));
+                    for (int j = 0; j < childMapList.size(); j++) {
+                        ChildModel childModel = childMapList.get(j);
+                        int hargaJual = childModel.getHarga();
+                        double diskon = childModel.getDiskon();
+                        int jumlah = childModel.getJumlah();
+                        if (childModel.isChecked()) {
+                            totalCountParent++;
+                            double h = diskon / 100 * hargaJual;
+                            double s = hargaJual - h;
+                            double p = jumlah * s;
+                            totalPrice += p;
 
-//                HeaderModel headerModel =  listHeaderFilter.get(groupPosition);
-//                headerModel.setIsChecked(parentIsChecked );
+
+
+                        }
+
+
+                    }
+                }
+
+                if (headerModel.isChecked()){
+                    totot += (int)Double.parseDouble(String.valueOf(totalPrice));
+                }else {
+                    totot -= (int)Double.parseDouble(String.valueOf(totalPrice));
+                }
+                Intent intent = new Intent("custom-message");
+                intent.putExtra("total", String.valueOf(totalPrice));
+                LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
                 notifyDataSetChanged();
 
             }
@@ -482,7 +492,6 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
                                 AppUtilits.displayMessage(context, "Sukses hapus produk dari keranjang");
 
                                 ((KeranjangDetailActivity) context).getDetailKeranjang();
-
                                 // update cart count
                                 //    SharePreferenceUtils.getInstance().saveInt( Constant.CART_ITEM_COUNT,   SharePreferenceUtils.getInstance().getInteger(Constant.CART_ITEM_COUNT) -1);
                                 //    AppUtilits.UpdateCartCount(mContext, CartDetails.mainmenu);
@@ -504,8 +513,6 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 //        }
             }
         });
-
-
         return convertView;
     }
 
@@ -522,7 +529,6 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
             childModel.setIsChecked(isChecked);
         }
         notifyDataSetChanged();
-//        dealPrice();
     }
 
     public void setupAllChecked(boolean isChecked) {
@@ -531,22 +537,17 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
             headerModel.setIsChecked(isChecked);
 
             List<ChildModel> childMapList = listChild.get(listHeaderFilter.get(i));
-//            Toast.makeText(context, ""+childMapList, Toast.LENGTH_SHORT).show();
-//            Toast.makeText(context, ""+listChild.get(headerModel).size(), Toast.LENGTH_SHORT).show();
             for (int j = 0; j < childMapList.size(); j++) {
                 ChildModel childModel = childMapList.get(j);
                 childModel.setIsChecked(isChecked);
             }
         }
-        notifyDataSetChanged();
-//        getTotal();
+
     }
 
 
     //
     public boolean dealOneParentAllChildIsChecked(int groupPosition) {
-        // StoreBean storeBean= (StoreBean) parentMapList.get(groupPosition).get("parentName");
-//        HashMap<String, List<ChildModel>>  childMapList = (HashMap<String, List<ChildModel>>) listChild.get(groupPosition);
         for (int j = 0; j < listChild.get(listHeaderFilter.get(groupPosition)).size(); j++) {
             ChildModel childModel = listChild.get(listHeaderFilter.get(groupPosition)).get(j);
             if (!childModel.isChecked()) { // jika sudah tidak di pilih
@@ -558,41 +559,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 
 
     public void getSubTotal() {
-        int totalCountParent = 0;
-        double totalPrice = 0;
-        double totalPriceDiskon = 0;
-        for (int i = 0; i < listHeaderFilter.size(); i++) {
-            List<ChildModel> childMapList = listChild.get(listHeaderFilter.get(i));
-            for (int j = 0; j < childMapList.size(); j++) {
-                ChildModel childModel = childMapList.get(j);
-                int hargaJual = childModel.getHarga();
-                double diskon = childModel.getDiskon();
-                int jumlah = childModel.getJumlah();
-                if (childModel.isChecked()) {
-                    totalCountParent++;
-                        double h = diskon / 100 * hargaJual;
-                        double v = hargaJual - h;
-                        double p = jumlah * v;
-                        totalPrice += p;
 
-                        Intent intent = new Intent("custom-message");
-                        intent.putExtra("total", String.valueOf(totalPrice));
-                        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
-
-
-
-//                            st = new StringTokenizer(formatRupiah.format(p), ",");
-//                            String harganya = st.nextToken().trim();
-//
-//                            Intent inten = new Intent("custom-message");
-//                            intent.putExtra("total", String.valueOf(harganya));
-//                            LocalBroadcastManager.getInstance(context).sendBroadcast(inten);
-
-                    }
-
-
-            }
-        }
 
     }
 
