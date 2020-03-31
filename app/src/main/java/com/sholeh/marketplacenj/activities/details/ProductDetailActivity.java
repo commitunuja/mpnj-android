@@ -225,6 +225,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
     }
 
     public void getProdukId() {
+
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
         Call<JsonObject> call = service.getProdukId(vid_produk);
 
@@ -400,7 +401,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
         APIInterface apiKeranjang = ServiceGenerator.getRetrofit().create(APIInterface.class);
         Call<ResKeranjang> sendData = apiKeranjang.simpanKeranjang(vid_produk, id_konsumen, "konsumen", "N", String.valueOf(1),hargaJual );
-        sendData.enqueue(new Callback<ResKeranjang>() {
+              sendData.enqueue(new Callback<ResKeranjang>() {
             @Override
             public void onResponse(Call<ResKeranjang> call, Response<ResKeranjang> response) {
                 if (response.body() != null && response.isSuccessful()) {
@@ -408,11 +409,11 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                         AppUtilits.displayMessage(ProductDetailActivity.this, getString(R.string.add_to_cart));
 
                     } else {
-//                        Toast.makeText(ProductDetailActivity.this, "r"+response.body().getPesan(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ProductDetailActivity.this, "r"+response.body().getPesan(), Toast.LENGTH_SHORT).show();
 //                            AppUtilits.displayMessage(RegisterActivity.this,  response.body().getPesan());
                     }
                 } else {
-//                    Toast.makeText(ProductDetailActivity.this, "rr"+response.body().getPesan(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ProductDetailActivity.this, "rr"+response.body().getPesan(), Toast.LENGTH_SHORT).show();
 
 //                        AppUtilits.displayMessage(RegisterActivity.this,   getString(R.string.failed_request));
                 }
@@ -444,11 +445,11 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                             AppUtilits.displayMessage(ProductDetailActivity.this, getString(R.string.add_to_cart));
 
                         } else {
-//                        Toast.makeText(ProductDetailActivity.this, "r"+response.body().getPesan(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ProductDetailActivity.this, "r"+response.body().getPesan(), Toast.LENGTH_SHORT).show();
 //                            AppUtilits.displayMessage(RegisterActivity.this,  response.body().getPesan());
                         }
                     } else {
-//                    Toast.makeText(ProductDetailActivity.this, "rr"+response.body().getPesan(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ProductDetailActivity.this, "rr"+response.body().getPesan(), Toast.LENGTH_SHORT).show();
 
 //                        AppUtilits.displayMessage(RegisterActivity.this,   getString(R.string.failed_request));
                     }

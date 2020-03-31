@@ -66,8 +66,9 @@ public class KeranjangDetailActivity extends AppCompatActivity {
 
 
         listView = findViewById(R.id.expListhistori);
-        cb_select_all = findViewById(R.id.cb_select_all);
 
+
+        cb_select_all = findViewById(R.id.cb_select_all);
         cb_select_all.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,19 +86,11 @@ public class KeranjangDetailActivity extends AppCompatActivity {
             }
         });
 
-//        expanAdapter.setOnAllCheckedBoxNeedChangeListener(new ExpandListScanAdapter.OnAllCheckedBoxNeedChangeListener() {
-//            @Override
-//            public void onCheckedBoxNeedChange(boolean allParentIsChecked) {
-//                cb_select_all.setChecked(allParentIsChecked);
-//            }
-//        });
-
-        getDetailKeranjang();
 
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
                 new IntentFilter("custom-message"));
 
-
+        getDetailKeranjang();
 
     }
 
@@ -132,7 +125,6 @@ public class KeranjangDetailActivity extends AppCompatActivity {
                             listHeader.add(new HeaderModel(response.body().getDataKeranjang().get(i).getIdToko(),
                                     response.body().getDataKeranjang().get(i).getNamaToko(), false));
 
-
                             child = new ArrayList<>();
                             List<ItemKeranjang> childLink = array.get(i).getItem();
                             for (int j = 0; j < childLink.size(); j++) {
@@ -162,31 +154,20 @@ public class KeranjangDetailActivity extends AppCompatActivity {
                     } else {
                         AppUtilits.displayMessage(KeranjangDetailActivity.this, getString(R.string.network_error));
                     }
-
 //                    double totalnya = response.body().getTotalHarganya();
 //                    st = new StringTokenizer(formatRupiah.format(totalnya), ",");
 //                    String splitotal = st.nextToken().trim();
 //                    tvx_total.setText(splitotal);
-
-
                 } else {
                     AppUtilits.displayMessage(KeranjangDetailActivity.this, getString(R.string.network_error));
                 }
-
             }
-
             @Override
             public void onFailure(Call<ResDetailKeranjang> call, Throwable t) {
 //                Toast.makeText(KeranjangDetailActivity.this, "e"+t, Toast.LENGTH_SHORT).show();
                 //  Log.e(TAG, "  fail- add to cart item "+ t.toString());
 //                AppUtilits.displayMessage(KeranjangDetailActivity.this, getString(R.string.fail_toGetcart));
-
                 Log.d("cekkk", String.valueOf(t));
-                Toast.makeText(KeranjangDetailActivity.this, "cekk" + t, Toast.LENGTH_SHORT).show();
-                listHeader.clear();
-                listChild.clear();
-
-
             }
         });
 //        }
@@ -210,7 +191,6 @@ public class KeranjangDetailActivity extends AppCompatActivity {
                     st = new StringTokenizer(formatRupiah.format(totalnya), ",");
                     String splitotal = st.nextToken().trim();
                     tvx_total.setText(splitotal);
-
             }
 
             @Override
@@ -218,7 +198,6 @@ public class KeranjangDetailActivity extends AppCompatActivity {
 //                Toast.makeText(KeranjangDetailActivity.this, "e"+t, Toast.LENGTH_SHORT).show();
                 //  Log.e(TAG, "  fail- add to cart item "+ t.toString());
 //                AppUtilits.displayMessage(KeranjangDetailActivity.this, getString(R.string.fail_toGetcart));
-
                 Log.d("cekkk", String.valueOf(t));
 
             }
