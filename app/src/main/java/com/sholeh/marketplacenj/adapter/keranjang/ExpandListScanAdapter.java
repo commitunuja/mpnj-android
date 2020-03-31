@@ -65,33 +65,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
     StringTokenizer st, st2;
     private static final String TAG = "MyExpandAdapter";
 
-    private static CheckBox lastChecked = null;
-    private static int lastCheckedPos = 0;
-    OnAllCheckedBoxNeedChangeListener onAllCheckedBoxNeedChangeListener;
-//    OnGoodsCheckedChangeListener onGoodsCheckedChangeListener;
-//    OnCheckHasGoodsListener onCheckHasGoodsListener;
-
-//    public void setOnCheckHasGoodsListener(OnCheckHasGoodsListener onCheckHasGoodsListener) {
-//        this.onCheckHasGoodsListener = onCheckHasGoodsListener;
-//    }
-
-//    public void setOnEditingTvChangeListener(OnEditingTvChangeListener onEditingTvChangeListener) {
-//        this.onEditingTvChangeListener = onEditingTvChangeListener;
-//    }
-
-//    OnEditingTvChangeListener onEditingTvChangeListener;
-
-//    public void setOnGoodsCheckedChangeListener(OnGoodsCheckedChangeListener onGoodsCheckedChangeListener) {
-//        this.onGoodsCheckedChangeListener = onGoodsCheckedChangeListener;
-//    }
-//
-    public void setOnAllCheckedBoxNeedChangeListener(OnAllCheckedBoxNeedChangeListener onAllCheckedBoxNeedChangeListener) {
-        this.onAllCheckedBoxNeedChangeListener = onAllCheckedBoxNeedChangeListener;
-    }
-
-
     public ExpandListScanAdapter(Context context, List<HeaderModel> listHeader, HashMap<HeaderModel, List<ChildModel>> listChild) {
-//public ExpandListScanAdapter(Context context, List<HeaderModel> listHeader, List<ChildModel> anak) {
         this.context = context;
         this.listHeaderFilter = listHeader;
         this.listChild = listChild;
@@ -105,7 +79,6 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
     @Override
     public int getChildrenCount(int groupPosition) {
         return this.listChild.get(listHeaderFilter.get(groupPosition)).size();
-//        return this.anak.size();
     }
 
     @Override
@@ -116,7 +89,6 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
     @Override
     public Object getChild(int groupPosition, int childPosition) {
         return this.listChild.get(this.listHeaderFilter.get(groupPosition)).get(childPosition);
-//        return this.anak.size();
     }
 
     @Override
@@ -138,31 +110,22 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
     public View getGroupView(final int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         // set on click change
         final HeaderModel model = (HeaderModel) getGroup(groupPosition);
+        final HeaderModel headerModel = listHeaderFilter.get(groupPosition);
 
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.desain_parent, null);
         }
 
-        final HeaderModel headerModel = (HeaderModel) listHeaderFilter.get(groupPosition);
-        final String parentNamatoko = headerModel.getNama_toko();
 
+        final TextView nama_kk, no_pelanggan;
+        final CheckBox cbparent;
 
-        TextView nama_kk = convertView.findViewById(R.id.txNamaToko);
-        TextView no_pelanggan = convertView.findViewById(R.id.tvxIdToko);
-        final CheckBox cbparent= convertView.findViewById(R.id.cb_select_parent);
-
+        nama_kk = convertView.findViewById(R.id.txNamaToko);
+        no_pelanggan = convertView.findViewById(R.id.tvxIdToko);
+        cbparent = convertView.findViewById(R.id.cb_select_parent);
 
         nama_kk.setText(model.getNama_toko());
         no_pelanggan.setText(model.getId_toko());
-        ImageView img = convertView.findViewById(R.id.imgpanah);
-
-        if (isExpanded) {
-            //Toast.makeText(context, ""+isExpanded, Toast.LENGTH_SHORT).show();
-            img.setImageResource(R.drawable.ic_keyboard_arrow_up_grey_24dp);
-        } else {
-            img.setImageResource(R.drawable.ic_keyboard_arrow_down_grey_24dp);
-            // Toast.makeText(context, ""+isExpanded, Toast.LENGTH_SHORT).show();
-        }
 
         cbparent.setChecked(headerModel.isChecked());
         final boolean nowBeanChecked = headerModel.isChecked();
@@ -170,7 +133,6 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
             @Override
             public void onClick(View v) {
                 setupOneParentAllChildChecked(!nowBeanChecked, groupPosition);
-
 
                 getSubTotal();
 //                String[] nomor = harganya.split("Rp");
@@ -194,8 +156,6 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 
 //                HeaderModel headerModel =  listHeaderFilter.get(groupPosition);
 //                headerModel.setIsChecked(parentIsChecked );
-
-
                 notifyDataSetChanged();
 
             }
@@ -207,10 +167,11 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getChildView(final int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-        Log.d("sholar", listHeaderFilter.get(groupPosition).getId_toko());
-        final ChildModel model =  listChild.get(listHeaderFilter.get(groupPosition)).get(childPosition);
+        Log.d("sholeh", listHeaderFilter.get(groupPosition).getId_toko());
+        final ChildModel model = listChild.get(listHeaderFilter.get(groupPosition)).get(childPosition);
+        final ChildModel childModel = model;
         String id_keranjang = model.getId_keranjang();
-//        String id_keranjang = "1";
+
         preferences = new Preferences(context);
         id_konsumen = preferences.getIdKonsumen();
 
@@ -219,18 +180,17 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
             convertView = LayoutInflater.from(context).inflate(R.layout.desain_child, null);
         }
 
-        final ChildModel childModel =  model;
-
         LinearLayout viewline, increment, decrement;
-        final TextView addjumlah, stok, harga, hargaDiskon;
-        final ImageView delete_item;
+        final TextView nama, tvxIdKeranjang, addjumlah, stok, harga, hargaDiskon;
+        final ImageView delete_item, gambar;
         final CheckBox cbchild;
 
-        TextView nama = convertView.findViewById(R.id.txtnamaPRODUK);
-        TextView tvxIdKeranjang = convertView.findViewById(R.id.txtIdkerenjang);
+
+        nama = convertView.findViewById(R.id.txtnamaPRODUK);
+        tvxIdKeranjang = convertView.findViewById(R.id.txtIdkerenjang);
         harga = convertView.findViewById(R.id.txtharga);
         hargaDiskon = convertView.findViewById(R.id.txthargaDiskon);
-        final ImageView gambar = convertView.findViewById(R.id.img_gambarkeranjang);
+        gambar = convertView.findViewById(R.id.img_gambarkeranjang);
         stok = convertView.findViewById(R.id.txtstock);
         addjumlah = convertView.findViewById(R.id.txt_addjumlah);
         increment = convertView.findViewById(R.id.increment);
@@ -264,6 +224,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 
         if (model.getDiskon() == 0) {
 //            Toast.makeText(context, "no diskon", Toast.LENGTH_SHORT).show();
+            hargaDiskon.setVisibility(View.GONE);
 
         } else {
             double h = vdiskon / 100 * hargaProduk;
@@ -295,22 +256,20 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
                 String[] nomor = harganya.split("Rp");
                 String[] nomor2 = nomor[1].split("\\.");
                 String har = "";
-                for (int i = 0; i < nomor2.length; i++){
-                    har = har+ nomor2[i];
+                for (int i = 0; i < nomor2.length; i++) {
+                    har = har + nomor2[i];
                 }
-                if(childModel.isChecked()){
-                    totot +=  Integer.parseInt(har);
-
-
-                }else{
-                    totot -=  Integer.parseInt(har);
+                if (childModel.isChecked()) {
+                    totot += Integer.parseInt(har);
+                } else {
+                    totot -= Integer.parseInt(har);
                 }
                 Intent intent = new Intent("custom-message");
                 intent.putExtra("total", String.valueOf(totot));
                 LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
 
-                HeaderModel headerModel =  listHeaderFilter.get(groupPosition);
-                headerModel.setIsChecked(parentIsChecked );
+                HeaderModel headerModel = listHeaderFilter.get(groupPosition);
+                headerModel.setIsChecked(parentIsChecked);
                 notifyDataSetChanged();
 
 
@@ -322,7 +281,6 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
         increment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 jumlahProduk = Integer.valueOf(addjumlah.getText().toString());
                 int stokproduk = Integer.valueOf(stok.getText().toString());
                 String id_keranjang = model.getId_keranjang();
@@ -355,19 +313,19 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 //                                    for (int i = 0; i < nomor2.length; i++){
 //                                        har = har+ nomor2[i];
 //                                    }
-                                    if(childModel.isChecked()){
+                                    if (childModel.isChecked()) {
 
-                                        totot +=  model.getHarga();
+                                        totot += model.getHarga();
                                         Intent intent = new Intent("custom-message");
                                         intent.putExtra("total", String.valueOf(totot));
                                         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
 
                                     }
 
-                                }else {
+                                } else {
                                     int hargaProduk = model.getHarga();
                                     int jumlahProduk = Integer.parseInt(String.valueOf(addjumlah.getText()));
-                                    int hitung = jumlahProduk* hargaProduk;
+                                    int hitung = jumlahProduk * hargaProduk;
                                     double h = potongandiskon / 100 * hargaProduk;
                                     double v = hargaProduk - h;
                                     double p = v * jumlahProduk;
@@ -385,21 +343,15 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 //                                    for (int i = 0; i < nomor2.length; i++){
 //                                        har = har+ nomor2[i];
 //                                    }
-                                    if(childModel.isChecked()){
+                                    if (childModel.isChecked()) {
 
-                                        totot +=  v;
+                                        totot += v;
                                         Intent intent = new Intent("custom-message");
                                         intent.putExtra("total", String.valueOf(totot));
                                         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
 
                                     }
                                 }
-
-
-
-
-
-
 //                                getTotal();
 
                             } else {
@@ -439,8 +391,6 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
                     call.enqueue(new Callback<ResUbahJumlahProduk>() {
                         @Override
                         public void onResponse(Call<ResUbahJumlahProduk> call, Response<ResUbahJumlahProduk> response) {
-
-
                             if (response.body() != null && response.isSuccessful()) {
                                 int tot = response.body().getJumlah();
 
@@ -455,22 +405,21 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
                                     String[] nomor = hargaaa.split("Rp");
                                     String[] nomor2 = nomor[1].split("\\.");
                                     String har = "";
-                                    for (int i = 0; i < nomor2.length; i++){
-                                        har = har+ nomor2[i];
+                                    for (int i = 0; i < nomor2.length; i++) {
+                                        har = har + nomor2[i];
                                     }
-                                    if(childModel.isChecked()){
-
-                                        totot -=  model.getHarga();
+                                    if (childModel.isChecked()) {
+                                        totot -= model.getHarga();
 //                                        Intent intent = new Intent("custom-message");
 //                                        intent.putExtra("total", String.valueOf(totot));
 //                                        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
 
                                     }
 
-                                }else {
+                                } else {
                                     int hargaProduk = model.getHarga();
                                     int jumlahProduk = Integer.parseInt(String.valueOf(addjumlah.getText()));
-                                    int hitung = jumlahProduk* hargaProduk;
+                                    int hitung = jumlahProduk * hargaProduk;
                                     double h = potongandiskon / 100 * hargaProduk;
                                     double v = hargaProduk - h;
                                     double p = v * jumlahProduk;
@@ -486,21 +435,18 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
                                     String[] nomor = hargaaa.split("Rp");
                                     String[] nomor2 = nomor[1].split("\\.");
                                     String har = "";
-                                    for (int i = 0; i < nomor2.length; i++){
-                                        har = har+ nomor2[i];
+                                    for (int i = 0; i < nomor2.length; i++) {
+                                        har = har + nomor2[i];
                                     }
-                                    if(childModel.isChecked()){
+                                    if (childModel.isChecked()) {
 
-                                        totot -=  v;
+                                        totot -= v;
                                         Intent intent = new Intent("custom-message");
                                         intent.putExtra("total", String.valueOf(totot));
                                         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
 
                                     }
                                 }
-
-
-
 //                                getTotal();
 //
                             } else {
@@ -540,7 +486,6 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
                                 // update cart count
                                 //    SharePreferenceUtils.getInstance().saveInt( Constant.CART_ITEM_COUNT,   SharePreferenceUtils.getInstance().getInteger(Constant.CART_ITEM_COUNT) -1);
                                 //    AppUtilits.UpdateCartCount(mContext, CartDetails.mainmenu);
-
                             } else {
                                 AppUtilits.displayMessage(context, "Gagal hapus produk dari keranjang");
                             }
@@ -561,8 +506,6 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
         });
 
 
-
-
         return convertView;
     }
 
@@ -572,9 +515,9 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
     }
 
     private void setupOneParentAllChildChecked(boolean isChecked, int groupPosition) { //b
-        HeaderModel headerModel =  listHeaderFilter.get(groupPosition);
+        HeaderModel headerModel = listHeaderFilter.get(groupPosition);
         headerModel.setIsChecked(isChecked);
-        for ( int i = 0; i < listChild.get(listHeaderFilter.get(groupPosition)).size(); i++) {
+        for (int i = 0; i < listChild.get(listHeaderFilter.get(groupPosition)).size(); i++) {
             ChildModel childModel = listChild.get(listHeaderFilter.get(groupPosition)).get(i);
             childModel.setIsChecked(isChecked);
         }
@@ -583,23 +526,16 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
     }
 
     public void setupAllChecked(boolean isChecked) {
-        Log.d(TAG, "setupAllChecked: ============");
-        Log.d(TAG, "setupAllChecked: isChecked：" + isChecked);
-
         for (int i = 0; i < listHeaderFilter.size(); i++) {
-            HeaderModel headerModel =  listHeaderFilter.get(i);
+            HeaderModel headerModel = listHeaderFilter.get(i);
             headerModel.setIsChecked(isChecked);
 
-
-
             List<ChildModel> childMapList = listChild.get(listHeaderFilter.get(i));
-
 //            Toast.makeText(context, ""+childMapList, Toast.LENGTH_SHORT).show();
 //            Toast.makeText(context, ""+listChild.get(headerModel).size(), Toast.LENGTH_SHORT).show();
             for (int j = 0; j < childMapList.size(); j++) {
                 ChildModel childModel = childMapList.get(j);
                 childModel.setIsChecked(isChecked);
-
             }
         }
         notifyDataSetChanged();
@@ -607,9 +543,8 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
     }
 
 
-//
+    //
     public boolean dealOneParentAllChildIsChecked(int groupPosition) {
-
         // StoreBean storeBean= (StoreBean) parentMapList.get(groupPosition).get("parentName");
 //        HashMap<String, List<ChildModel>>  childMapList = (HashMap<String, List<ChildModel>>) listChild.get(groupPosition);
         for (int j = 0; j < listChild.get(listHeaderFilter.get(groupPosition)).size(); j++) {
@@ -620,40 +555,12 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
         }
         return true;
     }
-//
-//    public boolean dealAllParentIsChecked() {
-//        Log.d(TAG, "dealAllParentIsChecked: ============");
-//        for (int i = 0; i < listHeaderFilter.size(); i++) {
-//            HeaderModel headerModel = (HeaderModel) listHeaderFilter.get(i);
-//            if (!headerModel.isChecked()) {
-//                return false;
-//            }
-//        }
-//        return true;
-//    }
-//
-//
-    public interface OnAllCheckedBoxNeedChangeListener {
-        void onCheckedBoxNeedChange(boolean allParentIsChecked);
-    }
-//
-//    public interface OnEditingTvChangeListener {
-//        void onEditingTvChange(boolean allIsEditing);
-//    }
-//
-//    public interface OnGoodsCheckedChangeListener {
-//        void onGoodsCheckedChange(int totalCount, double totalPrice);
-//    }
-//
-//    public interface OnCheckHasGoodsListener {
-//        void onCheckHasGoods(boolean isHasGoods);
-//    }
 
 
-
-    public void getSubTotal(){
-       int totalCountParent = 0;
-       double totalPrice = 0;
+    public void getSubTotal() {
+        int totalCountParent = 0;
+        double totalPrice = 0;
+        double totalPriceDiskon = 0;
         for (int i = 0; i < listHeaderFilter.size(); i++) {
             List<ChildModel> childMapList = listChild.get(listHeaderFilter.get(i));
             for (int j = 0; j < childMapList.size(); j++) {
@@ -663,88 +570,30 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
                 int jumlah = childModel.getJumlah();
                 if (childModel.isChecked()) {
                     totalCountParent++;
-                    totalPrice += hargaJual;
-                    if(childModel.getDiskon() == 0){
-
-//                        Toast.makeText(context, "tidak ada diskon", Toast.LENGTH_SHORT).show();
-                        double hitung = jumlah * totalPrice;
-//                        st = new StringTokenizer(formatRupiah.format(hitung), ",");
-//                        String harganya = st.nextToken().trim();
-
+                        double h = diskon / 100 * hargaJual;
+                        double v = hargaJual - h;
+                        double p = jumlah * v;
+                        totalPrice += p;
 
                         Intent intent = new Intent("custom-message");
-                        intent.putExtra("total", String.valueOf(hitung));
-                        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
-
-                    }else{
-//                        Toast.makeText(context, "ada diskon", Toast.LENGTH_SHORT).show();
-
-//                        double h = diskon / 100 * totalPrice;
-//                        double p = totalPrice - h;
-//                        double etong = jumlah * p;
-//                        st = new StringTokenizer(formatRupiah.format(etong), ",");
-//                        String harganya = st.nextToken().trim();
-
-                        double h = diskon / 100 * totalPrice;
-                        double v = totalPrice - h;
-                        double p = v * jumlah;
-
-                        Intent intent = new Intent("custom-message");
-                        intent.putExtra("total",String.valueOf(p));
+                        intent.putExtra("total", String.valueOf(totalPrice));
                         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
 
 
+
+//                            st = new StringTokenizer(formatRupiah.format(p), ",");
+//                            String harganya = st.nextToken().trim();
+//
+//                            Intent inten = new Intent("custom-message");
+//                            intent.putExtra("total", String.valueOf(harganya));
+//                            LocalBroadcastManager.getInstance(context).sendBroadcast(inten);
 
                     }
-                }
+
 
             }
-//
         }
 
-
-//
-
-        //        if (!NetworkUtility.isNetworkConnected(KeranjangDetailActivity.this)){
-//            AppUtilits.displayMessage(KeranjangDetailActivity.this,  getString(R.string.network_not_connected));
-//
-//        }else {
-        //  Log.e(TAG, "  user value "+ SharePreferenceUtils.getInstance().getString(Constant.USER_DATA));
-
-//        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-//        Call<ResDetailKeranjang> call = service.getDataDetailKeranjang("konsumen", id_konsumen);
-//        call.enqueue(new Callback<ResDetailKeranjang>() {
-//            @Override
-//            public void onResponse(Call<ResDetailKeranjang> call, retrofit2.Response<ResDetailKeranjang> response) {
-//                if (response.body() != null && response.isSuccessful()) {
-//                    if (response.body().getDataKeranjang().size() > 0) {
-//                        List<DataKeranjang> array = response.body().getDataKeranjang();
-//                        for (int i = 0; i < array.size(); i++) {
-//                            child = new ArrayList<>();
-//                            List<ItemKeranjang> childLink = array.get(i).getItem();
-//                            for (int j = 0; j < childLink.size(); j++) {
-//                                String hargaJual = childLink.get(j).getHargaJual();
-//                                Toast.makeText(context, "h "+hargaJual, Toast.LENGTH_SHORT).show();
-//                            }
-//                        }
-//                    }
-//
-//                }else{
-//
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ResDetailKeranjang> call, Throwable t) {
-////                Toast.makeText(KeranjangDetailActivity.this, "e"+t, Toast.LENGTH_SHORT).show();
-//                //  Log.e(TAG, "  fail- add to cart item "+ t.toString());
-////                AppUtilits.displayMessage(KeranjangDetailActivity.this, getString(R.string.fail_toGetcart));
-//
-//                Log.d("cekkk", String.valueOf(t));
-//
-//            }
-//        });
-//        }
     }
 
 }
