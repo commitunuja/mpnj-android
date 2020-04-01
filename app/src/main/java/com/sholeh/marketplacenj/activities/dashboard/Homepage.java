@@ -94,57 +94,35 @@ public class Homepage extends AppCompatActivity {
         fiturpencarian();
         frameLayout.setVisibility(View.VISIBLE);
 
+    }
 
-//        Homepage Banner Recyclerview Code is here
+    private void fiturpencarian() {
+        frameLayout = findViewById(R.id.frag_container);
+        search = findViewById(R.id.etsearch);
+        search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
+            }
 
-        homeBannerModelClasses = new ArrayList<>();
-
-
-        for (int i = 0; i < image.length; i++) {
-            HomeBannerModelClass beanClassForRecyclerView_contacts = new HomeBannerModelClass(image[i]);
-
-            homeBannerModelClasses.add(beanClassForRecyclerView_contacts);
-        }
-
-
-        mAdapter = new RecycleAdapteHomeBanner(Homepage.this, homeBannerModelClasses);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(Homepage.this, LinearLayoutManager.HORIZONTAL, false);
-        recyclerView.setLayoutManager(mLayoutManager);
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
 
 
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(mAdapter);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                Homepage.this.filterQuery(s.toString());
+                frameLayout.removeAllViews();
+                recyclerViewpproduk.setVisibility(View.VISIBLE);
 
 
-        //        Category Recyclerview Code is here
+            }
+        });
+    }
 
-        category_recyclerView = (RecyclerView) findViewById(R.id.category_recyclerview);
-
-        homeCategoryModelClasses = new ArrayList<>();
-
-
-        for (int i = 0; i < title.length; i++) {
-            HomeCategoryModelClass beanClassForRecyclerView_contacts = new HomeCategoryModelClass(title[i]);
-
-            homeCategoryModelClasses.add(beanClassForRecyclerView_contacts);
-        }
-
-
-        mAdapter1 = new RecycleAdapteHomeCategory(Homepage.this, homeCategoryModelClasses);
-        RecyclerView.LayoutManager mLayoutManager1 = new LinearLayoutManager(Homepage.this, LinearLayoutManager.HORIZONTAL, false);
-        category_recyclerView.setLayoutManager(mLayoutManager1);
-
-
-        category_recyclerView.setLayoutManager(mLayoutManager1);
-        category_recyclerView.setItemAnimator(new DefaultItemAnimator());
-        category_recyclerView.setAdapter(mAdapter1);
-
-
-        //        Top Ten  Recyclerview Code is here
-
+    private void produksamsung() {
         like_recyclerview = (RecyclerView) findViewById(R.id.top_ten_recyclerview);
 
         topTenModelClasses1 = new ArrayList<>();
