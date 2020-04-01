@@ -51,9 +51,9 @@ public class ItemGridAdapter extends RecyclerView.Adapter<ItemGridAdapter.Holdr>
 
         public Holdr(View view) {
             super(view);
-            title = view.findViewById(R.id.itemcardTextView1);
-            ic_cat = view.findViewById(R.id.itemcardImageView1);
-            divider = view.findViewById(R.id.itemcardView1);
+//            title = view.findViewById(R.id.itemcardTextView1);
+//            ic_cat = view.findViewById(R.id.itemcardImageView1);
+//            divider = view.findViewById(R.id.itemcardView1);
         }
     }
 }
