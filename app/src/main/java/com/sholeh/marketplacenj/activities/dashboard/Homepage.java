@@ -118,6 +118,7 @@ public class Homepage extends AppCompatActivity {
                 frameLayout.removeAllViews();
                 recyclerViewpproduk.setVisibility(View.VISIBLE);
                 Homepage.this.filterQuery(s.toString());
+                frameLayout.setVisibility(View.GONE);
 
 
             }
