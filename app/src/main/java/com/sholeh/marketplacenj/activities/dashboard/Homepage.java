@@ -143,11 +143,9 @@ public class Homepage extends AppCompatActivity {
         like_recyclerview.setLayoutManager(mLayoutManager2);
         like_recyclerview.setItemAnimator(new DefaultItemAnimator());
         like_recyclerview.setAdapter(mAdapter3);
+    }
 
-
-        //      Like  Recyclerview Code is here
-        //untuk produk
-
+    private void produkapi() {
         like_recyclerview = (RecyclerView) findViewById(R.id.like_recyclerview);
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
         Call<List<Model>> call = service.getProduk();
