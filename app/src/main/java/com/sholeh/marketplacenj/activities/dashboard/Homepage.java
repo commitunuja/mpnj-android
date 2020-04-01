@@ -126,6 +126,18 @@ public class Homepage extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        if (status.equals("yes")) {
+            recyclerViewpproduk.setVisibility(View.GONE);
+            linearLayoutkategori.setVisibility(View.GONE);
+            frameLayout.setVisibility(View.VISIBLE);
+            edpencarian.getText().clear();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
     private void produksamsung() {
         like_recyclerview = (RecyclerView) findViewById(R.id.top_ten_recyclerview);
 
