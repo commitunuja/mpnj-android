@@ -53,6 +53,10 @@ public class Homepage extends AppCompatActivity {
     private RecycleAdapteHomeCategory mAdapter1;
     private String title[] = {"All Categories", "Mens", "Womens", "Electronics", "Home and Furniture", "Sports"};
 
+    private SearchAdapter searchAdapter;
+    private List<Model> datapencarian;
+    private LinearLayout linearLayoutkategori;
+    EditText edpencarian;
     //produk
     private Object Homepage;
     private ProdukAdapter produkAdapter;
