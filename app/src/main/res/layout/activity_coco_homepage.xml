@@ -10,6 +10,11 @@
     <include layout="@layout/toolbar_hompage"/>
 
 
+    <FrameLayout
+        android:id="@+id/frag_container"
+        android:layout_width="wrap_content"
+        android:visibility="gone"
+        android:layout_height="wrap_content">
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
