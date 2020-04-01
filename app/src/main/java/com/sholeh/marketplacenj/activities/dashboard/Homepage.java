@@ -92,7 +92,7 @@ public class Homepage extends AppCompatActivity {
         fiturpencarian();
         recyclerViewpproduk.setVisibility(View.GONE);
         frameLayout.setVisibility(View.VISIBLE);
-
+        linearLayoutkategori.setVisibility(View.GONE);
     }
 
     private void fiturpencarian() {
