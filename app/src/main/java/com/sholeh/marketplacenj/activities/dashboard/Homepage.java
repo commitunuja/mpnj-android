@@ -84,6 +84,15 @@ public class Homepage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coco_homepage);
+        Banner();
+        kategori();
+        produksearch();
+        likeproduk();
+        produksamsung();
+        recentproduk();
+        produkapi();
+        fiturpencarian();
+        frameLayout.setVisibility(View.VISIBLE);
 
 
 //        Homepage Banner Recyclerview Code is here
