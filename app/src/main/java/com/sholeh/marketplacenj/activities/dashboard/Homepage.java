@@ -167,32 +167,9 @@ public class Homepage extends AppCompatActivity {
                 Toast.makeText(getBaseContext(), String.valueOf(t), Toast.LENGTH_SHORT).show();
             }
         });
-        //untuk produk
+    }
 
-
-        //mobile/hp samsung
-//        topTenModelClasses1 = new ArrayList<>();
-//
-//        for (int i = 0; i < image2.length; i++) {
-//            TopTenModelClass beanClassForRecyclerView_contacts = new TopTenModelClass(image2[i], title2[i], type2[i]);
-//
-//            topTenModelClasses1.add(beanClassForRecyclerView_contacts);
-//        }
-
-
-        mAdapter3 = new RecycleAdapteTopTenHome(Homepage.this, topTenModelClasses1);
-        RecyclerView.LayoutManager mLayoutManager3 = new LinearLayoutManager(Homepage.this, LinearLayoutManager.HORIZONTAL, false);
-        like_recyclerview.setLayoutManager(mLayoutManager3);
-
-
-        like_recyclerview.setLayoutManager(mLayoutManager3);
-        like_recyclerview.setItemAnimator(new DefaultItemAnimator());
-        like_recyclerview.setAdapter(mAdapter3);
-        //mobile/hp samsung
-
-
-        //        Recent  Recyclerview Code is here
-
+    private void recentproduk() {
         top_ten_crecyclerview = (RecyclerView) findViewById(R.id.recent_recyclerview);
 
         topTenModelClasses = new ArrayList<>();
@@ -213,98 +190,122 @@ public class Homepage extends AppCompatActivity {
         top_ten_crecyclerview.setLayoutManager(mLayoutManager4);
         top_ten_crecyclerview.setItemAnimator(new DefaultItemAnimator());
         top_ten_crecyclerview.setAdapter(mAdapter2);
-
-
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.search, menu);
-
-        Log.w("myApp", "onCreateOptionsMenu -started- ");
-
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        MenuItem menuItem = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView) menuItem.getActionView();
-
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        searchView.setQueryHint(getResources().getString(R.string.hint));
-        searchView.setOnQueryTextListener(
-                new SearchView.OnQueryTextListener() {
-                    @Override
-                    public boolean onQueryTextSubmit(String query) {
-                        Log.w("myApp", "onQueryTextSubmit ");
-                        produkAdapter.getFilter().filter(query);
-                        topTenModelClasses.clear();
-                        homeCategoryModelClasses.clear();
-                        topTenModelClasses1.clear();
-                        topTenModelClasses.clear();
-                        homeBannerModelClasses.clear();
-//                        Intent intent = new Intent(Homepage.this, SearchActivity.class);
-//                        intent.putExtra("query" , query);
-//                        startActivity(intent);
-                        return false;
-                    }
-
-                    @Override
-                    public boolean onQueryTextChange(String newText) {
-//                        getAllData();
-//                        topTenModelClasses.addAll(topTenModelClasses);
-//                        homeCategoryModelClasses.addAll(Collections.<HomeCategoryModelClass>emptyList());
-//                        topTenModelClasses1.clear();
-//                        topTenModelClasses.clear();
-//                        homeBannerModelClasses.clear();
-//                        produkAdapter.getFilter().filter(newText);
-
-                        return false;
-                    }
-                });
-
-        return true;
     }
 
 
-    public void getAllData() {
+    private void likeproduk() {
+        like_recyclerview = (RecyclerView) findViewById(R.id.like_recyclerview);
+        topTenModelClasses1 = new ArrayList<>();
+
+        for (int i = 0; i < image2.length; i++) {
+            TopTenModelClass beanClassForRecyclerView_contacts = new TopTenModelClass(image2[i], title2[i], type[i]);
+
+            topTenModelClasses1.add(beanClassForRecyclerView_contacts);
+        }
+
+
+        mAdapter3 = new RecycleAdapteTopTenHome(Homepage.this, topTenModelClasses1);
+        RecyclerView.LayoutManager mLayoutManager2 = new LinearLayoutManager(Homepage.this, LinearLayoutManager.HORIZONTAL, false);
+        like_recyclerview.setLayoutManager(mLayoutManager2);
+
+        like_recyclerview.setLayoutManager(mLayoutManager2);
+        like_recyclerview.setItemAnimator(new DefaultItemAnimator());
+        like_recyclerview.setAdapter(mAdapter3);
+    }
+
+    private void kategori() {
+        category_recyclerView = (RecyclerView) findViewById(R.id.category_recyclerview);
+        homeCategoryModelClasses = new ArrayList<>();
+
+        for (int i = 0; i < title.length; i++) {
+            HomeCategoryModelClass beanClassForRecyclerView_contacts = new HomeCategoryModelClass(title[i]);
+            homeCategoryModelClasses.add(beanClassForRecyclerView_contacts);
+        }
+
+        mAdapter1 = new RecycleAdapteHomeCategory(Homepage.this, homeCategoryModelClasses);
+        RecyclerView.LayoutManager mLayoutManager1 = new LinearLayoutManager(Homepage.this, LinearLayoutManager.HORIZONTAL, false);
+        category_recyclerView.setLayoutManager(mLayoutManager1);
+
+        category_recyclerView.setLayoutManager(mLayoutManager1);
+        category_recyclerView.setItemAnimator(new DefaultItemAnimator());
+        category_recyclerView.setAdapter(mAdapter1);
+    }
+
+    private void produksearch() {
+        recyclerViewpproduk = findViewById(R.id.recyclersearch);
+        produkAdapter = new ProdukAdapter(Homepage.this, tvDataProduk);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getBaseContext(), 2);
+//        RecyclerView.LayoutManager mLayoutManager4 = new LinearLayoutManager(Homepage.this, LinearLayoutManager.HORIZONTAL, false);
+        recyclerViewpproduk.setLayoutManager(gridLayoutManager);
+
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
         Call<List<Model>> call = service.getProduk();
 
         call.enqueue(new Callback<List<Model>>() {
             @Override
             public void onResponse(Call<List<Model>> call, Response<List<Model>> response) {
-                Log.d("YOLO", "coba" + response.body());
+
                 tvDataProduk = response.body();
                 produkAdapter = new ProdukAdapter(getBaseContext(), tvDataProduk);
-                like_recyclerview.setAdapter(produkAdapter);
+                recyclerViewpproduk.setAdapter(produkAdapter);
+
             }
 
             @Override
             public void onFailure(Call<List<Model>> call, Throwable t) {
-//                Toast.makeText(getApplicationContext(), "ini"+valueOf(t), Toast.LENGTH_SHORT).show();
-
+                Toast.makeText(getBaseContext(), String.valueOf(t), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-//    private void LoadJson() {
-//        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-//        Call<List<Model>> call = service.getProduk();
-//
-//        call.enqueue(new Callback<List<Model>>() {
-//            @Override
-//            public void onResponse(Call<List<Model>> call, Response<List<Model>> response) {
-//
-//                tvDataProduk = response.body();
-//                produkAdapter = new ProdukAdapter(getBaseContext(), tvDataProduk);
-//                like_recyclerview.setAdapter(produkAdapter);
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<Model>> call, Throwable t) {
-//                Toast.makeText(getBaseContext(), String.valueOf(t), Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//
-//    }
+    private void Banner() {
+
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
+        homeBannerModelClasses = new ArrayList<>();
+
+        for (int i = 0; i < image.length; i++) {
+            HomeBannerModelClass beanClassForRecyclerView_contacts = new HomeBannerModelClass(image[i]);
+            homeBannerModelClasses.add(beanClassForRecyclerView_contacts);
+        }
+
+        mAdapter = new RecycleAdapteHomeBanner(Homepage.this, homeBannerModelClasses);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(Homepage.this, LinearLayoutManager.HORIZONTAL, false);
+        recyclerView.setLayoutManager(mLayoutManager);
+
+
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(mAdapter);
+
+    }
+
+    public void filterQuery(String text) {
+        ArrayList<Model> filterdNames = new ArrayList<>();
+        for (Model s : this.tvDataProduk) {
+            if (s.getNamaProduk().toLowerCase().contains(text) || s.getKeterangan().toLowerCase().contains(text)) {
+                filterdNames.add(s);
+            }
+        }
+        this.produkAdapter.setFilter(filterdNames);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (recyclerViewpproduk.isShown()) {
+            Toast.makeText(this, "asdasdsa", Toast.LENGTH_SHORT).show();
+            recyclerViewpproduk.removeAllViews();
+            frameLayout.setVisibility(View.VISIBLE);
+        } else {
+            new AlertDialog.Builder(this)
+                    .setTitle("Really Exit?")
+                    .setMessage("Are you sure you want to exit?")
+                    .setNegativeButton(android.R.string.no, null)
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface arg0, int arg1) {
+                            Homepage.super.onBackPressed();
+                        }
+                    }).create().show();
+        }
+    }
 }
+
