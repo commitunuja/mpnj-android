@@ -10,6 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
+        android:layout_gravity="center"
         android:layout_marginRight="5dp"
         android:layout_marginBottom="20dp"
         app:cardCornerRadius="3dp"
@@ -26,7 +27,6 @@
                 android:id="@+id/imageproduk"
                 android:layout_width="100dp"
                 android:layout_height="130dp"
-                android:layout_gravity="center"
                 android:layout_marginTop="18dp"
                 android:src="@drawable/ac"/>
             <LinearLayout
@@ -47,12 +47,7 @@
                     android:textSize="13.3sp"
                     android:layout_marginRight="5dp"
                     android:text="Vigo Atom Personal Air Condi...."/>
-          <ImageView
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginTop="5dp"
-              android:visibility="gone"
-              android:src="@drawable/three_dots"/>
+
 
             </LinearLayout>
 
