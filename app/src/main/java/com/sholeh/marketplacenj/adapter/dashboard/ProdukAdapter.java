@@ -2,20 +2,15 @@ package com.sholeh.marketplacenj.adapter.dashboard;
 
 import android.content.Context;
 import android.content.Intent;
-import android.text.style.IconMarginSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.sholeh.marketplacenj.activities.dashboard.SearchActivity;
 import com.sholeh.marketplacenj.model.Foto;
 import com.sholeh.marketplacenj.util.CONSTANTS;
 import com.sholeh.marketplacenj.R;
@@ -23,11 +18,9 @@ import com.sholeh.marketplacenj.activities.details.ProductDetailActivity;
 import com.sholeh.marketplacenj.model.Model;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
-public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ViewHolder> implements Filterable {
+public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ViewHolder> {
     private Context context;
     private List<Model> tvDataProduks; // model / item
     private Model tvDataProduk;
@@ -39,9 +32,10 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ViewHolder
     public ProdukAdapter(Context context, List<Model> tvDataProduks) {
         this.context = context;
         this.tvDataProduks = tvDataProduks;
-        this.getAllData = tvDataProduks;
+
 
     }
+
 
 
 
@@ -74,7 +68,6 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ViewHolder
         this.tvDataProduks = filterdata;
         notifyDataSetChanged();
     }
-    };
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView namaProduk, hargaProduk, stok, terjual, deskripsi, type;
