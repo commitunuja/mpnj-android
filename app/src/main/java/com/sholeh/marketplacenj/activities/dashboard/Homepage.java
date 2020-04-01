@@ -90,6 +90,7 @@ public class Homepage extends AppCompatActivity {
         recentproduk();
         produkapi();
         fiturpencarian();
+        recyclerViewpproduk.setVisibility(View.GONE);
         frameLayout.setVisibility(View.VISIBLE);
 
     }
