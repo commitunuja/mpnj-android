@@ -247,10 +247,14 @@ public class Homepage extends AppCompatActivity {
 
     private void produksearch() {
         recyclerViewpproduk = findViewById(R.id.recyclersearch);
-        produkAdapter = new ProdukAdapter(Homepage.this, tvDataProduk);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getBaseContext(), 2);
-//        RecyclerView.LayoutManager mLayoutManager4 = new LinearLayoutManager(Homepage.this, LinearLayoutManager.HORIZONTAL, false);
-        recyclerViewpproduk.setLayoutManager(gridLayoutManager);
+        searchAdapter = new SearchAdapter(Homepage.this, datapencarian);
+
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(Homepage.this, 2);
+        recyclerViewpproduk.setLayoutManager(layoutManager);
+        recyclerViewpproduk.setItemAnimator(new DefaultItemAnimator());
+        recyclerViewpproduk.setNestedScrollingEnabled(false);
+        recyclerViewpproduk.setFocusableInTouchMode(false);
+
 
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
         Call<List<Model>> call = service.getProduk();
