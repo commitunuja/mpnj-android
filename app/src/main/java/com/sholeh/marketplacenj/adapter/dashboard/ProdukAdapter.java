@@ -70,39 +70,10 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ViewHolder
         return tvDataProduks.size();
     }
 
-    @Override
-    public Filter getFilter() {
-        return filter;
+    public void setFilter(List<Model> filterdata) {
+        this.tvDataProduks = filterdata;
+        notifyDataSetChanged();
     }
-
-    Filter filter = new Filter() {
-        @Override
-        protected FilterResults performFiltering(CharSequence constraint) {
-            List<Model> filteredList = new ArrayList<>();
-            if (constraint.toString().isEmpty()) {
-                filteredList.addAll(getAllData);
-                Log.d("YOLO", "message" + filteredList);
-            } else {
-                for (Model model : getAllData) {
-                    if (model.getNamaProduk().toLowerCase().contains(constraint.toString())) {
-                        filteredList.add(model);
-                    }
-
-                }
-            }
-            FilterResults filterResults = new FilterResults();
-            filterResults.values = filteredList;
-
-            return filterResults;
-        }
-
-        @Override
-        protected void publishResults(CharSequence constraint, FilterResults results) {
-            tvDataProduks.clear();
-            tvDataProduks.addAll((Collection<? extends Model>) results.values);
-            notifyDataSetChanged();
-
-        }
     };
 
     public class ViewHolder extends RecyclerView.ViewHolder {
