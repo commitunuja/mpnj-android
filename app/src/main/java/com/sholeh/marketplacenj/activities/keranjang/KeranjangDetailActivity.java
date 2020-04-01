@@ -68,6 +68,9 @@ public class KeranjangDetailActivity extends AppCompatActivity {
         listView = findViewById(R.id.expListhistori);
 
 
+
+
+
         cb_select_all = findViewById(R.id.cb_select_all);
         cb_select_all.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,10 +141,8 @@ public class KeranjangDetailActivity extends AppCompatActivity {
 
 
                                 child.add(new ChildModel(idKeranjang, namaProduk, hargaJual, diskon, jumlah, foto, stok, false));
-
                             }
                             listChild.put(listHeader.get(i), child);
-
                         }
 //                        Log.d("sholceng", new Gson().toJson(listChild));
                         expanAdapter = new ExpandListScanAdapter(KeranjangDetailActivity.this, listHeader, listChild);

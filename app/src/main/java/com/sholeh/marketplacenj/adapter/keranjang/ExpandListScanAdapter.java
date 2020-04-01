@@ -14,9 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.sholeh.marketplacenj.activities.keranjang.KeranjangDetailActivity;
@@ -79,6 +77,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
     @Override
     public int getChildrenCount(int groupPosition) {
         return this.listChild.get(listHeaderFilter.get(groupPosition)).size();
+
     }
 
     @Override
@@ -103,7 +102,8 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 
     @Override
     public boolean hasStableIds() {
-        return false;
+        return true;
+//        return false;
     }
 
     @Override
@@ -149,12 +149,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
                             double s = hargaJual - h;
                             double p = jumlah * s;
                             totalPrice += p;
-
-
-
                         }
-
-
                     }
                 }
 
@@ -166,7 +161,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
                 Intent intent = new Intent("custom-message");
                 intent.putExtra("total", String.valueOf(totalPrice));
                 LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
-                notifyDataSetChanged();
+//                notifyDataSetChanged();
 
             }
         });
@@ -181,10 +176,8 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
         final ChildModel model = listChild.get(listHeaderFilter.get(groupPosition)).get(childPosition);
         final ChildModel childModel = model;
         String id_keranjang = model.getId_keranjang();
-
         preferences = new Preferences(context);
         id_konsumen = preferences.getIdKonsumen();
-
 
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.desain_child, null);
@@ -260,6 +253,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
                 childModel.setIsChecked(!nowBeanChecked);
 
                 boolean parentIsChecked = dealOneParentAllChildIsChecked(groupPosition);
+                HeaderModel headerModel = listHeaderFilter.get(groupPosition);
 
 
                 String harganya = harga.getText().toString();
@@ -273,12 +267,11 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
                     totot += Integer.parseInt(har);
                 } else {
                     totot -= Integer.parseInt(har);
+
                 }
                 Intent intent = new Intent("custom-message");
                 intent.putExtra("total", String.valueOf(totot));
                 LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
-
-                HeaderModel headerModel = listHeaderFilter.get(groupPosition);
                 headerModel.setIsChecked(parentIsChecked);
                 notifyDataSetChanged();
 
@@ -286,7 +279,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 //                dealPrice();
             }
         });
-
+//
         cbchild.setChecked(childModel.isChecked());
         increment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -324,13 +317,14 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 //                                        har = har+ nomor2[i];
 //                                    }
                                     if (childModel.isChecked()) {
-
                                         totot += model.getHarga();
                                         Intent intent = new Intent("custom-message");
                                         intent.putExtra("total", String.valueOf(totot));
                                         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
 
                                     }
+
+
 
                                 } else {
                                     int hargaProduk = model.getHarga();
@@ -383,7 +377,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
                 }
             }
         });
-
+//
         cbchild.setChecked(childModel.isChecked());
         decrement.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -449,7 +443,6 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
                                         har = har + nomor2[i];
                                     }
                                     if (childModel.isChecked()) {
-
                                         totot -= v;
                                         Intent intent = new Intent("custom-message");
                                         intent.putExtra("total", String.valueOf(totot));
@@ -529,6 +522,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
             childModel.setIsChecked(isChecked);
         }
         notifyDataSetChanged();
+
     }
 
     public void setupAllChecked(boolean isChecked) {
@@ -542,11 +536,10 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
                 childModel.setIsChecked(isChecked);
             }
         }
-
+        notifyDataSetChanged();
     }
 
 
-    //
     public boolean dealOneParentAllChildIsChecked(int groupPosition) {
         for (int j = 0; j < listChild.get(listHeaderFilter.get(groupPosition)).size(); j++) {
             ChildModel childModel = listChild.get(listHeaderFilter.get(groupPosition)).get(j);
@@ -555,12 +548,6 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
             }
         }
         return true;
-    }
-
-
-    public void getSubTotal() {
-
-
     }
 
 }
