@@ -96,6 +96,8 @@ public class Homepage extends AppCompatActivity {
     }
 
     private void fiturpencarian() {
+        edpencarian = findViewById(R.id.etsearch);
+        linearLayoutkategori = findViewById(R.id.linearkategori);
         frameLayout = findViewById(R.id.frag_container);
         search = findViewById(R.id.etsearch);
         search.addTextChangedListener(new TextWatcher() {
