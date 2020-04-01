@@ -1,26 +1,37 @@
 package com.sholeh.marketplacenj.activities.dashboard;
 
+import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.app.SearchManager;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.core.view.MenuItemCompat;
 import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.JsonObject;
 import com.sholeh.marketplacenj.adapter.details.ViewPagerAdapter;
+import com.sholeh.marketplacenj.mfragment.FragmentHome;
+import com.sholeh.marketplacenj.mfragment.homepage.FragmentSearch;
 import com.sholeh.marketplacenj.model.Foto;
 import com.sholeh.marketplacenj.util.CONSTANTS;
 import com.sholeh.marketplacenj.util.api.APIInterface;
@@ -51,6 +62,8 @@ import static java.lang.String.valueOf;
 
 public class Homepage extends AppCompatActivity {
 
+    FrameLayout frameLayout;
+    EditText search;
     private ArrayList<HomeBannerModelClass> homeBannerModelClasses;
     private RecyclerView recyclerView;
     private RecycleAdapteHomeBanner mAdapter;
@@ -63,12 +76,14 @@ public class Homepage extends AppCompatActivity {
     private String title[] = {"All Categories", "Mens", "Womens", "Electronics", "Home and Furniture", "Sports"};
 
     //produk
-    ArrayList<Foto> tampil = new ArrayList<Foto>();
+    private Object Homepage;
     private ProdukAdapter produkAdapter;
     private List<Model> tvDataProduk;
     private ArrayList<TopTenModelClass> topTenModelClasses;
     private RecyclerView top_ten_crecyclerview;
+    private RecyclerView recyclerViewpproduk;
     private RecycleAdapteTopTenHome mAdapter2;
+    private RecycleAdapteTopTenHome mAdaper10;
     private Integer image1[] = {R.drawable.ac, R.drawable.headphones, R.drawable.ac, R.drawable.headphones};
     private String title1[] = {"Vigo Atom Personal Air Condi....", "Bosh Head Phone Blue Color", "Vigo Atom Personal Air Condi....", "Bosh Head Phone Blue Color",};
     private String type[] = {"Kitenid", "HeadPhones", "Kitenid", "HeadPhones"};
@@ -79,6 +94,7 @@ public class Homepage extends AppCompatActivity {
     private Integer image2[] = {R.drawable.mobile1, R.drawable.mobile2, R.drawable.mobile1, R.drawable.mobile2};
     private String title2[] = {"Samsung On Mask 2GB Ram", "Samsung Galaxy 8 6GB Ram", "Samsung On Mask 2GB Ram", "Samsung Galaxy 8 6GB Ram"};
     private String type2[] = {"Phones", "Phones", "Phones", "Phones"};
+    private FragmentSearch fragmentSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
