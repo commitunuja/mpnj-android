@@ -5,31 +5,48 @@
     android:layout_height="wrap_content"
     android:background="@color/colorutama">
 
-    <customfonts.MyTextView_Roboto_Medium
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:textSize="18.7sp"
-        android:letterSpacing="0.03"
-        android:textStyle="bold"
-        android:layout_marginLeft="30dp"
-        android:text="bela"/>
 
     <ImageView
         android:layout_width="30dp"
         android:layout_height="30dp"
+        android:layout_marginEnd="10dp"
         android:src="@drawable/logotas1"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:imeOptions="actionSearch"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/rect_white"
+        android:orientation="horizontal"
+        android:padding="8dp">
 
-    <ImageView
-        android:id="@+id/search"
-        android:layout_width="19dp"
-        android:layout_height="19dp"
-        android:layout_gravity="right"
-        android:layout_marginRight="20dp"
-        android:src="@drawable/search"/>
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="30dp"
+            android:src="@drawable/search_icon" />
 
+        <EditText
+            android:id="@+id/etsearch"
+            android:layout_width="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:imeOptions="actionSearch"
+            android:maxLines="1"
+            android:background="@color/trance"
+            android:textSize="14sp"
+            android:singleLine="true"
+            android:hint="Cari Produk"/>
 
-
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="30dp"
+            android:src="@drawable/mic_icon"
+            android:contentDescription="@string/todo" />
+    </LinearLayout>
 
 </androidx.appcompat.widget.Toolbar>

@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/toolbar_hompage"/>
+    <include layout="@layout/toolbar_hompage" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclersearch"
@@ -25,188 +24,188 @@
         android:layout_width="wrap_content"
         android:visibility="gone"
         android:layout_height="wrap_content">
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="none">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-
-    <!--Banner Recyclerview-->
-
-        <LinearLayout
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:elevation="5dp"
-            android:layout_marginBottom="20dp">
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clipToPadding="false"
-        android:paddingTop="20dp"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:elevation="5dp"
-        android:nestedScrollingEnabled="false"
-        android:id="@+id/recyclerview"/>
+                <!--Banner Recyclerview-->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:elevation="5dp"
+                    android:orientation="vertical">
 
 
-        </LinearLayout>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clipToPadding="false"
+                        android:elevation="5dp"
+                        android:nestedScrollingEnabled="false"
+                        android:paddingLeft="15dp"
+                        android:paddingTop="20dp"
+                        android:paddingRight="15dp" />
 
 
-    <!--Category Recyclerview-->
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clipToPadding="false"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:nestedScrollingEnabled="false"
-
-        android:id="@+id/category_recyclerview"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="24dp">
-        
-        <customfonts.MyTextView_Roboto_Medium
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:textSize="14sp"
-            android:text="@string/top_rated_products"/>
-
-        <customfonts.MyTextView_Roboto_Medium
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="View More"
-            android:textSize="13sp"
-            android:textColor="@color/red"
-            android:layout_marginRight="20dp"/>
-    </LinearLayout>
-
-    <!--Top Rated Recyclerview-->
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clipToPadding="false"
-        android:paddingTop="15dp"
-        android:paddingLeft="5dp"
-        android:paddingRight="15dp"
-        android:nestedScrollingEnabled="false"
-        android:id="@+id/like_recyclerview" />
+                </LinearLayout>
 
 
+                <!--Category Recyclerview-->
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/category_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:nestedScrollingEnabled="false"
+                    android:paddingLeft="15dp"
+
+                    android:paddingRight="15dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginTop="24dp"
+                    android:orientation="horizontal">
+
+                    <customfonts.MyTextView_Roboto_Medium
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/top_rated_products"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+                    <customfonts.MyTextView_Roboto_Medium
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="20dp"
+                        android:text="View More"
+                        android:textColor="@color/red"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+                <!--Top Rated Recyclerview-->
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/like_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:nestedScrollingEnabled="false"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="15dp"
+                    android:paddingRight="15dp" />
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginLeft="24dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="24dp"
+                    android:orientation="horizontal">
 
-            <customfonts.MyTextView_Roboto_Medium
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:text="@string/you_may_like"/>
+                    <customfonts.MyTextView_Roboto_Medium
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/you_may_like"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
 
-            <customfonts.MyTextView_Roboto_Medium
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="View More"
-                android:textSize="13sp"
-                android:textColor="@color/red"
-                android:layout_marginRight="20dp"/>
-        </LinearLayout>
+                    <customfonts.MyTextView_Roboto_Medium
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="20dp"
+                        android:text="View More"
+                        android:textColor="@color/red"
+                        android:textSize="13sp" />
+                </LinearLayout>
 
-        <!--Like Recyclerview-->
+                <!--Like Recyclerview-->
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clipToPadding="false"
-            android:paddingTop="15dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="15dp"
-            android:nestedScrollingEnabled="false"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/top_ten_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:nestedScrollingEnabled="false"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="15dp"
 
-            android:id="@+id/top_ten_recyclerview"/>
+                    android:paddingRight="15dp" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clipToPadding="false"
-            android:paddingTop="15dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="15dp"
-            android:nestedScrollingEnabled="false"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/barang"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:nestedScrollingEnabled="false"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="15dp"
 
-            android:id="@+id/barang"/>
-
-        
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="193dp"
-            android:scaleType="centerCrop"
-            android:layout_marginTop="24dp"
-            android:src="@drawable/image96"/>
+                    android:paddingRight="15dp" />
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginLeft="24dp"
-            android:layout_marginTop="24dp">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="193dp"
+                    android:layout_marginTop="24dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/image96" />
 
-            <customfonts.MyTextView_Roboto_Medium
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:text="Recently Viewed"/>
 
-            <customfonts.MyTextView_Roboto_Medium
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="View All"
-                android:textSize="13sp"
-                android:textColor="@color/red"
-                android:layout_marginRight="20dp"/>
-        </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginTop="24dp"
+                    android:orientation="horizontal">
 
-        <!--Top Rated Recyclerview-->
+                    <customfonts.MyTextView_Roboto_Medium
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Recently Viewed"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clipToPadding="false"
-            android:paddingTop="15dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="15dp"
-            android:paddingBottom="25dp"
-            android:nestedScrollingEnabled="false"
-            android:id="@+id/recent_recyclerview"/>
+                    <customfonts.MyTextView_Roboto_Medium
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="20dp"
+                        android:text="View All"
+                        android:textColor="@color/red"
+                        android:textSize="13sp" />
+                </LinearLayout>
 
-    </LinearLayout>
+                <!--Top Rated Recyclerview-->
 
-    </androidx.core.widget.NestedScrollView>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recent_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:nestedScrollingEnabled="false"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="15dp"
+                    android:paddingRight="15dp"
+                    android:paddingBottom="25dp" />
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+    </FrameLayout>
 
 </LinearLayout>

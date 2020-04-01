@@ -56,4 +56,7 @@
     <string name="action_search">actionsearch</string>
     <string name="action_settings">actionsetting</string>
     <string name="hint">Cari Produk</string>
+    <string name="search_for_products_brands_amp_more"><![CDATA[Search for Products, Brands & More]]></string>
+    <string name="todo">TODO</string>
+    <string name="baru">baru</string>
 </resources>
