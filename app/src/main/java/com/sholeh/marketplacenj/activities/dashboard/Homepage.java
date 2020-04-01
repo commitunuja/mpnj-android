@@ -2,12 +2,15 @@ package com.sholeh.marketplacenj.activities.dashboard;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Display;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +20,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.sholeh.marketplacenj.adapter.dashboard.SearchAdapter;
 import com.sholeh.marketplacenj.util.api.APIInterface;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.util.ServiceGenerator;
@@ -32,6 +36,7 @@ import com.sholeh.marketplacenj.model.dashboard.TopTenModelClass;
 import java.util.ArrayList;
 import java.util.List;
 
+import customfonts.EditText_Roboto_Meidum;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -53,12 +58,13 @@ public class Homepage extends AppCompatActivity {
     private RecycleAdapteHomeCategory mAdapter1;
     private String title[] = {"All Categories", "Mens", "Womens", "Electronics", "Home and Furniture", "Sports"};
 
+    //pencarian
     private SearchAdapter searchAdapter;
     private List<Model> datapencarian;
     private LinearLayout linearLayoutkategori;
     EditText edpencarian;
+
     //produk
-    private Object Homepage;
     private ProdukAdapter produkAdapter;
     private List<Model> tvDataProduk;
     private ArrayList<TopTenModelClass> topTenModelClasses;
@@ -70,13 +76,13 @@ public class Homepage extends AppCompatActivity {
     private String title1[] = {"Vigo Atom Personal Air Condi....", "Bosh Head Phone Blue Color", "Vigo Atom Personal Air Condi....", "Bosh Head Phone Blue Color",};
     private String type[] = {"Kitenid", "HeadPhones", "Kitenid", "HeadPhones"};
 
+    String status;
     private ArrayList<TopTenModelClass> topTenModelClasses1;
     private RecyclerView like_recyclerview;
     private RecycleAdapteTopTenHome mAdapter3;
     private Integer image2[] = {R.drawable.mobile1, R.drawable.mobile2, R.drawable.mobile1, R.drawable.mobile2};
     private String title2[] = {"Samsung On Mask 2GB Ram", "Samsung Galaxy 8 6GB Ram", "Samsung On Mask 2GB Ram", "Samsung Galaxy 8 6GB Ram"};
     private String type2[] = {"Phones", "Phones", "Phones", "Phones"};
-    private FragmentSearch fragmentSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,18 +115,15 @@ public class Homepage extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                Homepage.this.filterQuery(s.toString());
-                frameLayout.removeAllViews();
                 recyclerViewpproduk.setVisibility(View.VISIBLE);
                 Homepage.this.filterQuery(s.toString());
                 frameLayout.setVisibility(View.GONE);
                 linearLayoutkategori.setVisibility(View.VISIBLE);
-
+                status = "yes";
 
             }
         });
@@ -140,10 +143,7 @@ public class Homepage extends AppCompatActivity {
 
     private void produksamsung() {
         like_recyclerview = (RecyclerView) findViewById(R.id.top_ten_recyclerview);
-
         topTenModelClasses1 = new ArrayList<>();
-
-
         for (int i = 0; i < image2.length; i++) {
             TopTenModelClass beanClassForRecyclerView_contacts = new TopTenModelClass(image2[i], title2[i], type[i]);
 
@@ -263,9 +263,9 @@ public class Homepage extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Model>> call, Response<List<Model>> response) {
 
-                tvDataProduk = response.body();
-                produkAdapter = new ProdukAdapter(getBaseContext(), tvDataProduk);
-                recyclerViewpproduk.setAdapter(produkAdapter);
+                datapencarian = response.body();
+                searchAdapter = new SearchAdapter(getBaseContext(), datapencarian);
+                recyclerViewpproduk.setAdapter(searchAdapter);
 
             }
 
@@ -299,31 +299,16 @@ public class Homepage extends AppCompatActivity {
 
     public void filterQuery(String text) {
         ArrayList<Model> filterdNames = new ArrayList<>();
-        for (Model s : this.tvDataProduk) {
+        for (Model s : this.datapencarian) {
             if (s.getNamaProduk().toLowerCase().contains(text) || s.getKeterangan().toLowerCase().contains(text)) {
                 filterdNames.add(s);
             }
         }
-        this.produkAdapter.setFilter(filterdNames);
+        this.searchAdapter.setFilter(filterdNames);
     }
 
-    @Override
-    public void onBackPressed() {
-        if (recyclerViewpproduk.isShown()) {
-            Toast.makeText(this, "asdasdsa", Toast.LENGTH_SHORT).show();
-            recyclerViewpproduk.removeAllViews();
-            frameLayout.setVisibility(View.VISIBLE);
-        } else {
-            new AlertDialog.Builder(this)
-                    .setTitle("Really Exit?")
-                    .setMessage("Are you sure you want to exit?")
-                    .setNegativeButton(android.R.string.no, null)
-                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface arg0, int arg1) {
-                            Homepage.super.onBackPressed();
-                        }
-                    }).create().show();
-        }
-    }
 }
+
+
+
 
