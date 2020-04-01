@@ -2,6 +2,12 @@
     <style name="AppTheme" parent="AppTheme.Base">
         <!-- All customizations that are NOT specific to a particular APIInterface-level can go here. -->
     </style>
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">@color/lightgray</item>
+        <item name="colorControlActivated">@color/duskyellow</item>
+        <item name="android:spacing">100dp</item>
+    </style>
+
     <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
 
         <item name="colorPrimaryDark">@color/green_semi_transparent</item>
