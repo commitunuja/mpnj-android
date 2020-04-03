@@ -51,6 +51,7 @@ import retrofit2.Response;
 
 public class ExpandListScanAdapter extends BaseExpandableListAdapter {
     int totot = 0;
+    int chilTotal = 0;
     int jumlahProduk = 0;
     private Context context;
     private List<HeaderModel> listHeaderFilter;
@@ -180,8 +181,6 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
     public View getChildView(final int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         Log.d("sholeh", listHeaderFilter.get(groupPosition).getId_toko());
 
-
-
         final ChildModel model = listChild.get(listHeaderFilter.get(groupPosition)).get(childPosition);
         final ChildModel childModel = model;
         String id_keranjang = model.getId_keranjang();
@@ -192,11 +191,11 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.desain_child, null);
         }
-
         LinearLayout viewline, increment, decrement;
         final TextView tvx_nama, tvx_idKeranjang, tvx_addjumlah, tvx_stok, tvx_harga, tvx_hargaDiskon;
         final ImageView delete_item, img_gambar;
         final CheckBox cbchild;
+
 
 
         tvx_nama = convertView.findViewById(R.id.txtnamaPRODUK);
@@ -210,10 +209,6 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
         decrement = convertView.findViewById(R.id.decrement);
         delete_item = convertView.findViewById(R.id.cart_delete);
         cbchild = convertView.findViewById(R.id.cb_select_child);
-
-
-
-
 
 //        if (addjumlah == 0){ // agar tidak ke reload kembali ke data sebelumnya
 //
@@ -272,6 +267,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
         cbchild.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 final boolean nowBeanChecked = childModel.isChecked();
                 childModel.setIsChecked(!nowBeanChecked);
 
@@ -287,13 +283,13 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
                     har = har + nomor2[i];
                 }
                 if (childModel.isChecked()) {
-                    totot += Integer.parseInt(har);
+                    chilTotal += Integer.parseInt(har);
                 } else {
-                    totot -= Integer.parseInt(har);
+                    chilTotal -= Integer.parseInt(har);
 
                 }
                 Intent intent = new Intent("custom-message");
-                intent.putExtra("total", String.valueOf(totot));
+                intent.putExtra("total", String.valueOf(chilTotal));
                 LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
                 headerModel.setIsChecked(parentIsChecked);
                 notifyDataSetChanged();
