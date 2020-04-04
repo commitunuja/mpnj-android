@@ -249,7 +249,7 @@ public class Homepage extends AppCompatActivity {
 
         category_recyclerView.setLayoutManager(mLayoutManager1);
         category_recyclerView.setItemAnimator(new DefaultItemAnimator());
-        category_recyclerView.setAdapter(mAdapter1);
+        category_recyclerView.setAdapter(recycleAdapteHomeCategory);
     }
 
     private void produksearch() {
