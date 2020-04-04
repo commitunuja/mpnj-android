@@ -235,6 +235,13 @@ public class Homepage extends AppCompatActivity {
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
         Call<List<Kategori>> call = service.getKategori();
 
+        call.enqueue(new Callback<List<Kategori>>() {
+            @Override
+            public void onResponse(Call<List<Kategori>> call, Response<List<Kategori>> response) {
+                Log.d("YOLO", "Error"+response);
+                homeCategoryModelClasses = response.body();
+                recycleAdapteHomeCategory = new RecycleAdapteHomeCategory(getBaseContext(), homeCategoryModelClasses);
+                category_recyclerView.setAdapter(recycleAdapteHomeCategory);
 
         mAdapter1 = new RecycleAdapteHomeCategory(Homepage.this, homeCategoryModelClasses);
         RecyclerView.LayoutManager mLayoutManager1 = new LinearLayoutManager(Homepage.this, LinearLayoutManager.HORIZONTAL, false);
