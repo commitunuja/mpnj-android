@@ -243,7 +243,14 @@ public class Homepage extends AppCompatActivity {
                 recycleAdapteHomeCategory = new RecycleAdapteHomeCategory(getBaseContext(), homeCategoryModelClasses);
                 category_recyclerView.setAdapter(recycleAdapteHomeCategory);
 
-        mAdapter1 = new RecycleAdapteHomeCategory(Homepage.this, homeCategoryModelClasses);
+            }
+
+            @Override
+            public void onFailure(Call<List<Kategori>> call, Throwable t) {
+                Toast.makeText(getBaseContext(), String.valueOf(t), Toast.LENGTH_SHORT).show();
+            }
+        });
+
         RecyclerView.LayoutManager mLayoutManager1 = new LinearLayoutManager(Homepage.this, LinearLayoutManager.HORIZONTAL, false);
         category_recyclerView.setLayoutManager(mLayoutManager1);
 
