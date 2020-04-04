@@ -1,5 +1,6 @@
 package com.sholeh.marketplacenj.activities.keranjang;
 
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -7,6 +8,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
@@ -45,7 +47,7 @@ public class KeranjangDetailActivity extends AppCompatActivity {
     private HashMap<HeaderModel, List<ChildModel>> listChild;
     private TextView tvx_total;
     List<ChildModel> child;
-   public  CheckBox cb_select_all;
+    public CheckBox cb_select_all;
 
     Preferences preferences;
     String id_konsumen;
@@ -57,7 +59,7 @@ public class KeranjangDetailActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        getDetailKeranjang();
+
         super.onResume();
     }
 
@@ -70,13 +72,20 @@ public class KeranjangDetailActivity extends AppCompatActivity {
         tvx_total = findViewById(R.id.total);
         listView = findViewById(R.id.expListhistori);
 
+        getDetailKeranjang();
+        expanAdapter = new ExpandListScanAdapter(this, listHeader, listChild);
+        listView.setAdapter(expanAdapter);
 
 
 
-//        listView.invalidateViews();
+        listView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+            @Override
+            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+                return true; // mencegah parent klik
+            }
+        });
 
         cb_select_all = findViewById(R.id.cb_select_all);
-//        cb_select_all.setChecked(true);
         cb_select_all.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,9 +94,9 @@ public class KeranjangDetailActivity extends AppCompatActivity {
                     CheckBox checkBox = (CheckBox) v;
                     expanAdapter.setupAllChecked(checkBox.isChecked());
 
-                    if(cb_select_all.isChecked()){
+                    if (cb_select_all.isChecked()) {
                         getTotal();
-                    }else {
+                    } else {
                         tvx_total.setText("Rp0");
                         getDetailKeranjang();
                     }
@@ -96,10 +105,34 @@ public class KeranjangDetailActivity extends AppCompatActivity {
         });
 
 
+//        expanAdapter.setOnAllCheckedBoxNeedChangeListener(new ExpandListScanAdapter.OnAllCheckedBoxNeedChangeListener() {
+//            @Override
+//            public void onCheckedBoxNeedChange(boolean allParentIsChecked) {
+//                cb_select_all.setChecked(allParentIsChecked);
+//            }
+//        });
+
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
                 new IntentFilter("custom-message"));
 
 
+
+//        expanAdapter.setOnAllCheckedBoxNeedChangeListener(new ExpandListScanAdapter.OnAllCheckedBoxNeedChangeListener() {
+//            @Override
+//            public void onCheckedBoxNeedChange(boolean allParentIsChecked) {
+//                cb_select_all.setChecked(allParentIsChecked);
+//            }
+//        });
+
+//        expanAdapter.setOnGoodsCheckedChangeListener(new ExpandListScanAdapter.OnGoodsCheckedChangeListener() {
+//            @SuppressLint("StringFormatMatches")
+//            @Override
+//            public void onGoodsCheckedChange(double totalHarga) {
+////                st = new StringTokenizer(formatRupiah.format(totalHarga), ",");
+////                String harganya = st.nextToken().trim();
+////                tvx_total.setText(harganya);
+//            }
+//        }) ;
 
     }
 
@@ -154,6 +187,7 @@ public class KeranjangDetailActivity extends AppCompatActivity {
                         expanAdapter = new ExpandListScanAdapter(KeranjangDetailActivity.this, listHeader, listChild);
                         listView.setAdapter(expanAdapter);
 
+
                         int count = expanAdapter.getGroupCount();
                         for (int i = 0; i < count; i++) {
                             listView.expandGroup(i);
@@ -175,6 +209,7 @@ public class KeranjangDetailActivity extends AppCompatActivity {
                     AppUtilits.displayMessage(KeranjangDetailActivity.this, getString(R.string.network_error));
                 }
             }
+
             @Override
             public void onFailure(Call<ResDetailKeranjang> call, Throwable t) {
 //                Toast.makeText(KeranjangDetailActivity.this, "e"+t, Toast.LENGTH_SHORT).show();
@@ -257,6 +292,7 @@ public class KeranjangDetailActivity extends AppCompatActivity {
                     AppUtilits.displayMessage(KeranjangDetailActivity.this, getString(R.string.network_error));
                 }
             }
+
             @Override
             public void onFailure(Call<ResDetailKeranjang> call, Throwable t) {
 //                Toast.makeText(KeranjangDetailActivity.this, "e"+t, Toast.LENGTH_SHORT).show();
@@ -271,7 +307,6 @@ public class KeranjangDetailActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             String qty = intent.getStringExtra("total");
-            hargaTotal = Double.parseDouble(qty);
             st = new StringTokenizer(formatRupiah.format(hargaTotal), ",");
             String harganya = st.nextToken().trim();
             tvx_total.setText(harganya);
