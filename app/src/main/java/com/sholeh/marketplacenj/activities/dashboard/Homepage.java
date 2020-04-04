@@ -232,9 +232,9 @@ public class Homepage extends AppCompatActivity {
         homeCategoryModelClasses = new ArrayList<>();
 
         for (int i = 0; i < title.length; i++) {
-            HomeCategoryModelClass beanClassForRecyclerView_contacts = new HomeCategoryModelClass(title[i]);
-            homeCategoryModelClasses.add(beanClassForRecyclerView_contacts);
-        }
+        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+        Call<List<Kategori>> call = service.getKategori();
+
 
         mAdapter1 = new RecycleAdapteHomeCategory(Homepage.this, homeCategoryModelClasses);
         RecyclerView.LayoutManager mLayoutManager1 = new LinearLayoutManager(Homepage.this, LinearLayoutManager.HORIZONTAL, false);
