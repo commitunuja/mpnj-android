@@ -55,8 +55,8 @@ public class Homepage extends AppCompatActivity {
 
     private List<Kategori> homeCategoryModelClasses;
     private RecyclerView category_recyclerView;
-    private RecycleAdapteHomeCategory mAdapter1;
-    private String title[] = {"All Categories", "Mens", "Womens", "Electronics", "Home and Furniture", "Sports"};
+    private RecycleAdapteHomeCategory recycleAdapteHomeCategory;
+    private String namaKategori[] = {"All Categories", "Mens", "Womens", "Electronics", "Home and Furniture", "Sports"};
 
     //pencarian
     private SearchAdapter searchAdapter;
