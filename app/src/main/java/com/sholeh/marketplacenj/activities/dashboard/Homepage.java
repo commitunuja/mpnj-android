@@ -1,47 +1,42 @@
 package com.sholeh.marketplacenj.activities.dashboard;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.graphics.Point;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Display;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.sholeh.marketplacenj.adapter.dashboard.SearchAdapter;
-import com.sholeh.marketplacenj.util.api.APIInterface;
 import com.sholeh.marketplacenj.R;
-import com.sholeh.marketplacenj.util.ServiceGenerator;
 import com.sholeh.marketplacenj.adapter.dashboard.ProdukAdapter;
 import com.sholeh.marketplacenj.adapter.dashboard.RecycleAdapteHomeBanner;
 import com.sholeh.marketplacenj.adapter.dashboard.RecycleAdapteHomeCategory;
 import com.sholeh.marketplacenj.adapter.dashboard.RecycleAdapteTopTenHome;
+import com.sholeh.marketplacenj.adapter.dashboard.SearchAdapter;
+import com.sholeh.marketplacenj.model.Kategori;
 import com.sholeh.marketplacenj.model.Model;
 import com.sholeh.marketplacenj.model.dashboard.HomeBannerModelClass;
-import com.sholeh.marketplacenj.model.dashboard.HomeCategoryModelClass;
+import com.sholeh.marketplacenj.model.dashboard.KategoriLihatSemua;
 import com.sholeh.marketplacenj.model.dashboard.TopTenModelClass;
+import com.sholeh.marketplacenj.util.ServiceGenerator;
+import com.sholeh.marketplacenj.util.api.APIInterface;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import customfonts.EditText_Roboto_Meidum;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static java.lang.String.valueOf;
 
 public class Homepage extends AppCompatActivity {
 
@@ -54,9 +49,11 @@ public class Homepage extends AppCompatActivity {
 
 
     private List<Kategori> homeCategoryModelClasses;
+    TextView allcategory;
     private RecyclerView category_recyclerView;
     private RecycleAdapteHomeCategory recycleAdapteHomeCategory;
-    private String namaKategori[] = {"All Categories", "Mens", "Womens", "Electronics", "Home and Furniture", "Sports"};
+//    private ArrayList<KategoriLihatSemua> kategoriLihatSemua;
+    private String lihatsemua[] = {"All Categories"};
 
     //pencarian
     private SearchAdapter searchAdapter;
@@ -231,17 +228,19 @@ public class Homepage extends AppCompatActivity {
         category_recyclerView = (RecyclerView) findViewById(R.id.category_recyclerview);
         homeCategoryModelClasses = new ArrayList<>();
 
-        for (int i = 0; i < title.length; i++) {
+        allcategory = findViewById(R.id.tv_allcategory);
+
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
         Call<List<Kategori>> call = service.getKategori();
 
         call.enqueue(new Callback<List<Kategori>>() {
             @Override
             public void onResponse(Call<List<Kategori>> call, Response<List<Kategori>> response) {
-                Log.d("YOLO", "Error"+response);
+//                Log.d("YOLO", "Error" + response);
                 homeCategoryModelClasses = response.body();
                 recycleAdapteHomeCategory = new RecycleAdapteHomeCategory(getBaseContext(), homeCategoryModelClasses);
                 category_recyclerView.setAdapter(recycleAdapteHomeCategory);
+//                homeCategoryModelClasses.add());
 
             }
 
@@ -251,6 +250,7 @@ public class Homepage extends AppCompatActivity {
             }
         });
 
+        recycleAdapteHomeCategory = new RecycleAdapteHomeCategory(Homepage.this, homeCategoryModelClasses);
         RecyclerView.LayoutManager mLayoutManager1 = new LinearLayoutManager(Homepage.this, LinearLayoutManager.HORIZONTAL, false);
         category_recyclerView.setLayoutManager(mLayoutManager1);
 
