@@ -307,6 +307,7 @@ public class KeranjangDetailActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             String qty = intent.getStringExtra("total");
+            hargaTotal = Double.parseDouble(qty);
             st = new StringTokenizer(formatRupiah.format(hargaTotal), ",");
             String harganya = st.nextToken().trim();
             tvx_total.setText(harganya);

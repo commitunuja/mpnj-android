@@ -177,7 +177,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 
 //                onAllCheckedBoxNeedChangeListener.onCheckedBoxNeedChange(dealAllParentIsChecked()); // chekced select all tecentanh
 
-             AllIsChecked();
+                AllIsChecked();
 
             }
         });
@@ -690,7 +690,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
             @Override
             public void onResponse(Call<ResUbahJumlahProduk> call, Response<ResUbahJumlahProduk> response) {
                 if (response.body() != null && response.isSuccessful()) {
-                  getTotal();
+                    getTotal();
 
                 } else {
                     Toast.makeText(context, "gagal " + response.body(), Toast.LENGTH_SHORT).show();
