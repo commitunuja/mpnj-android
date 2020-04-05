@@ -90,16 +90,19 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
     StringTokenizer st, st2;
     private static final String TAG = "MyExpandAdapter";
 
-    OnGoodsCheckedChangeListener onGoodsCheckedChangeListener;
+//    OnGoodsCheckedChangeListener onGoodsCheckedChangeListener;
 
     OnAllCheckedBoxNeedChangeListener onAllCheckedBoxNeedChangeListener;
+//
+//    public void setOnGoodsCheckedChangeListener(OnGoodsCheckedChangeListener onGoodsCheckedChangeListener) {
+//        this.onGoodsCheckedChangeListener = onGoodsCheckedChangeListener;
+//    }
 
-    public void setOnGoodsCheckedChangeListener(OnGoodsCheckedChangeListener onGoodsCheckedChangeListener) {
-        this.onGoodsCheckedChangeListener = onGoodsCheckedChangeListener;
-    }
-
-    public void setOnAllCheckedBoxNeedChangeListener(OnAllCheckedBoxNeedChangeListener onAllCheckedBoxNeedChangeListener) {
+    public void setOnAllCheckedBoxNeedChangeListener(OnAllCheckedBoxNeedChangeListener onAllCheckedBoxNeedChangeListener, Context context, List<HeaderModel> listHeader, HashMap<HeaderModel, List<ChildModel>> listChild) {
         this.onAllCheckedBoxNeedChangeListener = onAllCheckedBoxNeedChangeListener;
+        this.listHeaderFilter = listHeader;
+        this.listChild = listChild;
+        this.context = context;
     }
 
     public ExpandListScanAdapter(Context context, List<HeaderModel> listHeader, HashMap<HeaderModel, List<ChildModel>> listChild) {
@@ -142,7 +145,6 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
     @Override
     public boolean hasStableIds() {
         return true;
-//        return false;
     }
 
     @Override
@@ -170,15 +172,23 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 
         cbparent.setChecked(headerModel.isChecked());
         final boolean nowBeanChecked = headerModel.isChecked();
+
         cbparent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 setupOneParentAllChildChecked(!nowBeanChecked, groupPosition);
 
-//                onAllCheckedBoxNeedChangeListener.onCheckedBoxNeedChange(dealAllParentIsChecked()); // chekced select all tecentanh
+//                onAllCheckedBoxNeedChangeListener.onCheckedBoxNeedChange(AllIsChecked()); // chekced select all tecentanh
 
-                AllIsChecked();
+//                AllIsChecked();
 
+                valueCheckboxParent();
+
+
+//                Intent intent = new Intent(context, KeranjangDetailActivity.class);
+//                intent.putExtra("yourBoolName",String.valueOf(AllIsChecked()));
+//                context.startActivity(intent);
             }
         });
 
@@ -288,7 +298,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
                 notifyDataSetChanged();
 
 //  onAllCheckedBoxNeedChangeListener.onCheckedBoxNeedChange(dealAllParentIsChecked());
-                AllIsChecked();
+               valueCheckboxParent();
 
                 getTotal();
 
@@ -329,6 +339,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
             @Override
             public void onClick(View v) {
                 addJumlah(childModel);
+
 
 //                jumlahProduk = Integer.valueOf(tvx_addjumlah.getText().toString());
 //                int stokproduk = Integer.valueOf(tvx_stok.getText().toString());
@@ -748,14 +759,12 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
         });
     }
 
-    public interface OnAllCheckedBoxNeedChangeListener {
-        void onCheckedBoxNeedChange(boolean allParentIsChecked);
-    }
 
 
-    public interface OnGoodsCheckedChangeListener {
-        void onGoodsCheckedChange(double totalHarga);
-    }
+
+//    public interface OnGoodsCheckedChangeListener {
+//        void onGoodsCheckedChange(double totalHarga);
+//    }
 
     private void setupOneParentAllChildChecked(boolean isChecked, int groupPosition) { //b
         HeaderModel headerModel = listHeaderFilter.get(groupPosition);
@@ -803,11 +812,21 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
                 return false;
             }
         }
-//        Intent intent = new Intent("checkbox-all"); //jika parent tercentang semua
-//        intent.putExtra("value", true);
-//        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
-
         return true;
+    }
+
+
+    public interface OnAllCheckedBoxNeedChangeListener {
+        void onCheckedBoxNeedChange(boolean allParentIsChecked);
+    }
+
+    public void valueCheckboxParent(){
+        String data = String.valueOf(AllIsChecked());
+        Intent intent = new Intent("custom-cball");
+        intent.putExtra("valParent", data);
+        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+
+
     }
 
 
