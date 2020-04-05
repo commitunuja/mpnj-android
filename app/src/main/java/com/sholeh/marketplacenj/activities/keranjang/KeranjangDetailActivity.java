@@ -92,6 +92,14 @@ public class KeranjangDetailActivity extends AppCompatActivity implements View.O
                 if (v instanceof CheckBox) {
                     CheckBox checkBox = (CheckBox) v;
                     expanAdapter.setupAllChecked(checkBox.isChecked());
+                    String harganya = tvx_total.getText().toString();
+                    if (harganya.equalsIgnoreCase("Rp0")) {
+                        Drawable d = getResources().getDrawable(R.drawable.button_rect);
+                        tvx_checkout.setBackground(d);
+                    } else {
+                        Drawable d = getResources().getDrawable(R.drawable.button_rect_transparant);
+                        tvx_checkout.setBackground(d);
+                    }
 
                     if (cb_select_all.isChecked()) {
                         getTotal();
@@ -338,8 +346,6 @@ public class KeranjangDetailActivity extends AppCompatActivity implements View.O
                 Drawable d = getResources().getDrawable(R.drawable.button_rect);
                 tvx_checkout.setBackground(d);
             }
-
-
         }
     };
 
