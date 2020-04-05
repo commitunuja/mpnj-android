@@ -94,11 +94,12 @@
             android:textSize="13.3sp" />
 
         <customfonts.MyTextView_Roboto_Medium
+            android:id="@+id/tvx_checkout"
             android:layout_marginRight="21dp"
             android:layout_alignParentEnd="true"
             android:layout_width="108dp"
             android:layout_height="40dp"
-            android:background="@drawable/button_rect"
+            android:background="@drawable/button_rect_transparant"
             android:gravity="center"
             android:letterSpacing="0.03"
             android:text="Checkout"
