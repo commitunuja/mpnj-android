@@ -4,6 +4,7 @@
     <color name="colorPrimary">#04d39f</color>
     <color name="colorPrimaryDark">#00b517</color>
     <color name="colorPrimaryTransperent">#BC00B517</color>
+    <color name="colorPrimaryTransparant">#6504D39F</color>
     <color name="colorPrimaryVeryLight">#4404d39f</color>
     <color name="colorAccent">#00b517</color>
     <color name="colorutama">#00b517</color>
