@@ -1,6 +1,7 @@
 package com.sholeh.marketplacenj.util.api;
 
 import com.google.gson.JsonObject;
+import com.sholeh.marketplacenj.model.Kategori;
 import com.sholeh.marketplacenj.model.Model;
 import com.sholeh.marketplacenj.model.city.ItemCity;
 import com.sholeh.marketplacenj.model.province.ItemProvince;
@@ -38,12 +39,8 @@ public interface APIInterface {
     @GET("api/produk")
     abstract Call<List<Model>> getProduk();
 
-//    @GET("api/produk")
-//    Call<Model> getSearch(
-//            @Query("q") String nama_produk;
-//    )
-
-
+    @GET("http://belanj.id/api/kategori")
+    Call<List<Kategori>> getKategori();
 
 
     // Province get from raja ongkir
@@ -83,8 +80,6 @@ public interface APIInterface {
     );
 
 
-
-
     //  tampil data profile
     @GET("api/profil/{id_konsumen}")
     Call<ResProfil> getDataProfil(
@@ -99,9 +94,9 @@ public interface APIInterface {
                                   @Field("provinsi_id") String provinsiId,
                                   @Field("nama_provinsi") String namaProvinsi,
                                   @Field("city_id") String cityId,
-                                  @Field("nama_kota")String namaKota,
-                                  @Field("kode_pos")String kodePos,
-                                  @Field("alamat_lengkap")String alamatLengkap,
+                                  @Field("nama_kota") String namaKota,
+                                  @Field("kode_pos") String kodePos,
+                                  @Field("alamat_lengkap") String alamatLengkap,
                                   @Field("user_id") String userId,
                                   @Field("user_type") String userType);
 
@@ -131,7 +126,7 @@ public interface APIInterface {
 
     //  delete alamat
     @DELETE("api/konsumen/hapus/alamat/{id_alamat}")
-    Call<ResAlamat> hapusItemAlamat( @Path("id_alamat") String idAlamat);
+    Call<ResAlamat> hapusItemAlamat(@Path("id_alamat") String idAlamat);
 
     //  ubah alamat
     @FormUrlEncoded
@@ -142,8 +137,6 @@ public interface APIInterface {
             @Field("nomor_hp") String nomorHp,
             @Field("email") String email,
             @Field("status") String status);
-
-
 
 
     @Multipart
@@ -175,7 +168,6 @@ public interface APIInterface {
     );
 
 
-
     @GET("api/keranjang")
     Call<ResDetailKeranjang> getDataDetailKeranjang(
             @Query("role") String role, @Query("id") String id);
@@ -191,7 +183,6 @@ public interface APIInterface {
     Call<ResUbahJumlahProduk> updateJumlah(
             @Path("id_keranjang") String idKeranjang,
             @Field("jumlah") String Jumlah);
-
 
 
 }

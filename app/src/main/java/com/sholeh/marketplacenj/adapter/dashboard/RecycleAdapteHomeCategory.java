@@ -13,17 +13,19 @@ import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sholeh.marketplacenj.R;
-import com.sholeh.marketplacenj.model.dashboard.HomeCategoryModelClass;
+import com.sholeh.marketplacenj.model.Kategori;
 
 import java.util.List;
 
 public class RecycleAdapteHomeCategory extends RecyclerView.Adapter<RecycleAdapteHomeCategory.MyViewHolder> {
     Context context;
 
+    private String allkategori = "Semua Kategori";
+    private final int limit = 4;
+    private int tampil;
 
-    private List<HomeCategoryModelClass> moviesList;
-
-    int myPos = 0;
+    private List<Kategori> moviesList;
+//    private List<KategoriLihatSemua> kategoriLihatSemuas;
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -46,7 +48,7 @@ public class RecycleAdapteHomeCategory extends RecyclerView.Adapter<RecycleAdapt
     }
 
 
-    public RecycleAdapteHomeCategory(Context context, List<HomeCategoryModelClass> moviesList) {
+    public RecycleAdapteHomeCategory(Context context, List<Kategori> moviesList) {
         this.moviesList = moviesList;
         this.context = context;
     }
@@ -65,22 +67,28 @@ public class RecycleAdapteHomeCategory extends RecyclerView.Adapter<RecycleAdapt
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
-    public void onBindViewHolder(final MyViewHolder holder,final int position) {
-        HomeCategoryModelClass movie = moviesList.get(position);
-        holder.title.setText(movie.getTitle());
-
-
+    public void onBindViewHolder(final MyViewHolder holder, final int position) {
+        Kategori movie = moviesList.get(position);
+        holder.title.setText(movie.getNamaKategori());
 
 
     }
 
     @Override
     public int getItemCount() {
-        return moviesList.size();
+        if (moviesList.size() > limit) {
+//            int i = 1;
+//            moviesList.toString();
+//            tampil = String.valueOf(Integer.parseInt(String.valueOf(limit + allkategori)));
+
+            String lagi = String.valueOf(limit);
+            tampil = Integer.valueOf(lagi);
+            return tampil;
+
+        } else {
+            return moviesList.size();
+        }
     }
-
-
-
 }
 
 

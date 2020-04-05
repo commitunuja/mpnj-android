@@ -67,7 +67,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
     Double vdiskon;
     private ViewPager viewPager;
 
-//    private ViewpagerProductDetailsAdapter viewpagerAdapter;
+    //    private ViewpagerProductDetailsAdapter viewpagerAdapter;
     private ArrayList<TopTenModelClass> topTenModelClasses;
     private RecyclerView top_ten_crecyclerview;
     private RecycleAdapteTopTenHome mAdapter2;
@@ -82,14 +82,12 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
     StringTokenizer st1, st2;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_detail);
         preferences = new Preferences(getApplication());
         id_konsumen = preferences.getIdKonsumen();
-
 
 
         right1 = findViewById(R.id.right1);
@@ -162,10 +160,6 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
 
         vid_produk = getIntent().getStringExtra("id_produk");
-
-
-
-
         namaproduk = getIntent().getExtras().getString("nama_produk");
         vhargaproduk = parseInt(getIntent().getStringExtra("harga_jual"));
         vstok = parseInt(getIntent().getStringExtra("stok"));
@@ -174,7 +168,6 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         vdiskon = Double.valueOf(parseInt(getIntent().getStringExtra("diskon")));
 
         vdeskripsi = getIntent().getExtras().getString("keterangan");
-//        Log.d("YOLO", "diskon");
 
         nama.setText(namaproduk);
         double h = vdiskon / 100 * vhargaproduk;
@@ -250,7 +243,6 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
-//                Toast.makeText(getApplicationContext(), "ini"+valueOf(t), Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -264,19 +256,19 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
             case R.id.imgtambah:
 
 
-                if (login){
+                if (login) {
                     addKeranjang();
-                }else{
+                } else {
                     startActivity(new Intent(this, LoginActivity.class));
                     finish();
                 }
 
                 break;
             case R.id.imgkeranjang:
-                if (login){
+                if (login) {
                     Intent intent = new Intent(this, KeranjangDetailActivity.class);
                     startActivity(intent);
-                }else{
+                } else {
                     startActivity(new Intent(this, LoginActivity.class));
                     finish();
                 }
@@ -389,51 +381,49 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 //        } else {
 
 
-
-
-        if (vdiskon == 0){ // tidak ada diskon
+        if (vdiskon == 0) { // tidak ada diskon
             final String harga_jual = harga.getText().toString();
             st1 = new StringTokenizer(harga_jual, "Rp");
             String hargaJual = st1.nextToken().trim();
 
-        APIInterface apiKeranjang = ServiceGenerator.getRetrofit().create(APIInterface.class);
-        Call<ResKeranjang> sendData = apiKeranjang.simpanKeranjang(vid_produk, id_konsumen, "konsumen", "N", String.valueOf(1),hargaJual );
-        sendData.enqueue(new Callback<ResKeranjang>() {
-            @Override
-            public void onResponse(Call<ResKeranjang> call, Response<ResKeranjang> response) {
-                if (response.body() != null && response.isSuccessful()) {
-                    if (response.body().getPesan().equalsIgnoreCase("sukses")) {
-                        AppUtilits.displayMessage(ProductDetailActivity.this, getString(R.string.add_to_cart));
+            APIInterface apiKeranjang = ServiceGenerator.getRetrofit().create(APIInterface.class);
+            Call<ResKeranjang> sendData = apiKeranjang.simpanKeranjang(vid_produk, id_konsumen, "konsumen", "N", String.valueOf(1), hargaJual);
+            sendData.enqueue(new Callback<ResKeranjang>() {
+                @Override
+                public void onResponse(Call<ResKeranjang> call, Response<ResKeranjang> response) {
+                    if (response.body() != null && response.isSuccessful()) {
+                        if (response.body().getPesan().equalsIgnoreCase("sukses")) {
+                            AppUtilits.displayMessage(ProductDetailActivity.this, getString(R.string.add_to_cart));
 
-                    } else {
+                        } else {
 //                        Toast.makeText(ProductDetailActivity.this, "r"+response.body().getPesan(), Toast.LENGTH_SHORT).show();
 //                            AppUtilits.displayMessage(RegisterActivity.this,  response.body().getPesan());
-                    }
-                } else {
+                        }
+                    } else {
 //                    Toast.makeText(ProductDetailActivity.this, "rr"+response.body().getPesan(), Toast.LENGTH_SHORT).show();
 
 //                        AppUtilits.displayMessage(RegisterActivity.this,   getString(R.string.failed_request));
+                    }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<ResKeranjang> call, Throwable t) {
+                @Override
+                public void onFailure(Call<ResKeranjang> call, Throwable t) {
 //                    Log.e(TAG, " failure " + t.toString());
 //                Toast.makeText(ProductDetailActivity.this, "rrr"+t, Toast.LENGTH_SHORT).show();
-                Log.d("ok", String.valueOf(t));
+                    Log.d("ok", String.valueOf(t));
 
 
 //                    AppUtilits.displayMessage(RegisterActivity.this,   getString(R.string.failed_request));
-            }
-        });
+                }
+            });
 
-        }else{
+        } else {
             final String harga_ = offer.getText().toString();
             st2 = new StringTokenizer(harga_, "Rp");
             String hargaJual = st2.nextToken().trim();
 
             APIInterface apiKeranjang = ServiceGenerator.getRetrofit().create(APIInterface.class);
-            Call<ResKeranjang> sendData = apiKeranjang.simpanKeranjang(vid_produk, id_konsumen, "konsumen", "N", String.valueOf(1),hargaJual );
+            Call<ResKeranjang> sendData = apiKeranjang.simpanKeranjang(vid_produk, id_konsumen, "konsumen", "N", String.valueOf(1), hargaJual);
             sendData.enqueue(new Callback<ResKeranjang>() {
                 @Override
                 public void onResponse(Call<ResKeranjang> call, Response<ResKeranjang> response) {
@@ -464,9 +454,6 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
             });
 
         }
-
-
-
 
 
     }

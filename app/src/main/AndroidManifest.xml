@@ -57,7 +57,6 @@
         <activity android:name=".activities.RegisterActivity" />
         <activity android:name=".activities.KeranjangActivity" />
         <activity android:name=".activities.keranjang.KeranjangDetailActivity" />
-        <activity android:name=".activities.DetailProdukActivity" />
         <activity
             android:name=".activities.dashboard.Homepage"
             android:launchMode="singleTop">

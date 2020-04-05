@@ -10,6 +10,18 @@
         <item name="android:spacing">100dp</item>
     </style>
 
+    <style name="Theme.Custom" parent="Theme.AppCompat">
+        <item name="windowActionBar">false</item>
+        <item name="windowActionBarOverlay">true</item>
+        <item name="android:windowActionBarOverlay">true</item>
+    </style>
+
+    <style name="CustomActionBar" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:windowActionBarOverlay">true</item>
+        <!-- Support library compatibility -->
+        <item name="windowActionBarOverlay">true</item>
+    </style>
+
     <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
 
         <item name="colorPrimaryDark">@color/green_semi_transparent</item>

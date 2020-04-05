@@ -25,7 +25,7 @@
 
         <ImageView
             android:id="@+id/imageproduk"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="130dp"
             android:layout_marginTop="18dp"
             android:src="@drawable/ac"/>

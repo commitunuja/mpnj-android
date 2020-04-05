@@ -26,7 +26,7 @@ public class ItemGridAdapter extends RecyclerView.Adapter<ItemGridAdapter.Holdr>
     @SuppressLint("InflateParams")
     @Override
     public Holdr onCreateViewHolder(ViewGroup p1, int p2) {
-        return new Holdr(LayoutInflater.from(p1.getContext()).inflate(R.layout.item_grid, null));
+        return new Holdr(LayoutInflater.from(p1.getContext()).inflate(R.layout.item_grid_search, null));
     }
 
     @Override
