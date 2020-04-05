@@ -5,10 +5,13 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
@@ -40,23 +43,24 @@ import java.util.StringTokenizer;
 import retrofit2.Call;
 import retrofit2.Callback;
 
-public class KeranjangDetailActivity extends AppCompatActivity {
+public class KeranjangDetailActivity extends AppCompatActivity implements View.OnClickListener {
     private ExpandableListView listView;
     private ExpandListScanAdapter expanAdapter;
     private List<HeaderModel> listHeader;
     private HashMap<HeaderModel, List<ChildModel>> listChild;
-    private TextView tvx_total;
+    private TextView tvx_total, tvx_checkout;
     List<ChildModel> child;
     public CheckBox cb_select_all;
 
     Preferences preferences;
     String id_konsumen;
     int hargaJual;
-    private double setharga, hargaTotal;
+    String setharga;
+    private double hargaTotal;
     Locale localeID = new Locale("in", "ID");
     NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
     StringTokenizer st;
-
+    private boolean cbAll;
 
 
     @Override
@@ -66,10 +70,11 @@ public class KeranjangDetailActivity extends AppCompatActivity {
         preferences = new Preferences(getApplication());
         id_konsumen = preferences.getIdKonsumen();
         tvx_total = findViewById(R.id.total);
+        tvx_checkout = findViewById(R.id.tvx_checkout);
         listView = findViewById(R.id.expListhistori);
+        tvx_checkout.setOnClickListener(this);
 
         getDetailKeranjang();
-
 
 
         listView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
@@ -108,12 +113,18 @@ public class KeranjangDetailActivity extends AppCompatActivity {
 
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
                 new IntentFilter("custom-message"));
+        LocalBroadcastManager.getInstance(this).registerReceiver(Receivercheck,
+                new IntentFilter("custom-cball"));
 
+
+//         String cbAll =getIntent().getStringExtra("yourBoolName");
+//        Toast.makeText(this, ""+cbAll, Toast.LENGTH_SHORT).show();
 
 
 //        expanAdapter.setOnAllCheckedBoxNeedChangeListener(new ExpandListScanAdapter.OnAllCheckedBoxNeedChangeListener() {
 //            @Override
 //            public void onCheckedBoxNeedChange(boolean allParentIsChecked) {
+//                Toast.makeText(KeranjangDetailActivity.this, ""+allParentIsChecked, Toast.LENGTH_SHORT).show();
 //                cb_select_all.setChecked(allParentIsChecked);
 //            }
 //        });
@@ -127,6 +138,19 @@ public class KeranjangDetailActivity extends AppCompatActivity {
 ////                tvx_total.setText(harganya);
 //            }
 //        }) ;
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tvx_checkout:
+                Toast.makeText(this, "klik", Toast.LENGTH_SHORT).show();
+
+                break;
+            default:
+                break;
+        }
 
     }
 
@@ -301,12 +325,38 @@ public class KeranjangDetailActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             String qty = intent.getStringExtra("total");
+
             hargaTotal = Double.parseDouble(qty);
             st = new StringTokenizer(formatRupiah.format(hargaTotal), ",");
             String harganya = st.nextToken().trim();
             tvx_total.setText(harganya);
 
+            if (harganya.equalsIgnoreCase("Rp0")) {
+                Drawable d = getResources().getDrawable(R.drawable.button_rect_transparant);
+                tvx_checkout.setBackground(d);
+            } else {
+                Drawable d = getResources().getDrawable(R.drawable.button_rect);
+                tvx_checkout.setBackground(d);
+            }
+
 
         }
     };
+
+    public BroadcastReceiver Receivercheck = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String valParent = intent.getStringExtra("valParent");
+//            Toast.makeText(context, "val "+valParent, Toast.LENGTH_SHORT).show();
+            if (valParent.equalsIgnoreCase("false")) {
+                cb_select_all.setChecked(false);
+            } else {
+                cb_select_all.setChecked(true);
+            }
+
+
+        }
+    };
+
+
 }
