@@ -57,11 +57,7 @@ public class KeranjangDetailActivity extends AppCompatActivity {
     NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
     StringTokenizer st;
 
-    @Override
-    protected void onResume() {
 
-        super.onResume();
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,8 +69,6 @@ public class KeranjangDetailActivity extends AppCompatActivity {
         listView = findViewById(R.id.expListhistori);
 
         getDetailKeranjang();
-        expanAdapter = new ExpandListScanAdapter(this, listHeader, listChild);
-        listView.setAdapter(expanAdapter);
 
 
 
