@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -61,6 +62,7 @@ public class KeranjangDetailActivity extends AppCompatActivity implements View.O
     NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
     StringTokenizer st;
     private boolean cbAll;
+    ImageView imgBack;
 
 
     @Override
@@ -72,7 +74,10 @@ public class KeranjangDetailActivity extends AppCompatActivity implements View.O
         tvx_total = findViewById(R.id.total);
         tvx_checkout = findViewById(R.id.tvx_checkout);
         listView = findViewById(R.id.expListhistori);
+        imgBack = findViewById(R.id.imgBackKeranjang);
         tvx_checkout.setOnClickListener(this);
+        imgBack.setOnClickListener(this);
+
 
         getDetailKeranjang();
 
@@ -88,19 +93,18 @@ public class KeranjangDetailActivity extends AppCompatActivity implements View.O
         cb_select_all.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String harganya = tvx_total.getText().toString();
+                if (harganya.equalsIgnoreCase("Rp0")) {
+                    Drawable d = getResources().getDrawable(R.drawable.button_rect);
+                    tvx_checkout.setBackground(d);
+                } else if (!harganya.equalsIgnoreCase("Rp0")){
+                    Drawable d = getResources().getDrawable(R.drawable.button_rect_transparant);
+                    tvx_checkout.setBackground(d);
+                }
 
                 if (v instanceof CheckBox) {
                     CheckBox checkBox = (CheckBox) v;
                     expanAdapter.setupAllChecked(checkBox.isChecked());
-                    String harganya = tvx_total.getText().toString();
-                    if (harganya.equalsIgnoreCase("Rp0")) {
-                        Drawable d = getResources().getDrawable(R.drawable.button_rect);
-                        tvx_checkout.setBackground(d);
-                    } else {
-                        Drawable d = getResources().getDrawable(R.drawable.button_rect_transparant);
-                        tvx_checkout.setBackground(d);
-                    }
-
                     if (cb_select_all.isChecked()) {
                         getTotal();
                     } else {
@@ -111,42 +115,10 @@ public class KeranjangDetailActivity extends AppCompatActivity implements View.O
             }
         });
 
-
-//        expanAdapter.setOnAllCheckedBoxNeedChangeListener(new ExpandListScanAdapter.OnAllCheckedBoxNeedChangeListener() {
-//            @Override
-//            public void onCheckedBoxNeedChange(boolean allParentIsChecked) {
-//                cb_select_all.setChecked(allParentIsChecked);
-//            }
-//        });
-
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
                 new IntentFilter("custom-message"));
         LocalBroadcastManager.getInstance(this).registerReceiver(Receivercheck,
                 new IntentFilter("custom-cball"));
-
-
-//         String cbAll =getIntent().getStringExtra("yourBoolName");
-//        Toast.makeText(this, ""+cbAll, Toast.LENGTH_SHORT).show();
-
-
-//        expanAdapter.setOnAllCheckedBoxNeedChangeListener(new ExpandListScanAdapter.OnAllCheckedBoxNeedChangeListener() {
-//            @Override
-//            public void onCheckedBoxNeedChange(boolean allParentIsChecked) {
-//                Toast.makeText(KeranjangDetailActivity.this, ""+allParentIsChecked, Toast.LENGTH_SHORT).show();
-//                cb_select_all.setChecked(allParentIsChecked);
-//            }
-//        });
-
-//        expanAdapter.setOnGoodsCheckedChangeListener(new ExpandListScanAdapter.OnGoodsCheckedChangeListener() {
-//            @SuppressLint("StringFormatMatches")
-//            @Override
-//            public void onGoodsCheckedChange(double totalHarga) {
-////                st = new StringTokenizer(formatRupiah.format(totalHarga), ",");
-////                String harganya = st.nextToken().trim();
-////                tvx_total.setText(harganya);
-//            }
-//        }) ;
-
     }
 
     @Override
@@ -154,7 +126,9 @@ public class KeranjangDetailActivity extends AppCompatActivity implements View.O
         switch (v.getId()) {
             case R.id.tvx_checkout:
                 Toast.makeText(this, "klik", Toast.LENGTH_SHORT).show();
-
+                break;
+            case R.id.imgBackKeranjang:
+                finish();
                 break;
             default:
                 break;
@@ -219,18 +193,9 @@ public class KeranjangDetailActivity extends AppCompatActivity implements View.O
                             listView.expandGroup(i);
                         }
 
-//                        double totalnya = response.body().getTotalHarganya();
-//                        st = new StringTokenizer(formatRupiah.format(totalnya), ",");
-//                        String splitotal = st.nextToken().trim();
-//                        tvx_total.setText(splitotal);
-
                     } else {
                         AppUtilits.displayMessage(KeranjangDetailActivity.this, getString(R.string.network_error));
                     }
-//                    double totalnya = response.body().getTotalHarganya();
-//                    st = new StringTokenizer(formatRupiah.format(totalnya), ",");
-//                    String splitotal = st.nextToken().trim();
-//                    tvx_total.setText(splitotal);
                 } else {
                     AppUtilits.displayMessage(KeranjangDetailActivity.this, getString(R.string.network_error));
                 }
@@ -310,10 +275,6 @@ public class KeranjangDetailActivity extends AppCompatActivity implements View.O
                     } else {
                         AppUtilits.displayMessage(KeranjangDetailActivity.this, getString(R.string.network_error));
                     }
-//                    double totalnya = response.body().getTotalHarganya();
-//                    st = new StringTokenizer(formatRupiah.format(totalnya), ",");
-//                    String splitotal = st.nextToken().trim();
-//                    tvx_total.setText(splitotal);
                 } else {
                     AppUtilits.displayMessage(KeranjangDetailActivity.this, getString(R.string.network_error));
                 }
