@@ -22,6 +22,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.google.gson.Gson;
+import com.sholeh.marketplacenj.activities.LoginActivity;
+import com.sholeh.marketplacenj.activities.checkout.CheckoutActivity;
 import com.sholeh.marketplacenj.adapter.keranjang.ExpandListScanAdapter;
 import com.sholeh.marketplacenj.util.api.APIInterface;
 import com.sholeh.marketplacenj.R;
@@ -125,7 +127,13 @@ public class KeranjangDetailActivity extends AppCompatActivity implements View.O
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tvx_checkout:
-                Toast.makeText(this, "klik", Toast.LENGTH_SHORT).show();
+                String harganya = tvx_total.getText().toString();
+                if (harganya.equalsIgnoreCase("Rp0")) {
+
+                } else if (!harganya.equalsIgnoreCase("Rp0")){
+                    startActivity(new Intent(this, CheckoutActivity.class));
+//                    finish();
+                }
                 break;
             case R.id.imgBackKeranjang:
                 finish();
