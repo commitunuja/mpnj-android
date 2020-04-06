@@ -32,7 +32,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.checkout.CheckoutActivity"></activity>
+        <activity android:name=".activities.transaksi.MetodePembayaranActivity"></activity>
+        <activity android:name=".activities.checkout.CheckoutActivity" />
         <activity android:name=".activities.ImageProfilActivity" />
         <activity android:name=".activities.Splash" />
         <activity
