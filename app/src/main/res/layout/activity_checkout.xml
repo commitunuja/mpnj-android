@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     tools:context=".activities.keranjang.KeranjangDetailActivity">
 
     <LinearLayout
@@ -13,16 +14,29 @@
 
         <include layout="@layout/toolbar_keranjang"/>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#f6f6f6"
+        android:orientation="vertical">
+
+
+    <include layout="@layout/item_pilih_alamat"/>
 
         <LinearLayout
-            android:layout_marginBottom="110dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
             android:layout_width="match_parent"
             android:orientation="vertical"
-            android:layout_height="wrap_content"
-            android:background="@drawable/rect_recycler">
+            android:layout_height="wrap_content">
 
             <ExpandableListView
-                android:id="@+id/expListhistori"
+                android:id="@+id/expand_checkout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#ffffff"
@@ -34,8 +48,19 @@
         </LinearLayout>
 
 
+        <include layout="@layout/item_pembayaran"/>
+
+
+        <include layout="@layout/item_subtotal"/>
+
+
 
 
     </LinearLayout>
-    <include layout="@layout/item_total_keranjang"/>
+
+    </ScrollView>
+
+
+    </LinearLayout>
+    <include layout="@layout/item_total_checkout"/>
 </RelativeLayout>
