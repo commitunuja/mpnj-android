@@ -2,12 +2,14 @@ package com.sholeh.marketplacenj.activities.checkout;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sholeh.marketplacenj.R;
+import com.sholeh.marketplacenj.activities.AddAlamat;
 
 public class CheckoutActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -31,7 +33,7 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.tvxubahAlamat:
-                Toast.makeText(this, "alamat klik", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, AddAlamat.class));
             break;
             default:
                 break;
