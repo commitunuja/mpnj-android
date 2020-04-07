@@ -15,6 +15,8 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sholeh.marketplacenj.R;
+import com.sholeh.marketplacenj.activities.ProdukByKategori;
+import com.sholeh.marketplacenj.activities.details.ProductDetailActivity;
 import com.sholeh.marketplacenj.model.Kategori;
 
 import java.util.List;
@@ -76,9 +78,9 @@ public class RecycleAdapteHomeCategory extends RecyclerView.Adapter<RecycleAdapt
         holder.title.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent("custom-idkategori");
+                Intent intent = new Intent(context, ProdukByKategori.class);
                 intent.putExtra("id_kategori", String.valueOf(movie.getIdKategoriProduk()));
-                LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+                context.startActivity(intent);
             }
         });
 
