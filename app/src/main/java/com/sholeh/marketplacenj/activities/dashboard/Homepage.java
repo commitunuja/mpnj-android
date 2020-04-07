@@ -1,5 +1,9 @@
 package com.sholeh.marketplacenj.activities.dashboard;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -12,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -33,6 +38,7 @@ import com.sholeh.marketplacenj.util.api.APIInterface;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -57,7 +63,9 @@ public class Homepage extends AppCompatActivity {
 
     //pencarian
     private SearchAdapter searchAdapter;
+    private SearchAdapter kategoriAdapter;
     private List<Model> datapencarian;
+    private List<Model> datakategori;
     private LinearLayout linearLayoutkategori;
     EditText edpencarian;
 
@@ -96,6 +104,8 @@ public class Homepage extends AppCompatActivity {
         recyclerViewpproduk.setVisibility(View.GONE);
         frameLayout.setVisibility(View.VISIBLE);
         linearLayoutkategori.setVisibility(View.GONE);
+        LocalBroadcastManager.getInstance(this).registerReceiver(idKategoriReceiver,
+                new IntentFilter("custom-idkategori"));
     }
 
     private void fiturpencarian() {
@@ -228,7 +238,6 @@ public class Homepage extends AppCompatActivity {
         category_recyclerView = (RecyclerView) findViewById(R.id.category_recyclerview);
         homeCategoryModelClasses = new ArrayList<>();
 
-        allcategory = findViewById(R.id.tv_allcategory);
 
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
         Call<List<Kategori>> call = service.getKategori();
@@ -321,6 +330,45 @@ public class Homepage extends AppCompatActivity {
         this.searchAdapter.setFilter(filterdNames);
     }
 
+    public BroadcastReceiver idKategoriReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            recyclerViewpproduk.setVisibility(View.VISIBLE);
+            frameLayout.setVisibility(View.GONE);
+            linearLayoutkategori.setVisibility(View.VISIBLE);
+            String id = intent.getStringExtra("id_kategori");
+            Toast.makeText(getBaseContext(), String.valueOf(id), Toast.LENGTH_SHORT).show();
+//            recyclerViewpproduk = findViewById(R.id.recyclersearch);
+            kategoriAdapter = new SearchAdapter(Homepage.this, datakategori);
+
+            RecyclerView.LayoutManager layoutManager = new GridLayoutManager(Homepage.this, 2);
+            recyclerViewpproduk.setLayoutManager(layoutManager);
+            recyclerViewpproduk.setItemAnimator(new DefaultItemAnimator());
+            recyclerViewpproduk.setNestedScrollingEnabled(false);
+            recyclerViewpproduk.setFocusableInTouchMode(false);
+
+            APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+            Call<List<Model>> call = service.getKategoriByid(id);
+
+            call.enqueue(new Callback<List<Model>>() {
+                @Override
+                public void onResponse(Call<List<Model>> call, Response<List<Model>> response) {
+//                    Log.d("YOLO FUCEK", String.valueOf(response.body()));
+//                    datapencarian.clear();
+//                    datakategori.clear();
+                    datakategori = response.body();
+                    kategoriAdapter = new SearchAdapter(getBaseContext(), datakategori);
+                    recyclerViewpproduk.setAdapter(kategoriAdapter);
+                    status = "yes";
+                }
+
+                @Override
+                public void onFailure(Call<List<Model>> call, Throwable t) {
+                    Toast.makeText(getBaseContext(), String.valueOf(t), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    };
 }
 
 
