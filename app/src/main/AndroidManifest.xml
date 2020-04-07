@@ -32,6 +32,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".activities.ProdukByKategori"></activity>
         <activity android:name=".activities.ImageProfilActivity" />
         <activity android:name=".activities.Splash" />
         <activity
