@@ -1,6 +1,7 @@
 package com.sholeh.marketplacenj.adapter.dashboard;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sholeh.marketplacenj.R;
@@ -68,9 +70,17 @@ public class RecycleAdapteHomeCategory extends RecyclerView.Adapter<RecycleAdapt
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
-        Kategori movie = moviesList.get(position);
+        final Kategori movie = moviesList.get(position);
         holder.title.setText(movie.getNamaKategori());
 
+        holder.title.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent("custom-idkategori");
+                intent.putExtra("id_kategori", String.valueOf(movie.getIdKategoriProduk()));
+                LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+            }
+        });
 
     }
 
