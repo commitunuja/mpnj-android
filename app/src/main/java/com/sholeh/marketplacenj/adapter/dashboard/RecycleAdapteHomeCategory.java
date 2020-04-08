@@ -13,14 +13,17 @@ import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sholeh.marketplacenj.R;
+import com.sholeh.marketplacenj.model.CategoryModel;
 import com.sholeh.marketplacenj.model.Kategori;
+import com.sholeh.marketplacenj.model.dashboard.HomeCategoryModelClass;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RecycleAdapteHomeCategory extends RecyclerView.Adapter<RecycleAdapteHomeCategory.MyViewHolder> {
     Context context;
 
-    private String allkategori = "Semua Kategori";
+    private ArrayList<HomeCategoryModelClass> semua;
     private final int limit = 4;
     private int tampil;
 
@@ -31,7 +34,7 @@ public class RecycleAdapteHomeCategory extends RecyclerView.Adapter<RecycleAdapt
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
 
-        TextView title;
+        TextView title, semua;
         ImageView image;
         LinearLayout linear;
 
@@ -40,6 +43,7 @@ public class RecycleAdapteHomeCategory extends RecyclerView.Adapter<RecycleAdapt
             super(view);
 
             title = (TextView) view.findViewById(R.id.title);
+//            semua = view.findViewById(R.id.tv_semua);
 
             linear = (LinearLayout) view.findViewById(R.id.linear);
 
@@ -48,8 +52,9 @@ public class RecycleAdapteHomeCategory extends RecyclerView.Adapter<RecycleAdapt
     }
 
 
-    public RecycleAdapteHomeCategory(Context context, List<Kategori> moviesList) {
+    public RecycleAdapteHomeCategory(Context context, List<Kategori> moviesList, ArrayList<HomeCategoryModelClass> semua) {
         this.moviesList = moviesList;
+        this.semua = semua;
         this.context = context;
     }
 
@@ -71,24 +76,21 @@ public class RecycleAdapteHomeCategory extends RecyclerView.Adapter<RecycleAdapt
         Kategori movie = moviesList.get(position);
 //        HomeCategoryModelClass allcategory = semua.get(position);
         holder.title.setText(movie.getNamaKategori());
+//        holder.title.setText(allcategory.getTitle());
 
 
     }
 
     @Override
     public int getItemCount() {
-        if (moviesList.size() > limit) {
-//            int i = 1;
-//            moviesList.toString();
-//            tampil = String.valueOf(Integer.parseInt(String.valueOf(limit + allkategori)));
-
-            String lagi = String.valueOf(limit);
-            tampil = Integer.valueOf(lagi);
-            return tampil;
-
-        } else {
+//        if (moviesList.size() >  limit) {
+//            return limit;
+//
+//
+//        } else {
+//            return Math.min(moviesList.size(), limit) + 1;
             return moviesList.size();
-        }
+//        }
     }
 }
 
