@@ -57,13 +57,14 @@ public class ProdukByKategori extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Model>> call, Response<List<Model>> response) {
 
-                if (response.body() == null) {
-                    Toast.makeText(getBaseContext(), "Tidak ada data pada kategori ini.", Toast.LENGTH_SHORT).show();
-                } else {
+                if (response.body().size() > 0) {
                     progressBarProdukByKategori.setVisibility(View.GONE);
                     dataProdukByKategori = response.body();
                     produkByKategoriAdapter = new ProdukByKategoriAdapter(getBaseContext(), dataProdukByKategori);
                     recyclerViewProdukByKategori.setAdapter(produkByKategoriAdapter);
+                } else {
+                    progressBarProdukByKategori.setVisibility(View.GONE);
+                    Toast.makeText(getBaseContext(), "Tidak ada data pada kategori ini.", Toast.LENGTH_LONG).show();
                 }
 
             }
