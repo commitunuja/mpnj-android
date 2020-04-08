@@ -1,9 +1,9 @@
 package com.sholeh.marketplacenj.activities.dashboard;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -26,7 +26,7 @@ import com.sholeh.marketplacenj.adapter.dashboard.SearchAdapter;
 import com.sholeh.marketplacenj.model.Kategori;
 import com.sholeh.marketplacenj.model.Model;
 import com.sholeh.marketplacenj.model.dashboard.HomeBannerModelClass;
-import com.sholeh.marketplacenj.model.dashboard.KategoriLihatSemua;
+import com.sholeh.marketplacenj.model.dashboard.HomeCategoryModelClass;
 import com.sholeh.marketplacenj.model.dashboard.TopTenModelClass;
 import com.sholeh.marketplacenj.util.ServiceGenerator;
 import com.sholeh.marketplacenj.util.api.APIInterface;
@@ -49,10 +49,11 @@ public class Homepage extends AppCompatActivity {
 
 
     private List<Kategori> homeCategoryModelClasses;
+    private ArrayList<HomeCategoryModelClass> semua;
     TextView allcategory;
     private RecyclerView category_recyclerView;
     private RecycleAdapteHomeCategory recycleAdapteHomeCategory;
-//    private ArrayList<KategoriLihatSemua> kategoriLihatSemua;
+    //    private ArrayList<KategoriLihatSemua> kategoriLihatSemua;
     private String lihatsemua[] = {"All Categories"};
 
     //pencarian
@@ -95,31 +96,33 @@ public class Homepage extends AppCompatActivity {
         fiturpencarian();
         recyclerViewpproduk.setVisibility(View.GONE);
         frameLayout.setVisibility(View.VISIBLE);
-        linearLayoutkategori.setVisibility(View.GONE);
+//        linearLayoutkategori.setVisibility(View.GONE);
+//        allcategory = findViewById(R.id.tv_allcategory);
     }
 
     private void fiturpencarian() {
         edpencarian = findViewById(R.id.etsearch);
-        linearLayoutkategori = findViewById(R.id.linearkategori);
+//        linearLayoutkategori = findViewById(R.id.linearkategori);
         frameLayout = findViewById(R.id.frag_container);
         search = findViewById(R.id.etsearch);
         search.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
             }
 
             @Override
             public void afterTextChanged(Editable s) {
                 recyclerViewpproduk.setVisibility(View.VISIBLE);
-                Homepage.this.filterQuery(s.toString());
                 frameLayout.setVisibility(View.GONE);
-                linearLayoutkategori.setVisibility(View.VISIBLE);
+                Homepage.this.filterQuery(s.toString());
+
+//                Intent intentsearch = new Intent(Homepage.this, SearchActivity.class);
+//                startActivity(intentsearch);
+//                linearLayoutkategori.setVisibility(View.VISIBLE);
                 status = "yes";
 
             }
@@ -130,7 +133,7 @@ public class Homepage extends AppCompatActivity {
     public void onBackPressed() {
         if (status.equals("yes")) {
             recyclerViewpproduk.setVisibility(View.GONE);
-            linearLayoutkategori.setVisibility(View.GONE);
+//            linearLayoutkategori.setVisibility(View.GONE);
             frameLayout.setVisibility(View.VISIBLE);
             edpencarian.getText().clear();
         } else {
@@ -227,8 +230,13 @@ public class Homepage extends AppCompatActivity {
     private void kategori() {
         category_recyclerView = (RecyclerView) findViewById(R.id.category_recyclerview);
         homeCategoryModelClasses = new ArrayList<>();
+        semua = new ArrayList<>();
 
-        allcategory = findViewById(R.id.tv_allcategory);
+        for (int i = 0; i < lihatsemua.length; i++) {
+            HomeCategoryModelClass beanClassForRecyclerView_contacts = new HomeCategoryModelClass(lihatsemua[i]);
+
+            semua.add(beanClassForRecyclerView_contacts);
+        }
 
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
         Call<List<Kategori>> call = service.getKategori();
@@ -238,7 +246,7 @@ public class Homepage extends AppCompatActivity {
             public void onResponse(Call<List<Kategori>> call, Response<List<Kategori>> response) {
 //                Log.d("YOLO", "Error" + response);
                 homeCategoryModelClasses = response.body();
-                recycleAdapteHomeCategory = new RecycleAdapteHomeCategory(getBaseContext(), homeCategoryModelClasses);
+                recycleAdapteHomeCategory = new RecycleAdapteHomeCategory(getBaseContext(), homeCategoryModelClasses, semua);
                 category_recyclerView.setAdapter(recycleAdapteHomeCategory);
 //                homeCategoryModelClasses.add());
 
@@ -250,7 +258,7 @@ public class Homepage extends AppCompatActivity {
             }
         });
 
-        recycleAdapteHomeCategory = new RecycleAdapteHomeCategory(Homepage.this, homeCategoryModelClasses);
+        recycleAdapteHomeCategory = new RecycleAdapteHomeCategory(Homepage.this, homeCategoryModelClasses, semua);
         RecyclerView.LayoutManager mLayoutManager1 = new LinearLayoutManager(Homepage.this, LinearLayoutManager.HORIZONTAL, false);
         category_recyclerView.setLayoutManager(mLayoutManager1);
 
