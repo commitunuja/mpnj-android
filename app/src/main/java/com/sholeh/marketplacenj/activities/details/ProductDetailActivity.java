@@ -90,7 +90,8 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         preferences = new Preferences(getApplication());
         id_konsumen = preferences.getIdKonsumen();
 
-
+        namapelapak = findViewById(R.id.tv_nama_pelapak);
+        fotopelapak = findViewById(R.id.img_foto_pelapak);
         right1 = findViewById(R.id.right1);
         right2 = findViewById(R.id.right2);
         right3 = findViewById(R.id.right3);
