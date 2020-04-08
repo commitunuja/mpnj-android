@@ -1,5 +1,6 @@
 package com.sholeh.marketplacenj.activities.details;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -18,9 +19,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.JsonObject;
 import com.sholeh.marketplacenj.activities.LoginActivity;
 import com.sholeh.marketplacenj.mfragment.FragmentProfil;
+import com.sholeh.marketplacenj.model.Pelapak;
 import com.sholeh.marketplacenj.util.AppUtilits;
 import com.sholeh.marketplacenj.util.api.APIInterface;
 import com.sholeh.marketplacenj.R;
