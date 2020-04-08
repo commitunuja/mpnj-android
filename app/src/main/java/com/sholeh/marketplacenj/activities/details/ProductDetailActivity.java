@@ -139,6 +139,11 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
         rightNav = (RelativeLayout) findViewById(R.id.rightNav);
         viewPager = (ViewPager) findViewById(R.id.viewpager_product_detail);
+
+        ViewGroup.LayoutParams params = viewPager.getLayoutParams();
+        params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+        params.height = 1100;
+        viewPager.requestLayout();
         viewPagerAdapter = new ViewPagerAdapter(tampil);
         viewPager.setAdapter(viewPagerAdapter);
 
