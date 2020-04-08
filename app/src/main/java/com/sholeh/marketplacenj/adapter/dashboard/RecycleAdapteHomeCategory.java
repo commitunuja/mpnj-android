@@ -69,6 +69,7 @@ public class RecycleAdapteHomeCategory extends RecyclerView.Adapter<RecycleAdapt
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
         Kategori movie = moviesList.get(position);
+//        HomeCategoryModelClass allcategory = semua.get(position);
         holder.title.setText(movie.getNamaKategori());
 
 
