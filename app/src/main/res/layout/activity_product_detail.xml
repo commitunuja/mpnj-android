@@ -40,20 +40,15 @@
                         <FrameLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:gravity="center"
                             android:orientation="horizontal">
 
                             <androidx.viewpager.widget.ViewPager
                                 android:id="@+id/viewpager_product_detail"
                                 android:layout_width="match_parent"
                                 android:layout_height="285dp"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginTop="23dp"
                                 android:layout_marginBottom="20dp"
                                 android:layout_weight="1"
-                                android:clipToPadding="false"
-                                android:paddingLeft="20dp" />
+                                android:clipToPadding="false" />
 
 
                             <RelativeLayout
