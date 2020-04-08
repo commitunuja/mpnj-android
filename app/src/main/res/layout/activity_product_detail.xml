@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -12,7 +11,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include layout="@layout/toolbar_product_detail"/>
+        <include layout="@layout/toolbar_product_detail" />
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -26,13 +25,11 @@
                 android:orientation="vertical">
 
 
-
-
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:cardBackgroundColor="@color/white"
-                    android:layout_marginBottom="15dp">
+                    android:layout_marginBottom="15dp"
+                    app:cardBackgroundColor="@color/white">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -49,13 +46,13 @@
 
                             <androidx.viewpager.widget.ViewPager
                                 android:id="@+id/viewpager_product_detail"
-                                android:layout_weight="1"
                                 android:layout_width="match_parent"
                                 android:layout_height="285dp"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginTop="23dp"
-                                android:clipToPadding="false"
                                 android:layout_marginBottom="20dp"
+                                android:layout_weight="1"
+                                android:clipToPadding="false"
                                 android:paddingLeft="20dp" />
 
 
@@ -69,8 +66,7 @@
                                 <ImageView
                                     android:layout_width="20dp"
                                     android:layout_height="20dp"
-                                    android:src="@drawable/right_gray"
-                                    />
+                                    android:src="@drawable/right_gray" />
 
                             </RelativeLayout>
 
@@ -181,22 +177,22 @@
                             android:layout_width="match_parent"
                             android:layout_height="0.5dp"
                             android:layout_marginTop="15dp"
-                            android:background="@color/viewline"/>
+                            android:background="@color/viewline" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="20dp"
                             android:layout_marginLeft="22dp"
+                            android:layout_marginTop="20dp"
                             android:orientation="vertical">
 
                             <customfonts.MyTextView_Roboto_Medium
                                 android:id="@+id/txtnama"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textSize="14sp"
+                                android:text="Apple I phone 7 plus (Gold,32 GB)"
                                 android:textColor="@color/black"
-                                android:text="Apple I phone 7 plus (Gold,32 GB)"/>
+                                android:textSize="14sp" />
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
@@ -210,43 +206,43 @@
                                     android:layout_height="wrap_content"
                                     android:text=" 60,999"
                                     android:textColor="@color/black"
-                                    android:textSize="16.7sp"/>
+                                    android:textSize="16.7sp" />
 
                                 <customfonts.MyTextView_Roboto_Medium
                                     android:id="@+id/txtdiskon"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text=" 60,999"
                                     android:layout_gravity="center"
                                     android:layout_marginLeft="15dp"
+                                    android:text=" 60,999"
                                     android:textColor="@color/cut_price"
-                                    android:textSize="12.3sp"/>
+                                    android:textSize="12.3sp" />
 
                                 <customfonts.MyTextView_Roboto_Medium
                                     android:id="@+id/cobadiskon"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text=" 60,999"
-                                    android:visibility="invisible"
                                     android:layout_gravity="center"
                                     android:layout_marginLeft="15dp"
+                                    android:text=" 60,999"
                                     android:textColor="@color/cut_price"
-                                    android:textSize="12.3sp"/>
+                                    android:textSize="12.3sp"
+                                    android:visibility="invisible" />
 
 
                                 <TextView
+                                    android:id="@+id/txtjumlah"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="1"
-                                    android:visibility="gone"
-                                    android:id="@+id/txtjumlah"/>
+                                    android:visibility="gone" />
 
                                 <TextView
+                                    android:id="@+id/txtidkerenjang"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="22222"
-                                    android:visibility="gone"
-                                    android:id="@+id/txtidkerenjang"/>
+                                    android:visibility="gone" />
 
                             </LinearLayout>
 
@@ -254,17 +250,39 @@
                                 android:id="@+id/txtkategoriproduk"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textSize="12sp"
-                                android:text="( 9% off )"
                                 android:layout_marginTop="5dp"
-                                android:textColor="@color/green"/>
+                                android:text="( 9% off )"
+                                android:textColor="@color/green"
+                                android:textSize="12sp" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <de.hdodenhof.circleimageview.CircleImageView
+                                    android:id="@+id/img_foto_pelapak"
+                                    android:layout_width="50dp"
+                                    android:layout_height="50dp"
+                                    android:src="@drawable/img" />
+
+                                <customfonts.MyTextView_Roboto_Black
+                                    android:id="@+id/tv_nama_pelapak"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:textSize="10sp"
+                                    android:layout_marginStart="10dp"
+                                    android:gravity="center"
+                                    android:text="nama pelapak" />
+                            </LinearLayout>
 
                             <View
                                 android:layout_width="match_parent"
                                 android:layout_height="0.5dp"
                                 android:layout_marginTop="15dp"
                                 android:layout_marginRight="21.5dp"
-                                android:background="@color/viewline"/>
+                                android:background="@color/viewline" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -275,36 +293,35 @@
                                 <LinearLayout
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:orientation="horizontal"
-                                    android:background="@drawable/green_rect">
+                                    android:background="@drawable/green_rect"
+                                    android:orientation="horizontal">
 
                                     <LinearLayout
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
                                         android:paddingLeft="10dp"
-                                        android:paddingRight="10dp"
                                         android:paddingTop="1dp"
-                                        android:paddingBottom="1dp"
-                                        android:orientation="horizontal">
+                                        android:paddingRight="10dp"
+                                        android:paddingBottom="1dp">
 
                                         <customfonts.MyTextView_Roboto_Medium
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            android:textColor="@color/white"
-                                            android:text="4.4"
                                             android:layout_marginRight="5dp"
-                                            android:textSize="12.3dp"/>
+                                            android:text="4.4"
+                                            android:textColor="@color/white"
+                                            android:textSize="12.3dp" />
 
                                         <ImageView
                                             android:layout_width="12dp"
                                             android:layout_height="12dp"
-                                            android:src="@drawable/star"
                                             android:layout_gravity="center"
-                                            android:tint="@color/white"/>
+                                            android:src="@drawable/star"
+                                            android:tint="@color/white" />
 
 
                                     </LinearLayout>
-
 
 
                                 </LinearLayout>
@@ -330,29 +347,29 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
-                    android:background="#d7d4d4"/>
+                    android:background="#d7d4d4" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingTop="17dp"
                     android:background="@color/white"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:paddingTop="17dp">
 
                     <customfonts.MyTextView_Roboto_Bold
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/storage"
-                        android:text="Storage"
                         android:layout_marginLeft="25dp"
-                        android:textSize="12.3sp"/>
+                        android:text="Storage"
+                        android:textColor="@color/storage"
+                        android:textSize="12.3sp" />
 
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
                         android:layout_marginLeft="25dp"
+                        android:layout_marginTop="15dp"
                         android:orientation="horizontal">
 
 
@@ -367,77 +384,76 @@
                                 android:id="@+id/txt1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textSize="13sp"
-                                android:text="16GB"
-                                android:paddingRight="15dp"
                                 android:paddingLeft="15dp"
-                                android:paddingBottom="6dp"
                                 android:paddingTop="6dp"
+                                android:paddingRight="15dp"
+                                android:paddingBottom="6dp"
+                                android:text="16GB"
                                 android:textColor="#d0d0d0"
-                                />
+                                android:textSize="13sp" />
                         </LinearLayout>
+
                         <LinearLayout
                             android:id="@+id/linear2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/red_rect_normal"
                             android:layout_marginLeft="13dp"
+                            android:background="@drawable/red_rect_normal"
                             android:orientation="horizontal">
 
                             <customfonts.MyTextView_Roboto_Medium
                                 android:id="@+id/txt2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textSize="13sp"
-                                android:text="32GB"
-                                android:paddingRight="15dp"
                                 android:paddingLeft="15dp"
-                                android:paddingBottom="6dp"
                                 android:paddingTop="6dp"
+                                android:paddingRight="15dp"
+                                android:paddingBottom="6dp"
+                                android:text="32GB"
                                 android:textColor="@color/red"
-                                />
+                                android:textSize="13sp" />
                         </LinearLayout>
+
                         <LinearLayout
                             android:id="@+id/linear3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/storage_gray_rect"
                             android:layout_marginLeft="13dp"
+                            android:background="@drawable/storage_gray_rect"
                             android:orientation="horizontal">
 
                             <customfonts.MyTextView_Roboto_Medium
                                 android:id="@+id/txt3"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textSize="13sp"
-                                android:text="64GB"
-                                android:paddingRight="15dp"
                                 android:paddingLeft="15dp"
-                                android:paddingBottom="6dp"
                                 android:paddingTop="6dp"
+                                android:paddingRight="15dp"
+                                android:paddingBottom="6dp"
+                                android:text="64GB"
                                 android:textColor="#d0d0d0"
-                                />
+                                android:textSize="13sp" />
                         </LinearLayout>
+
                         <LinearLayout
                             android:id="@+id/linear4"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/storage_gray_rect"
                             android:layout_marginLeft="13dp"
+                            android:background="@drawable/storage_gray_rect"
                             android:orientation="horizontal">
 
                             <customfonts.MyTextView_Roboto_Medium
                                 android:id="@+id/txt4"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textSize="13sp"
-                                android:text="128GB"
-                                android:paddingRight="15dp"
                                 android:paddingLeft="15dp"
-                                android:paddingBottom="6dp"
                                 android:paddingTop="6dp"
+                                android:paddingRight="15dp"
+                                android:paddingBottom="6dp"
+                                android:text="128GB"
                                 android:textColor="#d0d0d0"
-                                />
+                                android:textSize="13sp" />
                         </LinearLayout>
 
                     </LinearLayout>
@@ -445,33 +461,33 @@
                     <customfonts.MyTextView_Roboto_Bold
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/storage"
-                        android:text="Color"
                         android:layout_marginLeft="25dp"
                         android:layout_marginTop="20dp"
-                        android:textSize="12.3sp"/>
+                        android:text="Color"
+                        android:textColor="@color/storage"
+                        android:textSize="12.3sp" />
 
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
                         android:layout_marginLeft="25dp"
+                        android:layout_marginTop="12dp"
                         android:orientation="horizontal">
 
                         <LinearLayout
                             android:id="@+id/right1"
                             android:layout_width="32dp"
                             android:layout_height="32dp"
-                            android:orientation="vertical"
+                            android:background="@drawable/black_circle"
                             android:gravity="center"
-                            android:background="@drawable/black_circle">
+                            android:orientation="vertical">
 
                             <ImageView
                                 android:id="@+id/right1_img"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/right_tick"/>
+                                android:src="@drawable/right_tick" />
 
 
                         </LinearLayout>
@@ -479,20 +495,20 @@
 
                         <LinearLayout
                             android:id="@+id/right2"
-                            android:orientation="vertical"
                             android:layout_width="32dp"
                             android:layout_height="32dp"
                             android:layout_marginLeft="10dp"
+                            android:background="@drawable/cream_circle"
                             android:gravity="center"
-                            android:background="@drawable/cream_circle">
+                            android:orientation="vertical">
 
 
                             <ImageView
                                 android:id="@+id/right2_img"
-                                android:visibility="gone"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/right_tick"/>
+                                android:src="@drawable/right_tick"
+                                android:visibility="gone" />
 
 
                         </LinearLayout>
@@ -500,19 +516,19 @@
 
                         <LinearLayout
                             android:id="@+id/right3"
-                            android:orientation="vertical"
                             android:layout_width="32dp"
                             android:layout_height="32dp"
                             android:layout_marginLeft="10dp"
+                            android:background="@drawable/light_pink_circle"
                             android:gravity="center"
-                            android:background="@drawable/light_pink_circle">
+                            android:orientation="vertical">
 
                             <ImageView
                                 android:id="@+id/right3_img"
-                                android:visibility="gone"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/right_tick"/>
+                                android:src="@drawable/right_tick"
+                                android:visibility="gone" />
 
                         </LinearLayout>
 
@@ -523,42 +539,43 @@
                         android:layout_width="match_parent"
                         android:layout_height="0.5dp"
                         android:layout_marginTop="17dp"
-                        android:background="@color/viewline"/>
+                        android:background="@color/viewline" />
 
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="30dp"
                         android:layout_marginLeft="25dp"
+                        android:layout_marginTop="30dp"
                         android:orientation="horizontal">
 
                         <ImageView
                             android:layout_width="17dp"
                             android:layout_height="17dp"
                             android:layout_gravity="center"
-                            android:src="@drawable/ic_calendar_with_clock"/>
+                            android:src="@drawable/ic_calendar_with_clock" />
 
                         <customfonts.MyTextView_Roboto_Medium
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/storage"
-                            android:textSize="13sp"
                             android:layout_marginLeft="10dp"
-                            android:text="EMIs from "/>
-                        <customfonts.MyTextView_Roboto_Medium
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:text="EMIs from "
                             android:textColor="@color/storage"
-                            android:textSize="13sp"
-                            android:text="@string/Rs"/>
+                            android:textSize="13sp" />
 
                         <customfonts.MyTextView_Roboto_Medium
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:text="@string/Rs"
                             android:textColor="@color/storage"
-                            android:textSize="13sp"
-                            android:text="2,085/month"/>
+                            android:textSize="13sp" />
+
+                        <customfonts.MyTextView_Roboto_Medium
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="2,085/month"
+                            android:textColor="@color/storage"
+                            android:textSize="13sp" />
 
 
                     </LinearLayout>
@@ -566,39 +583,39 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="25dp"
                         android:layout_marginTop="6dp"
                         android:layout_marginBottom="22dp"
-                        android:layout_marginLeft="25dp"
                         android:orientation="horizontal">
 
                         <ImageView
                             android:layout_width="15dp"
                             android:layout_height="15dp"
                             android:layout_gravity="center"
-                            android:src="@drawable/ic_recycle"/>
+                            android:src="@drawable/ic_recycle" />
 
                         <customfonts.MyTextView_Roboto_Medium
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/storage"
-                            android:textSize="13sp"
                             android:layout_marginLeft="10dp"
-                            android:text="Get Upto "/>
+                            android:text="Get Upto "
+                            android:textColor="@color/storage"
+                            android:textSize="13sp" />
 
 
                         <customfonts.MyTextView_Roboto_Medium
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:text="@string/Rs"
                             android:textColor="@color/storage"
-                            android:textSize="13sp"
-                            android:text="@string/Rs"/>
+                            android:textSize="13sp" />
 
                         <customfonts.MyTextView_Roboto_Medium
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:text="15,600 off on exchange"
                             android:textColor="@color/storage"
-                            android:textSize="13sp"
-                            android:text="15,600 off on exchange"/>
+                            android:textSize="13sp" />
 
                     </LinearLayout>
 
@@ -607,7 +624,8 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
-                    android:background="#d7d4d4"/>
+                    android:background="#d7d4d4" />
+
                 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -667,38 +685,37 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:layout_marginLeft="35dp"
-                    >
+                    android:orientation="horizontal">
 
                     <customfonts.MyTextView_Roboto_Medium
-                        android:layout_weight="1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Top Rated Products"
                         android:textColor="@color/black"
-                        android:textSize="14sp"
-                        android:text="Top Rated Products"/>
+                        android:textSize="14sp" />
 
                     <customfonts.MyTextView_Roboto_Medium
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginRight="20dp"
                         android:text="View More"
-                        android:textSize="13sp"
                         android:textColor="@color/red"
-                        android:layout_marginRight="20dp"/>
+                        android:textSize="13sp" />
                 </LinearLayout>
 
                 <!--Top Rated Recyclerview-->
 
                 <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/top_ten_recyclerview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clipToPadding="false"
+                    android:nestedScrollingEnabled="false"
                     android:paddingLeft="10dp"
                     android:paddingRight="15dp"
-                    android:paddingBottom="20dp"
-                    android:nestedScrollingEnabled="false"
-                    android:id="@+id/top_ten_recyclerview"/>
+                    android:paddingBottom="20dp" />
 
             </LinearLayout>
 
@@ -711,11 +728,11 @@
         android:id="@+id/imgtambah"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:src="@drawable/filter_plus"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="15dp"
         android:layout_marginBottom="20dp"
-        android:layout_marginRight="15dp"/>
+        android:src="@drawable/filter_plus" />
 
 
 </RelativeLayout>
