@@ -2,11 +2,9 @@ package com.sholeh.marketplacenj.adapter.keranjang;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,13 +21,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.sholeh.marketplacenj.activities.keranjang.KeranjangDetailActivity;
-import com.sholeh.marketplacenj.model.keranjang.FirstModel;
-import com.sholeh.marketplacenj.respon.DataKeranjang;
-import com.sholeh.marketplacenj.respon.ItemKeranjang;
-import com.sholeh.marketplacenj.respon.ResDetailKeranjang;
 import com.sholeh.marketplacenj.respon.ResHapusKeranjang;
-import com.sholeh.marketplacenj.respon.ResKeranjang;
-import com.sholeh.marketplacenj.respon.ResNewPassword;
 import com.sholeh.marketplacenj.respon.ResUbahJumlahProduk;
 import com.sholeh.marketplacenj.util.AppUtilits;
 import com.sholeh.marketplacenj.util.CONSTANTS;
@@ -42,7 +34,6 @@ import com.sholeh.marketplacenj.util.api.APIInterface;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -51,24 +42,6 @@ import java.util.StringTokenizer;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.graphics.Paint;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseExpandableListAdapter;
-import android.widget.CheckBox;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-
-
-import java.util.List;
-import java.util.Map;
 
 public class ExpandListScanAdapter extends BaseExpandableListAdapter {
     int jumlahProduk = 0;
@@ -449,9 +422,10 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
         String idK = null;
 //        List<String> list;
         Bundle extras = new Bundle();
-        ArrayList<List<String>> myArray = new ArrayList<>();
+        ArrayList<String> myArray = new ArrayList<>();
         String sum = null;
         String  getid = null;
+        String[] words = new String[0];
 
         for (int i = 0; i < listHeaderFilter.size(); i++) {
             List<ChildModel> childMapList = listChild.get(listHeaderFilter.get(i));
@@ -471,7 +445,17 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 
 //                    list = new ArrayList<String>();
 //                    list.add(getid);
-                    myArray.add(Arrays.asList(getid));
+                    myArray.add(String.valueOf(getid));
+
+//                    String line = getid+" ";
+//                    //using String split function
+//                    words = line.split(" ");
+//                    System.out.println(Arrays.toString(words));
+//                    //using java.util.regex Pattern
+//                    Pattern pattern = Pattern.compile(" ");
+//                    words = pattern.split(line);
+//                    Toast.makeText(context, ""+Arrays.toString(words), Toast.LENGTH_SHORT).show();
+
 
 
 //                    Log.d("array", String.valueOf(myArray));
@@ -479,7 +463,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 
 
 
-                    int []id_keranjang = {Integer.parseInt(getid)};
+//                    int []id_keranjang = {Integer.parseInt(getid)};
 //                    Toast.makeText(context, "g"+id_keranjang.length, Toast.LENGTH_SHORT).show();
 //
 
@@ -491,9 +475,8 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 //
 //                    }
 
-//                    Toast.makeText(context, "f"+sum, Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(context, "f"+getid, Toast.LENGTH_SHORT).show();
 //                    Log.d("idkeranjang", idK);
-//                    Toast.makeText(context, ""+idK, Toast.LENGTH_SHORT).show();
 //                    Intent intent = new Intent("custom-idk");
 //                    intent.putExtra("array-idkeranjang", String.valueOf(idK));
 
@@ -501,10 +484,10 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 //
 //                    Toast.makeText(context, "s"+sum, Toast.LENGTH_SHORT).show();
 //
-//                    Intent intent = new Intent("custom");
+//                    Intent in = new Intent("custom-idk");
 ////                    intent.putExtra("idkeranjang",String.valueOf(sum+",")) ;
-//                    intent.putExtra("idke",getid) ;
-//                    LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+//                    in.putExtra("idkeranjang",String.valueOf(getid)) ;
+//                    LocalBroadcastManager.getInstance(context).sendBroadcast(in);
 
 //                    Toast.makeText(context, ""+myArray.size(), Toast.LENGTH_SHORT).show();
 //                    Log.d("array", String.valueOf(sum));
@@ -527,9 +510,13 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 //        Log.d("array", String.valueOf(myArray));
 
         Intent i = new Intent("custom-idk");
-//                    intent.putExtra("idkeranjang",String.valueOf(sum+",")) ;
+
+//        i.putExtra("idkeranjang",String.valueOf(myArray)) ;
         i.putExtra("idkeranjang",String.valueOf(myArray)) ;
         LocalBroadcastManager.getInstance(context).sendBroadcast(i);
+//        Toast.makeText(context, ""+String.valueOf(myArray), Toast.LENGTH_SHORT).show();
+
+
 
 
     }

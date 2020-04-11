@@ -37,7 +37,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.StringJoiner;
 import java.util.StringTokenizer;
+import java.util.regex.Pattern;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -52,7 +54,9 @@ public class KeranjangDetailActivity extends AppCompatActivity implements View.O
     public CheckBox cb_select_all, cbchild;
 
     Preferences preferences;
-    String id_konsumen, idkeranjang, idker;
+    String id_konsumen;
+    String idkeranjang;
+    String idker;
     int hargaJual;
     private double hargaTotal;
     Locale localeID = new Locale("in", "ID");
@@ -448,6 +452,7 @@ public class KeranjangDetailActivity extends AppCompatActivity implements View.O
 
 
     private void goChekout(){
+
 //        myArray.add(Arrays.asList(idkeranjang));
 //        Toast.makeText(this, "mm"+idkeranjang, Toast.LENGTH_SHORT).show();
 
@@ -472,7 +477,7 @@ public class KeranjangDetailActivity extends AppCompatActivity implements View.O
 //        String get = tvx_idk.getText().toString();
 //        Toast.makeText(this, ""+get, Toast.LENGTH_SHORT).show();
 
-
+//ini
         String id []= {idkeranjang}; // lenght idk = 7 =id =1
         String idK = null;
 
@@ -481,6 +486,47 @@ public class KeranjangDetailActivity extends AppCompatActivity implements View.O
         }
 //        Toast.makeText(this,"idkeranjang "+idkeranjang.length()+" idk "+ idK.length() +" id"+id.length, Toast.LENGTH_SHORT).show();
         Toast.makeText(this,"idkeranjang "+idK, Toast.LENGTH_SHORT).show();
+
+
+
+        //using String split function
+//        String[] words = line.split(" ");
+//        System.out.println(Arrays.toString(words));
+//        //using java.util.regex Pattern
+//        Pattern pattern = Pattern.compile(" ");
+//        words = pattern.split(line);
+//        System.out.println(Arrays.toString(words));
+
+//        int[] data = new int[line.length()];
+//        for (int i = 0; i<line.length(); i++){
+//            Toast.makeText(this,"idkeranjang "+data[i], Toast.LENGTH_SHORT).show();
+//
+//        }
+
+        //array to string
+//        StringBuffer sb = new StringBuffer();
+//        for(int i = 0; i < arrayid.length; i++) {
+//            sb.append(arrayid[i]);
+//        }
+//        String str = sb.toString();
+//        System.out.println(str);
+
+//        String [] arrayid  = {idkeranjang};
+
+ // target konvert array to string > string to array
+
+
+//        String[] nomor = idkeranjang.split(",");
+//        String[] nomor2 = nomor[1].split("\\.");
+//        String har = "";
+//        for (int i = 0; i < nomor2.length; i++) {
+//            har = har + nomor2[i];
+//        }
+
+
+
+
+//        Toast.makeText(this, "as"+har, Toast.LENGTH_SHORT).show();
 
 
     }
