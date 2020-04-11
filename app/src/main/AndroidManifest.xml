@@ -32,11 +32,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-<<<<<<< HEAD
         <activity android:name=".activities.dashboard.SearchActivity"></activity>
-=======
-        <activity android:name=".activities.ProdukByKategori"></activity>
->>>>>>> halaman-kategori
         <activity android:name=".activities.ImageProfilActivity" />
         <activity android:name=".activities.Splash" />
         <activity

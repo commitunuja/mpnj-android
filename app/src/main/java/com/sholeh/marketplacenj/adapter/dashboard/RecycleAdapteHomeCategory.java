@@ -1,7 +1,6 @@
 package com.sholeh.marketplacenj.adapter.dashboard;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,16 +10,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sholeh.marketplacenj.R;
-<<<<<<< HEAD
 import com.sholeh.marketplacenj.model.CategoryModel;
-=======
-import com.sholeh.marketplacenj.activities.ProdukByKategori;
-import com.sholeh.marketplacenj.activities.details.ProductDetailActivity;
->>>>>>> halaman-kategori
 import com.sholeh.marketplacenj.model.Kategori;
 import com.sholeh.marketplacenj.model.dashboard.HomeCategoryModelClass;
 
@@ -80,24 +73,11 @@ public class RecycleAdapteHomeCategory extends RecyclerView.Adapter<RecycleAdapt
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
-<<<<<<< HEAD
         Kategori movie = moviesList.get(position);
 //        HomeCategoryModelClass allcategory = semua.get(position);
-=======
-        final Kategori movie = moviesList.get(position);
->>>>>>> halaman-kategori
         holder.title.setText(movie.getNamaKategori());
 //        holder.title.setText(allcategory.getTitle());
 
-        holder.title.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, ProdukByKategori.class);
-                intent.putExtra("id_kategori", String.valueOf(movie.getIdKategoriProduk()));
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(intent);
-            }
-        });
 
     }
 
