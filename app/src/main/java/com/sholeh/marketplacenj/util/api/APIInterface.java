@@ -39,8 +39,11 @@ public interface APIInterface {
     @GET("api/produk")
     abstract Call<List<Model>> getProduk();
 
-    @GET("http://belanj.id/api/kategori")
+    @GET("api/kategori")
     Call<List<Kategori>> getKategori();
+
+    @GET("api/kategori/{id_kategori}")
+    Call<List<Model>> getKategoriByid( @Path("id_kategori") String idKategori );
 
 
     // Province get from raja ongkir
@@ -183,7 +186,6 @@ public interface APIInterface {
     Call<ResUbahJumlahProduk> updateJumlah(
             @Path("id_keranjang") String idKeranjang,
             @Field("jumlah") String Jumlah);
-
 
 }
 

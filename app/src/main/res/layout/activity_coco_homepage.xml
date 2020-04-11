@@ -25,6 +25,7 @@
                     android:background="@color/colorutama"
                     android:orientation="vertical">
 
+<<<<<<< HEAD
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -88,6 +89,59 @@
                             </LinearLayout>
                         </LinearLayout>
                     </LinearLayout>
+=======
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clipToPadding="false"
+                        android:elevation="5dp"
+                        android:nestedScrollingEnabled="false"
+                        android:paddingLeft="15dp"
+                        android:paddingTop="20dp"
+                        android:paddingRight="15dp" />
+
+
+                </LinearLayout>
+
+
+                <!--Category Recyclerview-->
+
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/category_recyclerview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clipToPadding="false"
+                        android:nestedScrollingEnabled="false"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginTop="24dp"
+                    android:orientation="horizontal">
+
+                    <customfonts.MyTextView_Roboto_Medium
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/top_rated_products"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+                    <customfonts.MyTextView_Roboto_Medium
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="20dp"
+                        android:text="View More"
+                        android:textColor="@color/red"
+                        android:textSize="13sp" />
+>>>>>>> halaman-kategori
                 </LinearLayout>
 
                 <!--                        <include layout="@layout/toolbar_hompage" />-->
