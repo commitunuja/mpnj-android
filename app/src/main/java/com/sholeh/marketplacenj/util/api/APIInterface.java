@@ -16,6 +16,7 @@ import com.sholeh.marketplacenj.respon.ResProfil;
 import com.sholeh.marketplacenj.respon.ResRegristasi;
 import com.sholeh.marketplacenj.respon.ResUbahJumlahProduk;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.MultipartBody;
@@ -181,7 +182,13 @@ public interface APIInterface {
             @Path("id_keranjang") String idKeranjang,
             @Field("jumlah") String Jumlah);
 
-
+    // ubah status keranjang
+    @FormUrlEncoded
+    @PUT("api/keranjang/{id_user}/go_checkout")
+    Call<ResDetailKeranjang> ubahStatusKeranjang(
+            @Path("id_user") String id_user,
+            @Field("id_keranjang") ArrayList<String> id_keranjang
+    );
 
 }
 
