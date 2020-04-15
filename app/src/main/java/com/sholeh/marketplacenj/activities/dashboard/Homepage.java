@@ -1,13 +1,6 @@
 package com.sholeh.marketplacenj.activities.dashboard;
 
-<<<<<<< HEAD
-import android.content.Intent;
-=======
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
->>>>>>> halaman-kategori
+
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -19,13 +12,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sholeh.marketplacenj.R;
+import com.sholeh.marketplacenj.adapter.ProdukByKategoriAdapter;
 import com.sholeh.marketplacenj.adapter.dashboard.ProdukAdapter;
 import com.sholeh.marketplacenj.adapter.dashboard.RecycleAdapteHomeBanner;
 import com.sholeh.marketplacenj.adapter.dashboard.RecycleAdapteHomeCategory;
@@ -41,7 +34,6 @@ import com.sholeh.marketplacenj.util.api.APIInterface;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.StringTokenizer;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -64,6 +56,14 @@ public class Homepage extends AppCompatActivity {
     private RecycleAdapteHomeCategory recycleAdapteHomeCategory;
     //    private ArrayList<KategoriLihatSemua> kategoriLihatSemua;
     private String lihatsemua[] = {"All Categories"};
+
+    //category by id
+
+    private String id_kategori;
+    private RecyclerView recyclerViewProdukByKategori, recyclerViewProdukByKategori2;
+    private List<Model> dataProdukByKategori;
+
+    private ProdukByKategoriAdapter produkByKategoriAdapter;
 
     //pencarian
     private SearchAdapter searchAdapter;
@@ -97,6 +97,8 @@ public class Homepage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coco_homepage);
+//        id_kategori = getIntent().getStringExtra("id_kategori");
+//        getDataProdukByKategori();
         Banner();
         kategori();
         produksearch();
@@ -104,17 +106,20 @@ public class Homepage extends AppCompatActivity {
         produksamsung();
         recentproduk();
         produkapi();
+//        kategoriById();
         fiturpencarian();
+//        kategori2();
         recyclerViewpproduk.setVisibility(View.GONE);
+//        recyclerViewProdukByKategori2.setVisibility(View.GONE);
         frameLayout.setVisibility(View.VISIBLE);
-<<<<<<< HEAD
+
+
 //        linearLayoutkategori.setVisibility(View.GONE);
 //        allcategory = findViewById(R.id.tv_allcategory);
-=======
-        linearLayoutkategori.setVisibility(View.GONE);
-        LocalBroadcastManager.getInstance(this).registerReceiver(idKategoriReceiver,
-                new IntentFilter("custom-idkategori"));
->>>>>>> halaman-kategori
+//        linearLayoutkategori.setVisibility(View.GONE);
+//        LocalBroadcastManager.getInstance(this).registerReceiver(idKategoriReceiver,
+//                new IntentFilter("custom-idkategori"));
+
     }
 
     private void fiturpencarian() {
@@ -136,10 +141,6 @@ public class Homepage extends AppCompatActivity {
                 recyclerViewpproduk.setVisibility(View.VISIBLE);
                 frameLayout.setVisibility(View.GONE);
                 Homepage.this.filterQuery(s.toString());
-
-//                Intent intentsearch = new Intent(Homepage.this, SearchActivity.class);
-//                startActivity(intentsearch);
-//                linearLayoutkategori.setVisibility(View.VISIBLE);
                 status = "yes";
 
             }
@@ -294,11 +295,9 @@ public class Homepage extends AppCompatActivity {
         for (int i = 0; i < lihatsemua.length; i++) {
             HomeCategoryModelClass beanClassForRecyclerView_contacts = new HomeCategoryModelClass(lihatsemua[i]);
 
-<<<<<<< HEAD
             semua.add(beanClassForRecyclerView_contacts);
         }
-=======
->>>>>>> halaman-kategori
+
 
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
         Call<List<Kategori>> call = service.getKategori();
@@ -403,25 +402,6 @@ public class Homepage extends AppCompatActivity {
 //        getDataProdukByKategori();
 //        kategori2();
 //    }
-            recyclerViewpproduk.setLayoutManager(layoutManager);
-            recyclerViewpproduk.setItemAnimator(new DefaultItemAnimator());
-            recyclerViewpproduk.setNestedScrollingEnabled(false);
-            recyclerViewpproduk.setFocusableInTouchMode(false);
-
-            APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-            Call<List<Model>> call = service.getKategoriByid(id);
-
-            call.enqueue(new Callback<List<Model>>() {
-                @Override
-                public void onResponse(Call<List<Model>> call, Response<List<Model>> response) {
-//                    Log.d("YOLO FUCEK", String.valueOf(response.body()));
-//                    datapencarian.clear();
-//                    datakategori.clear();
-                    datakategori = response.body();
-                    kategoriAdapter = new SearchAdapter(getBaseContext(), datakategori);
-                    recyclerViewpproduk.setAdapter(kategoriAdapter);
-                    status = "yes";
-                }
 
 //    private void getDataProdukByKategori() {
 //
