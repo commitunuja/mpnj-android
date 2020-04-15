@@ -244,6 +244,48 @@ public class Homepage extends AppCompatActivity {
         like_recyclerview.setAdapter(mAdapter3);
     }
 
+//    private void kategori2() {
+//        recyclerViewProdukByKategori2 = (RecyclerView) findViewById(R.id.category_recyclerview2);
+//
+//        homeCategoryModelClasses = new ArrayList<>();
+//        semua = new ArrayList<>();
+//
+//        for (int i = 0; i < lihatsemua.length; i++) {
+//            HomeCategoryModelClass beanClassForRecyclerView_contacts = new HomeCategoryModelClass(lihatsemua[i]);
+//
+//            semua.add(beanClassForRecyclerView_contacts);
+//        }
+//
+//
+//        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+//        Call<List<Kategori>> call = service.getKategori();
+//
+//        call.enqueue(new Callback<List<Kategori>>() {
+//            @Override
+//            public void onResponse(Call<List<Kategori>> call, Response<List<Kategori>> response) {
+////                Log.d("YOLO", "Error" + response);
+//                homeCategoryModelClasses = response.body();
+//                recycleAdapteHomeCategory = new RecycleAdapteHomeCategory(getBaseContext(), homeCategoryModelClasses, semua);
+//                recyclerViewProdukByKategori2.setAdapter(recycleAdapteHomeCategory);
+////                homeCategoryModelClasses.add());
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<Kategori>> call, Throwable t) {
+//                Toast.makeText(getBaseContext(), String.valueOf(t), Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//
+//        recycleAdapteHomeCategory = new RecycleAdapteHomeCategory(Homepage.this, homeCategoryModelClasses, semua);
+//        RecyclerView.LayoutManager mLayoutManager1 = new LinearLayoutManager(Homepage.this, LinearLayoutManager.HORIZONTAL, false);
+//        recyclerViewProdukByKategori2.setLayoutManager(mLayoutManager1);
+//
+//        recyclerViewProdukByKategori2.setLayoutManager(mLayoutManager1);
+//        recyclerViewProdukByKategori2.setItemAnimator(new DefaultItemAnimator());
+//        recyclerViewProdukByKategori2.setAdapter(recycleAdapteHomeCategory);
+//    }
+
     private void kategori() {
         category_recyclerView = (RecyclerView) findViewById(R.id.category_recyclerview);
         homeCategoryModelClasses = new ArrayList<>();
