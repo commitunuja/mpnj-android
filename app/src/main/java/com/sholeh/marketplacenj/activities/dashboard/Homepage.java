@@ -391,18 +391,18 @@ public class Homepage extends AppCompatActivity {
         this.searchAdapter.setFilter(filterdNames);
     }
 
-    public BroadcastReceiver idKategoriReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            recyclerViewpproduk.setVisibility(View.VISIBLE);
-            frameLayout.setVisibility(View.GONE);
-            linearLayoutkategori.setVisibility(View.VISIBLE);
-            String id = intent.getStringExtra("id_kategori");
-            Toast.makeText(getBaseContext(), String.valueOf(id), Toast.LENGTH_SHORT).show();
-//            recyclerViewpproduk = findViewById(R.id.recyclersearch);
-            kategoriAdapter = new SearchAdapter(Homepage.this, datakategori);
-
-            RecyclerView.LayoutManager layoutManager = new GridLayoutManager(Homepage.this, 2);
+//    public void kategoriById() {
+//        recyclerViewProdukByKategori2 = findViewById(R.id.category_recyclerview2);
+//        recyclerViewProdukByKategori2.setVisibility(View.VISIBLE);
+////        recyclerViewProdukByKategori = (RecyclerView) findViewById(R.id.barang);
+//        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(Homepage.this, 2);
+//        recyclerViewProdukByKategori2.setLayoutManager(layoutManager);
+//        recyclerViewProdukByKategori2.setItemAnimator(new DefaultItemAnimator());
+//        recyclerViewProdukByKategori2.setNestedScrollingEnabled(false);
+//        recyclerViewProdukByKategori2.setFocusableInTouchMode(false);
+//        getDataProdukByKategori();
+//        kategori2();
+//    }
             recyclerViewpproduk.setLayoutManager(layoutManager);
             recyclerViewpproduk.setItemAnimator(new DefaultItemAnimator());
             recyclerViewpproduk.setNestedScrollingEnabled(false);
