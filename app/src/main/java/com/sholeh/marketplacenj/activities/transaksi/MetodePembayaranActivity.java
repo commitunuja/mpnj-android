@@ -42,7 +42,7 @@ public class MetodePembayaranActivity extends AppCompatActivity {
         Toast.makeText(this,"idkeranjang "+idYOlo.get(0), Toast.LENGTH_SHORT).show();
 
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-        Call<ResDetailKeranjang> call = service.ubahStatusKeranjang("1", (ArrayList<String>) idYOlo.get(0));
+        Call<ResDetailKeranjang> call = service.ubahStatusKeranjang("1","asdf");
 
         call.enqueue(new Callback<ResDetailKeranjang>() {
             @Override

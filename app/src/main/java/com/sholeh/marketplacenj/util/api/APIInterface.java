@@ -187,7 +187,7 @@ public interface APIInterface {
     @PUT("api/keranjang/{id_user}/go_checkout")
     Call<ResDetailKeranjang> ubahStatusKeranjang(
             @Path("id_user") String id_user,
-            @Field("id_keranjang") ArrayList<String> id_keranjang
+            @Field("id_keranjang") String id_keranjang
     );
 
 }
