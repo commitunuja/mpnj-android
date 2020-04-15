@@ -102,6 +102,8 @@
                     android:paddingTop="15dp"
                     android:paddingRight="15dp" />
 
+
+
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/category_recyclerview2"
                         android:layout_width="wrap_content"
@@ -110,6 +112,9 @@
                         android:nestedScrollingEnabled="false"
                         android:paddingLeft="15dp"
                         android:paddingRight="15dp" />
+
+
+
 
                 <FrameLayout
                     android:id="@+id/frag_container"
@@ -246,7 +251,6 @@
                             android:nestedScrollingEnabled="false"
                             android:paddingLeft="5dp"
                             android:paddingTop="15dp"
-
                             android:paddingRight="15dp" />
 
 
