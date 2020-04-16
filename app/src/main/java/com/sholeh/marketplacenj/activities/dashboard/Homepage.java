@@ -319,7 +319,7 @@ public class Homepage extends AppCompatActivity {
             }
         });
 
-        recycleAdapteHomeCategory = new RecycleAdapteHomeCategory(Homepage.this, homeCategoryModelClasses, semua);
+        recycleAdapteHomeCategory = new RecycleAdapteHomeCategory(Homepage.this, homeCategoryModelClasses);
         RecyclerView.LayoutManager mLayoutManager1 = new LinearLayoutManager(Homepage.this, LinearLayoutManager.HORIZONTAL, false);
         category_recyclerView.setLayoutManager(mLayoutManager1);
 
