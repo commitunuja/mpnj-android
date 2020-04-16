@@ -26,8 +26,9 @@ import java.util.List;
 public class RecycleAdapteHomeCategory extends RecyclerView.Adapter<RecycleAdapteHomeCategory.MyViewHolder> {
     Context context;
 
-    private ArrayList<HomeCategoryModelClass> semua;
+    private String allkategori = "Semua Kategori";
     private final int limit = 4;
+    private int tampil;
 
     private List<Kategori> moviesList;
 //    private List<KategoriLihatSemua> kategoriLihatSemuas;
@@ -36,7 +37,7 @@ public class RecycleAdapteHomeCategory extends RecyclerView.Adapter<RecycleAdapt
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
 
-        TextView title, semua;
+        TextView title;
         ImageView image;
         LinearLayout linear;
 
@@ -45,7 +46,6 @@ public class RecycleAdapteHomeCategory extends RecyclerView.Adapter<RecycleAdapt
             super(view);
 
             title = (TextView) view.findViewById(R.id.title);
-//            semua = view.findViewById(R.id.tv_semua);
 
             linear = (LinearLayout) view.findViewById(R.id.linear);
 
@@ -54,9 +54,8 @@ public class RecycleAdapteHomeCategory extends RecyclerView.Adapter<RecycleAdapt
     }
 
 
-    public RecycleAdapteHomeCategory(Context context, List<Kategori> moviesList, ArrayList<HomeCategoryModelClass> semua) {
+    public RecycleAdapteHomeCategory(Context context, List<Kategori> moviesList) {
         this.moviesList = moviesList;
-        this.semua = semua;
         this.context = context;
     }
 
@@ -75,34 +74,16 @@ public class RecycleAdapteHomeCategory extends RecyclerView.Adapter<RecycleAdapt
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
-
-
-//        HomeCategoryModelClass allcategory = semua.get(position);
-
         final Kategori movie = moviesList.get(position);
         holder.title.setText(movie.getNamaKategori());
-//        holder.title.setText(allcategory.getTitle());
 
         holder.title.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent intent = new Intent(context, ProdukByKategori.class);
                 intent.putExtra("id_kategori", String.valueOf(movie.getIdKategoriProduk()));
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                Log.d("PESAN", movie.getNamaKategori());
                 context.startActivity(intent);
-
-
-//                }
-//                Homepage homepage = new Homepage();
-//                homepage.kategoriById();
-////                Toast.makeText(context, "coba", Toast.LENGTH_SHORT).show();
-//                Intent intent = new Intent(context, Homepage.class);
-////                intent.putExtra("id_kategori", String.valueOf(movie.getIdKategoriProduk()));
-//                Log.d("PESAN", movie.getNamaKategori());
-////                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-////                context.startActivity(intent);
             }
         });
 
@@ -110,15 +91,17 @@ public class RecycleAdapteHomeCategory extends RecyclerView.Adapter<RecycleAdapt
 
     @Override
     public int getItemCount() {
-//        if (moviesList.size() >  limit) {
-//            return limit;
-//
-//
-//        } else {
-//            return Math.min(moviesList.size(), limit) + 1;
-        return moviesList.size();
-//        }
+        if (moviesList.size() > limit) {
+//            int i = 1;
+//            moviesList.toString();
+//            tampil = String.valueOf(Integer.parseInt(String.valueOf(limit + allkategori)));
+
+            String lagi = String.valueOf(limit);
+            tampil = Integer.valueOf(lagi);
+            return tampil;
+
+        } else {
+            return moviesList.size();
+        }
     }
 }
-
-
