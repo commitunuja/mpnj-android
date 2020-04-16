@@ -307,7 +307,7 @@ public class Homepage extends AppCompatActivity {
             public void onResponse(Call<List<Kategori>> call, Response<List<Kategori>> response) {
 //                Log.d("YOLO", "Error" + response);
                 homeCategoryModelClasses = response.body();
-                recycleAdapteHomeCategory = new RecycleAdapteHomeCategory(getBaseContext(), homeCategoryModelClasses, semua);
+                recycleAdapteHomeCategory = new RecycleAdapteHomeCategory(getBaseContext(), homeCategoryModelClasses);
                 category_recyclerView.setAdapter(recycleAdapteHomeCategory);
 //                homeCategoryModelClasses.add());
 
