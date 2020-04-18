@@ -35,8 +35,6 @@
         <activity android:name=".activities.pelapak.ProfilPelapakActivity"></activity>
         <activity android:name=".activities.dashboard.SearchActivity" />
         <activity android:name=".activities.ProdukByKategori" />
-        <activity android:name=".activities.ProdukByKategori"></activity>
-
         <activity android:name=".activities.ImageProfilActivity" />
         <activity android:name=".activities.Splash" />
         <activity
