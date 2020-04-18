@@ -246,11 +246,15 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                         tampil.add(foto);
                     }
 //                    Pelapak pelapak = new Pelapak();
+
+                    foto_pelapak = jsonArray.getJSONObject(0).getJSONObject("pelapak").getString("foto_pelapak");
+//                    iduser =
                     Glide.with(getBaseContext())
-                            .load(jsonArray.getJSONObject(0).getJSONObject("pelapak").getString("foto_pelapak"))
+                            .load(foto_pelapak)
                             .into(fotopelapak);
                     pelapak = jsonArray.getJSONObject(0).getJSONObject("pelapak").getString("nama_toko");
                     namapelapak.setText(pelapak);
+                    id_pelapak = jsonArray.getJSONObject(0).getJSONObject("pelapak").getString("id_pelapak");
                     Log.d("CEK", "error" + fotopelapak);
                     viewPagerAdapter = new ViewPagerAdapter(getApplicationContext(), tampil);
                     viewPager.setAdapter(viewPagerAdapter);
