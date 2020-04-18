@@ -1,12 +1,10 @@
 package com.sholeh.marketplacenj.activities.details;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -23,20 +21,19 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.JsonObject;
-import com.sholeh.marketplacenj.activities.LoginActivity;
-import com.sholeh.marketplacenj.mfragment.FragmentProfil;
-import com.sholeh.marketplacenj.model.Pelapak;
-import com.sholeh.marketplacenj.util.AppUtilits;
-import com.sholeh.marketplacenj.util.api.APIInterface;
 import com.sholeh.marketplacenj.R;
-import com.sholeh.marketplacenj.util.ServiceGenerator;
+import com.sholeh.marketplacenj.activities.LoginActivity;
 import com.sholeh.marketplacenj.activities.keranjang.KeranjangDetailActivity;
+import com.sholeh.marketplacenj.activities.pelapak.ProfilPelapakActivity;
 import com.sholeh.marketplacenj.adapter.dashboard.RecycleAdapteTopTenHome;
 import com.sholeh.marketplacenj.adapter.details.ViewPagerAdapter;
 import com.sholeh.marketplacenj.model.Foto;
 import com.sholeh.marketplacenj.model.dashboard.TopTenModelClass;
 import com.sholeh.marketplacenj.respon.ResKeranjang;
+import com.sholeh.marketplacenj.util.AppUtilits;
 import com.sholeh.marketplacenj.util.Preferences;
+import com.sholeh.marketplacenj.util.ServiceGenerator;
+import com.sholeh.marketplacenj.util.api.APIInterface;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -49,7 +46,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static androidx.viewpager.widget.ViewPager.*;
 import static java.lang.Integer.parseInt;
 import static java.lang.String.valueOf;
 
