@@ -277,7 +277,6 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         switch (v.getId()) {
             case R.id.imgtambah:
 
-
                 if (login) {
                     addKeranjang();
                 } else {
@@ -295,6 +294,20 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                     finish();
                 }
 
+                break;
+            case R.id.img_foto_pelapak:
+                if (login) {
+                    Intent intent = new Intent(this, ProfilPelapakActivity.class);
+                    intent.putExtra("id_user", id_pelapak);
+                    intent.putExtra("namapelapak", (pelapak));
+                    intent.putExtra("foto_pelapak", foto_pelapak);
+
+                    Toast.makeText(this, "" + foto_pelapak, Toast.LENGTH_SHORT).show();
+                    startActivity(intent);
+                } else {
+                    startActivity(new Intent(this, LoginActivity.class));
+                    finish();
+                }
                 break;
 
 
