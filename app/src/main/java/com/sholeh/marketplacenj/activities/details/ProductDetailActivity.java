@@ -82,7 +82,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
     RelativeLayout relative1, relative2, relative3, relative4;
 
     Preferences preferences;
-    String id_konsumen;
+    String id_konsumen, iduser;
     StringTokenizer st1, st2;
 
 
