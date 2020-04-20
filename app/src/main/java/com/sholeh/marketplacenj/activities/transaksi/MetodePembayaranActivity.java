@@ -21,6 +21,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -36,24 +37,5 @@ public class MetodePembayaranActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_metode_pembayaran);
-
-        ArrayList<String> idYOlo = (ArrayList<String>) getIntent().getSerializableExtra("yolo");
-
-        Toast.makeText(this,"idkeranjang "+idYOlo.get(0), Toast.LENGTH_SHORT).show();
-
-        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-        Call<ResDetailKeranjang> call = service.ubahStatusKeranjang("1","asdf");
-
-        call.enqueue(new Callback<ResDetailKeranjang>() {
-            @Override
-            public void onResponse(Call<ResDetailKeranjang> call, Response<ResDetailKeranjang> response) {
-                Toast.makeText(getApplicationContext(),"sukses", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailure(Call<ResDetailKeranjang> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), String.valueOf(t), Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 }
