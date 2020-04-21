@@ -13,7 +13,10 @@ import android.widget.Toast;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.activities.AddAlamat;
 import com.sholeh.marketplacenj.activities.keranjang.KeranjangDetailActivity;
+import com.sholeh.marketplacenj.adapter.checkout.ExpandAdapterCheckout;
 import com.sholeh.marketplacenj.adapter.keranjang.ExpandListScanAdapter;
+import com.sholeh.marketplacenj.model.checkout.ChildCheckout;
+import com.sholeh.marketplacenj.model.checkout.HeaderCheckout;
 import com.sholeh.marketplacenj.model.keranjang.ChildModel;
 import com.sholeh.marketplacenj.model.keranjang.HeaderModel;
 import com.sholeh.marketplacenj.respon.DataKeranjang;
@@ -37,12 +40,12 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
     TextView tvxtolbar, tvxUbahAlamat, tvxSetAlamat;
     Preferences preferences;
     String id_konsumen;
-    private List<HeaderModel> listHeader;
-    private HashMap<HeaderModel, List<ChildModel>> listChild;
-    List<ChildModel> child;
+    private List<HeaderCheckout> listHeader;
+    private HashMap<HeaderCheckout, List<ChildCheckout>> listChild;
+    List<ChildCheckout> child;
     int hargaJual;
     private ExpandableListView listView;
-    private ExpandListScanAdapter expanAdapter;
+    private ExpandAdapterCheckout expanAdapter;
 
     ArrayList<String> arrayList;
 
@@ -84,9 +87,7 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
     }
 
     public void getDetailKeranjang() {
-
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-
         Call<ResDetailKeranjang> call = service.ubahStatusKeranjang("1", arrayList);
 
         listHeader = new ArrayList<>();
@@ -105,8 +106,8 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
                         listChild.clear();
                         List<DataKeranjang> array = response.body().getDataKeranjang();
                         for (int i = 0; i < array.size(); i++) {
-                            listHeader.add(new HeaderModel(response.body().getDataKeranjang().get(i).getIdToko(),
-                                    response.body().getDataKeranjang().get(i).getNamaToko(), false));
+                            listHeader.add(new HeaderCheckout(response.body().getDataKeranjang().get(i).getIdToko(),
+                                    response.body().getDataKeranjang().get(i).getNamaToko()));
 
                             child = new ArrayList<>();
                             List<ItemKeranjang> childLink = array.get(i).getItem();
@@ -117,14 +118,13 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
                                 int diskon = Integer.parseInt((childLink.get(j).getDiskon()));
                                 int jumlah = Integer.parseInt(String.valueOf(childLink.get(j).getJumlah()));
                                 String foto = childLink.get(j).getFoto();
-                                int stok = Integer.parseInt(String.valueOf(childLink.get(j).getStok()));
 
-                                child.add(new ChildModel(idKeranjang, namaProduk, hargaJual, diskon, jumlah, foto, stok, false));
+                                child.add(new ChildCheckout(idKeranjang, namaProduk, hargaJual, diskon, jumlah, foto));
                             }
                             listChild.put(listHeader.get(i), child);
                         }
 //                        Log.d("sholceng", new Gson().toJson(listChild));
-                        expanAdapter = new ExpandListScanAdapter(CheckoutActivity.this, listHeader, listChild);
+                        expanAdapter = new ExpandAdapterCheckout(CheckoutActivity.this, listHeader, listChild);
                         listView.setAdapter(expanAdapter);
 
 
