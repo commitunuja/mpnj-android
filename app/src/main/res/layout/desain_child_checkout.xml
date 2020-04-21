@@ -55,7 +55,7 @@
                 android:orientation="horizontal">
 
                 <customfonts.MyTextView_Roboto_Medium
-                    android:id="@+id/tvxHargaDiskon"
+                    android:id="@+id/tvxHrgaDiskon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -218,6 +218,7 @@
 
 
             <customfonts.MyTextView_Roboto_Medium
+                android:id="@+id/tvx_hargajum"
                 android:text="Rp0"
                 android:layout_width="match_parent"
                 android:layout_height="20sp"
