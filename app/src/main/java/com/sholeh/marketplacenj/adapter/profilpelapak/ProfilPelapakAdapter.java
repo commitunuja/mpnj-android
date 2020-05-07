@@ -26,4 +26,8 @@ public class ProfilPelapakAdapter {
                 .into(viewHolder.foto_produk);
     }
 
+    public void setFilter(List<Model> filterdata) {
+        this.tvDataProduks = filterdata;
+        notifyDataSetChanged();
+    }
 }
