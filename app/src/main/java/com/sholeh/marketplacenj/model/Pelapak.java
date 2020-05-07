@@ -58,7 +58,15 @@ public class Pelapak {
     @Expose
     private String updatedAt;
 
+    private Model model;
 
+    public Model getModel() {
+        return model;
+    }
+
+    public void setModel(Model model) {
+        this.model = model;
+    }
 
     public Integer getIdPelapak() {
         return idPelapak;
