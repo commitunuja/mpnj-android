@@ -39,6 +39,10 @@ public interface APIInterface {
     @GET("api/produk")
     abstract Call<List<Model>> getProduk();
 
+    @GET("api/pelapak/{id_user}")
+     Call<List<Model>> getProdukPelapak(
+            @Path("id_user") String id_user);
+
     @GET("api/kategori")
     Call<List<Kategori>> getKategori();
 
