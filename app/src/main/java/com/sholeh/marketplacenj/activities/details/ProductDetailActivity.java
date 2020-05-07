@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,7 +63,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
     LinearLayout right1, right2, right3;
     ImageView right1_imag, right2_imag, right3_imag, tambah, keranjang;
 
-    String namaproduk, kategoriproduk, vdeskripsi, vid_produk, pelapak,foto_pelapak, id_pelapak;
+    String namaproduk, kategoriproduk, vdeskripsi, vid_produk, pelapak, foto_pelapak, id_pelapak;
 
     int vhargaproduk;
     int vstok;
