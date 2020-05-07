@@ -19,4 +19,11 @@ public class ProfilPelapakAdapter {
         viewHolder.namaProduk.setText(tvDataProduk.getNamaProduk()); // MODEL
         viewHolder.hargaProduk.setText(String.valueOf("Rp " + tvDataProduk.getHargaJual()));
         viewHolder.type.setText(tvDataProduk.getKategori().getNamaKategori());
+
+        Picasso.with(context)
+                .load(CONSTANTS.SUB_DOMAIN + tvDataProduk.getFoto().get(0).getFotoProduk())
+                .resize(300, 300)
+                .into(viewHolder.foto_produk);
+    }
+
 }
