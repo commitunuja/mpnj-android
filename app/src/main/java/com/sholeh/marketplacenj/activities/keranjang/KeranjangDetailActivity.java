@@ -4,10 +4,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
@@ -19,6 +17,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import com.sholeh.marketplacenj.activities.checkout.CheckoutActivity;
 import com.sholeh.marketplacenj.activities.transaksi.MetodePembayaranActivity;
 import com.sholeh.marketplacenj.adapter.keranjang.ExpandListScanAdapter;
 import com.sholeh.marketplacenj.util.api.APIInterface;
@@ -34,13 +33,10 @@ import com.sholeh.marketplacenj.util.Preferences;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.StringJoiner;
 import java.util.StringTokenizer;
-import java.util.regex.Pattern;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -177,11 +173,6 @@ public class KeranjangDetailActivity extends AppCompatActivity implements View.O
 
 
     public void getDetailKeranjang() {
-//        if (!NetworkUtility.isNetworkConnected(KeranjangDetailActivity.this)){
-//            AppUtilits.displayMessage(KeranjangDetailActivity.this,  getString(R.string.network_not_connected));
-//
-//        }else {
-        //  Log.e(TAG, "  user value "+ SharePreferenceUtils.getInstance().getString(Constant.USER_DATA));
 
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
 
@@ -457,16 +448,18 @@ public class KeranjangDetailActivity extends AppCompatActivity implements View.O
         String id []= {idkeranjang}; // lenght idk = 7 =id =1
         String idK = null;
         ArrayList<String> id_keranjang = new ArrayList<>();
+        String gas = "";
 
         for (int a =0; a < id.length; a++){
             idK = id[a];
             id_keranjang.add(id[a]);
+            gas += id[a]+",";
         }
-//        Toast.makeText(this,"idkeranjang "+idkeranjang.length()+" idk "+ idK.length() +" id"+id.length, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this,gas, Toast.LENGTH_SHORT).show();
 //        Toast.makeText(this,"idkeranjang "+idK, Toast.LENGTH_SHORT).show();
-        Intent goCheckout = new Intent(this, MetodePembayaranActivity.class);
-        goCheckout.putExtra("id_keranjang", idK);
-        goCheckout.putExtra("yolo", id_keranjang);
+        Intent goCheckout = new Intent(this, CheckoutActivity.class);
+//        goCheckout.putExtra("gas", gas);
+        goCheckout.putStringArrayListExtra("yolo", id_keranjang);
         startActivity(goCheckout);
     }
 
