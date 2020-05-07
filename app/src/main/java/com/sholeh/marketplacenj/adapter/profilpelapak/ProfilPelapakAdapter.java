@@ -15,4 +15,8 @@ public class ProfilPelapakAdapter {
 
     }
 
+        tvDataProduk = tvDataProduks.get(i);
+        viewHolder.namaProduk.setText(tvDataProduk.getNamaProduk()); // MODEL
+        viewHolder.hargaProduk.setText(String.valueOf("Rp " + tvDataProduk.getHargaJual()));
+        viewHolder.type.setText(tvDataProduk.getKategori().getNamaKategori());
 }
