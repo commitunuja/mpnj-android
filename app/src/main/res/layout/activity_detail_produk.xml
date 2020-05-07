@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -9,49 +8,47 @@
         android:id="@+id/app_bar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         android:fitsSystemWindows="true"
-        >
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="350dp"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
             app:expandedTitleTextAppearance="@android:color/transparent"
-            android:fitsSystemWindows="true"
-            >
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
             <androidx.viewpager.widget.ViewPager
-                app:layout_collapseMode="parallax"
                 android:id="@+id/viewpager_product_detail"
-                android:src="@drawable/firework"
+                android:layout_width="wrap_content"
+                android:layout_height="350dp"
                 android:contentDescription="@string/app_name"
                 android:scaleType="centerCrop"
-                android:layout_width="wrap_content"
-                android:layout_height="350dp" />
+                android:src="@drawable/firework"
+                app:layout_collapseMode="parallax" />
 
 
-<!--                <androidx.viewpager.widget.ViewPager-->
-<!--                    app:layout_collapseMode="parallax"-->
-<!--                    android:id="@+id/viewpager_product_detail"-->
-<!--                    android:layout_weight="1"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="285dp"-->
-<!--                    android:layout_gravity="center_vertical"-->
-<!--                    android:layout_marginTop="23dp"-->
-<!--                    android:clipToPadding="false"-->
-<!--                    android:layout_marginBottom="20dp"-->
-<!--                   />-->
+            <!--                <androidx.viewpager.widget.ViewPager-->
+            <!--                    app:layout_collapseMode="parallax"-->
+            <!--                    android:id="@+id/viewpager_product_detail"-->
+            <!--                    android:layout_weight="1"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="285dp"-->
+            <!--                    android:layout_gravity="center_vertical"-->
+            <!--                    android:layout_marginTop="23dp"-->
+            <!--                    android:clipToPadding="false"-->
+            <!--                    android:layout_marginBottom="20dp"-->
+            <!--                   />-->
 
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                 android:title="DetailProduk"
                 app:layout_collapseMode="pin"
-                />
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -62,37 +59,36 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        >
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="17dp"
             android:background="@color/white"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingTop="17dp">
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:layout_marginTop="15dp"
-                android:background="@color/viewline"/>
+                android:background="@color/viewline" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:layout_marginLeft="22dp"
+                android:layout_marginTop="20dp"
                 android:orientation="vertical">
 
                 <customfonts.MyTextView_Roboto_Medium
                     android:id="@+id/txtnama"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="14sp"
+                    android:text="Apple I phone 7 plus (Gold,32 GB)"
                     android:textColor="@color/black"
-                    android:text="Apple I phone 7 plus (Gold,32 GB)"/>
+                    android:textSize="14sp" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -106,43 +102,43 @@
                         android:layout_height="wrap_content"
                         android:text=" 60,999"
                         android:textColor="@color/black"
-                        android:textSize="16.7sp"/>
+                        android:textSize="16.7sp" />
 
                     <customfonts.MyTextView_Roboto_Medium
                         android:id="@+id/txtdiskon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=" 60,999"
                         android:layout_gravity="center"
                         android:layout_marginLeft="15dp"
+                        android:text=" 60,999"
                         android:textColor="@color/cut_price"
-                        android:textSize="12.3sp"/>
+                        android:textSize="12.3sp" />
 
                     <customfonts.MyTextView_Roboto_Medium
                         android:id="@+id/cobadiskon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=" 60,999"
-                        android:visibility="invisible"
                         android:layout_gravity="center"
                         android:layout_marginLeft="15dp"
+                        android:text=" 60,999"
                         android:textColor="@color/cut_price"
-                        android:textSize="12.3sp"/>
+                        android:textSize="12.3sp"
+                        android:visibility="invisible" />
 
 
                     <TextView
+                        android:id="@+id/txtjumlah"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="1"
-                        android:visibility="gone"
-                        android:id="@+id/txtjumlah"/>
+                        android:visibility="gone" />
 
                     <TextView
+                        android:id="@+id/txtidkerenjang"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="22222"
-                        android:visibility="gone"
-                        android:id="@+id/txtidkerenjang"/>
+                        android:visibility="gone" />
 
                 </LinearLayout>
 
@@ -150,17 +146,17 @@
                     android:id="@+id/txtkategoriproduk"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="12sp"
-                    android:text="( 9% off )"
                     android:layout_marginTop="5dp"
-                    android:textColor="@color/green"/>
+                    android:text="sepatu"
+                    android:textColor="@color/green"
+                    android:textSize="12sp" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginRight="21.5dp"
-                    android:background="@color/viewline"/>
+                    android:background="@color/viewline" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -171,36 +167,35 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:background="@drawable/green_rect">
+                        android:background="@drawable/green_rect"
+                        android:orientation="horizontal">
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:orientation="horizontal"
                             android:paddingLeft="10dp"
-                            android:paddingRight="10dp"
                             android:paddingTop="1dp"
-                            android:paddingBottom="1dp"
-                            android:orientation="horizontal">
+                            android:paddingRight="10dp"
+                            android:paddingBottom="1dp">
 
                             <customfonts.MyTextView_Roboto_Medium
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textColor="@color/white"
-                                android:text="4.4"
                                 android:layout_marginRight="5dp"
-                                android:textSize="12.3dp"/>
+                                android:text="4.4"
+                                android:textColor="@color/white"
+                                android:textSize="12.3dp" />
 
                             <ImageView
                                 android:layout_width="12dp"
                                 android:layout_height="12dp"
-                                android:src="@drawable/star"
                                 android:layout_gravity="center"
-                                android:tint="@color/white"/>
+                                android:src="@drawable/star"
+                                android:tint="@color/white" />
 
 
                         </LinearLayout>
-
 
 
                     </LinearLayout>
@@ -219,139 +214,147 @@
 
             </LinearLayout>
 
-            <customfonts.MyTextView_Roboto_Bold
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/storage"
-                android:text="Storage"
-                android:layout_marginLeft="25dp"
-                android:textSize="12.3sp"/>
-
-
             <LinearLayout
+
+                android:id="@+id/linearkategori"
+                android:background="@color/colorutama"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:layout_marginLeft="25dp"
-                android:orientation="horizontal">
+                android:layout_height="20dp"
+                android:orientation="vertical"/>
+
+                <customfonts.MyTextView_Roboto_Bold
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:text="Storage"
+                    android:textColor="@color/storage"
+                    android:textSize="12.3sp" />
 
 
                 <LinearLayout
-                    android:id="@+id/linear1"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/storage_gray_rect"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="15dp"
                     android:orientation="horizontal">
 
-                    <customfonts.MyTextView_Roboto_Medium
-                        android:id="@+id/txt1"
+
+                    <LinearLayout
+                        android:id="@+id/linear1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="13sp"
-                        android:text="16GB"
-                        android:paddingRight="15dp"
-                        android:paddingLeft="15dp"
-                        android:paddingBottom="6dp"
-                        android:paddingTop="6dp"
-                        android:textColor="#d0d0d0"
-                        />
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/linear2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/red_rect_normal"
-                    android:layout_marginLeft="13dp"
-                    android:orientation="horizontal">
+                        android:layout_marginLeft="15dp"
+                        android:background="@drawable/storage_gray_rect"
+                        android:orientation="horizontal">
 
-                    <customfonts.MyTextView_Roboto_Medium
-                        android:id="@+id/txt2"
+                        <customfonts.MyTextView_Roboto_Medium
+                            android:id="@+id/txt1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="15dp"
+                            android:paddingTop="6dp"
+                            android:paddingRight="15dp"
+                            android:paddingBottom="6dp"
+                            android:text="16GB"
+                            android:textColor="#d0d0d0"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/linear2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="13sp"
-                        android:text="32GB"
-                        android:paddingRight="15dp"
-                        android:paddingLeft="15dp"
-                        android:paddingBottom="6dp"
-                        android:paddingTop="6dp"
-                        android:textColor="@color/red"
-                        />
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/linear3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/storage_gray_rect"
-                    android:layout_marginLeft="13dp"
-                    android:orientation="horizontal">
+                        android:layout_marginLeft="13dp"
+                        android:background="@drawable/red_rect_normal"
+                        android:orientation="horizontal">
 
-                    <customfonts.MyTextView_Roboto_Medium
-                        android:id="@+id/txt3"
+                        <customfonts.MyTextView_Roboto_Medium
+                            android:id="@+id/txt2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="15dp"
+                            android:paddingTop="6dp"
+                            android:paddingRight="15dp"
+                            android:paddingBottom="6dp"
+                            android:text="32GB"
+                            android:textColor="@color/red"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/linear3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="13sp"
-                        android:text="64GB"
-                        android:paddingRight="15dp"
-                        android:paddingLeft="15dp"
-                        android:paddingBottom="6dp"
-                        android:paddingTop="6dp"
-                        android:textColor="#d0d0d0"
-                        />
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/linear4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/storage_gray_rect"
-                    android:layout_marginLeft="13dp"
-                    android:orientation="horizontal">
+                        android:layout_marginLeft="13dp"
+                        android:background="@drawable/storage_gray_rect"
+                        android:orientation="horizontal">
 
-                    <customfonts.MyTextView_Roboto_Medium
-                        android:id="@+id/txt4"
+                        <customfonts.MyTextView_Roboto_Medium
+                            android:id="@+id/txt3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="15dp"
+                            android:paddingTop="6dp"
+                            android:paddingRight="15dp"
+                            android:paddingBottom="6dp"
+                            android:text="64GB"
+                            android:textColor="#d0d0d0"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/linear4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="13sp"
-                        android:text="128GB"
-                        android:paddingRight="15dp"
-                        android:paddingLeft="15dp"
-                        android:paddingBottom="6dp"
-                        android:paddingTop="6dp"
-                        android:textColor="#d0d0d0"
-                        />
+                        android:layout_marginLeft="13dp"
+                        android:background="@drawable/storage_gray_rect"
+                        android:orientation="horizontal">
+
+                        <customfonts.MyTextView_Roboto_Medium
+                            android:id="@+id/txt4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="15dp"
+                            android:paddingTop="6dp"
+                            android:paddingRight="15dp"
+                            android:paddingBottom="6dp"
+                            android:text="128GB"
+                            android:textColor="#d0d0d0"
+                            android:textSize="13sp" />
+                    </LinearLayout>
                 </LinearLayout>
 
-            </LinearLayout>
 
             <customfonts.MyTextView_Roboto_Bold
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/storage"
-                android:text="Color"
                 android:layout_marginLeft="25dp"
                 android:layout_marginTop="20dp"
-                android:textSize="12.3sp"/>
+                android:text="Color"
+                android:textColor="@color/storage"
+                android:textSize="12.3sp" />
 
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
                 android:layout_marginLeft="25dp"
+                android:layout_marginTop="12dp"
                 android:orientation="horizontal">
 
                 <LinearLayout
                     android:id="@+id/right1"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:orientation="vertical"
+                    android:background="@drawable/black_circle"
                     android:gravity="center"
-                    android:background="@drawable/black_circle">
+                    android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/right1_img"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/right_tick"/>
+                        android:src="@drawable/right_tick" />
 
 
                 </LinearLayout>
@@ -359,20 +362,20 @@
 
                 <LinearLayout
                     android:id="@+id/right2"
-                    android:orientation="vertical"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:layout_marginLeft="10dp"
+                    android:background="@drawable/cream_circle"
                     android:gravity="center"
-                    android:background="@drawable/cream_circle">
+                    android:orientation="vertical">
 
 
                     <ImageView
                         android:id="@+id/right2_img"
-                        android:visibility="gone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/right_tick"/>
+                        android:src="@drawable/right_tick"
+                        android:visibility="gone" />
 
 
                 </LinearLayout>
@@ -380,19 +383,19 @@
 
                 <LinearLayout
                     android:id="@+id/right3"
-                    android:orientation="vertical"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:layout_marginLeft="10dp"
+                    android:background="@drawable/light_pink_circle"
                     android:gravity="center"
-                    android:background="@drawable/light_pink_circle">
+                    android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/right3_img"
-                        android:visibility="gone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/right_tick"/>
+                        android:src="@drawable/right_tick"
+                        android:visibility="gone" />
 
                 </LinearLayout>
 
@@ -403,36 +406,37 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
                 android:layout_marginLeft="25dp"
+                android:layout_marginTop="30dp"
                 android:orientation="horizontal">
 
                 <ImageView
                     android:layout_width="17dp"
                     android:layout_height="17dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/ic_calendar_with_clock"/>
+                    android:src="@drawable/ic_calendar_with_clock" />
 
                 <customfonts.MyTextView_Roboto_Medium
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/storage"
-                    android:textSize="13sp"
                     android:layout_marginLeft="10dp"
-                    android:text="EMIs from "/>
-                <customfonts.MyTextView_Roboto_Medium
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:text="EMIs from "
                     android:textColor="@color/storage"
-                    android:textSize="13sp"
-                    android:text="@string/Rs"/>
+                    android:textSize="13sp" />
 
                 <customfonts.MyTextView_Roboto_Medium
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="@string/Rs"
                     android:textColor="@color/storage"
-                    android:textSize="13sp"
-                    android:text="2,085/month"/>
+                    android:textSize="13sp" />
+
+                <customfonts.MyTextView_Roboto_Medium
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2,085/month"
+                    android:textColor="@color/storage"
+                    android:textSize="13sp" />
 
 
             </LinearLayout>
@@ -440,46 +444,48 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
                 android:layout_marginTop="6dp"
                 android:layout_marginBottom="22dp"
-                android:layout_marginLeft="25dp"
                 android:orientation="horizontal">
 
                 <ImageView
                     android:layout_width="15dp"
                     android:layout_height="15dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/ic_recycle"/>
+                    android:src="@drawable/ic_recycle" />
 
                 <customfonts.MyTextView_Roboto_Medium
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/storage"
-                    android:textSize="13sp"
                     android:layout_marginLeft="10dp"
-                    android:text="Get Upto "/>
+                    android:text="Get Upto "
+                    android:textColor="@color/storage"
+                    android:textSize="13sp" />
 
 
                 <customfonts.MyTextView_Roboto_Medium
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="@string/Rs"
                     android:textColor="@color/storage"
-                    android:textSize="13sp"
-                    android:text="@string/Rs"/>
+                    android:textSize="13sp" />
 
                 <customfonts.MyTextView_Roboto_Medium
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="15,600 off on exchange"
                     android:textColor="@color/storage"
-                    android:textSize="13sp"
-                    android:text="15,600 off on exchange"/>
+                    android:textSize="13sp" />
 
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:background="#d7d4d4"/>
-            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:background="#d7d4d4" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="#f6f6f6"
@@ -507,15 +513,16 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="18dp"
+                        android:layout_marginLeft="14dp"
                         android:layout_marginTop="18dp"
+                        android:layout_marginRight="40dp"
                         android:orientation="vertical">
 
                         <customfonts.MyTextView_Roboto_Medium
                             android:id="@+id/txtdiskripsi"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Usually delivered in 3-4 days"
+                            android:text="sdasdsadssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss"
                             android:textColor="#777b7e"
                             android:textSize="13sp" />
 
@@ -532,111 +539,109 @@
             </LinearLayout>
 
             <include layout="@layout/delivery_and_review_layout" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_marginLeft="35dp"
-                >
+                android:orientation="horizontal">
 
                 <customfonts.MyTextView_Roboto_Medium
-                    android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Top Rated Products"
                     android:textColor="@color/black"
-                    android:textSize="14sp"
-                    android:text="Top Rated Products"/>
+                    android:textSize="14sp" />
 
                 <customfonts.MyTextView_Roboto_Medium
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
                     android:text="View More"
-                    android:textSize="13sp"
                     android:textColor="@color/red"
-                    android:layout_marginRight="20dp"/>
+                    android:textSize="13sp" />
 
                 <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/top_ten_recyclerview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clipToPadding="false"
+                    android:nestedScrollingEnabled="false"
                     android:paddingLeft="10dp"
                     android:paddingRight="15dp"
-                    android:paddingBottom="20dp"
-                    android:nestedScrollingEnabled="false"
-                    android:id="@+id/top_ten_recyclerview"/>
+                    android:paddingBottom="20dp" />
             </LinearLayout>
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
 
+    <!--        <androidx.cardview.widget.CardView-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_marginBottom="16dp"-->
+    <!--            app:cardElevation="5dp"-->
+    <!--            app:cardUseCompatPadding="true"-->
+
+    <!--            >-->
+
+    <!--            <LinearLayout-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:orientation="vertical"-->
+    <!--                >-->
+
+    <!--                <TextView-->
+    <!--                    android:padding="12dp"-->
+    <!--                    android:textSize="20sp"-->
+    <!--                    android:layout_marginTop="12dp"-->
+    <!--                    android:textStyle="bold"-->
+    <!--                -->
+    <!--                    android:text="dasd"-->
+    <!--                    android:layout_width="wrap_content"-->
+    <!--                    android:layout_height="wrap_content" />-->
+
+    <!--                <LinearLayout-->
+    <!--                    android:orientation="horizontal"-->
+    <!--                    android:padding="12dp"-->
+    <!--                    android:layout_width="match_parent"-->
+    <!--                    android:layout_height="wrap_content">-->
+
+    <!--                    <ImageView-->
+    <!--                        android:contentDescription="@string/app_name"-->
+    <!--                        -->
+    <!--                        android:layout_weight="1"-->
+    <!--                        android:layout_width="0dp"-->
+    <!--                        android:layout_height="wrap_content" />-->
+
+    <!--                    <TextView-->
+    <!--                        android:layout_gravity="center_vertical"-->
+    <!--                        android:padding="12dp"-->
+    <!--                        android:textSize="14sp"-->
+    <!--                        android:textStyle="bold"-->
+    <!--                        android:textColor="@color/colorPrimaryText"-->
+    <!--                        android:text="@string/publish_date"-->
+    <!--                        android:layout_width="0dp"-->
+    <!--                        android:layout_weight="9"-->
+    <!--                        android:layout_height="wrap_content" />-->
+
+    <!--                </LinearLayout>-->
+
+    <!--                <TextView-->
+    <!--                    android:padding="12dp"-->
+    <!--                    android:textSize="13sp"-->
+    <!--                    android:lineSpacingMultiplier="1.5"-->
+    <!--                    android:layout_marginTop="12dp"-->
+    <!--                    android:text="@string/in_news"-->
+    <!--                    android:layout_width="wrap_content"-->
+    <!--                    android:layout_height="wrap_content"-->
+    <!--                    />-->
 
 
-<!--        <androidx.cardview.widget.CardView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginBottom="16dp"-->
-<!--            app:cardElevation="5dp"-->
-<!--            app:cardUseCompatPadding="true"-->
-
-<!--            >-->
-
-<!--            <LinearLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:orientation="vertical"-->
-<!--                >-->
-
-<!--                <TextView-->
-<!--                    android:padding="12dp"-->
-<!--                    android:textSize="20sp"-->
-<!--                    android:layout_marginTop="12dp"-->
-<!--                    android:textStyle="bold"-->
-<!--                -->
-<!--                    android:text="dasd"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content" />-->
-
-<!--                <LinearLayout-->
-<!--                    android:orientation="horizontal"-->
-<!--                    android:padding="12dp"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content">-->
-
-<!--                    <ImageView-->
-<!--                        android:contentDescription="@string/app_name"-->
-<!--                        -->
-<!--                        android:layout_weight="1"-->
-<!--                        android:layout_width="0dp"-->
-<!--                        android:layout_height="wrap_content" />-->
-
-<!--                    <TextView-->
-<!--                        android:layout_gravity="center_vertical"-->
-<!--                        android:padding="12dp"-->
-<!--                        android:textSize="14sp"-->
-<!--                        android:textStyle="bold"-->
-<!--                        android:textColor="@color/colorPrimaryText"-->
-<!--                        android:text="@string/publish_date"-->
-<!--                        android:layout_width="0dp"-->
-<!--                        android:layout_weight="9"-->
-<!--                        android:layout_height="wrap_content" />-->
-
-<!--                </LinearLayout>-->
-
-<!--                <TextView-->
-<!--                    android:padding="12dp"-->
-<!--                    android:textSize="13sp"-->
-<!--                    android:lineSpacingMultiplier="1.5"-->
-<!--                    android:layout_marginTop="12dp"-->
-<!--                    android:text="@string/in_news"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    />-->
+    <!--            </LinearLayout>-->
 
 
-<!--            </LinearLayout>-->
-
-
-<!--        </androidx.cardview.widget.CardView>-->
+    <!--        </androidx.cardview.widget.CardView>-->
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
