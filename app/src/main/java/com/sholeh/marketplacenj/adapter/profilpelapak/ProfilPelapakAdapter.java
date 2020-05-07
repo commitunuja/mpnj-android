@@ -30,4 +30,16 @@ public class ProfilPelapakAdapter {
         this.tvDataProduks = filterdata;
         notifyDataSetChanged();
     }
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        private TextView namaProduk, hargaProduk, stok, terjual, deskripsi, type;
+        private ImageView foto_produk;
+
+
+        public ViewHolder(View itemView) {
+            super(itemView);
+
+            namaProduk = itemView.findViewById(R.id.titleproduk);
+            hargaProduk = itemView.findViewById(R.id.txthargaawal);
+            type = itemView.findViewById(R.id.typeproduk);
+            foto_produk = itemView.findViewById(R.id.imageproduk);
 }
