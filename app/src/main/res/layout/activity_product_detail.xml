@@ -653,9 +653,10 @@
                             android:layout_marginTop="18dp"
                             android:orientation="vertical">
 
-                            <customfonts.MyTextView_Roboto_Medium
+                            <com.codesgood.views.JustifiedTextView
                                 android:id="@+id/txtdiskripsi"
-                                android:layout_width="wrap_content"
+                                android:layout_marginRight="10dp"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="Usually delivered in 3-4 days"
                                 android:textColor="#777b7e"
