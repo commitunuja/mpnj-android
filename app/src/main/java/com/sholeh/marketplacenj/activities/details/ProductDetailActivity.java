@@ -206,7 +206,10 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
         }
 
-        diskripsi.setText(Html.fromHtml(Html.fromHtml(vdeskripsi).toString()));
+
+
+//        diskripsi.setText(Html.fromHtml(Html.fromHtml(vdeskripsi).toString()));
+        diskripsi.setText(Html.fromHtml(vdeskripsi));
         kategori.setText(kategoriproduk);
 
 
