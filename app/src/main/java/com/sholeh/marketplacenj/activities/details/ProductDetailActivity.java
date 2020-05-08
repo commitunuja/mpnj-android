@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
+import com.codesgood.views.JustifiedTextView;
 import com.google.gson.JsonObject;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.activities.LoginActivity;
