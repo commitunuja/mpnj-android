@@ -59,7 +59,8 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
     ViewPagerAdapter viewPagerAdapter;
 
     LinearLayout linear1, linear2, linear3, linear4;
-    TextView txt1, txt2, txt3, txt4, idkeranjang, nama, harga, kategori, diskripsi, jumlahproduk, offer, namapelapak;
+    TextView txt1, txt2, txt3, txt4, idkeranjang, nama, harga, kategori, jumlahproduk, offer, namapelapak;
+    JustifiedTextView diskripsi;
 
     LinearLayout right1, right2, right3;
     ImageView right1_imag, right2_imag, right3_imag, tambah, keranjang;
