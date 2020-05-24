@@ -213,8 +213,6 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         }
 
 
-
-//        diskripsi.setText(Html.fromHtml(Html.fromHtml(vdeskripsi).toString()));
         diskripsi.setText(Html.fromHtml(vdeskripsi));
         kategori.setText(kategoriproduk);
 
@@ -325,7 +323,17 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                     finish();
                 }
                 break;
+            case R.id.tv_readmore:
+                Intent intent2 = new Intent(this, DiskripsiActivity.class);
+                intent2.putExtra("nama_produk", namaproduk);
+                intent2.putExtra("harga_jual", (String.valueOf(vhargaproduk)));
+                intent2.putExtra("diskon", (String.valueOf(vdiskon)));
+                intent2.putExtra("keterangan", vdeskripsi);
+                intent2.putExtra("foto_produk", fotoproduk);
+//                intent2.putExtra("foto_pelapak",);
 
+//                Toast.makeText(this, "" + vdeskripsi, Toast.LENGTH_SHORT).show();
+                startActivity(intent2);
 
             case R.id.linear1:
 
