@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.sholeh.marketplacenj">
+    package="com.sholeh.marketplacenj" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -31,8 +31,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true">
-        <activity android:name=".activities.pelapak.ProfilPelapakActivity"></activity>
+        android:usesCleartextTraffic="true" >
+        <activity android:name=".activities.details.DiskripsiActivity" >
+        </activity>
+        <activity android:name=".activities.pelapak.ProfilPelapakActivity" />
         <activity android:name=".activities.dashboard.SearchActivity" />
         <activity android:name=".activities.ProdukByKategori" />
         <activity android:name=".activities.ImageProfilActivity" />
@@ -62,7 +64,7 @@
         <activity android:name=".activities.keranjang.KeranjangDetailActivity" />
         <activity
             android:name=".activities.dashboard.Homepage"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
