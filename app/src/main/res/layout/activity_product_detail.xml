@@ -653,14 +653,31 @@
                             android:layout_marginTop="18dp"
                             android:orientation="vertical">
 
-                            <com.codesgood.views.JustifiedTextView
-                                android:id="@+id/txtdiskripsi"
-                                android:layout_marginRight="10dp"
-                                android:layout_width="match_parent"
+                                <com.codesgood.views.JustifiedTextView
+                                    android:id="@+id/txtdiskripsi"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="10dp"
+                                    android:maxLines="8"
+                                    android:text="Usually delivered in 3-4 days"
+                                    android:textColor="#777b7e"
+                                    android:textSize="13sp"
+                                    app:colorClickableText="@color/colorutama"
+                                    app:trimCollapsedText="@string/read_less"
+                                    app:trimExpandedText="@string/read_more"
+                                    app:trimLength="10"
+                                    app:trimMode="trimModeLength" />
+
+                            <customfonts.TextViewSFProDisplayMedium
+                                android:id="@+id/tv_readmore"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Usually delivered in 3-4 days"
-                                android:textColor="#777b7e"
-                                android:textSize="13sp" />
+                                android:layout_marginTop="@dimen/padding_medium_10dp"
+                                android:layout_marginBottom="@dimen/padding_medium_10dp"
+                                android:text="@string/readmore"
+                                android:textColor="@color/colorutama"
+                                android:textSize="10sp" />
+
 
                             <customfonts.MyTextView_Roboto_Regular
                                 android:layout_width="wrap_content"
