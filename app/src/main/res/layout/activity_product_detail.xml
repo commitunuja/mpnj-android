@@ -266,10 +266,10 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
-                                    android:textSize="10sp"
                                     android:layout_marginStart="10dp"
                                     android:gravity="center"
-                                    android:text="nama pelapak" />
+                                    android:text="nama pelapak"
+                                    android:textSize="10sp" />
                             </LinearLayout>
 
                             <View
