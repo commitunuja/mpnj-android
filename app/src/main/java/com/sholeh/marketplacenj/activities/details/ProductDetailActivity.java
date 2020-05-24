@@ -144,6 +144,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         linear4.setOnClickListener(this);
         keranjang.setOnClickListener(this);
         fotopelapak.setOnClickListener(this);
+        readmore.setOnClickListener(this);
 
         rightNav = (RelativeLayout) findViewById(R.id.rightNav);
         viewPager = (ViewPager) findViewById(R.id.viewpager_product_detail);
