@@ -26,12 +26,12 @@
                 android:focusableInTouchMode="true"
                 android:padding="5dp">
 
-                <EditText
-                    android:id="@+id/search_box"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:drawableRight="@drawable/ic_search"
+            <ImageView
+                android:id="@+id/img_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_back" />
                     android:drawableTint="@color/colorPrimary"
                     android:ems="10"
                     android:hint="  Cari Apa?"
