@@ -33,7 +33,13 @@
                     android:textColorHint="@color/colorPrimary"
                     android:textSize="18sp" />
 
-            </RelativeLayout>
+            <customfonts.MyTextView_Roboto_Bold
+                android:id="@+id/tv_diskripsitoolbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/diskripsiproduk"
+                android:textColor="@color/black" />
 
         </androidx.appcompat.widget.Toolbar>
 
