@@ -185,6 +185,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         vterjual = parseInt(getIntent().getStringExtra("terjual"));
         kategoriproduk = getIntent().getStringExtra("kategori");
         vdiskon = Double.valueOf(parseInt(getIntent().getStringExtra("diskon")));
+        fotoproduk = getIntent().getStringExtra("foto_produk");
 
         vdeskripsi = getIntent().getExtras().getString("keterangan");
 
