@@ -123,6 +123,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         right2_imag = findViewById(R.id.right2_img);
         right3_imag = findViewById(R.id.right3_img);
         keranjang = findViewById(R.id.imgkeranjang);
+        readmore = findViewById(R.id.tv_readmore);
 
         offer = findViewById(R.id.txtdiskon);
         offer.setPaintFlags(offer.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
