@@ -99,8 +99,10 @@ public class Homepage extends AppCompatActivity implements View.OnClickListener 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coco_homepage);
-//        id_kategori = getIntent().getStringExtra("id_kategori");
-//        getDataProdukByKategori();
+
+        produkterpopuler = findViewById(R.id.tv_produkterpopuler);
+        produkterpopuler.setOnClickListener(this);
+
         Banner();
         kategori();
         produksearch();
@@ -108,25 +110,15 @@ public class Homepage extends AppCompatActivity implements View.OnClickListener 
         produksamsung();
         recentproduk();
         produkapi();
-//        kategoriById();
         fiturpencarian();
-//        kategori2();
         recyclerViewpproduk.setVisibility(View.GONE);
-//        recyclerViewProdukByKategori2.setVisibility(View.GONE);
         frameLayout.setVisibility(View.VISIBLE);
 
-
-//        linearLayoutkategori.setVisibility(View.GONE);
-//        allcategory = findViewById(R.id.tv_allcategory);
-//        linearLayoutkategori.setVisibility(View.GONE);
-//        LocalBroadcastManager.getInstance(this).registerReceiver(idKategoriReceiver,
-//                new IntentFilter("custom-idkategori"));
 
     }
 
     private void fiturpencarian() {
         edpencarian = findViewById(R.id.etsearch);
-//        linearLayoutkategori = findViewById(R.id.linearkategori);
         frameLayout = findViewById(R.id.frag_container);
         search = findViewById(R.id.etsearch);
         search.addTextChangedListener(new TextWatcher() {
