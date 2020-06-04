@@ -17,6 +17,7 @@
     <color name="secondarytext">#666666</color>
     <color name="LightcolorText">#95989a</color>
     <color name="viewline">#ebeced</color>
+    <color name="shimmer_bg">#dddddd</color>
     <color name="viewline_ver">#40707070</color>
     <color name="SubtitleText">#666666</color>
     <color name="lightred">#f09f9f</color>
