@@ -33,5 +33,7 @@ public class ProdukTerpopulerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_produk_terpopuler);
+        rv_populer = (RecyclerView) findViewById(R.id.rv_produkterpopuler);
+        progressBar = findViewById(R.id.progressBar);
     }
 }
