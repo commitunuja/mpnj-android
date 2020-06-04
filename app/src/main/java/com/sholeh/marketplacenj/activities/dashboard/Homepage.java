@@ -60,6 +60,7 @@ public class Homepage extends AppCompatActivity implements View.OnClickListener 
 
     //category by id
 
+
     private String id_kategori;
     private RecyclerView recyclerViewProdukByKategori, recyclerViewProdukByKategori2;
     private List<Model> dataProdukByKategori;
@@ -393,45 +394,7 @@ public class Homepage extends AppCompatActivity implements View.OnClickListener 
         }
     }
 
-//    public void kategoriById() {
-//        recyclerViewProdukByKategori2 = findViewById(R.id.category_recyclerview2);
-//        recyclerViewProdukByKategori2.setVisibility(View.VISIBLE);
-////        recyclerViewProdukByKategori = (RecyclerView) findViewById(R.id.barang);
-//        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(Homepage.this, 2);
-//        recyclerViewProdukByKategori2.setLayoutManager(layoutManager);
-//        recyclerViewProdukByKategori2.setItemAnimator(new DefaultItemAnimator());
-//        recyclerViewProdukByKategori2.setNestedScrollingEnabled(false);
-//        recyclerViewProdukByKategori2.setFocusableInTouchMode(false);
-//        getDataProdukByKategori();
-//        kategori2();
-//    }
 
-//    private void getDataProdukByKategori() {
-//
-//        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-//        Call<List<Model>> call = service.getKategoriByid(id_kategori);
-//
-//        call.enqueue(new Callback<List<Model>>() {
-//            @Override
-//            public void onResponse(Call<List<Model>> call, Response<List<Model>> response) {
-//
-//                if (response.body() == null) {
-//                    Toast.makeText(getBaseContext(), "Tidak ada data pada kategori ini.", Toast.LENGTH_SHORT).show();
-//                } else {
-////                    progressBarProdukByKategori.setVisibility(View.GONE);
-//                    dataProdukByKategori = response.body();
-//                    produkByKategoriAdapter = new ProdukByKategoriAdapter(getBaseContext(), dataProdukByKategori);
-//                    recyclerViewProdukByKategori2.setAdapter(produkByKategoriAdapter);
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<Model>> call, Throwable t) {
-//                Toast.makeText(getBaseContext(), String.valueOf(t), Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//    }
 }
 
 
