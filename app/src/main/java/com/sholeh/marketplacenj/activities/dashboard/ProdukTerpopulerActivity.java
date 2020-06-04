@@ -24,6 +24,11 @@ import retrofit2.Response;
 
 public class ProdukTerpopulerActivity extends AppCompatActivity {
 
+    private RecyclerView rv_populer;
+    private SearchAdapter produkAdapter;
+    private List<Model> tvDataProduk;
+    private ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
