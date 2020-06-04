@@ -40,7 +40,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Homepage extends AppCompatActivity {
+public class Homepage extends AppCompatActivity implements View.OnClickListener {
 
     FrameLayout frameLayout;
     EditText search;
