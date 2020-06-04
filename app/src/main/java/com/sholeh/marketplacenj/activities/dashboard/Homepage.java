@@ -384,6 +384,15 @@ public class Homepage extends AppCompatActivity implements View.OnClickListener 
         this.searchAdapter.setFilter(filterdNames);
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.tv_produkterpopuler:
+                Intent intent = new Intent(this, ProdukTerpopulerActivity.class);
+                startActivity(intent);
+        }
+    }
+
 //    public void kategoriById() {
 //        recyclerViewProdukByKategori2 = findViewById(R.id.category_recyclerview2);
 //        recyclerViewProdukByKategori2.setVisibility(View.VISIBLE);
