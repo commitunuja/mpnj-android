@@ -77,6 +77,7 @@ public class Homepage extends AppCompatActivity implements View.OnClickListener 
     //produk
     private ProdukAdapter produkAdapter;
     private List<Model> tvDataProduk;
+    private TextView produkterpopuler;
     private ArrayList<TopTenModelClass> topTenModelClasses;
     private RecyclerView top_ten_crecyclerview;
     private RecyclerView recyclerViewpproduk;
