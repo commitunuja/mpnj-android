@@ -35,5 +35,11 @@ public class ProdukTerpopulerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_produk_terpopuler);
         rv_populer = (RecyclerView) findViewById(R.id.rv_produkterpopuler);
         progressBar = findViewById(R.id.progressBar);
+        produkAdapter = new SearchAdapter(ProdukTerpopulerActivity.this, tvDataProduk);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(ProdukTerpopulerActivity.this, 2);
+        rv_populer.setLayoutManager(layoutManager);
+        rv_populer.setItemAnimator(new DefaultItemAnimator());
+        rv_populer.setNestedScrollingEnabled(false);
+        rv_populer.setFocusableInTouchMode(false);
     }
 }
