@@ -41,5 +41,8 @@ public class ProdukTerpopulerActivity extends AppCompatActivity {
         rv_populer.setItemAnimator(new DefaultItemAnimator());
         rv_populer.setNestedScrollingEnabled(false);
         rv_populer.setFocusableInTouchMode(false);
+        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+        Call<List<Model>> call = service.getProduk();
+
     }
 }
