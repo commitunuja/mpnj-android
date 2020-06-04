@@ -57,7 +57,6 @@ public class RecycleAdapteTopTenHome extends RecyclerView.Adapter<RecycleAdapteT
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_top_ten_list, parent, false);
 
-
         return new MyViewHolder(itemView);
 
 
