@@ -257,10 +257,10 @@
 
                         <ImageView
                             android:layout_width="match_parent"
-                            android:layout_height="193dp"
-                            android:layout_marginTop="24dp"
+                            android:layout_height="210dp"
+                            android:layout_marginTop="10dp"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/image96" />
+                            android:src="@drawable/banner2" />
 
 
                         <LinearLayout
