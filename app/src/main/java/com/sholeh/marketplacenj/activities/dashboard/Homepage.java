@@ -47,7 +47,7 @@ public class Homepage extends AppCompatActivity implements View.OnClickListener 
     private ArrayList<HomeBannerModelClass> homeBannerModelClasses;
     private RecyclerView recyclerView;
     private RecycleAdapteHomeBanner mAdapter;
-    private Integer image[] = {R.drawable.image95, R.drawable.image95, R.drawable.image95, R.drawable.image95};
+    private Integer image[] = {R.drawable.banner, R.drawable.banner, R.drawable.banner, R.drawable.banner};
 
 
     private List<Kategori> homeCategoryModelClasses;
