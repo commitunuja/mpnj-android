@@ -447,7 +447,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
             String hargaJual = st1.nextToken().trim();
 
             APIInterface apiKeranjang = ServiceGenerator.getRetrofit().create(APIInterface.class);
-            Call<ResKeranjang> sendData = apiKeranjang.simpanKeranjang(vid_produk, id_konsumen, "konsumen", "N", String.valueOf(1), hargaJual);
+            Call<ResKeranjang> sendData = apiKeranjang.simpanKeranjang(vid_produk, id_konsumen,  String.valueOf(1), hargaJual);
             sendData.enqueue(new Callback<ResKeranjang>() {
                 @Override
                 public void onResponse(Call<ResKeranjang> call, Response<ResKeranjang> response) {
