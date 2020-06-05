@@ -17,10 +17,6 @@ import com.sholeh.marketplacenj.model.dashboard.TopTenModelClass;
 
 import java.util.List;
 
-
-/**
- * Created by Rp on 6/14/2016.
- */
 public class RecycleAdapteTopTenHome extends RecyclerView.Adapter<RecycleAdapteTopTenHome.MyViewHolder> {
     Context context;
 
@@ -60,7 +56,6 @@ public class RecycleAdapteTopTenHome extends RecyclerView.Adapter<RecycleAdapteT
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_top_ten_list, parent, false);
-
 
         return new MyViewHolder(itemView);
 

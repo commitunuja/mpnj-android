@@ -2,9 +2,6 @@ package com.sholeh.marketplacenj.model;
 
 import java.util.List;
 
-/**
- * Created by hakiki95 on 4/16/2017.
- */
 
 public class ResponsModel {
 

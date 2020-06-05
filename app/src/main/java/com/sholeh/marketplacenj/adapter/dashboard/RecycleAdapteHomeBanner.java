@@ -17,9 +17,6 @@ import com.sholeh.marketplacenj.model.dashboard.HomeBannerModelClass;
 import java.util.List;
 
 
-/**
- * Created by Rp on 6/14/2016.
- */
 public class RecycleAdapteHomeBanner extends RecyclerView.Adapter<RecycleAdapteHomeBanner.MyViewHolder> {
     Context context;
 

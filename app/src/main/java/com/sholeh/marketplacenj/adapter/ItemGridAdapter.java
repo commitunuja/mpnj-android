@@ -26,7 +26,7 @@ public class ItemGridAdapter extends RecyclerView.Adapter<ItemGridAdapter.Holdr>
     @SuppressLint("InflateParams")
     @Override
     public Holdr onCreateViewHolder(ViewGroup p1, int p2) {
-        return new Holdr(LayoutInflater.from(p1.getContext()).inflate(R.layout.item_grid, null));
+        return new Holdr(LayoutInflater.from(p1.getContext()).inflate(R.layout.item_grid_search, null));
     }
 
     @Override
@@ -51,9 +51,9 @@ public class ItemGridAdapter extends RecyclerView.Adapter<ItemGridAdapter.Holdr>
 
         public Holdr(View view) {
             super(view);
-            title = view.findViewById(R.id.itemcardTextView1);
-            ic_cat = view.findViewById(R.id.itemcardImageView1);
-            divider = view.findViewById(R.id.itemcardView1);
+//            title = view.findViewById(R.id.itemcardTextView1);
+//            ic_cat = view.findViewById(R.id.itemcardImageView1);
+//            divider = view.findViewById(R.id.itemcardView1);
         }
     }
 }

@@ -4,12 +4,14 @@
     <string name="salam_pagi">Selamat Pagi &#128522;</string>
     <string name="salam_siang">Selamat Siang &#128526;</string>
     <string name="salam_sore">Selamat Sore &#128513;</string>
+    <string name="alamat_pelapak">Paiton</string>
+    <string name="alamatjancok">Surabaya</string>
+
     <string-array name="fan_labels">
         <item>FAVORITE</item>
         <item>OFFICIAL STORE</item>
         <item>INBOX</item>
     </string-array>
-
 
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -37,8 +39,8 @@
     <string name="tambah_ke_keranjang">tambah ke keranjang</string>
     <string name="beli_lagi">beli lagi</string>
     <string name="searchproduk">Cari Produk</string>
-    <string name="top_rated_products">top rated products</string>
-    <string name="you_may_like">you may like</string>
+    <string name="top_rated_products">Produk Terpopuler</string>
+    <string name="you_may_like">Produk Terfaforit</string>
     <string name="apple">Apple</string>
     <string name="titletxt">Nama Produk</string>
     <string name="black">Hitam</string>
@@ -53,4 +55,22 @@
     <string name="_128_gb">128GB</string>
     <string name="kategori">Kategori</string>
     <string name="stock">Stok: </string>
+    <string name="add_to_cart">Berhasil ditambahkan ke keranjang</string>
+    <string name="action_search">actionsearch</string>
+    <string name="action_settings">actionsetting</string>
+    <string name="hint">Cari Produk</string>
+    <string name="search_for_products_brands_amp_more"><![CDATA[Search for Products, Brands & More]]></string>
+    <string name="todo">TODO</string>
+    <string name="baru">baru</string>
+    <string name="_343">32</string>
+    <string name="alamat">Paiton</string>
+    <string name="datadummy">Tokopedia merupakan salah satu e-commerce di Indonesia yang perkembangannya terhitung cepat, menjadikannya sebagai marketplace pilihan bagi banyak masyarakat Indonesia. Hal ini disebabkan kehadiran Tokopedia membuat pengalaman belanja online para penggunanya menjadi mudah, aman, dan efisien. Tersedia berbagai fitur dan metode pembayaran yang dapat Anda pilih, untuk memastikan kegiatan belanja Anda dapat dilakukan senyaman mungkin. Baik itu melalui transfer bank yang bisa dilakukan menggunakan rekening dari berbagai bank yang tersedia, uang elektronik seperti OVO, hingga cicilan. Sistem berbelanja di Tokopedia terintegrasi pula dengan sistem beberapa jasa ekspedisi. Kerjasama yang dijalin ini memungkinkan Tokopedia untuk memberikan penawaran pengiriman gratis, dan memungkinkan pengguna yang berbelanja untuk terus melacak status pengiriman produk yang mereka beli. Jadi, produk apapun yang dibeli di Tokopedia baik itu pakaian bayi, aksesoris mobil, aksesoris kamera, celana, jam, hingga peralatan elektronik seperti kabel dan peralatan gaming, atau makanan sekali pun dapat terus Anda lacak keberadaannya untuk memastikan akan sampai dengan aman. Data pribadi dan seluruh transaksi yang sudah maupun yang akan Anda lakukan di Tokopedia dilindungi oleh kebijakan privasi Tokopedia, sehingga tak perlu khawatir data Anda akan jatuh ke pihak yang tidak bertanggungjawab dan/atau disalahgunakan. Karena faktor-faktor tersebut lah, Tokopedia menjadi solusi untuk belanja online dengan mudah dan aman.</string>
+    <string name="alamatlagi">Anjing</string>
+    <string name="namapelapak">Edi Susanto</string>
+    <string name="follow">Ikuti</string>
+    <string name="readmore">Baca Selengkapnya</string>
+    <string name="hargaproduk">Rp. 2000</string>
+    <string name="diskripsiproduk">Diskripsi Produk</string>
+    <string name="loading">Mohon Tunggu</string>
+
 </resources>

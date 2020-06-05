@@ -13,6 +13,11 @@ public class Kategori {
     @Expose
     private String namaKategori;
 
+    public Kategori(String namaKategori) {
+        this.namaKategori = namaKategori;
+    }
+
+
     public Integer getIdKategoriProduk() {
         return idKategoriProduk;
     }

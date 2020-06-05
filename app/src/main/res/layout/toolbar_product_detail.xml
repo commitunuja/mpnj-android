@@ -1,71 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.Toolbar
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/colorPrimaryDark">
-
-
-    <ImageView
-
-        android:layout_width="18dp"
-        android:layout_height="18dp"
-        android:src="@drawable/ic_back_arrow" />
-
-    <TextView
-        android:id="@+id/search_mobile_text"
-        android:fontFamily="@font/roboto_medium"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="16.7sp"
-        android:textColor="@color/white"
-        android:text="Search : Mobile"
-        android:layout_marginLeft="25dp"/>
+    android:background="@color/colorutama"
+    android:layout_height="wrap_content">
 
     <LinearLayout
-        android:id="@+id/linear"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:paddingTop="10dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:layout_marginRight="20dp"
-        android:orientation="horizontal">
+        android:background="@color/colorutama"
+        android:orientation="vertical">
 
-
-
-        <TextView
-            android:id="@+id/items"
-            android:fontFamily="@font/roboto_medium"            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="2 items"
-            android:layout_gravity="center"
-            android:textColor="@color/white"
-            android:textSize="13.3sp"
-            android:layout_marginRight="15dp"/>
+            android:orientation="vertical"
 
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp">
+            android:tag="sticky">
 
-            <ImageView
-                android:id="@+id/imgkeranjang"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginRight="10sp"
-                android:layout_marginTop="5dp"
-                android:src="@drawable/cart"/>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="30dp">
 
-            <ImageView
-                android:layout_width="7dp"
-                android:layout_height="7dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_back_black" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/white_rounded_shape"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/etsearch"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/white_rounded_shape"
+                            android:drawableLeft="@drawable/ic_search_light_gray_24dp"
+                            android:drawablePadding="8dp"
+                            android:fontFamily="@font/calibri"
+                            android:hint="Mau Cari Apa?"
+                            android:textColor="@color/black"
+                            android:imeOptions="actionSearch"
+                            android:maxLines="1"
+                            android:padding="5dp"
+                            android:singleLine="true"
+                            android:textSize="14sp" />
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="30dp"
+                            android:layout_marginEnd="10dp"
+                            android:contentDescription="TODO"
+                            android:src="@drawable/ic_camera" />
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="30dp"
+                            android:src="@drawable/mic_icon" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </FrameLayout>
+            <LinearLayout
+                android:id="@+id/linear"
+                android:layout_marginTop="-50dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:layout_marginBottom="5dp"
-                android:src="@drawable/circle_green"/>
+                android:layout_marginLeft="10dp"
+                android:orientation="horizontal">
 
-
-        </FrameLayout>
-
-
+                <ImageView
+                    android:id="@+id/imgkeranjang"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10sp"
+                    android:src="@drawable/ic_cart" />
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
+
+
+    <!--    <LinearLayout-->
+    <!--        android:id="@+id/linear"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_gravity="right"-->
+    <!--        android:layout_marginRight="20dp"-->
+    <!--        android:orientation="horizontal">-->
+
+
+    <!--        <FrameLayout-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_marginRight="10dp">-->
+
+    <!--            <ImageView-->
+    <!--                android:id="@+id/imgkeranjang"-->
+    <!--                android:layout_width="20dp"-->
+    <!--                android:layout_height="20dp"-->
+    <!--                android:layout_marginTop="5dp"-->
+    <!--                android:layout_marginRight="10sp"-->
+    <!--                android:src="@drawable/cart" />-->
+
+    <!--            <ImageView-->
+    <!--                android:layout_width="7dp"-->
+    <!--                android:layout_height="7dp"-->
+    <!--                android:layout_gravity="right"-->
+    <!--                android:layout_marginBottom="5dp"-->
+    <!--                android:src="@drawable/circle_green" />-->
+
+    <!--        </FrameLayout>-->
+
+    <!--    </LinearLayout>-->
 
 </androidx.appcompat.widget.Toolbar>

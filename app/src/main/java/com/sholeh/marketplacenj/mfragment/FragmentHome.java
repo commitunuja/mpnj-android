@@ -19,9 +19,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.sholeh.marketplacenj.APIInterface;
+import com.sholeh.marketplacenj.util.api.APIInterface;
 import com.sholeh.marketplacenj.R;
-import com.sholeh.marketplacenj.ServiceGenerator;
+import com.sholeh.marketplacenj.util.ServiceGenerator;
 import com.sholeh.marketplacenj.adapter.SliderImageAdapter;
 import com.sholeh.marketplacenj.adapter.dashboard.ProdukAdapter;
 import com.sholeh.marketplacenj.model.Model;
