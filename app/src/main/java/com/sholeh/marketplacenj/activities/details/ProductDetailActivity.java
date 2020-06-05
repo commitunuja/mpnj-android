@@ -25,6 +25,7 @@ import com.codesgood.views.JustifiedTextView;
 import com.google.gson.JsonObject;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.activities.LoginActivity;
+import com.sholeh.marketplacenj.activities.RegisterActivity;
 import com.sholeh.marketplacenj.activities.keranjang.KeranjangDetailActivity;
 import com.sholeh.marketplacenj.activities.pelapak.ProfilPelapakActivity;
 import com.sholeh.marketplacenj.adapter.dashboard.RecycleAdapteTopTenHome;
