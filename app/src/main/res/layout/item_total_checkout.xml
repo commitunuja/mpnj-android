@@ -6,7 +6,7 @@
     android:layout_alignParentBottom="true"
     android:background="@color/white"
     android:orientation="vertical"
-    android:paddingBottom="10dp">
+   >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -35,21 +35,15 @@
                     android:layout_marginTop="12dp"
                     android:layout_weight="1"
                     android:layout_marginLeft="15.7dp">
-                    <customfonts.TextViewSFProDisplayRegular
+
+                    <customfonts.MyTextView_Roboto_Regular
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Total Pesanan"
                         android:letterSpacing="0.03"
-                        android:textSize="17sp"
-                        android:textColor="@color/black"/>
-                    <customfonts.TextViewSFProDisplayMedium
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="#99000000"
-                        android:textSize="12sp"
-                        android:letterSpacing="0.02"
-                        android:text="Belum termasuk biaya pengiriman"/>
-                </LinearLayout>
+                        android:text="Total Pembayaran"
+                        android:textColor="@color/black"
+                        android:textSize="17sp" />
+                     </LinearLayout>
                 <customfonts.MyTextView_Roboto_Medium
                     android:id="@+id/total"
                     android:layout_width="wrap_content"
@@ -58,7 +52,7 @@
                     android:textSize="18.3sp"
                     android:letterSpacing="0"
                     android:textColor="@color/black"
-                    android:layout_marginTop="21dp"
+                    android:layout_marginTop="12dp"
                     android:layout_marginRight="21dp"/>
             </LinearLayout>
         </LinearLayout>
@@ -71,39 +65,19 @@
         android:layout_marginTop="13.3dp"
         android:orientation="horizontal">
 
-        <CheckBox
 
-            android:id="@+id/cb_select_all"
-            android:layout_width="wrap_content"
+
+        <customfonts.MyTextView
+            android:id="@+id/pay"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:background="@null"
-            android:text=" Pilih semua" />
-
-        <customfonts.MyTextView_Roboto_Medium
-            android:visibility="gone"
-            android:id="@+id/txtmetode"
-            android:layout_width="158dp"
-            android:layout_height="40dp"
-            android:background="@drawable/button_rect2"
+            android:background="@color/colorPrimaryTransperent"
+            android:text="Konfirmasi &amp; Bayar"
+            android:textSize="16dp"
+            android:textColor="#fff"
+            android:padding="16dp"
             android:gravity="center"
-            android:letterSpacing="0.03"
-            android:text="Metode Pembayaran"
-            android:textColor="@color/black"
-            android:textSize="13.3sp" />
-
-        <customfonts.MyTextView_Roboto_Medium
-            android:id="@+id/tvx_checkout"
-            android:layout_marginRight="21dp"
-            android:layout_alignParentEnd="true"
-            android:layout_width="108dp"
-            android:layout_height="40dp"
-            android:background="@drawable/button_rect_transparant"
-            android:gravity="center"
-            android:letterSpacing="0.03"
-            android:text="Checkout"
-            android:textColor="@color/white"
-            android:textSize="13.3sp" />
+            android:drawableRight="@drawable/next"
+            />
     </RelativeLayout>
 </LinearLayout>
