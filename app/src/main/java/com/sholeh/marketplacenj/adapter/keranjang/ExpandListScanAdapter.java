@@ -21,7 +21,6 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.sholeh.marketplacenj.activities.keranjang.KeranjangDetailActivity;
-import com.sholeh.marketplacenj.respon.ResDetailKeranjang;
 import com.sholeh.marketplacenj.respon.ResHapusKeranjang;
 import com.sholeh.marketplacenj.respon.ResUbahJumlahProduk;
 import com.sholeh.marketplacenj.util.AppUtilits;
@@ -307,7 +306,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
         Call<ResDetailKeranjang> call = service.getDataDetailKeranjang(id_konsumen);
         call.enqueue(new Callback<ResDetailKeranjang>() {
             @Override
-            public void onResponse(Call<ResDetailKeranjang> call, Response<ResDetailKeranjang> response) {
+            public void onResponse(Call<ResUbahJumlahProduk> call, Response<ResUbahJumlahProduk> response) {
                 if (response.body() != null && response.isSuccessful()) {
                     getTotal();
 
@@ -316,9 +315,8 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 //                                AppUtilits.displayMessage(mContext, mContext.getString(R.string.network_error));
                 }
             }
-
             @Override
-            public void onFailure(Call<ResDetailKeranjang> call, Throwable t) {
+            public void onFailure(Call<ResUbahJumlahProduk> call, Throwable t) {
                 Toast.makeText(context, "gagal " + t, Toast.LENGTH_SHORT).show();
 //                            Log.e(TAG, " edit fail "+ t.toString());
 //                            AppUtilits.displayMessage(mContext,  mContext.getString(R.string.fail_toeditcart));
