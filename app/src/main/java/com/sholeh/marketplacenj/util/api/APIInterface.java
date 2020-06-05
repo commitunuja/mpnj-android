@@ -168,8 +168,8 @@ public interface APIInterface {
     Call<ResKeranjang> simpanKeranjang(
             @Field("produk_id") String produkId,
             @Field("pembeli_id") String pembeliId,
-            @Field("pembeli_type") String pembeliType,
-            @Field("status") String status,
+//            @Field("pembeli_type") String pembeliType,
+//            @Field("status") String status,
             @Field("jumlah") String jumlah,
             @Field("harga_jual") String hargaJual
     );
