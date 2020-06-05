@@ -13,10 +13,6 @@ import androidx.fragment.app.Fragment;
 import com.sholeh.marketplacenj.R;
 
 
-/**
- * Created by wolfsoft4 on 13/12/18.
- */
-
 public class Viewpager_product_details3 extends Fragment {
 
     @Nullable

@@ -1,7 +1,9 @@
 package com.sholeh.marketplacenj.adapter.dashboard;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,21 +15,23 @@ import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sholeh.marketplacenj.R;
+import com.sholeh.marketplacenj.activities.ProdukByKategori;
+import com.sholeh.marketplacenj.activities.dashboard.Homepage;
+import com.sholeh.marketplacenj.model.Kategori;
 import com.sholeh.marketplacenj.model.dashboard.HomeCategoryModelClass;
 
+import java.util.ArrayList;
 import java.util.List;
 
-
-/**
- * Created by Rp on 6/14/2016.
- */
 public class RecycleAdapteHomeCategory extends RecyclerView.Adapter<RecycleAdapteHomeCategory.MyViewHolder> {
     Context context;
 
+    private String allkategori = "Semua Kategori";
+    private final int limit = 4;
+    private int tampil;
 
-    private List<HomeCategoryModelClass> moviesList;
-
-    int myPos = 0;
+    private List<Kategori> moviesList;
+//    private List<KategoriLihatSemua> kategoriLihatSemuas;
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -50,7 +54,7 @@ public class RecycleAdapteHomeCategory extends RecyclerView.Adapter<RecycleAdapt
     }
 
 
-    public RecycleAdapteHomeCategory(Context context, List<HomeCategoryModelClass> moviesList) {
+    public RecycleAdapteHomeCategory(Context context, List<Kategori> moviesList) {
         this.moviesList = moviesList;
         this.context = context;
     }
@@ -69,22 +73,35 @@ public class RecycleAdapteHomeCategory extends RecyclerView.Adapter<RecycleAdapt
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
-    public void onBindViewHolder(final MyViewHolder holder,final int position) {
-        HomeCategoryModelClass movie = moviesList.get(position);
-        holder.title.setText(movie.getTitle());
+    public void onBindViewHolder(final MyViewHolder holder, final int position) {
+        final Kategori movie = moviesList.get(position);
+        holder.title.setText(movie.getNamaKategori());
 
-
-
+        holder.title.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ProdukByKategori.class);
+                intent.putExtra("id_kategori", String.valueOf(movie.getIdKategoriProduk()));
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+            }
+        });
 
     }
 
     @Override
     public int getItemCount() {
-        return moviesList.size();
+        if (moviesList.size() > limit) {
+//            int i = 1;
+//            moviesList.toString();
+//            tampil = String.valueOf(Integer.parseInt(String.valueOf(limit + allkategori)));
+
+            String lagi = String.valueOf(limit);
+            tampil = Integer.valueOf(lagi);
+            return tampil;
+
+        } else {
+            return moviesList.size();
+        }
     }
-
-
-
 }
-
-

@@ -1,9 +1,6 @@
 package com.sholeh.marketplacenj.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -16,15 +13,14 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.sholeh.marketplacenj.model.Model;
-import com.sholeh.marketplacenj.model.api.APIInterface;
-import com.sholeh.marketplacenj.CONSTANTS;
-import com.sholeh.marketplacenj.R;
-import com.sholeh.marketplacenj.model.api.APIKeranjang;
-import com.sholeh.marketplacenj.test.ExpandListScanAdapter;
+import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.List;
+import com.bumptech.glide.Glide;
+import com.sholeh.marketplacenj.R;
+import com.sholeh.marketplacenj.model.Model;
+import com.sholeh.marketplacenj.respon.ResKeranjang;
+import com.sholeh.marketplacenj.util.CONSTANTS;
+import com.sholeh.marketplacenj.util.api.APIInterface;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -42,7 +38,7 @@ public class KeranjangActivity extends AppCompatActivity {
     Button tambahkeranjang, belilagi;
     TextView harga, nama, idkeranjang;
     private ImageView foto;
-    private APIInterface apiInterface;
+//    private APIInterface apiInterface;
 
 
     @Override
@@ -76,20 +72,21 @@ public class KeranjangActivity extends AppCompatActivity {
                 String harga_jual = harga.getText().toString();
                 Toast.makeText(KeranjangActivity.this, harga_jual, Toast.LENGTH_SHORT).show();
 
-                APIKeranjang apiKeranjang = CONSTANTS.getClient().create(APIKeranjang.class);
-                Call<List<Model>> sendData = apiKeranjang.simpanKeranjang(produk_id, "1", "konsumen", jumlah, harga_jual);
+                APIInterface apiKeranjang = CONSTANTS.getClient().create(APIInterface.class);
+                Call<ResKeranjang> sendData = apiKeranjang.simpanKeranjang(produk_id, "1",jumlah, harga_jual);
 //                Log.d("YOLO", String.valueOf(sendData));
-                sendData.enqueue(new Callback<List<Model>>() {
+                sendData.enqueue(new Callback<ResKeranjang>() {
                     @Override
-                    public void onResponse(Call<List<Model>> call, Response<List<Model>> response) {
-                        Log.d("RETRO", "respone :" + response.body());
+                    public void onResponse(Call<ResKeranjang> call, Response<ResKeranjang> response) {
+
+//                        Log.d("RETRO", "respone :" + response.body());
 //                            List<Model> kode = response.body();
 
-                        Toast.makeText(KeranjangActivity.this, "Data Tersimpan", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(KeranjangActivity.this, "ress"+response, Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
-                    public void onFailure(Call<List<Model>> call, Throwable t) {
+                    public void onFailure(Call<ResKeranjang> call, Throwable t) {
                         Log.d("RETRO", "Falure :" + "Gagal Mengirim Request");
                     }
                 });
@@ -101,81 +98,15 @@ public class KeranjangActivity extends AppCompatActivity {
         belilagi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(KeranjangActivity.this, KeranjangDetailActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(KeranjangActivity.this, KeranjangDetailActivity.class);
+//                startActivity(intent);
             }
         });
 
-
-      /*  DisplayMetrics dm = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(dm);
-
-        int width = dm.widthPixels;
-        int height = dm.heightPixels;
-
-        getWindow().setLayout((int) (height * .5), (int) (width * .7));
-        WindowManager.LayoutParams params = getWindow().getAttributes();
-        params.gravity = Gravity.CENTER;
-        params.x = 0;
-        params.y = -20;
-
-        getWindow().setAttributes(params);*/
         initialize();
-       /* vid_produk = Integer.parseInt(getIntent().getStringExtra("id_produk"));
-        namaprodukkeranjang = getIntent().getExtras().getString("nama_produk");
-        urltoimagekeranjang = getIntent().getExtras().getString("foto_produk");
-        vhargaproduk = Integer.parseInt(getIntent().getStringExtra("harga_jual"));
-
-        title.setText(namaprodukkeranjang);
-        harga.setText(String.valueOf(vhargaproduk));
-        Glide.with(this)
-                .load(urltoimagekeranjang)
-                .into(foto);*/
-   /*    showLoading(true);
-        if (model != null){
-            title.setText(model.getNamaProduk());
-            harga.setText(String.valueOf(model.getHargaJual()));
-            Glide.with(this)
-                    .load(model.getFoto())
-                    .into(foto);
-       }
-        else {
-            Toast.makeText(this, "ERROR", Toast.LENGTH_SHORT).show();
-        }
-    }*/
-
-        /* private void showLoading(boolean b) {
-         *//*   if (b) {
-            progressBar.setVisibility(View.VISIBLE);
-        } else {
-            progressBar.setVisibility(View.GONE);
-        }*/
     }
 
-
-
-   /* public void sendPost(String idproduk) {
-        apiInterface.addNewDestination(idproduk).enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if (response.isSuccessful()) {
-                    Log.i(TAG, "SUKSES" + response.body().toString());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Log.e(TAG, "gagal");
-
-            }
-        });
-
-    }*/
-
-
     private void initialize() {
-
-
         quantityProductPage.setText("1");
         quantityProductPage.addTextChangedListener(productcount);
 //        productprice.setText("₹ " + Float.toString(model.getCardprice()));

@@ -8,16 +8,21 @@ public class Foto {
     //respon
     @SerializedName("id_foto_poroduk")
     @Expose
-    private Integer idFotoPoroduk;
+    private String idFotoPoroduk;
     @SerializedName("foto_produk")
     @Expose
     private String fotoProduk;
 
-    public Integer getIdFotoPoroduk() {
+    public Foto(String idFotoPoroduk, String fotoProduk) {
+        this.idFotoPoroduk = idFotoPoroduk;
+        this.fotoProduk = fotoProduk;
+    }
+
+    public String getIdFotoPoroduk() {
         return idFotoPoroduk;
     }
 
-    public void setIdFotoPoroduk(Integer idFotoPoroduk) {
+    public void setIdFotoPoroduk(String idFotoPoroduk) {
         this.idFotoPoroduk = idFotoPoroduk;
     }
 

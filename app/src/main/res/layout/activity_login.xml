@@ -110,7 +110,7 @@
                 android:layout_marginRight="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="30dp"
-                android:background="@color/colorPrimary"/>
+                android:background="@color/colorutama"/>
 
             <customfonts.TextViewSFProDisplayMedium
                 android:layout_width="wrap_content"
@@ -178,7 +178,7 @@
                         android:id="@+id/tvSignInwithFB"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="#C404D39F"
+                        android:background="@color/colorPrimaryTransperent"
                         android:drawablePadding="@dimen/value_2"
                         android:paddingTop="@dimen/value_8"
                         android:paddingBottom="@dimen/value_8"
@@ -190,7 +190,7 @@
             </LinearLayout>
             <TextView
                 android:id="@+id/tvNewUser"
-                style="@style/txt_color_primary_medium"
+                android:textColor="@color/colorutama"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

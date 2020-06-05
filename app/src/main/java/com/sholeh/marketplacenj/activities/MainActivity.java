@@ -19,13 +19,13 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.sholeh.marketplacenj.util.api.APIInterface;
 import com.sholeh.marketplacenj.R;
-import com.sholeh.marketplacenj.ServiceGenerator;
+import com.sholeh.marketplacenj.util.ServiceGenerator;
 import com.sholeh.marketplacenj.adapter.ProductAdapter;
 import com.sholeh.marketplacenj.adapter.dashboard.ProdukAdapter;
 import com.sholeh.marketplacenj.adapter.SliderImageAdapter;
 import com.sholeh.marketplacenj.model.Model;
-import com.sholeh.marketplacenj.model.api.APIInterface;
 import com.sholeh.marketplacenj.model.ProductModel;
 import com.sholeh.marketplacenj.util.Preferences;
 import com.smarteist.autoimageslider.IndicatorAnimations;
@@ -50,28 +50,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Toolbar toolbar;
     SliderView sliderMyshop;
     TextView greetText;
-//    private LinearLayout llroot;
+
 
     private ImageView nav_home, nav_notifikasi, nav_transaksi, nav_profile, keranjang;
     FloatingActionButton fb_favourite;
 
-    //http://localhost:8000/api/produk
-//    RecyclerView tampilproduk;
-//    private List<AllProductModel> results = new ArrayList<> ();
-//    private AllProductAdapter viewAdapter;
 
-    //    APIInterface mApiInterfaceInterface;
     private RecyclerView recyclerView;
-    //    private RecyclerView.Adapter mAdapter;
     private ProdukAdapter produkAdapter;
-    //    private RecyclerView.LayoutManager mLayoutManager;
     private List<Model> tvDataProduk;
     private GridLayoutManager gridLayoutManager;
-//    private TextView result;
-
-//    public static MainActivity ma;
-
-//    SharedPreferences preferences;
     Preferences preferences;
     String id_konsumen;
 
@@ -99,12 +87,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
-//        recyclerview = findViewById(R.id.rvListViewProduk);
-//        mLayoutManager = new LinearLayoutManager(this);
-//        mRecyclerView.setLayoutManager(mLayoutManager);
-//        mApiInterfaceInterface = CONSTANTS.getClient().create(APIInterface.class);
-//        ma = this;
-//        tampilproduk.setHasFixedSize ( true );
         recyclerView = findViewById(R.id.recyclerview);
         gridLayoutManager = new GridLayoutManager(this, 2);
         gridLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -134,31 +116,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
 
-
-//        loadjson(llroot, "Terlaris", 0, 25);
-
-        // PERULANGAN untuk menampilkan tombol kategori
-//        for (String cardtitle : Constant.cards.keySet()) {
-//            View card = getLayoutInflater().inflate(R.layout.item_card, null);
-//            RecyclerView rv = card.findViewById(R.id.cardListView1);
-//            rv.setNestedScrollingEnabled(false);
-//            TextView tv = card.findViewById(R.id.cardTextView1Kategori);
-//            tv.setText(cardtitle);
-//            Map<Integer, String> cats = Constant.cards.get(cardtitle);
-//            List<CategoryModel> datacat = new ArrayList<CategoryModel>();
-//            for (int ic : cats.keySet()) {
-//                datacat.add(new CategoryModel(ic, ic, cats.get(ic), false));
-//            }
-//            rv.addItemDecoration(new SimpleDividerItemDecoration(this));
-//            rv.setAdapter(new ItemGridAdapter(datacat));
-//            rv.setLayoutManager(new GridLayoutManager(this, 2)); // tombol kategori
-//
-//            llroot.addView(card);
-//        }
-//        loadjson(llroot, "Produk Terbaru", 26, 0);
-
-        // loadjson(llroot, "Rekomendasi", 26, 0);
-
         final SliderImageAdapter sliderImageAdapter = new SliderImageAdapter(this);
         sliderImageAdapter.setCount(4);
         sliderMyshop.setSliderAdapter(sliderImageAdapter);
@@ -175,26 +132,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
 
         sapa();
-//        tampilproduk();
     }
 
-//    private void tampilproduk() {
-
-          /*  @Override
-            public void onResponse(Call<List<TVMazeDataModel>> call, Response<List<TVMazeDataModel>> response) {
-                loadProgress.setVisibility(View.GONE);
-                tvMazeDataModels=response.body();
-                recyclerAdapter=new RecyclerAdapter(MainActivity.this,tvMazeDataModels);
-                recyclerView.setAdapter(recyclerAdapter);
-            }
-
-            @Override
-            public void onFailure(Call<List<TVMazeDataModel>> call, Throwable t) {
-                result.setText(t.getMessage());
-            }
-        });
-
-    }*/
 
 
     private void sapa() {

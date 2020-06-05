@@ -1,8 +1,5 @@
 package com.sholeh.marketplacenj.model.dashboard;
 
-/**
- * Created by wolfsoft5 on 5/5/18.
- */
 
 public class HomeCategoryModelClass {
 

@@ -48,12 +48,25 @@ public class Pelapak {
     @SerializedName("status")
     @Expose
     private String status;
+    @SerializedName("foto_pelapak")
+    @Expose
+    private String foto_pelapak;
     @SerializedName("created_at")
     @Expose
     private String createdAt;
     @SerializedName("updated_at")
     @Expose
     private String updatedAt;
+
+    private Model model;
+
+    public Model getModel() {
+        return model;
+    }
+
+    public void setModel(Model model) {
+        this.model = model;
+    }
 
     public Integer getIdPelapak() {
         return idPelapak;
@@ -181,6 +194,14 @@ public class Pelapak {
 
     public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public String getFoto_pelapak() {
+        return foto_pelapak;
+    }
+
+    public void setFoto_pelapak(String foto_pelapak) {
+        this.foto_pelapak = foto_pelapak;
     }
 
 }
