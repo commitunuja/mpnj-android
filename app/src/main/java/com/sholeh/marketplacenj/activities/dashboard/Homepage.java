@@ -225,8 +225,8 @@ public class Homepage extends AppCompatActivity implements View.OnClickListener 
         like_recyclerview = (RecyclerView) findViewById(R.id.like_recyclerview);
         topTenModelClasses1 = new ArrayList<>();
 
-        for (int i = 0; i < image2.length; i++) {
-            TopTenModelClass beanClassForRecyclerView_contacts = new TopTenModelClass(image2[i], title2[i], type[i]);
+        for (int i = 0; i < image3.length; i++) {
+            TopTenModelClass beanClassForRecyclerView_contacts = new TopTenModelClass(image3[i], title3[i], type[i]);
 
             topTenModelClasses1.add(beanClassForRecyclerView_contacts);
         }
