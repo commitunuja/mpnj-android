@@ -352,7 +352,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
         //  Log.e(TAG, "  user value "+ SharePreferenceUtils.getInstance().getString(Constant.USER_DATA));
 
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-        Call<ResDetailKeranjang> call = service.getDataDetailKeranjang("konsumen", id_konsumen);
+        Call<ResDetailKeranjang> call = service.getDataDetailKeranjang(id_konsumen);
         call.enqueue(new Callback<ResDetailKeranjang>() {
             @Override
             public void onResponse(Call<ResDetailKeranjang> call, retrofit2.Response<ResDetailKeranjang> response) {
