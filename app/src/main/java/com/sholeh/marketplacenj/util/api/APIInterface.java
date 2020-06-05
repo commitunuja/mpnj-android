@@ -177,7 +177,7 @@ public interface APIInterface {
 
     @GET("api/keranjang")
     Call<ResDetailKeranjang> getDataDetailKeranjang(
-            @Query("role") String role, @Query("id") String id);
+            @Query("id") String id);
 
     //  delete produk keranjang
     @DELETE("api/keranjang/{id_keranjang}")
