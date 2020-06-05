@@ -192,7 +192,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="20dp"
                                 android:text="Lihat Semua"
-                                android:textColor="@color/red"
+                                android:textColor="@color/colorutama"
                                 android:textSize="13sp" />
                         </LinearLayout>
 
