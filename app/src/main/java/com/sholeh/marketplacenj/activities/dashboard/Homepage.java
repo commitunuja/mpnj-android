@@ -84,8 +84,10 @@ public class Homepage extends AppCompatActivity implements View.OnClickListener 
     private RecycleAdapteTopTenHome mAdapter2;
     private RecycleAdapteTopTenHome mAdaper10;
     private Integer image1[] = {R.drawable.ac, R.drawable.headphones, R.drawable.ac, R.drawable.headphones};
+    private Integer image3[] = {R.drawable.circular_grey_bordersolid, R.drawable.circular_grey_bordersolid, R.drawable.circular_grey_bordersolid, R.drawable.circular_grey_bordersolid};
     private String title1[] = {"Vigo Atom Personal Air Condi....", "Bosh Head Phone Blue Color", "Vigo Atom Personal Air Condi....", "Bosh Head Phone Blue Color",};
-    private String type[] = {"Kitenid", "HeadPhones", "Kitenid", "HeadPhones"};
+    private String title3[] = {"Mohon Tunggu", "Mohon Tunggu", "Mohon Tunggu","Mohon Tunggu"};
+    private String type[] = {"Mohon Tunggu", "Mohon Tunggu", "Mohon Tunggu", "Mohon Tunggu"};
 
     String status;
     private ArrayList<TopTenModelClass> topTenModelClasses1;
