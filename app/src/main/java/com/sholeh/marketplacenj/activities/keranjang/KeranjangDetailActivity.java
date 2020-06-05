@@ -80,7 +80,7 @@ public class KeranjangDetailActivity extends AppCompatActivity {
 
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
 
-        Call<ResDetailKeranjang> call = service.getDataDetailKeranjang("konsumen", id_konsumen);
+        Call<ResDetailKeranjang> call = service.getDataDetailKeranjang(id_konsumen);
 
         listHeader = new ArrayList<>();
         listChild = new HashMap<>();
