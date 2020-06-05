@@ -4,10 +4,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
@@ -19,6 +17,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import com.sholeh.marketplacenj.activities.checkout.CheckoutActivity;
+import com.sholeh.marketplacenj.activities.transaksi.MetodePembayaranActivity;
 import com.sholeh.marketplacenj.adapter.keranjang.ExpandListScanAdapter;
 import com.sholeh.marketplacenj.util.api.APIInterface;
 import com.sholeh.marketplacenj.R;
@@ -33,13 +33,10 @@ import com.sholeh.marketplacenj.util.Preferences;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.StringJoiner;
 import java.util.StringTokenizer;
-import java.util.regex.Pattern;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -176,11 +173,6 @@ public class KeranjangDetailActivity extends AppCompatActivity implements View.O
 
 
     public void getDetailKeranjang() {
-//        if (!NetworkUtility.isNetworkConnected(KeranjangDetailActivity.this)){
-//            AppUtilits.displayMessage(KeranjangDetailActivity.this,  getString(R.string.network_not_connected));
-//
-//        }else {
-        //  Log.e(TAG, "  user value "+ SharePreferenceUtils.getInstance().getString(Constant.USER_DATA));
 
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
 
@@ -453,82 +445,22 @@ public class KeranjangDetailActivity extends AppCompatActivity implements View.O
 
     private void goChekout(){
 
-//        myArray.add(Arrays.asList(idkeranjang));
-//        Toast.makeText(this, "mm"+idkeranjang, Toast.LENGTH_SHORT).show();
-
-//        int []arrayB = extras.getIntArray("idkeranjang");
-//        Toast.makeText(this, ""+extras, Toast.LENGTH_SHORT).show();
-//        Toast.makeText(this, ""+idkeranjang, Toast.LENGTH_SHORT).show();
-
-//        Toast.makeText(this, ""+id, Toast.LENGTH_SHORT).show();
-//        Toast.makeText(this, ""+arrayB, Toast.LENGTH_SHORT).show();
-
-//        tvx_idk.append(idkeranjang+", ");
-
-//        int e=b.length;
-//        Toast.makeText(this, ""+e, Toast.LENGTH_SHORT).show();
-
-
-//        String idkeranjang = getIntent().getStringExtra("idkeranjang");
-//        String id= getIntent().getStringExtra("idkeranjang");
-
-//        Toast.makeText(this, ""+idK, Toast.LENGTH_SHORT).show();
-//
-//        String get = tvx_idk.getText().toString();
-//        Toast.makeText(this, ""+get, Toast.LENGTH_SHORT).show();
-
-//ini
         String id []= {idkeranjang}; // lenght idk = 7 =id =1
         String idK = null;
+        ArrayList<String> id_keranjang = new ArrayList<>();
+        String gas = "";
 
         for (int a =0; a < id.length; a++){
             idK = id[a];
+            id_keranjang.add(id[a]);
+            gas += id[a]+",";
         }
-//        Toast.makeText(this,"idkeranjang "+idkeranjang.length()+" idk "+ idK.length() +" id"+id.length, Toast.LENGTH_SHORT).show();
-        Toast.makeText(this,"idkeranjang "+idK, Toast.LENGTH_SHORT).show();
-
-
-
-        //using String split function
-//        String[] words = line.split(" ");
-//        System.out.println(Arrays.toString(words));
-//        //using java.util.regex Pattern
-//        Pattern pattern = Pattern.compile(" ");
-//        words = pattern.split(line);
-//        System.out.println(Arrays.toString(words));
-
-//        int[] data = new int[line.length()];
-//        for (int i = 0; i<line.length(); i++){
-//            Toast.makeText(this,"idkeranjang "+data[i], Toast.LENGTH_SHORT).show();
-//
-//        }
-
-        //array to string
-//        StringBuffer sb = new StringBuffer();
-//        for(int i = 0; i < arrayid.length; i++) {
-//            sb.append(arrayid[i]);
-//        }
-//        String str = sb.toString();
-//        System.out.println(str);
-
-//        String [] arrayid  = {idkeranjang};
-
- // target konvert array to string > string to array
-
-
-//        String[] nomor = idkeranjang.split(",");
-//        String[] nomor2 = nomor[1].split("\\.");
-//        String har = "";
-//        for (int i = 0; i < nomor2.length; i++) {
-//            har = har + nomor2[i];
-//        }
-
-
-
-
-//        Toast.makeText(this, "as"+har, Toast.LENGTH_SHORT).show();
-
-
+//        Toast.makeText(this,gas, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this,"idkeranjang "+idK, Toast.LENGTH_SHORT).show();
+        Intent goCheckout = new Intent(this, CheckoutActivity.class);
+//        goCheckout.putExtra("gas", gas);
+        goCheckout.putStringArrayListExtra("yolo", id_keranjang);
+        startActivity(goCheckout);
     }
 
 }
