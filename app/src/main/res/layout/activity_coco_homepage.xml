@@ -171,7 +171,7 @@
 
                         </LinearLayout>
 
-<!--                        produk terpopuler-->
+                        <!--                        produk terpopuler-->
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -288,7 +288,7 @@
                                 android:textSize="13sp" />
                         </LinearLayout>
 
-                        <!--Top Rated Recyclerview-->
+                        <!--terfavorite-->
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recent_recyclerview"
