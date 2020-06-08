@@ -1,7 +1,10 @@
 package com.sholeh.marketplacenj.activities.dashboard;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -16,6 +19,7 @@ import com.sholeh.marketplacenj.model.Model;
 import com.sholeh.marketplacenj.util.ServiceGenerator;
 import com.sholeh.marketplacenj.util.api.APIInterface;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
