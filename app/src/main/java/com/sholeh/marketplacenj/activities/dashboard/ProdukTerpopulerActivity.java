@@ -117,4 +117,33 @@ public class ProdukTerpopulerActivity extends AppCompatActivity {
         this.searchAdapter.setFilter(filter);
     }
 
+    private void produksearch() {
+        searchAdapter = new SearchAdapter(ProdukTerpopulerActivity.this, datapencarian);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(ProdukTerpopulerActivity.this, 2);
+        rv_populer.setLayoutManager(layoutManager);
+        rv_populer.setItemAnimator(new DefaultItemAnimator());
+        rv_populer.setNestedScrollingEnabled(false);
+        rv_populer.setFocusableInTouchMode(false);
+
+
+        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+        Call<List<Model>> call = service.getProduk();
+
+        call.enqueue(new Callback<List<Model>>() {
+            @Override
+            public void onResponse(Call<List<Model>> call, Response<List<Model>> response) {
+
+                datapencarian = response.body();
+                searchAdapter = new SearchAdapter(getBaseContext(), datapencarian);
+                rv_populer.setAdapter(searchAdapter);
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Model>> call, Throwable t) {
+                Toast.makeText(getBaseContext(), String.valueOf(t), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
 }
