@@ -19,14 +19,15 @@ import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.sholeh.marketplacenj.R;
-import com.sholeh.marketplacenj.activities.dashboard.Homepage;
 import com.sholeh.marketplacenj.mfragment.FragmentFavorite;
 import com.sholeh.marketplacenj.mfragment.FragmentNotifikasi;
 import com.sholeh.marketplacenj.mfragment.FragmentProfil;
 import com.sholeh.marketplacenj.mfragment.FragmentTransaksi;
+import com.sholeh.marketplacenj.mfragment.Keranjang.KeranjangFragment;
+import com.sholeh.marketplacenj.mfragment.homepage.HomepageFragment;
 import com.sholeh.marketplacenj.util.Preferences;
 
-public class Utama extends AppCompatActivity implements  BottomAppBar.OnClickListener{
+public class Utama extends AppCompatActivity implements BottomAppBar.OnClickListener {
 
     BottomAppBar bottomNavigation;
 
