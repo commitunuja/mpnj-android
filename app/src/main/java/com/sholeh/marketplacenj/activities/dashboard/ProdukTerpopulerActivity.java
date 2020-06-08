@@ -84,6 +84,7 @@ public class ProdukTerpopulerActivity extends AppCompatActivity {
             }
         });
     }
+
     private void pencariandata() {
 
         search.addTextChangedListener(new TextWatcher() {
@@ -104,4 +105,16 @@ public class ProdukTerpopulerActivity extends AppCompatActivity {
             }
         });
     }
+
+
+    public void filterQuery(String text) {
+        ArrayList<Model> filter = new ArrayList<>();
+        for (Model s : this.datapencarian) {
+            if (s.getNamaProduk().toLowerCase().contains(text) || s.getKeterangan().toLowerCase().contains(text)) {
+                filter.add(s);
+            }
+        }
+        this.searchAdapter.setFilter(filter);
+    }
+
 }
