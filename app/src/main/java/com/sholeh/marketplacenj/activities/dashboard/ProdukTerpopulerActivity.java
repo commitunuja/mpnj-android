@@ -24,10 +24,17 @@ import retrofit2.Response;
 
 public class ProdukTerpopulerActivity extends AppCompatActivity {
 
-    private RecyclerView rv_populer;
-    private SearchAdapter produkAdapter;
-    private List<Model> tvDataProduk;
+     RecyclerView rv_populer, rv_searchproduk;
+     SearchAdapter produkAdapter;
+     List<Model> tvDataProduk;
     private ProgressBar progressBar;
+
+    SearchAdapter searchAdapter;
+    List<Model> datapencarian;
+//    EditText edpencarian;
+
+    EditText search;
+    String status;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +42,13 @@ public class ProdukTerpopulerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_produk_terpopuler);
         rv_populer = (RecyclerView) findViewById(R.id.rv_produkterpopuler);
         progressBar = findViewById(R.id.progressBar);
+
+
+        search = findViewById(R.id.etsearchterpopuler);
+
+
+        produksearch();
+        pencariandata();
 
         produkAdapter = new SearchAdapter(ProdukTerpopulerActivity.this, tvDataProduk);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(ProdukTerpopulerActivity.this, 2);
