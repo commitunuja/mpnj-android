@@ -48,27 +48,32 @@ public class Utama extends AppCompatActivity implements BottomNavigationView.OnN
         setContentView(R.layout.activity_utama);
         toolBarisi = findViewById(R.id.toolbar);
         toolBarisi.setTitle("Akun");
-        setSupportActionBar(toolBarisi);
+//        setSupportActionBar(toolBarisi);
         appBarLayout = findViewById(R.id.appBarToolbar);
         appBarLayout.setVisibility(View.GONE);
         preferences = new Preferences(getApplication());
         id_konsumen = preferences.getIdKonsumen();
 
-        bottomNavigation = findViewById(R.id.navigation_bottombar);
-        bottomNavigation.setOnClickListener(this);
-        nav_home = findViewById(R.id.nav_home);
-        nav_home.setOnClickListener(this);
-        nav_notifikasi = findViewById(R.id.nav_notifikasi);
-        nav_notifikasi.setOnClickListener(this);
-        nav_transaksi = findViewById(R.id.nav_transaksi);
-        nav_transaksi.setOnClickListener(this);
-        nav_profile = findViewById(R.id.nav_profile);
-        nav_profile.setOnClickListener(this);
-        fb_favourite = findViewById(R.id.fab_menu);
-        fb_favourite.setOnClickListener(this);
+        bottomNavigationView = findViewById(R.id.bottom_navigation_view);
 
-        Homepage = new Homepage();
+        bottomNavigationView.setOnNavigationItemSelectedListener(this);
 
+        bottomNavigationView.setSelectedItemId(R.id.navigation_store);
+//        bottomNavigation = findViewById(R.id.navigation_bottombar);
+//        bottomNavigation.setOnClickListener(this);
+//        nav_home = findViewById(R.id.nav_home);
+//        nav_home.setOnClickListener(this);
+//        nav_notifikasi = findViewById(R.id.nav_notifikasi);
+//        nav_notifikasi.setOnClickListener(this);
+//        nav_transaksi = findViewById(R.id.nav_transaksi);
+//        nav_transaksi.setOnClickListener(this);
+//        nav_profile = findViewById(R.id.nav_profile);
+//        nav_profile.setOnClickListener(this);
+//        fb_favourite = findViewById(R.id.fab_menu);
+//        fb_favourite.setOnClickListener(this);
+
+
+        loadFragment(homepageFragment);
         perizinan();
     }
 
