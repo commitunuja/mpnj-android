@@ -1,8 +1,15 @@
 <resources>
 
-    <style name="AppTheme" parent="AppTheme.Base">
-        <!-- All customizations that are NOT specific to a particular APIInterface-level can go here. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorutama</item>
+        <item name="colorPrimaryDark">@color/colorutama</item>
+        <item name="colorAccent">@color/colorAccent</item>
     </style>
+
+<!--    <style name="AppTheme" parent="AppTheme.Base">-->
+<!--        &lt;!&ndash; All customizations that are NOT specific to a particular APIInterface-level can go here. &ndash;&gt;-->
+<!--    </style>-->
 
     <style name="RatingBar" parent="Theme.AppCompat">
         <item name="colorControlNormal">@color/lightgray</item>
