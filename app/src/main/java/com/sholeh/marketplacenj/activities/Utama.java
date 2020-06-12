@@ -114,8 +114,8 @@ public class Utama extends AppCompatActivity implements BottomNavigationView.OnN
 //
 //    }
 
-
-
+//
+//
 //    @Override
 //    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 //        Fragment fragment = null;
@@ -147,64 +147,62 @@ public class Utama extends AppCompatActivity implements BottomNavigationView.OnN
 //        return loadFragment(fragment);
 //    }
 
-    @Override
-    public void onClick(View v) {
-        Fragment fragment = null;
-
-        switch (v.getId()) {
-            case R.id.nav_home:
-                Intent intent = new Intent(this, Homepage.class);
-                startActivity(intent);
-
-                loadFragment(fragment);
-                break;
-            case R.id.nav_notifikasi:
-                fragment =   new FragmentNotifikasi();
-                loadFragment(fragment);
-                break;
-
-            case R.id.fab_menu:
-                fragment =   new FragmentFavorite();
-                loadFragment(fragment);
-                break;
-
-            case R.id.nav_transaksi:
-                fragment =   new FragmentTransaksi();
-                loadFragment(fragment);
-                break;
-
-            case R.id.nav_profile:
-                boolean login = preferences.getSPSudahLogin();
-
-                if (login){
-                    fragment =   new FragmentProfil();
-                    loadFragment(fragment);
-                }else{
-                    startActivity(new Intent(this,LoginActivity.class));
-                    finish();
-                }
-
-
-                break;
-
-
-
-        }
-
-    }
+//    @Override
+//    public void onClick(View v) {
+//        Fragment fragment = null;
+//
+//        switch (v.getId()) {
+//            case R.id.nav_home:
+//                fragment = new HomepageFragment();
+//                loadFragment(fragment);
+//                break;
+//            case R.id.nav_notifikasi:
+//                fragment = new KeranjangFragment();
+//                loadFragment(fragment);
+//                break;
+//
+//            case R.id.fab_menu:
+//                fragment = new FragmentFavorite();
+//                loadFragment(fragment);
+//                break;
+//
+//            case R.id.nav_transaksi:
+//                fragment = new FragmentTransaksi();
+//                loadFragment(fragment);
+//                break;
+//
+//            case R.id.nav_profile:
+//                boolean login = preferences.getSPSudahLogin();
+//
+//                if (login) {
+//                    fragment = new FragmentProfil();
+//                    loadFragment(fragment);
+//                } else {
+//                    startActivity(new Intent(this, LoginActivity.class));
+//                    finish();
+//                }
+//
+//
+//                break;
+//
+//
+//        }
+//        loadFragment(fragment);
+//
+//    }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.main_menu, menu);
+//        return super.onCreateOptionsMenu(menu);
+//    }
 
 
     private boolean loadFragment(Fragment fragment) {
         if (fragment != null) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.content_utama, fragment)
+                    .replace(R.id.container, fragment)
                     .commit();
             return true;
         }
@@ -247,9 +245,46 @@ public class Utama extends AppCompatActivity implements BottomNavigationView.OnN
 
             @Override
             public void run() {
-                doubleBackToExitPressedOnce=false;
+                doubleBackToExitPressedOnce = false;
             }
         }, 2000);
     }
 
+    HomepageFragment homepageFragment = new HomepageFragment();
+
+    KeranjangFragment keranjangFragment = new KeranjangFragment();
+
+    FragmentProfil fragmentProfil = new FragmentProfil();
+
+    FragmentTransaksi fragmentTransaksi = new FragmentTransaksi();
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.navigation_store:
+                getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_out).replace(R.id.container, homepageFragment).commit();
+                return true;
+
+            case R.id.navigation_favourite:
+//                getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_out).replace(R.id.container, keranjangFragment).commit();
+                Toast.makeText(this, "Ini Hanya View", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.navigation_camera:
+//                getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_out).replace(R.id.container, fragmentProfil).commit();
+                Toast.makeText(this, "Ini hanya View", Toast.LENGTH_SHORT).show();
+                return true;
+
+            case R.id.navigation_cart:
+                getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_out).replace(R.id.container, keranjangFragment).commit();
+                return true;
+
+            case R.id.navigation_account:
+                getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_out).replace(R.id.container, fragmentProfil).commit();
+                return true;
+
+        }
+
+        return loadFragment(homepageFragment);
+
+    }
 }
