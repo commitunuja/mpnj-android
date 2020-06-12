@@ -27,8 +27,9 @@
         android:layout_height="match_parent">
 
             <FrameLayout
-                android:id="@+id/content_utama"
+                android:id="@+id/container"
                 android:layout_width="match_parent"
+                app:layout_constraintBottom_toTopOf="@+id/bottom_navigation_view"
                 android:layout_height="match_parent"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
