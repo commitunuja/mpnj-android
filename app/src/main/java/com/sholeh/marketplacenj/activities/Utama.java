@@ -1,15 +1,15 @@
 package com.sholeh.marketplacenj.activities;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
@@ -17,19 +17,19 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomappbar.BottomAppBar;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.sholeh.marketplacenj.R;
-import com.sholeh.marketplacenj.mfragment.FragmentFavorite;
-import com.sholeh.marketplacenj.mfragment.FragmentNotifikasi;
 import com.sholeh.marketplacenj.mfragment.FragmentProfil;
 import com.sholeh.marketplacenj.mfragment.FragmentTransaksi;
 import com.sholeh.marketplacenj.mfragment.Keranjang.KeranjangFragment;
 import com.sholeh.marketplacenj.mfragment.homepage.HomepageFragment;
 import com.sholeh.marketplacenj.util.Preferences;
 
-public class Utama extends AppCompatActivity implements BottomAppBar.OnClickListener {
+public class Utama extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     BottomAppBar bottomNavigation;
+    BottomNavigationView bottomNavigationView;
 
     private ImageView nav_home, nav_notifikasi, nav_transaksi, nav_profile;
     FloatingActionButton fb_favourite;
