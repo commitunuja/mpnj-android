@@ -9,6 +9,10 @@
         android:id="@+id/navigation_favourite"
         android:icon="@drawable/ic_favorite_black_24dp"
         android:title="Favourite" />
+    <item
+        android:id="@+id/navigation_camera"
+        android:icon="@drawable/ic_camera_black_24dp"
+        android:title="Camera" />
 
     <item android:id="@+id/navigation_store"
         android:icon="@drawable/ic_store_black_24dp"
