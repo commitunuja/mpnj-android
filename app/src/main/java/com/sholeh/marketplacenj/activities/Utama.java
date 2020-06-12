@@ -40,7 +40,6 @@ public class Utama extends AppCompatActivity implements BottomNavigationView.OnN
     Preferences preferences;
     String id_konsumen;
     boolean doubleBackToExitPressedOnce = false;
-    private Object Homepage;
 
 
     @Override
