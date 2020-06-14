@@ -16,6 +16,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.viewpager.widget.ViewPager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,10 +83,6 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_profil,container,false);
-
-
-
-
 
         tvx_namaCustomter = rootView.findViewById(R.id.tvCustomerName);
         tvx_username = rootView.findViewById(R.id.tvx_username);
@@ -225,12 +222,14 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
             @Override
             public void onResponse(Call<ResProfil> call, Response<ResProfil> response) {
                 tvDataProfil = response.body();
-              // validasi error null
-                if (tvDataProfil.getData().getFotoProfil() == null){
-                   // Picasso.with(getContext()).load(R.drawable.man).into(imageProfil);
-                }else{
+                Log.d("cekimg", String.valueOf(tvDataProfil));
+              // validasi error null asset foto
+            //    Toast.makeText(getActivity(), ""+tvDataProfil.getPesan(), Toast.LENGTH_SHORT).show();
+//                if (tvDataProfil.getData().getFotoProfil() == null){
+//                   // Picasso.with(getContext()).load(R.drawable.man).into(imageProfil);
+//                }else{
                     Picasso.with(getContext()).load(CONSTANTS.BASE_URL + "assets/foto_profil_konsumen/"+tvDataProfil.getData().getFotoProfil()).into(imageProfil);
-                }
+//                }
 
 //                Glide.with(getActivity()).load(foto).into(imageProfil);
 
