@@ -9,6 +9,8 @@
     <color name="colorAccent">#0EA421</color>
     <color name="colorutama">#0EA421</color>
     <color name="backgroundcolor">#f5f6f7</color>
+
+    <color name="transparentBlack">#96000000</color>
     <color name="green_semi_transparent">#00b517</color>
 
    <!-- detail-->

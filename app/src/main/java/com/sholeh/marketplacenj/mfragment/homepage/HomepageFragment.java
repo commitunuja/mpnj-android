@@ -1,6 +1,8 @@
 package com.sholeh.marketplacenj.mfragment.homepage;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -13,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -20,6 +23,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.activities.dashboard.ProdukTerpopulerActivity;
 import com.sholeh.marketplacenj.activities.dashboard.SearchActivity;
@@ -34,9 +39,11 @@ import com.sholeh.marketplacenj.model.Model;
 import com.sholeh.marketplacenj.model.dashboard.HomeBannerModelClass;
 import com.sholeh.marketplacenj.model.dashboard.HomeCategoryModelClass;
 import com.sholeh.marketplacenj.model.dashboard.TopTenModelClass;
+import com.sholeh.marketplacenj.util.Preferences;
 import com.sholeh.marketplacenj.util.ServiceGenerator;
 import com.sholeh.marketplacenj.util.api.APIInterface;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,6 +52,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class HomepageFragment extends Fragment implements View.OnClickListener {
+
 
     FrameLayout frameLayout;
     EditText search;
@@ -102,29 +110,37 @@ public class HomepageFragment extends Fragment implements View.OnClickListener {
     private String type2[] = {"Phones", "Phones", "Phones", "Phones"};
 
 
+    RecyclerView.LayoutManager dataapi;
+    private String SHARE_PREF = "share_pref";
+    private String TEXT = "text";
+
+    Preferences preferences;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        View rootView = inflater.inflate(R.layout.fragment_homepage, container, false);
         setHasOptionsMenu(true);
+        return inflater.inflate(R.layout.fragment_homepage, container, false);
 
+    }
 
-        produkterpopuler = rootView.findViewById(R.id.tv_produkterpopuler);
-        like_recyclerview = rootView.findViewById(R.id.top_ten_recyclerview);
-        toprate = rootView.findViewById(R.id.rv_toprate);
-        top_ten_crecyclerview = rootView.findViewById(R.id.recent_recyclerview);
-        category_recyclerView = rootView.findViewById(R.id.category_recyclerview);
-        recyclerViewpproduk = rootView.findViewById(R.id.recyclersearch);
-        recyclerView = rootView.findViewById(R.id.recyclerview);
-
-
-        edpencarian = rootView.findViewById(R.id.etsearch);
-        frameLayout = rootView.findViewById(R.id.frag_container);
-        search = rootView.findViewById(R.id.etsearch);
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        produkterpopuler = view.findViewById(R.id.tv_produkterpopuler);
+        like_recyclerview = view.findViewById(R.id.top_ten_recyclerview);
+        toprate = view.findViewById(R.id.rv_toprate);
+        top_ten_crecyclerview = view.findViewById(R.id.recent_recyclerview);
+        category_recyclerView = view.findViewById(R.id.category_recyclerview);
+        recyclerViewpproduk = view.findViewById(R.id.recyclersearch);
+        recyclerView = view.findViewById(R.id.recyclerview);
+        edpencarian = view.findViewById(R.id.etsearch);
+        frameLayout = view.findViewById(R.id.frag_container);
+        search = view.findViewById(R.id.etsearch);
         search.setOnClickListener(this);
         produkterpopuler.setOnClickListener(this);
+
 
         Banner();
         kategori();
@@ -134,21 +150,46 @@ public class HomepageFragment extends Fragment implements View.OnClickListener {
         recentproduk();
         produkapi();
         fiturpencarian();
-
+        LoadData();
         recyclerViewpproduk.setVisibility(View.GONE);
         frameLayout.setVisibility(View.VISIBLE);
-
-        return rootView;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-
+        SaveData();
         frameLayout.requestFocus();
         frameLayout.setVisibility(View.VISIBLE);
         recyclerViewpproduk.setVisibility(View.GONE);
+    }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        recyclerViewpproduk.setAdapter(produkAdapter);
+    }
+
+    public void SaveData() {
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences(SHARE_PREF, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(tvDataProduk);
+        editor.putString("coba", json);
+        editor.apply();
+    }
+
+    public void LoadData() {
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences(SHARE_PREF, Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("coba", null);
+        Type type = new TypeToken<ArrayList<Model>>() {
+        }.getType();
+        tvDataProduk = gson.fromJson(json, type);
+
+        if (tvDataProduk == null) {
+            tvDataProduk = new ArrayList<>();
+        }
     }
 
 
@@ -189,6 +230,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener {
         search.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
             }
 
             @Override
@@ -219,10 +261,11 @@ public class HomepageFragment extends Fragment implements View.OnClickListener {
         }
 
         produkAdapter = new ProdukAdapter(getContext(), tvDataProduk);
-        RecyclerView.LayoutManager LMProdukapi = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        dataapi = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
 
-        toprate.setLayoutManager(LMProdukapi);
+        toprate.setLayoutManager(dataapi);
         toprate.setItemAnimator(new DefaultItemAnimator());
+        toprate.setHasFixedSize(true);
 
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
         Call<List<Model>> call = service.getProduk();
@@ -230,10 +273,13 @@ public class HomepageFragment extends Fragment implements View.OnClickListener {
         call.enqueue(new Callback<List<Model>>() {
             @Override
             public void onResponse(Call<List<Model>> call, Response<List<Model>> response) {
-
-                tvDataProduk = response.body();
-                produkAdapter = new ProdukAdapter(getContext(), tvDataProduk);
-                toprate.setAdapter(produkAdapter);
+                if (response.body() != null && response.isSuccessful()) {
+                    tvDataProduk = response.body();
+                    produkAdapter = new ProdukAdapter(getContext(), tvDataProduk);
+                    toprate.setAdapter(produkAdapter);
+                }else{
+                    Toast.makeText(getContext(), "gagal", Toast.LENGTH_SHORT).show();
+                }
 
             }
 
@@ -440,7 +486,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.etsearch:
-                Intent pencarian = new Intent (getContext(), SearchActivity.class);
+                Intent pencarian = new Intent(getContext(), SearchActivity.class);
                 startActivity(pencarian);
                 break;
         }

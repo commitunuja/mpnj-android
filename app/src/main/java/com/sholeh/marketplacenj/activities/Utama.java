@@ -13,33 +13,36 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
+import com.bumptech.glide.manager.SupportRequestManagerFragment;
 import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.mfragment.FragmentProfil;
-import com.sholeh.marketplacenj.mfragment.FragmentTransaksi;
 import com.sholeh.marketplacenj.mfragment.Keranjang.KeranjangFragment;
 import com.sholeh.marketplacenj.mfragment.homepage.HomepageFragment;
 import com.sholeh.marketplacenj.util.Preferences;
 
 public class Utama extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
-    BottomAppBar bottomNavigation;
+    //    BottomAppBar bottomNavigation;
     BottomNavigationView bottomNavigationView;
 
     private ImageView nav_home, nav_notifikasi, nav_transaksi, nav_profile;
     FloatingActionButton fb_favourite;
 
+    FragmentManager fragmentManager;
     Toolbar toolBarisi;
     AppBarLayout appBarLayout;
-
+    SupportRequestManagerFragment supportRequestManagerFragment;
     Preferences preferences;
     String id_konsumen;
     boolean doubleBackToExitPressedOnce = false;
+    HomepageFragment homepageFragment;
+    KeranjangFragment keranjangFragment;
+    FragmentProfil fragmentProfil;
 
 
     @Override
@@ -54,11 +57,18 @@ public class Utama extends AppCompatActivity implements BottomNavigationView.OnN
         preferences = new Preferences(getApplication());
         id_konsumen = preferences.getIdKonsumen();
 
+        homepageFragment = new HomepageFragment();
+
+        keranjangFragment = new KeranjangFragment();
+
+        fragmentProfil = new FragmentProfil();
+
         bottomNavigationView = findViewById(R.id.bottom_navigation_view);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
 
         bottomNavigationView.setSelectedItemId(R.id.navigation_store);
+
 //        bottomNavigation = findViewById(R.id.navigation_bottombar);
 //        bottomNavigation.setOnClickListener(this);
 //        nav_home = findViewById(R.id.nav_home);
@@ -73,9 +83,10 @@ public class Utama extends AppCompatActivity implements BottomNavigationView.OnN
 //        fb_favourite.setOnClickListener(this);
 
 
-        loadFragment(homepageFragment);
+//        loadFragment(homepageFragment);
         perizinan();
     }
+
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -199,15 +210,15 @@ public class Utama extends AppCompatActivity implements BottomNavigationView.OnN
 //    }
 
 
-    private boolean loadFragment(Fragment fragment) {
-        if (fragment != null) {
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container, fragment)
-                    .commit();
-            return true;
-        }
-        return false;
-    }
+//    private boolean loadFragment(Fragment fragment) {
+//        if (fragment != null) {
+//            getSupportFragmentManager().beginTransaction()
+//                    .replace(R.id.container, fragment)
+//                    .commit();
+//            return true;
+//        }
+//        return false;
+//    }
 
 
     private void perizinan() {
@@ -250,20 +261,21 @@ public class Utama extends AppCompatActivity implements BottomNavigationView.OnN
         }, 2000);
     }
 
-    HomepageFragment homepageFragment = new HomepageFragment();
-
-    KeranjangFragment keranjangFragment = new KeranjangFragment();
-
-    FragmentProfil fragmentProfil = new FragmentProfil();
-
-    FragmentTransaksi fragmentTransaksi = new FragmentTransaksi();
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//        FragmentManager fragmentManager;
         switch (item.getItemId()) {
             case R.id.navigation_store:
-                getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_out).replace(R.id.container, homepageFragment).commit();
-                return true;
+
+
+                if (homepageFragment.isAdded()) {
+                    getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_out).replace(R.id.container, homepageFragment, "fragHome").commit();
+//                    Toast.makeText(getApplicationContext(), "Fragment Added",
+//                            Toast.LENGTH_LONG).show();
+                } else {
+                    getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_out).add(R.id.container, homepageFragment, "fragHome").commit();
+                }
+
 
             case R.id.navigation_favourite:
 //                getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_out).replace(R.id.container, keranjangFragment).commit();
@@ -275,16 +287,31 @@ public class Utama extends AppCompatActivity implements BottomNavigationView.OnN
                 return true;
 
             case R.id.navigation_cart:
-                getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_out).replace(R.id.container, keranjangFragment).commit();
+                if (keranjangFragment.isAdded()) {
+                    getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_out).replace(R.id.container, keranjangFragment, "fragCart").commit();
+//                    Toast.makeText(getApplicationContext(), "Fragment Added",
+//                            Toast.LENGTH_LONG).show();
+                } else {
+                    getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_out).add(R.id.container, keranjangFragment, "fragCart").commit();
+                }
                 return true;
 
             case R.id.navigation_account:
-                getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_out).replace(R.id.container, fragmentProfil).commit();
+                if (fragmentProfil.isAdded()) {
+                    getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_out).replace(R.id.container, fragmentProfil, "fragProf").commit();
+                } else {
+                    getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_out).add(R.id.container, fragmentProfil, "fragProf").commit();
+                }
                 return true;
 
         }
 
-        return loadFragment(homepageFragment);
-
+        return false;
+//
     }
+
+//    private void load(){
+//        bottomNavigationView.setOnNavigationItemSelectedListener(BottomNavigationView.OnNavigationItemSelectedListener);
+//    }
 }
+
