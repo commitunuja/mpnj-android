@@ -89,7 +89,7 @@ public interface APIInterface {
 
 
     //  tampil data profile
-    @GET("api/profil/{id_konsumen}")
+    @GET("api/konsumen/profil/{id_konsumen}")
     Call<ResProfil> getDataProfil(
             @Path("id_konsumen") String idKonsumen
     );
@@ -199,7 +199,6 @@ public interface APIInterface {
             @Path("id_user") String id_user,
             @Field("id_keranjang[]") ArrayList<String> id_keranjang
     );
-
 }
 
 
