@@ -275,7 +275,8 @@ public class Utama extends AppCompatActivity implements BottomNavigationView.OnN
                 return true;
 
             case R.id.navigation_cart:
-                getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_out).replace(R.id.container, keranjangFragment).commit();
+//                getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_out).replace(R.id.container, keranjangFragment).commit();
+                Toast.makeText(this, "Ini hanya View", Toast.LENGTH_SHORT).show();
                 return true;
 
             case R.id.navigation_account:
