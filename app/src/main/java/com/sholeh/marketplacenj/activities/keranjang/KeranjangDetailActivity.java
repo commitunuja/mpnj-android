@@ -457,10 +457,12 @@ public class KeranjangDetailActivity extends AppCompatActivity implements View.O
         }
 //        Toast.makeText(this,gas, Toast.LENGTH_SHORT).show();
 //        Toast.makeText(this,"idkeranjang "+idK, Toast.LENGTH_SHORT).show();
-        Intent goCheckout = new Intent(this, CheckoutActivity.class);
+
 //        goCheckout.putExtra("gas", gas);
-        goCheckout.putStringArrayListExtra("yolo", id_keranjang);
-        startActivity(goCheckout);
+        Toast.makeText(this, ""+idkeranjang, Toast.LENGTH_SHORT).show();
+//        Intent goCheckout = new Intent(this, CheckoutActivity.class);
+//        goCheckout.putStringArrayListExtra("yolo", id_keranjang);
+//        startActivity(goCheckout);
     }
 
 }
