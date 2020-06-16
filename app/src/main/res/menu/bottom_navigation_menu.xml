@@ -4,7 +4,7 @@
     <item
         android:id="@+id/navigation_store"
         android:icon="@drawable/ic_store_black_24dp"
-        android:title="Home" />
+        android:title="Beranda" />
     <item
         android:id="@+id/navigation_favourite"
         android:icon="@drawable/ic_favorite_black_24dp"
@@ -15,8 +15,8 @@
         android:title="Notifikasi" />
     <item
         android:id="@+id/navigation_cart"
-        android:icon="@drawable/ic_shopping_cart_black_24dp"
-        android:title="Keranjang" />
+        android:icon="@drawable/ic_transaksi2"
+        android:title="Transaksi" />
 
 
     <item
