@@ -177,7 +177,7 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
 //                selectImage();
                 break;
 
-            case R.id.tvx_alamat:
+            case R.id.tvAlamat:
                 Intent intent4 = new Intent(getActivity(), AlamatActivity.class);
                 getActivity().startActivity(intent4);
                 Toast.makeText(getActivity(), "klik", Toast.LENGTH_SHORT).show();
