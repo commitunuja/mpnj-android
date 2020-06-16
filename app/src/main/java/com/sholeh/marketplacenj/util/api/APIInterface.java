@@ -5,6 +5,7 @@ import com.sholeh.marketplacenj.model.Kategori;
 import com.sholeh.marketplacenj.model.Model;
 import com.sholeh.marketplacenj.model.city.ItemCity;
 import com.sholeh.marketplacenj.model.province.ItemProvince;
+import com.sholeh.marketplacenj.model.subdistrict.ItemKec;
 import com.sholeh.marketplacenj.respon.ResAlamat;
 import com.sholeh.marketplacenj.respon.ResDetailAlamat;
 import com.sholeh.marketplacenj.respon.ResDetailKeranjang;
@@ -53,14 +54,18 @@ public interface APIInterface {
 
     // Province get from raja ongkir
     @GET("province")
-    @Headers("key:1c082f667d455277ed87334b364c9ac3")
+    @Headers("key:b28063e60be5386c072394b4713aae8d")
     Call<ItemProvince> getProvince();
     //1c082f667d455277ed87334b364c9ac3 panggil di register
 
     // City get from raja ongkir
     @GET("city")
-    @Headers("key:1c082f667d455277ed87334b364c9ac3")
+    @Headers("key:b28063e60be5386c072394b4713aae8d")
     Call<ItemCity> getCity(@Query("province") String province);
+
+    @GET("subdistrict")
+    @Headers("key:b28063e60be5386c072394b4713aae8d")
+    Call<ItemKec> getKec(@Query("city") String city);
 
     // signup konsumen
     @FormUrlEncoded
@@ -103,10 +108,11 @@ public interface APIInterface {
                                   @Field("nama_provinsi") String namaProvinsi,
                                   @Field("city_id") String cityId,
                                   @Field("nama_kota") String namaKota,
+                                  @Field("kecamatan_id") String kecamatanId,
+                                  @Field("nama_kecamatan") String namaKecamatan,
                                   @Field("kode_pos") String kodePos,
                                   @Field("alamat_lengkap") String alamatLengkap,
-                                  @Field("user_id") String userId,
-                                  @Field("user_type") String userType);
+                                  @Field("user_id") String userId);
 
     //  tampil detail alamat
     @GET("api/konsumen/tampil/alamat/{id_alamat}")
@@ -126,11 +132,11 @@ public interface APIInterface {
             @Field("nama_provinsi") String namaProvinsi,
             @Field("city_id") String cityId,
             @Field("nama_kota") String namaKota,
+            @Field("kecamatan_id") String kecamatanId,
+            @Field("nama_kecamatan") String namaKecamatan,
             @Field("kode_pos") String kodePos,
             @Field("alamat_lengkap") String alamatLengkap,
-            @Field("user_id") String userId,
-            @Field("user_type") String userType
-    );
+            @Field("user_id") String userId);
 
     //  delete alamat
     @DELETE("api/konsumen/hapus/alamat/{id_alamat}")

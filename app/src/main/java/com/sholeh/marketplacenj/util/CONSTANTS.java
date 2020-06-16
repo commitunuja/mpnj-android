@@ -8,7 +8,7 @@ public class CONSTANTS {
     public static final String SUB_DOMAIN = "http://seller.belanj.id/assets/foto_produk/";
 //    public static final String BASE_URL="http://192.168.137.154/mpnj/public/"; //rubah dengan IP devicenya
 
-    public static final String URL_RAJAONGKIR = "https://api.rajaongkir.com/starter/";
+    public static final String URL_RAJAONGKIR = "https://pro.rajaongkir.com/api/";
 
     public static final String QUOTE_ID = "QUOTE_ID";
     public static final String CART_ITEM_COUNT = " CART_ITEM_COUNT";
