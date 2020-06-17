@@ -127,16 +127,31 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
         }
 
 
-        final TextView nama_kk, no_pelanggan, idKabPenjual;
+        final TextView nama_kk, no_pelanggan, idKabPenjual,  tvx_OpsiKurir1;
 
         nama_kk = convertView.findViewById(R.id.txtNamaToko);
         no_pelanggan = convertView.findViewById(R.id.txtIdToko);
         idKabPenjual = convertView.findViewById(R.id.txtIdKabPenjual);
+//        tvx_OpsiKurir1 = convertView.findViewById(R.id.tvx_opsiKurir1);
 
         nama_kk.setText(model.getNama_toko());
         no_pelanggan.setText(model.getId_toko());
         idKabPenjual.setText(model.getId_kabToko());
-
+//        tvx_OpsiKurir1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                HeaderCheckout myNewsheader =listHeaderFilter.get(groupPosition);
+//                Context context = v.getContext();
+//                ResDetailKeranjang bs = ((CheckoutActivity) context).getbs();
+//                String idKabPenjual = bs.getDataKeranjang().get(groupPosition).getIdKabupaten();
+//                String idKecPembeli = bs.getPembeli().getIdKecamatan();
+//                Intent intent= new Intent(context, OpsiPengirimanActivity.class);
+//                intent.putExtra("idkab_toko", String.valueOf(idKabPenjual));
+//                intent.putExtra("idkec_pembeli", String.valueOf(idKecPembeli));
+//                context.startActivity(intent);
+////                Toast.makeText(context, ""+groupPosition+" "+childPosition, Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
 
         return convertView;
@@ -164,7 +179,8 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
         tvx_totharga = convertView.findViewById(R.id.tvx_hargajum);
         tvx_hargaDiskon = convertView.findViewById(R.id.tvxHrgaDiskon);
         tvx_jumlahproduk = convertView.findViewById(R.id.tvxJumlahProduk);
-//        tvx_OpsiKurir1 = convertView.findViewById(R.id.tvx_opsiKurir1);
+        tvx_OpsiKurir1 = convertView.findViewById(R.id.tvx_opsiKurir1);
+
         img_gambar = convertView.findViewById(R.id.img_gambarkeranjang);
 
 
@@ -210,21 +226,23 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
             tvx_harga.setText(harganya);
             tvx_totharga.setText(harganya);
         }
-//        tvx_OpsiKurir1.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                HeaderCheckout myNewsheader =listHeaderFilter.get(groupPosition);
-//                Context context = v.getContext();
-//                ResDetailKeranjang bs = ((CheckoutActivity) context).getbs();
-//                String idKabPenjual = bs.getDataKeranjang().get(groupPosition).getIdKabupaten();
-//                String idKecPembeli = bs.getPembeli().getIdKecamatan();
-////                Intent intent= new Intent(context, OpsiPengirimanActivity.class);
-////                intent.putExtra("idkab_toko", String.valueOf(idKabPenjual));
-////                intent.putExtra("idkec_pembeli", String.valueOf(idKecPembeli));
-////                context.startActivity(intent);
+
+        tvx_OpsiKurir1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HeaderCheckout myNewsheader =listHeaderFilter.get(groupPosition);
+                Context context = v.getContext();
+                ResDetailKeranjang bs = ((CheckoutActivity) context).getbs();
+                String idKabPenjual = bs.getDataKeranjang().get(groupPosition).getIdKabupaten();
+                String idKecPembeli = bs.getPembeli().getIdKecamatan();
+                Intent intent= new Intent(context, OpsiPengirimanActivity.class);
+                intent.putExtra("idkab_toko", String.valueOf(idKabPenjual));
+                intent.putExtra("idkec_pembeli", String.valueOf(idKecPembeli));
+                context.startActivity(intent);
 //                Toast.makeText(context, ""+groupPosition+" "+childPosition, Toast.LENGTH_SHORT).show();
-//            }
-//        });
+            }
+        });
+
         getTotal();
 
         return convertView;
@@ -268,8 +286,6 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
         Intent intent = new Intent("custom-message");
         intent.putExtra("total", String.valueOf(totalHarga));
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
-
-//
 
     }
 }
