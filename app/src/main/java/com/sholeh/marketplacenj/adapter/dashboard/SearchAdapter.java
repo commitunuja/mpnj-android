@@ -24,6 +24,7 @@ import java.util.List;
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder> {
     private Context context;
     private List<Model> datapencarian;
+//    List<Model> datapencarian2;
     private Model modelpencarian;
 
 
