@@ -14,28 +14,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sholeh.marketplacenj.R;
-import com.sholeh.marketplacenj.activities.AddAlamat;
 import com.sholeh.marketplacenj.activities.AlamatActivity;
-import com.sholeh.marketplacenj.activities.DetailAlamat;
-import com.sholeh.marketplacenj.activities.keranjang.KeranjangDetailActivity;
-import com.sholeh.marketplacenj.activities.transaksi.MetodePembayaranActivity;
 import com.sholeh.marketplacenj.adapter.checkout.ExpandAdapterCheckout;
-import com.sholeh.marketplacenj.adapter.keranjang.ExpandListScanAdapter;
 import com.sholeh.marketplacenj.model.checkout.ChildCheckout;
 import com.sholeh.marketplacenj.model.checkout.HeaderCheckout;
 import com.sholeh.marketplacenj.model.cost.Rajaongkir;
-import com.sholeh.marketplacenj.model.keranjang.ChildModel;
-import com.sholeh.marketplacenj.model.keranjang.HeaderModel;
 import com.sholeh.marketplacenj.respon.DataKeranjang;
 import com.sholeh.marketplacenj.respon.ItemKeranjang;
 import com.sholeh.marketplacenj.respon.ResDetailKeranjang;
-import com.sholeh.marketplacenj.respon.ResProfil;
-import com.sholeh.marketplacenj.util.AppUtilits;
-import com.sholeh.marketplacenj.util.CONSTANTS;
 import com.sholeh.marketplacenj.util.Preferences;
 import com.sholeh.marketplacenj.util.ServiceGenerator;
 import com.sholeh.marketplacenj.util.api.APIInterface;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,7 +32,6 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Response;
 
 public class CheckoutActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -64,7 +52,8 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
 
     public String getidKec;
     private Intent i;
-
+//    List<ResDetailKeranjang> resDetailKeranjangs;
+    ResDetailKeranjang resDetailKeranjang;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,15 +82,15 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
 //        tvxPilihBank.setOnClickListener(this);
         getDetailKeranjang();
 
-        i = getIntent();
-        getidKec = tvx_idKecPembeli.getText().toString();
-        i.putExtra("idkecamatan", getidKec);
+//        i = getIntent();
+//        getidKec = tvx_idKecPembeli.getText().toString();
+//        i.putExtra("idkecamatan", getidKec);
 
 
     }
 
-    public String getbs(){
-        return getidKec;
+    public ResDetailKeranjang getbs(){
+        return resDetailKeranjang;
     }
 
 
@@ -175,6 +164,7 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
                         listHeader.clear();
                         listChild.clear();
                         List<DataKeranjang> array = response.body().getDataKeranjang();
+                        resDetailKeranjang = response.body();
 
                         for (int i = 0; i < array.size(); i++) {
                             listHeader.add(new HeaderCheckout(
