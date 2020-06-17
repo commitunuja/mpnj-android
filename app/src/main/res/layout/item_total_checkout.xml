@@ -7,7 +7,7 @@
     android:background="@color/white"
     android:orientation="vertical"
    >
-    <include layout="@layout/item_pembayaran"/>
+
     <include layout="@layout/item_subtotal"/>
 
 

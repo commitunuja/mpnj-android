@@ -123,6 +123,7 @@
 
 
             <customfonts.MyTextView_Roboto_Medium
+                android:id="@+id/tvx_opsiKurir1"
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:layout_width="wrap_content"

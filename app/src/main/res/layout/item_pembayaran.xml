@@ -34,7 +34,7 @@
 
                 <customfonts.MyTextView_Roboto_Regular
                     android:layout_weight="1"
-                    android:id="@+id/tv_password"
+                    android:id="@+id/tv_pilihbank"
                     android:textSize="13sp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
