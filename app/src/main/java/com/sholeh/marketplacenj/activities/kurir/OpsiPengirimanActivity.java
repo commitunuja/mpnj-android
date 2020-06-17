@@ -2,11 +2,16 @@ package com.sholeh.marketplacenj.activities.kurir;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ProgressBar;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -36,7 +41,8 @@ public class OpsiPengirimanActivity extends AppCompatActivity {
     Spinner spinPilihKurir;
     List<String> spinnerKurir =  new ArrayList<String>();
 
-
+    RadioGroup radioGroupKurir;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +50,15 @@ public class OpsiPengirimanActivity extends AppCompatActivity {
         setContentView(R.layout.activity_opsi_pengiriman);
 
         spinnerKurir.add("JNE");
-        spinnerKurir.add("J&T");
+        spinnerKurir.add("JNT");
+        spinnerKurir.add("POS");
+        spinnerKurir.add("TIKI");
+        spinnerKurir.add("SICEPAT");
+        spinnerKurir.add("NINJA");
+
+        progressBar = findViewById(R.id.progressBar1);
+
+        radioGroupKurir = findViewById(R.id.kurir);
 
 //        vid_produk = getIntent().getStringExtra("id_produk");
 
@@ -58,16 +72,10 @@ public class OpsiPengirimanActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-              hitungOngkir();
-//                if (spinProvinsi.getSelectedItem().equals("Pilih Provinsi")) {
-//
-//
-//                } else {
-//                    getCity(listID_prov.get(position));
-//                    namaProvinsi = spinProvinsi.getSelectedItem().toString();
-//
-//
-//                }
+                progressBar.setVisibility(View.VISIBLE);
+                radioGroupKurir.removeAllViews();
+                String kurir = spinPilihKurir.getSelectedItem().toString().toLowerCase();
+                hitungOngkir(kurir);
             }
 
 
@@ -81,25 +89,30 @@ public class OpsiPengirimanActivity extends AppCompatActivity {
 
     }
 
-    public void hitungOngkir(){
+    public void hitungOngkir(String kurir){
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(CONSTANTS.URL_RAJAONGKIR)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         APIInterface service = retrofit.create(APIInterface.class);
-        Call<ItemCost> callOngkir= service.hitungOngkir("501","city","574","subdistrict",1700,"jne");
+        Call<ItemCost> callOngkir= service.hitungOngkir("501","city","574","subdistrict",1700,kurir);
         callOngkir.enqueue(new Callback<ItemCost>() {
             @Override
             public void onResponse(Call<ItemCost> call, Response<ItemCost> response) {
 
-                Log.d("ongkirr", String.valueOf(response));
+                for(int i =0; i < response.body().getRajaongkir().getResults().get(0).getCosts().size();i++)
+                {
+                    RadioButton radioButtonView = new RadioButton(OpsiPengirimanActivity.this);
+                    radioButtonView.setText(
+                            response.body().getRajaongkir().getResults().get(0).getCosts().get(i).getService() + " - " +
+                            response.body().getRajaongkir().getResults().get(0).getCosts().get(i).getCost().get(0).getValue() + " - " +
+                                    response.body().getRajaongkir().getResults().get(0).getCosts().get(i).getCost().get(0).getEtd() + " hari");
+                    radioGroupKurir.addView(radioButtonView);
+                }
 
+                progressBar.setVisibility(View.GONE);
 
-
-//                    Toast.makeText(OpsiPengirimanActivity.this, "rr"+response.body().getPesan(), Toast.LENGTH_SHORT).show();
-
-//                        AppUtilits.displayMessage(RegisterActivity.this,   getString(R.string.failed_request));
 
             }
 
@@ -114,50 +127,4 @@ public class OpsiPengirimanActivity extends AppCompatActivity {
         });
     }
 
-
-
-//    public void getProvince() {
-//        Retrofit retrofit = new Retrofit.Builder()
-//                .baseUrl(CONSTANTS.URL_RAJAONGKIR)
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .build();
-//
-//        APIInterface service = retrofit.create(APIInterface.class);
-//        Call<ItemProvince> call = service.getProvince();
-//
-//        call.enqueue(new Callback<ItemProvince>() {
-//            @Override
-//            public void onResponse(Call<ItemProvince> call, Response<ItemProvince> response) {
-//
-//                Log.v("wow", "json : " + new Gson().toJson(response));
-//
-//                if (response.isSuccessful()) {
-//
-//                    int count_data = response.body().getRajaongkir().getResults().size();
-//                    for (int a = 0; a <= count_data - 1; a++) {
-//
-//                        arrayProv.add(response.body().getRajaongkir().getResults().get(a).getProvince());
-//                        listID_prov.add(response.body().getRajaongkir().getResults().get(a).getProvinceId());
-//
-//
-//                    }
-//                    adapterspinner = new adapterspin(AddAlamat.this, R.layout.support_simple_spinner_dropdown_item);
-//                    adapterspinner.addAll(arrayProv);
-//                    adapterspinner.add("Pilih Provinsi");
-//                    spinProvinsi.setAdapter(adapterspinner);
-//                    spinProvinsi.setSelection(adapterspinner.getCount());
-//                } else {
-//                    String error = "Error Retrive DataProfil from Server !!!";
-//                    Toast.makeText(AddAlamat.this, error, Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ItemProvince> call, Throwable t) {
-//
-//                Toast.makeText(AddAlamat.this, "Message : Error " + t.getMessage(), Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//
-//    }
 }
