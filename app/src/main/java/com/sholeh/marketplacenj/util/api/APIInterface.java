@@ -221,6 +221,10 @@ public interface APIInterface {
             @Path("id_user") String id_user,
             @Field("id_keranjang[]") List<String> id_keranjang
     );
+
+    @FormUrlEncoded
+    @PUT("api/transaksi/batal")
+    Call<JsonObject> batalCheckout(@Field("user_id") String user_id);
 }
 
 
