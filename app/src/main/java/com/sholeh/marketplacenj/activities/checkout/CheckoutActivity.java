@@ -2,9 +2,14 @@ package com.sholeh.marketplacenj.activities.checkout;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -26,16 +31,19 @@ import com.sholeh.marketplacenj.util.Preferences;
 import com.sholeh.marketplacenj.util.ServiceGenerator;
 import com.sholeh.marketplacenj.util.api.APIInterface;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.StringTokenizer;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 
 public class CheckoutActivity extends AppCompatActivity implements View.OnClickListener {
 
-    TextView tvxtolbar, tvxUbahAlamat, tvxSetAlamat, tvxPilihBank, tvx_idKecPembeli;
+    TextView tvxtolbar, tvxUbahAlamat, tvxSetAlamat, tvxPilihBank, tvx_idKecPembeli, tvxtotalCheckout;
     Preferences preferences;
     String id_konsumen;
     private List<HeaderCheckout> listHeader;
@@ -46,6 +54,10 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
     private ExpandAdapterCheckout expanAdapter;
     ImageView imgBack;
 
+    private double hargaTotal;
+    Locale localeID = new Locale("in", "ID");
+    NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
+    StringTokenizer st;
     ArrayList<String> arrayIdKeranjang;
 
     private Rajaongkir rajaongkircost;
@@ -65,6 +77,7 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
         tvxUbahAlamat = findViewById(R.id.tvxubahAlamat);
         tvxSetAlamat = findViewById(R.id.tvx_setAlamat);
         imgBack = findViewById(R.id.imgBackKeranjang);
+        tvxtotalCheckout = findViewById(R.id.totalchechkout);
         tvx_idKecPembeli = findViewById(R.id.tvx_idKecPembeli);
 //        tvxPilihBank = findViewById(R.id.tv_pilihbank);
         tvxtolbar.setText("Checkout");
@@ -86,6 +99,8 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
 //        getidKec = tvx_idKecPembeli.getText().toString();
 //        i.putExtra("idkecamatan", getidKec);
 
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
+                new IntentFilter("custom-message")) ;
 
     }
 
@@ -220,6 +235,25 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
 //        }
     }
 
+
+    public BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String qty = intent.getStringExtra("total");
+            hargaTotal = Double.parseDouble(qty);
+            st = new StringTokenizer(formatRupiah.format(hargaTotal), ",");
+            String harganya = st.nextToken().trim();
+            tvxtotalCheckout.setText(harganya);
+//
+//            if (harganya.equalsIgnoreCase("Rp0")) {
+//                Drawable d = getResources().getDrawable(R.drawable.button_rect_transparant);
+//                tvx_checkout.setBackground(d);
+//            } else {
+//                Drawable d = getResources().getDrawable(R.drawable.button_rect);
+//                tvx_checkout.setBackground(d);
+//            }
+        }
+    };
 
 
 }
