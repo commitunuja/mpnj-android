@@ -8,6 +8,7 @@ import com.sholeh.marketplacenj.model.cost.ItemCost;
 import com.sholeh.marketplacenj.model.province.ItemProvince;
 import com.sholeh.marketplacenj.model.subdistrict.ItemKec;
 import com.sholeh.marketplacenj.respon.ResAlamat;
+import com.sholeh.marketplacenj.respon.ResCheckout;
 import com.sholeh.marketplacenj.respon.ResDetailAlamat;
 import com.sholeh.marketplacenj.respon.ResDetailKeranjang;
 import com.sholeh.marketplacenj.respon.ResHapusKeranjang;
@@ -221,6 +222,16 @@ public interface APIInterface {
             @Path("id_user") String id_user,
             @Field("id_keranjang[]") List<String> id_keranjang
     );
+
+
+    @FormUrlEncoded
+    @PUT("api/transaksi/batal/")
+    Call<ResCheckout> batalCheckout(
+            @Field("user_id") String userId
+    );
+
+
+
 }
 
 

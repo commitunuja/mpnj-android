@@ -411,7 +411,7 @@ public class KeranjangDetailActivity extends AppCompatActivity implements View.O
                 //  Log.e(TAG, "  ss sixe 1 ");
                 if (response.body() != null && response.isSuccessful()) {
                     if (response.body().getDataKeranjang().size() > 0) {
-                        Toast.makeText(KeranjangDetailActivity.this, "Berhasil", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(KeranjangDetailActivity.this, "Berhasil", Toast.LENGTH_SHORT).show();
                     } else {
 //                        AppUtilits.displayMessage(KeranjangDetailActivity.this, getString(R.string.network_error));
                     }

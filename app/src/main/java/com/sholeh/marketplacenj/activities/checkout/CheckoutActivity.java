@@ -17,6 +17,7 @@ import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.activities.AddAlamat;
 import com.sholeh.marketplacenj.activities.AlamatActivity;
 import com.sholeh.marketplacenj.activities.DetailAlamat;
+import com.sholeh.marketplacenj.activities.UbahPassword;
 import com.sholeh.marketplacenj.activities.keranjang.KeranjangDetailActivity;
 import com.sholeh.marketplacenj.activities.transaksi.MetodePembayaranActivity;
 import com.sholeh.marketplacenj.adapter.checkout.ExpandAdapterCheckout;
@@ -28,7 +29,9 @@ import com.sholeh.marketplacenj.model.keranjang.ChildModel;
 import com.sholeh.marketplacenj.model.keranjang.HeaderModel;
 import com.sholeh.marketplacenj.respon.DataKeranjang;
 import com.sholeh.marketplacenj.respon.ItemKeranjang;
+import com.sholeh.marketplacenj.respon.ResCheckout;
 import com.sholeh.marketplacenj.respon.ResDetailKeranjang;
+import com.sholeh.marketplacenj.respon.ResNewPassword;
 import com.sholeh.marketplacenj.respon.ResProfil;
 import com.sholeh.marketplacenj.util.AppUtilits;
 import com.sholeh.marketplacenj.util.CONSTANTS;
@@ -113,7 +116,6 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
                 break;
 
             case R.id.imgBackKeranjang:
-                onBack();
                 break;
 
 //            case R.id.tv_pilihbank:
@@ -133,17 +135,20 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
     public void onBack(){
         new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Exit")
                 .setMessage("Apakah Anda yakin ingin membatalkan checkout?")
-                .setPositiveButton("Iya", new DialogInterface.OnClickListener() {
+                .setPositiveButton("IYA", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        batalCheckout();
 
 //                        Intent intent = new Intent(Intent.ACTION_MAIN);
 //                        intent.addCategory(Intent.CATEGORY_HOME);
 //                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //                        startActivity(intent);
-                        finish();
+//                        finish();
+
+
                     }
-                }).setNegativeButton("Tidak", null).show();
+                }).setNegativeButton("TIDAK", null).show();
     }
 
 
@@ -157,7 +162,7 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
         call.enqueue(new Callback<ResDetailKeranjang>() {
             @Override
             public void onResponse(Call<ResDetailKeranjang> call, retrofit2.Response<ResDetailKeranjang> response) {
-                Log.d("cekkk", String.valueOf(response));
+
 
 //                String destination = rajaongkir.getQuery().getDestination();
 //                Toast.makeText(this, ""+destination, Toast.LENGTH_SHORT).show();
@@ -227,9 +232,54 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
                 Log.d("cekkk", String.valueOf(t));
             }
         });
+
+
 //        }
     }
 
+    public void batalCheckout(){
+        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+        Call<ResCheckout> call = service.batalCheckout(id_konsumen);
 
 
+        Toast.makeText(this, "nsdh", Toast.LENGTH_SHORT).show();
+        call.enqueue(new Callback<ResCheckout>() {
+            @Override
+            public void onResponse(Call<ResCheckout> call, Response<ResCheckout> response) {
+
+                Log.d("batal", String.valueOf(response));
+
+
+//                if (response.body()!= null && response.isSuccessful()){ // true
+//
+//                    if (response.body().getPesan().equalsIgnoreCase("Berhasil Diganti")){
+//
+//////
+//                        Toast.makeText(UbahPassword.this, "Password Berhasil di Rubah", Toast.LENGTH_LONG).show();
+//                        finish();
+//////
+//////
+//                    }else {
+//                        Toast.makeText(UbahPassword.this, "Password Sekarang Salah", Toast.LENGTH_LONG).show();
+//
+////                            AppUtilits.displayMessage(UbahPassword.this,  response.body().getPesan());
+//                    }
+//                }else {
+//                    Toast.makeText(UbahPassword.this, "Password Gagal di Rubahh"+response.body(), Toast.LENGTH_LONG).show();
+//
+////                        AppUtilits.displayMessage(UbahPassword.this,  getString(R.string.failed_request));
+//
+//
+//                }
+            }
+
+            @Override
+            public void onFailure(Call<ResCheckout> call, Throwable t) {
+                Toast.makeText(CheckoutActivity.this, "Gagal"+t, Toast.LENGTH_LONG).show();
+                  Log.e("gagal",  t.toString());
+//                    AppUtilits.displayMessage(UbahPassword.this,  getString(R.string.failed_request));
+            }
+        });
+
+    }
 }
