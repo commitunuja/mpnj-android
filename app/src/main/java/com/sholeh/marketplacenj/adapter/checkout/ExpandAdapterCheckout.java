@@ -128,16 +128,31 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
         }
 
 
-        final TextView nama_kk, no_pelanggan, idKabPenjual;
+        final TextView nama_kk, no_pelanggan, idKabPenjual,  tvx_OpsiKurir1;
 
         nama_kk = convertView.findViewById(R.id.txtNamaToko);
         no_pelanggan = convertView.findViewById(R.id.txtIdToko);
         idKabPenjual = convertView.findViewById(R.id.txtIdKabPenjual);
+//        tvx_OpsiKurir1 = convertView.findViewById(R.id.tvx_opsiKurir1);
 
         nama_kk.setText(model.getNama_toko());
         no_pelanggan.setText(model.getId_toko());
         idKabPenjual.setText(model.getId_kabToko());
-
+//        tvx_OpsiKurir1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                HeaderCheckout myNewsheader =listHeaderFilter.get(groupPosition);
+//                Context context = v.getContext();
+//                ResDetailKeranjang bs = ((CheckoutActivity) context).getbs();
+//                String idKabPenjual = bs.getDataKeranjang().get(groupPosition).getIdKabupaten();
+//                String idKecPembeli = bs.getPembeli().getIdKecamatan();
+//                Intent intent= new Intent(context, OpsiPengirimanActivity.class);
+//                intent.putExtra("idkab_toko", String.valueOf(idKabPenjual));
+//                intent.putExtra("idkec_pembeli", String.valueOf(idKecPembeli));
+//                context.startActivity(intent);
+////                Toast.makeText(context, ""+groupPosition+" "+childPosition, Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
 
         return convertView;
@@ -145,7 +160,7 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
 
 
     @Override
-    public View getChildView(final int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+    public View getChildView(final int groupPosition, final int childPosition, final boolean isLastChild, View convertView, final ViewGroup parent) {
         Log.d("sholeh", listHeaderFilter.get(groupPosition).getId_toko());
 
         preferences = new Preferences(context);
@@ -166,6 +181,7 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
         tvx_hargaDiskon = convertView.findViewById(R.id.tvxHrgaDiskon);
         tvx_jumlahproduk = convertView.findViewById(R.id.tvxJumlahProduk);
         tvx_OpsiKurir1 = convertView.findViewById(R.id.tvx_opsiKurir1);
+
         img_gambar = convertView.findViewById(R.id.img_gambarkeranjang);
 
 
@@ -207,22 +223,25 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
             tvx_harga.setText(harganya);
             tvx_totharga.setText(harganya);
         }
+
         tvx_OpsiKurir1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 HeaderCheckout myNewsheader =listHeaderFilter.get(groupPosition);
                 Context context = v.getContext();
                 ResDetailKeranjang bs = ((CheckoutActivity) context).getbs();
+
+                String idKabPenjual = bs.getDataKeranjang().get(groupPosition).getIdKabupaten();
+                String idKecPembeli = bs.getPembeli().getIdKecamatan();
+
                 Intent intent= new Intent(context, OpsiPengirimanActivity.class);
+                intent.putExtra("idkab_toko", String.valueOf(idKabPenjual));
+                intent.putExtra("idkec_pembeli", String.valueOf(idKecPembeli));
                 context.startActivity(intent);
-//                intent.putExtra("id_kabupatenToko", String.valueOf(myNewsheader.getId_kabToko()));
-//                Toast.makeText(context, "idkec "+bs.getDataKeranjang().get(groupPosition).getIdKabupaten(), Toast.LENGTH_SHORT).show();
-
-
-//                intent.putExtra("id_kabupaten", )
-//
             }
         });
+
+        getTotal();
 
         return convertView;
     }
@@ -235,14 +254,9 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
 
     public void getTotal() {
         jumlahProduk = 0; //totalCount
-        totalHarga = 0;
-        String idK = null;
-//        List<String> list;
-        Bundle extras = new Bundle();
+        totalHarga = 0;;
         ArrayList<String> myArray = new ArrayList<>();
-        String sum = null;
         String  getid = null;
-        String[] words = new String[0];
 
         for (int i = 0; i < listHeaderFilter.size(); i++) {
             List<ChildCheckout> childMapList = listChild.get(listHeaderFilter.get(i));
@@ -254,62 +268,12 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
                 double diskonHarga = childModel.getDiskon();
                 double h = diskonHarga / 100 * Harga;
                 double p = Harga - h;
-                getid = childModel.getId_keranjang();
+                totalHarga += p * jumlah;
 
 
-
-//                    list = new ArrayList<String>();
-//                    list.add(getid);
-                    myArray.add(String.valueOf(getid));
-
-//                    String line = getid+" ";
-//                    //using String split function
-//                    words = line.split(" ");
-//                    System.out.println(Arrays.toString(words));
-//                    //using java.util.regex Pattern
-//                    Pattern pattern = Pattern.compile(" ");
-//                    words = pattern.split(line);
-//                    Toast.makeText(context, ""+Arrays.toString(words), Toast.LENGTH_SHORT).show();
-
-
-
-//                    Log.d("array", String.valueOf(myArray));
-//                    Toast.makeText(context, ""+list, Toast.LENGTH_SHORT).show();
-
-
-
-//                    int []id_keranjang = {Integer.parseInt(getid)};
-//                    Toast.makeText(context, "g"+id_keranjang.length, Toast.LENGTH_SHORT).show();
-//
-
-
-//                    for (int a =0; a < myArray.size(); a++){
-////                        idK = id_keranjang[a];
-//                        sum = String.valueOf(myArray.get(i));
-////                        Toast.makeText(context, ""+sum, Toast.LENGTH_SHORT).show();
-//
-//                    }
-
-//                    Toast.makeText(context, "f"+getid, Toast.LENGTH_SHORT).show();
-//                    Log.d("idkeranjang", idK);
-//                    Intent intent = new Intent("custom-idk");
-//                    intent.putExtra("array-idkeranjang", String.valueOf(idK));
-
-
-//
-//                    Toast.makeText(context, "s"+sum, Toast.LENGTH_SHORT).show();
-//
-//                    Intent in = new Intent("custom-idk");
-////                    intent.putExtra("idkeranjang",String.valueOf(sum+",")) ;
-//                    in.putExtra("idkeranjang",String.valueOf(getid)) ;
-//                    LocalBroadcastManager.getInstance(context).sendBroadcast(in);
-
-//                    Toast.makeText(context, ""+myArray.size(), Toast.LENGTH_SHORT).show();
-//                    Log.d("array", String.valueOf(sum));
-
-
-
-
+//                Intent intent = new Intent("custom-message");
+//                intent.putExtra("total", String.valueOf(p));
+//                LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
 
 
 
@@ -317,22 +281,9 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
 
             }
         }
-//        Intent intent = new Intent("custom-message");
-//        intent.putExtra("total", String.valueOf(totalHarga));
-//        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
-//
-////        Toast.makeText(context, "m"+myArray, Toast.LENGTH_SHORT).show();
-////        Log.d("array", String.valueOf(myArray));
-//
-//        Intent i = new Intent("custom-idk");
-//
-////        i.putExtra("idkeranjang",String.valueOf(myArray)) ;
-//        i.putExtra("idkeranjang",String.valueOf(myArray)) ;
-//        LocalBroadcastManager.getInstance(context).sendBroadcast(i);
-////        Toast.makeText(context, ""+String.valueOf(myArray), Toast.LENGTH_SHORT).show();
-//
-//
-
+        Intent intent = new Intent("custom-message");
+        intent.putExtra("total", String.valueOf(totalHarga));
+        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
 
     }
 }
