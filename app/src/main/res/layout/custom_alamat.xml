@@ -68,7 +68,6 @@
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:visibility="gone"
                 android:id="@+id/tvx_kec"
                 android:layout_below="@+id/tvx_alamat"
                 android:text="Kec. Paiton"

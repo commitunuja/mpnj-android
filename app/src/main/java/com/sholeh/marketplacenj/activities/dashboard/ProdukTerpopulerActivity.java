@@ -1,7 +1,10 @@
 package com.sholeh.marketplacenj.activities.dashboard;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -16,6 +19,7 @@ import com.sholeh.marketplacenj.model.Model;
 import com.sholeh.marketplacenj.util.ServiceGenerator;
 import com.sholeh.marketplacenj.util.api.APIInterface;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -24,10 +28,17 @@ import retrofit2.Response;
 
 public class ProdukTerpopulerActivity extends AppCompatActivity {
 
-    private RecyclerView rv_populer;
-    private SearchAdapter produkAdapter;
-    private List<Model> tvDataProduk;
+     RecyclerView rv_populer, rv_searchproduk;
+     SearchAdapter produkAdapter;
+     List<Model> tvDataProduk;
     private ProgressBar progressBar;
+
+    SearchAdapter searchAdapter;
+    List<Model> datapencarian;
+//    EditText edpencarian;
+
+    EditText search;
+    String status;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +46,13 @@ public class ProdukTerpopulerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_produk_terpopuler);
         rv_populer = (RecyclerView) findViewById(R.id.rv_produkterpopuler);
         progressBar = findViewById(R.id.progressBar);
+
+
+        search = findViewById(R.id.etsearchterpopuler);
+
+
+        produksearch();
+        pencariandata();
 
         produkAdapter = new SearchAdapter(ProdukTerpopulerActivity.this, tvDataProduk);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(ProdukTerpopulerActivity.this, 2);
@@ -66,4 +84,66 @@ public class ProdukTerpopulerActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void pencariandata() {
+
+        search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+//                rv_populer.setVisibility(View.VISIBLE);
+                ProdukTerpopulerActivity.this.filterQuery(s.toString());
+                status = "yes";
+
+            }
+        });
+    }
+
+
+    public void filterQuery(String text) {
+        ArrayList<Model> filter = new ArrayList<>();
+        for (Model s : this.datapencarian) {
+            if (s.getNamaProduk().toLowerCase().contains(text) || s.getKeterangan().toLowerCase().contains(text)) {
+                filter.add(s);
+            }
+        }
+        this.searchAdapter.setFilter(filter);
+    }
+
+    private void produksearch() {
+        searchAdapter = new SearchAdapter(ProdukTerpopulerActivity.this, datapencarian);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(ProdukTerpopulerActivity.this, 2);
+        rv_populer.setLayoutManager(layoutManager);
+        rv_populer.setItemAnimator(new DefaultItemAnimator());
+        rv_populer.setNestedScrollingEnabled(false);
+        rv_populer.setFocusableInTouchMode(false);
+
+
+        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+        Call<List<Model>> call = service.getProduk();
+
+        call.enqueue(new Callback<List<Model>>() {
+            @Override
+            public void onResponse(Call<List<Model>> call, Response<List<Model>> response) {
+
+                datapencarian = response.body();
+                searchAdapter = new SearchAdapter(getBaseContext(), datapencarian);
+                rv_populer.setAdapter(searchAdapter);
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Model>> call, Throwable t) {
+                Toast.makeText(getBaseContext(), String.valueOf(t), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
 }

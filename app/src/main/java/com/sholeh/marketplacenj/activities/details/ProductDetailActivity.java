@@ -244,6 +244,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
     }
 
     public void getProdukId() {
+
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
         Call<JsonObject> call = service.getProdukId(vid_produk);
 
@@ -492,11 +493,11 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                             AppUtilits.displayMessage(ProductDetailActivity.this, getString(R.string.add_to_cart));
 
                         } else {
-//                        Toast.makeText(ProductDetailActivity.this, "r"+response.body().getPesan(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ProductDetailActivity.this, "r"+response.body().getPesan(), Toast.LENGTH_SHORT).show();
 //                            AppUtilits.displayMessage(RegisterActivity.this,  response.body().getPesan());
                         }
                     } else {
-//                    Toast.makeText(ProductDetailActivity.this, "rr"+response.body().getPesan(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ProductDetailActivity.this, "rr"+response.body().getPesan(), Toast.LENGTH_SHORT).show();
 
 //                        AppUtilits.displayMessage(RegisterActivity.this,   getString(R.string.failed_request));
                     }
