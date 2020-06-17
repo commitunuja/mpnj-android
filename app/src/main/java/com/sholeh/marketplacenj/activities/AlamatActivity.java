@@ -79,7 +79,6 @@ public class AlamatActivity extends AppCompatActivity implements View.OnClickLis
         switch (v.getId()) {
             case R.id.fab_alamat:
               startActivity(new Intent(this, AddAlamat.class));
-              finish();
                 break;
 
 
@@ -110,6 +109,7 @@ public class AlamatActivity extends AppCompatActivity implements View.OnClickLis
                                         response.body().getData().getDaftarAlamat().get(i).getNama(),
                                         response.body().getData().getDaftarAlamat().get(i).getNomorTelepon(),
                                         response.body().getData().getDaftarAlamat().get(i).getAlamatLengkap(),
+                                        response.body().getData().getDaftarAlamat().get(i).getNamaKecamatan(),
                                         response.body().getData().getDaftarAlamat().get(i).getNamaKota(),
                                         response.body().getData().getDaftarAlamat().get(i).getNamaProvinsi(),
                                         response.body().getData().getDaftarAlamat().get(i).getKodePos(),

@@ -26,6 +26,9 @@ import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
+import com.sholeh.marketplacenj.activities.AkunActivity;
+import com.sholeh.marketplacenj.activities.AlamatActivity;
+import com.sholeh.marketplacenj.activities.PengaturanAkun;
 import com.sholeh.marketplacenj.util.api.APIInterface;
 import com.sholeh.marketplacenj.util.CONSTANTS;
 import com.sholeh.marketplacenj.R;
@@ -46,7 +49,7 @@ import retrofit2.Response;
 public class FragmentProfil extends Fragment implements View.OnClickListener {
     private ImageView btnImgProfil, nav_home, nav_notifikasi, nav_transaksi, navprofile;
     TextView tvx_login, tvx_namaCustomter, tvx_title, tvx_logout,tvx_edit, tvx_username,
-              tvx_Hp, tvx_Email;
+              tvx_Hp, tvx_profil, tvx_alamat, tvx_setting, tvx_email;
 
 
 
@@ -86,13 +89,21 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
 
         tvx_namaCustomter = rootView.findViewById(R.id.tvCustomerName);
         tvx_username = rootView.findViewById(R.id.tvx_username);
-        tvx_Email = rootView.findViewById(R.id.tvx_Email);
+        tvx_email = rootView.findViewById(R.id.tvx_Email);
         tvx_Hp = rootView.findViewById(R.id.tvx_nomorhp);
+        tvx_profil = rootView.findViewById(R.id.tv_myprofil);
+        tvx_alamat = rootView.findViewById(R.id.tvAlamat);
+        tvx_setting = rootView.findViewById(R.id.tvSetting);
+
 
         btnImgProfil = rootView.findViewById(R.id.imgProfil);
         btnImgProfil.setOnClickListener(this);
         imageProfil = rootView.findViewById(R.id.cirprofile_image);
-        imageProfil.setOnClickListener(this);
+        tvx_profil.setOnClickListener(this);
+        tvx_alamat.setOnClickListener(this);
+        tvx_setting.setOnClickListener(this);
+
+
         tvx_title = rootView.findViewById(R.id.title);
         tvx_edit = rootView.findViewById(R.id.edit_txt);
         tvx_edit.setVisibility(View.GONE);
@@ -160,9 +171,31 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
 //                selectImage();
                 break;
 
+            case R.id.tv_myprofil:
+                Intent intent3 = new Intent(getActivity(), AkunActivity.class);
+                getActivity().startActivity(intent3);
+//                selectImage();
+                break;
+
+            case R.id.tvAlamat:
+                Intent intent4 = new Intent(getActivity(), AlamatActivity.class);
+                getActivity().startActivity(intent4);
+                Toast.makeText(getActivity(), "klik", Toast.LENGTH_SHORT).show();
+
+//                selectImage();
+                break;
+
+            case R.id.tvSetting:
+                Intent intent5 = new Intent(getActivity(), PengaturanAkun.class);
+                getActivity().startActivity(intent5);
+//                selectImage();
+                break;
+
             case R.id.logout_akun:
               logoutAkun();
                 break;
+
+
 
             default:
                 break;
@@ -207,7 +240,7 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
         nomorHP = preferences.getNomorHp();
         tvx_namaCustomter.setText(namaLengkap);
         tvx_username.setText(username);
-        tvx_Email.setText(email);
+        tvx_email.setText(email);
         tvx_Hp.setText(nomorHP);
 
     }
@@ -230,7 +263,7 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
 //                }else{
                     Picasso.with(getContext()).load(CONSTANTS.BASE_URL + "assets/foto_profil_konsumen/"+tvDataProfil.getData().getFotoProfil()).into(imageProfil);
 //                }
-
+//                Toast.makeText(getActivity(), tvDataProfil.getData().getFotoProfil(), Toast.LENGTH_LONG).show();
 //                Glide.with(getActivity()).load(foto).into(imageProfil);
 
             }

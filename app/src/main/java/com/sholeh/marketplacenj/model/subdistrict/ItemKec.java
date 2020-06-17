@@ -1,10 +1,8 @@
-package com.sholeh.marketplacenj.model.city;
+package com.sholeh.marketplacenj.model.subdistrict;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
-public class ItemCity {
-
+public class ItemKec {
     @SerializedName("rajaongkir")
     @Expose
     private Rajaongkir rajaongkir;
@@ -14,8 +12,8 @@ public class ItemCity {
     }
 
     public void setRajaongkir(Rajaongkir rajaongkir) {
-
         this.rajaongkir = rajaongkir;
     }
+
 
 }

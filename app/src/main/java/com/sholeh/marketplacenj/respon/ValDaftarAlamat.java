@@ -28,6 +28,9 @@ public class ValDaftarAlamat {
     @SerializedName("kecamatan_id")
     @Expose
     private Integer kecamatanId;
+    @SerializedName("nama_kecamatan")
+    @Expose
+    private String namaKecamatan;
     @SerializedName("kode_pos")
     @Expose
     private String kodePos;
@@ -147,4 +150,12 @@ public class ValDaftarAlamat {
     public void setStatus(String status) {
         this.status = status;
     }
+    public String getNamaKecamatan() {
+        return namaKecamatan;
+    }
+
+    public void setNamaKecamatan(String namaKecamatan) {
+        this.namaKecamatan = namaKecamatan;
+    }
+
 }

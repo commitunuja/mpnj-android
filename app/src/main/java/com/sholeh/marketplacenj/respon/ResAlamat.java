@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class ResAlamat {
+
     @SerializedName("pesan")
     @Expose
     private String pesan;
