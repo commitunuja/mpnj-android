@@ -4,12 +4,6 @@
     android:layout_height="wrap_content"
     android:background="#ffffff"
     android:orientation="vertical">
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@color/viewline"/>
 
 
     <LinearLayout
@@ -99,11 +93,58 @@
         android:layout_marginTop="20dp"
         android:background="@color/colorPrimaryTransparant"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:orientation="vertical">
 
+        <customfonts.MyTextView_Roboto_Medium
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/green"
+            android:text="Opsi Pengiriman"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@color/viewline"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
+
+
+            <customfonts.MyTextView_Roboto_Medium
+                android:id="@+id/tvx_opsiKurir1"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Jasa kirim tidak tersedia. Klik info lebih lanjut "
+                android:textSize="12.7sp"/>
+
+            <ImageView
+                android:src="@drawable/ic_keyboard_arrow_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="11.3sp"
+                android:textColor="@color/green"
+              />
+        </LinearLayout>
+    </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
+        android:layout_marginTop="20dp"
         android:background="@color/colorPrimaryTransparant"/>
 
     <LinearLayout
@@ -144,6 +185,12 @@
         </LinearLayout>
 
     </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/viewline"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -155,7 +202,6 @@
         android:orientation="vertical">
 
         <LinearLayout
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
@@ -188,10 +234,7 @@
 
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/colorPrimaryTransparant"/>
+
 
 
 </LinearLayout>

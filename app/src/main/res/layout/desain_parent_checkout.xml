@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -17,7 +17,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="2dp">
+        android:padding="2dp"
+        android:weightSum="3">
 
 
         <LinearLayout
@@ -28,8 +29,6 @@
             android:gravity="center_vertical">
 
             <LinearLayout
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -62,7 +61,7 @@
                     android:textStyle="bold" />
 
                 <customfonts.MyTextView_Roboto_Medium
-                    android:visibility="gone"
+
                     android:gravity="center"
                     android:id="@+id/txtIdKabPenjual"
                     android:layout_width="wrap_content"
@@ -75,55 +74,6 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:orientation="vertical">
-
-                <customfonts.MyTextView_Roboto_Medium
-
-                    android:layout_marginRight="10dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/green"
-                    android:text="Opsi Pengiriman"/>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:background="@color/viewline"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:orientation="horizontal">
-
-
-                    <customfonts.MyTextView_Roboto_Medium
-                        android:id="@+id/tvx_opsiKurir1"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Jasa kirim tidak tersedia. Klik info lebih lanjut "
-                        android:textSize="12.7sp"/>
-
-                    <ImageView
-                        android:src="@drawable/ic_keyboard_arrow_right"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="11.3sp"
-                        android:textColor="@color/green"
-                        />
-                </LinearLayout>
-            </LinearLayout>
 
 
             <TextView
@@ -166,4 +116,4 @@
         android:layout_height="1dp"
         android:background="#0F000000"/>
 
-</RelativeLayout>
+</LinearLayout>
