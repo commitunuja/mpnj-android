@@ -95,6 +95,13 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
 //        tvxPilihBank.setOnClickListener(this);
         getDetailKeranjang();
 
+        listView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+            @Override
+            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+                return true; // mencegah parent klik
+            }
+        });
+
 //        i = getIntent();
 //        getidKec = tvx_idKecPembeli.getText().toString();
 //        i.putExtra("idkecamatan", getidKec);
