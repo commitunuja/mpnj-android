@@ -31,6 +31,7 @@ import com.sholeh.marketplacenj.model.checkout.ChildCheckout;
 import com.sholeh.marketplacenj.model.checkout.HeaderCheckout;
 import com.sholeh.marketplacenj.model.keranjang.ChildModel;
 import com.sholeh.marketplacenj.model.keranjang.HeaderModel;
+import com.sholeh.marketplacenj.respon.ResDetailKeranjang;
 import com.sholeh.marketplacenj.respon.ResHapusKeranjang;
 import com.sholeh.marketplacenj.respon.ResUbahJumlahProduk;
 import com.sholeh.marketplacenj.util.AppUtilits;
@@ -214,10 +215,10 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
             public void onClick(View v) {
                 HeaderCheckout myNewsheader =listHeaderFilter.get(groupPosition);
                 Context context = v.getContext();
-                String bs = checkoutActivity.getbs();
-                Intent intent= new Intent(context, OpsiPengirimanActivity.class);
-                intent.putExtra("id_kabupatenToko", String.valueOf(myNewsheader.getId_kabToko()));
-                Toast.makeText(context, "idkec "+bs, Toast.LENGTH_SHORT).show();
+                ResDetailKeranjang bs = ((CheckoutActivity) context).getbs();
+//                Intent intent= new Intent(context, OpsiPengirimanActivity.class);
+//                intent.putExtra("id_kabupatenToko", String.valueOf(myNewsheader.getId_kabToko()));
+                Toast.makeText(context, "idkec "+bs.getDataKeranjang().get(groupPosition).getIdKabupaten(), Toast.LENGTH_SHORT).show();
 
 
 //                intent.putExtra("id_kabupaten", )
