@@ -1,5 +1,6 @@
 package com.sholeh.marketplacenj.adapter.checkout;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
@@ -21,7 +22,11 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.sholeh.marketplacenj.R;
+import com.sholeh.marketplacenj.activities.AddAlamat;
+import com.sholeh.marketplacenj.activities.checkout.CheckoutActivity;
 import com.sholeh.marketplacenj.activities.keranjang.KeranjangDetailActivity;
+import com.sholeh.marketplacenj.activities.kurir.OpsiPengirimanActivity;
+import com.sholeh.marketplacenj.model.Model;
 import com.sholeh.marketplacenj.model.checkout.ChildCheckout;
 import com.sholeh.marketplacenj.model.checkout.HeaderCheckout;
 import com.sholeh.marketplacenj.model.keranjang.ChildModel;
@@ -60,12 +65,17 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
     StringTokenizer st, st2;
     private static final String TAG = "MyExpandAdapter";
     String CUSTOM_ACTION = "com.example.YOUR_ACTION";
+    String id_kabupate, id_kecamatan;
+    Integer total_berat;
 
+    CheckoutActivity checkoutActivity;
 
     public ExpandAdapterCheckout(Context context, List<HeaderCheckout> listHeader, HashMap<HeaderCheckout, List<ChildCheckout>> listChild) {
         this.listHeaderFilter = listHeader;
         this.listChild = listChild;
         this.context = context;
+//        Integer my_id = ((CheckoutActivity) context.getApplicationContext()()).getMy_id();
+//        checkoutActivity = (CheckoutActivity) activity;
     }
 
     @Override
@@ -116,13 +126,15 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
         }
 
 
-        final TextView nama_kk, no_pelanggan;
+        final TextView nama_kk, no_pelanggan, idKabPenjual;
 
         nama_kk = convertView.findViewById(R.id.txtNamaToko);
         no_pelanggan = convertView.findViewById(R.id.txtIdToko);
+        idKabPenjual = convertView.findViewById(R.id.txtIdKabPenjual);
 
         nama_kk.setText(model.getNama_toko());
         no_pelanggan.setText(model.getId_toko());
+        idKabPenjual.setText(model.getId_kabToko());
 
 
 
@@ -141,7 +153,7 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
             convertView = LayoutInflater.from(context).inflate(R.layout.desain_child_checkout, null);
         }
 
-        final TextView tvx_nama, tvx_idKeranjang, tvx_jumlahproduk,  tvx_harga, tvx_totharga, tvx_hargaDiskon;
+        final TextView tvx_nama, tvx_idKeranjang, tvx_jumlahproduk,  tvx_harga, tvx_totharga, tvx_hargaDiskon, tvx_OpsiKurir1;
         final ImageView img_gambar;
             final ChildCheckout childCheckout = listChild.get(listHeaderFilter.get(groupPosition)).get(childPosition);
 
@@ -151,6 +163,7 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
         tvx_totharga = convertView.findViewById(R.id.tvx_hargajum);
         tvx_hargaDiskon = convertView.findViewById(R.id.tvxHrgaDiskon);
         tvx_jumlahproduk = convertView.findViewById(R.id.tvxJumlahProduk);
+        tvx_OpsiKurir1 = convertView.findViewById(R.id.tvx_opsiKurir1);
         img_gambar = convertView.findViewById(R.id.img_gambarkeranjang);
 
 
@@ -196,6 +209,21 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
             tvx_harga.setText(harganya);
             tvx_totharga.setText(harganya);
         }
+        tvx_OpsiKurir1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HeaderCheckout myNewsheader =listHeaderFilter.get(groupPosition);
+                Context context = v.getContext();
+                String bs = checkoutActivity.getbs();
+                Intent intent= new Intent(context, OpsiPengirimanActivity.class);
+                intent.putExtra("id_kabupatenToko", String.valueOf(myNewsheader.getId_kabToko()));
+                Toast.makeText(context, "idkec "+bs, Toast.LENGTH_SHORT).show();
+
+
+//                intent.putExtra("id_kabupaten", )
+//                context.startActivity(intent);
+            }
+        });
 
         return convertView;
     }
