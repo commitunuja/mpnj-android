@@ -18,12 +18,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.sholeh.marketplacenj.R;
+import com.sholeh.marketplacenj.activities.AddAlamat;
 import com.sholeh.marketplacenj.activities.AlamatActivity;
+import com.sholeh.marketplacenj.activities.keranjang.KeranjangDetailActivity;
+import com.sholeh.marketplacenj.adapter.adapterspin;
 import com.sholeh.marketplacenj.adapter.checkout.ExpandAdapterCheckout;
+import com.sholeh.marketplacenj.model.Keranjang;
 import com.sholeh.marketplacenj.model.checkout.ChildCheckout;
 import com.sholeh.marketplacenj.model.checkout.HeaderCheckout;
 import com.sholeh.marketplacenj.model.cost.Rajaongkir;
+import com.sholeh.marketplacenj.model.province.ItemProvince;
 import com.sholeh.marketplacenj.respon.DataKeranjang;
 import com.sholeh.marketplacenj.respon.ItemKeranjang;
 import com.sholeh.marketplacenj.respon.ResDetailKeranjang;
@@ -40,6 +47,7 @@ import java.util.StringTokenizer;
 
 import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CheckoutActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -147,17 +155,39 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
                 .setPositiveButton("Iya", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
-//                        Intent intent = new Intent(Intent.ACTION_MAIN);
-//                        intent.addCategory(Intent.CATEGORY_HOME);
-//                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                        startActivity(intent);
+                        batalChekout();
                         finish();
                     }
                 }).setNegativeButton("Tidak", null).show();
     }
 
+    public void batalChekout()
+    {
+        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+        Call<JsonObject> call = service.batalCheckout(id_konsumen);
 
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+
+                Log.v("wow", "json : " + new Gson().toJson(response));
+
+                if (response.isSuccessful()) {
+                    Intent intent = new Intent(CheckoutActivity.this, KeranjangDetailActivity.class);
+                    startActivity(intent);
+                } else {
+                    String error = "Error Retrive DataProfil from Server !!!";
+                    Toast.makeText(CheckoutActivity.this, error, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+
+                Toast.makeText(CheckoutActivity.this, "Message : Error " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
     public void getDetailKeranjang() {
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
