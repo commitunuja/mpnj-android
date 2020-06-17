@@ -216,13 +216,12 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
                 HeaderCheckout myNewsheader =listHeaderFilter.get(groupPosition);
                 Context context = v.getContext();
                 ResDetailKeranjang bs = ((CheckoutActivity) context).getbs();
-//                Intent intent= new Intent(context, OpsiPengirimanActivity.class);
-//                intent.putExtra("id_kabupatenToko", String.valueOf(myNewsheader.getId_kabToko()));
-                Toast.makeText(context, "idkec "+bs.getDataKeranjang().get(groupPosition).getIdKabupaten(), Toast.LENGTH_SHORT).show();
-
-
-//                intent.putExtra("id_kabupaten", )
-//                context.startActivity(intent);
+                String idKabPenjual = bs.getDataKeranjang().get(groupPosition).getIdKabupaten();
+                String idKecPembeli = bs.getPembeli().getIdKecamatan();
+                Intent intent= new Intent(context, OpsiPengirimanActivity.class);
+                intent.putExtra("idkab_toko", String.valueOf(idKabPenjual));
+                intent.putExtra("idkec_pembeli", String.valueOf(idKecPembeli));
+                context.startActivity(intent);
             }
         });
 

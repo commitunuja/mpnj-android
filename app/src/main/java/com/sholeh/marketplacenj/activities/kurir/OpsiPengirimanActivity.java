@@ -36,7 +36,7 @@ public class OpsiPengirimanActivity extends AppCompatActivity {
     Spinner spinPilihKurir;
     List<String> spinnerKurir =  new ArrayList<String>();
 
-
+    String idkec_pembeli, idkab_toko;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +46,10 @@ public class OpsiPengirimanActivity extends AppCompatActivity {
         spinnerKurir.add("JNE");
         spinnerKurir.add("J&T");
 
-//        vid_produk = getIntent().getStringExtra("id_produk");
+        idkec_pembeli = getIntent().getStringExtra("idkec_pembeli");
+        idkab_toko = getIntent().getStringExtra("idkab_toko");
+
+        Toast.makeText(this, "idkec "+idkec_pembeli+ " idkab"+idkab_toko, Toast.LENGTH_SHORT).show();
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 this, android.R.layout.simple_spinner_item, spinnerKurir);

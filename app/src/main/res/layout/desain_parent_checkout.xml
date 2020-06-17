@@ -61,7 +61,7 @@
                     android:textStyle="bold" />
 
                 <customfonts.MyTextView_Roboto_Medium
-                    android:visibility="gone"
+
                     android:gravity="center"
                     android:id="@+id/txtIdKabPenjual"
                     android:layout_width="wrap_content"
