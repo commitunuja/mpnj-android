@@ -119,6 +119,7 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
     public View getGroupView(final int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         final HeaderCheckout model = (HeaderCheckout) getGroup(groupPosition);
         final HeaderCheckout headerModel = listHeaderFilter.get(groupPosition);
+
         final List<ChildCheckout> childModel = listChild.get(listHeaderFilter.get(groupPosition));
 
 
@@ -156,7 +157,7 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
 
         final TextView tvx_nama, tvx_idKeranjang, tvx_jumlahproduk,  tvx_harga, tvx_totharga, tvx_hargaDiskon, tvx_OpsiKurir1;
         final ImageView img_gambar;
-            final ChildCheckout childCheckout = listChild.get(listHeaderFilter.get(groupPosition)).get(childPosition);
+        final ChildCheckout childCheckout = listChild.get(listHeaderFilter.get(groupPosition)).get(childPosition);
 
         tvx_nama = convertView.findViewById(R.id.txtnamaPRODUK);
         tvx_idKeranjang = convertView.findViewById(R.id.txtIdkerenjang);
@@ -171,8 +172,6 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
         hargaProduk = childCheckout.getHarga();
         jumlahProduk = childCheckout.getJumlah();
 
-
-
         vdiskon = Double.parseDouble(String.valueOf(Integer.parseInt(String.valueOf(childCheckout.getDiskon()))));
         tvx_nama.setText(childCheckout.getNama_produk());
         tvx_idKeranjang.setText(childCheckout.getId_keranjang());
@@ -183,8 +182,6 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
         String hargajum = st.nextToken().trim();
         tvx_harga.setText(hargajum);
         tvx_totharga.setText(hargajum);
-
-
 
         Glide.with(convertView.getContext())
                 .load(CONSTANTS.SUB_DOMAIN + childCheckout.getGambar())
@@ -216,13 +213,14 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
                 HeaderCheckout myNewsheader =listHeaderFilter.get(groupPosition);
                 Context context = v.getContext();
                 ResDetailKeranjang bs = ((CheckoutActivity) context).getbs();
-//                Intent intent= new Intent(context, OpsiPengirimanActivity.class);
+                Intent intent= new Intent(context, OpsiPengirimanActivity.class);
+                context.startActivity(intent);
 //                intent.putExtra("id_kabupatenToko", String.valueOf(myNewsheader.getId_kabToko()));
-                Toast.makeText(context, "idkec "+bs.getDataKeranjang().get(groupPosition).getIdKabupaten(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context, "idkec "+bs.getDataKeranjang().get(groupPosition).getIdKabupaten(), Toast.LENGTH_SHORT).show();
 
 
 //                intent.putExtra("id_kabupaten", )
-//                context.startActivity(intent);
+//
             }
         });
 
