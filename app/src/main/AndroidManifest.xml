@@ -39,6 +39,7 @@
         <activity android:name=".activities.ProdukByKategori" />
         <activity android:name=".activities.ImageProfilActivity" />
         <activity android:name=".activities.checkout.CheckoutActivity" />
+        <activity android:name=".custom.MainActivity2"/>
         <activity android:name=".activities.Splash" />
         <activity
             android:name=".activities.DetailAlamat"

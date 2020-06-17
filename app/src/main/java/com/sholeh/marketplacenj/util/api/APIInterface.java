@@ -160,8 +160,8 @@ public interface APIInterface {
     @GET("api/produk/{id}")
     Call<JsonObject> getProdukId(@Path("id") String id);
 
-    @GET("api/produk/cari/{nama_produk}")
-    Call<List<Model>> getAllData(@Path("nama_produk") String nama_produk);
+    @GET("api/produk")
+    Call<List<Model>> getAllData(@Query("cari") String nama_produk);
 
 
     @FormUrlEncoded
