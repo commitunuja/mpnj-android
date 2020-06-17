@@ -63,6 +63,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         this.datapencarian = filterdata;
         notifyDataSetChanged();
     }
+//    public void setFilter2(List<Model> filterdata2) {
+//        this.datapencarian2 = filterdata2;
+//        notifyDataSetChanged();
+//    }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView namaProduk, hargaProduk, stok, terjual, deskripsi, type;
