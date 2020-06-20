@@ -115,5 +115,16 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#0F000000"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linearopsi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/bg_opsi_pengiriman"
+        android:elevation="4dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:outlineAmbientShadowColor="@color/colorutama">
+
 
 </LinearLayout>
