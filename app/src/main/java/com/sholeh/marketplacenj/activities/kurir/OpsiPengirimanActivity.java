@@ -70,6 +70,16 @@ public class OpsiPengirimanActivity extends AppCompatActivity {
 
         radioGroupKurir = findViewById(R.id.kurir);
 
+        clear = findViewById(R.id.img_clear);
+        clear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent lagi = new Intent(OpsiPengirimanActivity.this, CheckoutActivity.class);
+                startActivity(lagi);
+
+            }
+        });
+
         idkec_pembeli = getIntent().getStringExtra("idkec_pembeli");
         idkab_toko = getIntent().getStringExtra("idkab_toko");
 
