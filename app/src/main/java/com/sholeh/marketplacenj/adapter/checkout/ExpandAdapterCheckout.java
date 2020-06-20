@@ -167,35 +167,41 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
             }
         });
 
+
         return convertView;
     }
 
 
+    @SuppressLint("ResourceType")
     @Override
     public View getChildView(final int groupPosition, final int childPosition, final boolean isLastChild, View convertView, final ViewGroup parent) {
         Log.d("sholeh", listHeaderFilter.get(groupPosition).getId_toko());
 
+
         preferences = new Preferences(context);
         id_konsumen = preferences.getIdKonsumen();
 
-        if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.desain_child_checkout, null);
-        }
+        convertView = LayoutInflater.from(context).inflate(R.layout.desain_child_checkout, null);
 
-        final TextView tvx_nama, tvx_idKeranjang, tvx_jumlahproduk,  tvx_harga, tvx_totharga, tvx_hargaDiskon, tvx_OpsiKurir1;
+
+        final TextView tvx_nama, tvx_idKeranjang, tvx_jumlahproduk, tvx_harga, tvx_totharga, tvx_hargaDiskon;
         final ImageView img_gambar;
+
         final ChildCheckout childCheckout = listChild.get(listHeaderFilter.get(groupPosition)).get(childPosition);
 
+        TextView opsipengiriman;
+        LinearLayout linearLayoutOpsi_Pengiriman;
+
+//        opsipengiriman = convertView.findViewById(R.id.tvx_opsiKurir1);
+//        linearLayout = convertView.findViewById(R.id.linearopsi);
         tvx_nama = convertView.findViewById(R.id.txtnamaPRODUK);
         tvx_idKeranjang = convertView.findViewById(R.id.txtIdkerenjang);
         tvx_harga = convertView.findViewById(R.id.tvx_harga);
         tvx_totharga = convertView.findViewById(R.id.tvx_hargajum);
         tvx_hargaDiskon = convertView.findViewById(R.id.tvxHrgaDiskon);
         tvx_jumlahproduk = convertView.findViewById(R.id.tvxJumlahProduk);
-        tvx_OpsiKurir1 = convertView.findViewById(R.id.tvx_opsiKurir1);
 
         img_gambar = convertView.findViewById(R.id.img_gambarkeranjang);
-
 
         hargaProduk = childCheckout.getHarga();
         jumlahProduk = childCheckout.getJumlah();
