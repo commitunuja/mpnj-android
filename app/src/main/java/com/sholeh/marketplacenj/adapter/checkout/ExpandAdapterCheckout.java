@@ -242,27 +242,43 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
             tvx_totharga.setText(harganya);
         }
 
-        tvx_OpsiKurir1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                HeaderCheckout myNewsheader =listHeaderFilter.get(groupPosition);
-                Context context = v.getContext();
-                ResDetailKeranjang bs = ((CheckoutActivity) context).getbs();
 
-                String idKabPenjual = bs.getDataKeranjang().get(groupPosition).getIdKabupaten();
-                String idKecPembeli = bs.getPembeli().getIdKecamatan();
-
-                Intent intent= new Intent(context, OpsiPengirimanActivity.class);
-                intent.putExtra("idkab_toko", String.valueOf(idKabPenjual));
-                intent.putExtra("idkec_pembeli", String.valueOf(idKecPembeli));
-                context.startActivity(intent);
-            }
-        });
+//        if (linearLayoutOpsi_Pengiriman.Leng){
+//
+//            linearLayoutOpsi_Pengiriman.setGravity(View.VISIBLE);
+//        }
+//        if(isLastChild == true ) {
+//            linearLayoutOpsi_Pengiriman.setVisibility(View.VISIBLE);
+//        }
+//        tvx_OpsiKurir1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                HeaderCheckout myNewsheader =listHeaderFilter.get(groupPosition);
+//                Context context = v.getContext();
+//                ResDetailKeranjang bs = ((CheckoutActivity) context).getbs();
+//
+//                String idKabPenjual = bs.getDataKeranjang().get(groupPosition).getIdKabupaten();
+//                String idKecPembeli = bs.getPembeli().getIdKecamatan();
+//
+//                Intent intent= new Intent(context, OpsiPengirimanActivity.class);
+//                intent.putExtra("idkab_toko", String.valueOf(idKabPenjual));
+//                intent.putExtra("idkec_pembeli", String.valueOf(idKecPembeli));
+//                context.startActivity(intent);
+//            }
+//        });
 
         getTotal();
 
         return convertView;
+
+
     }
+
+
+    private boolean isLastChild(int groupPosition, int childPosition) {
+        return (childPosition == getChildrenCount(groupPosition) - 1);
+    }
+
 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
