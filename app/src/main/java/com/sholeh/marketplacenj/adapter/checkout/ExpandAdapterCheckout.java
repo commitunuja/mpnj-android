@@ -37,16 +37,13 @@ import java.util.List;
 import java.util.Locale;
 import java.util.StringTokenizer;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
     int jumlahProduk = 0;
     double totalHarga = 0;
     private Context context;
     private List<HeaderCheckout> listHeaderFilter;
     private HashMap<HeaderCheckout, List<ChildCheckout>> listChild;
+    ConstraintLayout linearLayout;
     int hargaProduk, stokProduk;
     Preferences preferences;
     String id_konsumen;
@@ -125,21 +122,6 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
         nama_kk.setText(model.getNama_toko());
         no_pelanggan.setText(model.getId_toko());
         idKabPenjual.setText(model.getId_kabToko());
-//        tvx_OpsiKurir1.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                HeaderCheckout myNewsheader =listHeaderFilter.get(groupPosition);
-//                Context context = v.getContext();
-//                ResDetailKeranjang bs = ((CheckoutActivity) context).getbs();
-//                String idKabPenjual = bs.getDataKeranjang().get(groupPosition).getIdKabupaten();
-//                String idKecPembeli = bs.getPembeli().getIdKecamatan();
-//                Intent intent= new Intent(context, OpsiPengirimanActivity.class);
-//                intent.putExtra("idkab_toko", String.valueOf(idKabPenjual));
-//                intent.putExtra("idkec_pembeli", String.valueOf(idKecPembeli));
-//                context.startActivity(intent);
-////                Toast.makeText(context, ""+groupPosition+" "+childPosition, Toast.LENGTH_SHORT).show();
-//            }
-//        });
 
         linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -278,9 +260,10 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
 
     public void getTotal() {
         jumlahProduk = 0; //totalCount
-        totalHarga = 0;;
+        totalHarga = 0;
+        ;
         ArrayList<String> myArray = new ArrayList<>();
-        String  getid = null;
+        String getid = null;
 
         for (int i = 0; i < listHeaderFilter.size(); i++) {
             List<ChildCheckout> childMapList = listChild.get(listHeaderFilter.get(i));
@@ -300,9 +283,6 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
 //                LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
 
 
-
-
-
             }
         }
         Intent intent = new Intent("custom-message");
@@ -310,4 +290,5 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
 
     }
+
 }
