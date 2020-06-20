@@ -1,30 +1,24 @@
 package com.sholeh.marketplacenj.activities.kurir;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.util.DisplayMetrics;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.sholeh.marketplacenj.R;
-import com.sholeh.marketplacenj.activities.AddAlamat;
-import com.sholeh.marketplacenj.adapter.adapterspin;
+import com.sholeh.marketplacenj.activities.checkout.CheckoutActivity;
 import com.sholeh.marketplacenj.model.cost.ItemCost;
-import com.sholeh.marketplacenj.model.province.ItemProvince;
-import com.sholeh.marketplacenj.respon.ResAlamat;
-import com.sholeh.marketplacenj.respon.RestCost;
 import com.sholeh.marketplacenj.util.CONSTANTS;
-import com.sholeh.marketplacenj.util.ServiceGenerator;
 import com.sholeh.marketplacenj.util.api.APIInterface;
 
 import java.util.ArrayList;
