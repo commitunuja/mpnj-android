@@ -44,11 +44,20 @@ public class OpsiPengirimanActivity extends AppCompatActivity {
     RadioGroup radioGroupKurir;
     ProgressBar progressBar;
     String idkec_pembeli, idkab_toko;
+    ImageView clear;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_opsi_pengiriman);
+//        setTheme(android.R.style.Theme_DeviceDefault_Light_Dialog_NoActionBar);
+        final DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+
+        int width = displayMetrics.widthPixels;
+        int height = displayMetrics.heightPixels;
+
+        getWindow().setLayout((int)(width*.8), (int)(height*.6));
 
         spinnerKurir.add("JNE");
         spinnerKurir.add("JNT");
