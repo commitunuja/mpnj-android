@@ -122,14 +122,11 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
 
         final List<ChildCheckout> childModel = listChild.get(listHeaderFilter.get(groupPosition));
 
+        convertView = LayoutInflater.from(context).inflate(R.layout.desain_parent_checkout, null);
 
-        if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.desain_parent_checkout, null);
-        }
+        final TextView nama_kk, no_pelanggan, idKabPenjual, tvx_OpsiKurir1;
 
-
-        final TextView nama_kk, no_pelanggan, idKabPenjual,  tvx_OpsiKurir1;
-
+        linearLayout = convertView.findViewById(R.id.linearopsi);
         nama_kk = convertView.findViewById(R.id.txtNamaToko);
         no_pelanggan = convertView.findViewById(R.id.txtIdToko);
         idKabPenjual = convertView.findViewById(R.id.txtIdKabPenjual);
