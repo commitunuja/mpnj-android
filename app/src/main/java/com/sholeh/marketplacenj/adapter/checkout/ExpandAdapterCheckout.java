@@ -1,44 +1,34 @@
 package com.sholeh.marketplacenj.adapter.checkout;
 
-import android.app.Activity;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.graphics.Typeface;
-import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.sholeh.marketplacenj.R;
-import com.sholeh.marketplacenj.activities.AddAlamat;
 import com.sholeh.marketplacenj.activities.checkout.CheckoutActivity;
-import com.sholeh.marketplacenj.activities.keranjang.KeranjangDetailActivity;
 import com.sholeh.marketplacenj.activities.kurir.OpsiPengirimanActivity;
-import com.sholeh.marketplacenj.model.Model;
 import com.sholeh.marketplacenj.model.checkout.ChildCheckout;
 import com.sholeh.marketplacenj.model.checkout.HeaderCheckout;
-import com.sholeh.marketplacenj.model.keranjang.ChildModel;
-import com.sholeh.marketplacenj.model.keranjang.HeaderModel;
 import com.sholeh.marketplacenj.respon.ResDetailKeranjang;
-import com.sholeh.marketplacenj.respon.ResHapusKeranjang;
-import com.sholeh.marketplacenj.respon.ResUbahJumlahProduk;
-import com.sholeh.marketplacenj.util.AppUtilits;
 import com.sholeh.marketplacenj.util.CONSTANTS;
 import com.sholeh.marketplacenj.util.Preferences;
-import com.sholeh.marketplacenj.util.ServiceGenerator;
-import com.sholeh.marketplacenj.util.api.APIInterface;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
