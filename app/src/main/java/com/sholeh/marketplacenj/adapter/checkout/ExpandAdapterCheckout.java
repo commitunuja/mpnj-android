@@ -151,6 +151,21 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
 //            }
 //        });
 
+        linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HeaderCheckout myNewsheader = listHeaderFilter.get(groupPosition);
+                Context context = v.getContext();
+                ResDetailKeranjang bs = ((CheckoutActivity) context).getbs();
+                String idKabPenjual = bs.getDataKeranjang().get(groupPosition).getIdKabupaten();
+                String idKecPembeli = bs.getPembeli().getIdKecamatan();
+                Intent intent = new Intent(context, OpsiPengirimanActivity.class);
+                intent.putExtra("idkab_toko", String.valueOf(idKabPenjual));
+                intent.putExtra("idkec_pembeli", String.valueOf(idKecPembeli));
+                context.startActivity(intent);
+//                Toast.makeText(context, ""+groupPosition+" "+childPosition, Toast.LENGTH_SHORT).show();
+            }
+        });
 
         return convertView;
     }
