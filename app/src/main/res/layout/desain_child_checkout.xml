@@ -68,12 +68,12 @@
                 <customfonts.MyTextView_Roboto_Medium
                     android:id="@+id/tvxHrgaDiskon"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:letterSpacing="0.03"
                     android:text="Rp0"
                     android:textColor="@color/red"
-                    android:textSize="13.3sp" />
+                    android:textSize="13sp" />
 
             </LinearLayout>
 
