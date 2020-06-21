@@ -97,6 +97,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                     intent.putExtra("keterangan", myNewsmodel.getKeterangan());
                     intent.putExtra("kategori", myNewsmodel.getKategori().getNamaKategori());
                     intent.putExtra("diskon", String.valueOf(myNewsmodel.getDiskon()));
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //                    Toast.makeText(context, "id_produk"+myNewsmodel.getIdProduk(), Toast.LENGTH_SHORT).show();
                     context.startActivity(intent);
 
