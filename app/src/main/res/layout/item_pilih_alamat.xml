@@ -51,7 +51,7 @@
                 android:lineSpacingExtra="1dp"
                 android:text="Mohon Pilih Alamat Pengiriman"
                 android:textColor="@color/black"
-                android:textSize="13sp" />
+                android:textSize="10sp" />
 
 
             <View
@@ -73,7 +73,7 @@
                 android:letterSpacing="0.03"
                 android:text="Edit"
                 android:textColor="@color/black"
-                android:textSize="12.7sp" />
+                android:textSize="10sp" />
         </LinearLayout>
 
 
