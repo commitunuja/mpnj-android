@@ -147,6 +147,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:padding="10dp"
+                android:textSize="14sp"
                 android:text="Opsi Pengiriman"
                 android:textColor="@color/green" />
 
