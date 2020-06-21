@@ -138,6 +138,7 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
 
             case R.id.imgBackKeranjang:
                 onBack();
+                finish();
                 break;
 
 //            case R.id.tv_pilihbank:
@@ -161,7 +162,6 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         batalChekout();
-                        finish();
                     }
                 }).setNegativeButton("Tidak", null).show();
     }
