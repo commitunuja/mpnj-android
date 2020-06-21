@@ -188,7 +188,7 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
         vdiskon = Double.parseDouble(String.valueOf(Integer.parseInt(String.valueOf(childCheckout.getDiskon()))));
         tvx_nama.setText(childCheckout.getNama_produk());
         tvx_idKeranjang.setText(childCheckout.getId_keranjang());
-        tvx_jumlahproduk.setText(String.valueOf(jumlahProduk));
+        tvx_jumlahproduk.setText(jumlahProduk +" Barang");
 
         int hitungJumHarga = jumlahProduk * hargaProduk;
         st = new StringTokenizer(formatRupiah.format(hitungJumHarga), ",");
