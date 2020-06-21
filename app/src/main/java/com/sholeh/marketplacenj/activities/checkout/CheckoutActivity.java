@@ -75,6 +75,8 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
 //    List<ResDetailKeranjang> resDetailKeranjangs;
     ResDetailKeranjang resDetailKeranjang;
 
+    String ongkir;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,6 +98,9 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
 
 
         Intent i = getIntent();
+        ongkir = i.getStringExtra("ongkir");
+        Toast.makeText(this, String.valueOf(ongkir), Toast.LENGTH_SHORT).show();
+
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
 
         tvxUbahAlamat.setOnClickListener(this);
