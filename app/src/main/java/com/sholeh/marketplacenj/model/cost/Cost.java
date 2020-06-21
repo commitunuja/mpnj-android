@@ -17,6 +17,12 @@ public class Cost {
     @Expose
     private List<Cost_> cost = null;
 
+    public Cost(String service, String description, List<Cost_> cost) {
+        this.service = service;
+        this.description = description;
+        this.cost = cost;
+    }
+
     public String getService() {
         return service;
     }

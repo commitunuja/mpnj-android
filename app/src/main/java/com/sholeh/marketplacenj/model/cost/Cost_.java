@@ -14,6 +14,12 @@ public class Cost_ {
     @Expose
     private String note;
 
+    public Cost_(Integer value, String etd, String note) {
+        this.value = value;
+        this.etd = etd;
+        this.note = note;
+    }
+
     public Integer getValue() {
         return value;
     }
