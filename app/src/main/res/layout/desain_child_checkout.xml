@@ -88,7 +88,7 @@
                     android:layout_height="wrap_content"
                     android:text="Rp0"
                     android:textColor="@color/black"
-                    android:textSize="15sp" />
+                    android:textSize="13sp" />
             </RelativeLayout>
 
 
