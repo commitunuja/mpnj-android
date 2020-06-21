@@ -119,13 +119,11 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
         linearLayout = convertView.findViewById(R.id.linearopsi);
         nama_kk = convertView.findViewById(R.id.txtNamaToko);
         no_pelanggan = convertView.findViewById(R.id.txtIdToko);
-        idKabPenjual = convertView.findViewById(R.id.txtIdKabPenjual);
 //        tvx_OpsiKurir1 = convertView.findViewById(R.id.tvx_opsiKurir1);
         myDialog = new Dialog(context);
 
         nama_kk.setText(model.getNama_toko());
         no_pelanggan.setText(model.getId_toko());
-        idKabPenjual.setText(model.getId_kabToko());
 
         linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
