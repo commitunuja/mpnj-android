@@ -131,9 +131,12 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
                 ResDetailKeranjang bs = ((CheckoutActivity) context).getbs();
                 String idKabPenjual = bs.getDataKeranjang().get(groupPosition).getIdKabupaten();
                 String idKecPembeli = bs.getPembeli().getIdKecamatan();
+                String nama_kota = bs.getDataKeranjang().get(groupPosition).getNamaKota();
+                String weight = bs.getDataKeranjang().get(groupPosition).getTotalBerat();
                 Intent intent = new Intent(context, OpsiPengirimanActivity.class);
                 intent.putExtra("idkab_toko", String.valueOf(idKabPenjual));
                 intent.putExtra("idkec_pembeli", String.valueOf(idKecPembeli));
+                intent.putExtra("weight", String.valueOf(weight));
                 context.startActivity(intent);
 //                Toast.makeText(context, ""+groupPosition+" "+childPosition, Toast.LENGTH_SHORT).show();
             }
