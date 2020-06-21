@@ -48,7 +48,17 @@
                 android:text="Iphone X | 128 GB, Black | 6 GB ram |
 12000 mAh battry"
                 android:textColor="@color/black"
-                android:textSize="13.3sp" />
+                android:textSize="13sp" />
+
+            <customfonts.MyTextView_Roboto_Medium
+                android:id="@+id/tvxJumlahProduk"
+                android:layout_width="match_parent"
+                android:layout_height="20sp"
+                android:layout_weight="1"
+                android:background="@drawable/custom_edittext"
+                android:inputType="textAutoCorrect"
+                android:text="1 buah"
+                android:textSize="11sp" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
