@@ -32,7 +32,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.kurir.OpsiPengirimanActivity"></activity>
+        <activity android:name=".activities.kurir.OpsiPengirimanActivity"
+            android:theme="@style/AppTheme.CustomTheme">
+        </activity>
+
         <activity android:name=".activities.dashboard.ProdukTerpopulerActivity" />
         <activity android:name=".activities.details.DiskripsiActivity" />
         <activity android:name=".activities.pelapak.ProfilPelapakActivity" />

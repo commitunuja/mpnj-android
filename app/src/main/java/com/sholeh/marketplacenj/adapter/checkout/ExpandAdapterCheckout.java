@@ -1,10 +1,13 @@
 package com.sholeh.marketplacenj.adapter.checkout;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -110,7 +113,7 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
         final List<ChildCheckout> childModel = listChild.get(listHeaderFilter.get(groupPosition));
 
         convertView = LayoutInflater.from(context).inflate(R.layout.desain_parent_checkout, null);
-
+        final Dialog myDialog;
         final TextView nama_kk, no_pelanggan, idKabPenjual, tvx_OpsiKurir1;
 
         linearLayout = convertView.findViewById(R.id.linearopsi);
@@ -118,6 +121,7 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
         no_pelanggan = convertView.findViewById(R.id.txtIdToko);
         idKabPenjual = convertView.findViewById(R.id.txtIdKabPenjual);
 //        tvx_OpsiKurir1 = convertView.findViewById(R.id.tvx_opsiKurir1);
+        myDialog = new Dialog(context);
 
         nama_kk.setText(model.getNama_toko());
         no_pelanggan.setText(model.getId_toko());
@@ -138,6 +142,8 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
                 intent.putExtra("idkec_pembeli", String.valueOf(idKecPembeli));
                 intent.putExtra("weight", String.valueOf(weight));
                 context.startActivity(intent);
+                myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                myDialog.show();
 //                Toast.makeText(context, ""+groupPosition+" "+childPosition, Toast.LENGTH_SHORT).show();
             }
         });

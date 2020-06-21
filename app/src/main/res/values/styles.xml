@@ -7,9 +7,14 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-<!--    <style name="AppTheme" parent="AppTheme.Base">-->
-<!--        &lt;!&ndash; All customizations that are NOT specific to a particular APIInterface-level can go here. &ndash;&gt;-->
-<!--    </style>-->
+    <style name="AppTheme.CustomTheme">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
+    </style>
+
+    <!--    <style name="AppTheme" parent="AppTheme.Base">-->
+    <!--        &lt;!&ndash; All customizations that are NOT specific to a particular APIInterface-level can go here. &ndash;&gt;-->
+    <!--    </style>-->
 
     <style name="RatingBar" parent="Theme.AppCompat">
         <item name="colorControlNormal">@color/lightgray</item>

@@ -5,11 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.util.DisplayMetrics;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -17,19 +17,17 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.activities.AddAlamat;
 import com.sholeh.marketplacenj.activities.checkout.CheckoutActivity;
 import com.sholeh.marketplacenj.adapter.adapterspin;
 import com.sholeh.marketplacenj.model.cost.Cost;
 import com.sholeh.marketplacenj.model.cost.Cost_;
+import com.sholeh.marketplacenj.activities.checkout.CheckoutActivity;
 import com.sholeh.marketplacenj.model.cost.ItemCost;
-import com.sholeh.marketplacenj.model.province.ItemProvince;
-import com.sholeh.marketplacenj.respon.ResAlamat;
-import com.sholeh.marketplacenj.respon.RestCost;
 import com.sholeh.marketplacenj.util.CONSTANTS;
-import com.sholeh.marketplacenj.util.ServiceGenerator;
 import com.sholeh.marketplacenj.util.api.APIInterface;
 
 import org.json.JSONArray;
@@ -55,11 +53,21 @@ public class OpsiPengirimanActivity extends AppCompatActivity {
     List<Cost> costs = new ArrayList<>();
     TextView tvSave;
     Integer ongkir;
+    String idkec_pembeli, idkab_toko;
+    ImageView clear;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_opsi_pengiriman);
+//        setTheme(android.R.style.Theme_DeviceDefault_Light_Dialog_NoActionBar);
+        final DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+
+        int width = displayMetrics.widthPixels;
+        int height = displayMetrics.heightPixels;
+
+        getWindow().setLayout((int)(width*.8), (int)(height*.6));
 
         spinnerKurir.add("JNE");
         spinnerKurir.add("JNT");
@@ -96,6 +104,21 @@ public class OpsiPengirimanActivity extends AppCompatActivity {
         destination = getIntent().getStringExtra("idkec_pembeli");
         origin = getIntent().getStringExtra("idkab_toko");
         weight = getIntent().getStringExtra("weight");
+
+        clear = findViewById(R.id.img_clear);
+        clear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent lagi = new Intent(OpsiPengirimanActivity.this, CheckoutActivity.class);
+                startActivity(lagi);
+
+            }
+        });
+
+        idkec_pembeli = getIntent().getStringExtra("idkec_pembeli");
+        idkab_toko = getIntent().getStringExtra("idkab_toko");
+
+        Toast.makeText(this, "idkec "+idkec_pembeli+ " idkab"+idkab_toko, Toast.LENGTH_SHORT).show();
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 this, android.R.layout.simple_spinner_item, spinnerKurir);
