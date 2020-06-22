@@ -40,5 +40,17 @@ public class MetodePembayaranActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_metode_pembayaran);
+
+        subtotal = findViewById(R.id.tv_totalbayar);
+        ongkir = findViewById(R.id.tv_ongkir);
+        waktu = findViewById(R.id.tv_waktu);
+        batas = findViewById(R.id.tv_batas);
+        nomor = findViewById(R.id.tv_nomortransaksi);
+
+        Intent i = getIntent();
+        total = i.getStringExtra("total");
+
+//        subtotal.setText(total);
+        getMetodePembayaran();
     }
 }
