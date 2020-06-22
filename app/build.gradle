@@ -88,7 +88,6 @@ dependencies {
     implementation 'com.github.mancj:MaterialSearchBar:0.8.5'
 
     //searchview labrary baru
-    implementation 'com.github.rudsonlive:searchliveo:1.1.2'
     implementation 'br.com.mauker.materialsearchview:materialsearchview:1.2.3'
     implementation 'com.github.iammert:MultiSearchView:0.1'
 
