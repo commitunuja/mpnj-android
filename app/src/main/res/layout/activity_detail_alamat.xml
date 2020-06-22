@@ -414,7 +414,6 @@
 
 
                 <TextView
-                    android:textColor="@color/red"
                     android:id="@+id/tvHapus"
                     style="@style/txt_white_medium"
                     android:layout_width="0dp"
