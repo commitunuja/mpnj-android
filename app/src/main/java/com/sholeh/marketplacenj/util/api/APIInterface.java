@@ -202,6 +202,9 @@ public interface APIInterface {
     Call<ResDetailKeranjang> getDataTransaksi(
             @Query("id") String id);
 
+    @GET("api/konfirmasi/{kode_transaksi}")
+    Call<Pembayaran> metodepembayaran(@Path("kode_transaksi") String kodeTransaksi);
+
     //  delete produk keranjang
     @DELETE("api/keranjang/{id_keranjang}")
     Call<ResHapusKeranjang> hapusProdukKeranjang(@Path("id_keranjang") String idKeranjang);
