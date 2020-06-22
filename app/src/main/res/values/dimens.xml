@@ -63,5 +63,8 @@
 	<dimen name="font_7">10.5sp</dimen>
 	<dimen name="font_8">12sp</dimen>
 
+	<dimen name="value_0.5">0.5dp</dimen>
+	<dimen name="app_bar_height">260dp</dimen>
+
 </resources>
 
