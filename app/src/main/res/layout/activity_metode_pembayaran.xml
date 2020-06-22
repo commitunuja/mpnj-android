@@ -62,7 +62,7 @@
 
 
         <customfonts.MyTextView
-            android:id="@+id/pay"
+            android:id="@+id/tv_bayar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimaryTransperent"
