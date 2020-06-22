@@ -7,6 +7,8 @@ import com.sholeh.marketplacenj.model.city.ItemCity;
 import com.sholeh.marketplacenj.model.cost.ItemCost;
 import com.sholeh.marketplacenj.model.province.ItemProvince;
 import com.sholeh.marketplacenj.model.subdistrict.ItemKec;
+import com.sholeh.marketplacenj.model.transaksi.MetodePembayaran;
+import com.sholeh.marketplacenj.model.transaksi.Pembayaran;
 import com.sholeh.marketplacenj.respon.ResAlamat;
 import com.sholeh.marketplacenj.respon.ResDetailAlamat;
 import com.sholeh.marketplacenj.respon.ResDetailKeranjang;
