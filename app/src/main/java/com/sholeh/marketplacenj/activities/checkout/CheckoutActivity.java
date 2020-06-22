@@ -138,10 +138,13 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
                 finish();
                 break;
 
-//            case R.id.tv_pilihbank:
+            case R.id.tv_bayar:
+                Intent i =  new Intent(this, MetodePembayaranActivity.class);
+                i.putExtra("total", total);
+                startActivity(i);
 //                startActivity(new Intent(this, MetodePembayaranActivity.class));
-//
-//                break;
+//                putExtraData();
+                break;
             default:
                 break;
         }
