@@ -7,45 +7,172 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-
+        android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:orientation="vertical">
-
-
-
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_margin="10dp">
 
             <LinearLayout
+                android:id="@+id/lnsub1"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content">
 
-                <ImageView
-                    android:layout_marginLeft="12dp"
-                    android:layout_width="14dp"
-                    android:layout_height="14dp"
-                    android:layout_gravity="center"
-                    android:src="@mipmap/money_green"/>
+                <customfonts.MyTextView_Roboto_Regular
+                    android:textSize="12dp"
+                    android:layout_weight="1"
+                    android:text="Nomor Transaksi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <customfonts.MyTextView_Roboto_Regular
+                    android:textSize="12dp"
+                    android:id="@+id/tv_nomortransaksi"
+                    android:gravity="right"
+                    android:layout_weight="1"
+                    android:text="12987836837623"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@color/viewline" />
+
+            <LinearLayout
+                android:layout_marginTop="5dp"
+                android:layout_below="@+id/lnsub1"
+                android:id="@+id/lnsub2"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <customfonts.MyTextView_Roboto_Regular
+                    android:textSize="12dp"
+                    android:layout_weight="1"
+                    android:text="Waktu Transaksi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
 
                 <customfonts.MyTextView_Roboto_Regular
+                    android:textSize="12dp"
+                    android:id="@+id/tv_waktu"
+                    android:gravity="right"
                     android:layout_weight="1"
-                    android:id="@+id/tv_pilihbank"
-                    android:textSize="13sp"
+                    android:text="Senin"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Pilih Metode Pembayaran"
-                    android:textColor="@color/black"
-                    android:padding="16dp"
-                    android:gravity="left"
-                    android:drawableRight="@drawable/arrow" />
+                    android:layout_height="wrap_content" />
+
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@color/viewline" />
+
+            <LinearLayout
+                android:layout_marginTop="5dp"
+                android:layout_below="@+id/lnsub1"
+                android:id="@+id/linear5"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <customfonts.MyTextView_Roboto_Regular
+                    android:textSize="12dp"
+                    android:layout_weight="1"
+                    android:text="Batas Transaksi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+
+                <customfonts.MyTextView_Roboto_Regular
+                    android:textSize="12dp"
+                    android:id="@+id/tv_batas"
+                    android:gravity="right"
+                    android:layout_weight="1"
+                    android:text="Besok"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
             </LinearLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@color/viewline" />
+
+            <LinearLayout
+                android:layout_marginTop="5dp"
+                android:layout_below="@+id/lnsub1"
+                android:id="@+id/linear3"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <customfonts.MyTextView_Roboto_Regular
+                    android:textSize="12dp"
+                    android:layout_weight="1"
+                    android:text="Total Belanja"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+
+                <customfonts.MyTextView_Roboto_Regular
+                    android:textSize="12dp"
+                    android:id="@+id/tv_totalbayar"
+                    android:gravity="right"
+                    android:layout_weight="1"
+                    android:text="Rp 2000"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@color/viewline" />
+
+            <LinearLayout
+                android:layout_marginTop="5dp"
+                android:layout_below="@+id/lnsub1"
+                android:id="@+id/linear4"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <customfonts.MyTextView_Roboto_Regular
+                    android:textSize="12dp"
+                    android:layout_weight="1"
+                    android:text="Biaya Ongkir"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+
+                <customfonts.MyTextView_Roboto_Regular
+                    android:textSize="12dp"
+                    android:id="@+id/tv_ongkir"
+                    android:gravity="right"
+                    android:layout_weight="1"
+                    android:text="Rp 20000"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
         </LinearLayout>
+
     </LinearLayout>
 </LinearLayout>
