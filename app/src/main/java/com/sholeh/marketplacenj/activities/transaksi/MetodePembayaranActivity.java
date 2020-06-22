@@ -31,7 +31,10 @@ import static java.lang.String.valueOf;
 
 public class MetodePembayaranActivity extends AppCompatActivity {
 
-    String id_keranjang;
+    String id_keranjang, total;
+    TextView subtotal, ongkir, waktu, batas, nomor;
+    List<MetodePembayaran> metodePembayaran;
+    List<Pembayaran> pembayaran;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
