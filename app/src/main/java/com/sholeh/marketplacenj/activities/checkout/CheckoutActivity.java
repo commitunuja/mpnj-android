@@ -77,6 +77,7 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkout);
 
+        tvbayar = findViewById(R.id.tv_bayar);
 
         tvxtolbar = findViewById(R.id.txt_toolbarKeranjang);
         tvxUbahAlamat = findViewById(R.id.tvxubahAlamat);
