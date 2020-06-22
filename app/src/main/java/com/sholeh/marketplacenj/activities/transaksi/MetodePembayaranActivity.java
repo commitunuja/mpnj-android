@@ -53,4 +53,37 @@ public class MetodePembayaranActivity extends AppCompatActivity {
 //        subtotal.setText(total);
         getMetodePembayaran();
     }
+
+    public void getMetodePembayaran() {
+        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+        Call<Pembayaran> call = service.metodepembayaran(String.valueOf(1592840324));
+
+        call.enqueue(new Callback<Pembayaran>() {
+            @Override
+            public void onResponse(Call<Pembayaran> call, Response<Pembayaran> response) {
+                Log.v("wow", "json : " + new Gson().toJson(response));
+
+                if (response.body() == null) {
+
+                } else {
+                    List<MetodePembayaran> metodePembayarans = response.body().getData();
+//                    metodePembayarans.get(0).getTotalBayar();
+
+
+                    Toast.makeText(getBaseContext(), "" + response.body(), Toast.LENGTH_SHORT).show();
+                    nomor.setText(metodePembayarans.get(0).getKodeTransaksi().toString());
+                    subtotal.setText(metodePembayarans.get(0).getTotalBayar().toString());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Pembayaran> call, Throwable t) {
+//                Toast.makeText(KeranjangDetailActivity.this, "e"+t, Toast.LENGTH_SHORT).show();
+                //  Log.e(TAG, "  fail- add to cart item "+ t.toString());
+//                AppUtilits.displayMessage(KeranjangDetailActivity.this, getString(R.string.fail_toGetcart));
+                Log.d("cekkk", String.valueOf(t));
+            }
+        });
+//        }
+    }
 }
