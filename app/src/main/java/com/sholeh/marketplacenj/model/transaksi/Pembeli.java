@@ -1,4 +1,4 @@
-package com.sholeh.marketplacenj.model;
+package com.sholeh.marketplacenj.model.transaksi;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
