@@ -216,5 +216,21 @@
         <item name="android:textSize">@dimen/font_10</item>
     </style>
 
+    <style name="txt_gray_big">
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:textColorHint">@color/gray</item>
+        <item name="android:textSize">@dimen/font_10</item>
+    </style>
+
+    <style name="txt_color_primary_big">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textColorHint">@color/colorPrimary</item>
+        <item name="android:textSize">@dimen/font_10</item>
+    </style>
+
+    <style name="txt_black_big">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/font_10</item>
+    </style>
 
 </resources>

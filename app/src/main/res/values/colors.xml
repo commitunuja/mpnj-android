@@ -132,5 +132,6 @@
     <color name="text_hitam">#223038</color>
     <color name="devider">#ebebeb</color>
     <color name="vieb_black_transparant">#08000000</color>
+    <color name="medium_text">#7e7e7e</color>
 
 </resources>
