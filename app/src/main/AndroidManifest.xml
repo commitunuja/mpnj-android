@@ -36,6 +36,12 @@
         <activity android:name=".activities.transaksi.KonfirmasiPembayaran" />
         <activity android:name=".activities.dashboard.ProdukTerpopulerActivity" />
         <activity android:name=".activities.details.DiskripsiActivity" />
+        <activity android:name=".activities.kurir.OpsiPengirimanActivity"
+            android:theme="@style/AppTheme.CustomTheme">
+        </activity>
+
+        <activity android:name=".activities.dashboard.ProdukTerpopulerActivity" />
+        <activity android:name=".activities.details.DiskripsiActivity" />
         <activity android:name=".activities.pelapak.ProfilPelapakActivity" />
         <activity android:name=".activities.dashboard.SearchActivity" />
         <activity android:name=".activities.ProdukByKategori" />
