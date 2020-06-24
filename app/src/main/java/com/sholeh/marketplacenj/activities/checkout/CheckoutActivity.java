@@ -102,6 +102,7 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
 
         tvxUbahAlamat.setOnClickListener(this);
         imgBack.setOnClickListener(this);
+        bayar.setOnClickListener(this);
 //        tvxPilihBank.setOnClickListener(this);
         getDetailKeranjang();
 
@@ -138,10 +139,11 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
                 finish();
                 break;
 
-//            case R.id.tv_pilihbank:
-//                startActivity(new Intent(this, MetodePembayaranActivity.class));
-//
-//                break;
+            case R.id.tv_bayar:
+                Intent i = new Intent(this, MetodePembayaranActivity.class);
+                i.putExtra("total", harganya);
+                startActivity(i);
+                break;
             default:
                 break;
         }
