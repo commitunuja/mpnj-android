@@ -9,7 +9,6 @@ public class Preferences {
 
 
     public static final boolean SP_Akses = true;
-    public static final String SAVEDATA = "simpan" ;
     SharedPreferences sp;
     SharedPreferences.Editor spEditor;
 

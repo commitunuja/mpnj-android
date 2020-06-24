@@ -29,7 +29,6 @@
                 android:layout_marginTop="5.7dp"/>
 
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="23dp"
@@ -47,7 +46,6 @@
                     android:hint="Username"
                     android:letterSpacing="0.03"
                     android:paddingRight="10dp"
-                    android:paddingLeft="10dp"
                     android:drawablePadding="10dp"
                     android:paddingBottom="18dp"
                     android:drawableRight="@drawable/icperson"
@@ -59,7 +57,6 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="23dp"
@@ -69,7 +66,6 @@
                 android:layout_marginTop="3dp">
 
                 <customfonts.EditText_SF_Pro_Display_Medium
-
                     android:drawableRight="@drawable/ic_visibility_off_black_24dp"
                     android:id="@+id/etPass"
                     android:layout_width="match_parent"
@@ -79,7 +75,6 @@
                     android:hint="Password"
                     android:letterSpacing="0.03"
                     android:paddingRight="10dp"
-                    android:paddingLeft="10dp"
                     android:drawablePadding="10dp"
                     android:paddingBottom="18dp"
                     android:inputType="textPassword"

@@ -7,7 +7,7 @@ import java.util.List;
 
 public class ValDataProfil {
 
-    @SerializedName("id_user")
+    @SerializedName("id_konsumen")
     @Expose
     private Integer idKonsumen;
     @SerializedName("nama_lengkap")

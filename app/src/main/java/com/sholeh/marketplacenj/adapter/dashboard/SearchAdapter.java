@@ -13,9 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.activities.details.ProductDetailActivity;
-import com.sholeh.marketplacenj.custom.Product;
 import com.sholeh.marketplacenj.model.Model;
-import com.sholeh.marketplacenj.model.Produk;
 import com.sholeh.marketplacenj.util.CONSTANTS;
 import com.squareup.picasso.Picasso;
 
@@ -24,7 +22,6 @@ import java.util.List;
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder> {
     private Context context;
     private List<Model> datapencarian;
-//    List<Model> datapencarian2;
     private Model modelpencarian;
 
 
@@ -64,10 +61,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         this.datapencarian = filterdata;
         notifyDataSetChanged();
     }
-//    public void setFilter2(List<Model> filterdata2) {
-//        this.datapencarian2 = filterdata2;
-//        notifyDataSetChanged();
-//    }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView namaProduk, hargaProduk, stok, terjual, deskripsi, type;
@@ -98,7 +91,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                     intent.putExtra("kategori", myNewsmodel.getKategori().getNamaKategori());
                     intent.putExtra("diskon", String.valueOf(myNewsmodel.getDiskon()));
 //                    Toast.makeText(context, "id_produk"+myNewsmodel.getIdProduk(), Toast.LENGTH_SHORT).show();
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intent);
 
                 }

@@ -37,7 +37,6 @@
 
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                app:backgroundTint="@color/colorPrimary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/fab_alamat"

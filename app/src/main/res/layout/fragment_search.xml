@@ -1,20 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    tools:context=".mfragment.homepage.FragmentSearch">
 
-<!--    <include-->
-<!--        layout="@layout/toolbar_hompage"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent" />-->
+    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:id="@+id/tvcoba"
-        android:layout_gravity="center"
-        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Cobaaaaaa"
-        />
+        android:text="@string/hello_blank_fragment" />
 
-</LinearLayout>
+</FrameLayout>

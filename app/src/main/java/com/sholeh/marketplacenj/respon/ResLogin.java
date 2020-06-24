@@ -27,7 +27,7 @@ public class ResLogin {  // respon bg konsumen
     @SerializedName("foto")
     @Expose
     private String foto;
-    @SerializedName("id_user")
+    @SerializedName("id_konsumen")
     @Expose
     private Integer idKonsumen;
 

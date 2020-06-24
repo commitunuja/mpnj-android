@@ -14,7 +14,6 @@
         <include layout="@layout/toolbar_keranjang"/>
 
 
-
         <LinearLayout
             android:layout_marginBottom="110dp"
             android:layout_width="match_parent"
