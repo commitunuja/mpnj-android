@@ -32,11 +32,21 @@ import static java.lang.String.valueOf;
 
 public class MetodePembayaranActivity extends AppCompatActivity {
 
-    String id_keranjang;
+    String total;
+    TextView totalbayar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_metode_pembayaran);
+
+        totalbayar = findViewById(R.id.tv_totalbayar);
+
+
+        Intent i = getIntent();
+        total = i.getStringExtra("bayar");
+
+        totalbayar.setText(total);
+
     }
 }
