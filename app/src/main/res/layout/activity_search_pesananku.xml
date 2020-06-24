@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#f5f6f7"
+    tools:context=".activities.pesanan.SearchPesanankuActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/recttoolbar"
+        android:elevation="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="14sp"
+            android:layout_marginRight="14sp"
+            android:orientation="vertical">
+            <customfonts.MyTextView_Roboto_Medium
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="16.7sp"
+                android:text="Cari Pesanan Saya" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/search_rect"
+                android:orientation="horizontal"
+                android:layout_marginTop="15dp">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:tint="#534a4a"
+                        android:layout_gravity="center"
+                        android:src="@drawable/search"/>
+
+                    <customfonts.EditText_Roboto_Meidum
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="13sp"
+                        android:maxLines="1"
+                        android:layout_gravity="center"
+                        android:textColor="#737373"
+                        android:textColorHint="#534a4a"
+                        android:layout_marginLeft="15dp"
+                        android:hint="Cari berdasarkan Nama Penjual, No.Pesanan Atau Produk"
+                        android:background="#00000000"/>
+
+
+
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="131dp"
+        android:layout_height="131dp"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/circle_gray">
+
+        <ImageView
+            android:layout_width="66dp"
+            android:layout_height="60dp"
+            android:src="@drawable/search_green"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+
+    <customfonts.MyTextView_Roboto_Medium
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="#89000000"
+        android:text="Kamu Bisa Cari berdasarkan Nama Penjual, No.Pesanan Atau Produk"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_marginTop="23dp"/>
+
+
+
+
+</LinearLayout>
