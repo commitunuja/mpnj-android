@@ -9,8 +9,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.sholeh.marketplacenj.util.api.APIInterface;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.util.ServiceGenerator;
@@ -41,12 +43,18 @@ public class AlamatActivity extends AppCompatActivity implements View.OnClickLis
     private ArrayList<AlamatModel> modellist = new ArrayList<>();
     RecyclerView recyclerAlamat;
 
+    private KProgressHUD progressDialogHud;
+    LinearLayout lnKosong;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alamat);
         preferences = new Preferences(getApplication());
         id_konsumen = preferences.getIdKonsumen();
+
+        progressDialogHud = KProgressHUD.create(AlamatActivity.this);
+        lnKosong = findViewById(R.id.lnKosong);
 
         fab_addAlamat = findViewById(R.id.fab_alamat);
         recyclerAlamat = findViewById(R.id.recycler_alamat);
@@ -65,6 +73,13 @@ public class AlamatActivity extends AppCompatActivity implements View.OnClickLis
 
         getAlamat();
 
+    }
+
+    private void ProgresDialog(){
+        progressDialogHud.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setLabel("Loading...")
+                .setCancellable(false);
+        progressDialogHud.show();
     }
 
 
@@ -92,6 +107,8 @@ public class AlamatActivity extends AppCompatActivity implements View.OnClickLis
         if (!NetworkUtility.isNetworkConnected(AlamatActivity.this)){
             AppUtilits.displayMessage(AlamatActivity.this,  getString(R.string.network_not_connected));
         }else {
+        ProgresDialog();
+
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
         Call<ResProfil> call = service.getDataProfil(id_konsumen);
         call.enqueue(new Callback<ResProfil>() {
@@ -117,13 +134,22 @@ public class AlamatActivity extends AppCompatActivity implements View.OnClickLis
                             }
 
                             alamatAdapter.notifyDataSetChanged();
+//                            recyclerAlamat.setVisibility(View.VISIBLE);
+//                            lnKosong.setVisibility(View.GONE);
+                            progressDialogHud.dismiss();
 
                         }
                     } else {
                             AppUtilits.displayMessage(AlamatActivity.this, response.body().getPesan() );
+                        recyclerAlamat.setVisibility(View.GONE);
+                        lnKosong.setVisibility(View.VISIBLE);
+                        progressDialogHud.dismiss();
                     }
                 } else {
                         AppUtilits.displayMessage(AlamatActivity.this, getString(R.string.network_error));
+                    recyclerAlamat.setVisibility(View.GONE);
+                    lnKosong.setVisibility(View.VISIBLE);
+                        progressDialogHud.dismiss();
                 }
 
             }
@@ -131,7 +157,9 @@ public class AlamatActivity extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onFailure(Call<ResProfil> call, Throwable t) {
                     AppUtilits.displayMessage(AlamatActivity.this, getString(R.string.fail_togetaddress));
-
+                recyclerAlamat.setVisibility(View.GONE);
+                lnKosong.setVisibility(View.VISIBLE);
+                progressDialogHud.dismiss();
 
             }
         });
