@@ -174,8 +174,12 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
 
             case R.id.tvxBayar:
                 Intent intent = new Intent(CheckoutActivity.this, MetodePembayaranActivity.class);
-                intent.putExtra("total", totalbayar);
+                Bundle b = new Bundle();
+                b.putDouble("Intent", totalbayar);
+                intent.putExtras(b);
                 startActivity(intent);
+//                intent.putExtra("totalbayar", totalbayar);
+//                startActivity(intent);
 
                 break;
             default:

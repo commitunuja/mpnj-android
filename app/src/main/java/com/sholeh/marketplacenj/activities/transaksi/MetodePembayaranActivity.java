@@ -33,18 +33,23 @@ import static java.lang.String.valueOf;
 public class MetodePembayaranActivity extends AppCompatActivity {
 
     String total;
-    TextView totalbayar;
+    TextView tvxtotalbayar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_metode_pembayaran);
 
-        totalbayar = findViewById(R.id.tv_totalbayar);
-        total = getIntent().getStringExtra("total");
-        Log.d("totalbayar", String.valueOf(totalbayar));
-        Toast.makeText(this, "total"+total, Toast.LENGTH_SHORT).show();
-//        totalbayar.setText(total);
+        tvxtotalbayar = findViewById(R.id.tv_totalbayar);
+//        total = getIntent().getStringExtra("totalbayar");
+//        total = getIntent().getExtras().getString("totalbayar");
+
+        Bundle b = getIntent().getExtras();
+        double result = b.getDouble("Intent");
+
+        Log.d("totalbayar", String.valueOf(total));
+        Toast.makeText(this, "totalbayar"+result, Toast.LENGTH_SHORT).show();
+//        tvxtotalbayar.setText(total);
 
     }
 }
