@@ -24,27 +24,27 @@ public class PesananModel {
     }
 
     public String getNamaToko() {
-        return namaToko;
+        return nama_toko;
     }
 
-    public void setNamaToko(String namaToko) {
-        this.namaToko = namaToko;
+    public void setNamaToko(String nama_toko) {
+        this.nama_toko = nama_toko;
     }
 
     public String getStatusPembayaran() {
-        return statusPembayaran;
+        return status_pembayaran;
     }
 
     public void setStatusPembayaran(String statusPembayaran) {
-        this.statusPembayaran = statusPembayaran;
+        this.status_pembayaran = statusPembayaran;
     }
 
     public String getNamaProduk() {
-        return namaProduk;
+        return nama_produk;
     }
 
-    public void setNamaProduk(String namaProduk) {
-        this.namaProduk = namaProduk;
+    public void setNamaProduk(String nama_produk) {
+        this.nama_produk = nama_produk;
     }
 
     public String getJumlah() {
