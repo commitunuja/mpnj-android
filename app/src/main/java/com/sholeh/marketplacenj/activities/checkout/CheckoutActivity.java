@@ -282,7 +282,7 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
             String qty = intent.getStringExtra("total");
             hargaTotal = Double.parseDouble(qty);
             st = new StringTokenizer(formatRupiah.format(hargaTotal), ",");
-            String harganya = st.nextToken().trim();
+             harganya = st.nextToken().trim();
             tvxtotalCheckout.setText(harganya);
 //
 //            if (harganya.equalsIgnoreCase("Rp0")) {
