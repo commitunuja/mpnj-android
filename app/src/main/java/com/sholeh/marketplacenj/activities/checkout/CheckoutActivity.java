@@ -126,7 +126,7 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
         tvxUbahAlamat.setOnClickListener(this);
         tvxBayar.setOnClickListener(this);
         imgBack.setOnClickListener(this);
-        bayar.setOnClickListener(this);
+        tvxBayar.setOnClickListener(this);
 //        tvxPilihBank.setOnClickListener(this);
         getDetailKeranjang();
 
