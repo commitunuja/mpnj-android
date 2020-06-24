@@ -151,10 +151,10 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onBackPressed() {
-       onBack();
+        onBack();
     }
 
-    public void onBack(){
+    public void onBack() {
         new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Exit")
                 .setMessage("Apakah Anda yakin ingin membatalkan checkout?")
                 .setPositiveButton("Iya", new DialogInterface.OnClickListener() {
