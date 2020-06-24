@@ -255,11 +255,11 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
                         }
 
                     } else {
-                        Toast.makeText(CheckoutActivity.this, ""+response.body(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CheckoutActivity.this, "" + response.body(), Toast.LENGTH_SHORT).show();
 //                        AppUtilits.displayMessage(CheckoutActivity.this, getString(R.string.network_error));
                     }
                 } else {
-                    Toast.makeText(CheckoutActivity.this, ""+response.body(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CheckoutActivity.this, "" + response.body(), Toast.LENGTH_SHORT).show();
 //                    AppUtilits.displayMessage(CheckoutActivity.this, getString(R.string.network_error));
                 }
             }
