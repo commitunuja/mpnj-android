@@ -47,33 +47,19 @@ public class Utama extends AppCompatActivity implements BottomNavigationView.OnN
         preferences = new Preferences(getApplication());
         id_konsumen = preferences.getIdKonsumen();
 
-        homepageFragment = new HomepageFragment();
-
-        keranjangFragment = new KeranjangFragment();
-
-        fragmentProfil = new FragmentProfil();
-
         bottomNavigationView = findViewById(R.id.bottom_navigation_view);
+
+        if (fragment == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.nav_host_fragment, homeFragment)
+                    .commit();
+        }
+
+        fm.beginTransaction().add(R.id.nav_host_fragment, keranjangFragment, "2").hide(keranjangFragment).commit();
+        fm.beginTransaction().add(R.id.nav_host_fragment, fragmentProfil, "1").hide(fragmentProfil).commit();
 
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
 
-        bottomNavigationView.setSelectedItemId(R.id.navigation_store);
-
-//        bottomNavigation = findViewById(R.id.navigation_bottombar);
-//        bottomNavigation.setOnClickListener(this);
-//        nav_home = findViewById(R.id.nav_home);
-//        nav_home.setOnClickListener(this);
-//        nav_notifikasi = findViewById(R.id.nav_notifikasi);
-//        nav_notifikasi.setOnClickListener(this);
-//        nav_transaksi = findViewById(R.id.nav_transaksi);
-//        nav_transaksi.setOnClickListener(this);
-//        nav_profile = findViewById(R.id.nav_profile);
-//        nav_profile.setOnClickListener(this);
-//        fb_favourite = findViewById(R.id.fab_menu);
-//        fb_favourite.setOnClickListener(this);
-
-
-//        loadFragment(homepageFragment);
         perizinan();
     }
 
