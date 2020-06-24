@@ -25,6 +25,21 @@
                 android:src="@drawable/map_marker"/>
 
             <customfonts.MyTextView_Roboto_Regular
+                android:visibility="gone"
+                android:id="@+id/tvx_idKecPembeli"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="18dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="17dp"
+                android:layout_weight="1"
+                android:letterSpacing="0.03"
+                android:lineSpacingExtra="1dp"
+                android:textColor="@color/black"
+                android:textSize="13sp" />
+
+
+            <customfonts.MyTextView_Roboto_Regular
                 android:id="@+id/tvx_setAlamat"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -36,7 +51,7 @@
                 android:lineSpacingExtra="1dp"
                 android:text="Mohon Pilih Alamat Pengiriman"
                 android:textColor="@color/black"
-                android:textSize="13sp" />
+                android:textSize="10sp" />
 
 
             <View
@@ -58,7 +73,7 @@
                 android:letterSpacing="0.03"
                 android:text="Edit"
                 android:textColor="@color/black"
-                android:textSize="12.7sp" />
+                android:textSize="10sp" />
         </LinearLayout>
 
 

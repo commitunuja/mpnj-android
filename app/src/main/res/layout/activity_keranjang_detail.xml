@@ -13,12 +13,6 @@
 
         <include layout="@layout/toolbar_keranjang"/>
 
-        <TextView
-            android:layout_gravity="center_horizontal"
-            android:text="Text"
-            android:id="@+id/tvxidk"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
 
 
         <LinearLayout

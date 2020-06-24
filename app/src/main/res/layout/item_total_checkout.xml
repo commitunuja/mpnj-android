@@ -7,7 +7,7 @@
     android:background="@color/white"
     android:orientation="vertical"
    >
-    <include layout="@layout/item_pembayaran"/>
+
     <include layout="@layout/item_subtotal"/>
 
 
@@ -44,10 +44,10 @@
                         android:textSize="17sp" />
                      </LinearLayout>
                 <customfonts.MyTextView_Roboto_Medium
-                    android:id="@+id/total"
+                    android:id="@+id/totalchechkout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Rp0"
+
                     android:textSize="18.3sp"
                     android:letterSpacing="0"
                     android:textColor="@color/black"
@@ -67,7 +67,7 @@
 
 
         <customfonts.MyTextView
-            android:id="@+id/pay"
+            android:id="@+id/tv_bayar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimaryTransperent"

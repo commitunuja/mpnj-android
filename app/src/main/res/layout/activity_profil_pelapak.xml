@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="14dp"
         android:fontFamily="sans-serif-condensed"
-        android:text="@string/namapelapak"
+        android:text="Sholeh Shop"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

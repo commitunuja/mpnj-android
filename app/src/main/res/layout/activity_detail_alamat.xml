@@ -250,7 +250,7 @@
 
 
                 <LinearLayout
-                    android:visibility="gone"
+
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/value_5"
@@ -278,7 +278,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
 
-                        <EditText
+                        <TextView
+                            android:textColor="#000000"
                             android:id="@+id/ed_kec"
                             android:layout_width="match_parent"
                             android:layout_height="20sp"
@@ -286,7 +287,6 @@
                             android:background="@drawable/custom_edittext"
                             android:gravity="right"
                             android:inputType="textAutoCorrect"
-                            android:text="Paiton"
                             android:textSize="12sp" />
 
 
@@ -295,7 +295,7 @@
                 </LinearLayout>
 
                 <View
-                    android:visibility="gone"
+
                     android:layout_width="300dp"
                     android:layout_height="1dp"
                     android:layout_marginTop="10dp"
@@ -414,7 +414,6 @@
 
 
                 <TextView
-                    android:textColor="#FF5441"
                     android:id="@+id/tvHapus"
                     style="@style/txt_white_medium"
                     android:layout_width="0dp"

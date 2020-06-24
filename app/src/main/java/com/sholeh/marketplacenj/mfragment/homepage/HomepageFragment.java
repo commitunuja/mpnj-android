@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,13 +14,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mancj.materialsearchbar.MaterialSearchBar;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.activities.dashboard.ProdukTerpopulerActivity;
 import com.sholeh.marketplacenj.activities.dashboard.SearchActivity;
@@ -44,7 +46,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HomepageFragment extends Fragment implements View.OnClickListener {
+//import com.mancj.materialsearchbar.MaterialSearchBar;
+
+public class HomepageFragment extends Fragment implements View.OnClickListener, MaterialSearchBar.OnSearchActionListener {
+
 
     FrameLayout frameLayout;
     EditText search;
@@ -84,7 +89,6 @@ public class HomepageFragment extends Fragment implements View.OnClickListener {
     private TextView produkterpopuler;
     private ArrayList<TopTenModelClass> topTenModelClasses;
     private RecyclerView top_ten_crecyclerview;
-    private RecyclerView recyclerViewpproduk;
     private RecycleAdapteTopTenHome mAdapter2;
     private RecycleAdapteTopTenHome mAdaper10;
     private Integer image1[] = {R.drawable.ac, R.drawable.headphones, R.drawable.ac, R.drawable.headphones};
@@ -93,7 +97,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener {
     private String title3[] = {"Mohon Tunggu", "Mohon Tunggu", "Mohon Tunggu", "Mohon Tunggu"};
     private String type[] = {"Mohon Tunggu", "Mohon Tunggu", "Mohon Tunggu", "Mohon Tunggu"};
 
-    String status;
+    String status, namaprodukpencarian;
     private ArrayList<TopTenModelClass> topTenModelClasses1;
     private RecyclerView like_recyclerview, toprate;
     private RecycleAdapteTopTenHome mAdapter3;
@@ -102,57 +106,71 @@ public class HomepageFragment extends Fragment implements View.OnClickListener {
     private String type2[] = {"Phones", "Phones", "Phones", "Phones"};
 
 
+    RecyclerView.LayoutManager dataapi;
+    MaterialSearchBar searchBar;
+
+    private SearchFragment searchFragment;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        View rootView = inflater.inflate(R.layout.fragment_homepage, container, false);
         setHasOptionsMenu(true);
+        return inflater.inflate(R.layout.fragment_homepage, container, false);
 
+    }
 
-        produkterpopuler = rootView.findViewById(R.id.tv_produkterpopuler);
-        like_recyclerview = rootView.findViewById(R.id.top_ten_recyclerview);
-        toprate = rootView.findViewById(R.id.rv_toprate);
-        top_ten_crecyclerview = rootView.findViewById(R.id.recent_recyclerview);
-        category_recyclerView = rootView.findViewById(R.id.category_recyclerview);
-        recyclerViewpproduk = rootView.findViewById(R.id.recyclersearch);
-        recyclerView = rootView.findViewById(R.id.recyclerview);
-
-
-        edpencarian = rootView.findViewById(R.id.etsearch);
-        frameLayout = rootView.findViewById(R.id.frag_container);
-        search = rootView.findViewById(R.id.etsearch);
-        search.setOnClickListener(this);
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        searchBar = view.findViewById(R.id.searchBar);
+        searchBar.setOnSearchActionListener(this);
+        searchBar.setOnClickListener(this);
+        produkterpopuler = view.findViewById(R.id.tv_produkterpopuler);
+        like_recyclerview = view.findViewById(R.id.top_ten_recyclerview);
+        toprate = view.findViewById(R.id.rv_toprate);
+        top_ten_crecyclerview = view.findViewById(R.id.recent_recyclerview);
+        category_recyclerView = view.findViewById(R.id.category_recyclerview);
+        recyclerView = view.findViewById(R.id.recyclerview);
+//        edpencarian = view.findViewById(R.id.etsearch);
+        frameLayout = view.findViewById(R.id.frag_container);
+//        search = view.findViewById(R.id.etsearch);
+//        search.setOnClickListener(this);
         produkterpopuler.setOnClickListener(this);
+
 
         Banner();
         kategori();
-        produksearch();
+//        produksearch();
         likeproduk();
         produksamsung();
         recentproduk();
         produkapi();
         fiturpencarian();
 
-        recyclerViewpproduk.setVisibility(View.GONE);
-        frameLayout.setVisibility(View.VISIBLE);
 
-        return rootView;
+//        FragmentManager fm = getFragmentManager();
+//        fm.addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+//            @Override
+//            public void onBackStackChanged() {
+//                if(getFragmentManager().getBackStackEntryCount() == 0);
+//                recyclerViewpproduk.setVisibility(View.INVISIBLE);
+//                frameLayout.setVisibility(View.VISIBLE);
+//            }
+//        });
     }
 
     @Override
     public void onResume() {
         super.onResume();
+    }
 
-        frameLayout.requestFocus();
-        frameLayout.setVisibility(View.VISIBLE);
-        recyclerViewpproduk.setVisibility(View.GONE);
-
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 
 
-////    @Override
 //    public void onBackPressed() {
 //        if (status.equals("yes")) {
 //            recyclerViewpproduk.setVisibility(View.GONE);
@@ -163,6 +181,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener {
 //            super.onBackPressed();
 //        }
 //    }
+
 
     private void produksamsung() {
 
@@ -186,26 +205,55 @@ public class HomepageFragment extends Fragment implements View.OnClickListener {
 
     private void fiturpencarian() {
 
-        search.addTextChangedListener(new TextWatcher() {
+        searchBar.setSpeechMode(true);
+//        searchBar.setText("Hello Zainal!");
+        Log.d("LOG_TAG", getClass().getSimpleName() + ": text " + searchBar.getText());
+        searchBar.setCardViewElevation(10);
+        searchBar.addTextChangeListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
             }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                Log.d("LOG_TAG", getClass().getSimpleName() + " text changed " + searchBar.getText());
 
+//                searchFragment = new SearchFragment();
             }
 
             @Override
-            public void afterTextChanged(Editable s) {
+            public void afterTextChanged(Editable editable) {
 
-                recyclerViewpproduk.setVisibility(View.VISIBLE);
-                frameLayout.setVisibility(View.GONE);
-                HomepageFragment.this.filterQuery(s.toString());
+
+//                HomepageFragment.this.filterQuery(editable.toString());
                 status = "yes";
 
             }
+
         });
+
+//        search.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//
+//                recyclerViewpproduk.setVisibility(View.VISIBLE);
+//                frameLayout.setVisibility(View.GONE);
+//                HomepageFragment.this.filterQuery(s.toString());
+//                status = "yes";
+//
+//            }
+//        });
     }
 
     private void produkapi() {
@@ -219,10 +267,11 @@ public class HomepageFragment extends Fragment implements View.OnClickListener {
         }
 
         produkAdapter = new ProdukAdapter(getContext(), tvDataProduk);
-        RecyclerView.LayoutManager LMProdukapi = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        dataapi = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
 
-        toprate.setLayoutManager(LMProdukapi);
+        toprate.setLayoutManager(dataapi);
         toprate.setItemAnimator(new DefaultItemAnimator());
+        toprate.setHasFixedSize(true);
 
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
         Call<List<Model>> call = service.getProduk();
@@ -230,10 +279,13 @@ public class HomepageFragment extends Fragment implements View.OnClickListener {
         call.enqueue(new Callback<List<Model>>() {
             @Override
             public void onResponse(Call<List<Model>> call, Response<List<Model>> response) {
-
-                tvDataProduk = response.body();
-                produkAdapter = new ProdukAdapter(getContext(), tvDataProduk);
-                toprate.setAdapter(produkAdapter);
+                if (response.body() != null && response.isSuccessful()) {
+                    tvDataProduk = response.body();
+                    produkAdapter = new ProdukAdapter(getContext(), tvDataProduk);
+                    toprate.setAdapter(produkAdapter);
+                } else {
+                    Toast.makeText(getContext(), "gagal", Toast.LENGTH_SHORT).show();
+                }
 
             }
 
@@ -370,36 +422,40 @@ public class HomepageFragment extends Fragment implements View.OnClickListener {
         category_recyclerView.setAdapter(recycleAdapteHomeCategory);
     }
 
-    private void produksearch() {
-
-        searchAdapter = new SearchAdapter(getContext(), datapencarian);
-
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
-        recyclerViewpproduk.setLayoutManager(layoutManager);
-        recyclerViewpproduk.setItemAnimator(new DefaultItemAnimator());
-        recyclerViewpproduk.setNestedScrollingEnabled(false);
-        recyclerViewpproduk.setFocusableInTouchMode(false);
-
-
-        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-        Call<List<Model>> call = service.getProduk();
-
-        call.enqueue(new Callback<List<Model>>() {
-            @Override
-            public void onResponse(Call<List<Model>> call, Response<List<Model>> response) {
-
-                datapencarian = response.body();
-                searchAdapter = new SearchAdapter(getContext(), datapencarian);
-                recyclerViewpproduk.setAdapter(searchAdapter);
-
-            }
-
-            @Override
-            public void onFailure(Call<List<Model>> call, Throwable t) {
-                Toast.makeText(getContext(), String.valueOf(t), Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
+//    private void produksearch(String text) {
+////        namaprodukpencarian = String.valueOf(searchBar);
+//        searchBar.setSpeechMode(true);
+//        searchAdapter = new SearchAdapter(getContext(), datapencarian);
+//
+//        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
+//        recyclerViewpproduk.setLayoutManager(layoutManager);
+//        recyclerViewpproduk.setItemAnimator(new DefaultItemAnimator());
+//        recyclerViewpproduk.setNestedScrollingEnabled(false);
+//        recyclerViewpproduk.setFocusableInTouchMode(false);
+//
+//
+//        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+////        Call<List<Model>> call = service.getProduk();
+//        Call<List<Model>> call = service.getAllData(text);
+//        call.enqueue(new Callback<List<Model>>() {
+//            @Override
+//            public void onResponse(Call<List<Model>> call, Response<List<Model>> response) {
+//                if (response.isSuccessful()) {
+//                    datapencarian = response.body();
+//                    searchAdapter = new SearchAdapter(getContext(), datapencarian);
+//                    recyclerViewpproduk.setAdapter(searchAdapter);
+//
+//                } else {
+//                    Log.e(getTag(), "response is " + response.body() + "  ---- " + new Gson().toJson(response.body()));
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<Model>> call, Throwable t) {
+//                Toast.makeText(getContext(), String.valueOf(t), Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
 
     private void Banner() {
 
@@ -422,28 +478,50 @@ public class HomepageFragment extends Fragment implements View.OnClickListener {
 
     }
 
-    public void filterQuery(String text) {
-        ArrayList<Model> filterdNames = new ArrayList<>();
-        for (Model s : this.datapencarian) {
-            if (s.getNamaProduk().toLowerCase().contains(text) || s.getKeterangan().toLowerCase().contains(text)) {
-                filterdNames.add(s);
-            }
-        }
-        this.searchAdapter.setFilter(filterdNames);
-    }
+//    public void filterQuery(String text) {
+//        ArrayList<Model> filterdNames = new ArrayList<>();
+//        for (Model s : this.datapencarian) {
+//            if (s.getNamaProduk().toLowerCase().contains(text) || s.getKeterangan().toLowerCase().contains(text)) {
+//                filterdNames.add(s);
+//            }
+//        }
+//        this.searchAdapter.setFilter(filterdNames);
+//    }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.searchBar:
+                Intent search = new Intent(getContext(), SearchActivity.class);
+                startActivity(search);
+                break;
             case R.id.tv_produkterpopuler:
                 Intent intent = new Intent(getContext(), ProdukTerpopulerActivity.class);
                 startActivity(intent);
                 break;
+
             case R.id.etsearch:
-                Intent pencarian = new Intent (getContext(), SearchActivity.class);
+                Intent pencarian = new Intent(getContext(), SearchActivity.class);
                 startActivity(pencarian);
                 break;
         }
+    }
+
+    @Override
+    public void onSearchStateChanged(boolean enabled) {
+
+    }
+
+    @Override
+    public void onSearchConfirmed(CharSequence text) {
+//        produksearch(searchBar.getText());
+
+
+    }
+
+    @Override
+    public void onButtonClicked(int buttonCode) {
+
     }
 
 //    public void kategoriById() {
