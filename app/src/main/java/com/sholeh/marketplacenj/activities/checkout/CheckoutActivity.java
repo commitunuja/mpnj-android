@@ -36,6 +36,7 @@ import com.sholeh.marketplacenj.util.api.APIInterface;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -62,7 +63,10 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
     Locale localeID = new Locale("in", "ID");
     NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
     StringTokenizer st;
-    ArrayList<String> arrayIdKeranjang;
+    String arrayIdKeranjang;
+    String idkk;
+    List<String> list;
+    ArrayList<String> idK;
 
     private Rajaongkir rajaongkircost;
     String harganya;
@@ -96,7 +100,21 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
 
         Intent i = getIntent();
         ongkir = i.getStringExtra("ongkir");
-        Toast.makeText(this, String.valueOf(ongkir), Toast.LENGTH_SHORT).show();
+        idK = i.getStringArrayListExtra("idcheckout");
+        arrayIdKeranjang = String.valueOf(i.getStringArrayListExtra("idcheckout"));
+        String[] nomor = arrayIdKeranjang.split("\\[");
+        String[] nomor2 = nomor[1].split("]");
+        String harIDK = "";
+
+        for (int j = 0; j < nomor2.length; j++) {
+            harIDK = harIDK + nomor2[j];
+        }
+        idkk = harIDK;
+        String[] yolo = idkk.split(",");
+        list = new ArrayList<String>();
+        list = Arrays.asList(yolo);
+        Log.d("YOLO", String.valueOf(arrayIdKeranjang));
+//        Toast.makeText(this, String.valueOf(arrayIdKeranjang), Toast.LENGTH_SHORT).show();
 
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
 
@@ -126,6 +144,9 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
         return resDetailKeranjang;
     }
 
+    public ArrayList<String> listIdKeranjang() {
+        return idK;
+    }
 
     @Override
     public void onClick(View v) {
@@ -194,7 +215,7 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
 
     public void getDetailKeranjang() {
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-        Call<ResDetailKeranjang> call = service.getDataTransaksi(id_konsumen);
+        Call<ResDetailKeranjang> call = service.getDataTransaksi(id_konsumen, list);
 
         listHeader = new ArrayList<>();
         listChild = new HashMap<>();
@@ -225,7 +246,11 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
                             listHeader.add(new HeaderCheckout(
                                     response.body().getDataKeranjang().get(i).getIdToko(),
                                     response.body().getDataKeranjang().get(i).getNamaToko(),
-                                    response.body().getDataKeranjang().get(i).getIdKabupaten()));
+                                    response.body().getDataKeranjang().get(i).getIdKabupaten(),
+                                    response.body().getDataKeranjang().get(i).getKurir(),
+                                    response.body().getDataKeranjang().get(i).getService(),
+                                    response.body().getDataKeranjang().get(i).getOngkir(),
+                                    response.body().getDataKeranjang().get(i).getEtd()));
 
 
 //                            Toast.makeText(CheckoutActivity.this, ""+response.body().getDataKeranjang().get(0).getNamaKota(), Toast.LENGTH_SHORT).show();

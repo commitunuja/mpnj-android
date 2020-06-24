@@ -198,9 +198,20 @@ public interface APIInterface {
     Call<ResDetailKeranjang> getDataDetailKeranjang(
             @Query("id") String id);
 
-    @GET("api/transaksi")
+    @FormUrlEncoded
+    @POST("api/transaksi")
     Call<ResDetailKeranjang> getDataTransaksi(
-            @Query("id") String id);
+            @Query("id") String id,
+            @Field("id_keranjang[]") List<String> id_keranjang);
+
+    @FormUrlEncoded
+    @POST("api/transaksi/simpanKurir")
+    Call<JsonObject> simpan_kurir(
+            @Field("kurir") String kurir,
+            @Field("service") String service,
+            @Field("ongkir") Integer ongkir,
+            @Field("etd") String etd,
+            @Field("id_keranjang[]") List<String> id_keranjang);
 
     //  delete produk keranjang
     @DELETE("api/keranjang/{id_keranjang}")
