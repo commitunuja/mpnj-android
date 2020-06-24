@@ -387,48 +387,48 @@ public class KeranjangDetailActivity extends AppCompatActivity implements View.O
             arrayIdKeranjang.add(id[a]);
         }
 
-        updateStatusProduk();
+//        updateStatusProduk();
         Intent goCheckout = new Intent(this, CheckoutActivity.class);
-//        goCheckout.putStringArrayListExtra("idcheckout", (ArrayList<String>) list);
+        goCheckout.putStringArrayListExtra("idcheckout", arrayIdKeranjang);
         startActivity(goCheckout);
     }
 
 
-    public void updateStatusProduk() {
-        Log.d("array idk", String.valueOf(list));
-
-//        Toast.makeText(this, ""+arrayIdKeranjang, Toast.LENGTH_SHORT).show();
-
-        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-        Call<ResDetailKeranjang> call = service.ubahStatusKeranjang(id_konsumen, list);
-
-
-        call.enqueue(new Callback<ResDetailKeranjang>() {
-            @Override
-            public void onResponse(Call<ResDetailKeranjang> call, retrofit2.Response<ResDetailKeranjang> response) {
-
-                //   Log.e(TAG, "response is "+ response.body() + "  ---- "+ new Gson().toJson(response.body()));
-                //  Log.e(TAG, "  ss sixe 1 ");
-                if (response.body() != null && response.isSuccessful()) {
-                    if (response.body().getDataKeranjang().size() > 0) {
-                        Toast.makeText(KeranjangDetailActivity.this, "Berhasil", Toast.LENGTH_SHORT).show();
-                    } else {
-//                        AppUtilits.displayMessage(KeranjangDetailActivity.this, getString(R.string.network_error));
-                    }
-                } else {
-//                    AppUtilits.displayMessage(KeranjangDetailActivity.this, getString(R.string.network_error));
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResDetailKeranjang> call, Throwable t) {
-//                Toast.makeText(KeranjangDetailActivity.this, "e"+t, Toast.LENGTH_SHORT).show();
-                //  Log.e(TAG, "  fail- add to cart item "+ t.toString());
-//                AppUtilits.displayMessage(KeranjangDetailActivity.this, getString(R.string.fail_toGetcart));
-                Log.d("cekkk", String.valueOf(t));
-            }
-        });
+//    public void updateStatusProduk() {
+//        Log.d("array idk", String.valueOf(list));
 //
-    }
+////        Toast.makeText(this, ""+arrayIdKeranjang, Toast.LENGTH_SHORT).show();
+//
+//        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+//        Call<ResDetailKeranjang> call = service.checkout(id_konsumen, list);
+//
+//
+//        call.enqueue(new Callback<ResDetailKeranjang>() {
+//            @Override
+//            public void onResponse(Call<ResDetailKeranjang> call, retrofit2.Response<ResDetailKeranjang> response) {
+//
+//                //   Log.e(TAG, "response is "+ response.body() + "  ---- "+ new Gson().toJson(response.body()));
+//                //  Log.e(TAG, "  ss sixe 1 ");
+//                if (response.body() != null && response.isSuccessful()) {
+//                    if (response.body().getDataKeranjang().size() > 0) {
+//                        Toast.makeText(KeranjangDetailActivity.this, "Berhasil", Toast.LENGTH_SHORT).show();
+//                    } else {
+////                        AppUtilits.displayMessage(KeranjangDetailActivity.this, getString(R.string.network_error));
+//                    }
+//                } else {
+////                    AppUtilits.displayMessage(KeranjangDetailActivity.this, getString(R.string.network_error));
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ResDetailKeranjang> call, Throwable t) {
+////                Toast.makeText(KeranjangDetailActivity.this, "e"+t, Toast.LENGTH_SHORT).show();
+//                //  Log.e(TAG, "  fail- add to cart item "+ t.toString());
+////                AppUtilits.displayMessage(KeranjangDetailActivity.this, getString(R.string.fail_toGetcart));
+//                Log.d("cekkk", String.valueOf(t));
+//            }
+//        });
+////
+//    }
 
 }
