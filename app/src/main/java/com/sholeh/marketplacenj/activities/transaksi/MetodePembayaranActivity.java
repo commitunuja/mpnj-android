@@ -41,12 +41,10 @@ public class MetodePembayaranActivity extends AppCompatActivity {
         setContentView(R.layout.activity_metode_pembayaran);
 
         totalbayar = findViewById(R.id.tv_totalbayar);
-
-
-        Intent i = getIntent();
-        total = i.getStringExtra("bayar");
-
-        totalbayar.setText(total);
+        total = getIntent().getStringExtra("total");
+        Log.d("totalbayar", String.valueOf(totalbayar));
+        Toast.makeText(this, "total"+total, Toast.LENGTH_SHORT).show();
+//        totalbayar.setText(total);
 
     }
 }

@@ -173,9 +173,10 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
                 break;
 
             case R.id.tvxBayar:
-                Intent i = new Intent(this, MetodePembayaranActivity.class);
-                i.putExtra("total", harganya);
-                startActivity(i);
+                Intent intent = new Intent(CheckoutActivity.this, MetodePembayaranActivity.class);
+                intent.putExtra("total", totalbayar);
+                startActivity(intent);
+
                 break;
             default:
                 break;
