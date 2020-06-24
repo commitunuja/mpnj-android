@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    android:layout_alignParentBottom="true"
+    android:background="@color/white"
+    android:orientation="vertical"
+   >
+
+    <include layout="@layout/item_subtotal"/>
+
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="12dp"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="15.7dp">
+
+                    <customfonts.MyTextView_Roboto_Regular
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:letterSpacing="0.03"
+                        android:text="Total Pembayaran"
+                        android:textColor="@color/black"
+                        android:textSize="17sp" />
+                     </LinearLayout>
+                <customfonts.MyTextView_Roboto_Medium
+                    android:id="@+id/totalchechkout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:textSize="18.3sp"
+                    android:letterSpacing="0"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginRight="21dp"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13.3dp"
+        android:orientation="horizontal">
+
+
+
+        <customfonts.MyTextView
+            android:id="@+id/tvxBayar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryTransperent"
+            android:text="Konfirmasi &amp; Bayar"
+            android:textSize="16dp"
+            android:textColor="#fff"
+            android:padding="16dp"
+            android:gravity="center"
+            android:drawableRight="@drawable/next"
+            />
+    </RelativeLayout>
+</LinearLayout>

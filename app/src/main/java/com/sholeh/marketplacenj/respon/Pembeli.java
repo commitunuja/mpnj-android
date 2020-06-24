@@ -34,6 +34,10 @@ public class Pembeli {
     @Expose
     private String alamatUtama;
 
+    @SerializedName("id_kecamatan")
+    @Expose
+    private String idKecamatan;
+
     public Integer getIdKonsumen() {
         return idKonsumen;
     }
@@ -113,4 +117,13 @@ public class Pembeli {
     public void setAlamatUtama(String alamatUtama) {
         this.alamatUtama = alamatUtama;
     }
+
+    public String getIdKecamatan() {
+        return idKecamatan;
+    }
+
+    public void setIdKecamatan(String idKecamatan) {
+        this.idKecamatan = idKecamatan;
+    }
+
 }

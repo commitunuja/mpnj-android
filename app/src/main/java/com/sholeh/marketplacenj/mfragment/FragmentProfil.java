@@ -16,6 +16,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.viewpager.widget.ViewPager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,8 +26,11 @@ import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
+import com.sholeh.marketplacenj.activities.AkunActivity;
+import com.sholeh.marketplacenj.activities.AlamatActivity;
+import com.sholeh.marketplacenj.activities.PengaturanAkun;
+import com.sholeh.marketplacenj.activities.pesanan.MyPesananActivity;
 import com.sholeh.marketplacenj.util.api.APIInterface;
-import com.sholeh.marketplacenj.util.CONSTANTS;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.util.ServiceGenerator;
 import com.sholeh.marketplacenj.activities.ImageProfilActivity;
@@ -35,7 +39,6 @@ import com.sholeh.marketplacenj.activities.TabFragmentPelapak;
 import com.sholeh.marketplacenj.activities.TabFragmentPembeli;
 import com.sholeh.marketplacenj.respon.ResProfil;
 import com.sholeh.marketplacenj.util.Preferences;
-import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
@@ -45,7 +48,7 @@ import retrofit2.Response;
 public class FragmentProfil extends Fragment implements View.OnClickListener {
     private ImageView btnImgProfil, nav_home, nav_notifikasi, nav_transaksi, navprofile;
     TextView tvx_login, tvx_namaCustomter, tvx_title, tvx_logout,tvx_edit, tvx_username,
-              tvx_Hp, tvx_Email;
+              tvx_Hp, tvx_profil, tvx_alamat, tvx_setting, tvx_email, tvx_pesananku;
 
 
 
@@ -83,19 +86,25 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_profil,container,false);
 
-
-
-
-
         tvx_namaCustomter = rootView.findViewById(R.id.tvCustomerName);
         tvx_username = rootView.findViewById(R.id.tvx_username);
-        tvx_Email = rootView.findViewById(R.id.tvx_Email);
+        tvx_email = rootView.findViewById(R.id.tvx_Email);
         tvx_Hp = rootView.findViewById(R.id.tvx_nomorhp);
+        tvx_profil = rootView.findViewById(R.id.tv_myprofil);
+        tvx_alamat = rootView.findViewById(R.id.tvAlamat);
+        tvx_setting = rootView.findViewById(R.id.tvSetting);
+        tvx_pesananku = rootView.findViewById(R.id.tvMyPesanan);
+
 
         btnImgProfil = rootView.findViewById(R.id.imgProfil);
         btnImgProfil.setOnClickListener(this);
         imageProfil = rootView.findViewById(R.id.cirprofile_image);
-        imageProfil.setOnClickListener(this);
+        tvx_profil.setOnClickListener(this);
+        tvx_alamat.setOnClickListener(this);
+        tvx_setting.setOnClickListener(this);
+        tvx_pesananku.setOnClickListener(this);
+
+
         tvx_title = rootView.findViewById(R.id.title);
         tvx_edit = rootView.findViewById(R.id.edit_txt);
         tvx_edit.setVisibility(View.GONE);
@@ -163,9 +172,36 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
 //                selectImage();
                 break;
 
+            case R.id.tv_myprofil:
+                Intent intent3 = new Intent(getActivity(), AkunActivity.class);
+                getActivity().startActivity(intent3);
+//                selectImage();
+                break;
+
+            case R.id.tvAlamat:
+                Intent intent4 = new Intent(getActivity(), AlamatActivity.class);
+                getActivity().startActivity(intent4);
+                Toast.makeText(getActivity(), "klik", Toast.LENGTH_SHORT).show();
+
+//                selectImage();
+                break;
+
+            case R.id.tvSetting:
+                Intent intent5 = new Intent(getActivity(), PengaturanAkun.class);
+                getActivity().startActivity(intent5);
+                break;
+
+            case R.id.tvMyPesanan:
+                Intent intent6 = new Intent(getActivity(), MyPesananActivity.class);
+                getActivity().startActivity(intent6);
+//                selectImage();
+                break;
+
             case R.id.logout_akun:
               logoutAkun();
                 break;
+
+
 
             default:
                 break;
@@ -210,7 +246,7 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
         nomorHP = preferences.getNomorHp();
         tvx_namaCustomter.setText(namaLengkap);
         tvx_username.setText(username);
-        tvx_Email.setText(email);
+        tvx_email.setText(email);
         tvx_Hp.setText(nomorHP);
 
     }
@@ -225,13 +261,15 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
             @Override
             public void onResponse(Call<ResProfil> call, Response<ResProfil> response) {
                 tvDataProfil = response.body();
-              // validasi error null
-                if (tvDataProfil.getData().getFotoProfil() == null){
-                   // Picasso.with(getContext()).load(R.drawable.man).into(imageProfil);
-                }else{
-                    Picasso.with(getContext()).load(CONSTANTS.BASE_URL + "assets/foto_profil_konsumen/"+tvDataProfil.getData().getFotoProfil()).into(imageProfil);
-                }
-
+                Log.d("cekimg", String.valueOf(tvDataProfil));
+              // validasi error null asset foto
+            //    Toast.makeText(getActivity(), ""+tvDataProfil.getPesan(), Toast.LENGTH_SHORT).show();
+//                if (tvDataProfil.getData().getFotoProfil() == null){
+//                   // Picasso.with(getContext()).load(R.drawable.man).into(imageProfil);
+//                }else{
+//                    Picasso.with(getContext()).load(CONSTANTS.BASE_URL + "assets/foto_profil_konsumen/"+tvDataProfil.getData().getFotoProfil()).into(imageProfil);
+//                }
+//                Toast.makeText(getActivity(), tvDataProfil.getData().getFotoProfil(), Toast.LENGTH_LONG).show();
 //                Glide.with(getActivity()).load(foto).into(imageProfil);
 
             }

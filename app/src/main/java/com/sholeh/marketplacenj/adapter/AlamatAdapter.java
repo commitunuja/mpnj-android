@@ -75,8 +75,9 @@ public class AlamatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         ((AlamatItemView) holder).tvxnamaCustomer.setText(model.getNamaLengkap());
         ((AlamatItemView) holder).tvxNoHP.setText(model.getNomorHP());
         ((AlamatItemView) holder).tvxAlamat.setText(model.getAlamatLengkap());
-        ((AlamatItemView) holder).tvxKab.setText(model.getNamaKota());
-        ((AlamatItemView) holder).tvxProvinsi.setText(model.getNamaProvinsi());
+        ((AlamatItemView) holder).tvxKec.setText("Kec. "+model.getNamaKec());
+        ((AlamatItemView) holder).tvxKab.setText("Kab. "+model.getNamaKota());
+        ((AlamatItemView) holder).tvxProvinsi.setText("Prov. "+model.getNamaProvinsi());
         ((AlamatItemView) holder).tvxKodePos.setText(model.getKodePos());
 
 

@@ -73,7 +73,7 @@ public class KeranjangActivity extends AppCompatActivity {
                 Toast.makeText(KeranjangActivity.this, harga_jual, Toast.LENGTH_SHORT).show();
 
                 APIInterface apiKeranjang = CONSTANTS.getClient().create(APIInterface.class);
-                Call<ResKeranjang> sendData = apiKeranjang.simpanKeranjang(produk_id, "1", "konsumen", "N",jumlah, harga_jual);
+                Call<ResKeranjang> sendData = apiKeranjang.simpanKeranjang(produk_id, "1",jumlah, harga_jual);
 //                Log.d("YOLO", String.valueOf(sendData));
                 sendData.enqueue(new Callback<ResKeranjang>() {
                     @Override

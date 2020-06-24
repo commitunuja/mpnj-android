@@ -9,8 +9,7 @@ public class ItemCity {
     @Expose
     private Rajaongkir rajaongkir;
 
-    public Rajaongkir getRajaongkir()
-    {
+    public Rajaongkir getRajaongkir() {
         return rajaongkir;
     }
 
