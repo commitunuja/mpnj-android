@@ -1,26 +1,314 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_main"
     android:layout_width="match_parent"
-    android:layout_below="@+id/main_header"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent"
+    android:layout_alignBottom="@+id/lbatas"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:showIn="@layout/app_bar_main">
 
-<!--    <androidx.recyclerview.widget.RecyclerView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:id="@+id/recyclerview"-->
-<!--        android:layout_margin="5dp">-->
+    <LinearLayout
+        android:id="@+id/lbatas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="@+id/guideline">
+
+        <com.sholeh.marketplacenj.activities.StickyScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!--                <LinearLayout-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:background="@color/colorutama"-->
+                <!--                    android:orientation="vertical">-->
+
+                <!--                    <LinearLayout-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:background="@color/colorutama"-->
+                <!--                        android:orientation="vertical"-->
+                <!--                        android:paddingTop="8dp"-->
+                <!--                        android:tag="sticky">-->
+
+                <!--                        <LinearLayout-->
+                <!--                            android:layout_width="match_parent"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:orientation="horizontal">-->
+
+                <!--                            <ImageView-->
+                <!--                                android:layout_width="30dp"-->
+                <!--                                android:layout_height="30dp"-->
+                <!--                                android:layout_marginStart="10dp"-->
+                <!--                                android:layout_marginEnd="10dp"-->
+                <!--                                android:layout_marginBottom="20dp"-->
+                <!--                                android:src="@drawable/logotas1" />-->
+
+                <!--                            <LinearLayout-->
+                <!--                                android:layout_width="match_parent"-->
+                <!--                                android:layout_height="wrap_content"-->
+                <!--                                android:layout_marginLeft="8dp"-->
+                <!--                                android:layout_marginRight="8dp"-->
+                <!--                                android:layout_marginBottom="10dp"-->
+                <!--                                android:background="@drawable/white_rounded_shape"-->
+                <!--                                android:orientation="horizontal"-->
+                <!--                                android:padding="2sp">-->
+
+                <!--                                <EditText-->
+                <!--                                    android:id="@+id/etsearch"-->
+                <!--                                    android:layout_width="wrap_content"-->
+                <!--                                    android:layout_height="wrap_content"-->
+                <!--                                    android:layout_gravity="center"-->
+                <!--                                    android:layout_marginStart="10dp"-->
+                <!--                                    android:layout_weight="1"-->
+                <!--                                    android:background="@drawable/white_rounded_shape"-->
+                <!--                                    android:drawableLeft="@drawable/ic_search_light_gray_24dp"-->
+                <!--                                    android:drawablePadding="8dp"-->
+                <!--                                    android:fontFamily="@font/calibri"-->
+                <!--                                    android:hint="Mau Cari Apa?"-->
+                <!--                                    android:imeOptions="actionSearch"-->
+                <!--                                    android:maxLines="1"-->
+                <!--                                    android:padding="5dp"-->
+                <!--                                    android:singleLine="true"-->
+                <!--                                    android:textSize="14sp" />-->
+
+                <!--                                <ImageView-->
+                <!--                                    android:layout_width="20dp"-->
+                <!--                                    android:layout_height="30dp"-->
+                <!--                                    android:layout_marginEnd="10dp"-->
+                <!--                                    android:contentDescription="TODO"-->
+                <!--                                    android:src="@drawable/ic_camera" />-->
+
+                <!--                                <ImageView-->
+                <!--                                    android:layout_width="20dp"-->
+                <!--                                    android:layout_height="30dp"-->
+                <!--                                    android:src="@drawable/mic_icon" />-->
+                <!--                            </LinearLayout>-->
+                <!--                        </LinearLayout>-->
+                <!--                    </LinearLayout>-->
+                <!--                </LinearLayout>-->
+
+                <!--                        <include layout="@layout/toolbar_hompage" />-->
 
 
-<!--    </androidx.recyclerview.widget.RecyclerView>-->
-<!--    <LinearLayout-->
-<!--        android:id="@+id/mainLinearLayout1"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:orientation="vertical" />-->
+
+                <FrameLayout
+                    android:id="@+id/frag_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
 
-</androidx.core.widget.NestedScrollView>
+                        <!--Banner Recyclerview-->
 
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="20dp"
+                            android:elevation="5dp"
+                            android:orientation="vertical">
+
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/recyclerview"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:clipToPadding="false"
+                                android:elevation="5dp"
+                                android:nestedScrollingEnabled="false"
+                                android:paddingLeft="15dp"
+                                android:paddingRight="15dp" />
+
+
+                        </LinearLayout>
+
+
+                        <!--Category Recyclerview-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/category_recyclerview"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:clipToPadding="false"
+                                android:nestedScrollingEnabled="false"
+                                android:paddingLeft="15dp"
+                                android:paddingRight="15dp" />
+
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="24dp"
+                            android:layout_marginTop="24dp"
+                            android:orientation="horizontal">
+
+                            <customfonts.MyTextView_Roboto_Medium
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/top_rated_products"
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
+
+                            <customfonts.MyTextView_Roboto_Medium
+                                android:id="@+id/tv_produkterpopuler"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="20dp"
+                                android:text="Lihat Semua"
+                                android:textColor="@color/colorutama"
+                                android:textSize="13sp" />
+                        </LinearLayout>
+
+                        <!--Top Rated Recyclerview-->
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv_toprate"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clipToPadding="false"
+                            android:nestedScrollingEnabled="false"
+                            android:paddingLeft="5dp"
+                            android:paddingTop="15dp"
+                            android:paddingRight="15dp" />
+
+                        <!--Top Rated Recyclerview-->
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/like_recyclerview"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clipToPadding="false"
+                            android:nestedScrollingEnabled="false"
+                            android:paddingLeft="5dp"
+                            android:paddingTop="15dp"
+                            android:paddingRight="15dp" />
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="24dp"
+                            android:orientation="horizontal">
+
+                            <customfonts.MyTextView_Roboto_Medium
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/you_may_like"
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
+
+                            <customfonts.MyTextView_Roboto_Medium
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="20dp"
+                                android:text="Lihat Semua"
+                                android:textColor="@color/colorutama"
+                                android:textSize="13sp" />
+                        </LinearLayout>
+
+                        <!--Like Recyclerview-->
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/top_ten_recyclerview"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clipToPadding="false"
+                            android:nestedScrollingEnabled="false"
+                            android:paddingLeft="5dp"
+                            android:paddingTop="15dp"
+                            android:paddingRight="15dp" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/barang"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clipToPadding="false"
+                            android:nestedScrollingEnabled="false"
+                            android:paddingLeft="5dp"
+                            android:paddingTop="15dp"
+                            android:paddingRight="15dp" />
+
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="210dp"
+                            android:layout_marginTop="10dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/banner2" />
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="24dp"
+                            android:layout_marginTop="24dp"
+                            android:orientation="horizontal">
+
+                            <customfonts.MyTextView_Roboto_Medium
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Recently Viewed"
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
+
+                            <customfonts.MyTextView_Roboto_Medium
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="20dp"
+                                android:text="View All"
+                                android:textColor="@color/red"
+                                android:textSize="13sp" />
+                        </LinearLayout>
+
+                        <!--Top Rated Recyclerview-->
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recent_recyclerview"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clipToPadding="false"
+                            android:nestedScrollingEnabled="false"
+                            android:paddingLeft="5dp"
+                            android:paddingTop="15dp"
+                            android:paddingRight="15dp"
+                            android:paddingBottom="25dp" />
+                    </LinearLayout>
+                </FrameLayout>
+            </LinearLayout>
+        </com.sholeh.marketplacenj.activities.StickyScrollView>
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="47dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,36 +16,179 @@
         android:background="#ffffff"
         >
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:orientation="vertical"
-            android:scrollbars="none">
-
             <LinearLayout
-                android:id="@+id/lout"
+                android:id="@+id/llMain"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@color/white"
                 android:orientation="vertical">
 
 
-                <androidx.recyclerview.widget.RecyclerView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:id="@+id/recycler_alamat"
-                    android:layout_below="@id/line1"
-                    android:layout_marginBottom="10dp"
-                    tools:ignore="NotSibling,UnknownId">
+                    android:orientation="vertical">
 
-                </androidx.recyclerview.widget.RecyclerView>
+                    <androidx.core.widget.NestedScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="0.9">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="@dimen/value_10"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <customfonts.TextViewSFProDisplayRegular
+                                    style="@style/txt_gray_big"
+                                    android:id="@+id/tv_totalbayar"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Total Pembayaran" />
+
+                                <customfonts.MyTextView_Roboto_Regular
+                                    android:textAlignment="viewEnd"
+                                    android:textStyle="bold"
+                                    android:id="@+id/tvOrderId"
+                                    style="@style/txt_color_primary_big"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Rp 50.000.000"
+                                    android:layout_marginStart="@dimen/value_5" />
+                            </LinearLayout>
+
+
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <customfonts.TextViewSFProDisplayRegular
+                                    android:layout_marginBottom="10dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/value_10"
+                                    android:text="Pilih Rekening" />
+
+
+                                <LinearLayout
+                                    android:layout_marginBottom="15dp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="50dp"
+                                    android:background="@drawable/round_spinner">
+                                    <Spinner
+                                        android:id="@+id/spin_rek"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="45dp"
+                                        android:gravity="center">
+                                    </Spinner>
+                                </LinearLayout>
+                                <requestFocus/>
+
+
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/value_20"
+                                android:orientation="vertical">
+
+                                <customfonts.TextViewSFProDisplayRegular
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/value_5"
+                                    android:text="No. Rekening" />
+
+
+                                <customfonts.TextViewSFProDisplayRegular
+                                    android:textColor="@color/colorPrimary"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/value_5"
+                                    android:text="6524-01-012368-53-2" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/value_5"
+                                    android:orientation="vertical">
+
+                                    <customfonts.TextViewSFProDisplayRegular
+                                        android:layout_width="match_parent"
+                                        android:layout_height="@dimen/value_0.5"
+                                        android:background="@color/gray_table" />
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal">
+
+                                        <customfonts.TextViewSFProDisplayRegular
+                                            android:layout_width="@dimen/value_0.5"
+                                            android:layout_height="match_parent"
+                                            android:background="@color/gray_table" />
+
+                                        <customfonts.TextViewSFProDisplayRegular
+                                            android:textSize="12sp"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.2"
+                                            android:padding="@dimen/value_5"
+                                            android:text="Nama Rekening" />
+
+                                        <customfonts.TextViewSFProDisplayRegular
+                                            android:layout_width="@dimen/value_0.5"
+                                            android:layout_height="match_parent"
+                                            android:background="@color/gray_table" />
+
+                                        <customfonts.TextViewSFProDisplayRegular
+                                            android:text="Nurul Jadid"
+                                            android:id="@+id/tvEmail"
+                                            android:textStyle="bold"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.5"
+                                            android:padding="@dimen/value_5" />
+
+                                        <customfonts.TextViewSFProDisplayRegular
+                                            android:layout_width="@dimen/value_0.5"
+                                            android:layout_height="match_parent"
+                                            android:background="@color/gray_table" />
+
+                                    </LinearLayout>
+
+
+
+
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+
+                    </androidx.core.widget.NestedScrollView>
+
+                </LinearLayout>
 
 
             </LinearLayout>
 
 
-        </ScrollView>
+
 
 
     </LinearLayout>

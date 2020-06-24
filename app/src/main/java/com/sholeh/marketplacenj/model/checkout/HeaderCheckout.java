@@ -3,10 +3,12 @@ package com.sholeh.marketplacenj.model.checkout;
 public class HeaderCheckout { // storebean
     String id_toko;
     String nama_toko;
+    String id_kabToko;
 
-    public HeaderCheckout(String id_toko, String nama_toko) {
+    public HeaderCheckout(String id_toko, String nama_toko, String id_kabToko) {
         this.id_toko = id_toko;
         this.nama_toko = nama_toko;
+        this.id_kabToko = id_kabToko;
     }
 
     public String getId_toko() {
@@ -25,4 +27,11 @@ public class HeaderCheckout { // storebean
         this.nama_toko = nama_toko;
     }
 
+    public String getId_kabToko() {
+        return id_kabToko;
+    }
+
+    public void setId_kabToko(String id_kabToko) {
+        this.id_kabToko = id_kabToko;
+    }
 }

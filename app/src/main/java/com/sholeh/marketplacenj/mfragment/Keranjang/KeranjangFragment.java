@@ -86,7 +86,7 @@ public class KeranjangFragment extends Fragment  implements View.OnClickListener
         id_konsumen = preferences.getIdKonsumen();
         tvx_total = rootView.findViewById(R.id.total);
         tvx_checkout = rootView.findViewById(R.id.tvx_checkout);
-        tvx_idk = rootView.findViewById(R.id.tvxidk);
+
         listView = rootView.findViewById(R.id.expListhistori);
         imgBack = rootView.findViewById(R.id.imgBackKeranjang);
         cb_select_all = rootView.findViewById(R.id.cb_select_all);

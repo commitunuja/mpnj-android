@@ -53,6 +53,7 @@ public class Model {
     @Expose
     private Pelapak pelapak;
 
+
     public Integer getIdProduk() {
         return idProduk;
     }

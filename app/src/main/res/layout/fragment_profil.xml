@@ -15,7 +15,7 @@
         android:orientation="vertical">
 
 
-        <include layout="@layout/toolbar_mpnjsearch"/>
+        <include layout="@layout/toolbar_fragment_profil"/>
 
 
         <androidx.core.widget.NestedScrollView
@@ -213,6 +213,7 @@
                             android:text="+6288233611111"/>
 
                         <customfonts.MyTextView_Roboto_Medium
+                            android:visibility="gone"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="12.3sp"
@@ -267,6 +268,7 @@
                                 android:text="sholeh@gmail.com"/>
 
                             <customfonts.MyTextView_Roboto_Medium
+                                android:visibility="gone"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="12.3sp"

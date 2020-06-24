@@ -32,13 +32,21 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.dashboard.ProdukTerpopulerActivity"></activity>
-        <activity android:name=".activities.details.DiskripsiActivity"></activity>
+        <activity android:name=".activities.transaksi.StatusPembayaran"></activity>
+        <activity android:name=".activities.transaksi.KonfirmasiPembayaran" />
+        <activity android:name=".activities.transaksi.MetodePembayaranActivity"/>
+        <activity android:name=".activities.dashboard.ProdukTerpopulerActivity" />
+        <activity android:name=".activities.details.DiskripsiActivity" />
+        <activity android:name=".activities.kurir.OpsiPengirimanActivity"
+            android:theme="@style/AppTheme.CustomTheme">
+        </activity>
+
         <activity android:name=".activities.pelapak.ProfilPelapakActivity" />
         <activity android:name=".activities.dashboard.SearchActivity" />
         <activity android:name=".activities.ProdukByKategori" />
         <activity android:name=".activities.ImageProfilActivity" />
         <activity android:name=".activities.checkout.CheckoutActivity" />
+        <activity android:name=".custom.MainActivity2"/>
         <activity android:name=".activities.Splash" />
         <activity
             android:name=".activities.DetailAlamat"
@@ -55,7 +63,7 @@
         <activity android:name=".activities.VerifikasiActivity" />
         <activity android:name=".activities.ForgotPassword" />
         <activity android:name=".activities.MainActivity" />
-        <activity android:name=".activities.dashboard.Homepage"/>
+        <activity android:name=".activities.dashboard.Homepage" />
         <activity android:name=".activities.details.ProductDetailActivity" />
         <activity
             android:name=".activities.LoginActivity"
@@ -65,7 +73,6 @@
         <activity android:name=".activities.keranjang.KeranjangDetailActivity" />
         <activity
             android:name=".activities.Utama"
-
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

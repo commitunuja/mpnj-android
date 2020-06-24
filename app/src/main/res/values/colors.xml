@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--Green Cololr-->
-    <color name="colorPrimary">#04d39f</color>
+    <color name="colorPrimary">#00b517</color>
     <color name="colorPrimaryDark">#00b517</color>
     <color name="colorPrimaryTransperent">#BC00B517</color>
     <color name="colorPrimaryTransparant">#5A00B517</color>
@@ -9,6 +9,8 @@
     <color name="colorAccent">#0EA421</color>
     <color name="colorutama">#0EA421</color>
     <color name="backgroundcolor">#f5f6f7</color>
+
+    <color name="transparentBlack">#96000000</color>
     <color name="green_semi_transparent">#00b517</color>
 
    <!-- detail-->
@@ -132,5 +134,6 @@
     <color name="text_hitam">#223038</color>
     <color name="devider">#ebebeb</color>
     <color name="vieb_black_transparant">#08000000</color>
+    <color name="medium_text">#7e7e7e</color>
 
 </resources>

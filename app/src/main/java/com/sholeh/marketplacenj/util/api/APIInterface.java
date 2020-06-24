@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import com.sholeh.marketplacenj.model.Kategori;
 import com.sholeh.marketplacenj.model.Model;
 import com.sholeh.marketplacenj.model.city.ItemCity;
+import com.sholeh.marketplacenj.model.cost.ItemCost;
 import com.sholeh.marketplacenj.model.province.ItemProvince;
 import com.sholeh.marketplacenj.model.subdistrict.ItemKec;
 import com.sholeh.marketplacenj.respon.ResAlamat;
@@ -17,6 +18,7 @@ import com.sholeh.marketplacenj.respon.ResNewPassword;
 import com.sholeh.marketplacenj.respon.ResProfil;
 import com.sholeh.marketplacenj.respon.ResRegristasi;
 import com.sholeh.marketplacenj.respon.ResUbahJumlahProduk;
+import com.sholeh.marketplacenj.respon.RestCost;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,6 +68,16 @@ public interface APIInterface {
     @GET("subdistrict")
     @Headers("key:b28063e60be5386c072394b4713aae8d")
     Call<ItemKec> getKec(@Query("city") String city);
+
+    @FormUrlEncoded
+    @POST("cost")
+    @Headers("key:b28063e60be5386c072394b4713aae8d")
+    Call<ItemCost> hitungOngkir (@Field("origin") String origin,
+                                 @Field("originType") String originType,
+                                 @Field("destination") String destination,
+                                 @Field("destinationType") String destinationType,
+                                 @Field("weight") int weight,
+                                 @Field("courier") String courier);
 
     // signup konsumen
     @FormUrlEncoded
@@ -166,8 +178,8 @@ public interface APIInterface {
     @GET("api/produk/{id}")
     Call<JsonObject> getProdukId(@Path("id") String id);
 
-    @GET("api/produk/cari/{nama_produk}")
-    Call<List<Model>> getAllData(@Path("nama_produk") String nama_produk);
+    @GET("api/produk")
+    Call<List<Model>> getAllData(@Query("cari") String nama_produk);
 
 
     @FormUrlEncoded
@@ -184,6 +196,10 @@ public interface APIInterface {
 
     @GET("api/keranjang")
     Call<ResDetailKeranjang> getDataDetailKeranjang(
+            @Query("id") String id);
+
+    @GET("api/transaksi")
+    Call<ResDetailKeranjang> getDataTransaksi(
             @Query("id") String id);
 
     //  delete produk keranjang
@@ -203,8 +219,12 @@ public interface APIInterface {
     @PUT("api/keranjang/{id_user}/go_checkout")
     Call<ResDetailKeranjang> ubahStatusKeranjang(
             @Path("id_user") String id_user,
-            @Field("id_keranjang[]") ArrayList<String> id_keranjang
+            @Field("id_keranjang[]") List<String> id_keranjang
     );
+
+    @FormUrlEncoded
+    @PUT("api/transaksi/batal")
+    Call<JsonObject> batalCheckout(@Field("user_id") String user_id);
 }
 
 
