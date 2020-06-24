@@ -101,7 +101,6 @@ public class Utama extends AppCompatActivity implements BottomNavigationView.OnN
             return;
         }
         this.doubleBackToExitPressedOnce = true;
-        homepageFragment = new HomepageFragment();
         Toast.makeText(this, "Tekan sekali lagi untuk keluar", Toast.LENGTH_SHORT).show();
         new Handler().postDelayed(new Runnable() {
 
