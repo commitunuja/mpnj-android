@@ -126,7 +126,6 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
         tvxservice = convertView.findViewById(R.id.tvxservice);
         tvxongkos = convertView.findViewById(R.id.tvongkos);
         tvxetd = convertView.findViewById(R.id.tvxetd);
-//        tvx_OpsiKurir1 = convertView.findViewById(R.id.tvx_opsiKurir1);
         myDialog = new Dialog(context);
 
         nama_kk.setText(model.getNama_toko());
