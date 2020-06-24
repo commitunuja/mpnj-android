@@ -44,7 +44,9 @@ import java.util.StringTokenizer;
 
 public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
     int jumlahProduk = 0;
-    double totalHarga = 0;
+    double subtotalHarga = 0;
+    double subPengiriman = 0;
+    double totalbayar = 0;
     private Context context;
     private List<HeaderCheckout> listHeaderFilter;
     private HashMap<HeaderCheckout, List<ChildCheckout>> listChild;
@@ -134,7 +136,7 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
         tvxkurir.setText(model.getKurir());
         tvxservice.setText(model.getService());
         tvxongkos.setText(model.getOngkir());
-        tvxetd.setText(model.getOtd()+" Hari");
+        tvxetd.setText(model.getEtd());
 
         linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -275,7 +277,7 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
 //            }
 //        });
 
-        getTotal();
+        getsubTotal();
 
         return convertView;
 
@@ -294,16 +296,24 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
     }
 
 
-    public void getTotal() {
+    public void getsubTotal() {
         jumlahProduk = 0; //totalCount
-        totalHarga = 0;
-        ;
+        subtotalHarga = 0;
+        subPengiriman = 0;
+        totalbayar = 0;
         ArrayList<String> myArray = new ArrayList<>();
         String getid = null;
 
         for (int i = 0; i < listHeaderFilter.size(); i++) {
-            List<ChildCheckout> childMapList = listChild.get(listHeaderFilter.get(i));
 
+            HeaderCheckout headerCheckout = listHeaderFilter.get(i);
+
+            double hargaPengiriman = Double.parseDouble(headerCheckout.getOngkir());
+
+            subPengiriman +=hargaPengiriman;
+
+
+            List<ChildCheckout> childMapList = listChild.get(listHeaderFilter.get(i));
             for (int j = 0; j < childMapList.size(); j++) {
                 ChildCheckout childModel = childMapList.get(j);
                 int jumlah = childMapList.get(j).getJumlah();
@@ -311,7 +321,7 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
                 double diskonHarga = childModel.getDiskon();
                 double h = diskonHarga / 100 * Harga;
                 double p = Harga - h;
-                totalHarga += p * jumlah;
+                subtotalHarga += p * jumlah;
 
 
 //                Intent intent = new Intent("custom-message");
@@ -322,8 +332,20 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
             }
         }
         Intent intent = new Intent("custom-message");
-        intent.putExtra("total", String.valueOf(totalHarga));
+        intent.putExtra("total", String.valueOf(subtotalHarga));
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+
+        Intent intent2 = new Intent("custom-ongkir");
+        intent2.putExtra("ongkir", String.valueOf(subPengiriman));
+        LocalBroadcastManager.getInstance(context).sendBroadcast(intent2);
+
+        totalbayar = subtotalHarga + subPengiriman;
+        Intent intent3 = new Intent("custom-total");
+        intent3.putExtra("totalbayar", String.valueOf(totalbayar));
+        LocalBroadcastManager.getInstance(context).sendBroadcast(intent3);
+
+
+
 
     }
 
