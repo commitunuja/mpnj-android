@@ -205,6 +205,13 @@ public interface APIInterface {
             @Field("id_keranjang[]") List<String> id_keranjang);
 
     @FormUrlEncoded
+    @POST("api/transaksi/simpan")
+    Call<JsonObject> simpanTransaksi(
+            @Field("user_id") String user_id,
+            @Field("totalBayar") Double totalBayar,
+            @Field("id_keranjang[]") List<String> id_keranjang);
+
+    @FormUrlEncoded
     @POST("api/transaksi/simpanKurir")
     Call<JsonObject> simpan_kurir(
             @Field("kurir") String kurir,
