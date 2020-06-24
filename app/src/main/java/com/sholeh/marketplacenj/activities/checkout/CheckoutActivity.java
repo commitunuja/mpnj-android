@@ -165,8 +165,7 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
                 }).setNegativeButton("Tidak", null).show();
     }
 
-    public void batalChekout()
-    {
+    public void batalChekout() {
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
         Call<JsonObject> call = service.batalCheckout(id_konsumen);
 
@@ -213,9 +212,9 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
                 if (response.body() != null && response.isSuccessful()) {
                     if (response.body().getDataKeranjang().size() > 0) {
                         response.body().getTotalHarganya();
-                       tvxSetAlamat.setText(String.valueOf(response.body().getPembeli().getAlamatUtama()));
-                       String idKecPembeli = String.valueOf(response.body().getPembeli().getIdKecamatan());
-                       tvx_idKecPembeli.setText(idKecPembeli);
+                        tvxSetAlamat.setText(String.valueOf(response.body().getPembeli().getAlamatUtama()));
+                        String idKecPembeli = String.valueOf(response.body().getPembeli().getIdKecamatan());
+                        tvx_idKecPembeli.setText(idKecPembeli);
 
                         listHeader.clear();
                         listChild.clear();
