@@ -126,7 +126,7 @@ public class UbahPassword extends AppCompatActivity implements View.OnClickListe
 
                 @Override
                 public void onFailure(Call<ResNewPassword> call, Throwable t) {
-                    Toast.makeText(UbahPassword.this, "Password Gagal di Ubah"+t, Toast.LENGTH_LONG).show();
+                    Toast.makeText(UbahPassword.this, "Password Gagal di Rubahh"+t, Toast.LENGTH_LONG).show();
 
                     //  Log.e(TAG, " failure "+ t.toString());
 //                    AppUtilits.displayMessage(UbahPassword.this,  getString(R.string.failed_request));

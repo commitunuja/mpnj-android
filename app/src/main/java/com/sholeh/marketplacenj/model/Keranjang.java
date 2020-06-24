@@ -12,9 +12,12 @@ public class Keranjang {
     @SerializedName("produk_id")
     @Expose
     private Integer produkId;
-    @SerializedName("user_id")
+    @SerializedName("pembeli_id")
     @Expose
     private Integer pembeliId;
+    @SerializedName("pembeli_type")
+    @Expose
+    private String pembeliType;
     @SerializedName("created_at")
     @Expose
     private String createdAt;
@@ -53,6 +56,14 @@ public class Keranjang {
 
     public void setPembeliId(Integer pembeliId) {
         this.pembeliId = pembeliId;
+    }
+
+    public String getPembeliType() {
+        return pembeliType;
+    }
+
+    public void setPembeliType(String pembeliType) {
+        this.pembeliType = pembeliType;
     }
 
     public String getCreatedAt() {

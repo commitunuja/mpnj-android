@@ -22,24 +22,24 @@ public class ValAddress {
     @SerializedName("nama_kota")
     @Expose
     private String namaKota;
-    @SerializedName("kecamatan_id")
-    @Expose
-    private String kecamatanId;
-    @SerializedName("nama_kecamatan")
-    @Expose
-    private String namaKecamatan;
     @SerializedName("kode_pos")
     @Expose
     private String kodePos;
+    @SerializedName("kecamatan_id")
+    @Expose
+    private Integer kecamatanId;
     @SerializedName("alamat_lengkap")
     @Expose
     private String alamatLengkap;
     @SerializedName("user_id")
     @Expose
     private String userId;
+    @SerializedName("user_type")
+    @Expose
+    private String userType;
     @SerializedName("id_alamat")
     @Expose
-    private String idAlamat;
+    private Integer idAlamat;
 
     public String getNama() {
         return nama;
@@ -89,28 +89,20 @@ public class ValAddress {
         this.namaKota = namaKota;
     }
 
-    public String getKecamatanId() {
-        return kecamatanId;
-    }
-
-    public void setKecamatanId(String kecamatanId) {
-        this.kecamatanId = kecamatanId;
-    }
-
-    public String getNamaKecamatan() {
-        return namaKecamatan;
-    }
-
-    public void setNamaKecamatan(String namaKecamatan) {
-        this.namaKecamatan = namaKecamatan;
-    }
-
     public String getKodePos() {
         return kodePos;
     }
 
     public void setKodePos(String kodePos) {
         this.kodePos = kodePos;
+    }
+
+    public Integer getKecamatanId() {
+        return kecamatanId;
+    }
+
+    public void setKecamatanId(Integer kecamatanId) {
+        this.kecamatanId = kecamatanId;
     }
 
     public String getAlamatLengkap() {
@@ -129,11 +121,19 @@ public class ValAddress {
         this.userId = userId;
     }
 
-    public String getIdAlamat() {
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
+    }
+
+    public Integer getIdAlamat() {
         return idAlamat;
     }
 
-    public void setIdAlamat(String idAlamat) {
+    public void setIdAlamat(Integer idAlamat) {
         this.idAlamat = idAlamat;
     }
 }

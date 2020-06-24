@@ -1,7 +1,6 @@
 package com.sholeh.marketplacenj.activities.dashboard;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -40,14 +39,14 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Homepage extends AppCompatActivity implements View.OnClickListener {
+public class Homepage extends AppCompatActivity {
 
     FrameLayout frameLayout;
     EditText search;
     private ArrayList<HomeBannerModelClass> homeBannerModelClasses;
     private RecyclerView recyclerView;
     private RecycleAdapteHomeBanner mAdapter;
-    private Integer image[] = {R.drawable.banner, R.drawable.banner, R.drawable.banner, R.drawable.banner};
+    private Integer image[] = {R.drawable.image95, R.drawable.image95, R.drawable.image95, R.drawable.image95};
 
 
     private List<Kategori> homeCategoryModelClasses;
@@ -77,17 +76,14 @@ public class Homepage extends AppCompatActivity implements View.OnClickListener 
     //produk
     private ProdukAdapter produkAdapter;
     private List<Model> tvDataProduk;
-    private TextView produkterpopuler;
     private ArrayList<TopTenModelClass> topTenModelClasses;
     private RecyclerView top_ten_crecyclerview;
     private RecyclerView recyclerViewpproduk;
     private RecycleAdapteTopTenHome mAdapter2;
     private RecycleAdapteTopTenHome mAdaper10;
     private Integer image1[] = {R.drawable.ac, R.drawable.headphones, R.drawable.ac, R.drawable.headphones};
-    private Integer image3[] = {R.drawable.circular_grey_bordersolid, R.drawable.circular_grey_bordersolid, R.drawable.circular_grey_bordersolid, R.drawable.circular_grey_bordersolid};
     private String title1[] = {"Vigo Atom Personal Air Condi....", "Bosh Head Phone Blue Color", "Vigo Atom Personal Air Condi....", "Bosh Head Phone Blue Color",};
-    private String title3[] = {"Mohon Tunggu", "Mohon Tunggu", "Mohon Tunggu","Mohon Tunggu"};
-    private String type[] = {"Mohon Tunggu", "Mohon Tunggu", "Mohon Tunggu", "Mohon Tunggu"};
+    private String type[] = {"Kitenid", "HeadPhones", "Kitenid", "HeadPhones"};
 
     String status;
     private ArrayList<TopTenModelClass> topTenModelClasses1;
@@ -101,10 +97,8 @@ public class Homepage extends AppCompatActivity implements View.OnClickListener 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coco_homepage);
-
-        produkterpopuler = findViewById(R.id.tv_produkterpopuler);
-        produkterpopuler.setOnClickListener(this);
-
+//        id_kategori = getIntent().getStringExtra("id_kategori");
+//        getDataProdukByKategori();
         Banner();
         kategori();
         produksearch();
@@ -112,15 +106,25 @@ public class Homepage extends AppCompatActivity implements View.OnClickListener 
         produksamsung();
         recentproduk();
         produkapi();
+//        kategoriById();
         fiturpencarian();
+//        kategori2();
         recyclerViewpproduk.setVisibility(View.GONE);
+//        recyclerViewProdukByKategori2.setVisibility(View.GONE);
         frameLayout.setVisibility(View.VISIBLE);
 
+
+//        linearLayoutkategori.setVisibility(View.GONE);
+//        allcategory = findViewById(R.id.tv_allcategory);
+//        linearLayoutkategori.setVisibility(View.GONE);
+//        LocalBroadcastManager.getInstance(this).registerReceiver(idKategoriReceiver,
+//                new IntentFilter("custom-idkategori"));
 
     }
 
     private void fiturpencarian() {
         edpencarian = findViewById(R.id.etsearch);
+//        linearLayoutkategori = findViewById(R.id.linearkategori);
         frameLayout = findViewById(R.id.frag_container);
         search = findViewById(R.id.etsearch);
         search.addTextChangedListener(new TextWatcher() {
@@ -225,8 +229,8 @@ public class Homepage extends AppCompatActivity implements View.OnClickListener 
         like_recyclerview = (RecyclerView) findViewById(R.id.like_recyclerview);
         topTenModelClasses1 = new ArrayList<>();
 
-        for (int i = 0; i < image3.length; i++) {
-            TopTenModelClass beanClassForRecyclerView_contacts = new TopTenModelClass(image3[i], title3[i], type[i]);
+        for (int i = 0; i < image2.length; i++) {
+            TopTenModelClass beanClassForRecyclerView_contacts = new TopTenModelClass(image2[i], title2[i], type[i]);
 
             topTenModelClasses1.add(beanClassForRecyclerView_contacts);
         }
@@ -384,15 +388,6 @@ public class Homepage extends AppCompatActivity implements View.OnClickListener 
             }
         }
         this.searchAdapter.setFilter(filterdNames);
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.tv_produkterpopuler:
-                Intent intent = new Intent(this, ProdukTerpopulerActivity.class);
-                startActivity(intent);
-        }
     }
 
 //    public void kategoriById() {

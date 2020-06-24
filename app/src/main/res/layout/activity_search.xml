@@ -7,8 +7,10 @@
     android:layout_height="match_parent"
     tools:context=".activities.dashboard.SearchActivity">
 
-   <include layout="@layout/toolbar_search"
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvsearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:listitem="@layout/item_grid_search"/>
 
 </LinearLayout>

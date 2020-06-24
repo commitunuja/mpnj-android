@@ -20,8 +20,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.sholeh.marketplacenj.adapter.KecAdapter;
-import com.sholeh.marketplacenj.model.subdistrict.ItemKec;
 import com.sholeh.marketplacenj.util.api.APIInterface;
 import com.sholeh.marketplacenj.util.CONSTANTS;
 import com.sholeh.marketplacenj.R;
@@ -73,10 +71,6 @@ public class DetailAlamat extends AppCompatActivity implements View.OnClickListe
     private KotaAdapter adapter_city;
     private List<com.sholeh.marketplacenj.model.city.Result> ListCity = new ArrayList<com.sholeh.marketplacenj.model.city.Result>();
 
-    private KecAdapter adapter_kec;
-    private List<com.sholeh.marketplacenj.model.subdistrict.Result> ListKec = new ArrayList<com.sholeh.marketplacenj.model.subdistrict.Result>();
-
-
 
     private ProgressDialog progressDialog;
     Preferences preferences;
@@ -96,8 +90,6 @@ public class DetailAlamat extends AppCompatActivity implements View.OnClickListe
         edProv = findViewById(R.id.ed_prov);
         edIdKota = findViewById(R.id.ed_Idkota);
         edKota = findViewById(R.id.ed_kota);
-        edIdKec = findViewById(R.id.ed_IdKec);
-        edKec = findViewById(R.id.ed_kec);
 
         edKodePos = findViewById(R.id.ed_kodepos);
         edAlamatLengkap = findViewById(R.id.ed_alamat);
@@ -113,7 +105,6 @@ public class DetailAlamat extends AppCompatActivity implements View.OnClickListe
 
         edProv.setOnClickListener(this);
         edKota.setOnClickListener(this);
-        edKec.setOnClickListener(this);
         tvx_simpan.setOnClickListener(this);
         tvx_hapus.setOnClickListener(this);
 
@@ -146,20 +137,6 @@ public class DetailAlamat extends AppCompatActivity implements View.OnClickListe
 
                 } catch (NullPointerException e) {
                     edProv.setError("Silahkan Pilih Provinsi");
-                }
-                break;
-
-            case R.id.ed_kec:
-                try {
-                    if (edKota.getTag().equals("")) {
-                        edKota.setError("Silahkan Pilih Kota");
-                    } else {
-
-                        popUpKec(edKec, edKota);
-                    }
-
-                } catch (NullPointerException e) {
-                    edKota.setError("Silahkan Pilih Kota");
                 }
                 break;
 
@@ -208,8 +185,6 @@ public class DetailAlamat extends AppCompatActivity implements View.OnClickListe
                                     edIdProv.setText(String.valueOf(response.body().getData().get(i).getProvinsiId()));
                                     edKota.setText(response.body().getData().get(i).getNamaKota());
                                     edIdKota.setText(String.valueOf(response.body().getData().get(i).getCityId()));
-                                    edIdKec.setText(String.valueOf(response.body().getData().get(i).getKecamatanId()));
-                                    edKec.setText(String.valueOf(response.body().getData().get(i).getNamaKecamatan()));
                                     edKodePos.setText(response.body().getData().get(i).getKodePos());
                                     edAlamatLengkap.setText(response.body().getData().get(i).getAlamatLengkap());
 
@@ -394,10 +369,6 @@ public class DetailAlamat extends AppCompatActivity implements View.OnClickListe
                 etCity.setText(cn.getType() + " " + cn.getCityName());
                 etCity.setTag(cn.getCityId());
 
-                edKec.setText("Pilih Kecamatan");
-                edKec.setTag("Pilih Kecamtan");
-
-
                 ad.dismiss();
             }
         });
@@ -454,7 +425,7 @@ public class DetailAlamat extends AppCompatActivity implements View.OnClickListe
 
                     int count_data = response.body().getRajaongkir().getResults().size();
                     for (int a = 0; a <= count_data - 1; a++) {
-                        com.sholeh.marketplacenj.model.city.Result itemCity= new com.sholeh.marketplacenj.model.city.Result(
+                        com.sholeh.marketplacenj.model.city.Result itemProvince = new com.sholeh.marketplacenj.model.city.Result(
                                 response.body().getRajaongkir().getResults().get(a).getCityId(),
                                 response.body().getRajaongkir().getResults().get(a).getProvinceId(),
                                 response.body().getRajaongkir().getResults().get(a).getProvince(),
@@ -463,7 +434,7 @@ public class DetailAlamat extends AppCompatActivity implements View.OnClickListe
                                 response.body().getRajaongkir().getResults().get(a).getPostalCode()
                         );
 
-                        ListCity.add(itemCity);
+                        ListCity.add(itemProvince);
                         mListView.setAdapter(adapter_city);
                     }
 
@@ -486,178 +457,6 @@ public class DetailAlamat extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    public void getKec(String id_kota) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(CONSTANTS.URL_RAJAONGKIR)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        APIInterface service = retrofit.create(APIInterface.class);
-        Call<ItemKec> call = service.getKec(id_kota);
-
-        call.enqueue(new Callback<ItemKec>() {
-            @Override
-            public void onResponse(Call<ItemKec> call, Response<ItemKec> response) {
-
-                progressDialog.dismiss();
-                Log.v("wow", "json : " + new Gson().toJson(response));
-
-                if (response.isSuccessful()) {
-
-                    int count_data = response.body().getRajaongkir().getResults().size();
-                    for (int a = 0; a <= count_data - 1; a++) {
-                        com.sholeh.marketplacenj.model.subdistrict.Result itemkec= new com.sholeh.marketplacenj.model.subdistrict.Result(
-                                response.body().getRajaongkir().getResults().get(a).getSubdistrictId(),
-                                response.body().getRajaongkir().getResults().get(a).getProvinceId(),
-                                response.body().getRajaongkir().getResults().get(a).getProvince(),
-                                response.body().getRajaongkir().getResults().get(a).getCityId(),
-                                response.body().getRajaongkir().getResults().get(a).getCity(),
-                                response.body().getRajaongkir().getResults().get(a).getType(),
-                                response.body().getRajaongkir().getResults().get(a).getSubdistrictName()
-                        );
-
-                        ListKec.add(itemkec);
-                        mListView.setAdapter(adapter_kec);
-                    }
-
-                    adapter_kec.setList(ListKec);
-                    adapter_kec.filter("");
-
-                } else {
-                    String error = "Error Retrive Data from Server !!!";
-                    Toast.makeText(DetailAlamat.this, error, Toast.LENGTH_SHORT).show();
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<ItemKec> call, Throwable t) {
-                progressDialog.dismiss();
-                Toast.makeText(DetailAlamat.this, "Message : Error " + t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-//        Retrofit retrofit = new Retrofit.Builder()
-//                .baseUrl(CONSTANTS.URL_RAJAONGKIR)
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .build();
-//
-//        APIInterface service = retrofit.create(APIInterface.class);
-//        Call<ItemKec> call = service.getKec(id_kota);
-//
-//        call.enqueue(new Callback<ItemKec>() {
-//            @Override
-//            public void onResponse(Call<ItemKec> call, Response<ItemKec> response) {
-//
-//
-//                Log.v("wow", "json : " + new Gson().toJson(response));
-//
-//                if (response.isSuccessful()) {
-//
-//                    int count_data = response.body().getRajaongkir().getResults().size();
-//                    for (int a = 0; a <= count_data - 1; a++) {
-//                        com.sholeh.marketplacenj.model.subdistrict.Result itemKec = new com.sholeh.marketplacenj.model.subdistrict.Result(
-//                                response.body().getRajaongkir().getResults().get(a).getSubdistrictId(),
-//                                response.body().getRajaongkir().getResults().get(a).getProvinceId(),
-//                                response.body().getRajaongkir().getResults().get(a).getProvince(),
-//                                response.body().getRajaongkir().getResults().get(a).getCityId(),
-//                                response.body().getRajaongkir().getResults().get(a).getCity(),
-//                                response.body().getRajaongkir().getResults().get(a).getType(),
-//                                response.body().getRajaongkir().getResults().get(a).getSubdistrictName()
-//                        );
-//
-//                        ListKec.add(itemKec);
-//                        mListView.setAdapter(adapter_kec);
-//
-//                    }
-//
-//                    adapter_kec.setList(ListKec);
-//                    adapter_kec.filter("");
-//
-//                } else {
-//                    String error = "Error Retrive DataProfil from Server !!!";
-//                    Toast.makeText(DetailAlamat.this, error, Toast.LENGTH_SHORT).show();
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ItemKec> call, Throwable t) {
-//
-//                Toast.makeText(DetailAlamat.this, "Message : Error " + t.getMessage(), Toast.LENGTH_SHORT).show();
-//            }
-//        });
-
-    }
-
-    public void popUpKec(final TextView etKec, final TextView etKota) {
-
-        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-        View alertLayout = inflater.inflate(R.layout.custom_dialog_search, null);
-
-        alert = new AlertDialog.Builder(DetailAlamat.this);
-        alert.setTitle("List Kecamatan");
-        alert.setView(alertLayout);
-        alert.setCancelable(true);
-
-        ad = alert.show();
-
-        searchList = alertLayout.findViewById(R.id.searchItem);
-        searchList.addTextChangedListener(new MyTextWatcherKec(searchList));
-        searchList.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
-
-        mListView = alertLayout.findViewById(R.id.listItem);
-
-        ListKec.clear();
-        adapter_kec = new KecAdapter(DetailAlamat.this, ListKec);
-        mListView.setClickable(true);
-
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Object o = mListView.getItemAtPosition(i);
-                com.sholeh.marketplacenj.model.subdistrict.Result cn = (com.sholeh.marketplacenj.model.subdistrict.Result) o;
-
-                etKec.setError(null);
-                etKec.setText(cn.getSubdistrictName());
-                etKec.setTag(cn.getSubdistrictId());
-
-                ad.dismiss();
-            }
-        });
-
-        progressDialog = new ProgressDialog(DetailAlamat.this);
-        progressDialog.setMessage("Silahkan Tunggu...");
-        progressDialog.show();
-
-        getKec(etKota.getTag().toString());
-
-    }
-
-    private class MyTextWatcherKec implements TextWatcher {
-
-        private View view;
-
-        private MyTextWatcherKec(View view) {
-            this.view = view;
-        }
-
-        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        }
-
-        public void onTextChanged(CharSequence s, int i, int before, int i2) {
-        }
-
-        public void afterTextChanged(Editable editable) {
-            switch (view.getId()) {
-                case R.id.searchItem:
-                    adapter_kec.filter(editable.toString());
-                    break;
-            }
-        }
-    }
-
 
     public void ubahAlamat() {
 
@@ -671,8 +470,6 @@ public class DetailAlamat extends AppCompatActivity implements View.OnClickListe
         final String namaProv_ = edProv.getText().toString();
         final String idkota_ = edIdKota.getText().toString();
         final String namakota_ = edKota.getText().toString();
-        final String idkec_ = edIdKec.getText().toString();
-        final String namakec_ = edKec.getText().toString();
         final String alamat_ = edAlamatLengkap.getText().toString();
         final String kodepos_ = edKodePos.getText().toString();
         // userid
@@ -680,7 +477,7 @@ public class DetailAlamat extends AppCompatActivity implements View.OnClickListe
 
 //            if (!validasi()) return;
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-        Call<ResAlamat> call = service.KonsumenUbahAlamat(alamatId, namalengkap_, nomorHp_, idprov_, namaProv_, idkota_, namakota_,idkec_, namakec_, kodepos_, alamat_, id_konsumen);
+        Call<ResAlamat> call = service.KonsumenUbahAlamat(alamatId, namalengkap_, nomorHp_, idprov_, namaProv_, idkota_, namakota_, kodepos_, alamat_, id_konsumen, "konsumen");
 
         call.enqueue(new Callback<ResAlamat>() {
             @Override

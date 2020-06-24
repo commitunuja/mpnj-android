@@ -29,12 +29,12 @@ import com.sholeh.marketplacenj.activities.keranjang.KeranjangDetailActivity;
 import com.sholeh.marketplacenj.activities.pelapak.ProfilPelapakActivity;
 import com.sholeh.marketplacenj.adapter.dashboard.RecycleAdapteTopTenHome;
 import com.sholeh.marketplacenj.adapter.details.ViewPagerAdapter;
-import com.sholeh.marketplacenj.custom.MainActivity2;
 import com.sholeh.marketplacenj.model.Foto;
 import com.sholeh.marketplacenj.model.Model;
 import com.sholeh.marketplacenj.model.dashboard.TopTenModelClass;
 import com.sholeh.marketplacenj.respon.ResKeranjang;
 import com.sholeh.marketplacenj.util.AppUtilits;
+import com.sholeh.marketplacenj.util.CONSTANTS;
 import com.sholeh.marketplacenj.util.Preferences;
 import com.sholeh.marketplacenj.util.ServiceGenerator;
 import com.sholeh.marketplacenj.util.api.APIInterface;
@@ -92,7 +92,6 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
     StringTokenizer st1, st2;
     private List<Model> tvDataProduks;
     private Model tvDataProduk;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -244,7 +243,6 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
     }
 
     public void getProdukId() {
-
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
         Call<JsonObject> call = service.getProdukId(vid_produk);
 
@@ -292,7 +290,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
         switch (v.getId()) {
             case R.id.imgtambah:
-                Toast.makeText(this, "coba", Toast.LENGTH_SHORT).show();
+
                 if (login) {
                     addKeranjang();
                 } else {
@@ -448,7 +446,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
             String hargaJual = st1.nextToken().trim();
 
             APIInterface apiKeranjang = ServiceGenerator.getRetrofit().create(APIInterface.class);
-            Call<ResKeranjang> sendData = apiKeranjang.simpanKeranjang(vid_produk, id_konsumen,  String.valueOf(1), hargaJual);
+            Call<ResKeranjang> sendData = apiKeranjang.simpanKeranjang(vid_produk, id_konsumen, "konsumen", "N", String.valueOf(1), hargaJual);
             sendData.enqueue(new Callback<ResKeranjang>() {
                 @Override
                 public void onResponse(Call<ResKeranjang> call, Response<ResKeranjang> response) {
@@ -484,7 +482,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
             String hargaJual = st2.nextToken().trim();
 
             APIInterface apiKeranjang = ServiceGenerator.getRetrofit().create(APIInterface.class);
-            Call<ResKeranjang> sendData = apiKeranjang.simpanKeranjang(vid_produk, id_konsumen, String.valueOf(1), hargaJual);
+            Call<ResKeranjang> sendData = apiKeranjang.simpanKeranjang(vid_produk, id_konsumen, "konsumen", "N", String.valueOf(1), hargaJual);
             sendData.enqueue(new Callback<ResKeranjang>() {
                 @Override
                 public void onResponse(Call<ResKeranjang> call, Response<ResKeranjang> response) {
@@ -493,11 +491,11 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                             AppUtilits.displayMessage(ProductDetailActivity.this, getString(R.string.add_to_cart));
 
                         } else {
-                        Toast.makeText(ProductDetailActivity.this, "r"+response.body().getPesan(), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(ProductDetailActivity.this, "r"+response.body().getPesan(), Toast.LENGTH_SHORT).show();
 //                            AppUtilits.displayMessage(RegisterActivity.this,  response.body().getPesan());
                         }
                     } else {
-                    Toast.makeText(ProductDetailActivity.this, "rr"+response.body().getPesan(), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(ProductDetailActivity.this, "rr"+response.body().getPesan(), Toast.LENGTH_SHORT).show();
 
 //                        AppUtilits.displayMessage(RegisterActivity.this,   getString(R.string.failed_request));
                     }

@@ -19,6 +19,8 @@ import java.util.List;
 
 public class RecycleAdapteHomeBanner extends RecyclerView.Adapter<RecycleAdapteHomeBanner.MyViewHolder> {
     Context context;
+
+
     private List<HomeBannerModelClass> moviesList;
 
 

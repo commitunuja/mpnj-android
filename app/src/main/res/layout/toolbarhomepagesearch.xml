@@ -13,22 +13,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-<!--        <android.support.v7.widget.Toolbar-->
-<!--            android:id="@+id/toolbar"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            app:popupTheme="@style/AppTheme.PopupOverlay"-->
-<!--            app:subtitle="cari"-->
-<!--            app:title="Example" />-->
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:subtitle="cari"
+            app:title="Example" />
 
-<!--        <com.ferfalk.simplesearchview.SimpleSearchView-->
-<!--            android:id="@+id/searchView"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:background="@color/colorPrimary"-->
-<!--            app:type="card"-->
-<!--            app:voiceSearch="true"-->
-<!--            tools:visibility="visible" />-->
+        <com.ferfalk.simplesearchview.SimpleSearchView
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimary"
+            app:type="card"
+            app:voiceSearch="true"
+            tools:visibility="visible" />
     </FrameLayout>
 
 </com.google.android.material.appbar.AppBarLayout>
