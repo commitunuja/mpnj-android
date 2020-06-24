@@ -2,17 +2,17 @@ package com.sholeh.marketplacenj.model.pesanan;
 
 public class PesananModel {
 
-    String idTransaksi, namaToko, statusPembayaran, namaProduk, jumlah, harga, totalBayar, batasBayar;
+    String idTransaksi, nama_toko, status_pembayaran, nama_produk, jumlah, harga, total_bayar, bayar_sebelum;
 
-    public PesananModel(String idTransaksi, String namaToko, String statusPembayaran, String namaProduk, String jumlah, String harga, String totalBayar,String batasBayar){
+    public PesananModel(String idTransaksi, String nama_toko, String status_pembayaran, String nama_produk, String jumlah, String harga, String total_bayar, String bayar_sebelum) {
         this.idTransaksi = idTransaksi;
-        this.namaToko = namaToko;
-        this.statusPembayaran = statusPembayaran;
-        this.namaProduk = namaProduk;
+        this.nama_toko = nama_toko;
+        this.status_pembayaran = status_pembayaran;
+        this.nama_produk = nama_produk;
         this.jumlah = jumlah;
         this.harga = harga;
-        this.totalBayar = totalBayar;
-        this.batasBayar = batasBayar;
+        this.total_bayar = total_bayar;
+        this.bayar_sebelum = bayar_sebelum;
     }
 
     public String getIdTransaksi() {
