@@ -64,18 +64,18 @@ public class PesananModel {
     }
 
     public String getTotalBayar() {
-        return totalBayar;
+        return total_bayar;
     }
 
-    public void setTotalBayar(String totalBayar) {
-        this.totalBayar = totalBayar;
+    public void setTotalBayar(String total_bayar) {
+        this.total_bayar = total_bayar;
     }
 
     public String getBatasBayar() {
-        return batasBayar;
+        return bayar_sebelum;
     }
 
     public void setBatasBayar(String batasBayar) {
-        this.batasBayar = batasBayar;
+        this.bayar_sebelum = batasBayar;
     }
 }
