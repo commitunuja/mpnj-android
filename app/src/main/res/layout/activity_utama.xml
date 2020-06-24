@@ -48,42 +48,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:menu="@menu/bottom_navigation_menu" />
-        <!--        <com.google.android.material.bottomappbar.BottomAppBar-->
-        <!--            android:id="@+id/navigation_bottombar"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="50dp"-->
-        <!--            android:layout_gravity="bottom"-->
-        <!--            android:backgroundTint="@color/colorPrimary"-->
-        <!--            app:fabAlignmentMode="center"-->
-        <!--            app:fabCradleRoundedCornerRadius="50dp"-->
-        <!--            app:hideOnScroll="true">-->
-
-        <!--            <LinearLayout-->
-        <!--                android:layout_width="match_parent"-->
-        <!--                android:layout_height="55.0dip"-->
-        <!--                android:layout_gravity="bottom"-->
-        <!--                android:orientation="horizontal">-->
-
-        <!--                <include layout="@layout/navigation_bar" />-->
-
-        <!--            </LinearLayout>-->
-
-        <!--        </com.google.android.material.bottomappbar.BottomAppBar>-->
-
-        <!--        <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-        <!--            android:id="@+id/fab_menu"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_marginBottom="5dp"-->
-        <!--            android:elevation="4dp"-->
-        <!--            android:tint="@android:color/white"-->
-        <!--            app:fabSize="normal"-->
-        <!--            app:layout_anchor="@+id/navigation_bottombar"-->
-        <!--            app:srcCompat="@drawable/ic_favorite"-->
-        <!--            app:itemIconTint="@drawable/bottom_navigation_selector"-->
-        <!--            app:itemTextColor="@drawable/bottom_navigation_selector"/>-->
-
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
