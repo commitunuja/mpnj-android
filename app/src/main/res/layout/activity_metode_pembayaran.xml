@@ -47,15 +47,15 @@
 
                                 <customfonts.TextViewSFProDisplayRegular
                                     style="@style/txt_gray_big"
-                                    android:id="@+id/tv_totalbayar"
+
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="Total Pembayaran" />
 
                                 <customfonts.MyTextView_Roboto_Regular
+                                    android:id="@+id/tv_totalbayar"
                                     android:textAlignment="viewEnd"
                                     android:textStyle="bold"
-                                    android:id="@+id/tvOrderId"
                                     style="@style/txt_color_primary_big"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"

@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +21,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.activities.AlamatActivity;
 import com.sholeh.marketplacenj.activities.keranjang.KeranjangDetailActivity;
@@ -80,10 +82,15 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
     ProgressBar pbCheckout;
     String ongkir;
 
+    private KProgressHUD progressHUD;
+    LinearLayout lnEmpty;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkout);
+        progressHUD = KProgressHUD.create(this);
+        lnEmpty = findViewById(R.id.lnKosong);
 
         tvxBayar = findViewById(R.id.tvxBayar);
 
@@ -96,7 +103,7 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
         tvxSubtotalProd = findViewById(R.id.tvx_subtotalProduk);
         tvx_idKecPembeli = findViewById(R.id.tvx_idKecPembeli);
         tvxBayar = findViewById(R.id.tvxBayar);
-        pbCheckout = findViewById(R.id.pbCheckout);
+
 //        tvxPilihBank = findViewById(R.id.tv_pilihbank);
         tvxtolbar.setText("Checkout");
         listView = findViewById(R.id.expand_checkout);
@@ -152,6 +159,12 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
                 new IntentFilter("custom-total"));
 
     }
+    private void ProgresDialog(){
+        progressHUD.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setLabel("Proses...")
+                .setCancellable(false);
+        progressHUD.show();
+    }
 
     public ResDetailKeranjang getbs() {
         return resDetailKeranjang;
@@ -174,7 +187,7 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
                 break;
 
             case R.id.tvxBayar:
-                pbCheckout.setVisibility(View.VISIBLE);
+//                pbCheckout.setVisibility(View.VISIBLE);
                 simpanTransaksi();
                 break;
             default:
@@ -199,6 +212,7 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void simpanTransaksi() {
+        ProgresDialog();
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
         Call<JsonObject> call = service.simpanTransaksi(id_konsumen, totalbayar, list);
 
@@ -206,15 +220,20 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 Log.d("status", String.valueOf(response.code()));
-                pbCheckout.setVisibility(View.GONE);
+
+                progressHUD.dismiss();
                 Intent intent = new Intent(CheckoutActivity.this, MetodePembayaranActivity.class);
-                intent.putExtra("total", String.valueOf(totalbayar));
+                Bundle b = new Bundle();
+                b.putDouble("Intent", totalbayar);
+                intent.putExtras(b);
+//                intent.putExtra("total", String.valueOf(totalbayar));
                 startActivity(intent);
             }
 
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
                 Log.d("YOLO", String.valueOf(t));
+                progressHUD.dismiss();
             }
         });
     }
