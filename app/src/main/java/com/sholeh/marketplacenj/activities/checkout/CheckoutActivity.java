@@ -47,7 +47,7 @@ import retrofit2.Response;
 
 public class CheckoutActivity extends AppCompatActivity implements View.OnClickListener {
 
-    TextView tvxtolbar, tvxUbahAlamat, tvxSetAlamat, tvxPilihBank, tvx_idKecPembeli, tvxtotalCheckout;
+    TextView tvxtolbar, tvxUbahAlamat, tvxSetAlamat, tvxPilihBank, tvx_idKecPembeli, tvxtotalCheckout, bayar;
     Preferences preferences;
     String id_konsumen;
     private List<HeaderCheckout> listHeader;
