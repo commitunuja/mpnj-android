@@ -65,10 +65,10 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
     ArrayList<String> arrayIdKeranjang;
 
     private Rajaongkir rajaongkircost;
-
+    String harganya;
     public String getidKec;
     private Intent i;
-//    List<ResDetailKeranjang> resDetailKeranjangs;
+    //    List<ResDetailKeranjang> resDetailKeranjangs;
     ResDetailKeranjang resDetailKeranjang;
 
     String ongkir;
@@ -78,6 +78,7 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkout);
 
+        bayar = findViewById(R.id.tv_bayar);
 
         tvxtolbar = findViewById(R.id.txt_toolbarKeranjang);
         tvxUbahAlamat = findViewById(R.id.tvxubahAlamat);
