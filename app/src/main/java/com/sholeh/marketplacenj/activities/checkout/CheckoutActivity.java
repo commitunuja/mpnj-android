@@ -23,7 +23,6 @@ import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.activities.AlamatActivity;
 import com.sholeh.marketplacenj.activities.keranjang.KeranjangDetailActivity;
 import com.sholeh.marketplacenj.activities.transaksi.MetodePembayaranActivity;
-import com.sholeh.marketplacenj.adapter.adapterspin;
 import com.sholeh.marketplacenj.adapter.checkout.ExpandAdapterCheckout;
 import com.sholeh.marketplacenj.model.checkout.ChildCheckout;
 import com.sholeh.marketplacenj.model.checkout.HeaderCheckout;
@@ -85,7 +84,7 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkout);
 
-        bayar = findViewById(R.id.tv_bayar);
+        tvxBayar = findViewById(R.id.tvxBayar);
 
         tvxtolbar = findViewById(R.id.txt_toolbarKeranjang);
         tvxUbahAlamat = findViewById(R.id.tvxubahAlamat);
