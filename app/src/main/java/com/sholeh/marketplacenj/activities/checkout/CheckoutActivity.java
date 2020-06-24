@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -76,7 +77,7 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
     private Intent i;
     //    List<ResDetailKeranjang> resDetailKeranjangs;
     ResDetailKeranjang resDetailKeranjang;
-
+    ProgressBar pbCheckout;
     String ongkir;
 
     @Override
@@ -95,6 +96,7 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
         tvxSubtotalProd = findViewById(R.id.tvx_subtotalProduk);
         tvx_idKecPembeli = findViewById(R.id.tvx_idKecPembeli);
         tvxBayar = findViewById(R.id.tvxBayar);
+        pbCheckout = findViewById(R.id.pbCheckout);
 //        tvxPilihBank = findViewById(R.id.tv_pilihbank);
         tvxtolbar.setText("Checkout");
         listView = findViewById(R.id.expand_checkout);
@@ -118,13 +120,12 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
         String[] yolo = idkk.split(",");
         list = new ArrayList<String>();
         list = Arrays.asList(yolo);
-        Log.d("YOLO", String.valueOf(arrayIdKeranjang));
+//        Log.d("YOLO", String.valueOf(arrayIdKeranjang));
 //        Toast.makeText(this, String.valueOf(arrayIdKeranjang), Toast.LENGTH_SHORT).show();
 
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
 
         tvxUbahAlamat.setOnClickListener(this);
-        tvxBayar.setOnClickListener(this);
         imgBack.setOnClickListener(this);
         tvxBayar.setOnClickListener(this);
 //        tvxPilihBank.setOnClickListener(this);
@@ -173,10 +174,8 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
                 break;
 
             case R.id.tvxBayar:
-                Intent intent = new Intent(CheckoutActivity.this, MetodePembayaranActivity.class);
-                intent.putExtra("total", totalbayar);
-                startActivity(intent);
-
+                pbCheckout.setVisibility(View.VISIBLE);
+                simpanTransaksi();
                 break;
             default:
                 break;
@@ -197,6 +196,27 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
                         batalChekout();
                     }
                 }).setNegativeButton("Tidak", null).show();
+    }
+
+    private void simpanTransaksi() {
+        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+        Call<JsonObject> call = service.simpanTransaksi(id_konsumen, totalbayar, list);
+
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                Log.d("status", String.valueOf(response.code()));
+                pbCheckout.setVisibility(View.GONE);
+                Intent intent = new Intent(CheckoutActivity.this, MetodePembayaranActivity.class);
+                intent.putExtra("total", String.valueOf(totalbayar));
+                startActivity(intent);
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                Log.d("YOLO", String.valueOf(t));
+            }
+        });
     }
 
     public void batalChekout() {
