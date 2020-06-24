@@ -17,6 +17,7 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -33,6 +34,7 @@ import com.sholeh.marketplacenj.respon.ResDetailKeranjang;
 import com.sholeh.marketplacenj.util.CONSTANTS;
 import com.sholeh.marketplacenj.util.Preferences;
 
+import java.io.Serializable;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -58,6 +60,7 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
     String CUSTOM_ACTION = "com.example.YOUR_ACTION";
     String id_kabupate, id_kecamatan;
     Integer total_berat;
+    List<String> idk;
 
     CheckoutActivity checkoutActivity;
 
@@ -114,35 +117,61 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
 
         convertView = LayoutInflater.from(context).inflate(R.layout.desain_parent_checkout, null);
         final Dialog myDialog;
-        final TextView nama_kk, no_pelanggan, idKabPenjual, tvx_OpsiKurir1;
+        final TextView nama_kk, no_pelanggan, idKabPenjual, tvx_OpsiKurir1, tvxkurir, tvxservice, tvxongkos, tvxetd;
 
         linearLayout = convertView.findViewById(R.id.linearopsi);
         nama_kk = convertView.findViewById(R.id.txtNamaToko);
         no_pelanggan = convertView.findViewById(R.id.txtIdToko);
+        tvxkurir = convertView.findViewById(R.id.tvxkurirnya);
+        tvxservice = convertView.findViewById(R.id.tvxservice);
+        tvxongkos = convertView.findViewById(R.id.tvongkos);
+        tvxetd = convertView.findViewById(R.id.tvxetd);
 //        tvx_OpsiKurir1 = convertView.findViewById(R.id.tvx_opsiKurir1);
         myDialog = new Dialog(context);
 
         nama_kk.setText(model.getNama_toko());
         no_pelanggan.setText(model.getId_toko());
+        tvxkurir.setText(model.getKurir());
+        tvxservice.setText(model.getService());
+        tvxongkos.setText(model.getOngkir());
+        tvxetd.setText(model.getOtd()+" Hari");
 
         linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 HeaderCheckout myNewsheader = listHeaderFilter.get(groupPosition);
                 Context context = v.getContext();
+//                listChild.get(listHeaderFilter.get(groupPosition)).get(childPosition);
+
+//                for (int i = groupPosition; i < getChildrenCount(groupPosition); i++) {
+////                    idk.add(getChild(groupPosition, ));
+//                }
+
+//                Log.d("Child Position", String.valueOf(getChildrenCount(groupPosition)));
                 ResDetailKeranjang bs = ((CheckoutActivity) context).getbs();
+//                Log.d("ikdo", String.valueOf());
+                ArrayList<String> id = ((CheckoutActivity) context).listIdKeranjang();
+                ArrayList<String> idByParent = new ArrayList<String>();
+
+                for (int i = 0; i < bs.getDataKeranjang().get(groupPosition).getItem().size(); i++) {
+                    idByParent.add(bs.getDataKeranjang().get(groupPosition).getItem().get(i).getIdKeranjang());
+                }
+
                 String idKabPenjual = bs.getDataKeranjang().get(groupPosition).getIdKabupaten();
                 String idKecPembeli = bs.getPembeli().getIdKecamatan();
+
                 String nama_kota = bs.getDataKeranjang().get(groupPosition).getNamaKota();
                 String weight = bs.getDataKeranjang().get(groupPosition).getTotalBerat();
                 Intent intent = new Intent(context, OpsiPengirimanActivity.class);
                 intent.putExtra("idkab_toko", String.valueOf(idKabPenjual));
                 intent.putExtra("idkec_pembeli", String.valueOf(idKecPembeli));
                 intent.putExtra("weight", String.valueOf(weight));
+                intent.putStringArrayListExtra("idcheckout", id);
+                intent.putStringArrayListExtra("idByParent", idByParent);
                 context.startActivity(intent);
                 myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 myDialog.show();
-//                Toast.makeText(context, ""+groupPosition+" "+childPosition, Toast.LENGTH_SHORT).show();
+//
             }
         });
 
