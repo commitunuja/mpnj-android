@@ -29,8 +29,8 @@ import com.google.android.material.tabs.TabLayout;
 import com.sholeh.marketplacenj.activities.AkunActivity;
 import com.sholeh.marketplacenj.activities.AlamatActivity;
 import com.sholeh.marketplacenj.activities.PengaturanAkun;
+import com.sholeh.marketplacenj.activities.pesanan.MyPesananActivity;
 import com.sholeh.marketplacenj.util.api.APIInterface;
-import com.sholeh.marketplacenj.util.CONSTANTS;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.util.ServiceGenerator;
 import com.sholeh.marketplacenj.activities.ImageProfilActivity;
@@ -39,7 +39,6 @@ import com.sholeh.marketplacenj.activities.TabFragmentPelapak;
 import com.sholeh.marketplacenj.activities.TabFragmentPembeli;
 import com.sholeh.marketplacenj.respon.ResProfil;
 import com.sholeh.marketplacenj.util.Preferences;
-import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
@@ -49,7 +48,7 @@ import retrofit2.Response;
 public class FragmentProfil extends Fragment implements View.OnClickListener {
     private ImageView btnImgProfil, nav_home, nav_notifikasi, nav_transaksi, navprofile;
     TextView tvx_login, tvx_namaCustomter, tvx_title, tvx_logout,tvx_edit, tvx_username,
-              tvx_Hp, tvx_profil, tvx_alamat, tvx_setting, tvx_email;
+              tvx_Hp, tvx_profil, tvx_alamat, tvx_setting, tvx_email, tvx_pesananku;
 
 
 
@@ -94,6 +93,7 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
         tvx_profil = rootView.findViewById(R.id.tv_myprofil);
         tvx_alamat = rootView.findViewById(R.id.tvAlamat);
         tvx_setting = rootView.findViewById(R.id.tvSetting);
+        tvx_pesananku = rootView.findViewById(R.id.tvMyPesanan);
 
 
         btnImgProfil = rootView.findViewById(R.id.imgProfil);
@@ -102,6 +102,7 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
         tvx_profil.setOnClickListener(this);
         tvx_alamat.setOnClickListener(this);
         tvx_setting.setOnClickListener(this);
+        tvx_pesananku.setOnClickListener(this);
 
 
         tvx_title = rootView.findViewById(R.id.title);
@@ -188,6 +189,11 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
             case R.id.tvSetting:
                 Intent intent5 = new Intent(getActivity(), PengaturanAkun.class);
                 getActivity().startActivity(intent5);
+                break;
+
+            case R.id.tvMyPesanan:
+                Intent intent6 = new Intent(getActivity(), MyPesananActivity.class);
+                getActivity().startActivity(intent6);
 //                selectImage();
                 break;
 
@@ -261,7 +267,7 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
 //                if (tvDataProfil.getData().getFotoProfil() == null){
 //                   // Picasso.with(getContext()).load(R.drawable.man).into(imageProfil);
 //                }else{
-                    Picasso.with(getContext()).load(CONSTANTS.BASE_URL + "assets/foto_profil_konsumen/"+tvDataProfil.getData().getFotoProfil()).into(imageProfil);
+//                    Picasso.with(getContext()).load(CONSTANTS.BASE_URL + "assets/foto_profil_konsumen/"+tvDataProfil.getData().getFotoProfil()).into(imageProfil);
 //                }
 //                Toast.makeText(getActivity(), tvDataProfil.getData().getFotoProfil(), Toast.LENGTH_LONG).show();
 //                Glide.with(getActivity()).load(foto).into(imageProfil);

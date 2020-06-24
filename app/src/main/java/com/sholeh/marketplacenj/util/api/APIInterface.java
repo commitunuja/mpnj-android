@@ -4,7 +4,11 @@ import com.google.gson.JsonObject;
 import com.sholeh.marketplacenj.model.Kategori;
 import com.sholeh.marketplacenj.model.Model;
 import com.sholeh.marketplacenj.model.city.ItemCity;
+
 import com.sholeh.marketplacenj.model.cost.ItemCost;
+
+import com.sholeh.marketplacenj.model.pesanan.PesananModel;
+
 import com.sholeh.marketplacenj.model.province.ItemProvince;
 import com.sholeh.marketplacenj.model.subdistrict.ItemKec;
 import com.sholeh.marketplacenj.respon.ResAlamat;
@@ -181,6 +185,8 @@ public interface APIInterface {
     @GET("api/produk")
     Call<List<Model>> getAllData(@Query("cari") String nama_produk);
 
+    @GET("api/pesanan")
+    Call<List<PesananModel>> getDataPesanan(@Query("id") String id, @Query("tab") String tab);
 
     @FormUrlEncoded
     @POST("api/keranjang")
@@ -238,6 +244,7 @@ public interface APIInterface {
     Call<ResDetailKeranjang> ubahStatusKeranjang(
             @Path("id_user") String id_user,
             @Field("id_keranjang[]") List<String> id_keranjang
+
     );
 
     @FormUrlEncoded
