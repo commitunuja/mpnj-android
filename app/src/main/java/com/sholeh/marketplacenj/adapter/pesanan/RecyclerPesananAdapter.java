@@ -58,9 +58,10 @@ public class RecyclerPesananAdapter extends RecyclerView.Adapter<RecyclerPesanan
         this.mContext = context;
     }
 
-    private class cartItemView extends RecyclerView.ViewHolder {
-        TextView tvxIdTransaksi, tvxNamaToko, tvxStatusPembayaran, tvxNamaProduk, tvxJumlah, tvxharga, tvxTotalBayar, tvxBatasBayar;
-        CardView cardView;
+
+    public RecyclerPesananAdapter(Context context, List<PesananModel> pesananModels) {
+        this.context = context;
+        this.pesananModels = pesananModels;
 
 
         public cartItemView(View itemView) {
