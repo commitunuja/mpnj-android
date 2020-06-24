@@ -20,6 +20,7 @@
             android:layout_height="match_parent"
             android:id="@+id/recycler_pesanan"
             android:padding="@dimen/padding_small_5"
+            tools:listitem="@layout/custom_pesananku"
             android:layout_marginBottom="50dp"
             tools:ignore="NotSibling">
 
