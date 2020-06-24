@@ -52,7 +52,7 @@ import retrofit2.Response;
 
 public class CheckoutActivity extends AppCompatActivity implements View.OnClickListener {
 
-    TextView tvxtolbar, tvxUbahAlamat, tvxSetAlamat, tvxPilihBank, tvx_idKecPembeli, tvxtotalCheckout;
+    TextView tvxtolbar, tvxUbahAlamat, tvxSetAlamat, tvxPilihBank, tvx_idKecPembeli, tvxtotalCheckout, tvxSubtotalProd, tvxsubPengiriman;
     Preferences preferences;
     String id_konsumen;
     private List<HeaderCheckout> listHeader;
@@ -64,9 +64,11 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
     ImageView imgBack;
 
     private double hargaTotal;
+    private double hargaPengiriman = 0;
+    private double totalbayar = 0;
     Locale localeID = new Locale("in", "ID");
     NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
-    StringTokenizer st;
+    StringTokenizer st, stsub, sttotal;
     String arrayIdKeranjang;
     String idkk;
     List<String> list;
@@ -92,6 +94,8 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
         tvxSetAlamat = findViewById(R.id.tvx_setAlamat);
         imgBack = findViewById(R.id.imgBackKeranjang);
         tvxtotalCheckout = findViewById(R.id.totalchechkout);
+        tvxsubPengiriman = findViewById(R.id.tvx_subtotalPengiriman);
+        tvxSubtotalProd = findViewById(R.id.tvx_subtotalProduk);
         tvx_idKecPembeli = findViewById(R.id.tvx_idKecPembeli);
 //        tvxPilihBank = findViewById(R.id.tv_pilihbank);
         tvxtolbar.setText("Checkout");
@@ -139,6 +143,12 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
 
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
                 new IntentFilter("custom-message"));
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageOngkir,
+                new IntentFilter("custom-ongkir"));
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessagebayar,
+                new IntentFilter("custom-total"));
 
     }
 
@@ -309,15 +319,29 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
             hargaTotal = Double.parseDouble(qty);
             st = new StringTokenizer(formatRupiah.format(hargaTotal), ",");
             String harganya = st.nextToken().trim();
+            tvxSubtotalProd.setText(harganya);
+        }
+    };
+
+    public BroadcastReceiver mMessageOngkir = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String qty = intent.getStringExtra("ongkir");
+            hargaPengiriman = Double.parseDouble(qty);
+            stsub = new StringTokenizer(formatRupiah.format(hargaPengiriman), ",");
+            String harganya = stsub.nextToken().trim();
+            tvxsubPengiriman.setText(harganya);
+        }
+    };
+
+    public BroadcastReceiver mMessagebayar = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String qty = intent.getStringExtra("totalbayar");
+            totalbayar = Double.parseDouble(qty);
+            sttotal = new StringTokenizer(formatRupiah.format(totalbayar), ",");
+            String harganya = sttotal.nextToken().trim();
             tvxtotalCheckout.setText(harganya);
-//
-//            if (harganya.equalsIgnoreCase("Rp0")) {
-//                Drawable d = getResources().getDrawable(R.drawable.button_rect_transparant);
-//                tvx_checkout.setBackground(d);
-//            } else {
-//                Drawable d = getResources().getDrawable(R.drawable.button_rect);
-//                tvx_checkout.setBackground(d);
-//            }
         }
     };
 
