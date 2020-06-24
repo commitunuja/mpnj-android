@@ -37,6 +37,7 @@ public class Utama extends AppCompatActivity implements BottomNavigationView.OnN
     final FragmentManager fm = getSupportFragmentManager();
     Fragment active = homeFragment;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,133 +70,6 @@ public class Utama extends AppCompatActivity implements BottomNavigationView.OnN
         finish();
         return true;
     }
-
-
-//    @Override
-//    public void onClick(View v) {
-//
-//
-//        switch (v.getId()) {
-//            case R.id.nav_transaksi:
-////                new FragmentTransaksi();
-//                Toast.makeText(this, "nav transaksi", Toast.LENGTH_SHORT).show();
-//                break;
-//
-//            case R.id.fab_menu:
-//                Toast.makeText(this, "nav fab", Toast.LENGTH_SHORT).show();
-//                break;
-//
-//            case R.id.nav_notifikasi:
-//                Toast.makeText(this, "nav notifikasi", Toast.LENGTH_SHORT).show();
-////                new FragmentNotifikasi();
-//                break;
-//
-//
-//
-//
-//
-//            default:
-//                break;
-//        }
-//        return loadFragment(fragment);
-//
-//    }
-
-//
-//
-//    @Override
-//    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//        Fragment fragment = null;
-//
-////        case R.id.nav_transaksi:
-//////                new FragmentTransaksi();
-////                Toast.makeText(this, "nav transaksi", Toast.LENGTH_SHORT).show();
-////                break;
-////
-////            case R.id.fab_menu:
-////                Toast.makeText(this, "nav fab", Toast.LENGTH_SHORT).show();
-////                break;
-////
-////            case R.id.nav_notifikasi:
-////                Toast.makeText(this, "nav notifikasi", Toast.LENGTH_SHORT).show();
-//////                new FragmentNotifikasi();
-////                break;
-////
-//        switch (item.getItemId()){
-//            case R.id.nav_transaksi:
-////                fragment = new FragmentHome();
-//                Toast.makeText(this, "nav transaksi", Toast.LENGTH_SHORT).show();
-//                break;
-//            case R.id.nav_notifikasi:
-////                fragment = new FragmentFavourite();
-//                Toast.makeText(this, "nav notifikasi", Toast.LENGTH_SHORT).show();
-//                break;
-//        }
-//        return loadFragment(fragment);
-//    }
-
-//    @Override
-//    public void onClick(View v) {
-//        Fragment fragment = null;
-//
-//        switch (v.getId()) {
-//            case R.id.nav_home:
-//                fragment = new HomepageFragment();
-//                loadFragment(fragment);
-//                break;
-//            case R.id.nav_notifikasi:
-//                fragment = new KeranjangFragment();
-//                loadFragment(fragment);
-//                break;
-//
-//            case R.id.fab_menu:
-//                fragment = new FragmentFavorite();
-//                loadFragment(fragment);
-//                break;
-//
-//            case R.id.nav_transaksi:
-//                fragment = new FragmentTransaksi();
-//                loadFragment(fragment);
-//                break;
-//
-//            case R.id.nav_profile:
-//                boolean login = preferences.getSPSudahLogin();
-//
-//                if (login) {
-//                    fragment = new FragmentProfil();
-//                    loadFragment(fragment);
-//                } else {
-//                    startActivity(new Intent(this, LoginActivity.class));
-//                    finish();
-//                }
-//
-//
-//                break;
-//
-//
-//        }
-//        loadFragment(fragment);
-//
-//    }
-
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.main_menu, menu);
-//        return super.onCreateOptionsMenu(menu);
-//    }
-
-
-//    private boolean loadFragment(Fragment fragment) {
-//        if (fragment != null) {
-//            getSupportFragmentManager().beginTransaction()
-//                    .replace(R.id.container, fragment)
-//                    .commit();
-//            return true;
-//        }
-//        return false;
-//    }
-
 
     private void perizinan() {
         ActivityCompat.requestPermissions(Utama.this,
