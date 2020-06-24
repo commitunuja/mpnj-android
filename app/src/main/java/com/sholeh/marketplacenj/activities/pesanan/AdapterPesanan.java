@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.sholeh.marketplacenj.adapter.pesanan.RecyclerPesananAdapter;
+import com.sholeh.marketplacenj.mfragment.pesanan.PesananFragment;
 import com.sholeh.marketplacenj.model.pesanan.PesananModel;
 
 import java.util.ArrayList;
@@ -34,8 +35,10 @@ public class AdapterPesanan extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
+        PesananFragment data1 = new PesananFragment();
+        return data1;
 
-        return fragmentList.get(position);
+//        return fragmentList.get(position);
     }
 
     @Override
