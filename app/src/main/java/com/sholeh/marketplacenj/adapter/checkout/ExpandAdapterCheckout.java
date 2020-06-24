@@ -134,7 +134,7 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
         tvxkurir.setText(model.getKurir());
         tvxservice.setText(model.getService());
         tvxongkos.setText(model.getOngkir());
-        tvxetd.setText(model.getOtd()+" Hari");
+        tvxetd.setText(model.getEtd()+" Hari");
 
         linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
