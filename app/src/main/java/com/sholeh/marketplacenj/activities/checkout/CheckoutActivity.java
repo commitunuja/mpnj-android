@@ -1,15 +1,10 @@
 package com.sholeh.marketplacenj.activities.checkout;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,19 +13,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.sholeh.marketplacenj.R;
-import com.sholeh.marketplacenj.activities.AddAlamat;
 import com.sholeh.marketplacenj.activities.AlamatActivity;
 import com.sholeh.marketplacenj.activities.keranjang.KeranjangDetailActivity;
-import com.sholeh.marketplacenj.adapter.adapterspin;
+import com.sholeh.marketplacenj.activities.transaksi.MetodePembayaranActivity;
 import com.sholeh.marketplacenj.adapter.checkout.ExpandAdapterCheckout;
-import com.sholeh.marketplacenj.model.Keranjang;
 import com.sholeh.marketplacenj.model.checkout.ChildCheckout;
 import com.sholeh.marketplacenj.model.checkout.HeaderCheckout;
 import com.sholeh.marketplacenj.model.cost.Rajaongkir;
-import com.sholeh.marketplacenj.model.province.ItemProvince;
 import com.sholeh.marketplacenj.respon.DataKeranjang;
 import com.sholeh.marketplacenj.respon.ItemKeranjang;
 import com.sholeh.marketplacenj.respon.ResDetailKeranjang;
@@ -51,7 +47,7 @@ import retrofit2.Response;
 
 public class CheckoutActivity extends AppCompatActivity implements View.OnClickListener {
 
-    TextView tvxtolbar, tvxUbahAlamat, tvxSetAlamat, tvxPilihBank, tvx_idKecPembeli, tvxtotalCheckout;
+    TextView tvxtolbar, tvxUbahAlamat, tvxSetAlamat, tvxPilihBank, tvx_idKecPembeli, tvxtotalCheckout, bayar;
     Preferences preferences;
     String id_konsumen;
     private List<HeaderCheckout> listHeader;
@@ -69,10 +65,10 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
     ArrayList<String> arrayIdKeranjang;
 
     private Rajaongkir rajaongkircost;
-
+    String harganya;
     public String getidKec;
     private Intent i;
-//    List<ResDetailKeranjang> resDetailKeranjangs;
+    //    List<ResDetailKeranjang> resDetailKeranjangs;
     ResDetailKeranjang resDetailKeranjang;
 
     String ongkir;
@@ -82,6 +78,7 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkout);
 
+        bayar = findViewById(R.id.tv_bayar);
 
         tvxtolbar = findViewById(R.id.txt_toolbarKeranjang);
         tvxUbahAlamat = findViewById(R.id.tvxubahAlamat);
@@ -105,6 +102,7 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
 
         tvxUbahAlamat.setOnClickListener(this);
         imgBack.setOnClickListener(this);
+        bayar.setOnClickListener(this);
 //        tvxPilihBank.setOnClickListener(this);
         getDetailKeranjang();
 
@@ -120,18 +118,18 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
 //        i.putExtra("idkecamatan", getidKec);
 
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
-                new IntentFilter("custom-message")) ;
+                new IntentFilter("custom-message"));
 
     }
 
-    public ResDetailKeranjang getbs(){
+    public ResDetailKeranjang getbs() {
         return resDetailKeranjang;
     }
 
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.tvxubahAlamat:
                 startActivity(new Intent(this, AlamatActivity.class));
                 break;
@@ -141,10 +139,11 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
                 finish();
                 break;
 
-//            case R.id.tv_pilihbank:
-//                startActivity(new Intent(this, MetodePembayaranActivity.class));
-//
-//                break;
+            case R.id.tv_bayar:
+                Intent i = new Intent(this, MetodePembayaranActivity.class);
+                i.putExtra("total", harganya);
+                startActivity(i);
+                break;
             default:
                 break;
         }
@@ -152,10 +151,10 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onBackPressed() {
-       onBack();
+        onBack();
     }
 
-    public void onBack(){
+    public void onBack() {
         new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Exit")
                 .setMessage("Apakah Anda yakin ingin membatalkan checkout?")
                 .setPositiveButton("Iya", new DialogInterface.OnClickListener() {
@@ -166,8 +165,7 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
                 }).setNegativeButton("Tidak", null).show();
     }
 
-    public void batalChekout()
-    {
+    public void batalChekout() {
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
         Call<JsonObject> call = service.batalCheckout(id_konsumen);
 
@@ -214,9 +212,9 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
                 if (response.body() != null && response.isSuccessful()) {
                     if (response.body().getDataKeranjang().size() > 0) {
                         response.body().getTotalHarganya();
-                       tvxSetAlamat.setText(String.valueOf(response.body().getPembeli().getAlamatUtama()));
-                       String idKecPembeli = String.valueOf(response.body().getPembeli().getIdKecamatan());
-                       tvx_idKecPembeli.setText(idKecPembeli);
+                        tvxSetAlamat.setText(String.valueOf(response.body().getPembeli().getAlamatUtama()));
+                        String idKecPembeli = String.valueOf(response.body().getPembeli().getIdKecamatan());
+                        tvx_idKecPembeli.setText(idKecPembeli);
 
                         listHeader.clear();
                         listChild.clear();
@@ -257,11 +255,11 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
                         }
 
                     } else {
-                        Toast.makeText(CheckoutActivity.this, ""+response.body(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CheckoutActivity.this, "" + response.body(), Toast.LENGTH_SHORT).show();
 //                        AppUtilits.displayMessage(CheckoutActivity.this, getString(R.string.network_error));
                     }
                 } else {
-                    Toast.makeText(CheckoutActivity.this, ""+response.body(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CheckoutActivity.this, "" + response.body(), Toast.LENGTH_SHORT).show();
 //                    AppUtilits.displayMessage(CheckoutActivity.this, getString(R.string.network_error));
                 }
             }
@@ -284,7 +282,7 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
             String qty = intent.getStringExtra("total");
             hargaTotal = Double.parseDouble(qty);
             st = new StringTokenizer(formatRupiah.format(hargaTotal), ",");
-            String harganya = st.nextToken().trim();
+             harganya = st.nextToken().trim();
             tvxtotalCheckout.setText(harganya);
 //
 //            if (harganya.equalsIgnoreCase("Rp0")) {
