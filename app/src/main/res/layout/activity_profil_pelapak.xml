@@ -9,7 +9,7 @@
 
     <include
         android:id="@+id/include"
-        layout="@layout/toolbar_hompage" />
+        layout="@layout/toolbar_profil_pelapak" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imgpelapak"
