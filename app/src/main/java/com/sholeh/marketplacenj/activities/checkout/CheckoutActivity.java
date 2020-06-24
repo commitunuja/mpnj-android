@@ -166,16 +166,13 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
             case R.id.tvxubahAlamat:
                 startActivity(new Intent(this, AlamatActivity.class));
                 break;
-            case R.id.tvxBayar:
-                startActivity(new Intent(this, MetodePembayaranActivity.class));
-                break;
 
             case R.id.imgBackKeranjang:
                 onBack();
                 finish();
                 break;
 
-            case R.id.tv_bayar:
+            case R.id.tvxBayar:
                 Intent i = new Intent(this, MetodePembayaranActivity.class);
                 i.putExtra("total", harganya);
                 startActivity(i);
