@@ -41,9 +41,7 @@ public class Utama extends AppCompatActivity implements BottomNavigationView.OnN
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_utama);
-        toolBarisi = findViewById(R.id.toolbar);
-        toolBarisi.setTitle("Akun");
-//        setSupportActionBar(toolBarisi);
+
         appBarLayout = findViewById(R.id.appBarToolbar);
         appBarLayout.setVisibility(View.GONE);
         preferences = new Preferences(getApplication());
