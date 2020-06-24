@@ -7,6 +7,12 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:statusBarColor">#11b359</item>
+    </style>
+
     <!--    <style name="AppTheme" parent="AppTheme.Base">-->
     <!--        &lt;!&ndash; All customizations that are NOT specific to a particular APIInterface-level can go here. &ndash;&gt;-->
     <!--    </style>-->

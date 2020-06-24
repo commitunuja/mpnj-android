@@ -66,5 +66,7 @@
 	<dimen name="value_0.5">0.5dp</dimen>
 	<dimen name="app_bar_height">260dp</dimen>
 
+	<dimen name="value_1.5">1.75dp</dimen>
+
 </resources>
 
