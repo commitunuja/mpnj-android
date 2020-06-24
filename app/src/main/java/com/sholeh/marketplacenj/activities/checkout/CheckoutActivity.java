@@ -118,18 +118,18 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
 //        i.putExtra("idkecamatan", getidKec);
 
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
-                new IntentFilter("custom-message")) ;
+                new IntentFilter("custom-message"));
 
     }
 
-    public ResDetailKeranjang getbs(){
+    public ResDetailKeranjang getbs() {
         return resDetailKeranjang;
     }
 
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.tvxubahAlamat:
                 startActivity(new Intent(this, AlamatActivity.class));
                 break;
