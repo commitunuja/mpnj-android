@@ -49,10 +49,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RecyclerPesananAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
-    private List<PesananModel> pesanan_models;
-    private Context mContext;
-    private String TAG ="cartAdapter";
+public class RecyclerPesananAdapter extends RecyclerView.Adapter<RecyclerPesananAdapter.ViewHolder> {
+    private Context context;
+    private List<PesananModel> pesananModels; // model / item
+    private PesananModel pesananModel;
     public RecyclerPesananAdapter(Context context, List<PesananModel> pesananModels){
         this.pesanan_models = pesananModels;
         this.mContext = context;
