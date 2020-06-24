@@ -113,57 +113,34 @@ public class Utama extends AppCompatActivity implements BottomNavigationView.OnN
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//        FragmentManager fragmentManager;
         switch (item.getItemId()) {
             case R.id.navigation_store:
-
-
-                if (homepageFragment.isAdded()) {
-                    getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_out).replace(R.id.container, homepageFragment, "fragHome").commit();
-//                    Toast.makeText(getApplicationContext(), "Fragment Added",
-//                            Toast.LENGTH_LONG).show();
-                } else {
-                    getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_out).add(R.id.container, homepageFragment, "fragHome").commit();
-                }
-
+                fm.beginTransaction().hide(active).show(homeFragment).commit();
+                active = homeFragment;
+                return true;
 
             case R.id.navigation_favourite:
-//                getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_out).replace(R.id.container, keranjangFragment).commit();
                 Toast.makeText(this, "Ini Hanya View", Toast.LENGTH_SHORT).show();
                 return true;
+
             case R.id.navigation_camera:
-//                getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_out).replace(R.id.container, fragmentProfil).commit();
                 Toast.makeText(this, "Ini hanya View", Toast.LENGTH_SHORT).show();
                 return true;
 
             case R.id.navigation_cart:
-                if (keranjangFragment.isAdded()) {
-                    getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_out).replace(R.id.container, keranjangFragment, "fragCart").commit();
-//                    Toast.makeText(getApplicationContext(), "Fragment Added",
-//                            Toast.LENGTH_LONG).show();
-                } else {
-                    getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_out).add(R.id.container, keranjangFragment, "fragCart").commit();
-                }
-//                getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_out).replace(R.id.container, keranjangFragment).commit();
-                Toast.makeText(this, "Ini hanya View", Toast.LENGTH_SHORT).show();
+                fm.beginTransaction().hide(active).show(keranjangFragment).commit();
+                active = keranjangFragment;
                 return true;
 
             case R.id.navigation_account:
-                if (fragmentProfil.isAdded()) {
-                    getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_out).replace(R.id.container, fragmentProfil, "fragProf").commit();
-                } else {
-                    getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_out).add(R.id.container, fragmentProfil, "fragProf").commit();
-                }
+                fm.beginTransaction().hide(active).show(fragmentProfil).commit();
+                active = fragmentProfil;
                 return true;
 
         }
 
         return false;
-//
     }
 
-//    private void load(){
-//        bottomNavigationView.setOnNavigationItemSelectedListener(BottomNavigationView.OnNavigationItemSelectedListener);
-//    }
 }
 
