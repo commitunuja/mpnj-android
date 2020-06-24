@@ -24,7 +24,6 @@ import com.sholeh.marketplacenj.util.Preferences;
 
 public class Utama extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
-    //    BottomAppBar bottomNavigation;
     BottomNavigationView bottomNavigationView;
     AppBarLayout appBarLayout;
     Preferences preferences;
