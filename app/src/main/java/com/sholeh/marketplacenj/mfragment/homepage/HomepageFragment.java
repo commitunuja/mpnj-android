@@ -113,8 +113,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         return inflater.inflate(R.layout.fragment_homepage, container, false);
 
