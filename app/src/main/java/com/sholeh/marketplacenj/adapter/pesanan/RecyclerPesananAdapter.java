@@ -87,17 +87,15 @@ public class RecyclerPesananAdapter extends RecyclerView.Adapter<RecyclerPesanan
     }
 
     @Override
-    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
-
-        final PesananModel model =  pesanan_models.get(position);
-
-        ((cartItemView) holder).tvxIdTransaksi.setText(model.getIdTransaksi());
-        ((cartItemView) holder).tvxNamaToko.setText(model.getNamaToko());
-        ((cartItemView) holder).tvxStatusPembayaran.setText(model.getStatusPembayaran());
-        ((cartItemView) holder).tvxNamaProduk.setText(model.getNamaProduk());
-        ((cartItemView) holder).tvxJumlah.setText(model.getJumlah());
-        ((cartItemView) holder).tvxTotalBayar.setText(model.getTotalBayar());
-        ((cartItemView) holder).tvxBatasBayar.setText(model.getBatasBayar());
+    public void onBindViewHolder(@NonNull RecyclerPesananAdapter.ViewHolder viewHolder, int i) {
+        pesananModel = pesananModels.get(i);
+        viewHolder.namaProduk.setText(pesananModel.getNamaProduk());
+        viewHolder.hargaProduk.setText("Rp " + pesananModel.getHarga());
+        viewHolder.status.setText(pesananModel.getStatusPembayaran());
+        viewHolder.namatoko.setText(pesananModel.getNamaToko());
+        viewHolder.totalbayar.setText("Rp "+pesananModel.getTotalBayar());
+        viewHolder.jumlah.setText(pesananModel.getJumlah());
+        viewHolder.batas.setText(pesananModel.getBatasBayar());
 
 //        Glide.with(mContext)
 //                .load(Constant.tampilfoto+model.getImg_ulr())
