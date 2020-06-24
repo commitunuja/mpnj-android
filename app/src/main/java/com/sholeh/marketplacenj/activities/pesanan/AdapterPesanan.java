@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import com.sholeh.marketplacenj.adapter.pesanan.RecyclerPesananAdapter;
 import com.sholeh.marketplacenj.model.pesanan.PesananModel;
 
 import java.util.ArrayList;
@@ -13,7 +14,8 @@ public class AdapterPesanan extends FragmentPagerAdapter {
     List<Fragment> fragmentList = new ArrayList<>();
     List <String> fragmentTitle = new ArrayList<>();
 
-    public AdapterPesanan(FragmentManager fm) {
+    public AdapterPesanan(FragmentManager fm, int i) {
+
         super(fm);
     }
 
@@ -32,6 +34,7 @@ public class AdapterPesanan extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
+
         return fragmentList.get(position);
     }
 
