@@ -26,21 +26,17 @@ public class Utama extends AppCompatActivity implements BottomNavigationView.OnN
 
     //    BottomAppBar bottomNavigation;
     BottomNavigationView bottomNavigationView;
-
-    private ImageView nav_home, nav_notifikasi, nav_transaksi, nav_profile;
-    FloatingActionButton fb_favourite;
-
-    FragmentManager fragmentManager;
-    Toolbar toolBarisi;
     AppBarLayout appBarLayout;
-    SupportRequestManagerFragment supportRequestManagerFragment;
     Preferences preferences;
     String id_konsumen;
     boolean doubleBackToExitPressedOnce = false;
-    HomepageFragment homepageFragment;
-    KeranjangFragment keranjangFragment;
-    FragmentProfil fragmentProfil;
+    Fragment fragment;
 
+    final Fragment homeFragment = new HomepageFragment();
+    final Fragment keranjangFragment = new KeranjangFragment();
+    final Fragment fragmentProfil = new FragmentProfil();
+    final FragmentManager fm = getSupportFragmentManager();
+    Fragment active = homeFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
