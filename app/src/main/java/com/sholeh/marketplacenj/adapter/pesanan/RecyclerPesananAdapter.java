@@ -164,12 +164,21 @@ public class RecyclerPesananAdapter extends RecyclerView.Adapter<RecyclerPesanan
     }
 
 
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        private TextView namaProduk, hargaProduk, status, namatoko, totalbayar, jumlah, batas;
+        private ImageView foto_produk;
 
 
+        public ViewHolder(View itemView) {
+            super(itemView);
 
-
-
-
+            namaProduk = itemView.findViewById(R.id.tvxNamaProduk);
+            hargaProduk = itemView.findViewById(R.id.tvxHargaProd);
+            namatoko = itemView.findViewById(R.id.tvxNamaToko);
+            status = itemView.findViewById(R.id.tvx_statusbayar);
+            totalbayar = itemView.findViewById(R.id.tvxTotalbayar);
+            jumlah = itemView.findViewById(R.id.tvxjumProd);
+            batas = itemView.findViewById(R.id.tvxBatasbayar);
 
 }
 
