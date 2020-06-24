@@ -2,10 +2,10 @@ package com.sholeh.marketplacenj.activities.kurir;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -17,22 +17,18 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import com.google.gson.JsonObject;
 import com.sholeh.marketplacenj.R;
-import com.sholeh.marketplacenj.activities.AddAlamat;
 import com.sholeh.marketplacenj.activities.checkout.CheckoutActivity;
-import com.sholeh.marketplacenj.adapter.adapterspin;
 import com.sholeh.marketplacenj.model.cost.Cost;
-import com.sholeh.marketplacenj.model.cost.Cost_;
-import com.sholeh.marketplacenj.activities.checkout.CheckoutActivity;
 import com.sholeh.marketplacenj.model.cost.ItemCost;
+import com.sholeh.marketplacenj.respon.ResDetailKeranjang;
 import com.sholeh.marketplacenj.util.CONSTANTS;
+import com.sholeh.marketplacenj.util.ServiceGenerator;
 import com.sholeh.marketplacenj.util.api.APIInterface;
 
-import org.json.JSONArray;
-
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import retrofit2.Call;
@@ -55,6 +51,10 @@ public class OpsiPengirimanActivity extends AppCompatActivity {
     Integer ongkir;
     String idkec_pembeli, idkab_toko;
     ImageView clear;
+    ArrayList<String> arrayIdKeranjang;
+    ArrayList<String> arrayIdByParent;
+    int idx;
+    String idkk;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +69,11 @@ public class OpsiPengirimanActivity extends AppCompatActivity {
 
         getWindow().setLayout((int)(width*.8), (int)(height*.6));
 
+        Intent i = getIntent();
+        arrayIdKeranjang = i.getStringArrayListExtra("idcheckout");
+        arrayIdByParent = i.getStringArrayListExtra("idByParent");
+        Log.d("YOLO", String.valueOf(arrayIdKeranjang));
+
         spinnerKurir.add("JNE");
         spinnerKurir.add("JNT");
         spinnerKurir.add("POS");
@@ -81,9 +86,7 @@ public class OpsiPengirimanActivity extends AppCompatActivity {
         tvSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(OpsiPengirimanActivity.this, CheckoutActivity.class);
-                i.putExtra("ongkir", String.valueOf(ongkir));
-                startActivity(i);
+                simpanKurir();
             }
         });
 
@@ -95,21 +98,26 @@ public class OpsiPengirimanActivity extends AppCompatActivity {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 int radioId = radioGroupKurir.getCheckedRadioButtonId();
                 View radioBtn = radioGroupKurir.findViewById(radioId);
-                int idx = radioGroupKurir.indexOfChild(radioBtn);
-//                Toast.makeText(OpsiPengirimanActivity.this, String.valueOf(costs.get(idx).getCost().get(idx).getValue()), Toast.LENGTH_LONG).show();
-                ongkir = costs.get(idx).getCost().get(0).getValue();
+                idx = radioGroupKurir.indexOfChild(radioBtn);
+//                Toast.makeText(OpsiPengirimanActivity.this, String.valueOf(costs.get(idx).getCost().get(0).getValue()), Toast.LENGTH_LONG).show();
+//                ongkir = costs.get(idx).getCost().get(0).getValue();
             }
         });
 
         destination = getIntent().getStringExtra("idkec_pembeli");
         origin = getIntent().getStringExtra("idkab_toko");
         weight = getIntent().getStringExtra("weight");
+        Log.d("desntiasi", destination);
+        Log.d("origin", origin);
+        Log.d("weight", weight);
 
         clear = findViewById(R.id.img_clear);
         clear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent lagi = new Intent(OpsiPengirimanActivity.this, CheckoutActivity.class);
+                lagi.putExtra("ongkir", String.valueOf(ongkir));
+                lagi.putStringArrayListExtra("idcheckout", arrayIdKeranjang);
                 startActivity(lagi);
 
             }
@@ -133,10 +141,7 @@ public class OpsiPengirimanActivity extends AppCompatActivity {
                 radioGroupKurir.removeAllViews();
                 String kurir = spinPilihKurir.getSelectedItem().toString().toLowerCase();
                 hitungOngkir(kurir);
-
             }
-
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
@@ -145,6 +150,41 @@ public class OpsiPengirimanActivity extends AppCompatActivity {
 
 
 
+    }
+
+    private void simpanKurir() {
+        String arrIdKeranjang = String.valueOf(arrayIdByParent);
+        String[] nomor = arrIdKeranjang.split("\\[");
+        String[] nomor2 = nomor[1].split("]");
+        String harIDK = "";
+
+        for (int j = 0; j < nomor2.length; j++) {
+            harIDK = harIDK + nomor2[j];
+        }
+        idkk = harIDK;
+        String[] yolo = idkk.split(",");
+        List<String> list = new ArrayList<String>();
+        list = Arrays.asList(yolo);
+
+        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+        Call<JsonObject> call = service.simpan_kurir(spinPilihKurir.getSelectedItem().toString(), costs.get(idx).getService(), costs.get(idx).getCost().get(0).getValue(), costs.get(idx).getCost().get(0).getEtd(), list);
+
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                Log.d("YOLO", String.valueOf(response.body()));
+                Intent i = new Intent(OpsiPengirimanActivity.this, CheckoutActivity.class);
+//                i.putExtra("ongkir", String.valueOf(ongkir));
+                i.putStringArrayListExtra("idcheckout", arrayIdKeranjang);
+                startActivity(i);
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                Log.d("error", String.valueOf(t));
+//                Toast.makeText(OpsiPengirimanActivity.this, String.valueOf(t), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public void hitungOngkir(final String kurir){
