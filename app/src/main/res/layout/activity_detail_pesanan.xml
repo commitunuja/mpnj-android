@@ -295,55 +295,22 @@
                                     android:layout_height="@dimen/value_0.5"
                                     android:background="@color/gray_table" />
 
+
+                                <customfonts.TextViewSFProDisplayRegular
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/value_0.5"
+                                    android:background="@color/gray_table" />
+
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:orientation="horizontal">
 
-                                    <customfonts.TextViewSFProDisplayRegular
-                                        android:layout_width="@dimen/value_0.5"
-                                        android:layout_height="match_parent"
-                                        android:background="@color/gray_table" />
 
-                                    <customfonts.MyTextView_Roboto_Bold
-                                        style="@style/txt_black_medium"
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="0.5"
-                                        android:padding="@dimen/value_5"
-                                        android:text="product" />
-
-                                    <customfonts.TextViewSFProDisplayRegular
-                                        android:layout_width="@dimen/value_0.5"
-                                        android:layout_height="match_parent"
-                                        android:background="@color/gray_table" />
-
-                                    <customfonts.MyTextView_Roboto_Bold
-                                        style="@style/txt_black_medium"
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="0.5"
-                                        android:padding="@dimen/value_5"
-                                        android:text="total" />
-
-                                    <customfonts.TextViewSFProDisplayRegular
-                                        android:layout_width="@dimen/value_0.5"
-                                        android:layout_height="match_parent"
-                                        android:background="@color/gray_table" />
 
                                 </LinearLayout>
 
-                                <customfonts.TextViewSFProDisplayRegular
-                                    android:layout_width="match_parent"
-                                    android:layout_height="@dimen/value_0.5"
-                                    android:background="@color/gray_table" />
 
-                                <androidx.recyclerview.widget.RecyclerView
-                                    android:id="@+id/rvOrderedContent"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content">
-
-                                </androidx.recyclerview.widget.RecyclerView>
 
                                 <customfonts.TextViewSFProDisplayRegular
                                     android:layout_width="match_parent"
@@ -356,168 +323,14 @@
                                     android:orientation="horizontal">
 
                                     <customfonts.TextViewSFProDisplayRegular
-                                        android:layout_width="@dimen/value_0.5"
+                                        android:text="nmashajs"
+                                        android:layout_width="match_parent"
                                         android:layout_height="match_parent"
                                         android:background="@color/gray_table" />
 
-                                    <customfonts.MyTextView_Roboto_Bold
-                                        style="@style/txt_black_medium"
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="0.5"
-                                        android:padding="@dimen/value_5"
-                                        android:text="sub_total" />
 
-                                    <customfonts.TextViewSFProDisplayRegular
-                                        android:layout_width="@dimen/value_0.5"
-                                        android:layout_height="match_parent"
-                                        android:background="@color/gray_table" />
 
-                                    <customfonts.MyTextView_Roboto_Bold
-                                        android:id="@+id/tvSubTotal"
-                                        style="@style/txt_black_medium"
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="0.5"
-                                        android:padding="@dimen/value_5"
-                                        android:text="" />
 
-                                    <customfonts.TextViewSFProDisplayRegular
-                                        android:layout_width="@dimen/value_0.5"
-                                        android:layout_height="match_parent"
-                                        android:background="@color/gray_table" />
-
-                                </LinearLayout>
-
-                                <customfonts.TextViewSFProDisplayRegular
-                                    android:layout_width="match_parent"
-                                    android:layout_height="@dimen/value_0.5"
-                                    android:background="@color/gray_table" />
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="horizontal">
-
-                                    <customfonts.TextViewSFProDisplayRegular
-                                        android:layout_width="@dimen/value_0.5"
-                                        android:layout_height="match_parent"
-                                        android:background="@color/gray_table" />
-
-                                    <customfonts.MyTextView_Roboto_Bold
-                                        style="@style/txt_black_medium"
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="0.5"
-                                        android:padding="@dimen/value_5"
-                                        android:text="shipping" />
-
-                                    <customfonts.TextViewSFProDisplayRegular
-                                        android:layout_width="@dimen/value_0.5"
-                                        android:layout_height="match_parent"
-                                        android:background="@color/gray_table" />
-
-                                    <customfonts.MyTextView_Roboto_Bold
-                                        android:id="@+id/tvShippingCharges"
-                                        style="@style/txt_black_medium"
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="0.5"
-                                        android:padding="@dimen/value_5"
-                                        android:text="" />
-
-                                    <customfonts.TextViewSFProDisplayRegular
-                                        android:layout_width="@dimen/value_0.5"
-                                        android:layout_height="match_parent"
-                                        android:background="@color/gray_table" />
-
-                                </LinearLayout>
-
-                                <customfonts.TextViewSFProDisplayRegular
-                                    android:layout_width="match_parent"
-                                    android:layout_height="@dimen/value_0.5"
-                                    android:background="@color/gray_table" />
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="horizontal">
-
-                                    <customfonts.TextViewSFProDisplayRegular
-                                        android:layout_width="@dimen/value_0.5"
-                                        android:layout_height="match_parent"
-                                        android:background="@color/gray_table" />
-
-                                    <customfonts.MyTextView_Roboto_Bold
-                                        style="@style/txt_black_medium"
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="0.5"
-                                        android:padding="@dimen/value_5"
-                                        android:text="payment_method" />
-
-                                    <customfonts.TextViewSFProDisplayRegular
-                                        android:layout_width="@dimen/value_0.5"
-                                        android:layout_height="match_parent"
-                                        android:background="@color/gray_table" />
-
-                                    <customfonts.MyTextView_Roboto_Bold
-                                        android:id="@+id/tvPaymentMethodTitle"
-                                        style="@style/txt_black_medium"
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="0.5"
-                                        android:padding="@dimen/value_5"
-                                        android:text="" />
-
-                                    <customfonts.TextViewSFProDisplayRegular
-                                        android:layout_width="@dimen/value_0.5"
-                                        android:layout_height="match_parent"
-                                        android:background="@color/gray_table" />
-
-                                </LinearLayout>
-
-                                <customfonts.TextViewSFProDisplayRegular
-                                    android:layout_width="match_parent"
-                                    android:layout_height="@dimen/value_0.5"
-                                    android:background="@color/gray_table" />
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="horizontal">
-
-                                    <customfonts.TextViewSFProDisplayRegular
-                                        android:layout_width="@dimen/value_0.5"
-                                        android:layout_height="match_parent"
-                                        android:background="@color/gray_table" />
-
-                                    <customfonts.MyTextView_Roboto_Bold
-                                        style="@style/txt_black_medium"
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="0.5"
-                                        android:padding="@dimen/value_5"
-                                        android:text="total" />
-
-                                    <customfonts.TextViewSFProDisplayRegular
-                                        android:layout_width="@dimen/value_0.5"
-                                        android:layout_height="match_parent"
-                                        android:background="@color/gray_table" />
-
-                                    <customfonts.MyTextView_Roboto_Bold
-                                        android:id="@+id/tvTotal"
-                                        style="@style/txt_black_medium"
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="0.5"
-                                        android:padding="@dimen/value_5"
-                                        android:text="" />
-
-                                    <customfonts.TextViewSFProDisplayRegular
-                                        android:layout_width="@dimen/value_0.5"
-                                        android:layout_height="match_parent"
-                                        android:background="@color/gray_table" />
 
                                 </LinearLayout>
 
