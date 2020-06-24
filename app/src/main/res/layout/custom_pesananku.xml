@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card_pesanan"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -124,7 +123,6 @@
             android:orientation="horizontal">
 
 
-
             <ImageView
                 android:id="@+id/img_gambarkeranjang"
                 android:layout_width="66.2dp"
@@ -140,12 +138,11 @@
                 android:orientation="vertical">
 
 
-
                 <customfonts.MyTextView_Roboto_Medium
-                    android:layout_marginRight="12dp"
                     android:id="@+id/tvxNamaProduk"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="12dp"
                     android:layout_weight="1"
                     android:letterSpacing="0.03"
                     android:text="Iphone X | 128 GB, Black | 6 GB ram |
@@ -158,14 +155,14 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <customfonts.MyTextView_Roboto_Medium
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:letterSpacing="0.03"
-                        android:text="x"
-                        android:textColor="@color/black"
-                        android:textSize="13.3sp" />
+                    <!--                    <customfonts.MyTextView_Roboto_Medium-->
+                    <!--                        android:layout_width="wrap_content"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:layout_weight="1"-->
+                    <!--                        android:letterSpacing="0.03"-->
+                    <!--                        android:text="x"-->
+                    <!--                        android:textColor="@color/black"-->
+                    <!--                        android:textSize="13.3sp" />-->
 
                     <customfonts.MyTextView_Roboto_Medium
                         android:id="@+id/tvxjumProd"
@@ -178,15 +175,14 @@
                         android:textSize="13.3sp" />
 
                     <customfonts.MyTextView_Roboto_Medium
-                        android:layout_marginLeft="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
                         android:layout_weight="1"
                         android:letterSpacing="0.03"
                         android:text="Produk"
                         android:textColor="@color/black"
                         android:textSize="13.3sp" />
-
 
 
                 </LinearLayout>
@@ -197,12 +193,12 @@
                     android:orientation="horizontal">
 
                     <customfonts.MyTextView_Roboto_Medium
-                        android:text="Rp. 15.000"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginRight="12dp"
                         android:id="@+id/tvxHargaProd"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginRight="12dp"
+                        android:text="Rp. 15.000"
                         android:textColor="@color/black"
                         android:textSize="15sp" />
                 </RelativeLayout>
@@ -220,24 +216,23 @@
                         android:orientation="horizontal">
 
                         <customfonts.MyTextView_Roboto_Medium
-                            android:text="Total Bayar"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="24.3dp"
+                            android:text="Total Bayar"
                             android:textColor="@color/black"
                             android:textSize="15sp" />
 
                         <customfonts.MyTextView_Roboto_Medium
                             android:id="@+id/tvxTotalbayar"
-                            android:textStyle="bold"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
                             android:layout_marginRight="12dp"
                             android:gravity="end"
                             android:text="Rp 20.000.000"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
                             android:textColor="@color/colorPrimary"
-                            android:textSize="15sp" />
-
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
 
 
                     </LinearLayout>
@@ -258,6 +253,7 @@
 
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -270,38 +266,38 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="3"
-                android:orientation="vertical"
-                android:gravity="center_vertical">
-
+                android:gravity="center_vertical"
+                android:orientation="vertical">
 
 
                 <LinearLayout
-                    android:weightSum="3"
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
 
                     <LinearLayout
-                        android:layout_marginTop="16dp"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
                         android:layout_weight="0.8"
                         android:orientation="vertical">
 
                         <TextView
-                            android:layout_marginLeft="12dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="12dp"
                             android:text="Bayar Sebelum "
                             android:textSize="12.5sp"
                             android:textStyle="bold" />
 
 
                     </LinearLayout>
+
                     <LinearLayout
-                        android:layout_marginTop="16dp"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
                         android:layout_weight="1"
                         android:orientation="vertical">
 
@@ -315,6 +311,7 @@
 
 
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -322,15 +319,15 @@
                         android:orientation="vertical">
 
                         <customfonts.MyTextView
-                            android:padding="5dp"
-                            android:layout_marginTop="10dp"
                             android:id="@+id/pay"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
                             android:background="@color/colorPrimaryTransperent"
+                            android:gravity="center"
+                            android:padding="5dp"
                             android:text="Bayar Sekarang"
-                            android:textColor="#fff"
-                            android:gravity="center" />
+                            android:textColor="#fff" />
 
 
                     </LinearLayout>
@@ -339,8 +336,6 @@
 
 
             </LinearLayout>
-
-
 
 
         </LinearLayout>
