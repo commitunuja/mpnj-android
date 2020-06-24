@@ -13,19 +13,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.sholeh.marketplacenj.R;
-import com.sholeh.marketplacenj.activities.AddAlamat;
 import com.sholeh.marketplacenj.activities.AlamatActivity;
 import com.sholeh.marketplacenj.activities.keranjang.KeranjangDetailActivity;
-import com.sholeh.marketplacenj.adapter.adapterspin;
+import com.sholeh.marketplacenj.activities.transaksi.MetodePembayaranActivity;
 import com.sholeh.marketplacenj.adapter.checkout.ExpandAdapterCheckout;
-import com.sholeh.marketplacenj.model.Keranjang;
 import com.sholeh.marketplacenj.model.checkout.ChildCheckout;
 import com.sholeh.marketplacenj.model.checkout.HeaderCheckout;
 import com.sholeh.marketplacenj.model.cost.Rajaongkir;
-import com.sholeh.marketplacenj.model.province.ItemProvince;
 import com.sholeh.marketplacenj.respon.DataKeranjang;
 import com.sholeh.marketplacenj.respon.ItemKeranjang;
 import com.sholeh.marketplacenj.respon.ResDetailKeranjang;
