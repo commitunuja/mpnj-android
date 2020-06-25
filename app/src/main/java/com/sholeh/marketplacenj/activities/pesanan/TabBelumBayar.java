@@ -24,11 +24,13 @@ import java.util.ArrayList;
 
 public class TabBelumBayar extends Fragment {
 
-    private String TAG ="tabBelumBayar";
-    private RecyclerView recycler_belumBayar;
-    private TextView cart_count, continuebtn;
-    public  TextView cart_totalamt;
+
     private RecyclerPesananAdapter pesananAdapter;
+    private static final String ARG_SECTION_NUMBER = "section_number";
+    RecyclerView.LayoutManager layoutManager;
+    private RecyclerView recyclerView;
+    private List<PesananModel> pesananModels;
+    String pending;
     public static TabBelumBayar newInstance(int index) {
         TabBelumBayar fragment = new TabBelumBayar();
         Bundle bundle = new Bundle();
