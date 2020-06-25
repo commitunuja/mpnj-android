@@ -50,6 +50,10 @@ public class RecyclerPesananAdapter extends RecyclerView.Adapter<RecyclerPesanan
         viewHolder.jumlah.setText(pesananModel.getJumlah());
         viewHolder.batas.setText(pesananModel.getBatasBayar());
 
+        Glide.with(context)
+                .load(CONSTANTS.SUB_DOMAIN + pesananModel.getFoto_produk())
+                .into(viewHolder.foto_produk);
+
 
     }
 
