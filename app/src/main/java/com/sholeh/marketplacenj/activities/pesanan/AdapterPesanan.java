@@ -18,22 +18,26 @@ public class AdapterPesanan extends FragmentPagerAdapter {
     }
 
 //    public AdapterPesanan(FragmentManager supportFragmentManager) {
-//        super(fm);
-//    }
-
-//    public AdapterPesanan(FragmentManager supportFragmentManager) {
-//        super();
-//    }
-//
-//    public AdapterPesanan() {
-//        super(fm);
-//    }
-
-
-    @Override
     public Fragment getItem(int position) {
-        PesananFragment data1 = new PesananFragment();
-        return data1;
+        switch (position) {
+            case 0:
+
+                return TabSemua.newInstance(position + 1);
+            case 1:
+                return TabBelumBayar.newInstance(position + 2);
+            case 2:
+                return Tabdikemas.newInstance(position + 3);
+            case 3:
+                return TabDikirim.newInstance(position + 4);
+            case 4:
+         
+                return TabSelesai.newInstance(position + 5);
+            case 5:
+                return Tabdibatalkan.newInstance(position + 6);
+
+            default:
+                return null;
+        }
 
 //        return fragmentList.get(position);
     }
