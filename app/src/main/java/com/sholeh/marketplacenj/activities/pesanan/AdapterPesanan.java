@@ -44,7 +44,7 @@ public class AdapterPesanan extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return fragmentTitle.size();
+        return 6;
     }
 
     @Override
