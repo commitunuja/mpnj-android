@@ -15,8 +15,16 @@ public class PesananModel {
         this.harga = harga;
         this.total_bayar = total_bayar;
         this.bayar_sebelum = bayar_sebelum;
+        this.foto_produk = foto_produk;
     }
 
+    public String getFoto_produk() {
+        return foto_produk;
+    }
+
+    public void setFoto_produk(String foto_produk) {
+        this.foto_produk = foto_produk;
+    }
     public String getIdTransaksi() {
         return idTransaksi;
     }
