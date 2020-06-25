@@ -10,10 +10,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.model.Foto;
 import com.sholeh.marketplacenj.model.Model;
 import com.sholeh.marketplacenj.model.pesanan.PesananModel;
+import com.sholeh.marketplacenj.util.CONSTANTS;
 
 import java.util.List;
 
