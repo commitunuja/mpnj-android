@@ -13,11 +13,11 @@ public class AdapterPesanan extends FragmentPagerAdapter {
     private static final int[] TAB_TITLES = new int[]{R.string.semua, R.string.belum, R.string.dikemas, R.string.dikirim, R.string.selesai, R.string.batal};
 
     public AdapterPesanan(Context context, FragmentManager fm) {
-
         super(fm);
+        mContext = context;
     }
 
-//    public AdapterPesanan(FragmentManager supportFragmentManager) {
+    @Override
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
@@ -39,7 +39,6 @@ public class AdapterPesanan extends FragmentPagerAdapter {
                 return null;
         }
 
-//        return fragmentList.get(position);
     }
 
     @Override
@@ -49,11 +48,7 @@ public class AdapterPesanan extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return fragmentTitle.get(position);
+        return mContext.getResources().getString(TAB_TITLES[position]);
     }
 
-    public void addFragment(Fragment fragment, String title){
-        fragmentList.add(fragment);
-        fragmentTitle.add(title);
-    }
 }
