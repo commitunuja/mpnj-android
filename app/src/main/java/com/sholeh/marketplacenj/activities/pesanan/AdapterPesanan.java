@@ -1,15 +1,12 @@
 package com.sholeh.marketplacenj.activities.pesanan;
 
+import android.content.Context;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.sholeh.marketplacenj.adapter.pesanan.RecyclerPesananAdapter;
-import com.sholeh.marketplacenj.mfragment.pesanan.PesananFragment;
-import com.sholeh.marketplacenj.model.pesanan.PesananModel;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.sholeh.marketplacenj.R;
 
 public class AdapterPesanan extends FragmentPagerAdapter {
     List<Fragment> fragmentList = new ArrayList<>();
