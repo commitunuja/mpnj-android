@@ -30,7 +30,7 @@ public class AdapterPesanan extends FragmentPagerAdapter {
             case 3:
                 return TabDikirim.newInstance(position + 4);
             case 4:
-         
+
                 return TabSelesai.newInstance(position + 5);
             case 5:
                 return Tabdibatalkan.newInstance(position + 6);
