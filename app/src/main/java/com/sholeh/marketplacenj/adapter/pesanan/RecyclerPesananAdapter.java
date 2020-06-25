@@ -82,6 +82,7 @@ public class RecyclerPesananAdapter extends RecyclerView.Adapter<RecyclerPesanan
             totalbayar = itemView.findViewById(R.id.tvxTotalbayar);
             jumlah = itemView.findViewById(R.id.tvxjumProd);
             batas = itemView.findViewById(R.id.tvxBatasbayar);
+            foto_produk = itemView.findViewById(R.id.img_foto);
 
         }
     }
