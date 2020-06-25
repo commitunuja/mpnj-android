@@ -29,6 +29,13 @@ public class TabBelumBayar extends Fragment {
     private TextView cart_count, continuebtn;
     public  TextView cart_totalamt;
     private RecyclerPesananAdapter pesananAdapter;
+    public static TabBelumBayar newInstance(int index) {
+        TabBelumBayar fragment = new TabBelumBayar();
+        Bundle bundle = new Bundle();
+        bundle.putInt(ARG_SECTION_NUMBER, index);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
 
     private ArrayList<PesananModel> pesananModels ;
 
