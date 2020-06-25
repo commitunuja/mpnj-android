@@ -9,10 +9,10 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import com.sholeh.marketplacenj.R;
 
 public class AdapterPesanan extends FragmentPagerAdapter {
-    List<Fragment> fragmentList = new ArrayList<>();
-    List <String> fragmentTitle = new ArrayList<>();
+    private final Context mContext;
+    private static final int[] TAB_TITLES = new int[]{R.string.semua, R.string.belum, R.string.dikemas, R.string.dikirim, R.string.selesai, R.string.batal};
 
-    public AdapterPesanan(FragmentManager fm, int i) {
+    public AdapterPesanan(Context context, FragmentManager fm) {
 
         super(fm);
     }
