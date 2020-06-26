@@ -59,7 +59,7 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
     FloatingActionButton fb_favourite;
     Toolbar toolBarisi;
     Preferences preferences;
-    String id_konsumen, username, namaLengkap, nomorHP, email;
+   public String id_konsumen, username, namaLengkap, nomorHP, email;
     String sfoto = null;
     private ResProfil tvDataProfil;
 
@@ -192,9 +192,13 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
                 break;
 
             case R.id.tvMyPesanan:
-                Intent intent6 = new Intent(getActivity(), MyPesananActivity.class);
-                getActivity().startActivity(intent6);
-//                selectImage();
+                Intent i = new Intent(getActivity(), MyPesananActivity.class);
+               getActivity().startActivity(i);
+//                Bundle bundle = new Bundle();
+//                bundle.putString("edttext", id_konsumen);
+//                TabSemua fragobj = new TabSemua();
+//                fragobj.setArguments(bundle);
+//                Toast.makeText(getContext(), ""+id_konsumen, Toast.LENGTH_SHORT).show();
                 break;
 
             case R.id.logout_akun:
