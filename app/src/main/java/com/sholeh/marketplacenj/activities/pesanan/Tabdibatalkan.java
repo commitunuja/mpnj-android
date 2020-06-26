@@ -1,24 +1,23 @@
 package com.sholeh.marketplacenj.activities.pesanan;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
-
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.adapter.pesanan.RecyclerPesananAdapter;
 import com.sholeh.marketplacenj.model.pesanan.PesananModel;
+import com.sholeh.marketplacenj.util.Preferences;
 import com.sholeh.marketplacenj.util.ServiceGenerator;
 import com.sholeh.marketplacenj.util.api.APIInterface;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -30,7 +29,7 @@ public class Tabdibatalkan extends Fragment {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
 
-    private List<PesananModel> pesananModels ;
+    private List<PesananModel> pesananModels;
     String batal;
     private LinearLayoutManager linearLayoutManager;
     private RecyclerPesananAdapter recyclerPesananAdapter;
@@ -57,6 +56,8 @@ public class Tabdibatalkan extends Fragment {
     }
 
     public void getData() {
+        Preferences preferences = new Preferences(getActivity());
+        String id_konsumen = preferences.getIdKonsumen();
 
         linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -65,7 +66,7 @@ public class Tabdibatalkan extends Fragment {
 
 
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-        Call<List<PesananModel>> call = service.getDataPesanan(String.valueOf(2), "batal");
+        Call<List<PesananModel>> call = service.getDataPesanan(String.valueOf(id_konsumen), "batal");
 
         call.enqueue(new Callback<List<PesananModel>>() {
             @Override
