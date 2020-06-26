@@ -9,7 +9,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import com.sholeh.marketplacenj.R;
 
 public class AdapterPesanan extends FragmentPagerAdapter {
-    private final Context mContext;
+    Context mContext;
     private static final int[] TAB_TITLES = new int[]{R.string.semua, R.string.belum, R.string.dikemas, R.string.dikirim, R.string.selesai, R.string.batal};
 
     public AdapterPesanan(Context context, FragmentManager fm) {
