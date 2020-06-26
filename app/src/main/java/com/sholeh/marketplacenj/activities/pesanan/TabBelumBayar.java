@@ -33,7 +33,8 @@ public class TabBelumBayar extends Fragment {
     RecyclerView.LayoutManager layoutManager;
     private RecyclerView recyclerView;
     private List<PesananModel> pesananModels;
-    String pending;
+//    String id_konsumen;
+//    Preferences preferences;
 
     public static TabBelumBayar newInstance(int index) {
         TabBelumBayar fragment = new TabBelumBayar();
