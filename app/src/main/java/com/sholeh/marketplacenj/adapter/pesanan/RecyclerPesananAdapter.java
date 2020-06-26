@@ -10,10 +10,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.model.Foto;
 import com.sholeh.marketplacenj.model.Model;
 import com.sholeh.marketplacenj.model.pesanan.PesananModel;
+import com.sholeh.marketplacenj.util.CONSTANTS;
 
 import java.util.List;
 
@@ -50,6 +52,10 @@ public class RecyclerPesananAdapter extends RecyclerView.Adapter<RecyclerPesanan
         viewHolder.jumlah.setText(pesananModel.getJumlah());
         viewHolder.batas.setText(pesananModel.getBatasBayar());
 
+        Glide.with(context)
+                .load(CONSTANTS.SUB_DOMAIN + pesananModel.getFoto_produk())
+                .into(viewHolder.foto_produk);
+
 
     }
 
@@ -78,6 +84,7 @@ public class RecyclerPesananAdapter extends RecyclerView.Adapter<RecyclerPesanan
             totalbayar = itemView.findViewById(R.id.tvxTotalbayar);
             jumlah = itemView.findViewById(R.id.tvxjumProd);
             batas = itemView.findViewById(R.id.tvxBatasbayar);
+            foto_produk = itemView.findViewById(R.id.img_foto);
 
         }
     }

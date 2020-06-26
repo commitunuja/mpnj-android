@@ -6,30 +6,30 @@
     android:layout_height="match_parent"
     tools:context=".activities.pesanan.TabBelumBayar">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:paddingRight="@dimen/padding_small_5"
-        android:paddingLeft="@dimen/padding_small_5">
+<!--    <RelativeLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
+<!--        android:paddingRight="@dimen/padding_small_5"-->
+<!--        android:paddingLeft="@dimen/padding_small_5">-->
 
-        
+<!--        -->
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/recycler_pesanan"
-            android:padding="@dimen/padding_small_5"
-            tools:listitem="@layout/custom_pesananku"
-            android:layout_marginBottom="50dp"
-            tools:ignore="NotSibling">
+<!--        <androidx.recyclerview.widget.RecyclerView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:id="@+id/recycler_pesanan"-->
+<!--            android:padding="@dimen/padding_small_5"-->
+<!--            tools:listitem="@layout/custom_pesananku"-->
+<!--            android:layout_marginBottom="50dp"-->
+<!--            tools:ignore="NotSibling">-->
 
-        </androidx.recyclerview.widget.RecyclerView>
-
-
+<!--        </androidx.recyclerview.widget.RecyclerView>-->
 
 
-    </RelativeLayout>
+
+
+<!--    </RelativeLayout>-->
 
 
 </FrameLayout>
