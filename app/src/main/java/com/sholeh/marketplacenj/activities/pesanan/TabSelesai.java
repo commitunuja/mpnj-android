@@ -52,15 +52,16 @@ public class TabSelesai extends Fragment {
     }
 
     public void getData() {
+        Preferences preferences = new Preferences(getActivity());
+        String id_konsumen = preferences.getIdKonsumen();
 
         linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setHasFixedSize(true);
 
-
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-        Call<List<PesananModel>> call = service.getDataPesanan(String.valueOf(2), "sukses");
+        Call<List<PesananModel>> call = service.getDataPesanan(String.valueOf(id_konsumen), "sukses");
 
         call.enqueue(new Callback<List<PesananModel>>() {
             @Override
