@@ -30,6 +30,7 @@ public class PesananFragment extends Fragment {
     RecyclerView recyclerView;
     RecyclerPesananAdapter recyclerPesananAdapter;
 
+    String pending, verifikasi, packing, dikirim, sukses, batal;
     RecyclerView.LayoutManager dataapi;
 //    public PesananFragment() {
 //        // Required empty public constructor
@@ -58,7 +59,7 @@ public class PesananFragment extends Fragment {
 
 
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-        Call<List<PesananModel>> call = service.getDataPesanan(String.valueOf(1), "pending");
+        Call<List<PesananModel>> call = service.getDataPesanan(String.valueOf(1), pending);
 
         call.enqueue(new Callback<List<PesananModel>>() {
             @Override

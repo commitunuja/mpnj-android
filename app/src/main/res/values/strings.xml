@@ -72,5 +72,11 @@
     <string name="hargaproduk">Rp. 2000</string>
     <string name="diskripsiproduk">Diskripsi Produk</string>
     <string name="loading">Mohon Tunggu</string>
+    <string name="semua">SEMUA</string>
+    <string name="belum">BELUM DIBAYAR</string>
+    <string name="dikemas">DIKEMAS</string>
+    <string name="dikirim">DIKIRIM</string>
+    <string name="selesai">SELESAI</string>
+    <string name="batal">DIBATALKAN</string>
 
 </resources>

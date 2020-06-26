@@ -124,7 +124,7 @@
 
 
             <ImageView
-                android:id="@+id/img_gambarkeranjang"
+                android:id="@+id/img_foto"
                 android:layout_width="66.2dp"
                 android:layout_height="66.7dp"
                 android:layout_marginLeft="12dp"

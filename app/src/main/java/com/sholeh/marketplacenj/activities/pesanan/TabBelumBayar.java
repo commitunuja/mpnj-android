@@ -1,57 +1,94 @@
 package com.sholeh.marketplacenj.activities.pesanan;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-
 import com.sholeh.marketplacenj.R;
-import com.sholeh.marketplacenj.adapter.dashboard.RecycleAdapteHomeBanner;
 import com.sholeh.marketplacenj.adapter.pesanan.RecyclerPesananAdapter;
 import com.sholeh.marketplacenj.model.pesanan.PesananModel;
+import com.sholeh.marketplacenj.util.Preferences;
+import com.sholeh.marketplacenj.util.ServiceGenerator;
+import com.sholeh.marketplacenj.util.api.APIInterface;
 
-import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class TabBelumBayar extends Fragment {
 
-    private String TAG ="tabBelumBayar";
-    private RecyclerView recycler_belumBayar;
-    private TextView cart_count, continuebtn;
-    public  TextView cart_totalamt;
+
     private RecyclerPesananAdapter pesananAdapter;
+    private static final String ARG_SECTION_NUMBER = "section_number";
+    RecyclerView.LayoutManager layoutManager;
+    private RecyclerView recyclerView;
+    private List<PesananModel> pesananModels;
+//    String id_konsumen;
+//    Preferences preferences;
 
-    private ArrayList<PesananModel> pesananModels ;
-
-
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        setHasOptionsMenu(true);
-        return inflater.inflate(R.layout.fragment_tab_belumbayar, container, false);
+    public static TabBelumBayar newInstance(int index) {
+        TabBelumBayar fragment = new TabBelumBayar();
+        Bundle bundle = new Bundle();
+        bundle.putInt(ARG_SECTION_NUMBER, index);
+        fragment.setArguments(bundle);
+        return fragment;
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
 
-//
-//        recycler_belumBayar = view.findViewById(R.id.recycler_pesanan);
-//        LinearLayoutManager mLayoutManger3 = new LinearLayoutManager( getActivity(), LinearLayoutManager.VERTICAL, false);
-//        recycler_belumBayar.setLayoutManager(mLayoutManger3);
-//        recycler_belumBayar.setItemAnimator(new DefaultItemAnimator());
-//
-//        pesananAdapter = new AdapterPesanan(this,pesananModels);
-//        recycler_belumBayar.setAdapter(pesananAdapter);
+        View view = inflater.inflate(R.layout.fragment_pesanan, container, false);
+        recyclerView = view.findViewById(R.id.recycler_pesanan);
+
+//        preferences = new Preferences(getActivity());
+        getData();
+        return view;
     }
 
+    public void getData() {
+        Preferences preferences = new Preferences(getActivity());
+        String id_konsumen = preferences.getIdKonsumen();
+
+        layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setHasFixedSize(true);
+
+
+        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+        Call<List<PesananModel>> call = service.getDataPesanan(String.valueOf(id_konsumen), "pending");
+
+        call.enqueue(new Callback<List<PesananModel>>() {
+            @Override
+            public void onResponse(Call<List<PesananModel>> call, Response<List<PesananModel>> response) {
+                if (response.body() != null && response.isSuccessful()) {
+
+                    pesananModels = response.body();
+                    pesananAdapter = new RecyclerPesananAdapter(getContext(), pesananModels);
+                    recyclerView.setAdapter(pesananAdapter);
+
+                } else {
+                    Toast.makeText(getContext(), "gagal", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<PesananModel>> call, Throwable t) {
+
+            }
+        });
+
+    }
 }
