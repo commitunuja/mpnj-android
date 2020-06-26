@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.adapter.pesanan.RecyclerPesananAdapter;
 import com.sholeh.marketplacenj.model.pesanan.PesananModel;
+import com.sholeh.marketplacenj.util.Preferences;
 import com.sholeh.marketplacenj.util.ServiceGenerator;
 import com.sholeh.marketplacenj.util.api.APIInterface;
 
@@ -53,6 +54,9 @@ public class Tabdikemas extends Fragment {
     }
 
     public void getData() {
+
+        Preferences preferences = new Preferences(getActivity());
+        String id_konsumen = preferences.getIdKonsumen();
 
         linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
