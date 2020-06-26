@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.adapter.pesanan.RecyclerPesananAdapter;
 import com.sholeh.marketplacenj.model.pesanan.PesananModel;
+import com.sholeh.marketplacenj.util.Preferences;
 import com.sholeh.marketplacenj.util.ServiceGenerator;
 import com.sholeh.marketplacenj.util.api.APIInterface;
 
@@ -29,8 +30,6 @@ public class TabSelesai extends Fragment {
     private LinearLayoutManager linearLayoutManager;
     private RecyclerPesananAdapter recyclerPesananAdapter;
     private RecyclerView recyclerView;
-    String sukses;
-
     private List<PesananModel> pesananModels;
 
     public static TabSelesai newInstance(int index) {
