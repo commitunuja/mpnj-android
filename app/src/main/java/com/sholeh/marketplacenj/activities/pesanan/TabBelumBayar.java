@@ -51,11 +51,14 @@ public class TabBelumBayar extends Fragment {
         View view = inflater.inflate(R.layout.fragment_pesanan, container, false);
         recyclerView = view.findViewById(R.id.recycler_pesanan);
 
+//        preferences = new Preferences(getActivity());
         getData();
         return view;
     }
 
     public void getData() {
+        Preferences preferences = new Preferences(getActivity());
+        String id_konsumen = preferences.getIdKonsumen();
 
         layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
