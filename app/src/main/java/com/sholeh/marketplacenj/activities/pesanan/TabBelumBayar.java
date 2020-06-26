@@ -67,7 +67,7 @@ public class TabBelumBayar extends Fragment {
 
 
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-        Call<List<PesananModel>> call = service.getDataPesanan(String.valueOf(2), "pending");
+        Call<List<PesananModel>> call = service.getDataPesanan(String.valueOf(id_konsumen), "pending");
 
         call.enqueue(new Callback<List<PesananModel>>() {
             @Override
