@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -31,6 +32,7 @@ public class TabSelesai extends Fragment {
     private RecyclerPesananAdapter recyclerPesananAdapter;
     private RecyclerView recyclerView;
     private List<PesananModel> pesananModels;
+    LinearLayout linearLayout;
 
     public static TabSelesai newInstance(int index) {
         TabSelesai fragment = new TabSelesai();
@@ -46,6 +48,7 @@ public class TabSelesai extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_pesanan, container, false);
         recyclerView = view.findViewById(R.id.recycler_pesanan);
+        linearLayout = view.findViewById(R.id.ldatakosong);
 
         getData();
         return view;
