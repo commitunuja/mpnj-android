@@ -35,6 +35,7 @@ public class Tabdikemas extends Fragment {
     private RecyclerPesananAdapter recyclerPesananAdapter;
     private LinearLayoutManager linearLayoutManager;
     LinearLayout linearLayout;
+    String tab = "packing";
 
     public static Tabdikemas newInstance(int index) {
         Tabdikemas fragment = new Tabdikemas();
@@ -68,7 +69,7 @@ public class Tabdikemas extends Fragment {
 
 
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-        Call<List<PesananModel>> call = service.getDataPesanan(String.valueOf(id_konsumen), "packing");
+        Call<List<PesananModel>> call = service.getDataPesanan(String.valueOf(id_konsumen), tab);
 
         call.enqueue(new Callback<List<PesananModel>>() {
             @Override
