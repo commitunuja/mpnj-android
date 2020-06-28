@@ -261,7 +261,7 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
 //                if (tvDataProfil.getData().getFotoProfil() == null){
 //                   // Picasso.with(getContext()).load(R.drawable.man).into(imageProfil);
 //                }else{
-                    Picasso.with(getContext()).load(CONSTANTS.BASE_URL + "assets/foto_profil_konsumen/"+tvDataProfil.getData().getFotoProfil()).into(imageProfil);
+//                    Picasso.with(getContext()).load(CONSTANTS.BASE_URL + "assets/foto_profil_konsumen/"+tvDataProfil.getData().getFotoProfil()).into(imageProfil);
 //                }
 //                Toast.makeText(getActivity(), tvDataProfil.getData().getFotoProfil(), Toast.LENGTH_LONG).show();
 //                Glide.with(getActivity()).load(foto).into(imageProfil);
