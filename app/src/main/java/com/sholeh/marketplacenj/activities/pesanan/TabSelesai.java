@@ -33,6 +33,7 @@ public class TabSelesai extends Fragment {
     private RecyclerView recyclerView;
     private List<PesananModel> pesananModels;
     LinearLayout linearLayout;
+    String tab = "sukses";
 
     public static TabSelesai newInstance(int index) {
         TabSelesai fragment = new TabSelesai();
@@ -64,7 +65,7 @@ public class TabSelesai extends Fragment {
         recyclerView.setHasFixedSize(true);
 
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-        Call<List<PesananModel>> call = service.getDataPesanan(String.valueOf(id_konsumen), "sukses");
+        Call<List<PesananModel>> call = service.getDataPesanan(String.valueOf(id_konsumen), tab);
 
         call.enqueue(new Callback<List<PesananModel>>() {
             @Override
