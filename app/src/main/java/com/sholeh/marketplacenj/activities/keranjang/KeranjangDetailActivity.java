@@ -12,17 +12,12 @@ import android.widget.CheckBox;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.sholeh.marketplacenj.activities.checkout.CheckoutActivity;
-import com.sholeh.marketplacenj.activities.transaksi.MetodePembayaranActivity;
-import com.sholeh.marketplacenj.adapter.checkout.ExpandAdapterCheckout;
 import com.sholeh.marketplacenj.adapter.keranjang.ExpandListScanAdapter;
-import com.sholeh.marketplacenj.model.checkout.ChildCheckout;
-import com.sholeh.marketplacenj.model.checkout.HeaderCheckout;
 import com.sholeh.marketplacenj.util.api.APIInterface;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.util.ServiceGenerator;
@@ -391,6 +386,7 @@ public class KeranjangDetailActivity extends AppCompatActivity implements View.O
         Intent goCheckout = new Intent(this, CheckoutActivity.class);
         goCheckout.putStringArrayListExtra("idcheckout", arrayIdKeranjang);
         startActivity(goCheckout);
+        finish();
     }
 
 
