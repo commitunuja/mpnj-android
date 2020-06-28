@@ -4,13 +4,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.widget.LinearLayout;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.manager.SupportRequestManagerFragment;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.adapter.pesanan.RecyclerPesananAdapter;
 import com.sholeh.marketplacenj.model.pesanan.PesananModel;
@@ -27,14 +28,13 @@ import retrofit2.Response;
 
 public class TabBelumBayar extends Fragment {
 
-
+    SupportRequestManagerFragment supportRequestManagerFragment;
     private RecyclerPesananAdapter pesananAdapter;
     private static final String ARG_SECTION_NUMBER = "section_number";
     RecyclerView.LayoutManager layoutManager;
     private RecyclerView recyclerView;
     private List<PesananModel> pesananModels;
-//    String id_konsumen;
-//    Preferences preferences;
+    LinearLayout datakosong;
 
     public static TabBelumBayar newInstance(int index) {
         TabBelumBayar fragment = new TabBelumBayar();
@@ -50,8 +50,9 @@ public class TabBelumBayar extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_pesanan, container, false);
         recyclerView = view.findViewById(R.id.recycler_pesanan);
+        datakosong = view.findViewById(R.id.ldatakosong);
+        datakosong.setVisibility(View.GONE);
 
-//        preferences = new Preferences(getActivity());
         getData();
         return view;
     }
@@ -72,15 +73,14 @@ public class TabBelumBayar extends Fragment {
         call.enqueue(new Callback<List<PesananModel>>() {
             @Override
             public void onResponse(Call<List<PesananModel>> call, Response<List<PesananModel>> response) {
-                if (response.body() != null && response.isSuccessful()) {
-
+                if (response.body().size() > 0 && response.isSuccessful()) {
                     pesananModels = response.body();
                     pesananAdapter = new RecyclerPesananAdapter(getContext(), pesananModels);
                     recyclerView.setAdapter(pesananAdapter);
 
                 } else {
-                    Toast.makeText(getContext(), "gagal", Toast.LENGTH_SHORT).show();
-
+                    recyclerView.setVisibility(View.INVISIBLE);
+                    datakosong.setVisibility(View.VISIBLE);
                 }
             }
 

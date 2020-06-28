@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.widget.LinearLayout;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -25,9 +25,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class TabSemua extends Fragment {
-    private List<PesananModel> pesanan_models;
+    private List<PesananModel> pesananModels;
     RecyclerView recyclerView;
     RecyclerPesananAdapter recyclerPesananAdapter;
+    LinearLayout linearLayout;
 
     private static final String ARG_SECTION_NUMBER = "section_number";
     RecyclerView.LayoutManager dataapi;
@@ -48,6 +49,7 @@ public class TabSemua extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_pesanan, container, false);
         recyclerView = view.findViewById(R.id.recycler_pesanan);
+        linearLayout = view.findViewById(R.id.ldatakosong);
 
         getData();
         return view;
@@ -68,14 +70,14 @@ public class TabSemua extends Fragment {
         call.enqueue(new Callback<List<PesananModel>>() {
             @Override
             public void onResponse(Call<List<PesananModel>> call, Response<List<PesananModel>> response) {
-                if (response.body() != null && response.isSuccessful()) {
-
-                    pesanan_models = response.body();
-                    recyclerPesananAdapter = new RecyclerPesananAdapter(getContext(), pesanan_models);
+                if (response.body().size() > 0 && response.isSuccessful()) {
+                    pesananModels = response.body();
+                    recyclerPesananAdapter = new RecyclerPesananAdapter(getContext(), pesananModels);
                     recyclerView.setAdapter(recyclerPesananAdapter);
 
                 } else {
-
+                    recyclerView.setVisibility(View.INVISIBLE);
+                    linearLayout.setVisibility(View.VISIBLE);
                 }
             }
 

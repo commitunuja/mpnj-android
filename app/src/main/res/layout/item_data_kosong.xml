@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:id="@+id/ldatakosong"
+    android:orientation="vertical"
+    android:visibility="gone"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+
+        android:id="@+id/linearLayout"
+        android:layout_width="131dp"
+        android:layout_height="131dp"
+        android:layout_gravity="center"
+        android:background="@drawable/circle_gray"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="66dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:src="@drawable/sad" />
+    </LinearLayout>
+
+    <customfonts.MyTextView_Roboto_Medium
+        android:id="@+id/myTextView_Roboto_Medium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="No result Found"
+        android:textColor="#89000000"
+        android:textSize="16sp" />
+
+    <customfonts.MyTextView_Roboto_Regular
+        android:id="@+id/myTextView_Roboto_Regular"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:letterSpacing="0.03"
+        android:text="Please check your spelling"
+        android:textColor="#89000000"
+        android:textSize="12.7dp" />
+</LinearLayout>

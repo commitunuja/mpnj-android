@@ -26,9 +26,7 @@
 
         </androidx.recyclerview.widget.RecyclerView>
 
-
-
-
+        <include layout="@layout/item_data_kosong"/>
     </RelativeLayout>
 
 
