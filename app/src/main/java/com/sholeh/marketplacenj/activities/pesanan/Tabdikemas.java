@@ -34,7 +34,7 @@ public class Tabdikemas extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerPesananAdapter recyclerPesananAdapter;
     private LinearLayoutManager linearLayoutManager;
-    String packing;
+    LinearLayout linearLayout;
 
     public static Tabdikemas newInstance(int index) {
         Tabdikemas fragment = new Tabdikemas();
