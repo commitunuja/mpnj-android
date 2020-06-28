@@ -73,15 +73,14 @@ public class TabBelumBayar extends Fragment {
         call.enqueue(new Callback<List<PesananModel>>() {
             @Override
             public void onResponse(Call<List<PesananModel>> call, Response<List<PesananModel>> response) {
-                if (response.body() != null && response.isSuccessful()) {
-
+                if (response.body().size() > 0 && response.isSuccessful()) {
                     pesananModels = response.body();
                     pesananAdapter = new RecyclerPesananAdapter(getContext(), pesananModels);
                     recyclerView.setAdapter(pesananAdapter);
 
                 } else {
-                    Toast.makeText(getContext(), "gagal", Toast.LENGTH_SHORT).show();
-
+                    recyclerView.setVisibility(View.INVISIBLE);
+                    datakosong.setVisibility(View.VISIBLE);
                 }
             }
 
