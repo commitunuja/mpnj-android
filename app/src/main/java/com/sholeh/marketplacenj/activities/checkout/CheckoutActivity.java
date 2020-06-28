@@ -19,13 +19,12 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.activities.AlamatActivity;
 import com.sholeh.marketplacenj.activities.keranjang.KeranjangDetailActivity;
-import com.sholeh.marketplacenj.activities.transaksi.MetodePembayaranActivity;
+import com.sholeh.marketplacenj.activities.transaksi.KonfirmasiPembayaranActivity;
 import com.sholeh.marketplacenj.adapter.checkout.ExpandAdapterCheckout;
 import com.sholeh.marketplacenj.model.checkout.ChildCheckout;
 import com.sholeh.marketplacenj.model.checkout.HeaderCheckout;
@@ -36,6 +35,9 @@ import com.sholeh.marketplacenj.respon.ResDetailKeranjang;
 import com.sholeh.marketplacenj.util.Preferences;
 import com.sholeh.marketplacenj.util.ServiceGenerator;
 import com.sholeh.marketplacenj.util.api.APIInterface;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -48,6 +50,8 @@ import java.util.StringTokenizer;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static java.lang.String.valueOf;
 
 public class CheckoutActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -219,15 +223,28 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                Log.d("status", String.valueOf(response.code()));
+                try {
+                    JSONObject jsonObject;
+                    jsonObject = new JSONObject(String.valueOf(response.body()));
 
+                    Integer kodetransaksi = (Integer) jsonObject.get("kode_transaksi");
+//                    String totalbayar = (String) jsonObject.get("total_bayar");
+//                    Log.d("kodetransaksi", String.valueOf(kodetransaksi)+"/t"+totalbayar);
                 progressHUD.dismiss();
-                Intent intent = new Intent(CheckoutActivity.this, MetodePembayaranActivity.class);
+                Intent intent = new Intent(CheckoutActivity.this, KonfirmasiPembayaranActivity.class);
                 Bundle b = new Bundle();
-                b.putDouble("Intent", totalbayar);
+                b.putDouble("totalbayar", totalbayar);
+                b.putInt("kodetransaksi", kodetransaksi);
                 intent.putExtras(b);
 //                intent.putExtra("total", String.valueOf(totalbayar));
                 startActivity(intent);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    progressHUD.dismiss();
+                }
+
+
+
             }
 
             @Override
@@ -245,22 +262,23 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                Log.d("batalc", String.valueOf(response.body()));
 
-                Log.v("wow", "json : " + new Gson().toJson(response));
+//                if (response.isSuccessful()) {
 
-                if (response.isSuccessful()) {
                     Intent intent = new Intent(CheckoutActivity.this, KeranjangDetailActivity.class);
                     startActivity(intent);
-                } else {
-                    String error = "Error Retrive DataProfil from Server !!!";
-                    Toast.makeText(CheckoutActivity.this, error, Toast.LENGTH_SHORT).show();
-                }
+                    finish();
+//                } else {
+//                    String error = "Error Retrive DataProfil from Server !!!";
+//                    Toast.makeText(CheckoutActivity.this, "gagal", Toast.LENGTH_SHORT).show();
+//                }
             }
 
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
 
-                Toast.makeText(CheckoutActivity.this, "Message : Error " + t.getMessage(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(CheckoutActivity.this, "Message : Error " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
