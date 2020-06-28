@@ -66,14 +66,15 @@ public class TabSelesai extends Fragment {
         call.enqueue(new Callback<List<PesananModel>>() {
             @Override
             public void onResponse(Call<List<PesananModel>> call, Response<List<PesananModel>> response) {
-                if (response.body() != null && response.isSuccessful()) {
+                if (response.body().size() > 0 && response.isSuccessful()) {
 
                     pesananModels = response.body();
                     recyclerPesananAdapter = new RecyclerPesananAdapter(getContext(), pesananModels);
                     recyclerView.setAdapter(recyclerPesananAdapter);
 
                 } else {
-                    Toast.makeText(getContext(), "gagal", Toast.LENGTH_SHORT).show();
+                   linearLayout.setVisibility(View.VISIBLE);
+                   recyclerView.setVisibility(View.GONE);
 
                 }
             }
