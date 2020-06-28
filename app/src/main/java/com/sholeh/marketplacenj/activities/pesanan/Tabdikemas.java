@@ -24,6 +24,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.view.View.GONE;
+
 
 public class Tabdikemas extends Fragment {
     private static final String ARG_SECTION_NUMBER = "section_number";
