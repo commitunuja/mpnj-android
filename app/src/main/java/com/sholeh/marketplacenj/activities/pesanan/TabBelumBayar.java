@@ -28,14 +28,13 @@ import retrofit2.Response;
 
 public class TabBelumBayar extends Fragment {
 
-
+    SupportRequestManagerFragment supportRequestManagerFragment;
     private RecyclerPesananAdapter pesananAdapter;
     private static final String ARG_SECTION_NUMBER = "section_number";
     RecyclerView.LayoutManager layoutManager;
     private RecyclerView recyclerView;
     private List<PesananModel> pesananModels;
-//    String id_konsumen;
-//    Preferences preferences;
+    LinearLayout datakosong;
 
     public static TabBelumBayar newInstance(int index) {
         TabBelumBayar fragment = new TabBelumBayar();
