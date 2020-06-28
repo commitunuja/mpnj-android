@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.widget.LinearLayout;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -30,6 +30,7 @@ public class TabDikirim extends Fragment {
     private RecyclerPesananAdapter recyclerPesananAdapter;
     private RecyclerView recyclerView;
     LinearLayoutManager linearLayoutManager;
+    LinearLayout linearLayout;
 
     private List<PesananModel> pesananModels;
 
@@ -47,6 +48,7 @@ public class TabDikirim extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_pesanan, container, false);
         recyclerView = view.findViewById(R.id.recycler_pesanan);
+        linearLayout = view.findViewById(R.id.ldatakosong);
 
         getData();
         return view;
