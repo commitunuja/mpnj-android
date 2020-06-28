@@ -30,7 +30,7 @@ public class Tabdibatalkan extends Fragment {
     private static final String ARG_SECTION_NUMBER = "section_number";
 
     private List<PesananModel> pesananModels;
-    String batal;
+    LinearLayout linearLayout;
     private LinearLayoutManager linearLayoutManager;
     private RecyclerPesananAdapter recyclerPesananAdapter;
     private RecyclerView recyclerView;
@@ -50,6 +50,7 @@ public class Tabdibatalkan extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_pesanan, container, false);
         recyclerView = view.findViewById(R.id.recycler_pesanan);
+        linearLayout = view.findViewById(R.id.ldatakosong);
 
         getData();
         return view;
