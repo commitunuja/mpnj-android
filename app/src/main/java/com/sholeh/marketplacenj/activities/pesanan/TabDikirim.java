@@ -31,6 +31,7 @@ public class TabDikirim extends Fragment {
     private RecyclerView recyclerView;
     LinearLayoutManager linearLayoutManager;
     LinearLayout linearLayout;
+    String tab = "dikirim";
 
     private List<PesananModel> pesananModels;
 
@@ -65,7 +66,7 @@ public class TabDikirim extends Fragment {
 
 
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-        Call<List<PesananModel>> call = service.getDataPesanan(String.valueOf(id_konsumen), "dikirim");
+        Call<List<PesananModel>> call = service.getDataPesanan(String.valueOf(id_konsumen), tab);
 
         call.enqueue(new Callback<List<PesananModel>>() {
             @Override
