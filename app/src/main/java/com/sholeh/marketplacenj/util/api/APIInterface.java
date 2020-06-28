@@ -8,15 +8,18 @@ import com.sholeh.marketplacenj.model.cost.ItemCost;
 import com.sholeh.marketplacenj.model.province.ItemProvince;
 import com.sholeh.marketplacenj.model.subdistrict.ItemKec;
 import com.sholeh.marketplacenj.respon.ResAlamat;
+import com.sholeh.marketplacenj.respon.ResBank;
 import com.sholeh.marketplacenj.respon.ResDetailAlamat;
 import com.sholeh.marketplacenj.respon.ResDetailKeranjang;
 import com.sholeh.marketplacenj.respon.ResHapusKeranjang;
 import com.sholeh.marketplacenj.respon.ResImg;
 import com.sholeh.marketplacenj.respon.ResKeranjang;
+import com.sholeh.marketplacenj.respon.ResKonfirmasi;
 import com.sholeh.marketplacenj.respon.ResLogin;
 import com.sholeh.marketplacenj.respon.ResNewPassword;
 import com.sholeh.marketplacenj.respon.ResProfil;
 import com.sholeh.marketplacenj.respon.ResRegristasi;
+import com.sholeh.marketplacenj.respon.ResRekAdmin;
 import com.sholeh.marketplacenj.respon.ResUbahJumlahProduk;
 import com.sholeh.marketplacenj.respon.RestCost;
 
@@ -243,6 +246,34 @@ public interface APIInterface {
     @FormUrlEncoded
     @PUT("api/transaksi/batal")
     Call<JsonObject> batalCheckout(@Field("user_id") String user_id);
+
+    @GET("api/bank")
+    Call<ResBank> getBank();
+
+    //  tampil data bank admin /where
+    @GET("api/bank/rekening/{id_bank}")
+    Call<ResRekAdmin> getDataBank(
+            @Path("id_bank") String idBank
+    );
+
+    // konfirmasi pembayaran
+    @FormUrlEncoded
+    @POST("api/konfirmasi/simpan")
+    Call<ResKonfirmasi> simpanKonfirmasi(
+            @Field("kode_transaksi") int kodeTransaksi,
+            @Field("total_transfer") int totalTransfer,
+            @Field("rekening_admin_id") String rekeningAdminId,
+            @Field("nama_pengirim") String namaPengirim,
+            @Part MultipartBody.Part file
+
+    );
+
+
+
+
+
+
+
 }
 
 
