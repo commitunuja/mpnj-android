@@ -29,7 +29,7 @@ public class TabSemua extends Fragment {
     RecyclerView recyclerView;
     RecyclerPesananAdapter recyclerPesananAdapter;
     LinearLayout linearLayout;
-
+    String tab = " ";
     private static final String ARG_SECTION_NUMBER = "section_number";
     RecyclerView.LayoutManager dataapi;
 
@@ -51,6 +51,7 @@ public class TabSemua extends Fragment {
         recyclerView = view.findViewById(R.id.recycler_pesanan);
         linearLayout = view.findViewById(R.id.ldatakosong);
 
+
         getData();
         return view;
     }
@@ -66,7 +67,7 @@ public class TabSemua extends Fragment {
 
 
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-        Call<List<PesananModel>> call = service.getDataPesanan(String.valueOf(id_konsumen), " ");
+        Call<List<PesananModel>> call = service.getDataPesanan(String.valueOf(id_konsumen), tab);
         call.enqueue(new Callback<List<PesananModel>>() {
             @Override
             public void onResponse(Call<List<PesananModel>> call, Response<List<PesananModel>> response) {
