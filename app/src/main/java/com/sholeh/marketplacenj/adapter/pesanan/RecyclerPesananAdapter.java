@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,19 +13,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.sholeh.marketplacenj.R;
-import com.sholeh.marketplacenj.model.Foto;
-import com.sholeh.marketplacenj.model.Model;
 import com.sholeh.marketplacenj.model.pesanan.PesananModel;
 import com.sholeh.marketplacenj.util.CONSTANTS;
 
 import java.util.List;
+
+import static android.view.View.GONE;
 
 
 public class RecyclerPesananAdapter extends RecyclerView.Adapter<RecyclerPesananAdapter.ViewHolder> {
     private Context context;
     private List<PesananModel> pesananModels; // model / item
     private PesananModel pesananModel;
-
+    String tab = "batal";
 
     public RecyclerPesananAdapter(Context context, List<PesananModel> pesananModels) {
         this.context = context;
