@@ -15,15 +15,26 @@ public class PesananModel {
         this.total_bayar = total_bayar;
         this.bayar_sebelum = bayar_sebelum;
         this.foto_produk = foto_produk;
+        this.status_order = status_order;
     }
 
     public String getFoto_produk() {
         return foto_produk;
     }
 
+    public String getStatus_order() {
+        return status_order;
+    }
+
+    public void setStatus_order(String status_order) {
+        this.status_order = status_order;
+    }
+
+
     public void setFoto_produk(String foto_produk) {
         this.foto_produk = foto_produk;
     }
+
     public String getIdTransaksi() {
         return idTransaksi;
     }
