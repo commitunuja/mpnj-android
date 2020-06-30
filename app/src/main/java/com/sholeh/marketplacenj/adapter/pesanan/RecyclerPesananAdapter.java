@@ -83,6 +83,7 @@ public class RecyclerPesananAdapter extends RecyclerView.Adapter<RecyclerPesanan
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView namaProduk, hargaProduk, status, namatoko, totalbayar, jumlah, batas;
         private ImageView foto_produk;
+        private LinearLayout lbayar;
 
 
         public ViewHolder(View itemView) {
@@ -96,6 +97,7 @@ public class RecyclerPesananAdapter extends RecyclerView.Adapter<RecyclerPesanan
             jumlah = itemView.findViewById(R.id.tvxjumProd);
             batas = itemView.findViewById(R.id.tvxBatasbayar);
             foto_produk = itemView.findViewById(R.id.img_foto);
+            lbayar = itemView.findViewById(R.id.linearbayar);
 
         }
     }
