@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,19 +13,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.sholeh.marketplacenj.R;
-import com.sholeh.marketplacenj.model.Foto;
-import com.sholeh.marketplacenj.model.Model;
 import com.sholeh.marketplacenj.model.pesanan.PesananModel;
 import com.sholeh.marketplacenj.util.CONSTANTS;
 
 import java.util.List;
+
+import static android.view.View.GONE;
 
 
 public class RecyclerPesananAdapter extends RecyclerView.Adapter<RecyclerPesananAdapter.ViewHolder> {
     private Context context;
     private List<PesananModel> pesananModels; // model / item
     private PesananModel pesananModel;
-
+    String tab = "batal";
 
     public RecyclerPesananAdapter(Context context, List<PesananModel> pesananModels) {
         this.context = context;
@@ -44,13 +45,23 @@ public class RecyclerPesananAdapter extends RecyclerView.Adapter<RecyclerPesanan
     @Override
     public void onBindViewHolder(@NonNull RecyclerPesananAdapter.ViewHolder viewHolder, int i) {
         pesananModel = pesananModels.get(i);
+//        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+//        Call<List<PesananModel>> call = service.getDataPesanan(String.valueOf(2), tab);
+//
         viewHolder.namaProduk.setText(pesananModel.getNamaProduk());
         viewHolder.hargaProduk.setText("Rp " + pesananModel.getHarga());
-        viewHolder.status.setText(pesananModel.getStatusPembayaran());
+        viewHolder.status.setText(pesananModel.getStatus_order());
         viewHolder.namatoko.setText(pesananModel.getNamaToko());
-        viewHolder.totalbayar.setText("Rp "+pesananModel.getTotalBayar());
+        viewHolder.totalbayar.setText("Rp " + pesananModel.getTotalBayar());
         viewHolder.jumlah.setText(pesananModel.getJumlah());
-        viewHolder.batas.setText(pesananModel.getBatasBayar());
+        if (pesananModel.getStatusPembayaran().equalsIgnoreCase("terima")) {
+            viewHolder.lbayar.setVisibility(GONE);
+        } else if (pesananModel.getStatus_order().equalsIgnoreCase("Dibatalkan")) {
+            viewHolder.lbayar.setVisibility(GONE);
+        } else {
+            viewHolder.batas.setText(pesananModel.getBatasBayar());
+        }
+
 
         Glide.with(context)
                 .load(CONSTANTS.SUB_DOMAIN + pesananModel.getFoto_produk())
@@ -72,6 +83,7 @@ public class RecyclerPesananAdapter extends RecyclerView.Adapter<RecyclerPesanan
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView namaProduk, hargaProduk, status, namatoko, totalbayar, jumlah, batas;
         private ImageView foto_produk;
+        private LinearLayout lbayar;
 
 
         public ViewHolder(View itemView) {
@@ -85,6 +97,7 @@ public class RecyclerPesananAdapter extends RecyclerView.Adapter<RecyclerPesanan
             jumlah = itemView.findViewById(R.id.tvxjumProd);
             batas = itemView.findViewById(R.id.tvxBatasbayar);
             foto_produk = itemView.findViewById(R.id.img_foto);
+            lbayar = itemView.findViewById(R.id.linearbayar);
 
         }
     }

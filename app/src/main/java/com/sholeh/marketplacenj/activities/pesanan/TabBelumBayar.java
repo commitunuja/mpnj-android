@@ -35,6 +35,7 @@ public class TabBelumBayar extends Fragment {
     private RecyclerView recyclerView;
     private List<PesananModel> pesananModels;
     LinearLayout datakosong;
+    String tab = "pending";
 
     public static TabBelumBayar newInstance(int index) {
         TabBelumBayar fragment = new TabBelumBayar();
@@ -68,7 +69,7 @@ public class TabBelumBayar extends Fragment {
 
 
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-        Call<List<PesananModel>> call = service.getDataPesanan(String.valueOf(id_konsumen), "pending");
+        Call<List<PesananModel>> call = service.getDataPesanan(String.valueOf(id_konsumen), tab);
 
         call.enqueue(new Callback<List<PesananModel>>() {
             @Override
