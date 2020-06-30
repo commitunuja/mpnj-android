@@ -1,8 +1,5 @@
 package com.sholeh.marketplacenj.activities.transaksi;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -15,6 +12,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
@@ -28,6 +26,9 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.google.gson.Gson;
 import com.sholeh.marketplacenj.R;
@@ -53,8 +54,6 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static java.lang.String.valueOf;
 
 public class KonfirmasiPembayaranActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -206,32 +205,34 @@ public class KonfirmasiPembayaranActivity extends AppCompatActivity implements V
 
 
     private void selectImage() {
-        final CharSequence[] options = {"Ambil Foto", "Gallery", "Kembali"};
-        AlertDialog.Builder builder = new AlertDialog.Builder(
-                KonfirmasiPembayaranActivity.this);
-        builder.setItems(options, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int item) {
-                if (options[item].equals("Ambil Foto")) {
-                    String fileName = "new-photo-name.jpg";
-                    ContentValues values = new ContentValues();
-                    values.put(MediaStore.Images.Media.TITLE, fileName);
-                    values.put(MediaStore.Images.Media.DESCRIPTION, "Image capture by camera");
-                    imageUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-                    intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
-                    startActivityForResult(intent, PICK_Camera_IMAGE);
-                } else if (options[item].equals("Gallery")) {
-                    Intent intent = new Intent(Intent.ACTION_PICK);
-                    intent.setType("image/*");
-                    startActivityForResult(intent, PICK_IMAGE);
-                } else if (options[item].equals("Kembali")) {
-                    dialog.dismiss();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            final CharSequence[] options = {"Ambil Foto", "Gallery", "Kembali"};
+            AlertDialog.Builder builder = new AlertDialog.Builder(
+                    KonfirmasiPembayaranActivity.this);
+            builder.setItems(options, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int item) {
+                    if (options[item].equals("Ambil Foto")) {
+                        String fileName = "new-photo-name.jpg";
+                        ContentValues values = new ContentValues();
+                        values.put(MediaStore.Images.Media.TITLE, fileName);
+                        values.put(MediaStore.Images.Media.DESCRIPTION, "Image capture by camera");
+                        imageUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+                        intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
+                        startActivityForResult(intent, PICK_Camera_IMAGE);
+                    } else if (options[item].equals("Gallery")) {
+                        Intent intent = new Intent(Intent.ACTION_PICK);
+                        intent.setType("image/*");
+                        startActivityForResult(intent, PICK_IMAGE);
+                    } else if (options[item].equals("Kembali")) {
+                        dialog.dismiss();
+                    }
                 }
-            }
-        });
-        builder.show();
+            });
+            builder.show();
+        }
     }
 
     @SuppressLint("MissingSuperCall")
