@@ -45,13 +45,23 @@ public class RecyclerPesananAdapter extends RecyclerView.Adapter<RecyclerPesanan
     @Override
     public void onBindViewHolder(@NonNull RecyclerPesananAdapter.ViewHolder viewHolder, int i) {
         pesananModel = pesananModels.get(i);
+//        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+//        Call<List<PesananModel>> call = service.getDataPesanan(String.valueOf(2), tab);
+//
         viewHolder.namaProduk.setText(pesananModel.getNamaProduk());
         viewHolder.hargaProduk.setText("Rp " + pesananModel.getHarga());
-        viewHolder.status.setText(pesananModel.getStatusPembayaran());
+        viewHolder.status.setText(pesananModel.getStatus_order());
         viewHolder.namatoko.setText(pesananModel.getNamaToko());
-        viewHolder.totalbayar.setText("Rp "+pesananModel.getTotalBayar());
+        viewHolder.totalbayar.setText("Rp " + pesananModel.getTotalBayar());
         viewHolder.jumlah.setText(pesananModel.getJumlah());
-        viewHolder.batas.setText(pesananModel.getBatasBayar());
+        if (pesananModel.getStatusPembayaran().equalsIgnoreCase("terima")) {
+            viewHolder.lbayar.setVisibility(GONE);
+        } else if (pesananModel.getStatus_order().equalsIgnoreCase("Dibatalkan")) {
+            viewHolder.lbayar.setVisibility(GONE);
+        } else {
+            viewHolder.batas.setText(pesananModel.getBatasBayar());
+        }
+
 
         Glide.with(context)
                 .load(CONSTANTS.SUB_DOMAIN + pesananModel.getFoto_produk())
