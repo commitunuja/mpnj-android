@@ -154,9 +154,9 @@ public class ImageProfilActivity extends AppCompatActivity implements View.OnCli
 
 
     private void selectImage() {
-                    Intent intent = new Intent(Intent.ACTION_PICK);
-                    intent.setType("image/*");
-                    startActivityForResult(intent, PICK_IMAGE);
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        startActivityForResult(intent, PICK_IMAGE);
     }
 
 

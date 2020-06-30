@@ -305,6 +305,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                 if (login) {
                     Intent intent = new Intent(this, KeranjangDetailActivity.class);
                     startActivity(intent);
+
                 } else {
                     startActivity(new Intent(this, LoginActivity.class));
                     finish();
