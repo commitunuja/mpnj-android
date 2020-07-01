@@ -2,21 +2,16 @@ package com.sholeh.marketplacenj.activities.details;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.codesgood.views.JustifiedTextView;
 import com.sholeh.marketplacenj.R;
-import com.sholeh.marketplacenj.util.CONSTANTS;
 import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
 
 import static java.lang.Integer.parseInt;
 
@@ -34,7 +29,7 @@ public class DiskripsiActivity extends AppCompatActivity implements View.OnClick
         setContentView(R.layout.activity_diskripsi);
 
 
-        NamaProduk = findViewById(R.id.tv_nama_produk);
+        NamaProduk = findViewById(R.id.tv_nama_produk_detail);
         HargaProduk = findViewById(R.id.tv_hargaproduk);
         Diskripsi = findViewById(R.id.txtdiskripsi_diskripsi);
         offer = findViewById(R.id.txtdiskondiskripsi);
