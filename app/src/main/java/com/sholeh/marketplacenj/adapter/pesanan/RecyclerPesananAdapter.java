@@ -98,6 +98,21 @@ public class RecyclerPesananAdapter extends RecyclerView.Adapter<RecyclerPesanan
             batas = itemView.findViewById(R.id.tvxBatasbayar);
             foto_produk = itemView.findViewById(R.id.img_foto);
             lbayar = itemView.findViewById(R.id.linearbayar);
+            cardViewpesanan = itemView.findViewById(R.id.card_pesanan);
+
+            cardViewpesanan.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(context, DetailPesananActivity.class);
+                    i.putExtra("namaproduk", pesananModel.getNamaProduk());
+//                    i.putExtra("namatoko", pesananModel.getNamaToko());
+                    i.putExtra("harga", pesananModel.getHarga());
+                    i.putExtra("foto", pesananModel.getFoto_produk());
+                    Toast.makeText(context, ""+pesananModel.getNamaProduk(), Toast.LENGTH_SHORT).show();
+                    context.startActivity(i);
+                }
+            });
+
 
         }
     }
