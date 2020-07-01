@@ -1,39 +1,40 @@
 package com.sholeh.marketplacenj.adapter.checkout;
 
+import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
-import android.os.Bundle;
+import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.sholeh.marketplacenj.R;
-import com.sholeh.marketplacenj.activities.keranjang.KeranjangDetailActivity;
+import com.sholeh.marketplacenj.activities.checkout.CheckoutActivity;
+import com.sholeh.marketplacenj.activities.kurir.OpsiPengirimanActivity;
 import com.sholeh.marketplacenj.model.checkout.ChildCheckout;
 import com.sholeh.marketplacenj.model.checkout.HeaderCheckout;
-import com.sholeh.marketplacenj.model.keranjang.ChildModel;
-import com.sholeh.marketplacenj.model.keranjang.HeaderModel;
-import com.sholeh.marketplacenj.respon.ResHapusKeranjang;
-import com.sholeh.marketplacenj.respon.ResUbahJumlahProduk;
-import com.sholeh.marketplacenj.util.AppUtilits;
+import com.sholeh.marketplacenj.respon.ResDetailKeranjang;
 import com.sholeh.marketplacenj.util.CONSTANTS;
 import com.sholeh.marketplacenj.util.Preferences;
-import com.sholeh.marketplacenj.util.ServiceGenerator;
-import com.sholeh.marketplacenj.util.api.APIInterface;
 
+import java.io.Serializable;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,16 +42,15 @@ import java.util.List;
 import java.util.Locale;
 import java.util.StringTokenizer;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
     int jumlahProduk = 0;
-    double totalHarga = 0;
+    double subtotalHarga = 0;
+    double subPengiriman = 0;
+    double totalbayar = 0;
     private Context context;
     private List<HeaderCheckout> listHeaderFilter;
     private HashMap<HeaderCheckout, List<ChildCheckout>> listChild;
+    ConstraintLayout linearLayout;
     int hargaProduk, stokProduk;
     Preferences preferences;
     String id_konsumen;
@@ -60,12 +60,18 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
     StringTokenizer st, st2;
     private static final String TAG = "MyExpandAdapter";
     String CUSTOM_ACTION = "com.example.YOUR_ACTION";
+    String id_kabupate, id_kecamatan;
+    Integer total_berat;
+    List<String> idk;
 
+    CheckoutActivity checkoutActivity;
 
     public ExpandAdapterCheckout(Context context, List<HeaderCheckout> listHeader, HashMap<HeaderCheckout, List<ChildCheckout>> listChild) {
         this.listHeaderFilter = listHeader;
         this.listChild = listChild;
         this.context = context;
+//        Integer my_id = ((CheckoutActivity) context.getApplicationContext()()).getMy_id();
+//        checkoutActivity = (CheckoutActivity) activity;
     }
 
     @Override
@@ -108,69 +114,117 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
     public View getGroupView(final int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         final HeaderCheckout model = (HeaderCheckout) getGroup(groupPosition);
         final HeaderCheckout headerModel = listHeaderFilter.get(groupPosition);
+
         final List<ChildCheckout> childModel = listChild.get(listHeaderFilter.get(groupPosition));
 
+        convertView = LayoutInflater.from(context).inflate(R.layout.desain_parent_checkout, null);
+        final Dialog myDialog;
+        final TextView nama_kk, no_pelanggan, idKabPenjual, tvx_OpsiKurir1, tvxkurir, tvxservice, tvxongkos, tvxetd;
 
-        if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.desain_parent_checkout, null);
-        }
-
-
-        final TextView nama_kk, no_pelanggan;
-
+        linearLayout = convertView.findViewById(R.id.linearopsi);
         nama_kk = convertView.findViewById(R.id.txtNamaToko);
         no_pelanggan = convertView.findViewById(R.id.txtIdToko);
+        tvxkurir = convertView.findViewById(R.id.tvxkurirnya);
+        tvxservice = convertView.findViewById(R.id.tvxservice);
+        tvxongkos = convertView.findViewById(R.id.tvongkos);
+        tvxetd = convertView.findViewById(R.id.tvxetd);
+        myDialog = new Dialog(context);
 
         nama_kk.setText(model.getNama_toko());
         no_pelanggan.setText(model.getId_toko());
+        tvxkurir.setText(model.getKurir());
+        tvxservice.setText(model.getService());
+        tvxongkos.setText(model.getOngkir());
+        tvxetd.setText(model.getEtd());
 
+        linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HeaderCheckout myNewsheader = listHeaderFilter.get(groupPosition);
+                Context context = v.getContext();
+//                listChild.get(listHeaderFilter.get(groupPosition)).get(childPosition);
+
+//                for (int i = groupPosition; i < getChildrenCount(groupPosition); i++) {
+////                    idk.add(getChild(groupPosition, ));
+//                }
+
+//                Log.d("Child Position", String.valueOf(getChildrenCount(groupPosition)));
+                ResDetailKeranjang bs = ((CheckoutActivity) context).getbs();
+//                Log.d("ikdo", String.valueOf());
+                ArrayList<String> id = ((CheckoutActivity) context).listIdKeranjang();
+                ArrayList<String> idByParent = new ArrayList<String>();
+
+                for (int i = 0; i < bs.getDataKeranjang().get(groupPosition).getItem().size(); i++) {
+                    idByParent.add(bs.getDataKeranjang().get(groupPosition).getItem().get(i).getIdKeranjang());
+                }
+
+                String idKabPenjual = bs.getDataKeranjang().get(groupPosition).getIdKabupaten();
+                String idKecPembeli = bs.getPembeli().getIdKecamatan();
+
+                String nama_kota = bs.getDataKeranjang().get(groupPosition).getNamaKota();
+                String weight = bs.getDataKeranjang().get(groupPosition).getTotalBerat();
+                Intent intent = new Intent(context, OpsiPengirimanActivity.class);
+                intent.putExtra("idkab_toko", String.valueOf(idKabPenjual));
+                intent.putExtra("idkec_pembeli", String.valueOf(idKecPembeli));
+                intent.putExtra("weight", String.valueOf(weight));
+                intent.putStringArrayListExtra("idcheckout", id);
+                intent.putStringArrayListExtra("idByParent", idByParent);
+                context.startActivity(intent);
+                myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                myDialog.show();
+//
+            }
+        });
 
 
         return convertView;
     }
 
 
+    @SuppressLint("ResourceType")
     @Override
-    public View getChildView(final int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+    public View getChildView(final int groupPosition, final int childPosition, final boolean isLastChild, View convertView, final ViewGroup parent) {
         Log.d("sholeh", listHeaderFilter.get(groupPosition).getId_toko());
+
 
         preferences = new Preferences(context);
         id_konsumen = preferences.getIdKonsumen();
 
-        if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.desain_child_checkout, null);
-        }
+        convertView = LayoutInflater.from(context).inflate(R.layout.desain_child_checkout, null);
 
-        final TextView tvx_nama, tvx_idKeranjang, tvx_jumlahproduk,  tvx_harga, tvx_totharga, tvx_hargaDiskon;
+
+        final TextView tvx_nama, tvx_idKeranjang, tvx_jumlahproduk, tvx_harga, tvx_totharga, tvx_hargaDiskon;
         final ImageView img_gambar;
-            final ChildCheckout childCheckout = listChild.get(listHeaderFilter.get(groupPosition)).get(childPosition);
 
+        final ChildCheckout childCheckout = listChild.get(listHeaderFilter.get(groupPosition)).get(childPosition);
+
+        TextView opsipengiriman;
+        LinearLayout linearLayoutOpsi_Pengiriman;
+
+//        opsipengiriman = convertView.findViewById(R.id.tvx_opsiKurir1);
+//        linearLayout = convertView.findViewById(R.id.linearopsi);
         tvx_nama = convertView.findViewById(R.id.txtnamaPRODUK);
         tvx_idKeranjang = convertView.findViewById(R.id.txtIdkerenjang);
         tvx_harga = convertView.findViewById(R.id.tvx_harga);
         tvx_totharga = convertView.findViewById(R.id.tvx_hargajum);
         tvx_hargaDiskon = convertView.findViewById(R.id.tvxHrgaDiskon);
         tvx_jumlahproduk = convertView.findViewById(R.id.tvxJumlahProduk);
-        img_gambar = convertView.findViewById(R.id.img_gambarkeranjang);
 
+        img_gambar = convertView.findViewById(R.id.img_gambarkeranjang);
 
         hargaProduk = childCheckout.getHarga();
         jumlahProduk = childCheckout.getJumlah();
 
-
-
         vdiskon = Double.parseDouble(String.valueOf(Integer.parseInt(String.valueOf(childCheckout.getDiskon()))));
         tvx_nama.setText(childCheckout.getNama_produk());
         tvx_idKeranjang.setText(childCheckout.getId_keranjang());
-        tvx_jumlahproduk.setText(String.valueOf(jumlahProduk));
+        tvx_jumlahproduk.setText(jumlahProduk +" Barang");
 
         int hitungJumHarga = jumlahProduk * hargaProduk;
         st = new StringTokenizer(formatRupiah.format(hitungJumHarga), ",");
         String hargajum = st.nextToken().trim();
         tvx_harga.setText(hargajum);
         tvx_totharga.setText(hargajum);
-
-
 
         Glide.with(convertView.getContext())
                 .load(CONSTANTS.SUB_DOMAIN + childCheckout.getGambar())
@@ -197,8 +251,43 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
             tvx_totharga.setText(harganya);
         }
 
+
+//        if (linearLayoutOpsi_Pengiriman.Leng){
+//
+//            linearLayoutOpsi_Pengiriman.setGravity(View.VISIBLE);
+//        }
+//        if(isLastChild == true ) {
+//            linearLayoutOpsi_Pengiriman.setVisibility(View.VISIBLE);
+//        }
+//        tvx_OpsiKurir1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                HeaderCheckout myNewsheader =listHeaderFilter.get(groupPosition);
+//                Context context = v.getContext();
+//                ResDetailKeranjang bs = ((CheckoutActivity) context).getbs();
+//
+//                String idKabPenjual = bs.getDataKeranjang().get(groupPosition).getIdKabupaten();
+//                String idKecPembeli = bs.getPembeli().getIdKecamatan();
+//
+//                Intent intent= new Intent(context, OpsiPengirimanActivity.class);
+//                intent.putExtra("idkab_toko", String.valueOf(idKabPenjual));
+//                intent.putExtra("idkec_pembeli", String.valueOf(idKecPembeli));
+//                context.startActivity(intent);
+//            }
+//        });
+
+        getsubTotal();
+
         return convertView;
+
+
     }
+
+
+    private boolean isLastChild(int groupPosition, int childPosition) {
+        return (childPosition == getChildrenCount(groupPosition) - 1);
+    }
+
 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
@@ -206,20 +295,24 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
     }
 
 
-    public void getTotal() {
+    public void getsubTotal() {
         jumlahProduk = 0; //totalCount
-        totalHarga = 0;
-        String idK = null;
-//        List<String> list;
-        Bundle extras = new Bundle();
+        subtotalHarga = 0;
+        subPengiriman = 0;
+        totalbayar = 0;
         ArrayList<String> myArray = new ArrayList<>();
-        String sum = null;
-        String  getid = null;
-        String[] words = new String[0];
+        String getid = null;
 
         for (int i = 0; i < listHeaderFilter.size(); i++) {
-            List<ChildCheckout> childMapList = listChild.get(listHeaderFilter.get(i));
 
+            HeaderCheckout headerCheckout = listHeaderFilter.get(i);
+
+            double hargaPengiriman = Double.parseDouble(headerCheckout.getOngkir());
+
+            subPengiriman +=hargaPengiriman;
+
+
+            List<ChildCheckout> childMapList = listChild.get(listHeaderFilter.get(i));
             for (int j = 0; j < childMapList.size(); j++) {
                 ChildCheckout childModel = childMapList.get(j);
                 int jumlah = childMapList.get(j).getJumlah();
@@ -227,85 +320,32 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
                 double diskonHarga = childModel.getDiskon();
                 double h = diskonHarga / 100 * Harga;
                 double p = Harga - h;
-                getid = childModel.getId_keranjang();
+                subtotalHarga += p * jumlah;
 
 
-
-//                    list = new ArrayList<String>();
-//                    list.add(getid);
-                    myArray.add(String.valueOf(getid));
-
-//                    String line = getid+" ";
-//                    //using String split function
-//                    words = line.split(" ");
-//                    System.out.println(Arrays.toString(words));
-//                    //using java.util.regex Pattern
-//                    Pattern pattern = Pattern.compile(" ");
-//                    words = pattern.split(line);
-//                    Toast.makeText(context, ""+Arrays.toString(words), Toast.LENGTH_SHORT).show();
-
-
-
-//                    Log.d("array", String.valueOf(myArray));
-//                    Toast.makeText(context, ""+list, Toast.LENGTH_SHORT).show();
-
-
-
-//                    int []id_keranjang = {Integer.parseInt(getid)};
-//                    Toast.makeText(context, "g"+id_keranjang.length, Toast.LENGTH_SHORT).show();
-//
-
-
-//                    for (int a =0; a < myArray.size(); a++){
-////                        idK = id_keranjang[a];
-//                        sum = String.valueOf(myArray.get(i));
-////                        Toast.makeText(context, ""+sum, Toast.LENGTH_SHORT).show();
-//
-//                    }
-
-//                    Toast.makeText(context, "f"+getid, Toast.LENGTH_SHORT).show();
-//                    Log.d("idkeranjang", idK);
-//                    Intent intent = new Intent("custom-idk");
-//                    intent.putExtra("array-idkeranjang", String.valueOf(idK));
-
-
-//
-//                    Toast.makeText(context, "s"+sum, Toast.LENGTH_SHORT).show();
-//
-//                    Intent in = new Intent("custom-idk");
-////                    intent.putExtra("idkeranjang",String.valueOf(sum+",")) ;
-//                    in.putExtra("idkeranjang",String.valueOf(getid)) ;
-//                    LocalBroadcastManager.getInstance(context).sendBroadcast(in);
-
-//                    Toast.makeText(context, ""+myArray.size(), Toast.LENGTH_SHORT).show();
-//                    Log.d("array", String.valueOf(sum));
-
-
-
-
-
-
-
+//                Intent intent = new Intent("custom-message");
+//                intent.putExtra("total", String.valueOf(p));
+//                LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
 
 
             }
         }
-//        Intent intent = new Intent("custom-message");
-//        intent.putExtra("total", String.valueOf(totalHarga));
-//        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
-//
-////        Toast.makeText(context, "m"+myArray, Toast.LENGTH_SHORT).show();
-////        Log.d("array", String.valueOf(myArray));
-//
-//        Intent i = new Intent("custom-idk");
-//
-////        i.putExtra("idkeranjang",String.valueOf(myArray)) ;
-//        i.putExtra("idkeranjang",String.valueOf(myArray)) ;
-//        LocalBroadcastManager.getInstance(context).sendBroadcast(i);
-////        Toast.makeText(context, ""+String.valueOf(myArray), Toast.LENGTH_SHORT).show();
-//
-//
+        Intent intent = new Intent("custom-message");
+        intent.putExtra("total", String.valueOf(subtotalHarga));
+        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+
+        Intent intent2 = new Intent("custom-ongkir");
+        intent2.putExtra("ongkir", String.valueOf(subPengiriman));
+        LocalBroadcastManager.getInstance(context).sendBroadcast(intent2);
+
+        totalbayar = subtotalHarga + subPengiriman;
+        Intent intent3 = new Intent("custom-total");
+        intent3.putExtra("totalbayar", String.valueOf(totalbayar));
+        LocalBroadcastManager.getInstance(context).sendBroadcast(intent3);
+
+
 
 
     }
+
 }

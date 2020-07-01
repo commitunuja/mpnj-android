@@ -218,8 +218,6 @@ public class AddAlamat extends AppCompatActivity implements View.OnClickListener
                                 response.body().getRajaongkir().getResults().get(a).getType(),
                                 response.body().getRajaongkir().getResults().get(a).getCityName(),
                                 response.body().getRajaongkir().getResults().get(a).getPostalCode()
-
-
                         );
 
                         arrayKota.add(response.body().getRajaongkir().getResults().get(a).getType() + " " + response.body().getRajaongkir().getResults().get(a).getCityName());

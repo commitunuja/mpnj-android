@@ -4,20 +4,28 @@ import com.google.gson.JsonObject;
 import com.sholeh.marketplacenj.model.Kategori;
 import com.sholeh.marketplacenj.model.Model;
 import com.sholeh.marketplacenj.model.city.ItemCity;
+
+import com.sholeh.marketplacenj.model.cost.ItemCost;
+
 import com.sholeh.marketplacenj.model.pesanan.PesananModel;
+
 import com.sholeh.marketplacenj.model.province.ItemProvince;
 import com.sholeh.marketplacenj.model.subdistrict.ItemKec;
 import com.sholeh.marketplacenj.respon.ResAlamat;
+import com.sholeh.marketplacenj.respon.ResBank;
 import com.sholeh.marketplacenj.respon.ResDetailAlamat;
 import com.sholeh.marketplacenj.respon.ResDetailKeranjang;
 import com.sholeh.marketplacenj.respon.ResHapusKeranjang;
 import com.sholeh.marketplacenj.respon.ResImg;
 import com.sholeh.marketplacenj.respon.ResKeranjang;
+import com.sholeh.marketplacenj.respon.ResKonfirmasi;
 import com.sholeh.marketplacenj.respon.ResLogin;
 import com.sholeh.marketplacenj.respon.ResNewPassword;
 import com.sholeh.marketplacenj.respon.ResProfil;
 import com.sholeh.marketplacenj.respon.ResRegristasi;
+import com.sholeh.marketplacenj.respon.ResRekAdmin;
 import com.sholeh.marketplacenj.respon.ResUbahJumlahProduk;
+import com.sholeh.marketplacenj.respon.RestCost;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,6 +75,16 @@ public interface APIInterface {
     @GET("subdistrict")
     @Headers("key:b28063e60be5386c072394b4713aae8d")
     Call<ItemKec> getKec(@Query("city") String city);
+
+    @FormUrlEncoded
+    @POST("cost")
+    @Headers("key:b28063e60be5386c072394b4713aae8d")
+    Call<ItemCost> hitungOngkir (@Field("origin") String origin,
+                                 @Field("originType") String originType,
+                                 @Field("destination") String destination,
+                                 @Field("destinationType") String destinationType,
+                                 @Field("weight") int weight,
+                                 @Field("courier") String courier);
 
     // signup konsumen
     @FormUrlEncoded
@@ -189,6 +207,28 @@ public interface APIInterface {
     Call<ResDetailKeranjang> getDataDetailKeranjang(
             @Query("id") String id);
 
+    @FormUrlEncoded
+    @POST("api/transaksi")
+    Call<ResDetailKeranjang> getDataTransaksi(
+            @Query("id") String id,
+            @Field("id_keranjang[]") List<String> id_keranjang);
+
+    @FormUrlEncoded
+    @POST("api/transaksi/simpan")
+    Call<JsonObject> simpanTransaksi(
+            @Field("user_id") String user_id,
+            @Field("totalBayar") Double totalBayar,
+            @Field("id_keranjang[]") List<String> id_keranjang);
+
+    @FormUrlEncoded
+    @POST("api/transaksi/simpanKurir")
+    Call<JsonObject> simpan_kurir(
+            @Field("kurir") String kurir,
+            @Field("service") String service,
+            @Field("ongkir") Integer ongkir,
+            @Field("etd") String etd,
+            @Field("id_keranjang[]") List<String> id_keranjang);
+
     //  delete produk keranjang
     @DELETE("api/keranjang/{id_keranjang}")
     Call<ResHapusKeranjang> hapusProdukKeranjang(@Path("id_keranjang") String idKeranjang);
@@ -206,10 +246,41 @@ public interface APIInterface {
     @PUT("api/keranjang/{id_user}/go_checkout")
     Call<ResDetailKeranjang> ubahStatusKeranjang(
             @Path("id_user") String id_user,
-            @Field("id_keranjang[]") ArrayList<String> id_keranjang
-
+            @Field("id_keranjang[]") List<String> id_keranjang
 
     );
+
+    @FormUrlEncoded
+    @PUT("api/transaksi/batal")
+    Call<JsonObject> batalCheckout(@Field("user_id") String user_id);
+
+    @GET("api/bank")
+    Call<ResBank> getBank();
+
+    //  tampil data bank admin /where
+    @GET("api/bank/rekening/{id_bank}")
+    Call<ResRekAdmin> getDataBank(
+            @Path("id_bank") String idBank
+    );
+
+    // konfirmasi pembayaran
+    @FormUrlEncoded
+    @POST("api/konfirmasi/simpan")
+    Call<ResKonfirmasi> simpanKonfirmasi(
+            @Field("kode_transaksi") int kodeTransaksi,
+            @Field("total_transfer") int totalTransfer,
+            @Field("rekening_admin_id") String rekeningAdminId,
+            @Field("nama_pengirim") String namaPengirim,
+            @Part MultipartBody.Part file
+
+    );
+
+
+
+
+
+
+
 }
 
 
