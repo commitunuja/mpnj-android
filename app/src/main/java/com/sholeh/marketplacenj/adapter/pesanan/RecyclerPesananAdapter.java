@@ -1,18 +1,22 @@
 package com.sholeh.marketplacenj.adapter.pesanan;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.sholeh.marketplacenj.R;
+import com.sholeh.marketplacenj.activities.pesanan.DetailPesananActivity;
 import com.sholeh.marketplacenj.model.pesanan.PesananModel;
 import com.sholeh.marketplacenj.util.CONSTANTS;
 
@@ -83,6 +87,7 @@ public class RecyclerPesananAdapter extends RecyclerView.Adapter<RecyclerPesanan
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView namaProduk, hargaProduk, status, namatoko, totalbayar, jumlah, batas;
         private ImageView foto_produk;
+        private CardView cardViewpesanan;
         private LinearLayout lbayar;
 
 
