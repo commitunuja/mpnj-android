@@ -230,14 +230,15 @@ public class ImageProfilActivity extends AppCompatActivity implements View.OnCli
             @Override
             public void onResponse(Call<ResImg> call, Response<ResImg> response) {
                 Log.d("resimg", String.valueOf(response));
-                Toast.makeText(ImageProfilActivity.this, "Sukses", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(ImageProfilActivity.this, "Sukses", Toast.LENGTH_SHORT).show();
                 finish();
             }
 
             @Override
             public void onFailure(Call<ResImg> call, Throwable t) {
-                Toast.makeText(ImageProfilActivity.this, "Gagal"+t, Toast.LENGTH_LONG).show();
-                Log.d("kocor", String.valueOf(t));
+//                Toast.makeText(ImageProfilActivity.this, "Gagal"+t, Toast.LENGTH_LONG).show();
+                Log.d("kocorrrr", String.valueOf(t));
+            //    finish();
 
                 //  Log.e(TAG, " failure "+ t.toString());
 //                    AppUtilits.displayMessage(UbahPassword.this,  getString(R.string.failed_request));

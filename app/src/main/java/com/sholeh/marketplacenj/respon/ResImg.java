@@ -31,4 +31,29 @@ public class ResImg {
         this.data = data;
     }
 
+//    @SerializedName("pesan")
+//    @Expose
+//    private String pesan;
+//    @SerializedName("data")
+//    @Expose
+//    private ValImgProfil data;
+//
+//    public String getPesan() {
+//        return pesan;
+//    }
+//
+//    public void setPesan(String pesan) {
+//        this.pesan = pesan;
+//    }
+//
+//    public ValImgProfil getData() {
+//        return data;
+//    }
+//
+//    public void setData(ValImgProfil data) {
+//        this.data = data;
+//    }
+
+
+
 }
