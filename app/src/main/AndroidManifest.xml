@@ -55,6 +55,9 @@
         <activity
             android:name=".activities.AlamatActivity"
             android:theme="@style/AppBlack" />
+        <activity
+            android:name=".activities.alamat.PilihAlamatCheckout"
+            android:theme="@style/AppBlack" />
         <activity android:name=".activities.UbahPassword" />
         <activity android:name=".activities.PengaturanAkun" />
         <activity
