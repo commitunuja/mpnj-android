@@ -257,17 +257,22 @@ public interface APIInterface {
     );
 
     // konfirmasi pembayaran
-    @FormUrlEncoded
+    @Multipart
     @POST("api/konfirmasi/simpan")
     Call<ResKonfirmasi> simpanKonfirmasi(
-            @Field("kode_transaksi") int kodeTransaksi,
-            @Field("total_transfer") int totalTransfer,
-            @Field("rekening_admin_id") String rekeningAdminId,
-            @Field("nama_pengirim") String namaPengirim,
-            @Part MultipartBody.Part file
+            @Part("kode_transaksi") RequestBody  kodeTransaksi,
+            @Part("total_transfer") RequestBody  totalTransfer,
+            @Part("rekening_admin_id") RequestBody  rekeningAdminId,
+            @Part("nama_pengirim") RequestBody namaPengirim,
+            @Part MultipartBody.Part file);
 
+    // ubah alamat utama
+    @FormUrlEncoded
+    @PUT("api/konsumen/edit/alamat/utama/{id_user}")
+    Call<ResAlamat> UbahAlamatUtama(
+            @Path("id_user") String userId,
+            @Field("id_alamat") String idAlamat
     );
-
 
 
 
