@@ -1,8 +1,12 @@
 package com.sholeh.marketplacenj.activities.kurir;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -44,22 +48,25 @@ public class OpsiPengirimanActivity extends AppCompatActivity {
 
     RadioGroup radioGroupKurir;
     ProgressBar progressBar;
-    String origin, destination, originType, destinationType, weight;
+    String origin, destination, originType, destinationType, weight, idkec_pembeli;
 //    List<Cost_> cost_s = new ArrayList<>();
     List<Cost> costs = new ArrayList<>();
-    TextView tvSave;
+    TextView tvSave, tvidkecPembeli;
     Integer ongkir;
-    String idkec_pembeli, idkab_toko;
+    String  idkab_toko;
     ImageView clear;
     ArrayList<String> arrayIdKeranjang;
     ArrayList<String> arrayIdByParent;
     int idx;
     String idkk;
+    String newidKecCheckoout = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_opsi_pengiriman);
+
+        tvidkecPembeli = findViewById(R.id.tvxidkecpembeli);
 //        setTheme(android.R.style.Theme_DeviceDefault_Light_Dialog_NoActionBar);
         final DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
@@ -104,7 +111,21 @@ public class OpsiPengirimanActivity extends AppCompatActivity {
             }
         });
 
+
+
+
+
+//        if(newidKecCheckoout !=null){
+//            tvidkecPembeli.setText(String.valueOf(newidKecCheckoout));
+//        }else{
+//            tvidkecPembeli.setText(String.valueOf(destination));
+//        }
+
+
         destination = getIntent().getStringExtra("idkec_pembeli");
+        Log.d("idkec pembeli", String.valueOf(destination));
+//        Toast.makeText(this, "idkec"+idkec_pembeli, Toast.LENGTH_SHORT).show();
+        tvidkecPembeli.setText(String.valueOf(destination));
         origin = getIntent().getStringExtra("idkab_toko");
         weight = getIntent().getStringExtra("weight");
         Log.d("desntiasi", destination);
@@ -119,6 +140,7 @@ public class OpsiPengirimanActivity extends AppCompatActivity {
                 lagi.putExtra("ongkir", String.valueOf(ongkir));
                 lagi.putStringArrayListExtra("idcheckout", arrayIdKeranjang);
                 startActivity(lagi);
+                finish();
 
             }
         });
@@ -126,7 +148,7 @@ public class OpsiPengirimanActivity extends AppCompatActivity {
         idkec_pembeli = getIntent().getStringExtra("idkec_pembeli");
         idkab_toko = getIntent().getStringExtra("idkab_toko");
 
-        Toast.makeText(this, "idkec "+idkec_pembeli+ " idkab"+idkab_toko, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "idkec "+idkec_pembeli+ " idkab"+idkab_toko, Toast.LENGTH_SHORT).show();
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 this, android.R.layout.simple_spinner_item, spinnerKurir);
@@ -149,8 +171,11 @@ public class OpsiPengirimanActivity extends AppCompatActivity {
         });
 
 
-
+//        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageNewIdKec,
+//                new IntentFilter("customnewidkec-checkout"));
     }
+
+
 
     private void simpanKurir() {
         String arrIdKeranjang = String.valueOf(arrayIdByParent);
@@ -166,17 +191,22 @@ public class OpsiPengirimanActivity extends AppCompatActivity {
         List<String> list = new ArrayList<String>();
         list = Arrays.asList(yolo);
 
+//        Toast.makeText(this, "k"+spinPilihKurir.getSelectedItem().toString()+" service"+costs.get(idx).getService()+" cost"+ costs.get(idx).getCost().get(0).getValue() +" etd"+costs.get(idx).getCost().get(0).getEtd()+ " list"+list, Toast.LENGTH_SHORT).show();
+
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
         Call<JsonObject> call = service.simpan_kurir(spinPilihKurir.getSelectedItem().toString(), costs.get(idx).getService(), costs.get(idx).getCost().get(0).getValue(), costs.get(idx).getCost().get(0).getEtd(), list);
 
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                Log.d("YOLO", String.valueOf(response.body()));
+//                Log.d("YOLO", String.valueOf(response.body()));
                 Intent i = new Intent(OpsiPengirimanActivity.this, CheckoutActivity.class);
-//                i.putExtra("ongkir", String.valueOf(ongkir));
                 i.putStringArrayListExtra("idcheckout", arrayIdKeranjang);
+                finish();
                 startActivity(i);
+
+
+
             }
 
             @Override
@@ -192,6 +222,8 @@ public class OpsiPengirimanActivity extends AppCompatActivity {
                 .baseUrl(CONSTANTS.URL_RAJAONGKIR)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
+
+//        String newdestination = tvidkecPembeli.getText().toString();
 
         APIInterface service = retrofit.create(APIInterface.class);
         Call<ItemCost> callOngkir= service.hitungOngkir(origin,"city",destination,"subdistrict",Integer.parseInt(weight),kurir);
@@ -226,5 +258,14 @@ public class OpsiPengirimanActivity extends AppCompatActivity {
             }
         });
     }
+
+//    public BroadcastReceiver mMessageNewIdKec = new BroadcastReceiver() {
+//        @Override
+//        public void onReceive(Context context, Intent intent) {
+//            newidKecCheckoout = intent.getStringExtra("newidkec");
+//            Toast.makeText(context, "idkec"+newidKecCheckoout, Toast.LENGTH_SHORT).show();
+//            tvidkecPembeli.setText("sd "+newidKecCheckoout);
+//        }
+//    };
 
 }

@@ -23,6 +23,7 @@ import com.google.gson.JsonObject;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.activities.AlamatActivity;
+import com.sholeh.marketplacenj.activities.alamat.PilihAlamatCheckout;
 import com.sholeh.marketplacenj.activities.keranjang.KeranjangDetailActivity;
 import com.sholeh.marketplacenj.activities.transaksi.KonfirmasiPembayaranActivity;
 import com.sholeh.marketplacenj.adapter.checkout.ExpandAdapterCheckout;
@@ -76,7 +77,6 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
     String idkk;
     List<String> list;
     ArrayList<String> idK;
-
     private Rajaongkir rajaongkircost;
     String harganya;
     public String getidKec;
@@ -84,10 +84,13 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
     //    List<ResDetailKeranjang> resDetailKeranjangs;
     ResDetailKeranjang resDetailKeranjang;
     ProgressBar pbCheckout;
-    String ongkir;
+    String ongkir, resetKurir;
 
     private KProgressHUD progressHUD;
     LinearLayout lnEmpty;
+
+    String alamatCheckout;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,11 +118,21 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
         preferences = new Preferences(getApplication());
         id_konsumen = preferences.getIdKonsumen();
 
+//        alamatCheckout = getIntent().getStringExtra("alamat_lengkap");
+//        Log.d("cek address", String.valueOf(alamatCheckout));
+
 
         Intent i = getIntent();
-        ongkir = i.getStringExtra("ongkir");
-        idK = i.getStringArrayListExtra("idcheckout");
+//        ongkir = i.getStringExtra("ongkir"); // from opsi pengiriman
+        resetKurir = i.getStringExtra("reset_kurir");
+//        Toast.makeText(this, "ongkir "+ongkir, Toast.LENGTH_SHORT).show();
+        idK = i.getStringArrayListExtra("idcheckout"); //from keranjang detail
         arrayIdKeranjang = String.valueOf(i.getStringArrayListExtra("idcheckout"));
+
+//        Toast.makeText(this, "idk"+idK+ " id"+arrayIdKeranjang, Toast.LENGTH_SHORT).show();
+
+//        Toast.makeText(this, ""+arrayIdKeranjang, Toast.LENGTH_SHORT).show();
+
         String[] nomor = arrayIdKeranjang.split("\\[");
         String[] nomor2 = nomor[1].split("]");
         String harIDK = "";
@@ -162,6 +175,9 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessagebayar,
                 new IntentFilter("custom-total"));
 
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageIdtransaksi,
+                new IntentFilter("address-checkout"));
+
     }
     private void ProgresDialog(){
         progressHUD.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
@@ -178,11 +194,16 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
         return idK;
     }
 
+    public String resetKurir() {
+        return resetKurir;
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tvxubahAlamat:
-                startActivity(new Intent(this, AlamatActivity.class));
+                goPilihAlamat();
+//                finish();
                 break;
 
             case R.id.imgBackKeranjang:
@@ -191,6 +212,7 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
                 break;
 
             case R.id.tvxBayar:
+
 //                pbCheckout.setVisibility(View.VISIBLE);
                 simpanTransaksi();
                 break;
@@ -202,6 +224,23 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onBackPressed() {
         onBack();
+    }
+
+    private void goPilihAlamat() {
+//        String id[] = {idkk};
+//        arrayIdKeranjang = new ArrayList<>();
+//        for (int a = 0; a < id.length; a++) {
+//            arrayIdKeranjang.add(id[a]);
+//        }
+
+//        updateStatusProduk();
+        startActivity(new Intent(this, PilihAlamatCheckout.class));
+        Intent goPilihAlamat = new Intent(this, PilihAlamatCheckout.class);
+//        goPilihAlamat.putStringArrayListExtra("idcheckout", arrayIdKeranjang);
+        goPilihAlamat.putStringArrayListExtra("idcheckout", idK);
+        startActivity(goPilihAlamat);
+
+
     }
 
     public void onBack() {
@@ -216,43 +255,56 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void simpanTransaksi() {
-        ProgresDialog();
-        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-        Call<JsonObject> call = service.simpanTransaksi(id_konsumen, totalbayar, list);
+        String subtotalPengiriman = tvxsubPengiriman.getText().toString();
+//        Toast.makeText(this, ""+subtotalPengiriman +resetKurir, Toast.LENGTH_SHORT).show();
 
-        call.enqueue(new Callback<JsonObject>() {
-            @Override
-            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                try {
-                    JSONObject jsonObject;
-                    jsonObject = new JSONObject(String.valueOf(response.body()));
+        if (subtotalPengiriman.equals("Rp0")){
+            Toast.makeText(this, "Lengkapi Pengiriman Produk Anda", Toast.LENGTH_SHORT).show();
+//        }
+//        else if(resetKurir ==null){
+//            tvxsubPengiriman.setText("Rp0");
+//            Toast.makeText(this, "Lengkapi "+resetKurir, Toast.LENGTH_SHORT).show();
+        } else{
+            Toast.makeText(this, "OK", Toast.LENGTH_SHORT).show();
+        }
 
-                    Integer kodetransaksi = (Integer) jsonObject.get("kode_transaksi");
-//                    String totalbayar = (String) jsonObject.get("total_bayar");
-//                    Log.d("kodetransaksi", String.valueOf(kodetransaksi)+"/t"+totalbayar);
-                progressHUD.dismiss();
-                Intent intent = new Intent(CheckoutActivity.this, KonfirmasiPembayaranActivity.class);
-                Bundle b = new Bundle();
-                b.putDouble("totalbayar", totalbayar);
-                b.putInt("kodetransaksi", kodetransaksi);
-                intent.putExtras(b);
-//                intent.putExtra("total", String.valueOf(totalbayar));
-                startActivity(intent);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    progressHUD.dismiss();
-                }
-
-
-
-            }
-
-            @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
-                Log.d("YOLO", String.valueOf(t));
-                progressHUD.dismiss();
-            }
-        });
+//        ProgresDialog();
+//        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+//        Call<JsonObject> call = service.simpanTransaksi(id_konsumen, totalbayar, list);
+//
+//        call.enqueue(new Callback<JsonObject>() {
+//            @Override
+//            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+//                try {
+//                    JSONObject jsonObject;
+//                    jsonObject = new JSONObject(String.valueOf(response.body()));
+//
+//                    Integer kodetransaksi = (Integer) jsonObject.get("kode_transaksi");
+////                    String totalbayar = (String) jsonObject.get("total_bayar");
+////                    Log.d("kodetransaksi", String.valueOf(kodetransaksi)+"/t"+totalbayar);
+//                progressHUD.dismiss();
+//                Intent intent = new Intent(CheckoutActivity.this, KonfirmasiPembayaranActivity.class);
+//                Bundle b = new Bundle();
+//                b.putDouble("totalbayar", totalbayar);
+//                b.putInt("kodetransaksi", kodetransaksi);
+//                intent.putExtras(b);
+////                intent.putExtra("total", String.valueOf(totalbayar));
+//                startActivity(intent);
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                    progressHUD.dismiss();
+//                }
+//
+//
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<JsonObject> call, Throwable t) {
+//                Log.d("YOLO", String.valueOf(t));
+//                progressHUD.dismiss();
+//            }
+//        });
     }
 
     public void batalChekout() {
@@ -292,7 +344,7 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
         call.enqueue(new Callback<ResDetailKeranjang>() {
             @Override
             public void onResponse(Call<ResDetailKeranjang> call, retrofit2.Response<ResDetailKeranjang> response) {
-                Log.d("cekkk", String.valueOf(response));
+//                Log.d("cekkk", String.valueOf(response));
 
 //                String destination = rajaongkir.getQuery().getDestination();
 //                Toast.makeText(this, ""+destination, Toast.LENGTH_SHORT).show();
@@ -303,12 +355,16 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
                 if (response.body() != null && response.isSuccessful()) {
                     if (response.body().getDataKeranjang().size() > 0) {
                         response.body().getTotalHarganya();
-                        tvxSetAlamat.setText(String.valueOf(response.body().getPembeli().getAlamatUtama()));
-                        String idKecPembeli = String.valueOf(response.body().getPembeli().getIdKecamatan());
-                        tvx_idKecPembeli.setText(idKecPembeli);
-
                         listHeader.clear();
                         listChild.clear();
+                        alamatCheckout = String.valueOf(response.body().getPembeli().getAlamatUtama());
+                        tvxSetAlamat.setText(alamatCheckout);
+                        String idKecPembeli = String.valueOf(response.body().getPembeli().getIdKecamatan());
+                        tvx_idKecPembeli.setText(idKecPembeli);
+//                        Log.d("alamatutama", String.valueOf(response.body().getPembeli().getAlamatUtama())+" \n"+idKecPembeli);
+
+
+
                         List<DataKeranjang> array = response.body().getDataKeranjang();
                         resDetailKeranjang = response.body();
 
@@ -404,5 +460,20 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
         }
     };
 
+    public BroadcastReceiver mMessageIdtransaksi = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String newGetAlamatCheckoout = intent.getStringExtra("address");
+            String idkecCheckout = intent.getStringExtra("idkeccheckout");
+//            Toast.makeText(context, "idkec"+idkecCheckout, Toast.LENGTH_SHORT).show();
+
+
+//            Intent intentAgain = new Intent("customnewidkec-checkout");
+//            intentAgain.putExtra("newidkec",idkecCheckout);
+//            LocalBroadcastManager.getInstance(context).sendBroadcast(intentAgain);
+
+//            tvxSetAlamat.setText(newGetAlamatCheckoout);
+        }
+    };
 
 }
