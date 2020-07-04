@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.kaopiz.kprogresshud.KProgressHUD;
@@ -31,20 +32,20 @@ import retrofit2.Response;
 
 public class AlamatActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Toolbar toolBarisi;
-    private FloatingActionButton fab_addAlamat;
-    private String TAG = "AlamatActivity";
+        Toolbar toolBarisi;
+        private FloatingActionButton fab_addAlamat;
+        private String TAG = "AlamatActivity";
 
-    Preferences preferences;
-    String id_konsumen;
+        Preferences preferences;
+        String id_konsumen;
 
 
-    private AlamatAdapter alamatAdapter;
-    private ArrayList<AlamatModel> modellist = new ArrayList<>();
-    RecyclerView recyclerAlamat;
+        private AlamatAdapter alamatAdapter;
+        private ArrayList<AlamatModel> modellist = new ArrayList<>();
+        RecyclerView recyclerAlamat;
 
-    private KProgressHUD progressDialogHud;
-    LinearLayout lnKosong;
+        private KProgressHUD progressDialogHud;
+        LinearLayout lnKosong;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +95,7 @@ public class AlamatActivity extends AppCompatActivity implements View.OnClickLis
         switch (v.getId()) {
             case R.id.fab_alamat:
               startActivity(new Intent(this, AddAlamat.class));
+//                Toast.makeText(this, "kll", Toast.LENGTH_SHORT).show();
                 break;
 
 
@@ -126,6 +128,7 @@ public class AlamatActivity extends AppCompatActivity implements View.OnClickLis
                                         response.body().getData().getDaftarAlamat().get(i).getNama(),
                                         response.body().getData().getDaftarAlamat().get(i).getNomorTelepon(),
                                         response.body().getData().getDaftarAlamat().get(i).getAlamatLengkap(),
+                                        response.body().getData().getDaftarAlamat().get(i).getKecamatanId(),
                                         response.body().getData().getDaftarAlamat().get(i).getNamaKecamatan(),
                                         response.body().getData().getDaftarAlamat().get(i).getNamaKota(),
                                         response.body().getData().getDaftarAlamat().get(i).getNamaProvinsi(),
@@ -134,8 +137,8 @@ public class AlamatActivity extends AppCompatActivity implements View.OnClickLis
                             }
 
                             alamatAdapter.notifyDataSetChanged();
-//                            recyclerAlamat.setVisibility(View.VISIBLE);
-//                            lnKosong.setVisibility(View.GONE);
+                            recyclerAlamat.setVisibility(View.VISIBLE);
+                            lnKosong.setVisibility(View.GONE);
                             progressDialogHud.dismiss();
 
                         }
