@@ -512,7 +512,6 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 //        Log.d("array", String.valueOf(myArray));
 
         Intent i = new Intent("custom-idk");
-
 //        i.putExtra("idkeranjang",String.valueOf(myArray)) ;
         i.putExtra("idkeranjang",String.valueOf(myArray)) ;
         LocalBroadcastManager.getInstance(context).sendBroadcast(i);

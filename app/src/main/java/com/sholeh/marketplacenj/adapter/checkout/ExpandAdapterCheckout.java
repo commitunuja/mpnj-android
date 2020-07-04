@@ -63,6 +63,7 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
     String id_kabupate, id_kecamatan;
     Integer total_berat;
     List<String> idk;
+    String idKecPembeli;
 
     CheckoutActivity checkoutActivity;
 
@@ -120,7 +121,7 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
         convertView = LayoutInflater.from(context).inflate(R.layout.desain_parent_checkout, null);
         final Dialog myDialog;
         final TextView nama_kk, no_pelanggan, idKabPenjual, tvx_OpsiKurir1, tvxkurir, tvxservice, tvxongkos, tvxetd;
-
+        final LinearLayout lnkurir;
         linearLayout = convertView.findViewById(R.id.linearopsi);
         nama_kk = convertView.findViewById(R.id.txtNamaToko);
         no_pelanggan = convertView.findViewById(R.id.txtIdToko);
@@ -128,7 +129,9 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
         tvxservice = convertView.findViewById(R.id.tvxservice);
         tvxongkos = convertView.findViewById(R.id.tvongkos);
         tvxetd = convertView.findViewById(R.id.tvxetd);
+        lnkurir = convertView.findViewById(R.id.lnKurir);
         myDialog = new Dialog(context);
+
 
         nama_kk.setText(model.getNama_toko());
         no_pelanggan.setText(model.getId_toko());
@@ -136,6 +139,27 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
         tvxservice.setText(model.getService());
         tvxongkos.setText(model.getOngkir());
         tvxetd.setText(model.getEtd());
+        getSubOngkir(model);
+
+
+        Toast.makeText(context, "ongkos"+model.getOngkir(), Toast.LENGTH_SHORT).show();
+
+        String getresetKurir = ((CheckoutActivity) context).resetKurir();
+//
+//        if (getresetKurir != null ) {
+////            Toast.makeText(context, "!= null", Toast.LENGTH_SHORT).show();
+////            tvxkurir.setVisibility(View.GONE);
+////            tvxservice.setVisibility(View.GONE);
+////            tvxongkos.setVisibility(View.GONE);
+////            tvxetd.setVisibility(View.GONE);
+//        }else if(model.getKurir() != null){
+//                lnkurir.setVisibility(View.VISIBLE);
+//        }else{
+//            lnkurir.setVisibility(View.VISIBLE);
+////            Toast.makeText(context, " null", Toast.LENGTH_SHORT).show();
+//        }
+
+//        Log.d("idkecpembeli checkout", String.valueOf(model.get));
 
         linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -159,7 +183,11 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
                 }
 
                 String idKabPenjual = bs.getDataKeranjang().get(groupPosition).getIdKabupaten();
-                String idKecPembeli = bs.getPembeli().getIdKecamatan();
+               String idKecPembeli = bs.getPembeli().getIdKecamatan();
+
+
+
+//                Toast.makeText(context, "idkec"+idKecPembeli, Toast.LENGTH_SHORT).show();
 
                 String nama_kota = bs.getDataKeranjang().get(groupPosition).getNamaKota();
                 String weight = bs.getDataKeranjang().get(groupPosition).getTotalBerat();
@@ -170,6 +198,7 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
                 intent.putStringArrayListExtra("idcheckout", id);
                 intent.putStringArrayListExtra("idByParent", idByParent);
                 context.startActivity(intent);
+//                ((CheckoutActivity) context).finish();
                 myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 myDialog.show();
 //
@@ -295,6 +324,18 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
     }
 
 
+    public void getSubOngkir(HeaderCheckout headerCheckout){
+        String kurir = headerCheckout.getKurir();
+        String service = headerCheckout.getService();
+        String ongkos = headerCheckout.getOngkir();
+        String etd = headerCheckout.getEtd();
+        headerCheckout.setKurir(kurir);
+        headerCheckout.setService(service);
+        headerCheckout.setOngkir(ongkos);
+        headerCheckout.setEtd(etd);
+        notifyDataSetChanged();
+    }
+
     public void getsubTotal() {
         jumlahProduk = 0; //totalCount
         subtotalHarga = 0;
@@ -347,5 +388,7 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
 
 
     }
+
+
 
 }
