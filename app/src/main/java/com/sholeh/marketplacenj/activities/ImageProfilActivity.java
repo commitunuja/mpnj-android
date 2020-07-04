@@ -49,14 +49,13 @@ public class ImageProfilActivity extends AppCompatActivity implements View.OnCli
     LinearLayout layImg;
     ImageView imgProfil;
     Button pilih, upload;
-    Bitmap bitmap = null;
-    Uri imageUri;
+
     Preferences preferences;
     String id_konsumen;
 
     private ProgressDialog progres;
     Toolbar toolBarisi;
-    String imagePath;
+
 
 
     //Uri to store the image uri
@@ -64,9 +63,13 @@ public class ImageProfilActivity extends AppCompatActivity implements View.OnCli
 
     private static final int PICK_IMAGE = 100;
     private static final int PERMISSION_STORAGE = 2;
+    private String selectImagePath;
+    Bitmap bitmap = null;
+    Uri imageUri;
+    String imagePath;
 
     private Unbinder mUnbinder;
-    private String selectImagePath;
+
     private Snackbar mSnackbar;
     private ResProfil tvDataProfil;
 
