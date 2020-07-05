@@ -129,37 +129,39 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         callNewREgistration.enqueue(new Callback<ResRegristasi>() {
             @Override
             public void onResponse(Call<ResRegristasi> call, Response<ResRegristasi> response) {
-                Toast.makeText(RegisterActivity.this, "res" + response, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(RegisterActivity.this, "res" + response, Toast.LENGTH_SHORT).show();
+
+                Log.d("regristasi", String.valueOf(response));
 
                 if (response.body() != null && response.isSuccessful()) {
-                    if (response.body().getPesan().equalsIgnoreCase("Sukses!")) {
-                        for (int a = 0; a < response.body().getData().size(); a++) {
-//                                SharedPreferences preferences = getSharedPreferences("App", Context.MODE_PRIVATE);
-//                                SharedPreferences.Editor edit = preferences.edit();
-//                                edit.putString("id_konsumen", String.valueOf(response.body().getData().get(a).getIdKonsumen()));
-//                                edit.putString("nama_lengkap", String.valueOf(response.body().getData().get(a).getNamaLengkap()));
+//                    if (response.body().getPesan().equalsIgnoreCase("Sukses!")) {
+//                        for (int a = 0; a < response.body().getData().size(); a++) {
+////                                SharedPreferences preferences = getSharedPreferences("App", Context.MODE_PRIVATE);
+////                                SharedPreferences.Editor edit = preferences.edit();
+////                                edit.putString("id_konsumen", String.valueOf(response.body().getData().get(a).getIdKonsumen()));
+////                                edit.putString("nama_lengkap", String.valueOf(response.body().getData().get(a).getNamaLengkap()));
+////
+////                                edit.putBoolean("bg",true);
+////                                edit.commit();
 //
-//                                edit.putBoolean("bg",true);
-//                                edit.commit();
-
-//                            Preferences.getInstance().getString(CONSTANTS.ID_KONSUMEN, String.valueOf(response.body().getData().get(a).getIdKonsumen()));
-//                            Preferences.getInstance().getString(CONSTANTS.USER_NAME, String.valueOf(response.body().getData().get(a).getUsername()));
-//                            Preferences.getInstance().getString(CONSTANTS.NAMA_LENGKAP, String.valueOf(response.body().getData().get(a).getNamaLengkap()));
-//                            Preferences.getInstance().getString(CONSTANTS.PHONE, String.valueOf(response.body().getData().get(a).getNomorHp()));
-//                            Preferences.getInstance().getString(CONSTANTS.EMAIL, String.valueOf(response.body().getData().get(a).getEmail()));
-
-
-                            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                            startActivity(intent);
-                            finish();
-
-                        }
-
-
-                    } else {
-                        Toast.makeText(RegisterActivity.this, "r" + response.body().getPesan(), Toast.LENGTH_SHORT).show();
-//                            AppUtilits.displayMessage(RegisterActivity.this,  response.body().getPesan());
-                    }
+////                            Preferences.getInstance().getString(CONSTANTS.ID_KONSUMEN, String.valueOf(response.body().getData().get(a).getIdKonsumen()));
+////                            Preferences.getInstance().getString(CONSTANTS.USER_NAME, String.valueOf(response.body().getData().get(a).getUsername()));
+////                            Preferences.getInstance().getString(CONSTANTS.NAMA_LENGKAP, String.valueOf(response.body().getData().get(a).getNamaLengkap()));
+////                            Preferences.getInstance().getString(CONSTANTS.PHONE, String.valueOf(response.body().getData().get(a).getNomorHp()));
+////                            Preferences.getInstance().getString(CONSTANTS.EMAIL, String.valueOf(response.body().getData().get(a).getEmail()));
+//
+//
+//                            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+//                            startActivity(intent);
+//                            finish();
+//
+//                        }
+//
+//
+//                    } else {
+//                        Toast.makeText(RegisterActivity.this, "r" + response.body().getPesan(), Toast.LENGTH_SHORT).show();
+////                            AppUtilits.displayMessage(RegisterActivity.this,  response.body().getPesan());
+//                    }
                 } else {
                     Toast.makeText(RegisterActivity.this, "rr" + response.body().getPesan(), Toast.LENGTH_SHORT).show();
 
