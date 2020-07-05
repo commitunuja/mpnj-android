@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -32,20 +33,20 @@ import retrofit2.Response;
 
 public class AlamatActivity extends AppCompatActivity implements View.OnClickListener {
 
-        Toolbar toolBarisi;
-        private FloatingActionButton fab_addAlamat;
-        private String TAG = "AlamatActivity";
+    Toolbar toolBarisi;
+    private FloatingActionButton fab_addAlamat;
+    private String TAG = "AlamatActivity";
 
-        Preferences preferences;
-        String id_konsumen;
+    Preferences preferences;
+    String id_konsumen;
 
 
-        private AlamatAdapter alamatAdapter;
-        private ArrayList<AlamatModel> modellist = new ArrayList<>();
-        RecyclerView recyclerAlamat;
+    private AlamatAdapter alamatAdapter;
+    private ArrayList<AlamatModel> modellist = new ArrayList<>();
+    RecyclerView recyclerAlamat;
 
-        private KProgressHUD progressDialogHud;
-        LinearLayout lnKosong;
+    private KProgressHUD progressDialogHud;
+    LinearLayout ln_kosong;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +56,7 @@ public class AlamatActivity extends AppCompatActivity implements View.OnClickLis
         id_konsumen = preferences.getIdKonsumen();
 
         progressDialogHud = KProgressHUD.create(AlamatActivity.this);
-        lnKosong = findViewById(R.id.lnKosong);
+        ln_kosong = findViewById(R.id.lnKosong);
 
         fab_addAlamat = findViewById(R.id.fab_alamat);
         recyclerAlamat = findViewById(R.id.recycler_alamat);
@@ -76,7 +77,7 @@ public class AlamatActivity extends AppCompatActivity implements View.OnClickLis
 
     }
 
-    private void ProgresDialog(){
+    private void ProgresDialog() {
         progressDialogHud.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
                 .setLabel("Loading...")
                 .setCancellable(false);
@@ -94,7 +95,7 @@ public class AlamatActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.fab_alamat:
-              startActivity(new Intent(this, AddAlamat.class));
+                startActivity(new Intent(this, AddAlamat.class));
 //                Toast.makeText(this, "kll", Toast.LENGTH_SHORT).show();
                 break;
 
@@ -106,68 +107,76 @@ public class AlamatActivity extends AppCompatActivity implements View.OnClickLis
 
 
     public void getAlamat() {
-        if (!NetworkUtility.isNetworkConnected(AlamatActivity.this)){
-            AppUtilits.displayMessage(AlamatActivity.this,  getString(R.string.network_not_connected));
-        }else {
-        ProgresDialog();
+        if (!NetworkUtility.isNetworkConnected(AlamatActivity.this)) {
+            AppUtilits.displayMessage(AlamatActivity.this, getString(R.string.network_not_connected));
+        } else {
+            ProgresDialog();
+            APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+            Call<ResProfil> call = service.getDataProfil(id_konsumen);
+            call.enqueue(new Callback<ResProfil>() {
+                @Override
+                public void onResponse(Call<ResProfil> call, Response<ResProfil> response) {
 
-        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-        Call<ResProfil> call = service.getDataProfil(id_konsumen);
-        call.enqueue(new Callback<ResProfil>() {
-            @Override
-            public void onResponse(Call<ResProfil> call, Response<ResProfil> response) {
-                if (response.body() != null && response.isSuccessful()) {
-                    if (response.body().getPesan().equalsIgnoreCase("Sukses!!")) {
+                    if (response.body() != null && response.isSuccessful()) {
 
-                        if (response.body().getData().getDaftarAlamat().size() > 0) {
+                        if (response.body().getPesan().equalsIgnoreCase("Sukses!!")) {
 
-                            modellist.clear();
-                            for (int i = 0; i < response.body().getData().getDaftarAlamat().size(); i++) {
 
-                                modellist.add(new AlamatModel(response.body().getData().getDaftarAlamat().get(i).getIdAlamat(),
-                                        response.body().getData().getDaftarAlamat().get(i).getNama(),
-                                        response.body().getData().getDaftarAlamat().get(i).getNomorTelepon(),
-                                        response.body().getData().getDaftarAlamat().get(i).getAlamatLengkap(),
-                                        response.body().getData().getDaftarAlamat().get(i).getKecamatanId(),
-                                        response.body().getData().getDaftarAlamat().get(i).getNamaKecamatan(),
-                                        response.body().getData().getDaftarAlamat().get(i).getNamaKota(),
-                                        response.body().getData().getDaftarAlamat().get(i).getNamaProvinsi(),
-                                        response.body().getData().getDaftarAlamat().get(i).getKodePos(),
-                                        response.body().getData().getDaftarAlamat().get(i).getStatus()));
+                            Log.d("cekalamat", String.valueOf(response.body().getData().getDaftarAlamat().size()));
+                            if (response.body().getData().getDaftarAlamat().size() > 0) {
+                                modellist.clear();
+                                for (int i = 0; i < response.body().getData().getDaftarAlamat().size(); i++) {
+                                    modellist.add(new AlamatModel(response.body().getData().getDaftarAlamat().get(i).getIdAlamat(),
+                                            response.body().getData().getDaftarAlamat().get(i).getNama(),
+                                            response.body().getData().getDaftarAlamat().get(i).getNomorTelepon(),
+                                            response.body().getData().getDaftarAlamat().get(i).getAlamatLengkap(),
+                                            response.body().getData().getDaftarAlamat().get(i).getKecamatanId(),
+                                            response.body().getData().getDaftarAlamat().get(i).getNamaKecamatan(),
+                                            response.body().getData().getDaftarAlamat().get(i).getNamaKota(),
+                                            response.body().getData().getDaftarAlamat().get(i).getNamaProvinsi(),
+                                            response.body().getData().getDaftarAlamat().get(i).getKodePos(),
+                                            response.body().getData().getDaftarAlamat().get(i).getStatus()));
+
+
+                                }
+
+                                alamatAdapter.notifyDataSetChanged();
+                                recyclerAlamat.setVisibility(View.VISIBLE);
+//                            ln_kosong.setVisibility(View.GONE);
+                                progressDialogHud.dismiss();
+
+
+                            } else {
+                                Toast.makeText(AlamatActivity.this, "Data Belum Ada", Toast.LENGTH_SHORT).show();
+                                recyclerAlamat.setVisibility(View.GONE);
+//                            ln_kosong.setVisibility(View.VISIBLE);
+                                progressDialogHud.dismiss();
                             }
-
-                            alamatAdapter.notifyDataSetChanged();
-                            recyclerAlamat.setVisibility(View.VISIBLE);
-                            lnKosong.setVisibility(View.GONE);
+                        } else {
+//                            AppUtilits.displayMessage(AlamatActivity.this, response.body().getPesan() );
+                            recyclerAlamat.setVisibility(View.GONE);
+                            ln_kosong.setVisibility(View.VISIBLE);
                             progressDialogHud.dismiss();
-
                         }
                     } else {
-                            AppUtilits.displayMessage(AlamatActivity.this, response.body().getPesan() );
+                        AppUtilits.displayMessage(AlamatActivity.this, getString(R.string.network_error));
                         recyclerAlamat.setVisibility(View.GONE);
-                        lnKosong.setVisibility(View.VISIBLE);
+                        ln_kosong.setVisibility(View.VISIBLE);
                         progressDialogHud.dismiss();
                     }
-                } else {
-                        AppUtilits.displayMessage(AlamatActivity.this, getString(R.string.network_error));
-                    recyclerAlamat.setVisibility(View.GONE);
-                    lnKosong.setVisibility(View.VISIBLE);
-                        progressDialogHud.dismiss();
+
                 }
 
-            }
-
-            @Override
-            public void onFailure(Call<ResProfil> call, Throwable t) {
+                @Override
+                public void onFailure(Call<ResProfil> call, Throwable t) {
                     AppUtilits.displayMessage(AlamatActivity.this, getString(R.string.fail_togetaddress));
-                recyclerAlamat.setVisibility(View.GONE);
-                lnKosong.setVisibility(View.VISIBLE);
-                progressDialogHud.dismiss();
-
-            }
-        });
+                    recyclerAlamat.setVisibility(View.GONE);
+                    ln_kosong.setVisibility(View.VISIBLE);
+                    progressDialogHud.dismiss();
 
 
+                }
+            });
         }
     }
 }
