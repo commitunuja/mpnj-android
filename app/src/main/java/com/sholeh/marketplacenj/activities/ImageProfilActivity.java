@@ -239,7 +239,7 @@ public class ImageProfilActivity extends AppCompatActivity implements View.OnCli
 
             @Override
             public void onFailure(Call<ResImg> call, Throwable t) {
-                Toast.makeText(ImageProfilActivity.this, "Gagal"+t, Toast.LENGTH_LONG).show();
+                Toast.makeText(ImageProfilActivity.this, "Gagal", Toast.LENGTH_LONG).show();
                 Log.d("kocor", String.valueOf(t));
 
                 //  Log.e(TAG, " failure "+ t.toString());
