@@ -258,11 +258,11 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
                 Log.d("cekimg", String.valueOf(tvDataProfil));
               // validasi error null asset foto
             //    Toast.makeText(getActivity(), ""+tvDataProfil.getPesan(), Toast.LENGTH_SHORT).show();
-//                if (tvDataProfil.getData().getFotoProfil() == null){
-//                   // Picasso.with(getContext()).load(R.drawable.man).into(imageProfil);
-//                }else{
-//                    Picasso.with(getContext()).load(CONSTANTS.BASE_URL + "assets/foto_profil_konsumen/"+tvDataProfil.getData().getFotoProfil()).into(imageProfil);
-//                }
+                if (tvDataProfil.getData().getFotoProfil() == null){
+                   // Picasso.with(getContext()).load(R.drawable.man).into(imageProfil);
+                }else{
+                    Picasso.with(getContext()).load(CONSTANTS.BASE_URL + "assets/foto_profil_konsumen/"+tvDataProfil.getData().getFotoProfil()).into(imageProfil);
+                }
 //                Toast.makeText(getActivity(), tvDataProfil.getData().getFotoProfil(), Toast.LENGTH_LONG).show();
 //                Glide.with(getActivity()).load(foto).into(imageProfil);
 
