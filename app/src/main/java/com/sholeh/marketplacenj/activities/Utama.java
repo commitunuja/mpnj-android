@@ -78,7 +78,6 @@ public class Utama extends AppCompatActivity implements BottomNavigationView.OnN
     }
 
 
-
     @Override
     public boolean onSupportNavigateUp() {
         finish();
@@ -147,9 +146,18 @@ public class Utama extends AppCompatActivity implements BottomNavigationView.OnN
                 return true;
 
             case R.id.navigation_account:
-                fm.beginTransaction().hide(active).show(fragmentProfil).commit();
-                active = fragmentProfil;
-                return true;
+                boolean login = preferences.getSPSudahLogin();
+                if (login) {
+                    fm.beginTransaction().hide(active).show(fragmentProfil).commit();
+                    active = fragmentProfil;
+                    return true;
+                } else {
+                    startActivity(new Intent(this, LoginActivity.class));
+                    finish();
+                }
+
+
+
 
         }
 

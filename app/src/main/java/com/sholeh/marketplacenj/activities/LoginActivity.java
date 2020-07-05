@@ -96,7 +96,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
                         Toast.makeText(LoginActivity.this, "Sukses", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(LoginActivity.this, Homepage.class);
+                        Intent intent = new Intent(LoginActivity.this, Utama.class);
                         startActivity(intent);
                         finish();
 
