@@ -99,6 +99,7 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
         btnImgProfil = rootView.findViewById(R.id.imgProfil);
         btnImgProfil.setOnClickListener(this);
         imageProfil = rootView.findViewById(R.id.cirprofile_image);
+        imageProfil.setOnClickListener(this);
         tvx_profil.setOnClickListener(this);
         tvx_alamat.setOnClickListener(this);
         tvx_setting.setOnClickListener(this);
@@ -180,7 +181,7 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
             case R.id.tvAlamat:
                 Intent intent4 = new Intent(getActivity(), AlamatActivity.class);
                 getActivity().startActivity(intent4);
-                Toast.makeText(getActivity(), "klik", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(), "klik", Toast.LENGTH_SHORT).show();
 
 //                selectImage();
                 break;
