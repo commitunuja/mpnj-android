@@ -44,6 +44,7 @@ import java.util.StringTokenizer;
 
 public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
     int jumlahProduk = 0;
+    int klikOpsipengiriman = 0;
     double subtotalHarga = 0;
     double subPengiriman = 0;
     double totalbayar = 0;
@@ -64,8 +65,11 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
     Integer total_berat;
     List<String> idk;
     String idKecPembeli;
+    String cekOngkos;
 
     CheckoutActivity checkoutActivity;
+
+    ArrayList<String> myOngkos = new ArrayList<>();
 
     public ExpandAdapterCheckout(Context context, List<HeaderCheckout> listHeader, HashMap<HeaderCheckout, List<ChildCheckout>> listChild) {
         this.listHeaderFilter = listHeader;
@@ -111,10 +115,14 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
         return true;
     }
 
+
+
     @Override
     public View getGroupView(final int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         final HeaderCheckout model = (HeaderCheckout) getGroup(groupPosition);
         final HeaderCheckout headerModel = listHeaderFilter.get(groupPosition);
+        // hitung jumlah parent / jika belum sesuai dengan panjang maka tidak di set sub total pengiriman, jika melalui ongkir kesulitan validasi cek opsi
+
 
         final List<ChildCheckout> childModel = listChild.get(listHeaderFilter.get(groupPosition));
 
@@ -133,37 +141,75 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
         myDialog = new Dialog(context);
 
 
+
+//        getSubOngkir(model);
+
         nama_kk.setText(model.getNama_toko());
         no_pelanggan.setText(model.getId_toko());
-        tvxkurir.setText(model.getKurir());
-        tvxservice.setText(model.getService());
-        tvxongkos.setText(model.getOngkir());
-        tvxetd.setText(model.getEtd());
-        getSubOngkir(model);
 
-
-        Toast.makeText(context, "ongkos"+model.getOngkir(), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(context, "ongkos"+model.getOngkir(), Toast.LENGTH_SHORT).show();
 
         String getresetKurir = ((CheckoutActivity) context).resetKurir();
+
+//        Toast.makeText(context, "reset "+getresetKurir, Toast.LENGTH_SHORT).show();
+
+
 //
 //        if (getresetKurir != null ) {
-////            Toast.makeText(context, "!= null", Toast.LENGTH_SHORT).show();
-////            tvxkurir.setVisibility(View.GONE);
-////            tvxservice.setVisibility(View.GONE);
-////            tvxongkos.setVisibility(View.GONE);
-////            tvxetd.setVisibility(View.GONE);
-//        }else if(model.getKurir() != null){
-//                lnkurir.setVisibility(View.VISIBLE);
-//        }else{
-//            lnkurir.setVisibility(View.VISIBLE);
-////            Toast.makeText(context, " null", Toast.LENGTH_SHORT).show();
+//            tvxkurir.setText("Silahkan Pilih Opsi Pengiriman Produk Anda");
+//            tvxservice.setText("");
+//            tvxongkos.setText("0");
+//            tvxetd.setText("");
+//            Intent intent5 = new Intent("custom-validasiopsi2");
+//            intent5.putExtra("validasiopsi2", String.valueOf("Rp0"));
+//            LocalBroadcastManager.getInstance(context).sendBroadcast(intent5);
+////            cekOngkos = tvxongkos.getText().toString();
+////            Log.d("cekongkos1", cekOngkos);
+//
+////            Toast.makeText(context, "!null", Toast.LENGTH_SHORT).show();
+//////            Toast.makeText(context, "!= null", Toast.LENGTH_SHORT).show();
+//////            tvxkurir.setVisibility(View.GONE);
+//////            tvxservice.setVisibility(View.GONE);
+//////            tvxongkos.setVisibility(View.GONE);
+//////            tvxetd.setVisibility(View.GONE);
+////        }else if(model.getKurir() != null){
+////                lnkurir.setVisibility(View.VISIBLE);
+//        }else { // jika tidak mengubah alamat utama
+////            Toast.makeText(context, "null", Toast.LENGTH_SHORT).show();
+//            tvxkurir.setText(model.getKurir());
+//            tvxservice.setText(model.getService());
+//            tvxongkos.setText(model.getOngkir());
+//            tvxetd.setText(model.getEtd());
+//            Intent intent5 = new Intent("custom-validasiopsi2");
+//            intent5.putExtra("validasiopsi2", String.valueOf("Oke"));
+//            LocalBroadcastManager.getInstance(context).sendBroadcast(intent5);
+//
+////            cekOngkos = tvxongkos.getText().toString(); // 0
+////            Log.d("cekongkos2", cekOngkos);
+//
+//
+//
+////            lnkurir.setVisibility(View.VISIBLE);
+//////            Toast.makeText(context, " null", Toast.LENGTH_SHORT).show();
 //        }
+
+
+
+
+
+
+//        Toast.makeText(context, "cekO "+cekOngkos, Toast.LENGTH_SHORT).show();
 
 //        Log.d("idkecpembeli checkout", String.valueOf(model.get));
 
         linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                klikOpsipengiriman +=1;
+
+
+//                Log.d("klik", String.valueOf(klikOpsipengiriman));
+
                 HeaderCheckout myNewsheader = listHeaderFilter.get(groupPosition);
                 Context context = v.getContext();
 //                listChild.get(listHeaderFilter.get(groupPosition)).get(childPosition);
@@ -204,6 +250,7 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
 //
             }
         });
+
 
 
         return convertView;
@@ -341,15 +388,19 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
         subtotalHarga = 0;
         subPengiriman = 0;
         totalbayar = 0;
-        ArrayList<String> myArray = new ArrayList<>();
+        ArrayList<String> myArrayOngkir = new ArrayList<>();
         String getid = null;
+        int valP = 0;
 
         for (int i = 0; i < listHeaderFilter.size(); i++) {
 
             HeaderCheckout headerCheckout = listHeaderFilter.get(i);
 
             double hargaPengiriman = Double.parseDouble(headerCheckout.getOngkir());
+            valP = (int) hargaPengiriman;
+            myArrayOngkir.add(String.valueOf(valP));
 
+         
             subPengiriman +=hargaPengiriman;
 
 
@@ -385,6 +436,29 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent3);
 
 
+
+//        Log.d("myongkir", String.valueOf(myArrayOngkir));
+//        if ()
+
+//        Toast.makeText(context, ""+valP, Toast.LENGTH_SHORT).show();
+//
+//        Log.d("getval", String.valueOf(valP));
+
+        String konval = String.valueOf(valP);
+        if (konval.equals("0")){ // lengkapi pengiriman produk anda
+//            Toast.makeText(context, "sama", Toast.LENGTH_SHORT).show();
+//            Log.d("validasi1",konval);
+            Intent intent4 = new Intent("custom-validasiopsi");
+            intent4.putExtra("validasiopsi", String.valueOf("Rp0"));
+            LocalBroadcastManager.getInstance(context).sendBroadcast(intent4);
+
+        }else if(!konval.equals("0")){
+            Intent intent4 = new Intent("custom-validasiopsi");
+            intent4.putExtra("validasiopsi", String.valueOf("Oke"));
+            LocalBroadcastManager.getInstance(context).sendBroadcast(intent4);
+//            Toast.makeText(context, "tidak sama", Toast.LENGTH_SHORT).show();
+//            Log.d("validasi2",konval);
+        }
 
 
     }

@@ -163,7 +163,7 @@ public class AddressCheckoutAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                         if (response.body() != null && response.isSuccessful()) { // true
                             Intent intent = new Intent(mContext, CheckoutActivity.class);
                             intent.putExtra("id_kecpembeli", String.valueOf(model.getIdKec()));
-                            intent.putExtra("reset_kurir", "reset");
+                            intent.putExtra("reset_kurir", "Silahkan Pilih Pengiriman Produk Anda");
                             intent.putStringArrayListExtra("idcheckout", id);
                             mContext.startActivity(intent);
 

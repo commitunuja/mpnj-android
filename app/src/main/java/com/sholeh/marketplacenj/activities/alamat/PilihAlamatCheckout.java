@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.sholeh.marketplacenj.activities.AddAlamat;
+import com.sholeh.marketplacenj.activities.AlamatActivity;
 import com.sholeh.marketplacenj.adapter.alamat.AddressCheckoutAdapter;
 import com.sholeh.marketplacenj.respon.ResDetailKeranjang;
 import com.sholeh.marketplacenj.util.api.APIInterface;
@@ -170,11 +171,17 @@ public class PilihAlamatCheckout extends AppCompatActivity implements View.OnCli
                                 }
 
                                 alamatAdapter.notifyDataSetChanged();
-//                            recyclerAlamat.setVisibility(View.VISIBLE);
+                            recyclerAlamat.setVisibility(View.VISIBLE);
 //                            lnKosong.setVisibility(View.GONE);
                                 progressDialogHud.dismiss();
 
-                            }
+                            }  else {
+                            Toast.makeText(PilihAlamatCheckout.this, "Data Belum Ada", Toast.LENGTH_SHORT).show();
+                            recyclerAlamat.setVisibility(View.GONE);
+//                            ln_kosong.setVisibility(View.VISIBLE);
+                            progressDialogHud.dismiss();
+                        }
+
                         } else {
                             AppUtilits.displayMessage(PilihAlamatCheckout.this, response.body().getPesan() );
                             recyclerAlamat.setVisibility(View.GONE);

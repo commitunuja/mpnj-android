@@ -56,7 +56,7 @@ import static java.lang.String.valueOf;
 
 public class CheckoutActivity extends AppCompatActivity implements View.OnClickListener {
 
-    TextView tvxtolbar, tvxUbahAlamat, tvxSetAlamat, tvxPilihBank, tvx_idKecPembeli, tvxtotalCheckout, tvxSubtotalProd, tvxsubPengiriman, tvxBayar;
+    TextView tvxtolbar, tvxUbahAlamat, tvxSetAlamat, tvxPilihBank, tvx_idKecPembeli, tvxtotalCheckout, tvxSubtotalProd, tvxsubPengiriman, tvxValsubOngkir1, tvxValsubOngkir2, tvxBayar;
     Preferences preferences;
     String id_konsumen;
     private List<HeaderCheckout> listHeader;
@@ -67,6 +67,8 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
     private ExpandAdapterCheckout expanAdapter;
     ImageView imgBack;
 
+    boolean valKlikPilihAlamat = false;
+
     private double hargaTotal;
     private double hargaPengiriman = 0;
     private double totalbayar = 0;
@@ -75,6 +77,8 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
     StringTokenizer st, stsub, sttotal;
     String arrayIdKeranjang;
     String idkk;
+    String mykk;
+    ArrayList<String> arraymykk;
     List<String> list;
     ArrayList<String> idK;
     private Rajaongkir rajaongkircost;
@@ -107,6 +111,8 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
         imgBack = findViewById(R.id.imgBackKeranjang);
         tvxtotalCheckout = findViewById(R.id.totalchechkout);
         tvxsubPengiriman = findViewById(R.id.tvx_subtotalPengiriman);
+        tvxValsubOngkir1 = findViewById(R.id.tvx_valsubOngkir1);
+        tvxValsubOngkir2 = findViewById(R.id.tvx_valsubOngkir2);
         tvxSubtotalProd = findViewById(R.id.tvx_subtotalProduk);
         tvx_idKecPembeli = findViewById(R.id.tvx_idKecPembeli);
         tvxBayar = findViewById(R.id.tvxBayar);
@@ -175,11 +181,15 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessagebayar,
                 new IntentFilter("custom-total"));
 
-        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageIdtransaksi,
-                new IntentFilter("address-checkout"));
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageValidasiOpsi,
+                new IntentFilter("custom-validasiopsi"));
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageValidasiOpsi,
+                new IntentFilter("custom-validasiopsi2"));
 
     }
-    private void ProgresDialog(){
+
+    private void ProgresDialog() {
         progressHUD.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
                 .setLabel("Proses...")
                 .setCancellable(false);
@@ -203,6 +213,8 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
         switch (v.getId()) {
             case R.id.tvxubahAlamat:
                 goPilihAlamat();
+                valKlikPilihAlamat = true;
+
 //                finish();
                 break;
 
@@ -255,56 +267,68 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void simpanTransaksi() {
-        String subtotalPengiriman = tvxsubPengiriman.getText().toString();
-//        Toast.makeText(this, ""+subtotalPengiriman +resetKurir, Toast.LENGTH_SHORT).show();
-
-        if (subtotalPengiriman.equals("Rp0")){
-            Toast.makeText(this, "Lengkapi Pengiriman Produk Anda", Toast.LENGTH_SHORT).show();
+//        String subval1 = tvxValsubOngkir1.getText().toString();
+//        if (valKlikPilihAlamat == true) { // val2 jika pilih alamat
+//            Toast.makeText(this, "2", Toast.LENGTH_SHORT).show();
+//
+//        } else {
+//            if (subval1.equals("Rp0")) {
+//                Toast.makeText(this, "Lengkapi Pengiriman Produk Anda", Toast.LENGTH_SHORT).show();
+//            } else {
+//                Toast.makeText(this, "OK", Toast.LENGTH_SHORT).show();
+//            }
+//
 //        }
-//        else if(resetKurir ==null){
-//            tvxsubPengiriman.setText("Rp0");
-//            Toast.makeText(this, "Lengkapi "+resetKurir, Toast.LENGTH_SHORT).show();
-        } else{
-            Toast.makeText(this, "OK", Toast.LENGTH_SHORT).show();
-        }
 
-//        ProgresDialog();
-//        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-//        Call<JsonObject> call = service.simpanTransaksi(id_konsumen, totalbayar, list);
-//
-//        call.enqueue(new Callback<JsonObject>() {
-//            @Override
-//            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-//                try {
-//                    JSONObject jsonObject;
-//                    jsonObject = new JSONObject(String.valueOf(response.body()));
-//
-//                    Integer kodetransaksi = (Integer) jsonObject.get("kode_transaksi");
-////                    String totalbayar = (String) jsonObject.get("total_bayar");
-////                    Log.d("kodetransaksi", String.valueOf(kodetransaksi)+"/t"+totalbayar);
-//                progressHUD.dismiss();
-//                Intent intent = new Intent(CheckoutActivity.this, KonfirmasiPembayaranActivity.class);
-//                Bundle b = new Bundle();
-//                b.putDouble("totalbayar", totalbayar);
-//                b.putInt("kodetransaksi", kodetransaksi);
-//                intent.putExtras(b);
-////                intent.putExtra("total", String.valueOf(totalbayar));
-//                startActivity(intent);
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                    progressHUD.dismiss();
-//                }
-//
-//
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call<JsonObject> call, Throwable t) {
-//                Log.d("YOLO", String.valueOf(t));
-//                progressHUD.dismiss();
-//            }
-//        });
+
+
+
+        ProgresDialog();
+        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+        Call<JsonObject> call = service.simpanTransaksi(id_konsumen, totalbayar, list);
+
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                Toast.makeText(CheckoutActivity.this, ""+response, Toast.LENGTH_SHORT).show();
+                try {
+                    JSONObject jsonObject;
+                    jsonObject = new JSONObject(String.valueOf(response.body()));
+
+
+//                    Integer id_transaksi = (Integer) jsonObject.get("id_transaksi");
+                    Integer kodetransaksi = (Integer) jsonObject.get("kode_transaksi");
+//                    Integer totalbayar = (Integer) jsonObject.get("total_bayar");
+//                    String tgl_pemesanan = (String) jsonObject.get("tanggal_pemesanan");
+//                    String batasPembayaran = (String) jsonObject.get("batas_pembayaran");
+
+
+
+//                    String totalbayar = (String) jsonObject.get("total_bayar");
+//                    Log.d("kodetransaksi", String.valueOf(id_transaksi)+"/t"+kodetransaksi+"/t"+totalbayar+"/t"+tgl_pemesanan+"/t"+batasPembayaran);
+                progressHUD.dismiss();
+                Intent intent = new Intent(CheckoutActivity.this, KonfirmasiPembayaranActivity.class);
+                Bundle b = new Bundle();
+                b.putDouble("totalbayar", totalbayar);
+                b.putInt("kodetransaksi", kodetransaksi);
+                intent.putExtras(b);
+                intent.putExtra("total", String.valueOf(totalbayar));
+                startActivity(intent);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    progressHUD.dismiss();
+                }
+
+
+
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                Log.d("YOLO", String.valueOf(t));
+                progressHUD.dismiss();
+            }
+        });
     }
 
     public void batalChekout() {
@@ -318,9 +342,9 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
 
 //                if (response.isSuccessful()) {
 
-                    Intent intent = new Intent(CheckoutActivity.this, KeranjangDetailActivity.class);
-                    startActivity(intent);
-                    finish();
+                Intent intent = new Intent(CheckoutActivity.this, KeranjangDetailActivity.class);
+                startActivity(intent);
+                finish();
 //                } else {
 //                    String error = "Error Retrive DataProfil from Server !!!";
 //                    Toast.makeText(CheckoutActivity.this, "gagal", Toast.LENGTH_SHORT).show();
@@ -362,7 +386,6 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
                         String idKecPembeli = String.valueOf(response.body().getPembeli().getIdKecamatan());
                         tvx_idKecPembeli.setText(idKecPembeli);
 //                        Log.d("alamatutama", String.valueOf(response.body().getPembeli().getAlamatUtama())+" \n"+idKecPembeli);
-
 
 
                         List<DataKeranjang> array = response.body().getDataKeranjang();
@@ -460,11 +483,33 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
         }
     };
 
-    public BroadcastReceiver mMessageIdtransaksi = new BroadcastReceiver() {
+    public BroadcastReceiver mMessageValidasiOpsi = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            String newGetAlamatCheckoout = intent.getStringExtra("address");
-            String idkecCheckout = intent.getStringExtra("idkeccheckout");
+            String myOngkir = intent.getStringExtra("validasiopsi");
+            tvxValsubOngkir1.setText(String.valueOf(myOngkir));
+//            String[] nomor = myOngkir.split("\\[");
+//            String[] nomor2 = nomor[1].split("]");
+//            String harIDK = "";
+//
+//            for (int i = 0; i < nomor2.length; i++) {
+//                harIDK = harIDK + nomor2[i];
+//            }
+//            mykk = harIDK;
+//            String[] yolo = mykk.split(",");
+//            list = new ArrayList<String>();
+//            list = Arrays.asList(yolo);
+
+//            Toast.makeText(context, ""+idkk, Toast.LENGTH_SHORT).show();
+//            Log.d("myongkir", myOngkir);
+//            Toast.makeText(context, ""+myOngkir, Toast.LENGTH_SHORT).show();
+
+//            if (myOngkir.equals("[0]")){
+//                Toast.makeText(context, "ada", Toast.LENGTH_SHORT).show();
+//            }else{
+//                Toast.makeText(context, "tidak ada", Toast.LENGTH_SHORT).show();
+//            }
+//            String idkecCheckout = intent.getStringExtra("idkeccheckout");
 //            Toast.makeText(context, "idkec"+idkecCheckout, Toast.LENGTH_SHORT).show();
 
 
@@ -476,4 +521,11 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
         }
     };
 
+    public BroadcastReceiver mMessageValidasiOpsi2 = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String myOngkir = intent.getStringExtra("validasiopsi2");
+            tvxValsubOngkir2.setText(String.valueOf(myOngkir));
+        }
+    };
 }
