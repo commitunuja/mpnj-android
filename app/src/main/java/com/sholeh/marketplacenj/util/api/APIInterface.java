@@ -7,6 +7,8 @@ import com.sholeh.marketplacenj.model.city.ItemCity;
 
 import com.sholeh.marketplacenj.model.cost.ItemCost;
 
+import com.sholeh.marketplacenj.model.pesanan.DataPesanan;
+import com.sholeh.marketplacenj.model.pesanan.Pembayaran;
 import com.sholeh.marketplacenj.model.pesanan.PesananModel;
 
 import com.sholeh.marketplacenj.model.province.ItemProvince;
@@ -189,7 +191,7 @@ public interface APIInterface {
     Call<List<Model>> getAllData(@Query("cari") String nama_produk);
 
     @GET("api/pesanan")
-    Call<List<PesananModel>> getDataPesanan(@Query("id") String id, @Query("tab") String tab);
+    Call<List<Pembayaran>> getDataPesanan(@Query("id") String id);
 
     @FormUrlEncoded
     @POST("api/keranjang")

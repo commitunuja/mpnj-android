@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.adapter.pesanan.RecyclerPesananAdapter;
+import com.sholeh.marketplacenj.model.pesanan.DataPesanan;
 import com.sholeh.marketplacenj.model.pesanan.PesananModel;
 import com.sholeh.marketplacenj.util.ServiceGenerator;
 import com.sholeh.marketplacenj.util.api.APIInterface;
@@ -26,7 +27,7 @@ import retrofit2.Response;
 
 public class PesananFragment extends Fragment {
 
-    private List<PesananModel> pesanan_models;
+    private List<DataPesanan> pesanan_models;
     RecyclerView recyclerView;
     RecyclerPesananAdapter recyclerPesananAdapter;
 
@@ -58,30 +59,30 @@ public class PesananFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
 
 
-        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-        Call<List<PesananModel>> call = service.getDataPesanan(String.valueOf(1), pending);
-
-        call.enqueue(new Callback<List<PesananModel>>() {
-            @Override
-            public void onResponse(Call<List<PesananModel>> call, Response<List<PesananModel>> response) {
-                if (response.body() != null && response.isSuccessful()) {
-
-                    pesanan_models = response.body();
-                    recyclerPesananAdapter = new RecyclerPesananAdapter(getContext(), pesanan_models);
-                    recyclerView.setAdapter(recyclerPesananAdapter);
-
-                    Toast.makeText(getContext(), "" + response, Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getContext(), "gagal", Toast.LENGTH_SHORT).show();
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<PesananModel>> call, Throwable t) {
-
-            }
-        });
+//        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+//        Call<List<DataPesanan>> call = service.getDataPesanan(String.valueOf(1), pending);
+//
+//        call.enqueue(new Callback<List<DataPesanan>>() {
+//            @Override
+//            public void onResponse(Call<List<DataPesanan>> call, Response<List<DataPesanan>> response) {
+//                if (response.body() != null && response.isSuccessful()) {
+//
+//                    pesanan_models = response.body();
+//                    recyclerPesananAdapter = new RecyclerPesananAdapter(getContext(), pesanan_models);
+//                    recyclerView.setAdapter(recyclerPesananAdapter);
+//
+//                    Toast.makeText(getContext(), "" + response, Toast.LENGTH_SHORT).show();
+//                } else {
+//                    Toast.makeText(getContext(), "gagal", Toast.LENGTH_SHORT).show();
+//
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<DataPesanan>> call, Throwable t) {
+//
+//            }
+//        });
 
     }
 }

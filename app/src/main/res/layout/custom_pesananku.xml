@@ -125,6 +125,7 @@
 
             <ImageView
                 android:id="@+id/img_foto"
+                android:background="@color/grey"
                 android:layout_width="66.2dp"
                 android:layout_height="66.7dp"
                 android:layout_marginLeft="12dp"
@@ -270,70 +271,70 @@
                 android:orientation="vertical">
 
 
-<!--                <LinearLayout-->
-<!--                    android:id="@+id/linearbayar"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:orientation="horizontal"-->
-<!--                    android:weightSum="3">-->
+                <LinearLayout
+                    android:id="@+id/linearbayar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
 
-<!--                    <LinearLayout-->
-<!--                        android:layout_width="0dp"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginTop="16dp"-->
-<!--                        android:layout_weight="0.8"-->
-<!--                        android:orientation="vertical">-->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_weight="0.8"
+                        android:orientation="vertical">
 
-<!--                        <TextView-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_marginLeft="12dp"-->
-<!--                            android:text="Bayar Sebelum "-->
-<!--                            android:textSize="12.5sp"-->
-<!--                            android:textStyle="bold" />-->
-
-
-<!--                    </LinearLayout>-->
-
-<!--                    <LinearLayout-->
-<!--                        android:layout_width="0dp"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginTop="16dp"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:orientation="vertical">-->
-
-<!--                        <TextView-->
-<!--                            android:id="@+id/tvxBatasbayar"-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:text="24-06-2020 17:47"-->
-<!--                            android:textSize="12.5sp"-->
-<!--                            android:textStyle="bold" />-->
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="12dp"
+                            android:text="Bayar Sebelum "
+                            android:textSize="12.5sp"
+                            android:textStyle="bold" />
 
 
-<!--                    </LinearLayout>-->
+                    </LinearLayout>
 
-<!--                    <LinearLayout-->
-<!--                        android:layout_width="0dp"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_weight="1.1"-->
-<!--                        android:orientation="vertical">-->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
-<!--                        <customfonts.MyTextView-->
-<!--                            android:id="@+id/tv_bayar"-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_marginTop="10dp"-->
-<!--                            android:background="@color/colorPrimaryTransperent"-->
-<!--                            android:gravity="center"-->
-<!--                            android:padding="5dp"-->
-<!--                            android:text="Bayar Sekarang"-->
-<!--                            android:textColor="#fff" />-->
+                        <TextView
+                            android:id="@+id/tvxBatasbayar"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="24-06-2020 17:47"
+                            android:textSize="12.5sp"
+                            android:textStyle="bold" />
 
 
-<!--                    </LinearLayout>-->
+                    </LinearLayout>
 
-<!--                </LinearLayout>-->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.1"
+                        android:orientation="vertical">
+
+                        <customfonts.MyTextView
+                            android:id="@+id/tv_bayar"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:background="@color/colorPrimaryTransperent"
+                            android:gravity="center"
+                            android:padding="5dp"
+                            android:text="Bayar Sekarang"
+                            android:textColor="#fff" />
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
 
 
             </LinearLayout>
