@@ -274,6 +274,9 @@ public interface APIInterface {
             @Field("id_alamat") String idAlamat
     );
 
+    @FormUrlEncoded
+    @POST("api/transaksi/batal_transaksi")
+    Call<JsonObject> batalPesanan(@Field("transaksi_id") String transaksiId);
 
 
 
