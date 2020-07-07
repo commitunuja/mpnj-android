@@ -33,20 +33,20 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.transaksi.StatusPembayaran"></activity>
-        <activity android:name=".activities.transaksi.KonfirmasiPembayaranActivity"/>
+        <activity android:name=".activities.wishlist.WishlistActivity"></activity>
+        <activity android:name=".activities.transaksi.StatusPembayaran" />
+        <activity android:name=".activities.transaksi.KonfirmasiPembayaranActivity" />
         <activity android:name=".activities.dashboard.ProdukTerpopulerActivity" />
         <activity android:name=".activities.details.DiskripsiActivity" />
-        <activity android:name=".activities.kurir.OpsiPengirimanActivity"
-            android:theme="@style/AppTheme.CustomTheme">
-        </activity>
-
+        <activity
+            android:name=".activities.kurir.OpsiPengirimanActivity"
+            android:theme="@style/AppTheme.CustomTheme"></activity>
         <activity android:name=".activities.pelapak.ProfilPelapakActivity" />
         <activity android:name=".activities.dashboard.SearchActivity" />
         <activity android:name=".activities.ProdukByKategori" />
         <activity android:name=".activities.ImageProfilActivity" />
         <activity android:name=".activities.checkout.CheckoutActivity" />
-        <activity android:name=".custom.MainActivity2"/>
+        <activity android:name=".custom.MainActivity2" />
         <activity android:name=".activities.Splash" />
         <activity
             android:name=".activities.DetailAlamat"
@@ -68,7 +68,6 @@
         <activity android:name=".activities.MainActivity" />
         <activity android:name=".activities.dashboard.Homepage" />
         <activity android:name=".activities.details.ProductDetailActivity" />
-
         <activity
             android:name=".activities.LoginActivity"
             android:launchMode="singleTop" />
