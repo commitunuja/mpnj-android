@@ -100,9 +100,9 @@ public class RecyclerPesananAdapter extends RecyclerView.Adapter<RecyclerPesanan
             status = itemView.findViewById(R.id.tvx_statusbayar);
             totalbayar = itemView.findViewById(R.id.tvxTotalbayar);
             jumlah = itemView.findViewById(R.id.tvxjumProd);
-            batas = itemView.findViewById(R.id.tvxBatasbayar);
+//            batas = itemView.findViewById(R.id.tvxBatasbayar);
             foto_produk = itemView.findViewById(R.id.img_foto);
-            lbayar = itemView.findViewById(R.id.linearbayar);
+//            lbayar = itemView.findViewById(R.id.linearbayar);
             cardViewpesanan = itemView.findViewById(R.id.card_pesanan);
 
             cardViewpesanan.setOnClickListener(new View.OnClickListener() {
