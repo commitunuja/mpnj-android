@@ -176,10 +176,10 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
 ////                lnkurir.setVisibility(View.VISIBLE);
 //        }else { // jika tidak mengubah alamat utama
 ////            Toast.makeText(context, "null", Toast.LENGTH_SHORT).show();
-//            tvxkurir.setText(model.getKurir());
-//            tvxservice.setText(model.getService());
-//            tvxongkos.setText(model.getOngkir());
-//            tvxetd.setText(model.getEtd());
+            tvxkurir.setText(model.getKurir());
+            tvxservice.setText(model.getService());
+            tvxongkos.setText(model.getOngkir());
+            tvxetd.setText(model.getEtd());
 //            Intent intent5 = new Intent("custom-validasiopsi2");
 //            intent5.putExtra("validasiopsi2", String.valueOf("Oke"));
 //            LocalBroadcastManager.getInstance(context).sendBroadcast(intent5);

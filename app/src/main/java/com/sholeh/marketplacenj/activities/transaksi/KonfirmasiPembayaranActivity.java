@@ -31,7 +31,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.sholeh.marketplacenj.R;
+import com.sholeh.marketplacenj.activities.checkout.CheckoutActivity;
+import com.sholeh.marketplacenj.activities.keranjang.KeranjangDetailActivity;
 import com.sholeh.marketplacenj.adapter.adapterspin;
 import com.sholeh.marketplacenj.respon.ResBank;
 import com.sholeh.marketplacenj.respon.ResKonfirmasi;
@@ -63,7 +66,7 @@ public class KonfirmasiPembayaranActivity extends AppCompatActivity implements V
     Locale localeID = new Locale("in", "ID");
     NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
     StringTokenizer st, stsub, sttotal;
-    int kodetransaksi;
+    int id_transaksi, kodetransaksi;
 
 
     ImageView imgBuktiTf;
@@ -76,7 +79,7 @@ public class KonfirmasiPembayaranActivity extends AppCompatActivity implements V
     adapterspin adapterspinner;
     Preferences preferences;
     String id_konsumen;
-    String idrekAdmin, nomorRek, anRek;
+    String idrekAdmin, nomorRek, anRek, total_bayar, tgl_pemesanan, batas_pembayaran ;
     LinearLayout lnrek;
     private List<ResBank> listResBank;
 
@@ -112,12 +115,15 @@ public class KonfirmasiPembayaranActivity extends AppCompatActivity implements V
         tvKonfirmasi = findViewById(R.id.tvxKonfirmasi);
         lnrek = findViewById(R.id.lnrek);
         lnrek.setVisibility(View.GONE);
-//        total = getIntent().getStringExtra("totalbayar");
-//        total = getIntent().getExtras().getString("totalbayar");
 
         Bundle b = getIntent().getExtras();
         totalbayar = b.getDouble("totalbayar");
+        id_transaksi = b.getInt("id_transaksi");
         kodetransaksi = b.getInt("kodetransaksi");
+//        total_bayar = b.getString("total");
+        tgl_pemesanan = b.getString("tanggal_pemesanan");
+        batas_pembayaran = b.getString("batas_pembayaran");
+
         sttotal = new StringTokenizer(formatRupiah.format(totalbayar), ",");
         String harganya = sttotal.nextToken().trim();
         edTotalbayar.setText(harganya);
@@ -159,6 +165,11 @@ public class KonfirmasiPembayaranActivity extends AppCompatActivity implements V
     }
 
     @Override
+    public void onBackPressed() {
+        onBack();
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnChooseImg:
@@ -182,6 +193,18 @@ public class KonfirmasiPembayaranActivity extends AppCompatActivity implements V
         namaPengirim = preferences.getNamaLengkap();
 
     }
+
+    public void onBack() {
+        new androidx.appcompat.app.AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Exit")
+                .setMessage("Apakah Anda yakin ingin membatalkan pesanan ?")
+                .setPositiveButton("Iya", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        batalPesanan();
+                    }
+                }).setNegativeButton("Tidak", null).show();
+    }
+
 
     private void perizinan() {
         ActivityCompat.requestPermissions(KonfirmasiPembayaranActivity.this,
@@ -433,6 +456,7 @@ public class KonfirmasiPembayaranActivity extends AppCompatActivity implements V
             @Override
             public void onResponse(Call<ResKonfirmasi> call, Response<ResKonfirmasi> response) {
                 Log.d("reskonfirmasi", String.valueOf(response));
+                Toast.makeText(KonfirmasiPembayaranActivity.this, ""+response, Toast.LENGTH_SHORT).show();
                 if (response.body() != null && response.isSuccessful()) {
                     Intent intent = new Intent(KonfirmasiPembayaranActivity.this, StatusPembayaran.class);
                     startActivity(intent);
@@ -448,7 +472,38 @@ public class KonfirmasiPembayaranActivity extends AppCompatActivity implements V
             @Override
             public void onFailure(Call<ResKonfirmasi> call, Throwable t) {
                   Log.e("reskonfirmasi2", t.toString());
+                Toast.makeText(KonfirmasiPembayaranActivity.this, "res"+t, Toast.LENGTH_SHORT).show();
+
 //                    AppUtilits.displayMessage(UbahPassword.this,  getString(R.string.failed_request));
+            }
+        });
+    }
+
+
+    public void batalPesanan() {
+        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+        Call<JsonObject> call = service.batalPesanan(String.valueOf(id_transaksi));
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                Log.d("batalpp", String.valueOf(response.body()+"\n"+response.message()));
+
+//                if (response.isSuccessful()) {
+
+//                Intent intent = new Intent(CheckoutActivity.this, KeranjangDetailActivity.class);
+//                startActivity(intent);
+//                finish();
+//                } else {
+//                    String error = "Error Retrive DataProfil from Server !!!";
+//                    Toast.makeText(CheckoutActivity.this, "gagal", Toast.LENGTH_SHORT).show();
+//                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                Log.d("gagalpp", String.valueOf(t));
+
+//                Toast.makeText(CheckoutActivity.this, "Message : Error " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
