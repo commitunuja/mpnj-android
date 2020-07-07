@@ -281,8 +281,6 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
 //        }
 
 
-
-
         ProgresDialog();
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
         Call<JsonObject> call = service.simpanTransaksi(id_konsumen, totalbayar, list);
@@ -290,35 +288,36 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                Toast.makeText(CheckoutActivity.this, ""+response, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(CheckoutActivity.this, ""+response, Toast.LENGTH_SHORT).show();
                 try {
                     JSONObject jsonObject;
                     jsonObject = new JSONObject(String.valueOf(response.body()));
-
-
-//                    Integer id_transaksi = (Integer) jsonObject.get("id_transaksi");
+                    Integer id_transaksi = (Integer) jsonObject.get("id_transaksi");
                     Integer kodetransaksi = (Integer) jsonObject.get("kode_transaksi");
-//                    Integer totalbayar = (Integer) jsonObject.get("total_bayar");
-//                    String tgl_pemesanan = (String) jsonObject.get("tanggal_pemesanan");
-//                    String batasPembayaran = (String) jsonObject.get("batas_pembayaran");
-
+                    String total_bayar = (String) jsonObject.get("total_bayar");
+                    String tgl_pemesanan = (String) jsonObject.get("tanggal_pemesanan");
+                    String batasPembayaran = (String) jsonObject.get("batas_pembayaran");
 
 
 //                    String totalbayar = (String) jsonObject.get("total_bayar");
 //                    Log.d("kodetransaksi", String.valueOf(id_transaksi)+"/t"+kodetransaksi+"/t"+totalbayar+"/t"+tgl_pemesanan+"/t"+batasPembayaran);
-                progressHUD.dismiss();
-                Intent intent = new Intent(CheckoutActivity.this, KonfirmasiPembayaranActivity.class);
-                Bundle b = new Bundle();
-                b.putDouble("totalbayar", totalbayar);
-                b.putInt("kodetransaksi", kodetransaksi);
-                intent.putExtras(b);
-                intent.putExtra("total", String.valueOf(totalbayar));
-                startActivity(intent);
+                    progressHUD.dismiss();
+                    Intent intent = new Intent(CheckoutActivity.this, KonfirmasiPembayaranActivity.class);
+                    Bundle b = new Bundle();
+                    b.putDouble("totalbayar", totalbayar);
+
+                    b.putInt("id_transaksi", id_transaksi);
+                    b.putInt("kodetransaksi", kodetransaksi);
+                    b.putString("total", total_bayar);
+                    b.putString("tanggal_pemesanan", tgl_pemesanan);
+                    b.putString("batas_pembayaran", batasPembayaran);
+                    intent.putExtras(b);
+                    startActivity(intent);
+                    finish();
                 } catch (JSONException e) {
                     e.printStackTrace();
                     progressHUD.dismiss();
                 }
-
 
 
             }
@@ -338,7 +337,7 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                Log.d("batalc", String.valueOf(response.body()));
+                Log.d("batalc", String.valueOf(response.body()+response.message()));
 
 //                if (response.isSuccessful()) {
 
