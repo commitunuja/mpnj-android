@@ -130,11 +130,12 @@ public class AddressCheckoutAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 //                ((AlamatItemView) holder).tvxnamaCustomer.setText(model.getIdAlamat());
 
                 Context context = view.getContext();
-                ResDetailKeranjang bs = ((PilihAlamatCheckout) context).getbs();
+                String cekOngkir = ((PilihAlamatCheckout) context).getOngkir();
+
+//                Toast.makeText(context, "c"+cekOngkir, Toast.LENGTH_SHORT).show();
+//                ResDetailKeranjang bs = ((PilihAlamatCheckout) context).getbs();
                 ArrayList<String> id = ((PilihAlamatCheckout) context).listIdKeranjang();
                 ArrayList<String> idByParent = new ArrayList<String>();
-
-
                 String namaPenerima = model.getNamaLengkap();
                 String AlamatLengkap = model.getAlamatLengkap();
                 String kec = model.getNamaKec();
@@ -146,61 +147,54 @@ public class AddressCheckoutAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                 String idkec = model.getIdKec();
 //                Toast.makeText(mContext, "idKec"+idkec+" alamat "+myaddress, Toast.LENGTH_SHORT).show();
 
-                Intent intent = new Intent("address-checkout");
-                intent.putExtra("address", myaddress);
-//                intent.putExtra("idkeccheckout",idkec);
-                LocalBroadcastManager.getInstance(mContext).sendBroadcast(intent);
+//                if (cekOngkir == null) {
+//                    Toast.makeText(context, "belum pilih", Toast.LENGTH_SHORT).show();
+//                    Intent intent = new Intent("address-checkout");
+//                    intent.putExtra("address", myaddress);
+////                intent.putExtra("idkeccheckout",idkec);
+//                    LocalBroadcastManager.getInstance(mContext).sendBroadcast(intent);
+//                } else {
+//                    Toast.makeText(context, "suda pilih", Toast.LENGTH_SHORT).show();
+
+                    APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+                    Call<ResAlamat> call = service.UbahAlamatUtama(id_konsumen, id_alamat);
+                    call.enqueue(new Callback<ResAlamat>() {
+                        @Override
+                        public void onResponse(Call<ResAlamat> call, Response<ResAlamat> response) {
+                            Log.d("Ubah alamat", String.valueOf(response));
+                            Toast.makeText(mContext, "" + response.message(), Toast.LENGTH_SHORT).show();
+                            if (response.body() != null && response.isSuccessful()) { // true
+                                Intent intent = new Intent(mContext, CheckoutActivity.class);
+                                intent.putExtra("id_kecpembeli", String.valueOf(model.getIdKec()));
+                                intent.putExtra("reset_kurir", "Silahkan Pilih Pengiriman Produk Anda");
+                                intent.putStringArrayListExtra("idcheckout", id);
+                                mContext.startActivity(intent);
+
+                                ((Activity) mContext).finish();
+//                        Toast.makeText(mContext, "sukses"+ id_konsumen+" "+id_alamat, Toast.LENGTH_SHORT).show();
+                            } else {
+                                Log.d("ubah alamar", String.valueOf(response.body()));
+//                        Toast.makeText(UbahPassword.this, "Password Gagal di Rubahh"+response.body(), Toast.LENGTH_LONG).show();
+//                        AppUtilits.displayMessage(UbahPassword.this,  getString(R.string.failed_request));
+
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<ResAlamat> call, Throwable t) {
+                            Log.d("gagalubahalamat", String.valueOf(t));
+//                    Toast.makeText(UbahPassword.this, "Password Gagal di Ubah"+t, Toast.LENGTH_LONG).show();
+                        }
+                    });
+
+//                }
+
 
 //                Toast.makeText(context, "klik idkeranjang"+id, Toast.LENGTH_SHORT).show();
 
 //                Toast.makeText(mContext, "id alamat " + id_alamat+ " id kec"+idkec, Toast.LENGTH_SHORT).show();
-                APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-                Call<ResAlamat> call = service.UbahAlamatUtama(id_konsumen, id_alamat);
-                call.enqueue(new Callback<ResAlamat>() {
-                    @Override
-                    public void onResponse(Call<ResAlamat> call, Response<ResAlamat> response) {
-                        Log.d("Ubah alamat", String.valueOf(response));
-                        Toast.makeText(mContext, ""+response.message(), Toast.LENGTH_SHORT).show();
-                        if (response.body() != null && response.isSuccessful()) { // true
-                            Intent intent = new Intent(mContext, CheckoutActivity.class);
-                            intent.putExtra("id_kecpembeli", String.valueOf(model.getIdKec()));
-                            intent.putExtra("reset_kurir", "Silahkan Pilih Pengiriman Produk Anda");
-                            intent.putStringArrayListExtra("idcheckout", id);
-                            mContext.startActivity(intent);
-
-                            ((Activity) mContext).finish();
-//                        Toast.makeText(mContext, "sukses"+ id_konsumen+" "+id_alamat, Toast.LENGTH_SHORT).show();
-                        } else {
-//                        Toast.makeText(UbahPassword.this, "Password Gagal di Rubahh"+response.body(), Toast.LENGTH_LONG).show();
-//                        AppUtilits.displayMessage(UbahPassword.this,  getString(R.string.failed_request));
 
 
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<ResAlamat> call, Throwable t) {
-                        Log.d("gagalubahalamat", String.valueOf(t));
-//                    Toast.makeText(UbahPassword.this, "Password Gagal di Ubah"+t, Toast.LENGTH_LONG).show();
-                    }
-                });
-
-//                ubahAlamatUtama();
-//
-
-                //                Intent intent1 = new Intent(mContext, CheckoutActivity.class);
-//                intent1.putExtra("alamat_lengkap",myaddress);
-//                mContext.startActivity(intent1);
-
-//                ((AlamatActivity) mContext).    addressid = model.getaddress_id();
-////
-//                for (int i=0; i<addrlayoutsList.size(); i++){
-//                    addrlayoutsList.get (i).setBackgroundResource(R.drawable.boarder_black_rounder_white);
-//                    imagelist.get(i).setVisibility(View.GONE);
-//                }
-////
-//                ((AlamatItemView) holder).cvAlamat.setBackgroundResource(R.drawable.boarder_green_rounder_white);
-//                ((AlamatItemView) holder).imageselect.setVisibility(View.VISIBLE);
             }
         });
 

@@ -58,7 +58,7 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
 
     TextView tvxtolbar, tvxUbahAlamat, tvxSetAlamat, tvxPilihBank, tvx_idKecPembeli, tvxtotalCheckout, tvxSubtotalProd, tvxsubPengiriman, tvxValsubOngkir1, tvxValsubOngkir2, tvxBayar;
     Preferences preferences;
-    String id_konsumen;
+    String id_konsumen, cekOngkir;
     private List<HeaderCheckout> listHeader;
     private HashMap<HeaderCheckout, List<ChildCheckout>> listChild;
     List<ChildCheckout> child;
@@ -212,8 +212,9 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tvxubahAlamat:
+//                Toast.makeText(this, "cek "+cekOngkir, Toast.LENGTH_SHORT).show();
                 goPilihAlamat();
-                valKlikPilihAlamat = true;
+//                valKlikPilihAlamat = true;
 
 //                finish();
                 break;
@@ -246,10 +247,11 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
 //        }
 
 //        updateStatusProduk();
-        startActivity(new Intent(this, PilihAlamatCheckout.class));
+//        startActivity(new Intent(this, PilihAlamatCheckout.class));
         Intent goPilihAlamat = new Intent(this, PilihAlamatCheckout.class);
 //        goPilihAlamat.putStringArrayListExtra("idcheckout", arrayIdKeranjang);
         goPilihAlamat.putStringArrayListExtra("idcheckout", idK);
+        goPilihAlamat.putExtra("cekongkir",cekOngkir);
         startActivity(goPilihAlamat);
 
 
@@ -399,6 +401,8 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
                                     response.body().getDataKeranjang().get(i).getService(),
                                     response.body().getDataKeranjang().get(i).getOngkir(),
                                     response.body().getDataKeranjang().get(i).getEtd()));
+
+                            cekOngkir = response.body().getDataKeranjang().get(i).getKurir();
 
 
 //                            Toast.makeText(CheckoutActivity.this, ""+response.body().getDataKeranjang().get(0).getNamaKota(), Toast.LENGTH_SHORT).show();
