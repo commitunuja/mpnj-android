@@ -251,7 +251,7 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
         Intent goPilihAlamat = new Intent(this, PilihAlamatCheckout.class);
 //        goPilihAlamat.putStringArrayListExtra("idcheckout", arrayIdKeranjang);
         goPilihAlamat.putStringArrayListExtra("idcheckout", idK);
-        goPilihAlamat.putExtra("cekongkir",cekOngkir);
+        goPilihAlamat.putExtra("cekongkir", cekOngkir);
         startActivity(goPilihAlamat);
 
 
@@ -269,20 +269,10 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void simpanTransaksi() {
-//        String subval1 = tvxValsubOngkir1.getText().toString();
-//        if (valKlikPilihAlamat == true) { // val2 jika pilih alamat
-//            Toast.makeText(this, "2", Toast.LENGTH_SHORT).show();
-//
-//        } else {
-//            if (subval1.equals("Rp0")) {
-//                Toast.makeText(this, "Lengkapi Pengiriman Produk Anda", Toast.LENGTH_SHORT).show();
-//            } else {
-//                Toast.makeText(this, "OK", Toast.LENGTH_SHORT).show();
-//            }
-//
-//        }
-
-
+        String subval1 = tvxValsubOngkir1.getText().toString();
+        if (subval1.equals("Rp0")) {
+            Toast.makeText(this, "Lengkapi Pengiriman Produk Anda", Toast.LENGTH_SHORT).show();
+        } else {
         ProgresDialog();
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
         Call<JsonObject> call = service.simpanTransaksi(id_konsumen, totalbayar, list);
@@ -330,6 +320,7 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
                 progressHUD.dismiss();
             }
         });
+        }
     }
 
     public void batalChekout() {
@@ -339,7 +330,7 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                Log.d("batalc", String.valueOf(response.body()+response.message()));
+                Log.d("batalc", String.valueOf(response.body() + response.message()));
 
 //                if (response.isSuccessful()) {
 

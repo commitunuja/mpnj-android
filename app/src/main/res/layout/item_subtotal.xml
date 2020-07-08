@@ -76,7 +76,7 @@
 
 
             <LinearLayout
-
+                android:visibility="gone"
                 android:layout_marginTop="5dp"
                 android:layout_below="@+id/lnsub2"
                 android:id="@+id/amount"
