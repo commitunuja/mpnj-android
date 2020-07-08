@@ -93,6 +93,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnSimpank:
+//                Toast.makeText(this, "klik", Toast.LENGTH_SHORT).show();
                 newRegistrasi();
                 break;
 
@@ -118,14 +119,14 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         final String konpassword_ = ed_konfirmasiPass.getText().toString();
         final String nomorHp_ = ed_nomorHP.getText().toString();
         final String email_ = ed_email.getText().toString();
-        final String statusA_ = "aktif";
+//        final String statusA_ = "aktif";
 
 //            if (!validasi()) return;
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
 
 //            ServiceWrapper serviceWrapper = new ServiceWrapper(null);
         Call<ResRegristasi> callNewREgistration = service.registerKonsumenCall(
-                namalengkap_, username_, password_, nomorHp_, email_, statusA_);
+                namalengkap_, username_, password_, nomorHp_, email_);
         callNewREgistration.enqueue(new Callback<ResRegristasi>() {
             @Override
             public void onResponse(Call<ResRegristasi> call, Response<ResRegristasi> response) {
@@ -134,6 +135,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 Log.d("regristasi", String.valueOf(response));
 
                 if (response.body() != null && response.isSuccessful()) {
+                    Toast.makeText(RegisterActivity.this, "Berhasil", Toast.LENGTH_SHORT).show();
+
+                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                            startActivity(intent);
+                            finish();
+//
+//                    Toast.makeText(RegisterActivity.this, "sukses", Toast.LENGTH_SHORT).show();
 //                    if (response.body().getPesan().equalsIgnoreCase("Sukses!")) {
 //                        for (int a = 0; a < response.body().getData().size(); a++) {
 ////                                SharedPreferences preferences = getSharedPreferences("App", Context.MODE_PRIVATE);
@@ -151,9 +159,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 ////                            Preferences.getInstance().getString(CONSTANTS.EMAIL, String.valueOf(response.body().getData().get(a).getEmail()));
 //
 //
-//                            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-//                            startActivity(intent);
-//                            finish();
+//
 //
 //                        }
 //
@@ -161,7 +167,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 //                    } else {
 //                        Toast.makeText(RegisterActivity.this, "r" + response.body().getPesan(), Toast.LENGTH_SHORT).show();
 ////                            AppUtilits.displayMessage(RegisterActivity.this,  response.body().getPesan());
-//                    }
+////                    }
                 } else {
                     Toast.makeText(RegisterActivity.this, "rr" + response.body().getPesan(), Toast.LENGTH_SHORT).show();
 
