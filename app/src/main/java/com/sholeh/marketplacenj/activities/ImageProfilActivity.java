@@ -22,11 +22,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.sholeh.marketplacenj.respon.ResRegristasi;
 import com.sholeh.marketplacenj.util.api.APIInterface;
 import com.sholeh.marketplacenj.util.CONSTANTS;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.util.ServiceGenerator;
-import com.sholeh.marketplacenj.respon.ResImg;
 import com.sholeh.marketplacenj.respon.ResProfil;
 import com.sholeh.marketplacenj.util.Preferences;
 import com.squareup.picasso.Picasso;
@@ -220,7 +220,6 @@ public class ImageProfilActivity extends AppCompatActivity implements View.OnCli
     }
 
 
-
     private void uploadImage() {
         File file = new File(selectImagePath);
         RequestBody reqFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
@@ -228,19 +227,19 @@ public class ImageProfilActivity extends AppCompatActivity implements View.OnCli
         RequestBody ImageName = RequestBody.create(MediaType.parse("text/plain"), file.getName());
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
         RequestBody _id_konsumen = RequestBody.create(MediaType.parse("text/plain"), id_konsumen);
-        Call<ResImg> call  = service.uploadProfiKonsumen(_id_konsumen, imageBody);
-        call.enqueue(new Callback<ResImg>() {
+        Call<ResRegristasi> call  = service.uploadProfiKonsumen(_id_konsumen, imageBody);
+        call.enqueue(new Callback<ResRegristasi>() {
             @Override
-            public void onResponse(Call<ResImg> call, Response<ResImg> response) {
-                Log.d("resimg", String.valueOf(response));
+            public void onResponse(Call<ResRegristasi> call, Response<ResRegristasi> response) {
+                Log.d("resimgs", String.valueOf(response));
                 Toast.makeText(ImageProfilActivity.this, "Sukses", Toast.LENGTH_SHORT).show();
                 finish();
             }
 
             @Override
-            public void onFailure(Call<ResImg> call, Throwable t) {
-                Toast.makeText(ImageProfilActivity.this, "Gagal", Toast.LENGTH_LONG).show();
-                Log.d("kocor", String.valueOf(t));
+            public void onFailure(Call<ResRegristasi> call, Throwable t) {
+//                Toast.makeText(ImageProfilActivity.this, "Gagal"+t, Toast.LENGTH_LONG).show();
+                Log.d("resimgg", String.valueOf(t));
 
                 //  Log.e(TAG, " failure "+ t.toString());
 //                    AppUtilits.displayMessage(UbahPassword.this,  getString(R.string.failed_request));
