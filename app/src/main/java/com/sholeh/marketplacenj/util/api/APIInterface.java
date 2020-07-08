@@ -12,7 +12,6 @@ import com.sholeh.marketplacenj.respon.ResBank;
 import com.sholeh.marketplacenj.respon.ResDetailAlamat;
 import com.sholeh.marketplacenj.respon.ResDetailKeranjang;
 import com.sholeh.marketplacenj.respon.ResHapusKeranjang;
-import com.sholeh.marketplacenj.respon.ResImg;
 import com.sholeh.marketplacenj.respon.ResKeranjang;
 import com.sholeh.marketplacenj.respon.ResKonfirmasi;
 import com.sholeh.marketplacenj.respon.ResLogin;
@@ -89,8 +88,7 @@ public interface APIInterface {
                                              @Field("username") String username,
                                              @Field("password") String password,
                                              @Field("nomor_hp") String nomorHp,
-                                             @Field("email") String email,
-                                             @Field("status") String status);
+                                             @Field("email") String email);
 
     //  user signin konsumen request
     @FormUrlEncoded
@@ -170,7 +168,7 @@ public interface APIInterface {
 
     @Multipart
     @POST("api/konsumen/upload")
-    Call<ResImg> uploadProfiKonsumen(
+    Call<ResRegristasi> uploadProfiKonsumen(
             @Part("id_konsumen") RequestBody idKonsumen,
             @Part MultipartBody.Part file);
 

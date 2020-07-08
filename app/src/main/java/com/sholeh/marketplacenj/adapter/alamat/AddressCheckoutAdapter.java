@@ -160,6 +160,7 @@ public class AddressCheckoutAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                     @Override
                     public void onResponse(Call<ResAlamat> call, Response<ResAlamat> response) {
                         Log.d("Ubah alamat", String.valueOf(response));
+                        Toast.makeText(mContext, ""+response.message(), Toast.LENGTH_SHORT).show();
                         if (response.body() != null && response.isSuccessful()) { // true
                             Intent intent = new Intent(mContext, CheckoutActivity.class);
                             intent.putExtra("id_kecpembeli", String.valueOf(model.getIdKec()));
