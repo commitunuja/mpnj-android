@@ -204,9 +204,6 @@ public class OpsiPengirimanActivity extends AppCompatActivity {
                 i.putStringArrayListExtra("idcheckout", arrayIdKeranjang);
                 finish();
                 startActivity(i);
-
-
-
             }
 
             @Override

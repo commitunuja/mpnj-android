@@ -300,7 +300,7 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
 
 
 //                    String totalbayar = (String) jsonObject.get("total_bayar");
-//                    Log.d("kodetransaksi", String.valueOf(id_transaksi)+"/t"+kodetransaksi+"/t"+totalbayar+"/t"+tgl_pemesanan+"/t"+batasPembayaran);
+                    Log.d("kodetransaksi", String.valueOf(id_transaksi)+"/t"+kodetransaksi+"/t"+totalbayar+"/t"+tgl_pemesanan+"/t"+batasPembayaran);
                     progressHUD.dismiss();
                     Intent intent = new Intent(CheckoutActivity.this, KonfirmasiPembayaranActivity.class);
                     Bundle b = new Bundle();

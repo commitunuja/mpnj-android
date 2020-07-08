@@ -456,7 +456,7 @@ public class KonfirmasiPembayaranActivity extends AppCompatActivity implements V
             @Override
             public void onResponse(Call<ResKonfirmasi> call, Response<ResKonfirmasi> response) {
                 Log.d("reskonfirmasi", String.valueOf(response));
-                Toast.makeText(KonfirmasiPembayaranActivity.this, ""+response, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(KonfirmasiPembayaranActivity.this, ""+response, Toast.LENGTH_SHORT).show();
                 if (response.body() != null && response.isSuccessful()) {
                     Intent intent = new Intent(KonfirmasiPembayaranActivity.this, StatusPembayaran.class);
                     startActivity(intent);
@@ -481,15 +481,18 @@ public class KonfirmasiPembayaranActivity extends AppCompatActivity implements V
 
 
     public void batalPesanan() {
+        //Toast.makeText(this, ""+id_transaksi, Toast.LENGTH_SHORT).show();
+        
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
         Call<JsonObject> call = service.batalPesanan(String.valueOf(id_transaksi));
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                Log.d("batalpp", String.valueOf(response.body()+"\n"+response.message()));
+                Log.d("gagalp", String.valueOf(response.body()+"\n"+response.message()));
+                Toast.makeText(KonfirmasiPembayaranActivity.this, "batalpp"+response.body()+"\n"+response.message(), Toast.LENGTH_SHORT).show();
 
 //                if (response.isSuccessful()) {
-
+//
 //                Intent intent = new Intent(CheckoutActivity.this, KeranjangDetailActivity.class);
 //                startActivity(intent);
 //                finish();
@@ -502,8 +505,7 @@ public class KonfirmasiPembayaranActivity extends AppCompatActivity implements V
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
                 Log.d("gagalpp", String.valueOf(t));
-
-//                Toast.makeText(CheckoutActivity.this, "Message : Error " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(KonfirmasiPembayaranActivity.this, "Message : Error " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
