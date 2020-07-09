@@ -26,6 +26,21 @@ public class DataPesanan {
     @Expose
     private List<Item> item = null;
 
+    public DataPesanan(String namaToko, Integer jumlahPesanan, Integer totalPembayaran, String kodeInvoice, String waktuTransaksi, List<Item> item) {
+    this.namaToko = namaToko;
+    this.jumlahPesanan = jumlahPesanan;
+    this.totalPembayaran = totalPembayaran;
+    this.kodeInvoice = kodeInvoice;
+    this.waktuTransaksi = waktuTransaksi;
+    this.item = item;
+    }
+
+//    public DataPesanan(String nama, int totalbayar, int jumlahproduk, String namaToko, String waktuTransaksi, List<Item> item) {
+//        this.namaToko = nama;
+//        this.totalPembayaran = totalbayar;
+//        this.jumlahPesanan = jumlahproduk;
+//    }
+
     public String getKodeInvoice() {
         return kodeInvoice;
     }
