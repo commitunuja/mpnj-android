@@ -110,6 +110,8 @@ public class PesananFragment extends Fragment {
                     } else {
 
                     }
+                    recyclerPesananAdapter = new PesananAdapter(getContext(), dataPesanans, item);
+                    recyclerView.setAdapter(recyclerPesananAdapter);
 
     }
 }
