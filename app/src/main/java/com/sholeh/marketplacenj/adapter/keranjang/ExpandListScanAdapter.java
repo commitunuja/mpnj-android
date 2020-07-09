@@ -186,7 +186,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
         tvx_addjumlah.setText(String.valueOf(jumlahProduk));
 
         int hitungJumHarga = jumlahProduk * hargaProduk;
-        st = new StringTokenizer(formatRupiah.format(hitungJumHarga), ",");
+        st = new StringTokenizer(formatRupiah.format(hargaProduk), ",");
         String hargajum = st.nextToken().trim();
         tvx_harga.setText(hargajum);
 
@@ -206,7 +206,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
             double h = vdiskon / 100 * hargaProduk;
             double p = hargaProduk - h;
             double hitung = jumlahProduk * p;
-            st = new StringTokenizer(formatRupiah.format(hitung), ",");
+            st = new StringTokenizer(formatRupiah.format(p), ",");
             String harganya = st.nextToken().trim();
             tvx_hargaDiskon.setPaintFlags(tvx_harga.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             tvx_hargaDiskon.setTextColor(context.getResources().getColor(R.color.redTransparent));
@@ -304,10 +304,11 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
         childModel.setJumlah(jumlahProduk);
         notifyDataSetChanged();
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-        Call<ResDetailKeranjang> call = service.getDataDetailKeranjang(id_konsumen);
-        call.enqueue(new Callback<ResDetailKeranjang>() {
+        Call<ResUbahJumlahProduk> call = service.updateJumlah(idKeranjang, String.valueOf(jumlahProduk));
+        call.enqueue(new Callback<ResUbahJumlahProduk>() {
             @Override
-            public void onResponse(Call<ResDetailKeranjang> call, Response<ResDetailKeranjang> response) {
+            public void onResponse(Call<ResUbahJumlahProduk> call, Response<ResUbahJumlahProduk> response) {
+                Log.d("addjumlah", "onResponse: "+response);
                 if (response.body() != null && response.isSuccessful()) {
                     getTotal();
 
@@ -318,8 +319,9 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
             }
 
             @Override
-            public void onFailure(Call<ResDetailKeranjang> call, Throwable t) {
-                Toast.makeText(context, "gagal " + t, Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<ResUbahJumlahProduk> call, Throwable t) {
+                Log.d("addjumlah", "onerror"+t);
+//                Toast.makeText(context, "gagal " + t, Toast.LENGTH_SHORT).show();
 //                            Log.e(TAG, " edit fail "+ t.toString());
 //                            AppUtilits.displayMessage(mContext,  mContext.getString(R.string.fail_toeditcart));
             }
@@ -343,6 +345,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
         call.enqueue(new Callback<ResUbahJumlahProduk>() {
             @Override
             public void onResponse(Call<ResUbahJumlahProduk> call, Response<ResUbahJumlahProduk> response) {
+                Log.d("kurangi", "onResponse: "+response);
                 if (response.body() != null && response.isSuccessful()) {
                     getTotal();
 
@@ -356,7 +359,8 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 
             @Override
             public void onFailure(Call<ResUbahJumlahProduk> call, Throwable t) {
-                Toast.makeText(context, "gagal " + t, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context, "gagal " + t, Toast.LENGTH_SHORT).show();
+                Log.d("kurangijumlah", "onerror"+t);
 //                            Log.e(TAG, " edit fail "+ t.toString());
 //                            AppUtilits.displayMessage(mContext,  mContext.getString(R.string.fail_toeditcart));
             }

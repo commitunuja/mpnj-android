@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="2dp"
+
         android:weightSum="3">
 
 
@@ -60,18 +60,6 @@
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
-<!--                <customfonts.MyTextView_Roboto_Medium-->
-
-<!--                    android:gravity="center"-->
-<!--                    android:id="@+id/txtIdKabPenjual"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="40dp"-->
-<!--                    android:paddingTop="2dp"-->
-<!--                    android:paddingBottom="5dp"-->
-<!--                    android:text="Toko Sholeh"-->
-<!--                    android:textSize="14sp"-->
-<!--                    android:textStyle="bold" />-->
-
             </LinearLayout>
 
 
@@ -94,6 +82,7 @@
 
 
     <View
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#0F000000" />
@@ -103,8 +92,7 @@
         android:id="@+id/linearopsi"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:elevation="4dp"
+        android:elevation="3dp"
         android:gravity="center"
         android:orientation="vertical"
         android:outlineAmbientShadowColor="@color/colorutama">
@@ -232,6 +220,7 @@
 
 
                 <customfonts.MyTextView_Roboto_Medium
+                    android:id="@+id/tvAkanditerima"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"

@@ -128,7 +128,7 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
 
         convertView = LayoutInflater.from(context).inflate(R.layout.desain_parent_checkout, null);
         final Dialog myDialog;
-        final TextView nama_kk, no_pelanggan, idKabPenjual, tvx_OpsiKurir1, tvxkurir, tvxservice, tvxongkos, tvxetd;
+        final TextView nama_kk, no_pelanggan, idKabPenjual, tvx_OpsiKurir1, tvxkurir, tvxservice, tvxongkos, tvxetd, tvxAkanditerima;
         final LinearLayout lnkurir;
         linearLayout = convertView.findViewById(R.id.linearopsi);
         nama_kk = convertView.findViewById(R.id.txtNamaToko);
@@ -138,6 +138,7 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
         tvxongkos = convertView.findViewById(R.id.tvongkos);
         tvxetd = convertView.findViewById(R.id.tvxetd);
         lnkurir = convertView.findViewById(R.id.lnKurir);
+        tvxAkanditerima = convertView.findViewById(R.id.tvAkanditerima);
         myDialog = new Dialog(context);
 
 
@@ -150,8 +151,6 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
 //        Toast.makeText(context, "ongkos"+model.getOngkir(), Toast.LENGTH_SHORT).show();
 
         String getresetKurir = ((CheckoutActivity) context).resetKurir();
-
-//        Toast.makeText(context, "reset "+getresetKurir, Toast.LENGTH_SHORT).show();
 
 
 //
@@ -168,15 +167,13 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
 //
 ////            Toast.makeText(context, "!null", Toast.LENGTH_SHORT).show();
 //////            Toast.makeText(context, "!= null", Toast.LENGTH_SHORT).show();
-//////            tvxkurir.setVisibility(View.GONE);
-//////            tvxservice.setVisibility(View.GONE);
-//////            tvxongkos.setVisibility(View.GONE);
-//////            tvxetd.setVisibility(View.GONE);
+//////
 ////        }else if(model.getKurir() != null){
 ////                lnkurir.setVisibility(View.VISIBLE);
 //        }else { // jika tidak mengubah alamat utama
 ////            Toast.makeText(context, "null", Toast.LENGTH_SHORT).show();
-            tvxkurir.setText(model.getKurir());
+        String kurir = model.getKurir();
+            tvxkurir.setText(kurir);
             tvxservice.setText(model.getService());
             tvxongkos.setText(model.getOngkir());
             tvxetd.setText(model.getEtd());
@@ -193,6 +190,24 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
 //////            Toast.makeText(context, " null", Toast.LENGTH_SHORT).show();
 //        }
 
+
+//        Toast.makeText(context, "kurir "+kurir, Toast.LENGTH_SHORT).show();
+//        if (kurir != null ) {
+//            lnkurir.setVisibility(View.VISIBLE);
+////            tvxkurir.setVisibility(View.VISIBLE);
+////            tvxservice.setVisibility(View.VISIBLE);
+////            tvxongkos.setVisibility(View.VISIBLE);
+////            tvxetd.setVisibility(View.VISIBLE);
+////            tvxAkanditerima.setVisibility(View.VISIBLE);
+//        }else if(kurir == null){
+//            lnkurir.setVisibility(View.GONE);
+////            tvxkurir.setVisibility(View.GONE);
+////            tvxservice.setVisibility(View.GONE);
+////            tvxongkos.setVisibility(View.GONE);
+////            tvxetd.setVisibility(View.GONE);
+////            tvxAkanditerima.setVisibility(View.GONE);
+//        }
+//
 
 
 
