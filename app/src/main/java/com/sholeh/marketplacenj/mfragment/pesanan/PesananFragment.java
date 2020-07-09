@@ -95,6 +95,8 @@ public class PesananFragment extends Fragment {
                                     response.body().getDataPesanan().get(i).getItem()));
 //            }
 //        });
+                            itemdata = new ArrayList<>();
+                            List<Item> items = array.get(i).getItem();
 
     }
 }
