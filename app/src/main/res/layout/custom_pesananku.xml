@@ -83,7 +83,7 @@
                             android:textStyle="bold" />
 
                         <customfonts.TextViewSFProDisplaySemibold
-                            android:id="@+id/tvx_statusbayar"
+                            android:id="@+id/tv_status_order"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_alignParentTop="true"
