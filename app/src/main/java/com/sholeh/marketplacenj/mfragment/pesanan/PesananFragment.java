@@ -76,11 +76,11 @@ public class PesananFragment extends Fragment {
 
         dataPesanans = new ArrayList<>();
         item = new HashMap<>();
-//            public void onResponse(Call<List<DataPesanan>> call, Response<List<DataPesanan>> response) {
-//                if (response.body() != null && response.isSuccessful()) {
-//
-//                    pesanan_models = response.body();
-//                    recyclerPesananAdapter = new RecyclerPesananAdapter(getContext(), pesanan_models);
+        call.enqueue(new Callback<Pesanan>() {
+            @Override
+            public void onResponse(Call<Pesanan> call, retrofit2.Response<Pesanan> response) {
+                if (response.body() != null && response.isSuccessful()) {
+                    if (response.body().getDataPesanan().size() > 0) {
 //                    recyclerView.setAdapter(recyclerPesananAdapter);
 //
 //                    Toast.makeText(getContext(), "" + response, Toast.LENGTH_SHORT).show();
