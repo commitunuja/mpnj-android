@@ -304,10 +304,11 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
         childModel.setJumlah(jumlahProduk);
         notifyDataSetChanged();
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-        Call<ResDetailKeranjang> call = service.getDataDetailKeranjang(id_konsumen);
-        call.enqueue(new Callback<ResDetailKeranjang>() {
+        Call<ResUbahJumlahProduk> call = service.updateJumlah(idKeranjang, String.valueOf(jumlahProduk));
+        call.enqueue(new Callback<ResUbahJumlahProduk>() {
             @Override
-            public void onResponse(Call<ResDetailKeranjang> call, Response<ResDetailKeranjang> response) {
+            public void onResponse(Call<ResUbahJumlahProduk> call, Response<ResUbahJumlahProduk> response) {
+                Log.d("addjumlah", "onResponse: "+response);
                 if (response.body() != null && response.isSuccessful()) {
                     getTotal();
 
@@ -318,8 +319,9 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
             }
 
             @Override
-            public void onFailure(Call<ResDetailKeranjang> call, Throwable t) {
-                Toast.makeText(context, "gagal " + t, Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<ResUbahJumlahProduk> call, Throwable t) {
+                Log.d("addjumlah", "onerror"+t);
+//                Toast.makeText(context, "gagal " + t, Toast.LENGTH_SHORT).show();
 //                            Log.e(TAG, " edit fail "+ t.toString());
 //                            AppUtilits.displayMessage(mContext,  mContext.getString(R.string.fail_toeditcart));
             }
@@ -343,6 +345,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
         call.enqueue(new Callback<ResUbahJumlahProduk>() {
             @Override
             public void onResponse(Call<ResUbahJumlahProduk> call, Response<ResUbahJumlahProduk> response) {
+                Log.d("kurangi", "onResponse: "+response);
                 if (response.body() != null && response.isSuccessful()) {
                     getTotal();
 
@@ -356,7 +359,8 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 
             @Override
             public void onFailure(Call<ResUbahJumlahProduk> call, Throwable t) {
-                Toast.makeText(context, "gagal " + t, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context, "gagal " + t, Toast.LENGTH_SHORT).show();
+                Log.d("kurangijumlah", "onerror"+t);
 //                            Log.e(TAG, " edit fail "+ t.toString());
 //                            AppUtilits.displayMessage(mContext,  mContext.getString(R.string.fail_toeditcart));
             }
