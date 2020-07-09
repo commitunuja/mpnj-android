@@ -37,16 +37,19 @@
                         android:layout_marginBottom="20dp"
                         android:orientation="vertical">
 
+
+
                         <FrameLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
 
+
                             <androidx.viewpager.widget.ViewPager
                                 android:id="@+id/viewpager_product_detail"
                                 android:layout_width="match_parent"
                                 android:layout_height="285dp"
-                                android:layout_marginBottom="20dp"
+                                android:layout_marginBottom="5dp"
                                 android:layout_weight="1"
                                 android:clipToPadding="false" />
 
@@ -64,6 +67,34 @@
                                     android:src="@drawable/right_gray" />
 
                             </RelativeLayout>
+
+                            <LinearLayout
+                                android:layout_gravity="bottom|right"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginRight="20dp"
+                                android:orientation="horizontal">
+
+                                <RelativeLayout
+                                    android:gravity="right"
+                                    android:layout_weight="1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+
+                                    <ImageView
+
+                                        android:layout_width="40dp"
+                                        android:layout_height="40dp"
+                                        android:id="@+id/add_to_wishlist"
+                                        android:src="@mipmap/ic_like_fille_green_24dp" />
+
+                                </RelativeLayout>
+
+
+
+                            </LinearLayout>
 
                         </FrameLayout>
 
@@ -171,14 +202,13 @@
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="0.5dp"
-                            android:layout_marginTop="15dp"
+                            android:layout_marginTop="5dp"
                             android:background="@color/viewline" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="22dp"
-                            android:layout_marginTop="20dp"
                             android:orientation="vertical">
 
                             <customfonts.MyTextView_Roboto_Medium
