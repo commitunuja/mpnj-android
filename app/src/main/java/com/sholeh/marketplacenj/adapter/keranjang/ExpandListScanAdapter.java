@@ -186,7 +186,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
         tvx_addjumlah.setText(String.valueOf(jumlahProduk));
 
         int hitungJumHarga = jumlahProduk * hargaProduk;
-        st = new StringTokenizer(formatRupiah.format(hitungJumHarga), ",");
+        st = new StringTokenizer(formatRupiah.format(hargaProduk), ",");
         String hargajum = st.nextToken().trim();
         tvx_harga.setText(hargajum);
 
@@ -206,7 +206,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
             double h = vdiskon / 100 * hargaProduk;
             double p = hargaProduk - h;
             double hitung = jumlahProduk * p;
-            st = new StringTokenizer(formatRupiah.format(hitung), ",");
+            st = new StringTokenizer(formatRupiah.format(p), ",");
             String harganya = st.nextToken().trim();
             tvx_hargaDiskon.setPaintFlags(tvx_harga.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             tvx_hargaDiskon.setTextColor(context.getResources().getColor(R.color.redTransparent));
