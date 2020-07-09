@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sholeh.marketplacenj.model.Foto;
+import com.sholeh.marketplacenj.model.pesanan.DataPesanan;
 import com.sholeh.marketplacenj.util.CONSTANTS;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.activities.details.ProductDetailActivity;
@@ -24,20 +25,14 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ViewHolder
     private Context context;
     private List<Model> tvDataProduks; // model / item
     private Model tvDataProduk;
-    private List<Model> getAllData;
-    //    private Model getalldata;
-    private List<Foto> tampil;
+
 
 
     public ProdukAdapter(Context context, List<Model> tvDataProduks) {
         this.context = context;
         this.tvDataProduks = tvDataProduks;
 
-
     }
-
-
-
 
     @NonNull
     @Override
