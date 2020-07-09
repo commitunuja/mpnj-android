@@ -35,6 +35,19 @@ public class PesananFragment extends Fragment {
     RecyclerPesananAdapter recyclerPesananAdapter;
     private HashMap<DataPesanan, List<Item>> item;
 
+    TextView nama;
+
+    String pending, verifikasi, packing, dikirim, sukses, batal;
+    RecyclerView.LayoutManager dataapi;
+
+    public static PesananFragment newInstance(int index) {
+        PesananFragment fragment = new PesananFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt(ARG_SECTION_NUMBER, index);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
     String pending, verifikasi, packing, dikirim, sukses, batal;
     RecyclerView.LayoutManager dataapi;
 //    public PesananFragment() {
