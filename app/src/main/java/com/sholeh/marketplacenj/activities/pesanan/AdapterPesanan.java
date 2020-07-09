@@ -22,7 +22,7 @@ public class AdapterPesanan extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return TabSemua.newInstance(position + 1);
+                return PesananFragment.newInstance(position + 1);
             case 1:
                 return TabBelumBayar.newInstance(position + 2);
             case 2:
