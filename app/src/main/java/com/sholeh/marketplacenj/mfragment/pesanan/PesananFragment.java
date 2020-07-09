@@ -27,7 +27,10 @@ import retrofit2.Response;
 
 public class PesananFragment extends Fragment {
 
-    private List<DataPesanan> pesanan_models;
+    private static final String ARG_SECTION_NUMBER = "123";
+    private DataPesanan pesanan_models;
+    private List<DataPesanan> dataPesanans;
+    //    List<Pesanan> pesanans;
     RecyclerView recyclerView;
     RecyclerPesananAdapter recyclerPesananAdapter;
 
