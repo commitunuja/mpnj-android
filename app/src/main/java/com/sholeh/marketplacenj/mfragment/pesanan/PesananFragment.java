@@ -33,6 +33,7 @@ public class PesananFragment extends Fragment {
     //    List<Pesanan> pesanans;
     RecyclerView recyclerView;
     RecyclerPesananAdapter recyclerPesananAdapter;
+    private HashMap<DataPesanan, List<Item>> item;
 
     String pending, verifikasi, packing, dikirim, sukses, batal;
     RecyclerView.LayoutManager dataapi;
