@@ -71,9 +71,9 @@ public class PesananFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
 
 
-//        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-//        Call<List<DataPesanan>> call = service.getDataPesanan(String.valueOf(1), pending);
-//
+        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+        Call<Pesanan> call = service.getDataPesanan(String.valueOf(id_konsumen));
+
 //        call.enqueue(new Callback<List<DataPesanan>>() {
 //            @Override
 //            public void onResponse(Call<List<DataPesanan>> call, Response<List<DataPesanan>> response) {
