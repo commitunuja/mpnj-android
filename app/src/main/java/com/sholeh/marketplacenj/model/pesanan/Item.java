@@ -18,6 +18,13 @@ public class Item {
     @Expose
     private String statusOrder;
 
+    public Item(String hargajual, String namaproduk, String foto, String status) {
+        this.namaProduk = namaproduk;
+        this.hargaJual = hargajual;
+        this.foto = foto;
+        this.statusOrder = status;
+    }
+
     public String getNamaProduk() {
         return namaProduk;
     }
