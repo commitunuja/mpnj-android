@@ -20,6 +20,7 @@ import com.sholeh.marketplacenj.respon.ResProfil;
 import com.sholeh.marketplacenj.respon.ResRegristasi;
 import com.sholeh.marketplacenj.respon.ResRekAdmin;
 import com.sholeh.marketplacenj.respon.ResUbahJumlahProduk;
+import com.sholeh.marketplacenj.respon.ResWishlist;
 import com.sholeh.marketplacenj.respon.RestCost;
 
 import java.util.ArrayList;
@@ -46,14 +47,14 @@ public interface APIInterface {
     abstract Call<List<Model>> getProduk();
 
     @GET("api/pelapak/{id_user}")
-     Call<List<Model>> getProdukPelapak(
+    Call<List<Model>> getProdukPelapak(
             @Path("id_user") String id_user);
 
     @GET("api/kategori")
     Call<List<Kategori>> getKategori();
 
     @GET("api/kategori/{id_kategori}")
-    Call<List<Model>> getKategoriByid( @Path("id_kategori") String idKategori );
+    Call<List<Model>> getKategoriByid(@Path("id_kategori") String idKategori);
 
 
     // Province get from raja ongkir
@@ -74,12 +75,12 @@ public interface APIInterface {
     @FormUrlEncoded
     @POST("cost")
     @Headers("key:b28063e60be5386c072394b4713aae8d")
-    Call<ItemCost> hitungOngkir (@Field("origin") String origin,
-                                 @Field("originType") String originType,
-                                 @Field("destination") String destination,
-                                 @Field("destinationType") String destinationType,
-                                 @Field("weight") int weight,
-                                 @Field("courier") String courier);
+    Call<ItemCost> hitungOngkir(@Field("origin") String origin,
+                                @Field("originType") String originType,
+                                @Field("destination") String destination,
+                                @Field("destinationType") String destinationType,
+                                @Field("weight") int weight,
+                                @Field("courier") String courier);
 
     // signup konsumen
     @FormUrlEncoded
@@ -258,9 +259,9 @@ public interface APIInterface {
     @Multipart
     @POST("api/konfirmasi/simpan")
     Call<ResKonfirmasi> simpanKonfirmasi(
-            @Part("kode_transaksi") RequestBody  kodeTransaksi,
-            @Part("total_transfer") RequestBody  totalTransfer,
-            @Part("rekening_admin_id") RequestBody  rekeningAdminId,
+            @Part("kode_transaksi") RequestBody kodeTransaksi,
+            @Part("total_transfer") RequestBody totalTransfer,
+            @Part("rekening_admin_id") RequestBody rekeningAdminId,
             @Part("nama_pengirim") RequestBody namaPengirim,
             @Part MultipartBody.Part file);
 
@@ -277,7 +278,11 @@ public interface APIInterface {
     Call<JsonObject> batalPesanan(@Field("transaksi_id") String transaksiId);
 
 
-
+    // add wishlist
+    @FormUrlEncoded
+    @POST("api/wishlist/")
+    Call<ResWishlist> addWishlist(@Field("user_id") String userId,
+                                  @Field("produk_id") String produkId);
 
 
 }
