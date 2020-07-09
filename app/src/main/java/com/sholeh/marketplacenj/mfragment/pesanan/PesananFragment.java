@@ -82,10 +82,10 @@ public class PesananFragment extends Fragment {
                 if (response.body() != null && response.isSuccessful()) {
                     if (response.body().getDataPesanan().size() > 0) {
 //                    recyclerView.setAdapter(recyclerPesananAdapter);
-//
-//                    Toast.makeText(getContext(), "" + response, Toast.LENGTH_SHORT).show();
-//                } else {
-//                    Toast.makeText(getContext(), "gagal", Toast.LENGTH_SHORT).show();
+                        dataPesanans.clear();
+                        item.clear();
+                        List<DataPesanan> array = response.body().getDataPesanan();
+                        for (int i = 0; i < array.size(); i++) {
 //
 //                }
 //            }
