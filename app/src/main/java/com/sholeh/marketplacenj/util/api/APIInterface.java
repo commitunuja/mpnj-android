@@ -280,9 +280,9 @@ public interface APIInterface {
 
     // add wishlist
     @FormUrlEncoded
-    @POST("api/wishlist/")
-    Call<ResWishlist> addWishlist(@Field("user_id") String userId,
-                                  @Field("produk_id") String produkId);
+    @POST("api/wishlist/simpan")
+    Call<ResWishlist> addWishlist(@Field("id_user") String userId,
+                                  @Field("id_produk") String produkId);
 
 
 }
