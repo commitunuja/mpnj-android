@@ -87,12 +87,12 @@ public class PesananFragment extends Fragment {
                         List<DataPesanan> array = response.body().getDataPesanan();
                         for (int i = 0; i < array.size(); i++) {
 //
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<DataPesanan>> call, Throwable t) {
-//
+                            dataPesanans.add(new DataPesanan(response.body().getDataPesanan().get(i).getNamaToko(),
+                                    response.body().getDataPesanan().get(i).getJumlahPesanan(),
+                                    response.body().getDataPesanan().get(i).getTotalPembayaran(),
+                                    response.body().getDataPesanan().get(i).getKodeInvoice(),
+                                    response.body().getDataPesanan().get(i).getWaktuTransaksi(),
+                                    response.body().getDataPesanan().get(i).getItem()));
 //            }
 //        });
 
