@@ -4,40 +4,29 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sholeh.marketplacenj.R;
-import com.sholeh.marketplacenj.adapter.pesanan.RecyclerPesananAdapter;
+import com.sholeh.marketplacenj.adapter.pesanan.PesananAdapter;
 import com.sholeh.marketplacenj.model.pesanan.DataPesanan;
-import com.sholeh.marketplacenj.model.pesanan.Pembayaran;
-import com.sholeh.marketplacenj.model.pesanan.PesananModel;
 import com.sholeh.marketplacenj.util.Preferences;
-import com.sholeh.marketplacenj.util.ServiceGenerator;
-import com.sholeh.marketplacenj.util.api.APIInterface;
 
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 
 public class TabDikirim extends Fragment {
     private static final String ARG_SECTION_NUMBER = "section_number";
-    private RecyclerPesananAdapter recyclerPesananAdapter;
+    private PesananAdapter recyclerPesananAdapter;
     private RecyclerView recyclerView;
     LinearLayoutManager linearLayoutManager;
     String tab = "dikirim";
 
-    private List<Pembayaran> pembayarans;
+    private List<DataPesanan> pembayarans;
 
     public static TabDikirim newInstance(int index) {
         TabDikirim fragment = new TabDikirim();
@@ -74,30 +63,30 @@ public class TabDikirim extends Fragment {
         recyclerView.setLayoutManager(llm);
 //        recyclerView.setAdapter( recyclerPesananAdapter );
 
-
-        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-        Call<List<Pembayaran>> call = service.getDataPesanan(String.valueOf(id_konsumen));
-        call.enqueue(new Callback<List<Pembayaran>>() {
-            @Override
-            public void onResponse(Call<List<Pembayaran>> call, Response<List<Pembayaran>> response) {
-
-                if (response.body() != null && response.isSuccessful()) {
-                    Toast.makeText(getContext(), "" + response.body(), Toast.LENGTH_SHORT).show();
-                    pembayarans = response.body();
-                    recyclerPesananAdapter = new RecyclerPesananAdapter(getContext(), pembayarans);
-                    recyclerView.setAdapter(recyclerPesananAdapter);
-
-                } else {
-                    Toast.makeText(getContext(), "" + response.body(), Toast.LENGTH_SHORT).show();
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<List<Pembayaran>> call, Throwable t) {
-
-            }
-        });
+//
+//        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+//        Call<List<Pembayaran>> call = service.getDataPesanan(String.valueOf(id_konsumen));
+//        call.enqueue(new Callback<List<Pembayaran>>() {
+//            @Override
+//            public void onResponse(Call<List<Pembayaran>> call, Response<List<Pembayaran>> response) {
+//
+//                if (response.body() != null && response.isSuccessful()) {
+//                    Toast.makeText(getContext(), "" + response.body(), Toast.LENGTH_SHORT).show();
+//                    pembayarans = response.body();
+//                    recyclerPesananAdapter = new RecyclerPesananAdapter(getContext(), pembayarans);
+//                    recyclerView.setAdapter(recyclerPesananAdapter);
+//
+//                } else {
+//                    Toast.makeText(getContext(), "" + response.body(), Toast.LENGTH_SHORT).show();
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<Pembayaran>> call, Throwable t) {
+//
+//            }
+//        });
 
     }
 }
