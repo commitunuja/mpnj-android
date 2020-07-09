@@ -84,10 +84,9 @@
 
 
                                     <ImageView
-
                                         android:layout_width="40dp"
                                         android:layout_height="40dp"
-                                        android:id="@+id/add_to_wishlist"
+                                        android:id="@+id/btn_addtowishlist"
                                         android:src="@mipmap/ic_like_fille_green_24dp" />
 
                                 </RelativeLayout>
