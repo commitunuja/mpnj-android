@@ -48,18 +48,12 @@ public class PesananFragment extends Fragment {
         return fragment;
     }
 
-    String pending, verifikasi, packing, dikirim, sukses, batal;
-    RecyclerView.LayoutManager dataapi;
-//    public PesananFragment() {
-//        // Required empty public constructor
-//    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_pesanan, container, false);
-        recyclerView = view.findViewById(R.id.recycler_pesanan);
+        recyclerView = view.findViewById(R.id.recycler_pesanan1);
 
 
         getData();
