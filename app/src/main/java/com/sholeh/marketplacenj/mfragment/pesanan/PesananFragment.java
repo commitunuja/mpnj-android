@@ -97,6 +97,19 @@ public class PesananFragment extends Fragment {
 //        });
                             itemdata = new ArrayList<>();
                             List<Item> items = array.get(i).getItem();
+                            for (int j = 0; j < items.size(); j++) {
+                                String namaproduk = items.get(j).getNamaProduk();
+                                String hargajual = items.get(j).getHargaJual();
+                                String foto = items.get(j).getFoto();
+                                String status = items.get(j).getStatusOrder();
+
+
+                                itemdata.add(new Item(namaproduk, hargajual, foto, status));
+                            }
+                        }
+                    } else {
+
+                    }
 
     }
 }
