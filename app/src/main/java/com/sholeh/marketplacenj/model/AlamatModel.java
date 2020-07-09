@@ -1,13 +1,14 @@
 package com.sholeh.marketplacenj.model;
 
 public class AlamatModel {
-    private String idAlamat,  namaLengkap, nomorHP, alamatLengkap,  namaKec, namaKota, namaProvinsi, kodePos, status;
+    private String idAlamat,  namaLengkap, nomorHP, alamatLengkap, idKec, namaKec, namaKota, namaProvinsi, kodePos, status;
 
-    public AlamatModel(String idAlamat, String namaLengkap, String nomorHP, String alamatLengkap, String namaKec, String namaKota, String namaProvinsi, String kodePos, String status) {
+    public AlamatModel(String idAlamat, String namaLengkap, String nomorHP, String alamatLengkap,String idKec, String namaKec, String namaKota, String namaProvinsi, String kodePos, String status) {
         this.idAlamat = idAlamat;
         this.namaLengkap = namaLengkap;
         this.nomorHP = nomorHP;
         this.alamatLengkap = alamatLengkap;
+        this.idKec = idKec;
         this.namaKec = namaKec;
         this.namaKota = namaKota;
         this.namaProvinsi = namaProvinsi;
@@ -85,5 +86,17 @@ public class AlamatModel {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getIdKec() {
+        return idKec;
+    }
+
+    public void setIdKec(String idKec) {
+        this.idKec = idKec;
+    }
+
+    public void setNamaKec(String namaKec) {
+        this.namaKec = namaKec;
     }
 }

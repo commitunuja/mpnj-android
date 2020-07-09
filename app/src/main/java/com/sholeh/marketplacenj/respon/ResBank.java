@@ -1,19 +1,19 @@
 package com.sholeh.marketplacenj.respon;
 
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class ResImg {
-
+public class ResBank {
 
     @SerializedName("pesan")
     @Expose
     private String pesan;
     @SerializedName("data")
     @Expose
-    private List<ValDataProfil> data = null;
+    private List<ValBank> data = null;
 
     public String getPesan() {
         return pesan;
@@ -23,12 +23,11 @@ public class ResImg {
         this.pesan = pesan;
     }
 
-    public List<ValDataProfil> getData() {
+    public List<ValBank> getData() {
         return data;
     }
 
-    public void setData(List<ValDataProfil> data) {
+    public void setData(List<ValBank> data) {
         this.data = data;
     }
-
 }

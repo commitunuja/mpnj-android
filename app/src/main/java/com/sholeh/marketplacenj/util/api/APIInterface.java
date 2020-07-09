@@ -12,15 +12,17 @@ import com.sholeh.marketplacenj.model.pesanan.PesananModel;
 import com.sholeh.marketplacenj.model.province.ItemProvince;
 import com.sholeh.marketplacenj.model.subdistrict.ItemKec;
 import com.sholeh.marketplacenj.respon.ResAlamat;
+import com.sholeh.marketplacenj.respon.ResBank;
 import com.sholeh.marketplacenj.respon.ResDetailAlamat;
 import com.sholeh.marketplacenj.respon.ResDetailKeranjang;
 import com.sholeh.marketplacenj.respon.ResHapusKeranjang;
-import com.sholeh.marketplacenj.respon.ResImg;
 import com.sholeh.marketplacenj.respon.ResKeranjang;
+import com.sholeh.marketplacenj.respon.ResKonfirmasi;
 import com.sholeh.marketplacenj.respon.ResLogin;
 import com.sholeh.marketplacenj.respon.ResNewPassword;
 import com.sholeh.marketplacenj.respon.ResProfil;
 import com.sholeh.marketplacenj.respon.ResRegristasi;
+import com.sholeh.marketplacenj.respon.ResRekAdmin;
 import com.sholeh.marketplacenj.respon.ResUbahJumlahProduk;
 import com.sholeh.marketplacenj.respon.RestCost;
 
@@ -90,8 +92,7 @@ public interface APIInterface {
                                              @Field("username") String username,
                                              @Field("password") String password,
                                              @Field("nomor_hp") String nomorHp,
-                                             @Field("email") String email,
-                                             @Field("status") String status);
+                                             @Field("email") String email);
 
     //  user signin konsumen request
     @FormUrlEncoded
@@ -171,7 +172,7 @@ public interface APIInterface {
 
     @Multipart
     @POST("api/konsumen/upload")
-    Call<ResImg> uploadProfiKonsumen(
+    Call<ResRegristasi> uploadProfiKonsumen(
             @Part("id_konsumen") RequestBody idKonsumen,
             @Part MultipartBody.Part file);
 
@@ -250,6 +251,42 @@ public interface APIInterface {
     @FormUrlEncoded
     @PUT("api/transaksi/batal")
     Call<JsonObject> batalCheckout(@Field("user_id") String user_id);
+
+    @GET("api/bank")
+    Call<ResBank> getBank();
+
+    //  tampil data bank admin /where
+    @GET("api/bank/rekening/{id_bank}")
+    Call<ResRekAdmin> getDataBank(
+            @Path("id_bank") String idBank
+    );
+
+    // konfirmasi pembayaran
+    @Multipart
+    @POST("api/konfirmasi/simpan")
+    Call<ResKonfirmasi> simpanKonfirmasi(
+            @Part("kode_transaksi") RequestBody  kodeTransaksi,
+            @Part("total_transfer") RequestBody  totalTransfer,
+            @Part("rekening_admin_id") RequestBody  rekeningAdminId,
+            @Part("nama_pengirim") RequestBody namaPengirim,
+            @Part MultipartBody.Part file);
+
+    // ubah alamat utama
+    @FormUrlEncoded
+    @PUT("api/konsumen/edit/alamat/utama/{id_user}")
+    Call<ResAlamat> UbahAlamatUtama(
+            @Path("id_user") String userId,
+            @Field("id_alamat") String idAlamat
+    );
+
+    @FormUrlEncoded
+    @POST("api/transaksi/batal_transaksi")
+    Call<JsonObject> batalPesanan(@Field("transaksi_id") String transaksiId);
+
+
+
+
+
 }
 
 

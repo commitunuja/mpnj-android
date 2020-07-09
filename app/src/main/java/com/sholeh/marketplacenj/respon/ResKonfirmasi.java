@@ -1,16 +1,15 @@
 package com.sholeh.marketplacenj.respon;
-import java.util.List;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-
-public class ResRegristasi { // respon NEW USER REGRISTRATION //
+public class ResKonfirmasi {
     @SerializedName("pesan")
     @Expose
     private String pesan;
     @SerializedName("data")
     @Expose
-    private ValReg data;
+    private ValDataPembayaran data;
 
     public String getPesan() {
         return pesan;
@@ -20,15 +19,11 @@ public class ResRegristasi { // respon NEW USER REGRISTRATION //
         this.pesan = pesan;
     }
 
-    public ValReg getData() {
+    public ValDataPembayaran getData() {
         return data;
     }
 
-    public void setData(ValReg data) {
+    public void setData(ValDataPembayaran data) {
         this.data = data;
     }
-
-
 }
-
-

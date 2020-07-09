@@ -71,7 +71,7 @@
                 android:layout_marginRight="20dp"
                 android:gravity="center"
                 android:letterSpacing="0.03"
-                android:text="Edit"
+                android:text="Ubah"
                 android:textColor="@color/black"
                 android:textSize="10sp" />
         </LinearLayout>

@@ -18,11 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.sholeh.marketplacenj.activities.checkout.CheckoutActivity;
-import com.sholeh.marketplacenj.activities.transaksi.MetodePembayaranActivity;
-import com.sholeh.marketplacenj.adapter.checkout.ExpandAdapterCheckout;
 import com.sholeh.marketplacenj.adapter.keranjang.ExpandListScanAdapter;
-import com.sholeh.marketplacenj.model.checkout.ChildCheckout;
-import com.sholeh.marketplacenj.model.checkout.HeaderCheckout;
 import com.sholeh.marketplacenj.util.api.APIInterface;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.util.ServiceGenerator;
@@ -261,7 +257,8 @@ public class KeranjangDetailActivity extends AppCompatActivity implements View.O
         call.enqueue(new Callback<ResDetailKeranjang>() {
             @Override
             public void onResponse(Call<ResDetailKeranjang> call, retrofit2.Response<ResDetailKeranjang> response) {
-
+                String idKeranjang = null;
+                ArrayList<String> myIdkCball = new ArrayList<>();
                 //   Log.e(TAG, "response is "+ response.body() + "  ---- "+ new Gson().toJson(response.body()));
                 //  Log.e(TAG, "  ss sixe 1 ");
                 if (response.body() != null && response.isSuccessful()) {
@@ -278,7 +275,7 @@ public class KeranjangDetailActivity extends AppCompatActivity implements View.O
                             child = new ArrayList<>();
                             List<ItemKeranjang> childLink = array.get(i).getItem();
                             for (int j = 0; j < childLink.size(); j++) {
-                                String idKeranjang = childLink.get(j).getIdKeranjang();
+                                idKeranjang = childLink.get(j).getIdKeranjang();
                                 String namaProduk = childLink.get(j).getNamaProduk();
                                 hargaJual = Integer.parseInt(String.valueOf(childLink.get(j).getHargaJual()));
                                 int diskon = Integer.parseInt((childLink.get(j).getDiskon()));
@@ -287,6 +284,7 @@ public class KeranjangDetailActivity extends AppCompatActivity implements View.O
                                 int stok = Integer.parseInt(String.valueOf(childLink.get(j).getStok()));
 
 
+                                myIdkCball.add(idKeranjang);
                                 child.add(new ChildModel(idKeranjang, namaProduk, hargaJual, diskon, jumlah, foto, stok, true));
                             }
                             listChild.put(listHeader.get(i), child);
@@ -299,6 +297,18 @@ public class KeranjangDetailActivity extends AppCompatActivity implements View.O
                             listView.expandGroup(i);
                         }
 
+
+                        String id = String.valueOf(myIdkCball);
+
+                        String[] nomor = id.split("\\[");
+                        String[] nomor2 = nomor[1].split("]");
+                        String harIDK = "";
+
+                        for (int i = 0; i < nomor2.length; i++) {
+                            harIDK = harIDK + nomor2[i];
+                        }
+                        idkk = harIDK;
+//                        Log.d("id cball", idkk);
                         double totalnya = response.body().getTotalHarganya();
                         st = new StringTokenizer(formatRupiah.format(totalnya), ",");
                         String splitotal = st.nextToken().trim();
@@ -381,16 +391,19 @@ public class KeranjangDetailActivity extends AppCompatActivity implements View.O
 
 
     private void goChekout() {
+
         String id[] = {idkk};
         arrayIdKeranjang = new ArrayList<>();
         for (int a = 0; a < id.length; a++) {
             arrayIdKeranjang.add(id[a]);
         }
 
+
 //        updateStatusProduk();
         Intent goCheckout = new Intent(this, CheckoutActivity.class);
         goCheckout.putStringArrayListExtra("idcheckout", arrayIdKeranjang);
         startActivity(goCheckout);
+        finish();
     }
 
 

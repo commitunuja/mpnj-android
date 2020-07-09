@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.widget.LinearLayout;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -30,10 +30,11 @@ public class Tabdibatalkan extends Fragment {
     private static final String ARG_SECTION_NUMBER = "section_number";
 
     private List<PesananModel> pesananModels;
-    String batal;
+    LinearLayout linearLayout;
     private LinearLayoutManager linearLayoutManager;
     private RecyclerPesananAdapter recyclerPesananAdapter;
     private RecyclerView recyclerView;
+    String tab = "batal";
 
 
     public static Tabdibatalkan newInstance(int index) {
@@ -50,6 +51,7 @@ public class Tabdibatalkan extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_pesanan, container, false);
         recyclerView = view.findViewById(R.id.recycler_pesanan);
+        linearLayout = view.findViewById(R.id.ldatakosong);
 
         getData();
         return view;
@@ -66,19 +68,19 @@ public class Tabdibatalkan extends Fragment {
 
 
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-        Call<List<PesananModel>> call = service.getDataPesanan(String.valueOf(id_konsumen), "batal");
+        Call<List<PesananModel>> call = service.getDataPesanan(String.valueOf(id_konsumen), tab);
 
         call.enqueue(new Callback<List<PesananModel>>() {
             @Override
             public void onResponse(Call<List<PesananModel>> call, Response<List<PesananModel>> response) {
-                if (response.body() != null && response.isSuccessful()) {
-
+                if (response.body().size() > 0 && response.isSuccessful()) {
                     pesananModels = response.body();
                     recyclerPesananAdapter = new RecyclerPesananAdapter(getContext(), pesananModels);
                     recyclerView.setAdapter(recyclerPesananAdapter);
 
                 } else {
-                    Toast.makeText(getContext(), "gagal", Toast.LENGTH_SHORT).show();
+                    recyclerView.setVisibility(View.INVISIBLE);
+                    linearLayout.setVisibility(View.VISIBLE);
 
                 }
             }

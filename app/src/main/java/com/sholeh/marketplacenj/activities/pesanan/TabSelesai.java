@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -31,6 +32,8 @@ public class TabSelesai extends Fragment {
     private RecyclerPesananAdapter recyclerPesananAdapter;
     private RecyclerView recyclerView;
     private List<PesananModel> pesananModels;
+    LinearLayout linearLayout;
+    String tab = "sukses";
 
     public static TabSelesai newInstance(int index) {
         TabSelesai fragment = new TabSelesai();
@@ -46,6 +49,7 @@ public class TabSelesai extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_pesanan, container, false);
         recyclerView = view.findViewById(R.id.recycler_pesanan);
+        linearLayout = view.findViewById(R.id.ldatakosong);
 
         getData();
         return view;
@@ -61,19 +65,20 @@ public class TabSelesai extends Fragment {
         recyclerView.setHasFixedSize(true);
 
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-        Call<List<PesananModel>> call = service.getDataPesanan(String.valueOf(id_konsumen), "sukses");
+        Call<List<PesananModel>> call = service.getDataPesanan(String.valueOf(id_konsumen), tab);
 
         call.enqueue(new Callback<List<PesananModel>>() {
             @Override
             public void onResponse(Call<List<PesananModel>> call, Response<List<PesananModel>> response) {
-                if (response.body() != null && response.isSuccessful()) {
+                if (response.body().size() > 0 && response.isSuccessful()) {
 
                     pesananModels = response.body();
                     recyclerPesananAdapter = new RecyclerPesananAdapter(getContext(), pesananModels);
                     recyclerView.setAdapter(recyclerPesananAdapter);
 
                 } else {
-                    Toast.makeText(getContext(), "gagal", Toast.LENGTH_SHORT).show();
+                   linearLayout.setVisibility(View.VISIBLE);
+                   recyclerView.setVisibility(View.GONE);
 
                 }
             }

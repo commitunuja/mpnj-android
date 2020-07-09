@@ -69,7 +69,11 @@
                     android:layout_height="wrap_content" />
 
 
+
+
             </LinearLayout>
+
+
 
             <LinearLayout
                 android:visibility="gone"
@@ -85,11 +89,11 @@
 
 
                 <customfonts.MyTextView_Roboto_Regular
+                    android:id="@+id/tvx_valsubOngkir1"
                     android:layout_weight="1"
-                    android:id="@+id/total1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Total Pembayaran"
+                    android:text="Cek validasi"
                     android:textSize="16dp"
                     android:textColor="#333333"
 
@@ -98,7 +102,7 @@
 
 
                 <customfonts.MyTextView_Roboto_Regular
-                    android:id="@+id/totalsubPembayaran"
+                    android:id="@+id/tvx_valsubOngkir2"
                     android:layout_weight="0.6"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
