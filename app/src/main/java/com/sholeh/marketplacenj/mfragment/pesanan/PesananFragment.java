@@ -61,8 +61,9 @@ public class PesananFragment extends Fragment {
     }
 
     public void getData() {
-
-
+        String id_konsumen;
+        Preferences preferences = new Preferences(getContext());
+        id_konsumen = preferences.getIdKonsumen();
         dataapi = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
 //        recyclerPesananAdapter = new RecyclerPesananAdapter(getContext(), pesanan_models);
         recyclerView.setLayoutManager(dataapi);
