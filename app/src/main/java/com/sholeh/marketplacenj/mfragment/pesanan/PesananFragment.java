@@ -74,8 +74,8 @@ public class PesananFragment extends Fragment {
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
         Call<Pesanan> call = service.getDataPesanan(String.valueOf(id_konsumen));
 
-//        call.enqueue(new Callback<List<DataPesanan>>() {
-//            @Override
+        dataPesanans = new ArrayList<>();
+        item = new HashMap<>();
 //            public void onResponse(Call<List<DataPesanan>> call, Response<List<DataPesanan>> response) {
 //                if (response.body() != null && response.isSuccessful()) {
 //
