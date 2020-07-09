@@ -191,7 +191,7 @@ public interface APIInterface {
     Call<List<Model>> getAllData(@Query("cari") String nama_produk);
 
     @GET("api/pesanan")
-    Call<List<Pembayaran>> getDataPesanan(@Query("id") String id);
+    Call<Pesanan> getDataPesanan(@Query("id") String id);
 
     @FormUrlEncoded
     @POST("api/keranjang")
