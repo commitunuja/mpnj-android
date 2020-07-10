@@ -206,7 +206,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
         kategori.setText(kategoriproduk);
         if (kategoriproduk.equals("Sepatu")) {
-            Toast.makeText(this, kategoriproduk, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, kategoriproduk, Toast.LENGTH_SHORT).show();
 //            linear5.removeAllViews();
         }
         if (vdiskon == 0) {
