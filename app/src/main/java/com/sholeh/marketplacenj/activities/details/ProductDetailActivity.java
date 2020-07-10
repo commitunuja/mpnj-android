@@ -550,12 +550,21 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         addWishlist.enqueue(new Callback<ResWishlist>() {
             @Override
             public void onResponse(Call<ResWishlist> call, Response<ResWishlist> response) {
+                String getpesan = response.body().getPesan();
 //                Toast.makeText(RegisterActivity.this, "res" + response, Toast.LENGTH_SHORT).show();
                 Log.d("addwishlist", String.valueOf(response));
 
                 if (response.body() != null && response.isSuccessful()) {
+//                    response.body().getPesan();
+//                    Toast.makeText(ProductDetailActivity.this, "bedeh"+response.body().getPesan(), Toast.LENGTH_SHORT).show();
 //                    Toast.makeText(ProductDetailActivity.this, "Berhasil ditambahkan ke favorit", Toast.LENGTH_SHORT).show();
-                    AppUtilits.displayMessage(ProductDetailActivity.this,   getString(R.string.add_to_wishlist));
+                    if(getpesan.equalsIgnoreCase("Produk Sudah Ada Di Favorit")){
+                        AppUtilits.displayMessage(ProductDetailActivity.this,   getString(R.string.add_to_wishlistval));
+                    }else{
+                        AppUtilits.displayMessage(ProductDetailActivity.this,   getString(R.string.add_to_wishlist));
+                    }
+
+
 //                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
 //                    startActivity(intent);
 //                    finish();
