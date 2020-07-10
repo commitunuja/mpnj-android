@@ -292,8 +292,10 @@ public interface APIInterface {
     );
 
     //  delete produk keranjang
-    @DELETE("api/wishlist/hapus/{id_produk}")
-    Call<ResHapusKeranjang> hapusProdukWishlist(@Path("id_produk") String idKeranjang);
+    @DELETE("api/wishlist/hapus/{id_wishlist}")
+    Call<ResHapusKeranjang> hapusProdukWishlist(
+            @Path("id_wishlist") String idWishlist);
+
 
 
 
