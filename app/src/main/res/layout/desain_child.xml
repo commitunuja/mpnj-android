@@ -51,8 +51,7 @@
             android:orientation="vertical">
 
             <customfonts.MyTextView_Roboto_Medium
-
-
+                android:visibility="gone"
                 android:id="@+id/txtIdkerenjang"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="275dp"
+        android:background="@drawable/shadow">
+
+        <ImageView
+            app:srcCompat="@drawable/ic_primary_heart"
+            android:id="@+id/text_cover"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"/>
+
+    
+    
+    
+    
+    
+
+        <ImageView
+            android:id="@+id/img_image"
+            android:background="#ffffff"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/no_image"
+            android:scaleType="centerCrop"
+            android:layout_gravity="center"/>
+
+        <LinearLayout
+            android:id="@+id/lnTitle"
+            android:layout_below="@+id/img_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10.4dp"
+            android:layout_marginTop="5dp"
+            android:orientation="vertical">
+
+
+
+            <customfonts.MyTextView_Roboto_Medium
+                android:id="@+id/txtnamaPRODUK"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:letterSpacing="0.03"
+                android:text="Iphone X | 128 GB, Black | 6 GB ram |
+12000 mAh battry kkjkjkhhkhkhkhkhkhkhk"
+                android:textColor="@color/black"
+                android:textSize="13sp" />
+
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_below="@+id/tvx_NamaProduk"
+                android:layout_height="1dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
+                android:background="#EEE"/>
+
+
+        </LinearLayout>
+
+
+
+        <RelativeLayout
+            android:layout_marginLeft="10.4dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lnTitle">
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/value_2"
+                android:orientation="horizontal">
+
+                <customfonts.TextViewSFProDisplayRegular
+                    android:layout_marginRight="10dp"
+                    android:textColor="@color/red"
+                    android:id="@+id/tvPriceDiskon"
+                    style="@style/txt_color_primary_medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/value_5"
+                    android:layout_marginBottom="@dimen/value_3"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:lines="1"
+                    android:text="Rp 100.000" />
+
+                <customfonts.TextViewSFProDisplayRegular
+                    android:textColor="@color/black"
+                    android:id="@+id/tvPrice1"
+                    style="@style/txt_color_primary_medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/value_2"
+                    android:layout_marginLeft="@dimen/value_2"
+                    android:layout_marginTop="@dimen/value_5"
+                    android:layout_marginBottom="@dimen/value_3"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:lines="1"
+                    android:text="Rp 2000" />
+
+
+
+
+            </LinearLayout>
+
+
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

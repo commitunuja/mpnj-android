@@ -292,7 +292,6 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
         switch (v.getId()) {
             case R.id.imgtambah:
-                Toast.makeText(this, "coba", Toast.LENGTH_SHORT).show();
                 if (login) {
                     addKeranjang();
                 } else {

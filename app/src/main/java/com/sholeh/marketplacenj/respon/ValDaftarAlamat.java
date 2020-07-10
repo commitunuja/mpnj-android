@@ -27,7 +27,7 @@ public class ValDaftarAlamat {
     private String namaKota;
     @SerializedName("kecamatan_id")
     @Expose
-    private Integer kecamatanId;
+    private String kecamatanId;
     @SerializedName("nama_kecamatan")
     @Expose
     private String namaKecamatan;
@@ -103,11 +103,11 @@ public class ValDaftarAlamat {
         this.namaKota = namaKota;
     }
 
-    public Integer getKecamatanId() {
+    public String getKecamatanId() {
         return kecamatanId;
     }
 
-    public void setKecamatanId(Integer kecamatanId) {
+    public void setKecamatanId(String kecamatanId) {
         this.kecamatanId = kecamatanId;
     }
 

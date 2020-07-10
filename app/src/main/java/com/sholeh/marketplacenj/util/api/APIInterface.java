@@ -14,7 +14,6 @@ import com.sholeh.marketplacenj.respon.ResBank;
 import com.sholeh.marketplacenj.respon.ResDetailAlamat;
 import com.sholeh.marketplacenj.respon.ResDetailKeranjang;
 import com.sholeh.marketplacenj.respon.ResHapusKeranjang;
-import com.sholeh.marketplacenj.respon.ResImg;
 import com.sholeh.marketplacenj.respon.ResKeranjang;
 import com.sholeh.marketplacenj.respon.ResKonfirmasi;
 import com.sholeh.marketplacenj.respon.ResLogin;
@@ -89,8 +88,7 @@ public interface APIInterface {
                                              @Field("username") String username,
                                              @Field("password") String password,
                                              @Field("nomor_hp") String nomorHp,
-                                             @Field("email") String email,
-                                             @Field("status") String status);
+                                             @Field("email") String email);
 
     //  user signin konsumen request
     @FormUrlEncoded
@@ -170,7 +168,7 @@ public interface APIInterface {
 
     @Multipart
     @POST("api/konsumen/upload")
-    Call<ResImg> uploadProfiKonsumen(
+    Call<ResRegristasi> uploadProfiKonsumen(
             @Part("id_konsumen") RequestBody idKonsumen,
             @Part MultipartBody.Part file);
 
@@ -260,16 +258,29 @@ public interface APIInterface {
     );
 
     // konfirmasi pembayaran
-    @FormUrlEncoded
+    @Multipart
     @POST("api/konfirmasi/simpan")
     Call<ResKonfirmasi> simpanKonfirmasi(
-            @Field("kode_transaksi") int kodeTransaksi,
-            @Field("total_transfer") int totalTransfer,
-            @Field("rekening_admin_id") String rekeningAdminId,
-            @Field("nama_pengirim") String namaPengirim,
-            @Part MultipartBody.Part file
+            @Part("kode_transaksi") RequestBody  kodeTransaksi,
+            @Part("total_transfer") RequestBody  totalTransfer,
+            @Part("rekening_admin_id") RequestBody  rekeningAdminId,
+            @Part("nama_pengirim") RequestBody namaPengirim,
+            @Part MultipartBody.Part file);
 
+    // ubah alamat utama
+    @FormUrlEncoded
+    @PUT("api/konsumen/edit/alamat/utama/{id_user}")
+    Call<ResAlamat> UbahAlamatUtama(
+            @Path("id_user") String userId,
+            @Field("id_alamat") String idAlamat
     );
+
+    @FormUrlEncoded
+    @POST("api/transaksi/batal_transaksi")
+    Call<JsonObject> batalPesanan(@Field("transaksi_id") String transaksiId);
+
+
+
 
 
 }

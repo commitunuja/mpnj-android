@@ -78,7 +78,6 @@ public class Utama extends AppCompatActivity implements BottomNavigationView.OnN
     }
 
 
-
     @Override
     public boolean onSupportNavigateUp() {
         finish();
@@ -147,9 +146,18 @@ public class Utama extends AppCompatActivity implements BottomNavigationView.OnN
                 return true;
 
             case R.id.navigation_account:
-                fm.beginTransaction().hide(active).show(fragmentProfil).commit();
-                active = fragmentProfil;
-                return true;
+                boolean login = preferences.getSPSudahLogin();
+                if (login) {
+                    fm.beginTransaction().hide(active).show(fragmentProfil).commit();
+                    active = fragmentProfil;
+                    return true;
+                } else {
+                    startActivity(new Intent(this, LoginActivity.class));
+                    finish();
+                }
+
+
+
 
         }
 
@@ -305,7 +313,7 @@ public class Utama extends AppCompatActivity implements BottomNavigationView.OnN
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface paramDialogInterface, int paramInt) {
-                        startActivity(new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:com.example.acer.ta")));
+                        startActivity(new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("com.sholeh.marketplacenj.activities")));
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
