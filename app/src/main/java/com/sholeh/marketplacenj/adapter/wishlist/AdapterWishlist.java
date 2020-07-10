@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,11 +20,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.activities.details.ProductDetailActivity;
 import com.sholeh.marketplacenj.activities.keranjang.KeranjangDetailActivity;
+import com.sholeh.marketplacenj.mfragment.FragmentHome;
+import com.sholeh.marketplacenj.mfragment.favorit.FragmentFavorite;
 import com.sholeh.marketplacenj.model.Model;
 import com.sholeh.marketplacenj.model.wishlist.modelWishlist;
 import com.sholeh.marketplacenj.respon.ResHapusKeranjang;
@@ -123,6 +129,10 @@ public class AdapterWishlist extends BaseAdapter {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                Fragment myFragment = new FragmentHome();
+//                activity.getSupportFragmentManager().beginTransaction().replace(R.id.fa, myFragment).addToBackStack(null).commit();
+
 //                Toast.makeText(context, model.getNamaProduk(), Toast.LENGTH_SHORT).show();
                 final modelWishlist model = tvDataWishlist.get(position);
                 Context context = view.getContext();
@@ -146,21 +156,24 @@ public class AdapterWishlist extends BaseAdapter {
             @Override
             public void onClick(View v) {
 //                Toast.makeText(context, "delete", Toast.LENGTH_SHORT).show();
-                String id_keranjang = childModel.getId_keranjang();
+                String id_produk = String.valueOf(model.getIdProduk());
                 APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-                Call<ResHapusKeranjang> call = service.hapusProdukKeranjang(id_keranjang);
+                Call<ResHapusKeranjang> call = service.hapusProdukWishlist(id_produk);
+
                 call.enqueue(new Callback<ResHapusKeranjang>() {
                     @Override
                     public void onResponse(Call<ResHapusKeranjang> call, Response<ResHapusKeranjang> response) {
+                        Log.d("deleteWishlist", "onResponse: "+response);
                         if (response.body() != null && response.isSuccessful()) {
-                            if (response.body().getPesan().equalsIgnoreCase("sukses")) {
-                                AppUtilits.displayMessage(context, "Sukses hapus produk dari keranjang");
+////                            if (response.body().getPesan().equalsIgnoreCase("sukses")) {
+//                                AppUtilits.displayMessage(context, "Sukses hapus produk dari keranjang");
+//
 
-                                ((KeranjangDetailActivity) context).getDetailKeranjang();
-
-                            } else {
-                                AppUtilits.displayMessage(context, "Gagal hapus produk dari keranjang");
-                            }
+//                            ((FragmentFavorite) context).getWishlish();
+//
+////                            } else {
+////                                AppUtilits.displayMessage(context, "Gagal hapus produk dari keranjang");
+////                            }
                         } else {
 //                            AppUtilits.displayMessage(mContext, mContext.getString(R.string.network_error));
                         }
@@ -169,7 +182,8 @@ public class AdapterWishlist extends BaseAdapter {
 
                     @Override
                     public void onFailure(Call<ResHapusKeranjang> call, Throwable t) {
-                        AppUtilits.displayMessage(context, context.getString(R.string.failed_request));
+                        Log.d("deleteWishlist", "onerr: "+t);
+//                        AppUtilits.displayMessage(context, context.getString(R.string.failed_request));
 
                     }
                 });
