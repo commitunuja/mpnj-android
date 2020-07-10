@@ -157,24 +157,25 @@ public class AdapterWishlist extends BaseAdapter {
             public void onClick(View v) {
 //                Toast.makeText(context, "delete", Toast.LENGTH_SHORT).show();
                 String id_produk = String.valueOf(model.getIdProduk());
+                String id_wishlist = String.valueOf(model.getIdWishlist());
                 APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-                Call<ResHapusKeranjang> call = service.hapusProdukWishlist(id_produk);
-
+                Call<ResHapusKeranjang> call = service.hapusProdukWishlist(id_wishlist);
                 call.enqueue(new Callback<ResHapusKeranjang>() {
                     @Override
                     public void onResponse(Call<ResHapusKeranjang> call, Response<ResHapusKeranjang> response) {
                         Log.d("deleteWishlist", "onResponse: "+response);
                         if (response.body() != null && response.isSuccessful()) {
 ////                            if (response.body().getPesan().equalsIgnoreCase("sukses")) {
-//                                AppUtilits.displayMessage(context, "Sukses hapus produk dari keranjang");
+                                AppUtilits.displayMessage(context, "Sukses hapus produk dari wishlist");
 //
 
 //                            ((FragmentFavorite) context).getWishlish();
-//
+
 ////                            } else {
 ////                                AppUtilits.displayMessage(context, "Gagal hapus produk dari keranjang");
 ////                            }
                         } else {
+                            Toast.makeText(context, "Terdapat Kesalahan", Toast.LENGTH_SHORT).show();
 //                            AppUtilits.displayMessage(mContext, mContext.getString(R.string.network_error));
                         }
 
