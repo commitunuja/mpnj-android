@@ -21,7 +21,10 @@ import com.sholeh.marketplacenj.respon.ResNewPassword;
 import com.sholeh.marketplacenj.respon.ResProfil;
 import com.sholeh.marketplacenj.respon.ResRegristasi;
 import com.sholeh.marketplacenj.respon.ResRekAdmin;
+import com.sholeh.marketplacenj.respon.ResTampilWishlist;
 import com.sholeh.marketplacenj.respon.ResUbahJumlahProduk;
+import com.sholeh.marketplacenj.respon.ResWishlist;
+import com.sholeh.marketplacenj.respon.RestCost;
 
 import java.util.List;
 
@@ -261,9 +264,9 @@ public interface APIInterface {
     @Multipart
     @POST("api/konfirmasi/simpan")
     Call<ResKonfirmasi> simpanKonfirmasi(
-            @Part("kode_transaksi") RequestBody  kodeTransaksi,
-            @Part("total_transfer") RequestBody  totalTransfer,
-            @Part("rekening_admin_id") RequestBody  rekeningAdminId,
+            @Part("kode_transaksi") RequestBody kodeTransaksi,
+            @Part("total_transfer") RequestBody totalTransfer,
+            @Part("rekening_admin_id") RequestBody rekeningAdminId,
             @Part("nama_pengirim") RequestBody namaPengirim,
             @Part MultipartBody.Part file);
 
@@ -279,6 +282,23 @@ public interface APIInterface {
     @POST("api/transaksi/batal_transaksi")
     Call<JsonObject> batalPesanan(@Field("transaksi_id") String transaksiId);
 
+
+    // add wishlist
+    @FormUrlEncoded
+    @POST("api/wishlist/simpan")
+    Call<ResWishlist> addWishlist(@Field("id_user") String userId,
+                                  @Field("id_produk") String produkId);
+
+    //  tampil data wishlist
+    @GET("api/wishlist/tampil/{id_user}")
+    Call<ResTampilWishlist> getDataWishlist(
+            @Path("id_user") String idUser
+    );
+
+    //  delete produk keranjang
+    @DELETE("api/wishlist/hapus/{id_wishlist}")
+    Call<ResHapusKeranjang> hapusProdukWishlist(
+            @Path("id_wishlist") String idWishlist);
 
 
 
