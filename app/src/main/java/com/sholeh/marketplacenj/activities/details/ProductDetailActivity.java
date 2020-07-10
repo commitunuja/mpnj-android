@@ -529,7 +529,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
     }
 
     public void addWishlist() {
-        Toast.makeText(this, "klik", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "klik", Toast.LENGTH_SHORT).show();
 //        if (!NetworkUtility.isNetworkConnected(RegisterActivity.this)) {
 //            AppUtilits.displayMessage(RegisterActivity.this, getString(R.string.network_not_connected));
 //
@@ -545,8 +545,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
 //            if (!validasi()) return;
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-
-//            ServiceWrapper serviceWrapper = new ServiceWrapper(null);
+//        Toast.makeText(this, "id "+id_konsumen+" prod "+vid_produk, Toast.LENGTH_SHORT).show();
         Call<ResWishlist> addWishlist = service.addWishlist(id_konsumen,vid_produk );
         addWishlist.enqueue(new Callback<ResWishlist>() {
             @Override
@@ -555,42 +554,13 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                 Log.d("addwishlist", String.valueOf(response));
 
                 if (response.body() != null && response.isSuccessful()) {
-//                    Toast.makeText(RegisterActivity.this, "Berhasil", Toast.LENGTH_SHORT).show();
-//
+//                    Toast.makeText(ProductDetailActivity.this, "Berhasil ditambahkan ke favorit", Toast.LENGTH_SHORT).show();
+                    AppUtilits.displayMessage(ProductDetailActivity.this,   getString(R.string.add_to_wishlist));
 //                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
 //                    startActivity(intent);
 //                    finish();
-//
-//                    Toast.makeText(RegisterActivity.this, "sukses", Toast.LENGTH_SHORT).show();
-//                    if (response.body().getPesan().equalsIgnoreCase("Sukses!")) {
-//                        for (int a = 0; a < response.body().getData().size(); a++) {
-////                                SharedPreferences preferences = getSharedPreferences("App", Context.MODE_PRIVATE);
-////                                SharedPreferences.Editor edit = preferences.edit();
-////                                edit.putString("id_konsumen", String.valueOf(response.body().getData().get(a).getIdKonsumen()));
-////                                edit.putString("nama_lengkap", String.valueOf(response.body().getData().get(a).getNamaLengkap()));
-////
-////                                edit.putBoolean("bg",true);
-////                                edit.commit();
-//
-////                            Preferences.getInstance().getString(CONSTANTS.ID_KONSUMEN, String.valueOf(response.body().getData().get(a).getIdKonsumen()));
-////                            Preferences.getInstance().getString(CONSTANTS.USER_NAME, String.valueOf(response.body().getData().get(a).getUsername()));
-////                            Preferences.getInstance().getString(CONSTANTS.NAMA_LENGKAP, String.valueOf(response.body().getData().get(a).getNamaLengkap()));
-////                            Preferences.getInstance().getString(CONSTANTS.PHONE, String.valueOf(response.body().getData().get(a).getNomorHp()));
-////                            Preferences.getInstance().getString(CONSTANTS.EMAIL, String.valueOf(response.body().getData().get(a).getEmail()));
-//
-//
-//
-//
-//                        }
-//
-//
-//                    } else {
-//                        Toast.makeText(RegisterActivity.this, "r" + response.body().getPesan(), Toast.LENGTH_SHORT).show();
-////                            AppUtilits.displayMessage(RegisterActivity.this,  response.body().getPesan());
-////                    }
                 } else {
 //                    Toast.makeText(RegisterActivity.this, "rr" + response.body().getPesan(), Toast.LENGTH_SHORT).show();
-
 //                        AppUtilits.displayMessage(RegisterActivity.this,   getString(R.string.failed_request));
                 }
             }
@@ -598,10 +568,6 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
             @Override
             public void onFailure(Call<ResWishlist> call, Throwable t) {
                 Log.e("addwishlistt", " failure" + t.toString());
-//                Toast.makeText(RegisterActivity.this, "rrr" + t, Toast.LENGTH_SHORT).show();
-
-
-//                    AppUtilits.displayMessage(RegisterActivity.this,   getString(R.string.failed_request));
             }
         });
 
