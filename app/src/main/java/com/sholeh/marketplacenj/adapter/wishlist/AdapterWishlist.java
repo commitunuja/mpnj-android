@@ -136,19 +136,19 @@ public class AdapterWishlist extends BaseAdapter {
 //                Toast.makeText(context, model.getNamaProduk(), Toast.LENGTH_SHORT).show();
                 final modelWishlist model = tvDataWishlist.get(position);
                 Context context = view.getContext();
-                Toast.makeText(context, "Intent belum selesai ", Toast.LENGTH_SHORT).show();
-//                Intent intent = new Intent(context, ProductDetailActivity.class);
-//                intent.putExtra("id_produk", String.valueOf(model.getIdProduk()));
-//                intent.putExtra("nama_produk", model.getNamaProduk());
-//                intent.putExtra("foto_produk", CONSTANTS.SUB_DOMAIN + model.getFotoProduk());
-//                intent.putExtra("harga_jual", String.valueOf(model.getHargaJual()));
-//                intent.putExtra("stok", String.valueOf(model.getStok()));
-//                intent.putExtra("terjual", String.valueOf(model.getJual()));
-//                intent.putExtra("keterangan", model.getKeterangan());
-//                intent.putExtra("kategori", model.getKategori().getNamaKategori());
-//                intent.putExtra("diskon", String.valueOf(model.get));
+//                Toast.makeText(context, "Intent belum selesai ", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, ProductDetailActivity.class);
+                intent.putExtra("id_produk", String.valueOf(model.getIdProduk()));
+                intent.putExtra("nama_produk", model.getNamaProduk());
+                intent.putExtra("harga_jual", String.valueOf(model.getHargaJual()));
+                intent.putExtra("stok", String.valueOf(model.getStok()));
+                intent.putExtra("terjual", String.valueOf(model.getHargaJual()));
+                intent.putExtra("keterangan", model.getKeterangan());
+                intent.putExtra("kategori", model.getKategori().getNamaKategori());
+                intent.putExtra("diskon", String.valueOf(model.getHargaDiskon()));
+                intent.putExtra("foto_produk", CONSTANTS.SUB_DOMAIN + model.getFotoProduk());
 //                    Toast.makeText(context, "id_produk"+myNewsmodel.getIdProduk(), Toast.LENGTH_SHORT).show();
-//                context.startActivity(intent);
+                context.startActivity(intent);
             }
         });
 
