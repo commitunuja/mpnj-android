@@ -6,34 +6,29 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.manager.SupportRequestManagerFragment;
 import com.sholeh.marketplacenj.R;
-import com.sholeh.marketplacenj.adapter.pesanan.RecyclerPesananAdapter;
-import com.sholeh.marketplacenj.model.pesanan.PesananModel;
+import com.sholeh.marketplacenj.adapter.pesanan.PesananAdapter;
+import com.sholeh.marketplacenj.model.pesanan.DataPesanan;
 import com.sholeh.marketplacenj.util.Preferences;
-import com.sholeh.marketplacenj.util.ServiceGenerator;
-import com.sholeh.marketplacenj.util.api.APIInterface;
 
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 
 public class TabBelumBayar extends Fragment {
 
     SupportRequestManagerFragment supportRequestManagerFragment;
-    private RecyclerPesananAdapter pesananAdapter;
+    private PesananAdapter pesananAdapter;
     private static final String ARG_SECTION_NUMBER = "section_number";
     RecyclerView.LayoutManager layoutManager;
     private RecyclerView recyclerView;
-    private List<PesananModel> pesananModels;
+    private List<DataPesanan> pembayarans;
     LinearLayout datakosong;
     String tab = "pending";
 
@@ -50,46 +45,52 @@ public class TabBelumBayar extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_pesanan, container, false);
-        recyclerView = view.findViewById(R.id.recycler_pesanan);
-        datakosong = view.findViewById(R.id.ldatakosong);
-        datakosong.setVisibility(View.GONE);
+
+
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+//        recyclerView = view.findViewById(R.id.recycler_pesanan);
 
         getData();
-        return view;
     }
 
     public void getData() {
         Preferences preferences = new Preferences(getActivity());
         String id_konsumen = preferences.getIdKonsumen();
 
-        layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setHasFixedSize(true);
+        LinearLayoutManager llm = new LinearLayoutManager(getContext());
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+//        recyclerView.setLayoutManager(llm);
+//        recyclerView.setAdapter( recyclerPesananAdapter );
 
 
-        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-        Call<List<PesananModel>> call = service.getDataPesanan(String.valueOf(id_konsumen), tab);
-
-        call.enqueue(new Callback<List<PesananModel>>() {
-            @Override
-            public void onResponse(Call<List<PesananModel>> call, Response<List<PesananModel>> response) {
-                if (response.body().size() > 0 && response.isSuccessful()) {
-                    pesananModels = response.body();
-                    pesananAdapter = new RecyclerPesananAdapter(getContext(), pesananModels);
-                    recyclerView.setAdapter(pesananAdapter);
-
-                } else {
-                    recyclerView.setVisibility(View.INVISIBLE);
-                    datakosong.setVisibility(View.VISIBLE);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<PesananModel>> call, Throwable t) {
-
-            }
-        });
+//        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+//        Call<List<Pembayaran>> call = service.getDataPesanan(String.valueOf(id_konsumen));
+//        call.enqueue(new Callback<List<Pembayaran>>() {
+//            @Override
+//            public void onResponse(Call<List<Pembayaran>> call, Response<List<Pembayaran>> response) {
+//
+//                if (response.body() != null && response.isSuccessful()) {
+//                    Toast.makeText(getContext(), "" + response.body(), Toast.LENGTH_SHORT).show();
+//                    pembayarans = response.body();
+//                    pesananAdapter = new RecyclerPesananAdapter(getContext(), pembayarans);
+//                    recyclerView.setAdapter(pesananAdapter);
+//
+//                } else {
+//                    Toast.makeText(getContext(), "" + response.body(), Toast.LENGTH_SHORT).show();
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<Pembayaran>> call, Throwable t) {
+//
+//            }
+//        });
 
     }
 }
