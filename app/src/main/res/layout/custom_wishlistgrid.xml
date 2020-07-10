@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="5dp"
+
     android:layout_marginTop="5dp"
-    android:layout_marginLeft="2dp"
-    android:layout_marginRight="2dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
     android:background="@drawable/boarder_black_rounder_white"
-    app:cardCornerRadius="5dp"
-    app:cardElevation="5dp"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="10dp"
     app:cardBackgroundColor="@color/white">
 
     <LinearLayout
@@ -28,7 +28,7 @@
 
 
             <ImageView
-                android:id="@+id/img_image"
+                android:id="@+id/img_imagew"
                 android:background="#ffffff"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
@@ -80,7 +80,7 @@
 
 
             <customfonts.MyTextView_Roboto_Medium
-                android:id="@+id/txtnamaPRODUK"
+                android:id="@+id/txtProdukW"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -215,79 +215,72 @@
 
          </LinearLayout>-->
 
-
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal">
-
-                <customfonts.MyTextView_Roboto_Medium
-                    android:id="@+id/txtharga"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=" 60,999"
-                    android:textColor="@color/black"
-                    android:textSize="16.7sp" />
-
-                <customfonts.MyTextView_Roboto_Medium
-                    android:id="@+id/txtdiskon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="15dp"
-                    android:text=" 60,999"
-                    android:textColor="@color/cut_price"
-                    android:textSize="12.3sp" />
-
-                <customfonts.MyTextView_Roboto_Medium
-                    android:id="@+id/cobadiskon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="15dp"
-                    android:text=" 60,999"
-                    android:textColor="@color/cut_price"
-                    android:textSize="12.3sp"
-                    android:visibility="invisible" />
-
-
-                <TextView
-                    android:id="@+id/txtjumlah"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="1"
-                    android:visibility="gone" />
-
-                <TextView
-                    android:id="@+id/txtidkerenjang"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="22222"
-                    android:visibility="gone" />
-
-            </LinearLayout>
-
-
-
-
-            <View
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginRight="21.5dp"
-                android:background="@color/viewline" />
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_margin="10dp">
 
+                <LinearLayout
+                    android:id="@+id/lnName"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+
+                    <TextView
+                        android:textSize="13sp"
+                        android:text="Rp0"
+                        android:textColor="@color/black"
+                        android:layout_weight="1"
+                        android:id="@+id/txthargaw"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+
+
+
+                </LinearLayout>
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:textSize="13sp"
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/txtdiskonw"
+                    android:layout_below="@+id/lnName"
+                    android:text="Rp0"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+
+
+
+
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imgDeleteWishlist"
+                    android:src="@drawable/ic__delete_forever"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true" />
+
+
+
+
+            </RelativeLayout>
 
         </LinearLayout>
+
+
     </LinearLayout>
 
 
