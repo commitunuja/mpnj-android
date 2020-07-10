@@ -62,6 +62,7 @@ public class ProfilPelapakAdapter extends RecyclerView.Adapter<ProfilPelapakAdap
 
     @Override
     public int getItemCount() {
+
         return tvDataProduks.size();
     }
 

@@ -1,4 +1,4 @@
-package com.sholeh.marketplacenj.mfragment;
+package com.sholeh.marketplacenj.mfragment.profile;
 
 
 import android.content.DialogInterface;
