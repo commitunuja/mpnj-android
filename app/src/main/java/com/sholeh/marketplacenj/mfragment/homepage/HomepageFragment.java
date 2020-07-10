@@ -142,6 +142,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
         Banner();
         kategori();
 //        produksearch();
+
         likeproduk();
         produksamsung();
         recentproduk();
