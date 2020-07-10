@@ -19,6 +19,7 @@ import com.sholeh.marketplacenj.respon.ResNewPassword;
 import com.sholeh.marketplacenj.respon.ResProfil;
 import com.sholeh.marketplacenj.respon.ResRegristasi;
 import com.sholeh.marketplacenj.respon.ResRekAdmin;
+import com.sholeh.marketplacenj.respon.ResTampilWishlist;
 import com.sholeh.marketplacenj.respon.ResUbahJumlahProduk;
 import com.sholeh.marketplacenj.respon.ResWishlist;
 import com.sholeh.marketplacenj.respon.RestCost;
@@ -283,6 +284,12 @@ public interface APIInterface {
     @POST("api/wishlist/simpan")
     Call<ResWishlist> addWishlist(@Field("id_user") String userId,
                                   @Field("id_produk") String produkId);
+
+    //  tampil data wishlist
+    @GET("api/wishlist/tampil/{id_user}")
+    Call<ResTampilWishlist> getDataWishlist(
+            @Path("id_user") String idUser
+    );
 
 
 }
