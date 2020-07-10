@@ -48,7 +48,7 @@
                 android:orientation="vertical">
 
                 <customfonts.MyTextView_Roboto_Medium
-                    android:id="@+id/tv_nama_produk"
+                    android:id="@+id/tv_nama_produk_detail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
