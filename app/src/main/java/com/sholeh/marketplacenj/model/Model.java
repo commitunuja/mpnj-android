@@ -7,9 +7,15 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class Model {
+    @SerializedName("id_wishlist")
+    @Expose
+    private String idWishlist;
+    @SerializedName("id_user")
+    @Expose
+    private String idUser;
     @SerializedName("id_produk")
     @Expose
-    private Integer idProduk;
+    private String idProduk;
     @SerializedName("nama_produk")
     @Expose
     private String namaProduk;
@@ -53,12 +59,26 @@ public class Model {
     @Expose
     private Pelapak pelapak;
 
+    public String  getIdWishlist() {
+        return idWishlist;
+    }
 
-    public Integer getIdProduk() {
+    public void setIdWishlist(String idWishlist) {
+        this.idWishlist = idWishlist;
+    }
+    public String getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(String idUser) {
+        this.idUser = idUser;
+    }
+
+    public String getIdProduk() {
         return idProduk;
     }
 
-    public void setIdProduk(Integer idProduk) {
+    public void setIdProduk(String idProduk) {
         this.idProduk = idProduk;
     }
 

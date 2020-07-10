@@ -1,18 +1,47 @@
 package com.sholeh.marketplacenj.model.wishlist;
 
-public class modelWishlist {
-    private String idWishlist, idUser, idProduk, namaProduk,  kategori, fotoProduk ;
-    int hargaJual, hargaDiskon;
+import com.sholeh.marketplacenj.model.Kategori;
 
-    public modelWishlist(String idWishlist, String idUser, String idProduk, String namaProduk, int hargaJual, int hargaDiskon, String kategori, String fotoProduk) {
+public class modelWishlist {
+    private String idWishlist, idUser, idProduk, namaProduk, keterangan, fotoProduk ;
+    int hargaJual, hargaDiskon, stok;
+    Kategori kategori;
+
+    public modelWishlist(String idWishlist, String idUser, String idProduk, String namaProduk, int hargaJual, int hargaDiskon, int stok, Kategori kategori, String deskripsi, String fotoProduk) {
         this.idWishlist = idWishlist;
         this.idUser = idUser;
         this.idProduk = idProduk;
         this.namaProduk = namaProduk;
         this.hargaJual = hargaJual;
         this.hargaDiskon = hargaDiskon;
+        this.stok = stok;
         this.kategori = kategori;
+        this.keterangan = deskripsi;
         this.fotoProduk = fotoProduk;
+    }
+
+    public String getKeterangan() {
+        return keterangan;
+    }
+
+    public void setKeterangan(String keterangan) {
+        this.keterangan = keterangan;
+    }
+
+    public void setHargaJual(int hargaJual) {
+        this.hargaJual = hargaJual;
+    }
+
+    public void setHargaDiskon(int hargaDiskon) {
+        this.hargaDiskon = hargaDiskon;
+    }
+
+    public int getStok() {
+        return stok;
+    }
+
+    public void setStok(int stok) {
+        this.stok = stok;
     }
 
     public String getIdWishlist() {
@@ -63,11 +92,11 @@ public class modelWishlist {
         this.hargaDiskon = hargaDiskon;
     }
 
-    public String getKategori() {
+    public Kategori getKategori() {
         return kategori;
     }
 
-    public void setKategori(String kategori) {
+    public void setKategori(Kategori kategori) {
         this.kategori = kategori;
     }
 

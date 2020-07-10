@@ -2,18 +2,18 @@ package com.sholeh.marketplacenj.respon;
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.sholeh.marketplacenj.model.wishlist.ValResWishllist;
+import com.sholeh.marketplacenj.model.Model;
 
 public class ResTampilWishlist {
     @SerializedName("data")
     @Expose
-    private List<ValResWishllist> data = null;
+    private List<Model> data = null;
 
-    public List<ValResWishllist> getData() {
+    public List<Model> getData() {
         return data;
     }
 
-    public void setData(List<ValResWishllist> data) {
+    public void setData(List<Model> data) {
         this.data = data;
     }
 

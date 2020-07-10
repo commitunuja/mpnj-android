@@ -21,7 +21,9 @@ import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.activities.AlamatActivity;
 import com.sholeh.marketplacenj.adapter.wishlist.AdapterWishlist;
 import com.sholeh.marketplacenj.model.AlamatModel;
+import com.sholeh.marketplacenj.model.Foto;
 import com.sholeh.marketplacenj.model.wishlist.modelWishlist;
+import com.sholeh.marketplacenj.respon.ItemKeranjang;
 import com.sholeh.marketplacenj.respon.ResProfil;
 import com.sholeh.marketplacenj.respon.ResTampilWishlist;
 import com.sholeh.marketplacenj.util.AppUtilits;
@@ -31,6 +33,7 @@ import com.sholeh.marketplacenj.util.ServiceGenerator;
 import com.sholeh.marketplacenj.util.api.APIInterface;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -94,16 +97,23 @@ public class FragmentFavorite extends Fragment {
                                 modellist.clear();
                                 for (int i = 0; i < response.body().getData().size(); i++) {
                                     response.body().getData().get(i).getNamaProduk();
-//                                    Toast.makeText(getActivity(), ""+response.body().getData().get(i).getNamaProduk(), Toast.LENGTH_SHORT).show();
-                                    modellist.add(new modelWishlist(
+
+//                                    List<Foto> arrayFoto = response.body().getData().get(i).getFoto();
+//                                    for (int j = 0; j < arrayFoto.size(); j++) {
+                                        modellist.add(new modelWishlist(
                                                     response.body().getData().get(i).getIdWishlist(),
                                                     response.body().getData().get(i).getIdUser(),
                                                     response.body().getData().get(i).getIdProduk(),
                                                     response.body().getData().get(i).getNamaProduk(),
                                                     response.body().getData().get(i).getHargaJual(),
                                                     response.body().getData().get(i).getDiskon(),
+                                                    response.body().getData().get(i).getStok(),
                                                     response.body().getData().get(i).getKategori(),
-                                                    response.body().getData().get(i).getFotoProduk()));
+                                                    response.body().getData().get(i).getKeterangan(),
+                                                    response.body().getData().get(i).getFoto().get(0).getFotoProduk()));
+//                                    }
+//                                    Toast.makeText(getActivity(), ""+response.body().getData().get(i).getNamaProduk(), Toast.LENGTH_SHORT).show();
+//
 
 
 
