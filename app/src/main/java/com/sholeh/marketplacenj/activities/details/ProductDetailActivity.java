@@ -47,8 +47,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.StringTokenizer;
 
 import retrofit2.Call;
@@ -93,10 +95,14 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
     Preferences preferences;
     String id_konsumen, iduser;
-    StringTokenizer st1, st2;
+    StringTokenizer st1, st2, st3, st4;
     private List<Model> tvDataProduks;
     private Model tvDataProduk;
     ImageView btnAddWishlist;
+
+    Locale localeID = new Locale("in", "ID");
+    NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -200,8 +206,15 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         nama.setText(namaproduk);
         double h = vdiskon / 100 * vhargaproduk;
         double p = vhargaproduk - h;
-        String dStr = String.valueOf(p);
-        String value = dStr.matches("\\d+\\.\\d*[1-9]\\d*") ? dStr : dStr.substring(0, dStr.indexOf("."));
+
+        st3 = new StringTokenizer(formatRupiah.format(vhargaproduk), ",");
+        String hargaAwal = st3.nextToken().trim();
+        st4 = new StringTokenizer(formatRupiah.format(p), ",");
+        String hargaDiskon = st4.nextToken().trim();
+
+
+//        String dStr = String.valueOf(p);
+//        String value = dStr.matches("\\d+\\.\\d*[1-9]\\d*") ? dStr : dStr.substring(0, dStr.indexOf("."));
 
 
         kategori.setText(kategoriproduk);
@@ -210,13 +223,11 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 //            linear5.removeAllViews();
         }
         if (vdiskon == 0) {
-            harga.setText("Rp " + vhargaproduk);
-            offer.setText("");
-
+            harga.setText(hargaAwal);
+            offer.setVisibility(View.GONE);
         } else {
-            offer.setText("Rp " + vhargaproduk);
-
-            harga.setText("Rp " + value);
+            offer.setText(hargaAwal);
+            harga.setText(hargaDiskon);
 
         }
 
