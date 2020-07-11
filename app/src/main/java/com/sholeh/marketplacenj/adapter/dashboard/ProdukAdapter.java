@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.loopj.android.image.SmartImageView;
 import com.sholeh.marketplacenj.model.Foto;
 import com.sholeh.marketplacenj.model.pesanan.DataPesanan;
 import com.sholeh.marketplacenj.util.CONSTANTS;
@@ -66,7 +67,8 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ViewHolder
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView namaProduk, hargaProduk, stok, terjual, deskripsi, type;
-        private ImageView foto_produk;
+//        private ImageView foto_produk;
+        private SmartImageView foto_produk;
 
 
         public ViewHolder(View itemView) {

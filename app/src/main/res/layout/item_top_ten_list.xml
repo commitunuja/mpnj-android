@@ -20,15 +20,34 @@
                 android:layout_width="150dp"
                 android:layout_height="260dp"
                 android:orientation="vertical">
-
-
-                <ImageView
-                    android:id="@+id/imageproduk"
-                    android:layout_marginTop="5dp"
+                <FrameLayout
+                    android:layout_height="0dp"
                     android:layout_width="match_parent"
-                    android:layout_height="130dp"
-                    android:src="@drawable/circular_grey_bordersolid" />
+                    android:layout_weight="1.0"
+                    android:background="#FFFFFF">
 
+                    <com.loopj.android.image.SmartImageView
+                        android:id="@+id/imageproduk"
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"
+                        android:layout_margin="10dp"/>
+                    <TextView
+                        android:textSize="12sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="15%"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/box_discount"
+                        android:layout_margin="10dp"
+                        android:padding="2dp"
+                        android:layout_gravity="right|end"
+                        android:id="@+id/tvxdiskon"/>
+
+
+
+
+                </FrameLayout>
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
