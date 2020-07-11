@@ -17,6 +17,7 @@ import java.util.StringTokenizer;
 
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -112,6 +113,8 @@ public class AdapterWishlist extends BaseAdapter {
 
         if (diskon == 0){
             txthargaDiskon.setVisibility(View.GONE);
+//            txthargaDiskon.setText(" ");
+
         }else{
             double h = diskon / 100 * hargaProduk;
             double p = hargaProduk - h;

@@ -6,11 +6,11 @@
     android:layout_height="wrap_content"
 
     android:layout_marginTop="5dp"
-    android:layout_marginLeft="5dp"
-    android:layout_marginRight="5dp"
+    android:layout_marginLeft="1dp"
+    android:layout_marginRight="1dp"
     android:background="@drawable/boarder_black_rounder_white"
-    app:cardCornerRadius="10dp"
-    app:cardElevation="10dp"
+    app:cardCornerRadius="5dp"
+    app:cardElevation="5dp"
     app:cardBackgroundColor="@color/white">
 
     <LinearLayout
@@ -27,7 +27,8 @@
 
 
 
-            <ImageView
+            <com.loopj.android.image.SmartImageView
+                android:layout_margin="5dp"
                 android:id="@+id/img_imagew"
                 android:background="#ffffff"
                 android:layout_width="match_parent"
@@ -88,7 +89,7 @@
                 android:text="Iphone X | 128 GB, Black | 6 GB ram |
 12000 mAh battry kkjkjkhhkhkhkhkhkhkhk"
                 android:textColor="@color/black"
-                android:textSize="13sp" />
+                android:textSize="9sp" />
 
 
             <View
@@ -216,6 +217,7 @@
          </LinearLayout>-->
 
         <LinearLayout
+            android:layout_marginLeft="10.4dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -225,9 +227,10 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:gravity="center"
-                android:layout_margin="10dp">
+                android:layout_margin="5dp">
 
                 <LinearLayout
+
                     android:id="@+id/lnName"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
@@ -236,7 +239,7 @@
 
 
                     <TextView
-                        android:textSize="13sp"
+                        android:textSize="10.5sp"
                         android:text="Rp0"
                         android:textColor="@color/black"
                         android:layout_weight="1"
@@ -251,8 +254,7 @@
 
                 <TextView
                     android:textColor="@color/black"
-                    android:textSize="13sp"
-                    android:layout_marginTop="5dp"
+                    android:textSize="10.4sp"
                     android:id="@+id/txtdiskonw"
                     android:layout_below="@+id/lnName"
                     android:text="Rp0"
