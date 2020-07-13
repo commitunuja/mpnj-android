@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:id="@+id/crMain"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg"
     android:orientation="vertical">
@@ -40,229 +39,159 @@
                     android:layout_height="0dp"
                     android:layout_weight="0.9">
 
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_margin="@dimen/value_10"
+                        android:layout_margin="10dp"
                         android:orientation="vertical">
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@color/colorPrimaryTransperent"
-                            android:orientation="vertical"
-                            android:padding="13sp">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-                                <customfonts.MyTextView_Roboto_Medium
-                                    android:id="@+id/tvx_statusBayar"
-                                    android:textStyle="bold"
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:text="Belum bayar"
-                                    android:textColor="@color/white"
-                                    android:textSize="12.3sp" />
-
-
-                            </LinearLayout>
-
-
-
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:orientation="vertical">
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="horizontal">
-
-                                    <customfonts.MyTextView_Roboto_Regular
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="Mohon melakukan pembayaran sebelum"
-                                        android:textColor="@color/white"
-                                        android:textSize="12.3sp" />
-
-
-
-                                    <customfonts.MyTextView_Roboto_Regular
-                                        android:textColor="@color/white"
-                                        android:textStyle="bold"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginLeft="5dp"
-                                        android:text="24-06-2020 14:55"
-                                        android:textSize="12.3sp" />
-
-
-
-                                </LinearLayout>
-
-                                <customfonts.MyTextView_Roboto_Regular
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Bila tidak pesanan ini akan di batalkan secara otomatis"
-                                    android:textColor="@color/white"
-                                    android:textSize="12.3sp" />
-
-                            </LinearLayout>
-                        </LinearLayout>
-
-
-                     <androidx.recyclerview.widget.RecyclerView
-                         android:layout_width="wrap_content"
-                         tools:itemCount="2"
-                         android:layout_height="wrap_content"
-                         tools:listitem="@layout/item_data_detail_pesanan"
-                         />
 
                         <LinearLayout
-                            android:layout_marginTop="10dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <customfonts.TextViewSFProDisplayRegular
-                                style="@style/txt_gray_big"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Total Bayar" />
-
-                            <customfonts.TextViewSFProDisplayRegular
-                                android:id="@+id/tvOrderId"
-                                style="@style/txt_color_primary_big"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/value_5"
-                                android:text="Rp 50.000.000"
-                                android:layout_marginStart="@dimen/value_5" />
-                        </LinearLayout>
-
-
-
-
-
-                        <customfonts.TextViewSFProDisplayRegular
-                            android:layout_marginTop="10dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/value_0.5"
-                            android:background="@color/gray_table" />
-                        <LinearLayout
-                            android:layout_marginTop="10dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
 
-                            <customfonts.TextViewSFProDisplayRegular
-                                style="@style/txt_black_big"
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="0.7dp"
+                                android:background="#48707070" />
+
+                            <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Alamat Pengiriman" />
-
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/value_5"
-                                android:orientation="vertical">
-
-
-
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="horizontal">
-
-                                    <customfonts.TextViewSFProDisplayRegular
-                                        android:text="Jl. Kyai Haji Jl. KH. Zaini Mun'im, Dusun Tj. Lor, Karanganyar, Kec. Paiton, Probolinggo, Jawa Timur 67291"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                     />
-
-
-
-
-
-
-
-                                </LinearLayout>
-
-                                <customfonts.TextViewSFProDisplayRegular
-                                    android:layout_marginTop="10dp"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="@dimen/value_0.5"
-                                    android:background="@color/gray_table" />
-
-
-                            </LinearLayout>
+                                android:layout_marginTop="5dp"
+                                android:text="Status"
+                                android:textColor="@color/black"
+                                android:textSize="13sp" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:layout_marginTop="24dp">
+                                android:layout_marginBottom="5dp"
+                                android:orientation="horizontal">
 
-                                <customfonts.MyTextView_Roboto_Medium
-                                    android:layout_weight="1"
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:textColor="@color/black"
-                                    android:textSize="14sp"
-                                    android:text="No. Pesanan"/>
-
-                                <customfonts.MyTextView_Roboto_Medium
+                                <customfonts.MyTextView_Roboto_Bold
+                                    android:id="@+id/tv_status_order_detail"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="11223476"
+                                    android:text="Dibatalkan"
+                                    android:textColor="@color/colorutama"
                                     android:textSize="13sp"
-                                    android:layout_marginRight="20dp"/>
+                                    android:textStyle="bold" />
+
+                                <Space
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1" />
+
+                                <customfonts.MyTextView_Roboto_Bold
+                                    android:id="@+id/tv_lihat"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="5dp"
+                                    android:text="LIHAT"
+                                    android:textColor="@color/colorutama"
+                                    android:textSize="13sp" />
                             </LinearLayout>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="0.7dp"
+                                android:layout_marginTop="5dp"
+                                android:background="#48707070" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:layout_marginTop="5dp">
+                                android:layout_marginTop="5dp"
+                                android:layout_marginBottom="10dp"
+                                android:orientation="horizontal">
 
-                                <customfonts.MyTextView_Roboto_Medium
-                                    android:layout_weight="1"
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:textColor="@color/black"
-                                    android:textSize="14sp"
-                                    android:text="Waktu Pemesanan"/>
-
-                                <customfonts.MyTextView_Roboto_Medium
+                                <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="24-06-2020"
-                                    android:textSize="13sp"
-                                    android:layout_marginRight="20dp"/>
+                                    android:text="Tanggal Pembelian"
+                                    android:textColor="@color/black"
+                                    android:textSize="13sp" />
+
+                                <Space
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1" />
+
+                                <customfonts.MyTextView_Roboto_Bold
+                                    android:id="@+id/tv_waktupembelian"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="end"
+                                    android:layout_marginEnd="5dp"
+                                    android:gravity="end"
+                                    android:text="2010"
+                                    android:textColor="@color/colorutama"
+                                    android:textSize="13sp" />
                             </LinearLayout>
 
-                            <customfonts.MyTextView_Roboto_Bold
-                                android:layout_marginTop="30dp"
-                                android:textColor="@color/Primarytext"
-                                android:id="@+id/tvCancelOrder"
-                                style="@style/txt_white_medium"
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="0.7dp"
+                                android:background="#48707070" />
+
+                            <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:background="@drawable/round_spinner"
-                                android:gravity="center"
-                                android:padding="@dimen/value_5"
-                                android:text="Batalkan Pesanan" />
+                                android:layout_marginTop="10dp"
+                                android:layout_marginBottom="10dp"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Toko : "
+                                    android:textColor="@color/black"
+                                    android:textSize="13sp" />
+
+                                <customfonts.MyTextView_Roboto_Bold
+                                    android:id="@+id/tv_toko"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Toko Indra"
+                                    android:textColor="@color/black"
+                                    android:textSize="13sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="0.7dp"
+                                android:background="#48707070" />
+
                         </LinearLayout>
 
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recycler_pesanan_detail"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:itemCount="2"
+                            tools:listitem="@layout/item_data_detail_pesanan" />
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:elevation="5dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/bg_shadow"
+                            android:orientation="vertical">
+
+                            <include
+                                layout="@layout/item_detail_pengiriman_pesanan" />
+                        </LinearLayout>
+
+
+                        <include layout="@layout/item_informasi_pembayaran_detail_pesanan" />
 
                     </LinearLayout>
 
@@ -270,7 +199,6 @@
                 </androidx.core.widget.NestedScrollView>
 
                 <customfonts.MyTextView_Roboto_Bold
-                    android:textSize="20sp"
                     android:id="@+id/tvxBayarSekarang"
                     style="@style/txt_white_medium"
                     android:layout_width="match_parent"
@@ -278,12 +206,12 @@
                     android:background="@color/colorPrimary"
                     android:gravity="center"
                     android:padding="@dimen/value_5"
-                    android:text="Bayar Sekarang" />
+                    android:text="Bayar Sekarang"
+                    android:textSize="20sp" />
             </LinearLayout>
 
 
         </LinearLayout>
-
 
 
     </LinearLayout>
