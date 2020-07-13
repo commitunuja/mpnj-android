@@ -88,6 +88,8 @@ public class DetailPesananActivity extends AppCompatActivity {
                             total.setText("Rp " +response.body().getData().get(i).getTotalBayar());
                             alamat.setText(response.body().getData().get(i).getTujuan());
 
+                    recyclerdetailpesanan = new DetailPesananAdapter(getContext(), dataPesanans);
+                    recyclerView.setAdapter(recyclerdetailpesanan);
 
     }
 }
