@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.StringTokenizer;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -35,7 +36,7 @@ import static com.sholeh.marketplacenj.util.MyApp.getContext;
 public class DetailPesananActivity extends AppCompatActivity {
 
     String namaproduk, namatoko, harga, foto;
-    TextView vnamaproduk, waktu, totalhargaproduk, total, vharga, toko, status, alamat;
+    TextView vnamaproduk, waktu, totalhargaproduk, total, vharga, toko, status, alamat, totalhargadetail;
     ImageView iproduk;
     private List<ItemDetailPesanan> dataPesanans;
     RecyclerView recyclerView;
