@@ -56,6 +56,8 @@ public class DetailPesananActivity extends AppCompatActivity {
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
         Call<DetailPesanan> call = service.getDataDetailPesanan(String.valueOf(kode));
 
+        dataPesanans = new ArrayList<>();
+        item = new HashMap<>();
 
 //        vnamaproduk.setText(""+ namaproduk);
 //        vharga.setText(""+harga);
