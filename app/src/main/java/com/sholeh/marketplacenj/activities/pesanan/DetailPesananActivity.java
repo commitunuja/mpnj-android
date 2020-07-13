@@ -58,6 +58,11 @@ public class DetailPesananActivity extends AppCompatActivity {
 
         dataPesanans = new ArrayList<>();
         item = new HashMap<>();
+        call.enqueue(new Callback<DetailPesanan>() {
+            @Override
+            public void onResponse(Call<DetailPesanan> call, retrofit2.Response<DetailPesanan> response) {
+                if (response.body() != null && response.isSuccessful()) {
+                    if (response.body().getData().size() > 0) {
 
 //        vnamaproduk.setText(""+ namaproduk);
 //        vharga.setText(""+harga);
