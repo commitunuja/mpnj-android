@@ -45,12 +45,16 @@ public class DetailPesananActivity extends AppCompatActivity {
     DetailPesananAdapter recyclerdetailpesanan;
     RecyclerView.LayoutManager layoutManager;
 
+    Locale localeID = new Locale("in", "ID");
+    NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
+    StringTokenizer stringTokenizer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_pesanan);
 
-
+        totalhargadetail = findViewById(R.id.totalhargadetail);
         vnamaproduk = findViewById(R.id.tv_nama_produk_detail);
         vharga = findViewById(R.id.tv_harga_produk_detail);
         iproduk = findViewById(R.id.img_produk_detail);
