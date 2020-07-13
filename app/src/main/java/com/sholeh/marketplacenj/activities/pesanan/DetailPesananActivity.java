@@ -69,6 +69,18 @@ public class DetailPesananActivity extends AppCompatActivity {
                         List<ItemDetailPesanan> array = response.body().getData();
                         for (int i = 0; i < array.size(); i++) {
 
+                            dataPesanans.add(new ItemDetailPesanan(response.body().getData().get(i).getNamaToko(),
+                                    response.body().getData().get(i).getNamaProduk(),
+                                    response.body().getData().get(i).getJumlah(),
+                                    response.body().getData().get(i).getTotalBayar(),
+                                    response.body().getData().get(i).getHarga(),
+                                    response.body().getData().get(i).getFotoProduk(),
+                                    response.body().getData().get(i).getStatusOrder(),
+                                    response.body().getData().get(i).getBayarSebelum(),
+                                    response.body().getData().get(i).getIdTransaksiDetail(),
+                                    response.body().getData().get(i).getKurir(),
+                                    response.body().getData().get(i).getOngkir(),
+                                    response.body().getData().get(i).getWaktuPesan()));
 
 //        Glide.with(this)
 //                .load(foto)
