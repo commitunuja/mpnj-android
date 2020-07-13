@@ -310,7 +310,7 @@ public class KeranjangDetailActivity extends AppCompatActivity implements View.O
                         idkk = harIDK;
 //                        Log.d("id cball", idkk);
                         double totalnya = response.body().getTotalHarganya();
-                        st = new StringTokenizer(formatRupiah.format(totalnya), ",");
+                        st = new StringTokenizer(formatRupiah.format(totalnya),",");
                         String splitotal = st.nextToken().trim();
                         tvx_total.setText(splitotal);
 
@@ -337,7 +337,7 @@ public class KeranjangDetailActivity extends AppCompatActivity implements View.O
         public void onReceive(Context context, Intent intent) {
             String qty = intent.getStringExtra("total");
             hargaTotal = Double.parseDouble(qty);
-            st = new StringTokenizer(formatRupiah.format(hargaTotal), ",");
+            st = new StringTokenizer(formatRupiah.format(hargaTotal),",");
             String harganya = st.nextToken().trim();
             tvx_total.setText(harganya);
 
