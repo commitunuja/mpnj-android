@@ -240,7 +240,7 @@
                     android:layout_marginRight="12dp"
                     android:gravity="end"
                     android:text="Rp 20.000.000"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@color/orange"
                     android:textSize="15sp"
                     android:textStyle="bold" />
 

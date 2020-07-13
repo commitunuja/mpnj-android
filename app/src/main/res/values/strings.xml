@@ -75,7 +75,7 @@
     <string name="diskripsiproduk">Diskripsi Produk</string>
     <string name="loading">Mohon Tunggu</string>
     <string name="semua">SEMUA</string>
-    <string name="belum">BELUM DIBAYAR</string>
+    <string name="belum">MENUNGGU KONFIRMASI</string>
     <string name="dikemas">DIKEMAS</string>
     <string name="dikirim">DIKIRIM</string>
     <string name="selesai">SELESAI</string>
