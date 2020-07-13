@@ -56,13 +56,13 @@ public class DetailPesananAdapter extends RecyclerView.Adapter<DetailPesananAdap
 //        holder.totalbayar.setText("Rp " + dataPesanan.getTotalBayar());
         holder.jumlahproduk.setText("" + dataPesanan.getJumlah());
         holder.namaproduk.setText(dataPesanan.getNamaProduk());
-        holder.harga.setText("Rp " + dataPesanan.getHarga());
+        holder.harga.setText(formatRupiah(Double.parseDouble(dataPesanan.getHarga())));
 //        holder.statusorder.setText(dataPesanan.getStatusOrder());
         holder.kode.valueOf(dataPesanan.getIdTransaksiDetail());
         int a = Integer.parseInt(dataPesanan.getHarga());
         int b = Integer.parseInt(dataPesanan.getJumlah());
         String c = String.valueOf(a*b);
-        holder.totalbayarproduk.setText("Rp "+c);
+        holder.totalbayarproduk.setText(formatRupiah(Double.parseDouble(c)));
 
 
 
