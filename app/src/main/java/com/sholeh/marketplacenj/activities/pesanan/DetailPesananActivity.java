@@ -53,8 +53,9 @@ public class DetailPesananActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
 
 //        vnamaproduk = findViewById(R.id.tv_nama_produk_detail);
-//        vharga = findViewById(R.id.tv_harga_produk_detail);
-//        iproduk = findViewById(R.id.img_produk_detail);
+        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+        Call<DetailPesanan> call = service.getDataDetailPesanan(String.valueOf(kode));
+
 
 //        vnamaproduk.setText(""+ namaproduk);
 //        vharga.setText(""+harga);
