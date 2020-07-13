@@ -75,9 +75,12 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
     int vhargaproduk;
     int vstok;
     int vterjual;
-    Double vdiskon;
+    Double vdiskon,p;
+
     ImageView fotopelapak;
     private ViewPager viewPager;
+    Locale localeID = new Locale("in", "ID");
+    NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
 
     //    private ViewpagerProductDetailsAdapter viewpagerAdapter;
     private ArrayList<TopTenModelClass> topTenModelClasses;
