@@ -31,18 +31,13 @@ import retrofit2.Callback;
 public class PesananFragment extends Fragment {
 
     private static final String ARG_SECTION_NUMBER = "123";
-    private DataPesanan pesanan_models;
     private List<DataPesanan> dataPesanans;
-    //    List<Pesanan> pesanans;
     RecyclerView recyclerView;
-    //    private HashMap<DataPesanan, List<Item>> item;
     private HashMap<DataPesanan, List<Item>> item;
     List<Item> itemdata;
     PesananAdapter recyclerPesananAdapter;
+    String status;
 
-    TextView nama;
-
-    String pending, verifikasi, packing, dikirim, sukses, batal;
     RecyclerView.LayoutManager dataapi;
 
     public static PesananFragment newInstance(int index) {
