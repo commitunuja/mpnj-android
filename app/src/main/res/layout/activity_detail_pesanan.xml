@@ -203,10 +203,10 @@
                     style="@style/txt_white_medium"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/colorPrimary"
+                    android:background="@color/orange"
                     android:gravity="center"
                     android:padding="@dimen/value_5"
-                    android:text="Bayar Sekarang"
+                    android:text="Tanya Penjual"
                     android:textSize="20sp" />
             </LinearLayout>
 
