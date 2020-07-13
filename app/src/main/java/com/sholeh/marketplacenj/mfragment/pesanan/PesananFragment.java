@@ -64,6 +64,7 @@ public class PesananFragment extends Fragment {
         String id_konsumen;
         Preferences preferences = new Preferences(getContext());
         id_konsumen = preferences.getIdKonsumen();
+
         dataapi = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(dataapi);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
