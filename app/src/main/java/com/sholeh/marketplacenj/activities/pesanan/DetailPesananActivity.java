@@ -82,9 +82,11 @@ public class DetailPesananActivity extends AppCompatActivity {
                                     response.body().getData().get(i).getOngkir(),
                                     response.body().getData().get(i).getWaktuPesan()));
 
-//        Glide.with(this)
-//                .load(foto)
-//                .into(iproduk);
+                            toko.setText(response.body().getData().get(i).getNamaToko());
+                            waktu.setText(response.body().getData().get(i).getWaktuPesan());
+                            status.setText(response.body().getData().get(i).getStatusOrder());
+                            total.setText("Rp " +response.body().getData().get(i).getTotalBayar());
+                            alamat.setText(response.body().getData().get(i).getTujuan());
 
 
     }
