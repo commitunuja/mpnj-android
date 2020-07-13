@@ -73,9 +73,8 @@
                             android:maxLines="1"
                             android:layout_gravity="center"
                             android:textColor="@color/black"
-                            android:textColorHint="@color/black"
                             android:layout_marginLeft="15dp"
-                            android:hint="Segera Selesaikan Api Search Wishlist Kamu"
+                            android:hint="Cari Barang Favorit Kamu"
                             android:background="#00000000"/>
 
 
@@ -83,7 +82,7 @@
 
 
                         <ImageView
-                            android:id="@+id/imdResetSearch"
+                            android:id="@+id/imgResetSearch"
                             android:layout_width="13dp"
                             android:layout_height="13dp"
                             android:tint="#534a4a"
@@ -137,14 +136,6 @@
                         android:indeterminateBehavior="cycle"
                         android:visibility="gone" />
 
-                    <TextView
-                        android:visibility="gone"
-                        android:id="@+id/text_notif"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:gravity="center"
-                        android:text="NO CONTENT AVAILABLE."/>
 
 
                     <GridView
