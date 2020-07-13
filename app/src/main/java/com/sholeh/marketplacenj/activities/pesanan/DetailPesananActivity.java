@@ -114,7 +114,7 @@ public class DetailPesananActivity extends AppCompatActivity {
                             toko.setText(response.body().getData().get(i).getNamaToko());
                             waktu.setText(response.body().getData().get(i).getWaktuPesan());
                             status.setText(response.body().getData().get(i).getStatusOrder());
-                            total.setText("Rp " +response.body().getData().get(i).getTotalBayar());
+                            total.setText(formatRupiah(Double.parseDouble(response.body().getData().get(i).getTotalBayar())));
                             alamat.setText(response.body().getData().get(i).getTujuan());
                         }
 
