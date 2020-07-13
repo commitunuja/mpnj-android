@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_pesanan"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="5dp"
+    app:cardElevation="3dp"
+    app:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:orientation="vertical">
+
+<!--        <RelativeLayout-->
+<!--            android:id="@+id/cart_relative1"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="5dp"-->
+<!--            android:descendantFocusability="beforeDescendants"-->
+<!--            android:focusableInTouchMode="true"-->
+<!--            android:padding="10dp">-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:padding="2dp"-->
+<!--                android:weightSum="3">-->
+
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_weight="2.7"-->
+<!--                    android:gravity="center_vertical"-->
+<!--                    android:orientation="vertical">-->
+
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="horizontal">-->
+
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/tv_title_parent"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="16dp"-->
+<!--                            android:layout_centerVertical="true"-->
+<!--                            android:layout_marginLeft="5dp"-->
+<!--                            android:layout_marginBottom="10dp"-->
+<!--                            android:drawableLeft="@mipmap/shop_icon"-->
+<!--                            android:drawablePadding="10dp"-->
+<!--                            android:paddingTop="2dp"-->
+<!--                            android:paddingBottom="5dp" />-->
+
+<!--                        <customfonts.MyTextView_Roboto_Medium-->
+<!--                            android:id="@+id/idtransaksi"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="40dp"-->
+<!--                            android:gravity="center"-->
+<!--                            android:paddingTop="2dp"-->
+<!--                            android:paddingBottom="5dp"-->
+<!--                            android:text="Toko Sholeh"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:textSize="14sp"-->
+<!--                            android:textStyle="bold"-->
+<!--                            android:visibility="gone" />-->
+
+<!--                        <customfonts.MyTextView_Roboto_Medium-->
+<!--                            android:id="@+id/tvxNamaToko"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="40dp"-->
+<!--                            android:gravity="center"-->
+<!--                            android:maxLines="1"-->
+<!--                            android:paddingTop="2dp"-->
+<!--                            android:paddingBottom="5dp"-->
+<!--                            android:text="Toko Sholeh"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:textSize="14sp"-->
+<!--                            android:textStyle="bold" />-->
+
+<!--                        <customfonts.TextViewSFProDisplaySemibold-->
+<!--                            android:id="@+id/tv_status_order"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_alignParentTop="true"-->
+<!--                            android:layout_alignParentEnd="true"-->
+<!--                            android:layout_marginRight="10dp"-->
+<!--                            android:text="Belum Bayar"-->
+<!--                            android:textAlignment="viewEnd"-->
+<!--                            android:textColor="@color/colorPrimary"-->
+<!--                            android:textStyle="bold" />-->
+
+<!--                    </LinearLayout>-->
+
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/txtIdToko"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:paddingTop="1dp"-->
+<!--                        android:paddingBottom="1dp"-->
+<!--                        android:text="1"-->
+<!--                        android:textSize="13sp"-->
+<!--                        android:textStyle="bold"-->
+<!--                        android:visibility="gone" />-->
+
+<!--                </LinearLayout>-->
+
+
+<!--            </LinearLayout>-->
+
+
+<!--        </RelativeLayout>-->
+
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <ImageView
+                android:id="@+id/img_foto_pesanan"
+                android:layout_width="66.2dp"
+                android:layout_height="66.7dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="5dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10.4dp"
+                android:layout_marginTop="5dp"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/tvxNamaProduk"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="14sp"
+                    android:layout_weight="1"
+                    android:letterSpacing="0.03"
+                    android:text="Iphone X | 128 GB, Black | 6 GB ram |
+12000 mAh battry"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:textSize="13.3sp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tvxjumProd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:letterSpacing="0.03"
+                        android:text="2"
+                        android:textStyle="bold"
+                        android:textColor="@color/grey"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:textStyle="bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="1"
+                        android:letterSpacing="0.03"
+                        android:text="Barang"
+                        android:textColor="@color/grey"
+                        android:textSize="13sp" />
+
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tvxHargaProd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="12dp"
+                        android:text="Rp. 15.000"
+                        android:textColor="@color/orange"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.7dp"
+            android:layout_marginTop="5dp"
+            android:background="#48707070" />
+
+        <LinearLayout
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="2dp"
+            android:weightSum="3">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total Harga"
+                android:textSize="12sp" />
+
+
+            <TextView
+                android:id="@+id/tv_totalhargaproduk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="12dp"
+                android:text="Rp. 15.000"
+                android:layout_marginBottom="10dp"
+                android:textColor="@color/orange"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
