@@ -43,6 +43,14 @@ public class DetailPesananActivity extends AppCompatActivity {
 
         harga = i.getStringExtra("harga");
         foto = i.getStringExtra("foto");
+    public void getData() {
+        String id_konsumen;
+        Preferences preferences = new Preferences(getContext());
+        id_konsumen = preferences.getIdKonsumen();
+        layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setHasFixedSize(true);
 
 //        vnamaproduk = findViewById(R.id.tv_nama_produk_detail);
 //        vharga = findViewById(R.id.tv_harga_produk_detail);
