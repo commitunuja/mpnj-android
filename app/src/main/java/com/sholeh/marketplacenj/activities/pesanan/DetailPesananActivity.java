@@ -66,6 +66,11 @@ public class DetailPesananActivity extends AppCompatActivity {
         getData();
 
     }
+    private String formatRupiah(Double number){
+        Locale localeID = new Locale("in", "ID");
+        NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
+        return formatRupiah.format(number);
+    }
 
     public void getData() {
         String id_konsumen;
