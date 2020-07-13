@@ -9,9 +9,12 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -39,12 +42,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FragmentFavorite extends Fragment {
+public class FragmentFavorite extends Fragment  implements View.OnClickListener  {
 //    TextView tvxTitleTolbar, tvx_edit;
 
     Toolbar toolBarisi;
     Preferences preferences;
     String id_konsumen;
+    EditText edCariWishlist;
 
     private ArrayList<modelWishlist> modellist = new ArrayList<>();
     private AdapterWishlist adapter;
@@ -65,6 +69,27 @@ public class FragmentFavorite extends Fragment {
         id_konsumen = preferences.getIdKonsumen();
 
         mGridView = rootView.findViewById(R.id.grid_favorit);
+        edCariWishlist = rootView.findViewById(R.id.tvxCariWishlist);
+        edCariWishlist.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+
+                    if(edCariWishlist.getText().toString().trim().isEmpty()){
+                        Toast.makeText(appCompatActivity, "Tidak Boleh Kosong", Toast.LENGTH_SHORT).show();
+                    }else{
+//                        Toast.makeText(appCompatActivity, ""+edCariWishlist.getText().toString(), Toast.LENGTH_SHORT).show();
+                        cariWishlish(edCariWishlist.getText().toString().trim());
+                    }
+
+                }
+
+                return false;
+            }
+        });
+
+
 
         myProgressBar= rootView.findViewById(R.id.myProgressBar);
         myProgressBar.setIndeterminate(true);
@@ -75,42 +100,47 @@ public class FragmentFavorite extends Fragment {
         return rootView;
     }
 
+
+    @Override
+    public void onClick(View v) {
+
+    }
     public void getWishlish() {
 //        if (!NetworkUtility.isNetworkConnected(AlamatActivity.this)) {
 //            AppUtilits.displayMessage(AlamatActivity.this, getString(R.string.network_not_connected));
 //        } else {
 //            ProgresDialog();
-            APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-            Call<ResTampilWishlist> call = service.getDataWishlist(id_konsumen);
-            call.enqueue(new Callback<ResTampilWishlist>() {
-                @Override
-                public void onResponse(Call<ResTampilWishlist> call, Response<ResTampilWishlist> response) {
-                    Log.d("wishlist", "onResponse: "+response);
+        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+        Call<ResTampilWishlist> call = service.getDataWishlist(id_konsumen);
+        call.enqueue(new Callback<ResTampilWishlist>() {
+            @Override
+            public void onResponse(Call<ResTampilWishlist> call, Response<ResTampilWishlist> response) {
+//                Log.d("wishlist", "onResponse: "+response);
 
-                    if (response.body() != null && response.isSuccessful()) {
+                if (response.body() != null && response.isSuccessful()) {
 
 //                        if (response.body().getPesan().equalsIgnoreCase("Sukses!!")) {
 //
 //
 //                            Log.d("cekalamat", String.valueOf(response.body().getData().getDaftarAlamat().size()));
-                            if (response.body().getData().size() > 0) {
-                                modellist.clear();
-                                for (int i = 0; i < response.body().getData().size(); i++) {
-                                    response.body().getData().get(i).getNamaProduk();
+                    if (response.body().getData().size() > 0) {
+                        modellist.clear();
+                        for (int i = 0; i < response.body().getData().size(); i++) {
+                            response.body().getData().get(i).getNamaProduk();
 
 //                                    List<Foto> arrayFoto = response.body().getData().get(i).getFoto();
 //                                    for (int j = 0; j < arrayFoto.size(); j++) {
-                                        modellist.add(new modelWishlist(
-                                                    response.body().getData().get(i).getIdWishlist(),
-                                                    response.body().getData().get(i).getIdUser(),
-                                                    response.body().getData().get(i).getIdProduk(),
-                                                    response.body().getData().get(i).getNamaProduk(),
-                                                    response.body().getData().get(i).getHargaJual(),
-                                                    response.body().getData().get(i).getDiskon(),
-                                                    response.body().getData().get(i).getStok(),
-                                                    response.body().getData().get(i).getKategori(),
-                                                    response.body().getData().get(i).getKeterangan(),
-                                                    response.body().getData().get(i).getFoto().get(0).getFotoProduk()));
+                            modellist.add(new modelWishlist(
+                                    response.body().getData().get(i).getIdWishlist(),
+                                    response.body().getData().get(i).getIdUser(),
+                                    response.body().getData().get(i).getIdProduk(),
+                                    response.body().getData().get(i).getNamaProduk(),
+                                    response.body().getData().get(i).getHargaJual(),
+                                    response.body().getData().get(i).getDiskon(),
+                                    response.body().getData().get(i).getStok(),
+                                    response.body().getData().get(i).getKategori(),
+                                    response.body().getData().get(i).getKeterangan(),
+                                    response.body().getData().get(i).getFoto().get(0).getFotoProduk()));
 //                                    }
 //                                    Toast.makeText(getActivity(), ""+response.body().getData().get(i).getNamaProduk(), Toast.LENGTH_SHORT).show();
 //
@@ -120,10 +150,10 @@ public class FragmentFavorite extends Fragment {
 
 //
 //
-                                }
-                                adapter = new AdapterWishlist(getActivity(),modellist);
-                                mGridView.setAdapter(adapter);
-                                myProgressBar.setVisibility(View.GONE);
+                        }
+                        adapter = new AdapterWishlist(getActivity(),modellist);
+                        mGridView.setAdapter(adapter);
+                        myProgressBar.setVisibility(View.GONE);
 
 //
 //                                adapter.notifyDataSetChanged();
@@ -133,31 +163,31 @@ public class FragmentFavorite extends Fragment {
 //                                progressDialogHud.dismiss();
 //
 //
-                            } else {
+                    } else {
 //                                Toast.makeText(AlamatActivity.this, "Data Belum Ada", Toast.LENGTH_SHORT).show();
 //                                recyclerAlamat.setVisibility(View.GONE);
 ////                            ln_kosong.setVisibility(View.VISIBLE);
 //                                progressDialogHud.dismiss();
-                            }
+                    }
 //                        } else {
 ////                            AppUtilits.displayMessage(AlamatActivity.this, response.body().getPesan() );
 //                            recyclerAlamat.setVisibility(View.GONE);
 //                            ln_kosong.setVisibility(View.VISIBLE);
 //                            progressDialogHud.dismiss();
 //                        }
-                    } else {
+                } else {
 //                        AppUtilits.displayMessage(AlamatActivity.this, getString(R.string.network_error));
 //                        recyclerAlamat.setVisibility(View.GONE);
 //                        ln_kosong.setVisibility(View.VISIBLE);
 //                        progressDialogHud.dismiss();
-                    }
-
                 }
 
-                @Override
-                public void onFailure(Call<ResTampilWishlist> call, Throwable t) {
-                    Log.d("wishlist", "onError: "+t);
-                    myProgressBar.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onFailure(Call<ResTampilWishlist> call, Throwable t) {
+//                Log.d("wishlist", "onError: "+t);
+                myProgressBar.setVisibility(View.GONE);
 
 //                    AppUtilits.displayMessage(AlamatActivity.this, getString(R.string.fail_togetaddress));
 //                    recyclerAlamat.setVisibility(View.GONE);
@@ -165,11 +195,105 @@ public class FragmentFavorite extends Fragment {
 //                    progressDialogHud.dismiss();
 
 
-                }
-            });
+            }
+        });
 //        }
     }
 
+    public void cariWishlish(String search) {
+//        if (!NetworkUtility.isNetworkConnected(AlamatActivity.this)) {
+//            AppUtilits.displayMessage(AlamatActivity.this, getString(R.string.network_not_connected));
+//        } else {
+//            ProgresDialog();
+        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+        Call<ResTampilWishlist> call = service.cariWishlist(id_konsumen, search);
 
+        call.enqueue(new Callback<ResTampilWishlist>() {
+            @Override
+            public void onResponse(Call<ResTampilWishlist> call, Response<ResTampilWishlist> response) {
+                Log.d("cariwishlist", "onResponse: "+response);
+
+                if (response.body() != null && response.isSuccessful()) {
+
+//                        if (response.body().getPesan().equalsIgnoreCase("Sukses!!")) {
+//
+//
+//                            Log.d("cekalamat", String.valueOf(response.body().getData().getDaftarAlamat().size()));
+                    if (response.body().getData().size() > 0) {
+                        modellist.clear();
+                        for (int i = 0; i < response.body().getData().size(); i++) {
+                            response.body().getData().get(i).getNamaProduk();
+
+//                                    List<Foto> arrayFoto = response.body().getData().get(i).getFoto();
+//                                    for (int j = 0; j < arrayFoto.size(); j++) {
+                            modellist.add(new modelWishlist(
+                                    response.body().getData().get(i).getIdWishlist(),
+                                    response.body().getData().get(i).getIdUser(),
+                                    response.body().getData().get(i).getIdProduk(),
+                                    response.body().getData().get(i).getNamaProduk(),
+                                    response.body().getData().get(i).getHargaJual(),
+                                    response.body().getData().get(i).getDiskon(),
+                                    response.body().getData().get(i).getStok(),
+                                    response.body().getData().get(i).getKategori(),
+                                    response.body().getData().get(i).getKeterangan(),
+                                    response.body().getData().get(i).getFoto().get(0).getFotoProduk()));
+//                                    }
+                                    Toast.makeText(getActivity(), ""+response.body().getData().get(i).getNamaProduk(), Toast.LENGTH_SHORT).show();
+//
+
+
+
+
+//
+//
+                        }
+                        adapter = new AdapterWishlist(getActivity(),modellist);
+                        mGridView.setAdapter(adapter);
+//                        myProgressBar.setVisibility(View.GONE);
+
+//
+//                                adapter.notifyDataSetChanged();
+
+//                                recyclerAlamat.setVisibility(View.VISIBLE);
+////                            ln_kosong.setVisibility(View.GONE);
+//                                progressDialogHud.dismiss();
+//
+//
+                    } else {
+//                                Toast.makeText(AlamatActivity.this, "Data Belum Ada", Toast.LENGTH_SHORT).show();
+//                                recyclerAlamat.setVisibility(View.GONE);
+////                            ln_kosong.setVisibility(View.VISIBLE);
+//                                progressDialogHud.dismiss();
+                    }
+//                        } else {
+////                            AppUtilits.displayMessage(AlamatActivity.this, response.body().getPesan() );
+//                            recyclerAlamat.setVisibility(View.GONE);
+//                            ln_kosong.setVisibility(View.VISIBLE);
+//                            progressDialogHud.dismiss();
+//                        }
+                } else {
+//                        AppUtilits.displayMessage(AlamatActivity.this, getString(R.string.network_error));
+//                        recyclerAlamat.setVisibility(View.GONE);
+//                        ln_kosong.setVisibility(View.VISIBLE);
+//                        progressDialogHud.dismiss();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ResTampilWishlist> call, Throwable t) {
+                Log.d("cariwishlist", "onError: "+t);
+//                myProgressBar.setVisibility(View.GONE);
+
+//                    AppUtilits.displayMessage(AlamatActivity.this, getString(R.string.fail_togetaddress));
+//                    recyclerAlamat.setVisibility(View.GONE);
+//                    ln_kosong.setVisibility(View.VISIBLE);
+//                    progressDialogHud.dismiss();
+
+
+            }
+        });
+//        }
+    }
 
 }

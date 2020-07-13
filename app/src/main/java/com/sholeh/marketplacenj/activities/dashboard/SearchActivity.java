@@ -131,6 +131,7 @@ public class SearchActivity extends AppCompatActivity implements MaterialSearchB
     @Override
     public void onSearchConfirmed(CharSequence text) {
         produksearch(openSearch.getText());
+//        Toast.makeText(this, ""+openSearch.getText(), Toast.LENGTH_SHORT).show();
     }
 
     @Override

@@ -494,6 +494,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
             case R.id.searchBar:
                 Intent search = new Intent(getContext(), SearchActivity.class);
                 startActivity(search);
+//                Toast.makeText(getActivity(), "cari ", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.tv_produkterpopuler:
                 Intent intent = new Intent(getContext(), ProdukTerpopulerActivity.class);
