@@ -19,8 +19,10 @@ import com.sholeh.marketplacenj.model.pesanan.DataPesanan;
 import com.sholeh.marketplacenj.model.pesanan.Item;
 import com.sholeh.marketplacenj.util.CONSTANTS;
 
+import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 
 public class PesananAdapter extends RecyclerView.Adapter<PesananAdapter.ViewHolder> {
