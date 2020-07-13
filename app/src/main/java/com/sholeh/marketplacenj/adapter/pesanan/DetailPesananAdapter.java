@@ -32,6 +32,13 @@ public class DetailPesananAdapter extends RecyclerView.Adapter<DetailPesananAdap
         this.dataPesanans = dataPesanans;
     }
 
+    private String formatRupiah(Double number){
+        Locale localeID = new Locale("in", "ID");
+        NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
+        return formatRupiah.format(number);
+    }
+
+
     @NonNull
     @Override
     public DetailPesananAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
