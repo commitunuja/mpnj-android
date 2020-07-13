@@ -74,7 +74,7 @@ public class Tabdikemas extends Fragment {
 
 
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-        Call<Pesanan> call = service.getDataPesanan(String.valueOf(1), "packing");
+        Call<Pesanan> call = service.getDataPesanan(String.valueOf(id_konsumen), "packing");
 
         dataPesanans = new ArrayList<>();
         item = new HashMap<>();

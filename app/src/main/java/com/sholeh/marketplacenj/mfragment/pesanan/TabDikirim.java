@@ -73,7 +73,7 @@ public class TabDikirim extends Fragment {
 
 
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-        Call<Pesanan> call = service.getDataPesanan(String.valueOf(1), "dikirim");
+        Call<Pesanan> call = service.getDataPesanan(String.valueOf(id_konsumen), "dikirim");
 
         dataPesanans = new ArrayList<>();
         item = new HashMap<>();
