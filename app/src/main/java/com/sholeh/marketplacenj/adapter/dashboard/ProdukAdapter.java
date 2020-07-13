@@ -19,13 +19,18 @@ import com.sholeh.marketplacenj.activities.details.ProductDetailActivity;
 import com.sholeh.marketplacenj.model.Model;
 import com.squareup.picasso.Picasso;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
+import java.util.StringTokenizer;
 
 public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ViewHolder> {
     private Context context;
     private List<Model> tvDataProduks; // model / item
     private Model tvDataProduk;
-
+    Locale localeID = new Locale("in", "ID");
+    NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
+    StringTokenizer stringTokenizer;
 
 
     public ProdukAdapter(Context context, List<Model> tvDataProduks) {
