@@ -28,9 +28,19 @@ public class DetailPesananActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail_pesanan);
 
 
+        vnamaproduk = findViewById(R.id.tv_nama_produk_detail);
+        vharga = findViewById(R.id.tv_harga_produk_detail);
+        iproduk = findViewById(R.id.img_produk_detail);
+        recyclerView = findViewById(R.id.recycler_pesanan_detail);
+        toko = findViewById(R.id.tv_toko);
+        waktu = findViewById(R.id.tv_waktupembelian);
+        status = findViewById(R.id.tv_status_order_detail);
+        totalhargaproduk = findViewById(R.id.tv_totalhargaproduk);
+        total = findViewById(R.id.tv_total_detail_bayar);
+        alamat = findViewById(R.id.tv_alamat_detail_pesanan);
         Intent i = getIntent();
-        namaproduk = i.getStringExtra("namaproduk");
-        namatoko = i.getStringExtra("namatoko");
+        kode = i.getStringExtra("kode");
+
         harga = i.getStringExtra("harga");
         foto = i.getStringExtra("foto");
 
