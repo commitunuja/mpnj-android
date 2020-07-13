@@ -62,6 +62,10 @@
                             android:src="@drawable/search"/>
 
                         <customfonts.EditText_Roboto_Meidum
+                            android:singleLine="true"
+                            android:inputType="text"
+                            android:imeOptions="actionSearch"
+                            android:id="@+id/tvxCariWishlist"
                             android:layout_weight="1"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
