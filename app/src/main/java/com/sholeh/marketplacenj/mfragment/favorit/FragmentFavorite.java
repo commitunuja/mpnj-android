@@ -16,10 +16,13 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.activities.AlamatActivity;
 import com.sholeh.marketplacenj.adapter.wishlist.AdapterWishlist;
@@ -49,11 +52,17 @@ public class FragmentFavorite extends Fragment  implements View.OnClickListener 
     Preferences preferences;
     String id_konsumen;
     EditText edCariWishlist;
+    ImageView imgreset;
 
     private ArrayList<modelWishlist> modellist = new ArrayList<>();
     private AdapterWishlist adapter;
     private GridView mGridView;
     ProgressBar myProgressBar;
+
+    private KProgressHUD progressHud;
+    LinearLayout lnKosong;
+    TextView tvxDesainKosong;
+
 
 
     @Nullable
@@ -67,6 +76,9 @@ public class FragmentFavorite extends Fragment  implements View.OnClickListener 
 //        appCompatActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         preferences = new Preferences(getActivity());
         id_konsumen = preferences.getIdKonsumen();
+        progressHud = KProgressHUD.create(getActivity());
+        lnKosong=rootView.findViewById(R.id.lnKosong);
+        tvxDesainKosong = rootView.findViewById(R.id.tvDataKosong);
 
         mGridView = rootView.findViewById(R.id.grid_favorit);
         edCariWishlist = rootView.findViewById(R.id.tvxCariWishlist);
@@ -77,7 +89,7 @@ public class FragmentFavorite extends Fragment  implements View.OnClickListener 
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
 
                     if(edCariWishlist.getText().toString().trim().isEmpty()){
-                        Toast.makeText(appCompatActivity, "Tidak Boleh Kosong", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(appCompatActivity, "Pencarian Tidak Boleh Kosong", Toast.LENGTH_SHORT).show();
                     }else{
 //                        Toast.makeText(appCompatActivity, ""+edCariWishlist.getText().toString(), Toast.LENGTH_SHORT).show();
                         cariWishlish(edCariWishlist.getText().toString().trim());
@@ -98,6 +110,13 @@ public class FragmentFavorite extends Fragment  implements View.OnClickListener 
         getWishlish();
 
         return rootView;
+    }
+
+    private void ProgresDialog() {
+        progressHud.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setLabel("Proses...")
+                .setCancellable(false);
+        progressHud.show();
     }
 
 
@@ -204,7 +223,7 @@ public class FragmentFavorite extends Fragment  implements View.OnClickListener 
 //        if (!NetworkUtility.isNetworkConnected(AlamatActivity.this)) {
 //            AppUtilits.displayMessage(AlamatActivity.this, getString(R.string.network_not_connected));
 //        } else {
-//            ProgresDialog();
+            ProgresDialog();
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
         Call<ResTampilWishlist> call = service.cariWishlist(id_konsumen, search);
 
@@ -212,20 +231,11 @@ public class FragmentFavorite extends Fragment  implements View.OnClickListener 
             @Override
             public void onResponse(Call<ResTampilWishlist> call, Response<ResTampilWishlist> response) {
                 Log.d("cariwishlist", "onResponse: "+response);
-
                 if (response.body() != null && response.isSuccessful()) {
-
-//                        if (response.body().getPesan().equalsIgnoreCase("Sukses!!")) {
-//
-//
-//                            Log.d("cekalamat", String.valueOf(response.body().getData().getDaftarAlamat().size()));
                     if (response.body().getData().size() > 0) {
                         modellist.clear();
                         for (int i = 0; i < response.body().getData().size(); i++) {
                             response.body().getData().get(i).getNamaProduk();
-
-//                                    List<Foto> arrayFoto = response.body().getData().get(i).getFoto();
-//                                    for (int j = 0; j < arrayFoto.size(); j++) {
                             modellist.add(new modelWishlist(
                                     response.body().getData().get(i).getIdWishlist(),
                                     response.body().getData().get(i).getIdUser(),
@@ -237,45 +247,24 @@ public class FragmentFavorite extends Fragment  implements View.OnClickListener 
                                     response.body().getData().get(i).getKategori(),
                                     response.body().getData().get(i).getKeterangan(),
                                     response.body().getData().get(i).getFoto().get(0).getFotoProduk()));
-//                                    }
-                                    Toast.makeText(getActivity(), ""+response.body().getData().get(i).getNamaProduk(), Toast.LENGTH_SHORT).show();
-//
-
-
-
-
-//
-//
                         }
                         adapter = new AdapterWishlist(getActivity(),modellist);
                         mGridView.setAdapter(adapter);
-//                        myProgressBar.setVisibility(View.GONE);
+                        lnKosong.setVisibility(View.GONE);
+                        mGridView.setVisibility(View.VISIBLE);
+                        progressHud.dismiss();
 
-//
-//                                adapter.notifyDataSetChanged();
-
-//                                recyclerAlamat.setVisibility(View.VISIBLE);
-////                            ln_kosong.setVisibility(View.GONE);
-//                                progressDialogHud.dismiss();
-//
-//
                     } else {
-//                                Toast.makeText(AlamatActivity.this, "Data Belum Ada", Toast.LENGTH_SHORT).show();
-//                                recyclerAlamat.setVisibility(View.GONE);
-////                            ln_kosong.setVisibility(View.VISIBLE);
-//                                progressDialogHud.dismiss();
+                        mGridView.setVisibility(View.GONE);
+                        lnKosong.setVisibility(View.VISIBLE);
+                        progressHud.dismiss();
+                        tvxDesainKosong.setText("Barang Favoritmu Belum Ada");
                     }
-//                        } else {
-////                            AppUtilits.displayMessage(AlamatActivity.this, response.body().getPesan() );
-//                            recyclerAlamat.setVisibility(View.GONE);
-//                            ln_kosong.setVisibility(View.VISIBLE);
-//                            progressDialogHud.dismiss();
-//                        }
                 } else {
-//                        AppUtilits.displayMessage(AlamatActivity.this, getString(R.string.network_error));
-//                        recyclerAlamat.setVisibility(View.GONE);
-//                        ln_kosong.setVisibility(View.VISIBLE);
-//                        progressDialogHud.dismiss();
+                    mGridView.setVisibility(View.GONE);
+                    lnKosong.setVisibility(View.VISIBLE);
+                    progressHud.dismiss();
+                    tvxDesainKosong.setText("Barang Favoritmu Belum Ada");
                 }
 
             }
@@ -283,14 +272,10 @@ public class FragmentFavorite extends Fragment  implements View.OnClickListener 
             @Override
             public void onFailure(Call<ResTampilWishlist> call, Throwable t) {
                 Log.d("cariwishlist", "onError: "+t);
-//                myProgressBar.setVisibility(View.GONE);
-
-//                    AppUtilits.displayMessage(AlamatActivity.this, getString(R.string.fail_togetaddress));
-//                    recyclerAlamat.setVisibility(View.GONE);
-//                    ln_kosong.setVisibility(View.VISIBLE);
-//                    progressDialogHud.dismiss();
-
-
+                mGridView.setVisibility(View.GONE);
+                lnKosong.setVisibility(View.VISIBLE);
+                progressHud.dismiss();
+                tvxDesainKosong.setText("Barang Favoritmu Belum Ada");
             }
         });
 //        }
