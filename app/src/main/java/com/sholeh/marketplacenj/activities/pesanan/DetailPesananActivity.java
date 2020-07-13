@@ -119,8 +119,18 @@ public class DetailPesananActivity extends AppCompatActivity {
                             toko.setText(response.body().getData().get(i).getNamaToko());
                             waktu.setText(response.body().getData().get(i).getWaktuPesan());
                             status.setText(response.body().getData().get(i).getStatusOrder());
-                            total.setText(formatRupiah(Double.parseDouble(response.body().getData().get(i).getTotalBayar())));
+
+                            int total1 = Integer.parseInt(response.body().getData().get(i).getTotalBayar());
+                            stringTokenizer = new StringTokenizer(formatRupiah.format(total1),",");
+                            String totalbayar = stringTokenizer.nextToken().trim();
+                            total.setText(totalbayar);
                             alamat.setText(response.body().getData().get(i).getTujuan());
+                            int harga = Integer.parseInt(response.body().getData().get(i).getHarga());
+                            stringTokenizer = new StringTokenizer(formatRupiah.format(harga),",");
+                            String harga1 = stringTokenizer.nextToken().trim();
+                            totalhargadetail.setText(harga1);
+
+
                         }
 
                     } else {
