@@ -19,12 +19,15 @@ import com.sholeh.marketplacenj.util.CONSTANTS;
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
+import java.util.StringTokenizer;
 
 public class DetailPesananAdapter extends RecyclerView.Adapter<DetailPesananAdapter.ViewHolder> {
     Context context;
     List<ItemDetailPesanan> dataPesanans;
     ItemDetailPesanan dataPesanan;
-//    HashMap<DataPesanan, List<Item>> items;
+    Locale localeID = new Locale("in", "ID");
+    NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
+    StringTokenizer stringTokenizer;
 
 
     public DetailPesananAdapter(Context context, List<ItemDetailPesanan> dataPesanans) {
@@ -32,11 +35,6 @@ public class DetailPesananAdapter extends RecyclerView.Adapter<DetailPesananAdap
         this.dataPesanans = dataPesanans;
     }
 
-    private String formatRupiah(Double number){
-        Locale localeID = new Locale("in", "ID");
-        NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
-        return formatRupiah.format(number);
-    }
 
 
     @NonNull
