@@ -70,6 +70,8 @@ public class PesananAdapter extends RecyclerView.Adapter<PesananAdapter.ViewHold
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView namatoko, statusorder, namaproduk, harga, totalbayar, jumlahproduk;
         ImageView fotoproduk;
+        String kode;
+        CardView todetail;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
