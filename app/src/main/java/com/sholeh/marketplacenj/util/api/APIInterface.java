@@ -301,6 +301,11 @@ public interface APIInterface {
             @Path("id_wishlist") String idWishlist);
 
 
+    // cari wishlist
+    @FormUrlEncoded
+    @POST("api/wishlist/cari")
+    Call<ResTampilWishlist> cariWishlist(@Field("id_user") String userId,
+                                  @Field("nama_produk") String namaProduk);
 
 
 }
