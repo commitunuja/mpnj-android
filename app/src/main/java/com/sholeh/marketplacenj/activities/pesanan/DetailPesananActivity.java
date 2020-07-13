@@ -61,8 +61,10 @@ public class DetailPesananActivity extends AppCompatActivity {
         Intent i = getIntent();
         kode = i.getStringExtra("kode");
 
-        harga = i.getStringExtra("harga");
-        foto = i.getStringExtra("foto");
+        getData();
+
+    }
+
     public void getData() {
         String id_konsumen;
         Preferences preferences = new Preferences(getContext());
