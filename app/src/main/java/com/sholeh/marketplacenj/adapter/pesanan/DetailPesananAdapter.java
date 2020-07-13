@@ -16,7 +16,9 @@ import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.model.pesanan.detailpesanan.ItemDetailPesanan;
 import com.sholeh.marketplacenj.util.CONSTANTS;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class DetailPesananAdapter extends RecyclerView.Adapter<DetailPesananAdapter.ViewHolder> {
     Context context;
