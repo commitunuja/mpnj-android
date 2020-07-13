@@ -72,7 +72,7 @@ public class PesananFragment extends Fragment {
 
 
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-        Call<Pesanan> call = service.getDataPesanan(String.valueOf(id_konsumen));
+        Call<Pesanan> call = service.getDataPesanan(String.valueOf(1), " ");
 
         dataPesanans = new ArrayList<>();
         item = new HashMap<>();
