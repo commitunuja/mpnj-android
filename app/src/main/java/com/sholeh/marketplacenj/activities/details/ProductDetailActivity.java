@@ -445,7 +445,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
         }
     }
-
+    
 
     public void addKeranjang() {
 //        if (!NetworkUtility.isNetworkConnected(RegisterActivity.this)) {
@@ -455,9 +455,12 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
 
         if (vdiskon == 0) { // tidak ada diskon
-            final String harga_jual = harga.getText().toString();
+            final String harga_jual = String.valueOf(vhargaproduk);
             st1 = new StringTokenizer(harga_jual, "Rp");
             String hargaJual = st1.nextToken().trim();
+//            double jual = Double.valueOf(harga.getText().toString());
+//            String c = String.valueOf(jual);
+
 
             APIInterface apiKeranjang = ServiceGenerator.getRetrofit().create(APIInterface.class);
             Call<ResKeranjang> sendData = apiKeranjang.simpanKeranjang(vid_produk, id_konsumen,  String.valueOf(1), hargaJual);
@@ -491,7 +494,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
             });
 
         } else {
-            final String harga_ = offer.getText().toString();
+            final String harga_ = String.valueOf(p);
             st2 = new StringTokenizer(harga_, "Rp");
             String hargaJual = st2.nextToken().trim();
 
