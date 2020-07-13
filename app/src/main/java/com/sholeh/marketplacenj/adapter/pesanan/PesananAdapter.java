@@ -23,6 +23,7 @@ import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.StringTokenizer;
 
 
 public class PesananAdapter extends RecyclerView.Adapter<PesananAdapter.ViewHolder> {
@@ -30,17 +31,15 @@ public class PesananAdapter extends RecyclerView.Adapter<PesananAdapter.ViewHold
     List<DataPesanan> dataPesanans;
     DataPesanan dataPesanan;
     HashMap<DataPesanan, List<Item>> items;
+    Locale localeID = new Locale("in", "ID");
+    NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
+    StringTokenizer stringTokenizer;
 
 
     public PesananAdapter(Context context, List<DataPesanan> dataPesanans, HashMap<DataPesanan, List<Item>> item) {
         this.context = context;
         this.dataPesanans = dataPesanans;
         this.items = item;
-    }
-    private String formatRupiah(Double number){
-        Locale localeID = new Locale("in", "ID");
-        NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
-        return formatRupiah.format(number);
     }
 
     @NonNull
