@@ -129,15 +129,24 @@ public class Utama extends AppCompatActivity implements BottomNavigationView.OnN
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
+
             case R.id.navigation_store:
                 fm.beginTransaction().hide(active).show(homeFragment).commit();
                 active = homeFragment;
                 return true;
 
+
             case R.id.navigation_favourite:
-                fm.beginTransaction().hide(active).show(favoritFragment).commit();
-                active = favoritFragment;
-                return true;
+                boolean sudahlogin = preferences.getSPSudahLogin();
+                if (sudahlogin) {
+                    fm.beginTransaction().hide(active).show(favoritFragment).commit();
+                    active = favoritFragment;
+                    return true;
+                } else {
+                    startActivity(new Intent(this, LoginActivity.class));
+                    finish();
+                    return true;
+                }
 
             case R.id.navigation_notification:
                 Toast.makeText(this, "Ini hanya View", Toast.LENGTH_SHORT).show();
@@ -156,11 +165,8 @@ public class Utama extends AppCompatActivity implements BottomNavigationView.OnN
                 } else {
                     startActivity(new Intent(this, LoginActivity.class));
                     finish();
+                    return true;
                 }
-
-
-
-
         }
 
         return false;
