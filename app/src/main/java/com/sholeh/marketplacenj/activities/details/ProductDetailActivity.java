@@ -74,14 +74,17 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
     LinearLayout right1, right2, right3;
     ImageView right1_imag, right2_imag, right3_imag, tambah, keranjang;
 
-    String namaproduk, kategoriproduk, vdeskripsi, vid_produk, pelapak, foto_pelapak, id_pelapak, fotoproduk;
+    String namaproduk, kategoriproduk, vdeskripsi, vid_produk, pelapak, foto_pelapak, id_pelapak, fotoproduk, hargaJual;
 
     int vhargaproduk;
     int vstok;
     int vterjual;
-    Double vdiskon;
+    Double vdiskon,p;
+
     ImageView fotopelapak;
     private ViewPager viewPager;
+    Locale localeID = new Locale("in", "ID");
+    NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
 
     //    private ViewpagerProductDetailsAdapter viewpagerAdapter;
     private ArrayList<TopTenModelClass> topTenModelClasses;
@@ -205,7 +208,9 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
         nama.setText(namaproduk);
         double h = vdiskon / 100 * vhargaproduk;
-        double p = vhargaproduk - h;
+        p = vhargaproduk - h;
+        String dStr = String.valueOf(p);
+        String value = dStr.matches("\\d+\\.\\d*[1-9]\\d*") ? dStr : dStr.substring(0, dStr.indexOf("."));
 
         st3 = new StringTokenizer(formatRupiah.format(vhargaproduk), ",");
         String hargaAwal = st3.nextToken().trim();
@@ -223,11 +228,20 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 //            linear5.removeAllViews();
         }
         if (vdiskon == 0) {
-            harga.setText(hargaAwal);
-            offer.setVisibility(View.GONE);
+
+            st2 = new StringTokenizer(formatRupiah.format(vhargaproduk), ",");
+            hargaJual = st2.nextToken().trim();
+            harga.setText(hargaJual);
+            offer.setText("");
+
         } else {
-            offer.setText(hargaAwal);
-            harga.setText(hargaDiskon);
+            st2 = new StringTokenizer(formatRupiah.format(vhargaproduk), ",");
+            String diskons = st2.nextToken().trim();
+            offer.setText(diskons);
+
+            st2 = new StringTokenizer(formatRupiah.format(p), ",");
+            String hargas = st2.nextToken().trim();
+            harga.setText(hargas);
 
         }
 
@@ -455,7 +469,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
         }
     }
-
+    
 
     public void addKeranjang() {
 //        if (!NetworkUtility.isNetworkConnected(RegisterActivity.this)) {
@@ -465,9 +479,12 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
 
         if (vdiskon == 0) { // tidak ada diskon
-            final String harga_jual = harga.getText().toString();
+            final String harga_jual = String.valueOf(vhargaproduk);
             st1 = new StringTokenizer(harga_jual, "Rp");
             String hargaJual = st1.nextToken().trim();
+//            double jual = Double.valueOf(harga.getText().toString());
+//            String c = String.valueOf(jual);
+
 
             APIInterface apiKeranjang = ServiceGenerator.getRetrofit().create(APIInterface.class);
             Call<ResKeranjang> sendData = apiKeranjang.simpanKeranjang(vid_produk, id_konsumen,  String.valueOf(1), hargaJual);
@@ -501,7 +518,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
             });
 
         } else {
-            final String harga_ = offer.getText().toString();
+            final String harga_ = String.valueOf(p);
             st2 = new StringTokenizer(harga_, "Rp");
             String hargaJual = st2.nextToken().trim();
 

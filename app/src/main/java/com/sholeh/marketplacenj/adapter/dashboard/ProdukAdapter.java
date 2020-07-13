@@ -31,8 +31,7 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ViewHolder
     private Model tvDataProduk;
     Locale localeID = new Locale("in", "ID");
     NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
-    StringTokenizer st, st2;
-
+    StringTokenizer stringTokenizer;
 
 
     public ProdukAdapter(Context context, List<Model> tvDataProduks) {
@@ -40,6 +39,7 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ViewHolder
         this.tvDataProduks = tvDataProduks;
 
     }
+
 
     @NonNull
     @Override
@@ -51,18 +51,12 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         tvDataProduk = tvDataProduks.get(i);
-        viewHolder.namaProduk.setText(tvDataProduk.getNamaProduk()); // MODELtv
-        viewHolder.tvxdiskon.setText(tvDataProduk.getDiskon()+"%"); // MODELtv
 
-        int hargaAwal = tvDataProduk.getHargaJual();
-        double diskon = tvDataProduk.getDiskon();
+        stringTokenizer = new StringTokenizer(formatRupiah.format(tvDataProduk.getHargaJual()), ",");
+        String hargajum = stringTokenizer.nextToken().trim();
 
-        double h = diskon / 100 * hargaAwal;
-        double p = hargaAwal - h;
-        st = new StringTokenizer(formatRupiah.format(p), ",");
-        String harganya = st.nextToken().trim();
-
-        viewHolder.hargaProduk.setText(harganya);
+        viewHolder.namaProduk.setText(tvDataProduk.getNamaProduk()); // MODEL
+        viewHolder.hargaProduk.setText(hargajum);;
         viewHolder.type.setText(tvDataProduk.getKategori().getNamaKategori());
 
         Picasso.with(context)
