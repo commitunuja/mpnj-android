@@ -53,11 +53,20 @@ public class PesananAdapter extends RecyclerView.Adapter<PesananAdapter.ViewHold
     public void onBindViewHolder(@NonNull PesananAdapter.ViewHolder holder, int position) {
         dataPesanan = dataPesanans.get(position);
 
+        int total = dataPesanan.getTotalPembayaran();
+        stringTokenizer = new StringTokenizer(formatRupiah.format(total),",");
+        String total1 = stringTokenizer.nextToken().trim();
+
         holder.namatoko.setText(dataPesanan.getNamaToko());
-        holder.totalbayar.setText(formatRupiah(Double.parseDouble(" "+dataPesanan.getTotalPembayaran())));
+        holder.totalbayar.setText(total1);
         holder.jumlahproduk.setText("" + dataPesanan.getJumlahPesanan());
         holder.namaproduk.setText(dataPesanan.getItem().get(0).getNamaProduk());
-        holder.harga.setText(formatRupiah(Double.parseDouble(dataPesanan.getItem().get(0).getHargaJual())));
+
+        int harga1 = Integer.parseInt(dataPesanan.getItem().get(0).getHargaJual());
+        stringTokenizer = new StringTokenizer(formatRupiah.format(harga1),",");
+        String harga2 = stringTokenizer.nextToken().trim();
+
+        holder.harga.setText(harga2);
         holder.statusorder.setText(dataPesanan.getItem().get(0).getStatusOrder());
         holder.kode = dataPesanan.getKodeInvoice();
 
