@@ -12,9 +12,9 @@ import com.sholeh.marketplacenj.R;
 
 public class DetailPesananActivity extends AppCompatActivity {
 
-    private String namaproduk, namatoko, harga, foto;
-    private TextView vnamaproduk, vnamatoko, vharga;
-    private ImageView iproduk;
+    String namaproduk, namatoko, harga, foto;
+    TextView vnamaproduk, waktu, totalhargaproduk, total, vharga, toko, status, alamat;
+    ImageView iproduk;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
