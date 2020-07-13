@@ -74,7 +74,7 @@ public class DetailPesananActivity extends AppCompatActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setHasFixedSize(true);
 
-//        vnamaproduk = findViewById(R.id.tv_nama_produk_detail);
+
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
         Call<DetailPesanan> call = service.getDataDetailPesanan(String.valueOf(kode));
 
@@ -109,9 +109,21 @@ public class DetailPesananActivity extends AppCompatActivity {
                             status.setText(response.body().getData().get(i).getStatusOrder());
                             total.setText("Rp " +response.body().getData().get(i).getTotalBayar());
                             alamat.setText(response.body().getData().get(i).getTujuan());
+                        }
 
+                    } else {
+
+                    }
                     recyclerdetailpesanan = new DetailPesananAdapter(getContext(), dataPesanans);
                     recyclerView.setAdapter(recyclerdetailpesanan);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DetailPesanan> call, Throwable t) {
+
+            }
+        });
 
     }
 }
