@@ -5,8 +5,8 @@ import com.sholeh.marketplacenj.model.Kategori;
 import com.sholeh.marketplacenj.model.Model;
 import com.sholeh.marketplacenj.model.city.ItemCity;
 import com.sholeh.marketplacenj.model.cost.ItemCost;
-import com.sholeh.marketplacenj.model.pesanan.DataPesanan;
 import com.sholeh.marketplacenj.model.pesanan.Pesanan;
+import com.sholeh.marketplacenj.model.pesanan.detailpesanan.DetailPesanan;
 import com.sholeh.marketplacenj.model.province.ItemProvince;
 import com.sholeh.marketplacenj.model.subdistrict.ItemKec;
 import com.sholeh.marketplacenj.respon.ResAlamat;
@@ -182,8 +182,14 @@ public interface APIInterface {
     @GET("api/produk")
     Call<List<Model>> getAllData(@Query("cari") String nama_produk);
 
+//    @GET("api/pesanan")
+//    Call<Pesanan> getDataPesanan(@Query("id") String id);
+
     @GET("api/pesanan")
-    Call<Pesanan> getDataPesanan(@Query("id") String id);
+    Call<Pesanan> getDataPesanan(@Query("id") String id, @Query("tab") String tab);
+
+    @GET("api/pesanan/detail/{kode}")
+    Call<DetailPesanan> getDataDetailPesanan(@Path("kode") String kode);
 
     @FormUrlEncoded
     @POST("api/keranjang")
