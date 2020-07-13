@@ -83,6 +83,7 @@
 
 
                         <ImageView
+                            android:id="@+id/imdResetSearch"
                             android:layout_width="13dp"
                             android:layout_height="13dp"
                             android:tint="#534a4a"
