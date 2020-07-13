@@ -21,9 +21,11 @@ import com.sholeh.marketplacenj.util.Preferences;
 import com.sholeh.marketplacenj.util.ServiceGenerator;
 import com.sholeh.marketplacenj.util.api.APIInterface;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
