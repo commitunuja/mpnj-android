@@ -39,6 +39,7 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ViewHolder
 
     }
 
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
@@ -49,8 +50,12 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         tvDataProduk = tvDataProduks.get(i);
+
+        stringTokenizer = new StringTokenizer(formatRupiah.format(tvDataProduk.getHargaJual()), ",");
+        String hargajum = stringTokenizer.nextToken().trim();
+
         viewHolder.namaProduk.setText(tvDataProduk.getNamaProduk()); // MODEL
-        viewHolder.hargaProduk.setText(String.valueOf("Rp " + tvDataProduk.getHargaJual()));
+        viewHolder.hargaProduk.setText(hargajum);;
         viewHolder.type.setText(tvDataProduk.getKategori().getNamaKategori());
 
         Picasso.with(context)
