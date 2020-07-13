@@ -1,14 +1,16 @@
-package com.sholeh.marketplacenj.activities.pesanan;
+package com.sholeh.marketplacenj.mfragment.pesanan;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,21 +18,31 @@ import com.bumptech.glide.manager.SupportRequestManagerFragment;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.adapter.pesanan.PesananAdapter;
 import com.sholeh.marketplacenj.model.pesanan.DataPesanan;
+import com.sholeh.marketplacenj.model.pesanan.Item;
+import com.sholeh.marketplacenj.model.pesanan.Pesanan;
 import com.sholeh.marketplacenj.util.Preferences;
+import com.sholeh.marketplacenj.util.ServiceGenerator;
+import com.sholeh.marketplacenj.util.api.APIInterface;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
 
 
 public class TabBelumBayar extends Fragment {
 
-    SupportRequestManagerFragment supportRequestManagerFragment;
-    private PesananAdapter pesananAdapter;
-    private static final String ARG_SECTION_NUMBER = "section_number";
-    RecyclerView.LayoutManager layoutManager;
-    private RecyclerView recyclerView;
-    private List<DataPesanan> pembayarans;
-    LinearLayout datakosong;
-    String tab = "pending";
+    private static final String ARG_SECTION_NUMBER = "123";
+    private List<DataPesanan> dataPesanans;
+    RecyclerView recyclerView;
+    private HashMap<DataPesanan, List<Item>> item;
+    List<Item> itemdata;
+    PesananAdapter recyclerPesananAdapter;
+    String status;
+
+    RecyclerView.LayoutManager dataapi;
 
     public static TabBelumBayar newInstance(int index) {
         TabBelumBayar fragment = new TabBelumBayar();
@@ -45,52 +57,73 @@ public class TabBelumBayar extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_pesanan, container, false);
+        recyclerView = view.findViewById(R.id.recycler_pesanan1);
 
 
+        getData();
         return view;
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-//        recyclerView = view.findViewById(R.id.recycler_pesanan);
-
-        getData();
-    }
-
     public void getData() {
-        Preferences preferences = new Preferences(getActivity());
-        String id_konsumen = preferences.getIdKonsumen();
+        String id_konsumen;
+        Preferences preferences = new Preferences(getContext());
+        id_konsumen = preferences.getIdKonsumen();
 
-        LinearLayoutManager llm = new LinearLayoutManager(getContext());
-        llm.setOrientation(LinearLayoutManager.VERTICAL);
-//        recyclerView.setLayoutManager(llm);
-//        recyclerView.setAdapter( recyclerPesananAdapter );
+        dataapi = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(dataapi);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setHasFixedSize(true);
 
 
-//        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-//        Call<List<Pembayaran>> call = service.getDataPesanan(String.valueOf(id_konsumen));
-//        call.enqueue(new Callback<List<Pembayaran>>() {
-//            @Override
-//            public void onResponse(Call<List<Pembayaran>> call, Response<List<Pembayaran>> response) {
-//
-//                if (response.body() != null && response.isSuccessful()) {
-//                    Toast.makeText(getContext(), "" + response.body(), Toast.LENGTH_SHORT).show();
-//                    pembayarans = response.body();
-//                    pesananAdapter = new RecyclerPesananAdapter(getContext(), pembayarans);
-//                    recyclerView.setAdapter(pesananAdapter);
-//
-//                } else {
-//                    Toast.makeText(getContext(), "" + response.body(), Toast.LENGTH_SHORT).show();
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<Pembayaran>> call, Throwable t) {
-//
-//            }
-//        });
+        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+        Call<Pesanan> call = service.getDataPesanan(String.valueOf(1), "pending");
+
+        dataPesanans = new ArrayList<>();
+        item = new HashMap<>();
+        call.enqueue(new Callback<Pesanan>() {
+            @Override
+            public void onResponse(Call<Pesanan> call, retrofit2.Response<Pesanan> response) {
+                if (response.body() != null && response.isSuccessful()) {
+                    if (response.body().getDataPesanan().size() > 0) {
+
+                        dataPesanans.clear();
+                        item.clear();
+                        List<DataPesanan> array = response.body().getDataPesanan();
+                        for (int i = 0; i < array.size(); i++) {
+
+                            dataPesanans.add(new DataPesanan(response.body().getDataPesanan().get(i).getNamaToko(),
+                                    response.body().getDataPesanan().get(i).getJumlahPesanan(),
+                                    response.body().getDataPesanan().get(i).getTotalPembayaran(),
+                                    response.body().getDataPesanan().get(i).getKodeInvoice(),
+                                    response.body().getDataPesanan().get(i).getWaktuTransaksi(),
+                                    response.body().getDataPesanan().get(i).getItem()));
+
+
+                            itemdata = new ArrayList<>();
+                            List<Item> items = array.get(i).getItem();
+                            for (int j = 0; j < items.size(); j++) {
+                                String namaproduk = items.get(j).getNamaProduk();
+                                String hargajual = items.get(j).getHargaJual();
+                                String foto = items.get(j).getFoto();
+                                String status = items.get(j).getStatusOrder();
+
+
+                                itemdata.add(new Item(namaproduk, hargajual, foto, status));
+                            }
+                        }
+                    } else {
+
+                    }
+                    recyclerPesananAdapter = new PesananAdapter(getContext(), dataPesanans, item);
+                    recyclerView.setAdapter(recyclerPesananAdapter);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Pesanan> call, Throwable t) {
+
+            }
+        });
 
     }
 }
