@@ -64,8 +64,11 @@ public class DetailPesananActivity extends AppCompatActivity {
                 if (response.body() != null && response.isSuccessful()) {
                     if (response.body().getData().size() > 0) {
 
-//        vnamaproduk.setText(""+ namaproduk);
-//        vharga.setText(""+harga);
+                        dataPesanans.clear();
+                        item.clear();
+                        List<ItemDetailPesanan> array = response.body().getData();
+                        for (int i = 0; i < array.size(); i++) {
+
 
 //        Glide.with(this)
 //                .load(foto)
