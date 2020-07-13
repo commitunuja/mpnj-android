@@ -15,6 +15,12 @@ public class DetailPesananActivity extends AppCompatActivity {
     String namaproduk, namatoko, harga, foto;
     TextView vnamaproduk, waktu, totalhargaproduk, total, vharga, toko, status, alamat;
     ImageView iproduk;
+    private List<ItemDetailPesanan> dataPesanans;
+    RecyclerView recyclerView;
+    private HashMap<DataPesanan, List<Item>> item;
+    String kode;
+    DetailPesananAdapter recyclerdetailpesanan;
+    RecyclerView.LayoutManager layoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
