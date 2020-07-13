@@ -86,7 +86,6 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
     Locale localeID = new Locale("in", "ID");
     NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
 
-    //    private ViewpagerProductDetailsAdapter viewpagerAdapter;
     private ArrayList<TopTenModelClass> topTenModelClasses;
     private RecyclerView top_ten_crecyclerview;
     private RecycleAdapteTopTenHome mAdapter2;
@@ -102,10 +101,6 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
     private List<Model> tvDataProduks;
     private Model tvDataProduk;
     ImageView btnAddWishlist;
-
-    Locale localeID = new Locale("in", "ID");
-    NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
