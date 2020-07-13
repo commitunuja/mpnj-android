@@ -197,7 +197,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
         nama.setText(namaproduk);
         double h = vdiskon / 100 * vhargaproduk;
-        double p = vhargaproduk - h;
+        p = vhargaproduk - h;
         String dStr = String.valueOf(p);
         String value = dStr.matches("\\d+\\.\\d*[1-9]\\d*") ? dStr : dStr.substring(0, dStr.indexOf("."));
 
@@ -208,13 +208,20 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 //            linear5.removeAllViews();
         }
         if (vdiskon == 0) {
-            harga.setText("Rp " + vhargaproduk);
+
+            st2 = new StringTokenizer(formatRupiah.format(vhargaproduk), ",");
+            hargaJual = st2.nextToken().trim();
+            harga.setText(hargaJual);
             offer.setText("");
 
         } else {
-            offer.setText("Rp " + vhargaproduk);
+            st2 = new StringTokenizer(formatRupiah.format(vhargaproduk), ",");
+            String diskons = st2.nextToken().trim();
+            offer.setText(diskons);
 
-            harga.setText("Rp " + value);
+            st2 = new StringTokenizer(formatRupiah.format(p), ",");
+            String hargas = st2.nextToken().trim();
+            harga.setText(hargas);
 
         }
 
