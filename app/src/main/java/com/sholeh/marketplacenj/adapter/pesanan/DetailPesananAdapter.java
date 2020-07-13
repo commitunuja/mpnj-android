@@ -49,18 +49,22 @@ public class DetailPesananAdapter extends RecyclerView.Adapter<DetailPesananAdap
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         dataPesanan = dataPesanans.get(position);
-
-//        holder.namatoko.setText(dataPesanan.getNamaToko());
-//        holder.totalbayar.setText("Rp " + dataPesanan.getTotalBayar());
+//        stringTokenizer = new StringTokenizer(formatRupiah.format(dataPesanan.getHarga()),",");
+//        String hargabarang = stringTokenizer.nextToken().trim();
+        int harga1 = Integer.parseInt(dataPesanan.getHarga());
         holder.jumlahproduk.setText("" + dataPesanan.getJumlah());
         holder.namaproduk.setText(dataPesanan.getNamaProduk());
-        holder.harga.setText(formatRupiah(Double.parseDouble(dataPesanan.getHarga())));
-//        holder.statusorder.setText(dataPesanan.getStatusOrder());
+        stringTokenizer = new StringTokenizer(formatRupiah.format(harga1), ",");
+        String hargabarang = stringTokenizer.nextToken().trim();
+        holder.harga.setText(hargabarang);
+
         holder.kode.valueOf(dataPesanan.getIdTransaksiDetail());
-        int a = Integer.parseInt(dataPesanan.getHarga());
+        int a = Integer.parseInt(String.valueOf(harga1));
         int b = Integer.parseInt(dataPesanan.getJumlah());
-        String c = String.valueOf(a*b);
-        holder.totalbayarproduk.setText(formatRupiah(Double.parseDouble(c)));
+        int c = (a*b);
+        stringTokenizer = new StringTokenizer(formatRupiah.format(c),",");
+        String totalbayar = stringTokenizer.nextToken().trim();
+        holder.totalbayarproduk.setText(totalbayar);
 
 
 
