@@ -52,14 +52,13 @@ public class PesananAdapter extends RecyclerView.Adapter<PesananAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull PesananAdapter.ViewHolder holder, int position) {
-
         dataPesanan = dataPesanans.get(position);
 
         holder.namatoko.setText(dataPesanan.getNamaToko());
-        holder.totalbayar.setText("Rp " + dataPesanan.getTotalPembayaran());
+        holder.totalbayar.setText(formatRupiah(Double.parseDouble(" "+dataPesanan.getTotalPembayaran())));
         holder.jumlahproduk.setText("" + dataPesanan.getJumlahPesanan());
         holder.namaproduk.setText(dataPesanan.getItem().get(0).getNamaProduk());
-        holder.harga.setText("Rp " + dataPesanan.getItem().get(0).getHargaJual());
+        holder.harga.setText(formatRupiah(Double.parseDouble(dataPesanan.getItem().get(0).getHargaJual())));
         holder.statusorder.setText(dataPesanan.getItem().get(0).getStatusOrder());
         holder.kode = dataPesanan.getKodeInvoice();
 
