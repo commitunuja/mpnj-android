@@ -81,7 +81,16 @@ public class PesananAdapter extends RecyclerView.Adapter<PesananAdapter.ViewHold
             totalbayar = itemView.findViewById(R.id.tv_total_bayar_pesanan);
             jumlahproduk = itemView.findViewById(R.id.tvxjumProd);
             fotoproduk = itemView.findViewById(R.id.img_foto_pesanan);
+            todetail = itemView.findViewById(R.id.card_pesanan);
 
+            todetail.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(context, DetailPesananActivity.class);
+                    i.putExtra("kode", kode);
+                    context.startActivity(i);
+                }
+            });
 
         }
     }
