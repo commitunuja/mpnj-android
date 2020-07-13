@@ -51,14 +51,20 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         tvDataProduk = tvDataProduks.get(i);
-
-        stringTokenizer = new StringTokenizer(formatRupiah.format(tvDataProduk.getHargaJual()), ",");
-        String hargajum = stringTokenizer.nextToken().trim();
-
-        viewHolder.namaProduk.setText(tvDataProduk.getNamaProduk()); // MODEL
-        viewHolder.hargaProduk.setText(hargajum);;
+        viewHolder.namaProduk.setText(tvDataProduk.getNamaProduk());
+        viewHolder.tvxdiskon.setText(tvDataProduk.getDiskon()+"%");
         viewHolder.type.setText(tvDataProduk.getKategori().getNamaKategori());
 
+
+        int hargaAwal = tvDataProduk.getHargaJual();
+        double diskon = tvDataProduk.getDiskon();
+
+        double h = diskon / 100 * hargaAwal;
+        double p = hargaAwal - h;
+
+        stringTokenizer = new StringTokenizer(formatRupiah.format(p), ",");
+        String hargajum = stringTokenizer.nextToken().trim();
+        viewHolder.hargaProduk.setText(hargajum);
         Picasso.with(context)
                 .load(CONSTANTS.SUB_DOMAIN + tvDataProduk.getFoto().get(0).getFotoProduk())
                 .resize(300, 300)
