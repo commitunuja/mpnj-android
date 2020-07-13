@@ -70,7 +70,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
     LinearLayout right1, right2, right3;
     ImageView right1_imag, right2_imag, right3_imag, tambah, keranjang;
 
-    String namaproduk, kategoriproduk, vdeskripsi, vid_produk, pelapak, foto_pelapak, id_pelapak, fotoproduk;
+    String namaproduk, kategoriproduk, vdeskripsi, vid_produk, pelapak, foto_pelapak, id_pelapak, fotoproduk, hargaJual;
 
     int vhargaproduk;
     int vstok;
