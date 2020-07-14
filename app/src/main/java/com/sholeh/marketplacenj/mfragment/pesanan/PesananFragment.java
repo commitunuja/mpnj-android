@@ -12,36 +12,48 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sholeh.marketplacenj.R;
-import com.sholeh.marketplacenj.adapter.pesanan.RecyclerPesananAdapter;
-import com.sholeh.marketplacenj.model.pesanan.PesananModel;
+import com.sholeh.marketplacenj.adapter.pesanan.PesananAdapter;
+import com.sholeh.marketplacenj.model.pesanan.DataPesanan;
+import com.sholeh.marketplacenj.model.pesanan.Item;
+import com.sholeh.marketplacenj.model.pesanan.Pesanan;
+import com.sholeh.marketplacenj.util.Preferences;
 import com.sholeh.marketplacenj.util.ServiceGenerator;
 import com.sholeh.marketplacenj.util.api.APIInterface;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Response;
 
 
 public class PesananFragment extends Fragment {
 
-    private List<PesananModel> pesanan_models;
+    private static final String ARG_SECTION_NUMBER = "123";
+    private List<DataPesanan> dataPesanans;
     RecyclerView recyclerView;
-    RecyclerPesananAdapter recyclerPesananAdapter;
+    private HashMap<DataPesanan, List<Item>> item;
+    List<Item> itemdata;
+    PesananAdapter recyclerPesananAdapter;
+    String status;
 
-    String pending, verifikasi, packing, dikirim, sukses, batal;
     RecyclerView.LayoutManager dataapi;
-//    public PesananFragment() {
-//        // Required empty public constructor
-//    }
+
+    public static PesananFragment newInstance(int index) {
+        PesananFragment fragment = new PesananFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt(ARG_SECTION_NUMBER, index);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_pesanan, container, false);
-        recyclerView = view.findViewById(R.id.recycler_pesanan);
+        recyclerView = view.findViewById(R.id.recycler_pesanan1);
 
 
         getData();
@@ -49,36 +61,62 @@ public class PesananFragment extends Fragment {
     }
 
     public void getData() {
-
+        String id_konsumen;
+        Preferences preferences = new Preferences(getContext());
+        id_konsumen = preferences.getIdKonsumen();
 
         dataapi = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-//        recyclerPesananAdapter = new RecyclerPesananAdapter(getContext(), pesanan_models);
         recyclerView.setLayoutManager(dataapi);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setHasFixedSize(true);
 
 
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-        Call<List<PesananModel>> call = service.getDataPesanan(String.valueOf(1), pending);
+        Call<Pesanan> call = service.getDataPesanan(String.valueOf(id_konsumen), " ");
 
-        call.enqueue(new Callback<List<PesananModel>>() {
+        dataPesanans = new ArrayList<>();
+        item = new HashMap<>();
+        call.enqueue(new Callback<Pesanan>() {
             @Override
-            public void onResponse(Call<List<PesananModel>> call, Response<List<PesananModel>> response) {
+            public void onResponse(Call<Pesanan> call, retrofit2.Response<Pesanan> response) {
                 if (response.body() != null && response.isSuccessful()) {
+                    if (response.body().getDataPesanan().size() > 0) {
 
-                    pesanan_models = response.body();
-                    recyclerPesananAdapter = new RecyclerPesananAdapter(getContext(), pesanan_models);
+                        dataPesanans.clear();
+                        item.clear();
+                        List<DataPesanan> array = response.body().getDataPesanan();
+                        for (int i = 0; i < array.size(); i++) {
+
+                            dataPesanans.add(new DataPesanan(response.body().getDataPesanan().get(i).getNamaToko(),
+                                    response.body().getDataPesanan().get(i).getJumlahPesanan(),
+                                    response.body().getDataPesanan().get(i).getTotalPembayaran(),
+                                    response.body().getDataPesanan().get(i).getKodeInvoice(),
+                                    response.body().getDataPesanan().get(i).getWaktuTransaksi(),
+                                    response.body().getDataPesanan().get(i).getItem()));
+
+
+                            itemdata = new ArrayList<>();
+                            List<Item> items = array.get(i).getItem();
+                            for (int j = 0; j < items.size(); j++) {
+                                String namaproduk = items.get(j).getNamaProduk();
+                                String hargajual = items.get(j).getHargaJual();
+                                String foto = items.get(j).getFoto();
+                                String status = items.get(j).getStatusOrder();
+
+
+                                itemdata.add(new Item(namaproduk, hargajual, foto, status));
+                            }
+                        }
+                    } else {
+
+                    }
+                    recyclerPesananAdapter = new PesananAdapter(getContext(), dataPesanans, item);
                     recyclerView.setAdapter(recyclerPesananAdapter);
-
-                    Toast.makeText(getContext(), "" + response, Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getContext(), "gagal", Toast.LENGTH_SHORT).show();
-
                 }
             }
 
             @Override
-            public void onFailure(Call<List<PesananModel>> call, Throwable t) {
+            public void onFailure(Call<Pesanan> call, Throwable t) {
 
             }
         });

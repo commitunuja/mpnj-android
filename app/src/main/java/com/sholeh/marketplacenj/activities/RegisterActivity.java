@@ -93,6 +93,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnSimpank:
+//                Toast.makeText(this, "klik", Toast.LENGTH_SHORT).show();
                 newRegistrasi();
                 break;
 
@@ -118,48 +119,55 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         final String konpassword_ = ed_konfirmasiPass.getText().toString();
         final String nomorHp_ = ed_nomorHP.getText().toString();
         final String email_ = ed_email.getText().toString();
-        final String statusA_ = "aktif";
+//        final String statusA_ = "aktif";
 
 //            if (!validasi()) return;
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
 
 //            ServiceWrapper serviceWrapper = new ServiceWrapper(null);
         Call<ResRegristasi> callNewREgistration = service.registerKonsumenCall(
-                namalengkap_, username_, password_, nomorHp_, email_, statusA_);
+                namalengkap_, username_, password_, nomorHp_, email_);
         callNewREgistration.enqueue(new Callback<ResRegristasi>() {
             @Override
             public void onResponse(Call<ResRegristasi> call, Response<ResRegristasi> response) {
-                Toast.makeText(RegisterActivity.this, "res" + response, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(RegisterActivity.this, "res" + response, Toast.LENGTH_SHORT).show();
+
+                Log.d("regristasi", String.valueOf(response));
 
                 if (response.body() != null && response.isSuccessful()) {
-                    if (response.body().getPesan().equalsIgnoreCase("Sukses!")) {
-                        for (int a = 0; a < response.body().getData().size(); a++) {
-//                                SharedPreferences preferences = getSharedPreferences("App", Context.MODE_PRIVATE);
-//                                SharedPreferences.Editor edit = preferences.edit();
-//                                edit.putString("id_konsumen", String.valueOf(response.body().getData().get(a).getIdKonsumen()));
-//                                edit.putString("nama_lengkap", String.valueOf(response.body().getData().get(a).getNamaLengkap()));
-//
-//                                edit.putBoolean("bg",true);
-//                                edit.commit();
+                    Toast.makeText(RegisterActivity.this, "Berhasil", Toast.LENGTH_SHORT).show();
 
-//                            Preferences.getInstance().getString(CONSTANTS.ID_KONSUMEN, String.valueOf(response.body().getData().get(a).getIdKonsumen()));
-//                            Preferences.getInstance().getString(CONSTANTS.USER_NAME, String.valueOf(response.body().getData().get(a).getUsername()));
-//                            Preferences.getInstance().getString(CONSTANTS.NAMA_LENGKAP, String.valueOf(response.body().getData().get(a).getNamaLengkap()));
-//                            Preferences.getInstance().getString(CONSTANTS.PHONE, String.valueOf(response.body().getData().get(a).getNomorHp()));
-//                            Preferences.getInstance().getString(CONSTANTS.EMAIL, String.valueOf(response.body().getData().get(a).getEmail()));
-
-
-                            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                             startActivity(intent);
                             finish();
-
-                        }
-
-
-                    } else {
-                        Toast.makeText(RegisterActivity.this, "r" + response.body().getPesan(), Toast.LENGTH_SHORT).show();
-//                            AppUtilits.displayMessage(RegisterActivity.this,  response.body().getPesan());
-                    }
+//
+//                    Toast.makeText(RegisterActivity.this, "sukses", Toast.LENGTH_SHORT).show();
+//                    if (response.body().getPesan().equalsIgnoreCase("Sukses!")) {
+//                        for (int a = 0; a < response.body().getData().size(); a++) {
+////                                SharedPreferences preferences = getSharedPreferences("App", Context.MODE_PRIVATE);
+////                                SharedPreferences.Editor edit = preferences.edit();
+////                                edit.putString("id_konsumen", String.valueOf(response.body().getData().get(a).getIdKonsumen()));
+////                                edit.putString("nama_lengkap", String.valueOf(response.body().getData().get(a).getNamaLengkap()));
+////
+////                                edit.putBoolean("bg",true);
+////                                edit.commit();
+//
+////                            Preferences.getInstance().getString(CONSTANTS.ID_KONSUMEN, String.valueOf(response.body().getData().get(a).getIdKonsumen()));
+////                            Preferences.getInstance().getString(CONSTANTS.USER_NAME, String.valueOf(response.body().getData().get(a).getUsername()));
+////                            Preferences.getInstance().getString(CONSTANTS.NAMA_LENGKAP, String.valueOf(response.body().getData().get(a).getNamaLengkap()));
+////                            Preferences.getInstance().getString(CONSTANTS.PHONE, String.valueOf(response.body().getData().get(a).getNomorHp()));
+////                            Preferences.getInstance().getString(CONSTANTS.EMAIL, String.valueOf(response.body().getData().get(a).getEmail()));
+//
+//
+//
+//
+//                        }
+//
+//
+//                    } else {
+//                        Toast.makeText(RegisterActivity.this, "r" + response.body().getPesan(), Toast.LENGTH_SHORT).show();
+////                            AppUtilits.displayMessage(RegisterActivity.this,  response.body().getPesan());
+////                    }
                 } else {
                     Toast.makeText(RegisterActivity.this, "rr" + response.body().getPesan(), Toast.LENGTH_SHORT).show();
 

@@ -21,6 +21,9 @@ public class Pelapak {
     @SerializedName("alamat_toko")
     @Expose
     private String alamatToko;
+    @SerializedName("kabupaten")
+    @Expose
+    private String kabupaten;
     @SerializedName("provinsi_id")
     @Expose
     private Integer provinsiId;
@@ -57,6 +60,11 @@ public class Pelapak {
     @SerializedName("updated_at")
     @Expose
     private String updatedAt;
+    @SerializedName("bergabung")
+    @Expose
+    private String bergabung;
+
+
 
     private Model model;
 
@@ -203,5 +211,23 @@ public class Pelapak {
     public void setFoto_pelapak(String foto_pelapak) {
         this.foto_pelapak = foto_pelapak;
     }
+
+    public String getBergabung() {
+        return bergabung;
+    }
+
+    public void setBergabung(String bergabung) {
+        this.bergabung = bergabung;
+    }
+
+
+    public String getKabupaten() {
+        return kabupaten;
+    }
+
+    public void setKabupaten(String kabupaten) {
+        this.kabupaten = kabupaten;
+    }
+
 
 }

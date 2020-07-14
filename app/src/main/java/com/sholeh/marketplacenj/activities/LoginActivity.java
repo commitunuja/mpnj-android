@@ -96,17 +96,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
                         Toast.makeText(LoginActivity.this, "Sukses", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(LoginActivity.this, Homepage.class);
+                        Intent intent = new Intent(LoginActivity.this, Utama.class);
                         startActivity(intent);
                         finish();
 
 
                     }else{
-                        Toast.makeText(LoginActivity.this, "User Name dan Password Salah"+response.body().getPesan(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "User Name dan Password Salah", Toast.LENGTH_SHORT).show();
                     }
 
                 }else {
-                    Toast.makeText(LoginActivity.this, "User Name dan Password Salah"+response.body(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this, "User Name dan Password Salah", Toast.LENGTH_LONG).show();
 
                 }
             }

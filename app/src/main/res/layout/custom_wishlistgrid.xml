@@ -1,0 +1,266 @@
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:layout_marginLeft="1dp"
+    android:layout_marginRight="1dp"
+    app:cardCornerRadius="5dp"
+    app:cardElevation="5dp"
+    android:layout_marginEnd="5dp"
+    android:layout_marginStart="5dp">
+
+    <LinearLayout
+        android:background="@color/white"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+
+
+
+            <com.loopj.android.image.SmartImageView
+                android:layout_marginTop="5dp"
+                android:layout_margin="5dp"
+                android:id="@+id/img_imagew"
+                android:background="#ffffff"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:src="@drawable/no_image"
+                android:scaleType="centerCrop"
+                android:layout_gravity="center"/>
+
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="10dp"
+
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="right">
+
+
+                    <ImageView
+                        android:layout_marginTop="10dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:id="@+id/add_to_wishlist"
+                        android:src="@mipmap/ic_like_fille_green_24dp" />
+
+                </RelativeLayout>
+
+
+
+            </LinearLayout>
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/lnTitle"
+            android:layout_below="@+id/img_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:orientation="vertical">
+
+
+
+            <customfonts.MyTextView_Roboto_Medium
+                android:maxLength="58"
+                android:id="@+id/txtProdukW"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:letterSpacing="0.03"
+                android:text="Iphone X | 128 GB, Black | 6 GB ram |
+12000 mAh battry kkjkjkhhkhkhkhkhkhkhk"
+                android:textColor="@color/black"
+                android:textSize="11sp" />
+
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_below="@+id/tvx_NamaProduk"
+                android:layout_height="1dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
+                android:background="#EEE"/>
+
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_marginLeft="10.4dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lnTitle">
+
+
+
+
+
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center"
+                >
+
+                <LinearLayout
+                    android:weightSum="3"
+                    android:id="@+id/lnName"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+
+                    <TextView
+                        android:textSize="10.5sp"
+                        android:text="Rp0"
+                        android:textColor="@color/black"
+                        android:layout_weight="0.1"
+                        android:id="@+id/txthargaw"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:textColor="@color/black"
+                        android:textSize="10.4sp"
+                        android:id="@+id/txtdiskonw"
+                        android:layout_below="@+id/lnName"
+                        android:text="Rp0"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+
+
+
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:weightSum="3"
+                    android:layout_below="@+id/lnName"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+
+                    <TextView
+                        android:visibility="gone"
+                        android:textSize="10.5sp"
+                        android:text="Kab "
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/tvxkabPenjual"
+                        android:textSize="10.4sp"
+                        android:layout_below="@+id/lnName"
+                        android:text="Bandung"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+
+
+
+
+
+                </LinearLayout>
+
+
+                <ImageView
+                    android:layout_marginRight="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imgDeleteWishlist"
+                    android:src="@drawable/ic__delete_forever"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true" />
+
+
+
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginBottom="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <RatingBar
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:isIndicator="false"
+                android:max="5"
+                android:numStars="5"
+                android:rating="2.5"
+                android:stepSize="0"/>
+            <!--                android:theme="@style/RatingBar" />-->
+
+            <customfonts.TextViewSFProDisplaySemibold
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:id="@+id/tvx_jumterjual"
+                android:text="12"
+                android:textColor="#95989a"
+                android:textSize="12sp" />
+
+
+            <customfonts.TextViewSFProDisplaySemibold
+                android:id="@+id/tvTerjual"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="Terjual"
+                android:textColor="#95989a"
+                android:textSize="11sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>

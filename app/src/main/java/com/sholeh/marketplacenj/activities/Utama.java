@@ -23,7 +23,8 @@ import androidx.fragment.app.FragmentManager;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.sholeh.marketplacenj.R;
-import com.sholeh.marketplacenj.mfragment.FragmentProfil;
+import com.sholeh.marketplacenj.mfragment.favorit.FragmentFavorite;
+import com.sholeh.marketplacenj.mfragment.profile.FragmentProfil;
 import com.sholeh.marketplacenj.mfragment.Keranjang.KeranjangFragment;
 import com.sholeh.marketplacenj.mfragment.homepage.HomepageFragment;
 import com.sholeh.marketplacenj.util.Preferences;
@@ -43,6 +44,7 @@ public class Utama extends AppCompatActivity implements BottomNavigationView.OnN
     Fragment fragment;
 
     final Fragment homeFragment = new HomepageFragment();
+    final Fragment favoritFragment = new FragmentFavorite();
     final Fragment keranjangFragment = new KeranjangFragment();
     final Fragment fragmentProfil = new FragmentProfil();
     final FragmentManager fm = getSupportFragmentManager();
@@ -68,7 +70,7 @@ public class Utama extends AppCompatActivity implements BottomNavigationView.OnN
                     .commit();
         }
 
-        fm.beginTransaction().add(R.id.nav_host_fragment, keranjangFragment, "2").hide(keranjangFragment).commit();
+        fm.beginTransaction().add(R.id.nav_host_fragment, favoritFragment, "2").hide(favoritFragment).commit();
         fm.beginTransaction().add(R.id.nav_host_fragment, fragmentProfil, "1").hide(fragmentProfil).commit();
 
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
@@ -76,7 +78,6 @@ public class Utama extends AppCompatActivity implements BottomNavigationView.OnN
 //        perizinan();
         checkAndRequestPermissions();
     }
-
 
 
     @Override
@@ -128,29 +129,44 @@ public class Utama extends AppCompatActivity implements BottomNavigationView.OnN
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
+
             case R.id.navigation_store:
                 fm.beginTransaction().hide(active).show(homeFragment).commit();
                 active = homeFragment;
                 return true;
 
-            case R.id.navigation_favourite:
-                Toast.makeText(this, "Ini Hanya View", Toast.LENGTH_SHORT).show();
-                return true;
 
-            case R.id.navigation_camera:
+            case R.id.navigation_favourite:
+                boolean sudahlogin = preferences.getSPSudahLogin();
+                if (sudahlogin) {
+                    fm.beginTransaction().hide(active).show(favoritFragment).commit();
+                    active = favoritFragment;
+                    return true;
+                } else {
+                    startActivity(new Intent(this, LoginActivity.class));
+                    finish();
+                    return true;
+                }
+
+            case R.id.navigation_notification:
                 Toast.makeText(this, "Ini hanya View", Toast.LENGTH_SHORT).show();
                 return true;
 
-            case R.id.navigation_cart:
-                fm.beginTransaction().hide(active).show(keranjangFragment).commit();
-                active = keranjangFragment;
+            case R.id.navigation_transaksi:
+                Toast.makeText(this, "Ini hanya View", Toast.LENGTH_SHORT).show();
                 return true;
 
             case R.id.navigation_account:
-                fm.beginTransaction().hide(active).show(fragmentProfil).commit();
-                active = fragmentProfil;
-                return true;
-
+                boolean login = preferences.getSPSudahLogin();
+                if (login) {
+                    fm.beginTransaction().hide(active).show(fragmentProfil).commit();
+                    active = fragmentProfil;
+                    return true;
+                } else {
+                    startActivity(new Intent(this, LoginActivity.class));
+                    finish();
+                    return true;
+                }
         }
 
         return false;
@@ -305,7 +321,7 @@ public class Utama extends AppCompatActivity implements BottomNavigationView.OnN
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface paramDialogInterface, int paramInt) {
-                        startActivity(new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:com.example.acer.ta")));
+                        startActivity(new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("com.sholeh.marketplacenj.activities")));
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
