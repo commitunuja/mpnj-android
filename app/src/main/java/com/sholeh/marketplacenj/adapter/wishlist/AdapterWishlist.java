@@ -85,10 +85,12 @@ public class AdapterWishlist extends BaseAdapter {
         double diskon;
         ImageView imageView, imgdeleteWishlist;
 
-        TextView txtNamaProduk, txthargaNormal, txthargaDiskon;
+        TextView txtNamaProduk, txthargaNormal, txthargaDiskon, tvxJumterjual, tvterjual;
         txtNamaProduk = view.findViewById(R.id.txtProdukW);
         txthargaNormal = view.findViewById(R.id.txthargaw);
         txthargaDiskon = view.findViewById(R.id.txtdiskonw);
+        tvxJumterjual= view.findViewById(R.id.tvx_jumterjual);
+        tvterjual = view.findViewById(R.id.tvTerjual);
         imageView = view.findViewById(R.id.img_imagew);
         imgdeleteWishlist = view.findViewById(R.id.imgDeleteWishlist);
 
@@ -135,10 +137,18 @@ public class AdapterWishlist extends BaseAdapter {
             txthargaDiskon.setTypeface(txthargaNormal.getTypeface(), Typeface.NORMAL);
             txthargaDiskon.setVisibility(View.VISIBLE);
             txthargaDiskon.setText(hargaNormal);
-            txthargaDiskon.setTextSize(8);
+            txthargaDiskon.setTextSize(10);
             txthargaNormal.setText(harganya);
         }
 
+        int terjual = model.getTerjual();
+        if (terjual == 0){
+            tvxJumterjual.setVisibility(View.GONE);
+            tvterjual.setText("Belum Terjual");
+        }else {
+            tvxJumterjual.setText(String.valueOf(terjual));
+            tvterjual.setText("Terjual");
+        }
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override

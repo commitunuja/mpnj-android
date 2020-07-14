@@ -85,6 +85,7 @@
 
 
             <customfonts.MyTextView_Roboto_Medium
+                android:maxLength="58"
                 android:id="@+id/txtProdukW"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -93,7 +94,7 @@
                 android:text="Iphone X | 128 GB, Black | 6 GB ram |
 12000 mAh battry kkjkjkhhkhkhkhkhkhkhk"
                 android:textColor="@color/black"
-                android:textSize="9sp" />
+                android:textSize="11sp" />
 
 
             <View
@@ -171,7 +172,35 @@
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:weightSum="3"
+                    android:layout_below="@+id/lnName"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
+
+
+                    <TextView
+                        android:textSize="10.5sp"
+                        android:text="Kab "
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:textSize="10.4sp"
+                        android:layout_below="@+id/lnName"
+                        android:text="Bandung"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+
+
+
+
+
+                </LinearLayout>
 
 
                 <ImageView
@@ -188,8 +217,47 @@
 
             </RelativeLayout>
 
-        </LinearLayout>
 
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginBottom="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <RatingBar
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:isIndicator="false"
+                android:max="5"
+                android:numStars="5"
+                android:rating="2.5"
+                android:stepSize="0"/>
+            <!--                android:theme="@style/RatingBar" />-->
+
+            <customfonts.TextViewSFProDisplaySemibold
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:id="@+id/tvx_jumterjual"
+                android:text="12"
+                android:textColor="#95989a"
+                android:textSize="12sp" />
+
+
+            <customfonts.TextViewSFProDisplaySemibold
+                android:id="@+id/tvTerjual"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="Terjual"
+                android:textColor="#95989a"
+                android:textSize="11sp" />
+        </LinearLayout>
 
     </LinearLayout>
 

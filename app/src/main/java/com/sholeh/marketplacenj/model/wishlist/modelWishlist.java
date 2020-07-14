@@ -4,10 +4,10 @@ import com.sholeh.marketplacenj.model.Kategori;
 
 public class modelWishlist {
     private String idWishlist, idUser, idProduk, namaProduk, keterangan, fotoProduk ;
-    int hargaJual, hargaDiskon, stok;
+    int hargaJual, hargaDiskon, stok, terjual;
     Kategori kategori;
 
-    public modelWishlist(String idWishlist, String idUser, String idProduk, String namaProduk, int hargaJual, int hargaDiskon, int stok, Kategori kategori, String deskripsi, String fotoProduk) {
+    public modelWishlist(String idWishlist, String idUser, String idProduk, String namaProduk, int hargaJual, int hargaDiskon, int stok, Kategori kategori, String deskripsi, int terjual, String fotoProduk) {
         this.idWishlist = idWishlist;
         this.idUser = idUser;
         this.idProduk = idProduk;
@@ -17,6 +17,7 @@ public class modelWishlist {
         this.stok = stok;
         this.kategori = kategori;
         this.keterangan = deskripsi;
+        this.terjual = terjual;
         this.fotoProduk = fotoProduk;
     }
 
@@ -106,5 +107,13 @@ public class modelWishlist {
 
     public void setFotoProduk(String fotoProduk) {
         this.fotoProduk = fotoProduk;
+    }
+
+    public int getTerjual() {
+        return terjual;
+    }
+
+    public void setTerjual(int terjual) {
+        this.terjual = terjual;
     }
 }

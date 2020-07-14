@@ -166,6 +166,7 @@ public class FragmentFavorite extends Fragment implements View.OnClickListener {
                                     response.body().getData().get(i).getStok(),
                                     response.body().getData().get(i).getKategori(),
                                     response.body().getData().get(i).getKeterangan(),
+                                    response.body().getData().get(i).getTerjual(),
                                     response.body().getData().get(i).getFoto().get(0).getFotoProduk()));
                         }
                         adapter = new AdapterWishlist(getActivity(), modellist);
@@ -229,6 +230,7 @@ public class FragmentFavorite extends Fragment implements View.OnClickListener {
                                     response.body().getData().get(i).getStok(),
                                     response.body().getData().get(i).getKategori(),
                                     response.body().getData().get(i).getKeterangan(),
+                                    response.body().getData().get(i).getTerjual(),
                                     response.body().getData().get(i).getFoto().get(0).getFotoProduk()));
                         }
                         adapter = new AdapterWishlist(getActivity(), modellist);
