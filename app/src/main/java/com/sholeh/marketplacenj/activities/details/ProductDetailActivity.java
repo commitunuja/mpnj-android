@@ -79,7 +79,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
     int vhargaproduk;
     int vstok;
     int vterjual;
-    Double vdiskon,p;
+    Double vdiskon, p;
 
     ImageView fotopelapak;
     private ViewPager viewPager;
@@ -473,10 +473,11 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 //        } else {
 
 
-        if (vdiskon == 0) { // tidak ada diskon
+//        if (vdiskon == 0) { // tidak ada diskon
             final String harga_jual = String.valueOf(vhargaproduk);
             st1 = new StringTokenizer(harga_jual, "Rp");
             String hargaJual = st1.nextToken().trim();
+//            Toast.makeText(this, ""+harga_jual, Toast.LENGTH_SHORT).show();
 //            double jual = Double.valueOf(harga.getText().toString());
 //            String c = String.valueOf(jual);
 
@@ -512,43 +513,45 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                 }
             });
 
-        } else {
-            final String harga_ = String.valueOf(p);
-            st2 = new StringTokenizer(harga_, "Rp");
-            String hargaJual = st2.nextToken().trim();
-
-            APIInterface apiKeranjang = ServiceGenerator.getRetrofit().create(APIInterface.class);
-            Call<ResKeranjang> sendData = apiKeranjang.simpanKeranjang(vid_produk, id_konsumen, String.valueOf(1), hargaJual);
-            sendData.enqueue(new Callback<ResKeranjang>() {
-                @Override
-                public void onResponse(Call<ResKeranjang> call, Response<ResKeranjang> response) {
-                    if (response.body() != null && response.isSuccessful()) {
-                        if (response.body().getPesan().equalsIgnoreCase("sukses")) {
-                            AppUtilits.displayMessage(ProductDetailActivity.this, getString(R.string.add_to_cart));
-
-                        } else {
-                        Toast.makeText(ProductDetailActivity.this, "r"+response.body().getPesan(), Toast.LENGTH_SHORT).show();
-//                            AppUtilits.displayMessage(RegisterActivity.this,  response.body().getPesan());
-                        }
-                    } else {
-                    Toast.makeText(ProductDetailActivity.this, "rr"+response.body().getPesan(), Toast.LENGTH_SHORT).show();
-
-//                        AppUtilits.displayMessage(RegisterActivity.this,   getString(R.string.failed_request));
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<ResKeranjang> call, Throwable t) {
-//                    Log.e(TAG, " failure " + t.toString());
-//                Toast.makeText(ProductDetailActivity.this, "rrr"+t, Toast.LENGTH_SHORT).show();
-                    Log.d("ok", String.valueOf(t));
+//        } else {
+//            final String harga_ = String.valueOf(p);
+//            st2 = new StringTokenizer(harga_, "Rp");
+//            String hargaJual = st2.nextToken().trim();
+//            Toast.makeText(this, ""+hargaJual, Toast.LENGTH_SHORT).show();
 
 
-//                    AppUtilits.displayMessage(RegisterActivity.this,   getString(R.string.failed_request));
-                }
-            });
+//            APIInterface apiKeranjang = ServiceGenerator.getRetrofit().create(APIInterface.class);
+//            Call<ResKeranjang> sendData = apiKeranjang.simpanKeranjang(vid_produk, id_konsumen, String.valueOf(1), hargaJual);
+//            sendData.enqueue(new Callback<ResKeranjang>() {
+//                @Override
+//                public void onResponse(Call<ResKeranjang> call, Response<ResKeranjang> response) {
+//                    if (response.body() != null && response.isSuccessful()) {
+//                        if (response.body().getPesan().equalsIgnoreCase("sukses")) {
+//                            AppUtilits.displayMessage(ProductDetailActivity.this, getString(R.string.add_to_cart));
+//
+//                        } else {
+//                        Toast.makeText(ProductDetailActivity.this, "r"+response.body().getPesan(), Toast.LENGTH_SHORT).show();
+////                            AppUtilits.displayMessage(RegisterActivity.this,  response.body().getPesan());
+//                        }
+//                    } else {
+//                    Toast.makeText(ProductDetailActivity.this, "rr"+response.body().getPesan(), Toast.LENGTH_SHORT).show();
+//
+////                        AppUtilits.displayMessage(RegisterActivity.this,   getString(R.string.failed_request));
+//                    }
+//                }
+//
+//                @Override
+//                public void onFailure(Call<ResKeranjang> call, Throwable t) {
+////                    Log.e(TAG, " failure " + t.toString());
+////                Toast.makeText(ProductDetailActivity.this, "rrr"+t, Toast.LENGTH_SHORT).show();
+//                    Log.d("ok", String.valueOf(t));
+//
+//
+////                    AppUtilits.displayMessage(RegisterActivity.this,   getString(R.string.failed_request));
+//                }
+//            });
 
-        }
+//        }
     }
 
     public void addWishlist() {

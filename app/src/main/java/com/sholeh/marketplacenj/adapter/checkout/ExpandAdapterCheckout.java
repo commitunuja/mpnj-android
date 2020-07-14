@@ -137,8 +137,8 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
         tvxservice = convertView.findViewById(R.id.tvxservice);
         tvxongkos = convertView.findViewById(R.id.tvongkos);
         tvxetd = convertView.findViewById(R.id.tvxetd);
-        lnkurir = convertView.findViewById(R.id.lnKurir);
-        tvxAkanditerima = convertView.findViewById(R.id.tvAkanditerima);
+//        lnkurir = convertView.findViewById(R.id.lnKurir);
+//        tvxAkanditerima = convertView.findViewById(R.id.tvAkanditerima);
         myDialog = new Dialog(context);
 
 
@@ -172,11 +172,17 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
 ////                lnkurir.setVisibility(View.VISIBLE);
 //        }else { // jika tidak mengubah alamat utama
 ////            Toast.makeText(context, "null", Toast.LENGTH_SHORT).show();
+            int ongkir = Integer.parseInt(model.getOngkir());
+        StringTokenizer konvert;
+        konvert = new StringTokenizer(formatRupiah.format(ongkir), ",");
+        String hargaOngkir = konvert.nextToken().trim();
+
+
         String kurir = model.getKurir();
             tvxkurir.setText(kurir);
             tvxservice.setText(model.getService());
-            tvxongkos.setText(model.getOngkir());
-            tvxetd.setText(model.getEtd());
+            tvxongkos.setText(hargaOngkir);
+            tvxetd.setText("Diterima dalam "+model.getEtd()+" Hari");
 //            Intent intent5 = new Intent("custom-validasiopsi2");
 //            intent5.putExtra("validasiopsi2", String.valueOf("Oke"));
 //            LocalBroadcastManager.getInstance(context).sendBroadcast(intent5);
@@ -295,27 +301,38 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
 //        opsipengiriman = convertView.findViewById(R.id.tvx_opsiKurir1);
 //        linearLayout = convertView.findViewById(R.id.linearopsi);
         tvx_nama = convertView.findViewById(R.id.txtnamaPRODUK);
-        tvx_idKeranjang = convertView.findViewById(R.id.txtIdkerenjang);
-        tvx_harga = convertView.findViewById(R.id.tvx_harga);
-        tvx_totharga = convertView.findViewById(R.id.tvx_hargajum);
-        tvx_hargaDiskon = convertView.findViewById(R.id.tvxHrgaDiskon);
+//        tvx_idKeranjang = convertView.findViewById(R.id.txtIdkerenjang);
+        tvx_harga = convertView.findViewById(R.id.tvx_hargacheckout);
+        tvx_totharga = convertView.findViewById(R.id.tvx_totalhargacheckout);
+//        tvx_hargaDiskon = convertView.findViewById(R.id.tvxHrgaDiskon);
         tvx_jumlahproduk = convertView.findViewById(R.id.tvxJumlahProduk);
-
         img_gambar = convertView.findViewById(R.id.img_gambarkeranjang);
-
-        hargaProduk = childCheckout.getHarga();
-        jumlahProduk = childCheckout.getJumlah();
-
-        vdiskon = Double.parseDouble(String.valueOf(Integer.parseInt(String.valueOf(childCheckout.getDiskon()))));
         tvx_nama.setText(childCheckout.getNama_produk());
-        tvx_idKeranjang.setText(childCheckout.getId_keranjang());
-        tvx_jumlahproduk.setText(jumlahProduk +" Barang");
+//        tvx_idKeranjang.setText(childCheckout.getId_keranjang());
 
-        int hitungJumHarga = jumlahProduk * hargaProduk;
-        st = new StringTokenizer(formatRupiah.format(hitungJumHarga), ",");
-        String hargajum = st.nextToken().trim();
-        tvx_harga.setText(hargajum);
-        tvx_totharga.setText(hargajum);
+        int  hargaawal = childCheckout.getHarga();
+        int jumlahProduk = childCheckout.getJumlah();
+        double diskon = Double.parseDouble(String.valueOf(Integer.parseInt(String.valueOf(childCheckout.getDiskon()))));
+        tvx_jumlahproduk.setText(String.valueOf(jumlahProduk));
+
+
+
+        double h = diskon / 100 * hargaawal;
+        double p = hargaawal - h;
+        double hitungTotal = jumlahProduk * p;
+        StringTokenizer st = new StringTokenizer(formatRupiah.format(p), ",");
+        String hargaDiskon = st.nextToken().trim();
+        StringTokenizer stTotal = new StringTokenizer(formatRupiah.format(hitungTotal), ",");
+        String hargaTotal = stTotal.nextToken().trim();
+        tvx_harga.setText(hargaDiskon);
+        tvx_totharga.setText(hargaTotal);
+
+
+
+//        int hitungJumHarga = jumlahProduk * hargaProduk;
+//
+//
+//        tvx_totharga.setText(hargajum);
 
         Glide.with(convertView.getContext())
                 .load(CONSTANTS.SUB_DOMAIN + childCheckout.getGambar())
@@ -325,22 +342,21 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
                 .into(img_gambar);
 
 
-        if (childCheckout.getDiskon() == 0) {
-            tvx_hargaDiskon.setVisibility(View.GONE);
-        } else {
-            double h = vdiskon / 100 * hargaProduk;
-            double p = hargaProduk - h;
-            double hitung = jumlahProduk * p;
-            st = new StringTokenizer(formatRupiah.format(hitung), ",");
-            String harganya = st.nextToken().trim();
-            tvx_hargaDiskon.setPaintFlags(tvx_harga.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-            tvx_hargaDiskon.setTextColor(context.getResources().getColor(R.color.redTransparent));
-            tvx_hargaDiskon.setTypeface(tvx_harga.getTypeface(), Typeface.NORMAL);
-            tvx_hargaDiskon.setVisibility(View.VISIBLE);
-            tvx_hargaDiskon.setText(hargajum);
-            tvx_harga.setText(harganya);
-            tvx_totharga.setText(harganya);
-        }
+//        if (childCheckout.getDiskon() == 0) {
+//            tvx_hargaDiskon.setVisibility(View.GONE);
+//        } else {
+//            double h = vdiskon / 100 * hargaProduk;
+//            double p = hargaProduk - h;
+//            double hitung = jumlahProduk * p;
+//
+//            tvx_hargaDiskon.setPaintFlags(tvx_harga.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+//            tvx_hargaDiskon.setTextColor(context.getResources().getColor(R.color.redTransparent));
+//            tvx_hargaDiskon.setTypeface(tvx_harga.getTypeface(), Typeface.NORMAL);
+//            tvx_hargaDiskon.setVisibility(View.VISIBLE);
+//            tvx_hargaDiskon.setText(hargajum);
+//            tvx_harga.setText(harganya);
+//            tvx_totharga.setText(harganya);
+//        }
 
 
 //        if (linearLayoutOpsi_Pengiriman.Leng){
