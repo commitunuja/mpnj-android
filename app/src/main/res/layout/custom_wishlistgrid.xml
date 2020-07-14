@@ -182,13 +182,14 @@
 
 
                     <TextView
+                        android:visibility="gone"
                         android:textSize="10.5sp"
                         android:text="Kab "
-
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
                     <TextView
+                        android:id="@+id/tvxkabPenjual"
                         android:textSize="10.4sp"
                         android:layout_below="@+id/lnName"
                         android:text="Bandung"

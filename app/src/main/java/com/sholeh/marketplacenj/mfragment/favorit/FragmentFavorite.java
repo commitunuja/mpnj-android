@@ -33,6 +33,7 @@ import com.sholeh.marketplacenj.activities.pesanan.MyPesananActivity;
 import com.sholeh.marketplacenj.adapter.wishlist.AdapterWishlist;
 import com.sholeh.marketplacenj.model.AlamatModel;
 import com.sholeh.marketplacenj.model.Foto;
+import com.sholeh.marketplacenj.model.Pelapak;
 import com.sholeh.marketplacenj.model.wishlist.modelWishlist;
 import com.sholeh.marketplacenj.respon.ItemKeranjang;
 import com.sholeh.marketplacenj.respon.ResProfil;
@@ -167,7 +168,11 @@ public class FragmentFavorite extends Fragment implements View.OnClickListener {
                                     response.body().getData().get(i).getKategori(),
                                     response.body().getData().get(i).getKeterangan(),
                                     response.body().getData().get(i).getTerjual(),
+                                    response.body().getData().get(i).getPelapak().getKabupaten(),
                                     response.body().getData().get(i).getFoto().get(0).getFotoProduk()));
+
+
+
                         }
                         adapter = new AdapterWishlist(getActivity(), modellist);
                         mGridView.setAdapter(adapter);
@@ -231,6 +236,7 @@ public class FragmentFavorite extends Fragment implements View.OnClickListener {
                                     response.body().getData().get(i).getKategori(),
                                     response.body().getData().get(i).getKeterangan(),
                                     response.body().getData().get(i).getTerjual(),
+                                    response.body().getData().get(i).getPelapak().getKabupaten(),
                                     response.body().getData().get(i).getFoto().get(0).getFotoProduk()));
                         }
                         adapter = new AdapterWishlist(getActivity(), modellist);

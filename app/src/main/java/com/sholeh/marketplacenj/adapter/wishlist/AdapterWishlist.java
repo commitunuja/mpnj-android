@@ -85,17 +85,19 @@ public class AdapterWishlist extends BaseAdapter {
         double diskon;
         ImageView imageView, imgdeleteWishlist;
 
-        TextView txtNamaProduk, txthargaNormal, txthargaDiskon, tvxJumterjual, tvterjual;
+        TextView txtNamaProduk, txthargaNormal, txthargaDiskon, tvxJumterjual, tvterjual, tvx_kabPenjual;
         txtNamaProduk = view.findViewById(R.id.txtProdukW);
         txthargaNormal = view.findViewById(R.id.txthargaw);
         txthargaDiskon = view.findViewById(R.id.txtdiskonw);
         tvxJumterjual= view.findViewById(R.id.tvx_jumterjual);
         tvterjual = view.findViewById(R.id.tvTerjual);
+        tvx_kabPenjual = view.findViewById(R.id.tvxkabPenjual);
         imageView = view.findViewById(R.id.img_imagew);
         imgdeleteWishlist = view.findViewById(R.id.imgDeleteWishlist);
 
         final modelWishlist model = tvDataWishlist.get(position);
         txtNamaProduk.setText(String.valueOf(model.getNamaProduk()));
+        tvx_kabPenjual.setText(String.valueOf(model.getKabPenjual()));
 
 
 
