@@ -203,10 +203,11 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
         if (childModel.getDiskon() == 0) {
             tvx_hargaDiskon.setVisibility(View.GONE);
         } else {
+
             double h = vdiskon / 100 * hargaProduk;
             double p = hargaProduk - h;
             double hitung = jumlahProduk * p;
-            st = new StringTokenizer(formatRupiah.format(hitung), ",");
+            st = new StringTokenizer(formatRupiah.format(p), ",");
             String harganya = st.nextToken().trim();
             tvx_hargaDiskon.setPaintFlags(tvx_harga.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             tvx_hargaDiskon.setTextColor(context.getResources().getColor(R.color.redTransparent));
