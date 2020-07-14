@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.loopj.android.image.SmartImageView;
 import com.sholeh.marketplacenj.model.Foto;
 import com.sholeh.marketplacenj.model.pesanan.DataPesanan;
 import com.sholeh.marketplacenj.util.CONSTANTS;
@@ -19,13 +20,18 @@ import com.sholeh.marketplacenj.activities.details.ProductDetailActivity;
 import com.sholeh.marketplacenj.model.Model;
 import com.squareup.picasso.Picasso;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
+import java.util.StringTokenizer;
 
 public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ViewHolder> {
     private Context context;
     private List<Model> tvDataProduks; // model / item
     private Model tvDataProduk;
-
+    Locale localeID = new Locale("in", "ID");
+    NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
+    StringTokenizer stringTokenizer;
 
 
     public ProdukAdapter(Context context, List<Model> tvDataProduks) {
@@ -33,6 +39,7 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ViewHolder
         this.tvDataProduks = tvDataProduks;
 
     }
+
 
     @NonNull
     @Override
@@ -44,14 +51,30 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         tvDataProduk = tvDataProduks.get(i);
-        viewHolder.namaProduk.setText(tvDataProduk.getNamaProduk()); // MODEL
-        viewHolder.hargaProduk.setText(String.valueOf("Rp " + tvDataProduk.getHargaJual()));
+        viewHolder.namaProduk.setText(tvDataProduk.getNamaProduk());
+        viewHolder.tvxdiskon.setText(tvDataProduk.getDiskon()+"%");
         viewHolder.type.setText(tvDataProduk.getKategori().getNamaKategori());
 
+
+        int hargaAwal = tvDataProduk.getHargaJual();
+        double diskon = tvDataProduk.getDiskon();
+
+        double h = diskon / 100 * hargaAwal;
+        double p = hargaAwal - h;
+
+        stringTokenizer = new StringTokenizer(formatRupiah.format(p), ",");
+        String hargajum = stringTokenizer.nextToken().trim();
+        viewHolder.hargaProduk.setText(hargajum);
         Picasso.with(context)
                 .load(CONSTANTS.SUB_DOMAIN + tvDataProduk.getFoto().get(0).getFotoProduk())
                 .resize(300, 300)
                 .into(viewHolder.foto_produk);
+
+        if (tvDataProduk.getDiskon() == 0){
+            viewHolder.tvxdiskon.setVisibility(View.GONE);
+        }else{
+            viewHolder.tvxdiskon.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -65,8 +88,9 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ViewHolder
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView namaProduk, hargaProduk, stok, terjual, deskripsi, type;
-        private ImageView foto_produk;
+        private TextView namaProduk, hargaProduk, tvxdiskon, stok, terjual, deskripsi, type;
+//        private ImageView foto_produk;
+        private SmartImageView foto_produk;
 
 
         public ViewHolder(View itemView) {
@@ -74,6 +98,7 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ViewHolder
 
             namaProduk = itemView.findViewById(R.id.titleproduk);
             hargaProduk = itemView.findViewById(R.id.txthargaawal);
+            tvxdiskon = itemView.findViewById(R.id.tvxdiskon);
             type = itemView.findViewById(R.id.typeproduk);
             foto_produk = itemView.findViewById(R.id.imageproduk);
 

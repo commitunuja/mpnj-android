@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -28,7 +30,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 
 
-public class PesananFragment extends Fragment {
+public class Tabdibatalkan extends Fragment {
 
     private static final String ARG_SECTION_NUMBER = "123";
     private List<DataPesanan> dataPesanans;
@@ -40,8 +42,8 @@ public class PesananFragment extends Fragment {
 
     RecyclerView.LayoutManager dataapi;
 
-    public static PesananFragment newInstance(int index) {
-        PesananFragment fragment = new PesananFragment();
+    public static Tabdibatalkan newInstance(int index) {
+        Tabdibatalkan fragment = new Tabdibatalkan();
         Bundle bundle = new Bundle();
         bundle.putInt(ARG_SECTION_NUMBER, index);
         fragment.setArguments(bundle);
@@ -72,7 +74,7 @@ public class PesananFragment extends Fragment {
 
 
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-        Call<Pesanan> call = service.getDataPesanan(String.valueOf(id_konsumen), " ");
+        Call<Pesanan> call = service.getDataPesanan(String.valueOf(id_konsumen), "batal");
 
         dataPesanans = new ArrayList<>();
         item = new HashMap<>();
