@@ -2,7 +2,11 @@ package com.sholeh.marketplacenj.adapter.wishlist;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -39,6 +43,7 @@ import com.sholeh.marketplacenj.util.CONSTANTS;
 import com.sholeh.marketplacenj.util.ServiceGenerator;
 import com.sholeh.marketplacenj.util.api.APIInterface;
 
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -95,11 +100,16 @@ public class AdapterWishlist extends BaseAdapter {
 
 //        txtNamaProduk.setText(model.getNamaProduk());
 
+
+        int radius = 17;
+        int margin = 0;
         Glide.with(view.getContext())
                 .load(CONSTANTS.SUB_DOMAIN + model.getFotoProduk())
-                .apply(new RequestOptions().override(350, 550))
-                .placeholder(R.drawable.img)
+                .apply(new RequestOptions().override(250, 250))
+                .placeholder(R.drawable.no_image)
                 .error(R.drawable.img1)
+                .centerCrop()
+                .transform(new RoundedCornersTransformation(radius, margin))
                 .into(imageView);
 
         hargaProduk = model.getHargaJual();
@@ -125,6 +135,7 @@ public class AdapterWishlist extends BaseAdapter {
             txthargaDiskon.setTypeface(txthargaNormal.getTypeface(), Typeface.NORMAL);
             txthargaDiskon.setVisibility(View.VISIBLE);
             txthargaDiskon.setText(hargaNormal);
+            txthargaDiskon.setTextSize(8);
             txthargaNormal.setText(harganya);
         }
 
