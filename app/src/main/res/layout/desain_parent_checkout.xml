@@ -6,6 +6,11 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@color/line_gray" />
+
 
 
     <LinearLayout
@@ -14,23 +19,25 @@
         android:background="#ffffff"
         android:orientation="vertical">
 
+
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#0F000000" />
+            android:layout_height="0.5dp"
+            android:background="@color/colorPrimaryTransparant" />
+
         <RelativeLayout
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:id="@+id/cart_relative1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:descendantFocusability="beforeDescendants"
-            android:focusableInTouchMode="true"
-            android:padding="5dp">
+            android:focusableInTouchMode="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:padding="2dp"
                 android:weightSum="3">
 
 
@@ -158,8 +165,9 @@
 
 
                     <customfonts.MyTextView_Roboto_Regular
+                        android:id="@+id/v_ongkoskirim"
                         android:textColor="@color/black"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginLeft="8dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Ongkos Kirim"
@@ -167,7 +175,8 @@
 
 
                     <LinearLayout
-                        android:layout_marginLeft="10dp"
+                        android:id="@+id/ln_Kurir"
+                        android:layout_marginLeft="8dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="1dp"
@@ -232,13 +241,7 @@
 
                     </LinearLayout>
 
-                    <View
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_gravity="bottom"
-                        android:background="#0F000000" />
+
 
                     <TextView
                         android:id="@+id/txtIdToko"

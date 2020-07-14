@@ -128,7 +128,7 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
 
         convertView = LayoutInflater.from(context).inflate(R.layout.desain_parent_checkout, null);
         final Dialog myDialog;
-        final TextView nama_kk, no_pelanggan, idKabPenjual, tvx_OpsiKurir1, tvxkurir, tvxservice, tvxongkos, tvxetd, tvxAkanditerima;
+        final TextView nama_kk, no_pelanggan, idKabPenjual, tvx_OpsiKurir1, tvxkurir, tvxservice, tvxongkos, tvxetd, vOngkos;
         final LinearLayout lnkurir;
         linearLayout = convertView.findViewById(R.id.linearopsi);
         nama_kk = convertView.findViewById(R.id.txtNamaToko);
@@ -136,8 +136,9 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
         tvxkurir = convertView.findViewById(R.id.tvxkurirnya);
         tvxservice = convertView.findViewById(R.id.tvxservice);
         tvxongkos = convertView.findViewById(R.id.tvongkos);
+        vOngkos = convertView.findViewById(R.id.v_ongkoskirim);
         tvxetd = convertView.findViewById(R.id.tvxetd);
-//        lnkurir = convertView.findViewById(R.id.lnKurir);
+        lnkurir = convertView.findViewById(R.id.ln_Kurir);
 //        tvxAkanditerima = convertView.findViewById(R.id.tvAkanditerima);
         myDialog = new Dialog(context);
 
@@ -198,21 +199,25 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
 
 
 //        Toast.makeText(context, "kurir "+kurir, Toast.LENGTH_SHORT).show();
-//        if (kurir != null ) {
-//            lnkurir.setVisibility(View.VISIBLE);
+        if (kurir != null ) {
+            lnkurir.setVisibility(View.VISIBLE);
+            vOngkos.setVisibility(View.VISIBLE);
+
 ////            tvxkurir.setVisibility(View.VISIBLE);
 ////            tvxservice.setVisibility(View.VISIBLE);
 ////            tvxongkos.setVisibility(View.VISIBLE);
 ////            tvxetd.setVisibility(View.VISIBLE);
 ////            tvxAkanditerima.setVisibility(View.VISIBLE);
-//        }else if(kurir == null){
-//            lnkurir.setVisibility(View.GONE);
+        }else if(kurir == null){
+            lnkurir.setVisibility(View.GONE);
+            vOngkos.setVisibility(View.GONE);
+
 ////            tvxkurir.setVisibility(View.GONE);
 ////            tvxservice.setVisibility(View.GONE);
 ////            tvxongkos.setVisibility(View.GONE);
 ////            tvxetd.setVisibility(View.GONE);
 ////            tvxAkanditerima.setVisibility(View.GONE);
-//        }
+        }
 //
 
 
