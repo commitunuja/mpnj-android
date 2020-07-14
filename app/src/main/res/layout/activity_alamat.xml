@@ -49,6 +49,7 @@
 
 
             <androidx.recyclerview.widget.RecyclerView
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/recycler_alamat"
@@ -58,6 +59,9 @@
 
             </androidx.recyclerview.widget.RecyclerView>
 
+            <include layout="@layout/desain_kosong"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
 
 
 

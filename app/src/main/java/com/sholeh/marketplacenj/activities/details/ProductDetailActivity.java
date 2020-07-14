@@ -8,6 +8,7 @@ import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -25,6 +26,7 @@ import com.codesgood.views.JustifiedTextView;
 import com.google.gson.JsonObject;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.activities.LoginActivity;
+import com.sholeh.marketplacenj.activities.RegisterActivity;
 import com.sholeh.marketplacenj.activities.keranjang.KeranjangDetailActivity;
 import com.sholeh.marketplacenj.activities.pelapak.ProfilPelapakActivity;
 import com.sholeh.marketplacenj.adapter.dashboard.RecycleAdapteTopTenHome;
@@ -34,6 +36,8 @@ import com.sholeh.marketplacenj.model.Foto;
 import com.sholeh.marketplacenj.model.Model;
 import com.sholeh.marketplacenj.model.dashboard.TopTenModelClass;
 import com.sholeh.marketplacenj.respon.ResKeranjang;
+import com.sholeh.marketplacenj.respon.ResRegristasi;
+import com.sholeh.marketplacenj.respon.ResWishlist;
 import com.sholeh.marketplacenj.util.AppUtilits;
 import com.sholeh.marketplacenj.util.Preferences;
 import com.sholeh.marketplacenj.util.ServiceGenerator;
@@ -82,7 +86,6 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
     Locale localeID = new Locale("in", "ID");
     NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
 
-    //    private ViewpagerProductDetailsAdapter viewpagerAdapter;
     private ArrayList<TopTenModelClass> topTenModelClasses;
     private RecyclerView top_ten_crecyclerview;
     private RecycleAdapteTopTenHome mAdapter2;
@@ -94,9 +97,10 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
     Preferences preferences;
     String id_konsumen, iduser;
-    StringTokenizer st1, st2;
+    StringTokenizer st1, st2, st3, st4;
     private List<Model> tvDataProduks;
     private Model tvDataProduk;
+    ImageView btnAddWishlist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -180,8 +184,10 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         tambah = findViewById(R.id.imgtambah);
         jumlahproduk = findViewById(R.id.txtjumlah);
         idkeranjang = findViewById(R.id.txtidkerenjang);
+        btnAddWishlist = findViewById(R.id.btn_addtowishlist);
 
         tambah.setOnClickListener(this);
+        btnAddWishlist.setOnClickListener(this);
 
 
         vid_produk = getIntent().getStringExtra("id_produk");
@@ -201,10 +207,19 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         String dStr = String.valueOf(p);
         String value = dStr.matches("\\d+\\.\\d*[1-9]\\d*") ? dStr : dStr.substring(0, dStr.indexOf("."));
 
+        st3 = new StringTokenizer(formatRupiah.format(vhargaproduk), ",");
+        String hargaAwal = st3.nextToken().trim();
+        st4 = new StringTokenizer(formatRupiah.format(p), ",");
+        String hargaDiskon = st4.nextToken().trim();
+
+
+//        String dStr = String.valueOf(p);
+//        String value = dStr.matches("\\d+\\.\\d*[1-9]\\d*") ? dStr : dStr.substring(0, dStr.indexOf("."));
+
 
         kategori.setText(kategoriproduk);
         if (kategoriproduk.equals("Sepatu")) {
-            Toast.makeText(this, kategoriproduk, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, kategoriproduk, Toast.LENGTH_SHORT).show();
 //            linear5.removeAllViews();
         }
         if (vdiskon == 0) {
@@ -322,6 +337,10 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                     finish();
                 }
 
+                break;
+
+            case R.id.btn_addtowishlist:
+                addWishlist();
                 break;
             case R.id.img_foto_pelapak:
                 if (login) {
@@ -530,7 +549,60 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
             });
 
         }
+    }
+
+    public void addWishlist() {
+//        Toast.makeText(this, "klik", Toast.LENGTH_SHORT).show();
+//        if (!NetworkUtility.isNetworkConnected(RegisterActivity.this)) {
+//            AppUtilits.displayMessage(RegisterActivity.this, getString(R.string.network_not_connected));
+//
+//        }else if (spinProvinsi.getSelectedItem().toString().trim().equalsIgnoreCase("Pilih Provinsi")) {
+//            Toast.makeText(this, "Provinsi Belum  di Tentukan", Toast.LENGTH_SHORT).show();
+//
+//        } else if (spinProvinsi.getSelectedItemPosition() < 0 || spinkota.getSelectedItemPosition() < 0 || spinkota.getSelectedItem().toString().trim().equalsIgnoreCase("Pilih Kota")) {
+//            Toast.makeText(this, "Kota Belum  di Tentukan", Toast.LENGTH_SHORT).show();
+//        } else {
 
 
+//        final String statusA_ = "aktif";
+
+//            if (!validasi()) return;
+        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+//        Toast.makeText(this, "id "+id_konsumen+" prod "+vid_produk, Toast.LENGTH_SHORT).show();
+        Call<ResWishlist> addWishlist = service.addWishlist(id_konsumen,vid_produk );
+        addWishlist.enqueue(new Callback<ResWishlist>() {
+            @Override
+            public void onResponse(Call<ResWishlist> call, Response<ResWishlist> response) {
+                String getpesan = response.body().getPesan();
+//                Toast.makeText(RegisterActivity.this, "res" + response, Toast.LENGTH_SHORT).show();
+                Log.d("addwishlist", String.valueOf(response));
+
+                if (response.body() != null && response.isSuccessful()) {
+//                    response.body().getPesan();
+//                    Toast.makeText(ProductDetailActivity.this, "bedeh"+response.body().getPesan(), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(ProductDetailActivity.this, "Berhasil ditambahkan ke favorit", Toast.LENGTH_SHORT).show();
+                    if(getpesan.equalsIgnoreCase("Produk Sudah Ada Di Favorit")){
+                        AppUtilits.displayMessage(ProductDetailActivity.this,   getString(R.string.add_to_wishlistval));
+                    }else{
+                        AppUtilits.displayMessage(ProductDetailActivity.this,   getString(R.string.add_to_wishlist));
+                    }
+
+
+//                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+//                    startActivity(intent);
+//                    finish();
+                } else {
+//                    Toast.makeText(RegisterActivity.this, "rr" + response.body().getPesan(), Toast.LENGTH_SHORT).show();
+//                        AppUtilits.displayMessage(RegisterActivity.this,   getString(R.string.failed_request));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResWishlist> call, Throwable t) {
+                Log.e("addwishlistt", " failure" + t.toString());
+            }
+        });
+
+//        }
     }
 }

@@ -74,7 +74,7 @@ public class Tabdibatalkan extends Fragment {
 
 
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-        Call<Pesanan> call = service.getDataPesanan(String.valueOf(1), "batal");
+        Call<Pesanan> call = service.getDataPesanan(String.valueOf(id_konsumen), "batal");
 
         dataPesanans = new ArrayList<>();
         item = new HashMap<>();

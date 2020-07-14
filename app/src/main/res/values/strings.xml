@@ -56,6 +56,8 @@
     <string name="kategori">Kategori</string>
     <string name="stock">Stok: </string>
     <string name="add_to_cart">Berhasil ditambahkan ke keranjang</string>
+    <string name="add_to_wishlist">Berhasil ditambahkan ke favorit</string>
+    <string name="add_to_wishlistval">Produk Sudah Ada Di Favorit</string>
     <string name="action_search">actionsearch</string>
     <string name="action_settings">actionsetting</string>
     <string name="hint">Cari Produk</string>

@@ -10,11 +10,11 @@
         android:icon="@drawable/ic_favorite_black_24dp"
         android:title="Favorit" />
     <item
-        android:id="@+id/navigation_camera"
+        android:id="@+id/navigation_notification"
         android:icon="@drawable/ic_notifications_black_24dp"
         android:title="Notifikasi" />
     <item
-        android:id="@+id/navigation_cart"
+        android:id="@+id/navigation_transaksi"
         android:icon="@drawable/ic_transaksi2"
         android:title="Transaksi" />
 
