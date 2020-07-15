@@ -107,12 +107,6 @@ public class FragmentFavorite extends Fragment implements View.OnClickListener {
                 return false;
             }
         });
-
-
-//        myProgressBar= rootView.findViewById(R.id.myProgressBar);
-//        myProgressBar.setIndeterminate(true);
-//        myProgressBar.setVisibility(View.VISIBLE);
-
         getWishlish();
 
         return rootView;
@@ -143,10 +137,10 @@ public class FragmentFavorite extends Fragment implements View.OnClickListener {
     }
 
     public void getWishlish() {
-//        if (!NetworkUtility.isNetworkConnected(AlamatActivity.this)) {
-//            AppUtilits.displayMessage(AlamatActivity.this, getString(R.string.network_not_connected));
-//        } else {
-//            ProgresDialog();
+        if (!NetworkUtility.isNetworkConnected(getActivity())) {
+            AppUtilits.displayMessage(getActivity(), getString(R.string.network_not_connected));
+        } else {
+        ProgresDialog();
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
         Call<ResTampilWishlist> call = service.getDataWishlist(id_konsumen);
         call.enqueue(new Callback<ResTampilWishlist>() {
@@ -205,13 +199,13 @@ public class FragmentFavorite extends Fragment implements View.OnClickListener {
                 Toast.makeText(getActivity(), "Terdapat Kesalahan Silahkan Coba Lagi Nanti", Toast.LENGTH_SHORT).show();
             }
         });
-//        }
+        }
     }
 
     public void cariWishlish(String search) {
-//        if (!NetworkUtility.isNetworkConnected(AlamatActivity.this)) {
-//            AppUtilits.displayMessage(AlamatActivity.this, getString(R.string.network_not_connected));
-//        } else {
+        if (!NetworkUtility.isNetworkConnected(getActivity())) {
+            AppUtilits.displayMessage(getActivity(), getString(R.string.network_not_connected));
+        } else {
         ProgresDialog();
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
         Call<ResTampilWishlist> call = service.cariWishlist(id_konsumen, search);
@@ -249,13 +243,13 @@ public class FragmentFavorite extends Fragment implements View.OnClickListener {
                         mGridView.setVisibility(View.GONE);
                         lnKosong.setVisibility(View.VISIBLE);
                         progressHud.dismiss();
-                        tvxDesainKosong.setText("Barang Favoritmu Belum Ada");
+                        tvxDesainKosong.setText("Tidak Ada");
                     }
                 } else {
                     mGridView.setVisibility(View.GONE);
                     lnKosong.setVisibility(View.VISIBLE);
                     progressHud.dismiss();
-                    tvxDesainKosong.setText("Barang Favoritmu Belum Ada");
+                    tvxDesainKosong.setText("Tidak Ada");
                 }
 
             }
@@ -266,11 +260,11 @@ public class FragmentFavorite extends Fragment implements View.OnClickListener {
                 mGridView.setVisibility(View.GONE);
                 lnKosong.setVisibility(View.VISIBLE);
                 progressHud.dismiss();
-                tvxDesainKosong.setText("Barang Favoritmu Belum Ada");
-                Toast.makeText(getActivity(), "Terdapat Kesalahan Silahkan Coba Lagi Nanti", Toast.LENGTH_SHORT).show();
+                tvxDesainKosong.setText("Tidak Ada");
+//                Toast.makeText(getActivity(), "Terdapat Kesalahan Silahkan Coba Lagi Nanti", Toast.LENGTH_SHORT).show();
             }
         });
-//        }
+        }
     }
 
 }
