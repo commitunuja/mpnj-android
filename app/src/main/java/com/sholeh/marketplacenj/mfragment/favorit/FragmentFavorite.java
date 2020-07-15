@@ -29,6 +29,7 @@ import com.sholeh.marketplacenj.activities.AkunActivity;
 import com.sholeh.marketplacenj.activities.AlamatActivity;
 import com.sholeh.marketplacenj.activities.ImageProfilActivity;
 import com.sholeh.marketplacenj.activities.PengaturanAkun;
+import com.sholeh.marketplacenj.activities.keranjang.KeranjangDetailActivity;
 import com.sholeh.marketplacenj.activities.pesanan.MyPesananActivity;
 import com.sholeh.marketplacenj.adapter.wishlist.AdapterWishlist;
 import com.sholeh.marketplacenj.model.AlamatModel;
@@ -185,7 +186,8 @@ public class FragmentFavorite extends Fragment implements View.OnClickListener {
                     mGridView.setVisibility(View.GONE);
                     lnKosong.setVisibility(View.VISIBLE);
                     progressHud.dismiss();
-                    tvxDesainKosong.setText("Barang Favoritmu Belum Ada");
+                    tvxDesainKosong.setText(R.string.network_error);
+                    AppUtilits.displayMessage(getActivity(), getString(R.string.network_error));
                 }
 
             }
@@ -196,7 +198,8 @@ public class FragmentFavorite extends Fragment implements View.OnClickListener {
                 lnKosong.setVisibility(View.VISIBLE);
                 progressHud.dismiss();
                 tvxDesainKosong.setText("Barang Favoritmu Belum Ada");
-                Toast.makeText(getActivity(), "Terdapat Kesalahan Silahkan Coba Lagi Nanti", Toast.LENGTH_SHORT).show();
+                AppUtilits.displayMessage(getActivity(), getString(R.string.network_error));
+//                Toast.makeText(getActivity(), "Silakan coba lagi. Jaringan tidak merespon", Toast.LENGTH_SHORT).show();
             }
         });
         }
@@ -249,7 +252,8 @@ public class FragmentFavorite extends Fragment implements View.OnClickListener {
                     mGridView.setVisibility(View.GONE);
                     lnKosong.setVisibility(View.VISIBLE);
                     progressHud.dismiss();
-                    tvxDesainKosong.setText("Tidak Ada");
+                    tvxDesainKosong.setText(R.string.network_error);
+                    AppUtilits.displayMessage(getActivity(), getString(R.string.network_error));
                 }
 
             }
@@ -261,7 +265,7 @@ public class FragmentFavorite extends Fragment implements View.OnClickListener {
                 lnKosong.setVisibility(View.VISIBLE);
                 progressHud.dismiss();
                 tvxDesainKosong.setText("Tidak Ada");
-//                Toast.makeText(getActivity(), "Terdapat Kesalahan Silahkan Coba Lagi Nanti", Toast.LENGTH_SHORT).show();
+                AppUtilits.displayMessage(getActivity(), getString(R.string.network_error));
             }
         });
         }

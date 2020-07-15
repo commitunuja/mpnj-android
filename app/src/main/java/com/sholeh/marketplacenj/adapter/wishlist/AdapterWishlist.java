@@ -189,7 +189,8 @@ public class AdapterWishlist extends BaseAdapter {
                                 AppUtilits.displayMessage(context, "Sukses hapus produk dari wishlist");
                         } else {
                             progressHud.dismiss();
-                            Toast.makeText(context, "Terdapat Kesalahan Silahkan Coba Lagi Nanti", Toast.LENGTH_SHORT).show();
+                            AppUtilits.displayMessage(context, String.valueOf((R.string.network_error)));
+//                            Toast.makeText(context, "Terdapat Kesalahan Silahkan Coba Lagi Nanti", Toast.LENGTH_SHORT).show();
                         }
                     }
 
@@ -197,7 +198,7 @@ public class AdapterWishlist extends BaseAdapter {
                     public void onFailure(Call<ResHapusKeranjang> call, Throwable t) {
                         Log.d("deleteWishlist", "onerr: "+t);
                         progressHud.dismiss();
-                        Toast.makeText(context, "Internet Anda Kurang Stabil. Silahkan Coba Lagi", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Silakan coba lagi. Jaringan tidak merespon", Toast.LENGTH_SHORT).show();
 //                        AppUtilits.displayMessage(context, context.getString(R.string.failed_request));
 
                     }
