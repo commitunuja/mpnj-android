@@ -10,9 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_centerInParent="true"
-
-        >
+        android:layout_centerInParent="true">
 
 
 
@@ -70,6 +68,7 @@
 
 
                 <customfonts.TextViewSFProDisplayRegular
+                    android:id="@+id/tvx_kodetransaksi"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
@@ -102,6 +101,7 @@
 
 
                 <customfonts.TextViewSFProDisplayRegular
+                    android:id="@+id/tvx_namapengirim"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
@@ -135,6 +135,7 @@
 
 
                 <customfonts.TextViewSFProDisplayRegular
+                    android:id="@+id/tvx_waktutransaksi"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
@@ -166,6 +167,7 @@
 
 
                 <customfonts.TextViewSFProDisplayRegular
+                    android:id="@+id/tvxtotalbayar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
@@ -229,7 +231,8 @@
 
 
     <customfonts.TextViewSFProDisplayRegular
-        android:id="@+id/btn"
+
+        android:id="@+id/btnselesai"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

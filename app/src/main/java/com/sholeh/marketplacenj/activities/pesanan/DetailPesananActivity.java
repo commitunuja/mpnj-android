@@ -68,6 +68,8 @@ public class DetailPesananActivity extends AppCompatActivity {
         Intent i = getIntent();
         kode = i.getStringExtra("kode");
 
+//        Toast.makeText(this, "kode "+kode, Toast.LENGTH_SHORT).show();
+
         getData();
 
     }
