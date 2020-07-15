@@ -24,9 +24,11 @@ import androidx.viewpager.widget.ViewPager;
 import com.bumptech.glide.Glide;
 import com.codesgood.views.JustifiedTextView;
 import com.google.gson.JsonObject;
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.activities.LoginActivity;
 import com.sholeh.marketplacenj.activities.RegisterActivity;
+import com.sholeh.marketplacenj.activities.alamat.PilihAlamatCheckout;
 import com.sholeh.marketplacenj.activities.keranjang.KeranjangDetailActivity;
 import com.sholeh.marketplacenj.activities.pelapak.ProfilPelapakActivity;
 import com.sholeh.marketplacenj.adapter.dashboard.RecycleAdapteTopTenHome;
@@ -102,6 +104,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
     private List<Model> tvDataProduks;
     private Model tvDataProduk;
     ImageView btnAddWishlist;
+    private KProgressHUD progressDialogHud;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,6 +112,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         setContentView(R.layout.activity_product_detail);
         preferences = new Preferences(getApplication());
         id_konsumen = preferences.getIdKonsumen();
+        progressDialogHud = KProgressHUD.create(ProductDetailActivity.this);
 
         namapelapak = findViewById(R.id.tv_nama_pelapak);
         fotopelapak = findViewById(R.id.img_foto_pelapak);
@@ -270,6 +274,13 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         getProdukId();
 
     }
+
+    private void ProgresDialog(){
+        progressDialogHud.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setCancellable(false);
+        progressDialogHud.show();
+    }
+
 
     public void getProdukId() {
 
@@ -472,8 +483,9 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
             AppUtilits.displayMessage(ProductDetailActivity.this, getString(R.string.network_not_connected));
         } else {
             final String harga_jual = String.valueOf(vhargaproduk);
-            st1 = new StringTokenizer(harga_jual, "Rp");
+            StringTokenizer st1 = new StringTokenizer(harga_jual, "Rp");
             String hargaJual = st1.nextToken().trim();
+            ProgresDialog();
             APIInterface apiKeranjang = ServiceGenerator.getRetrofit().create(APIInterface.class);
             Call<ResKeranjang> sendData = apiKeranjang.simpanKeranjang(vid_produk, id_konsumen,  String.valueOf(1), hargaJual);
             sendData.enqueue(new Callback<ResKeranjang>() {
@@ -481,18 +493,22 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                 public void onResponse(Call<ResKeranjang> call, Response<ResKeranjang> response) {
                     if (response.body() != null && response.isSuccessful()) {
                         if (response.body().getPesan().equalsIgnoreCase("sukses")) {
+                            progressDialogHud.dismiss();
                             AppUtilits.displayMessage(ProductDetailActivity.this, getString(R.string.add_to_cart));
 
                         } else {
+                            progressDialogHud.dismiss();
                         Toast.makeText(ProductDetailActivity.this, "Terdapat Kesalahan Silahkan Coba Lagi Nanti", Toast.LENGTH_SHORT).show();
                        }
                     } else {
+                        progressDialogHud.dismiss();
                    Toast.makeText(ProductDetailActivity.this, "Terdapat Kesalahan Silahkan Coba Lagi Nanti", Toast.LENGTH_SHORT).show();
                     }
                 }
 
                 @Override
                 public void onFailure(Call<ResKeranjang> call, Throwable t) {
+                    progressDialogHud.dismiss();
                     Toast.makeText(ProductDetailActivity.this, "Terdapat Kesalahan Silahkan Coba Lagi Nanti", Toast.LENGTH_SHORT).show();
                     Log.d("ok", String.valueOf(t));
 //                    AppUtilits.displayMessage(RegisterActivity.this,   getString(R.string.failed_request));
