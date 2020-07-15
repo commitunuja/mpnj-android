@@ -5,10 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -38,7 +35,7 @@ public class Tabdikemas extends Fragment {
     private HashMap<DataPesanan, List<Item>> item;
     List<Item> itemdata;
     PesananAdapter recyclerPesananAdapter;
-    String status;
+    LinearLayout datakosong;
 
     RecyclerView.LayoutManager dataapi;
 
@@ -56,7 +53,7 @@ public class Tabdikemas extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_pesanan, container, false);
         recyclerView = view.findViewById(R.id.recycler_pesanan1);
-
+        datakosong = view.findViewById(R.id.ldatakosong);
 
         getData();
         return view;
@@ -109,7 +106,10 @@ public class Tabdikemas extends Fragment {
                                 itemdata.add(new Item(namaproduk, hargajual, foto, status));
                             }
                         }
+
                     } else {
+                        recyclerView.setVisibility(View.GONE);
+                        datakosong.setVisibility(View.VISIBLE);
 
                     }
                     recyclerPesananAdapter = new PesananAdapter(getContext(), dataPesanans, item);
