@@ -114,6 +114,7 @@ public class DetailPesananActivity extends AppCompatActivity {
                             toko.setText(response.body().getData().get(i).getNamaToko());
                             waktu.setText(response.body().getData().get(i).getWaktuPesan());
                             status.setText(response.body().getData().get(i).getStatusOrder());
+                            kurir.setText(response.body().getData().get(i).getKurir().toString());
 
                             int total1 = Integer.parseInt(response.body().getData().get(i).getTotalBayar());
                             stringTokenizer = new StringTokenizer(formatRupiah.format(total1),",");
