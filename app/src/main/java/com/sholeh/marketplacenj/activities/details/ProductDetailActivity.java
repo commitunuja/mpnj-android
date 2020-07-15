@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -105,6 +106,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
     private Model tvDataProduk;
     ImageView btnAddWishlist;
     private KProgressHUD progressDialogHud;
+    ProgressBar myProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,6 +115,9 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         preferences = new Preferences(getApplication());
         id_konsumen = preferences.getIdKonsumen();
         progressDialogHud = KProgressHUD.create(ProductDetailActivity.this);
+        myProgressBar= findViewById(R.id.myProgressBar);
+        myProgressBar.setIndeterminate(true);
+        myProgressBar.setVisibility(View.VISIBLE);
 
         namapelapak = findViewById(R.id.tv_nama_pelapak);
         fotopelapak = findViewById(R.id.img_foto_pelapak);
@@ -313,13 +318,20 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                     Log.d("CEK", "error" + fotopelapak);
                     viewPagerAdapter = new ViewPagerAdapter(getApplicationContext(), tampil);
                     viewPager.setAdapter(viewPagerAdapter);
+                    myProgressBar.setVisibility(View.GONE);
                 } catch (JSONException e) {
+                    myProgressBar.setVisibility(View.GONE);
+                    Toast.makeText(ProductDetailActivity.this, "Terdapat Kesalahan Silahkan Coba Lagi Nanti", Toast.LENGTH_SHORT).show();
+
                     e.printStackTrace();
                 }
             }
 
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
+                myProgressBar.setVisibility(View.GONE);
+                Toast.makeText(ProductDetailActivity.this, "Internet Anda Kurang Stabil. Silahkan Coba Lagi", Toast.LENGTH_SHORT).show();
+
 
             }
         });
@@ -509,7 +521,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                 @Override
                 public void onFailure(Call<ResKeranjang> call, Throwable t) {
                     progressDialogHud.dismiss();
-                    Toast.makeText(ProductDetailActivity.this, "Terdapat Kesalahan Silahkan Coba Lagi Nanti", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ProductDetailActivity.this, "Internet Anda Kurang Stabil. Silahkan Coba Lagi", Toast.LENGTH_SHORT).show();
                     Log.d("ok", String.valueOf(t));
 //                    AppUtilits.displayMessage(RegisterActivity.this,   getString(R.string.failed_request));
                 }
@@ -547,7 +559,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                 @Override
                 public void onFailure(Call<ResWishlist> call, Throwable t) {
                     progressDialogHud.dismiss();
-                    Toast.makeText(ProductDetailActivity.this, "Terdapat Kesalahan Silahkan Coba Lagi Nanti", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ProductDetailActivity.this, "Internet Anda Kurang Stabil. Silahkan Coba Lagi", Toast.LENGTH_SHORT).show();
                 }
             });
 
