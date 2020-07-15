@@ -39,6 +39,7 @@ import com.sholeh.marketplacenj.respon.ResKeranjang;
 import com.sholeh.marketplacenj.respon.ResRegristasi;
 import com.sholeh.marketplacenj.respon.ResWishlist;
 import com.sholeh.marketplacenj.util.AppUtilits;
+import com.sholeh.marketplacenj.util.NetworkUtility;
 import com.sholeh.marketplacenj.util.Preferences;
 import com.sholeh.marketplacenj.util.ServiceGenerator;
 import com.sholeh.marketplacenj.util.api.APIInterface;
@@ -467,21 +468,12 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
     
 
     public void addKeranjang() {
-//        if (!NetworkUtility.isNetworkConnected(RegisterActivity.this)) {
-//            AppUtilits.displayMessage(RegisterActivity.this, getString(R.string.network_not_connected));
-//
-//        } else {
-
-
-//        if (vdiskon == 0) { // tidak ada diskon
+        if (!NetworkUtility.isNetworkConnected(ProductDetailActivity.this)) {
+            AppUtilits.displayMessage(ProductDetailActivity.this, getString(R.string.network_not_connected));
+        } else {
             final String harga_jual = String.valueOf(vhargaproduk);
             st1 = new StringTokenizer(harga_jual, "Rp");
             String hargaJual = st1.nextToken().trim();
-//            Toast.makeText(this, ""+harga_jual, Toast.LENGTH_SHORT).show();
-//            double jual = Double.valueOf(harga.getText().toString());
-//            String c = String.valueOf(jual);
-
-
             APIInterface apiKeranjang = ServiceGenerator.getRetrofit().create(APIInterface.class);
             Call<ResKeranjang> sendData = apiKeranjang.simpanKeranjang(vid_produk, id_konsumen,  String.valueOf(1), hargaJual);
             sendData.enqueue(new Callback<ResKeranjang>() {
@@ -492,66 +484,21 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                             AppUtilits.displayMessage(ProductDetailActivity.this, getString(R.string.add_to_cart));
 
                         } else {
-//                        Toast.makeText(ProductDetailActivity.this, "r"+response.body().getPesan(), Toast.LENGTH_SHORT).show();
-//                            AppUtilits.displayMessage(RegisterActivity.this,  response.body().getPesan());
-                        }
+                        Toast.makeText(ProductDetailActivity.this, "Terdapat Kesalahan Silahkan Coba Lagi Nanti", Toast.LENGTH_SHORT).show();
+                       }
                     } else {
-//                    Toast.makeText(ProductDetailActivity.this, "rr"+response.body().getPesan(), Toast.LENGTH_SHORT).show();
-
-//                        AppUtilits.displayMessage(RegisterActivity.this,   getString(R.string.failed_request));
+                   Toast.makeText(ProductDetailActivity.this, "Terdapat Kesalahan Silahkan Coba Lagi Nanti", Toast.LENGTH_SHORT).show();
                     }
                 }
 
                 @Override
                 public void onFailure(Call<ResKeranjang> call, Throwable t) {
-//                    Log.e(TAG, " failure " + t.toString());
-//                Toast.makeText(ProductDetailActivity.this, "rrr"+t, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ProductDetailActivity.this, "Terdapat Kesalahan Silahkan Coba Lagi Nanti", Toast.LENGTH_SHORT).show();
                     Log.d("ok", String.valueOf(t));
-
-
 //                    AppUtilits.displayMessage(RegisterActivity.this,   getString(R.string.failed_request));
                 }
             });
-
-//        } else {
-//            final String harga_ = String.valueOf(p);
-//            st2 = new StringTokenizer(harga_, "Rp");
-//            String hargaJual = st2.nextToken().trim();
-//            Toast.makeText(this, ""+hargaJual, Toast.LENGTH_SHORT).show();
-
-
-//            APIInterface apiKeranjang = ServiceGenerator.getRetrofit().create(APIInterface.class);
-//            Call<ResKeranjang> sendData = apiKeranjang.simpanKeranjang(vid_produk, id_konsumen, String.valueOf(1), hargaJual);
-//            sendData.enqueue(new Callback<ResKeranjang>() {
-//                @Override
-//                public void onResponse(Call<ResKeranjang> call, Response<ResKeranjang> response) {
-//                    if (response.body() != null && response.isSuccessful()) {
-//                        if (response.body().getPesan().equalsIgnoreCase("sukses")) {
-//                            AppUtilits.displayMessage(ProductDetailActivity.this, getString(R.string.add_to_cart));
-//
-//                        } else {
-//                        Toast.makeText(ProductDetailActivity.this, "r"+response.body().getPesan(), Toast.LENGTH_SHORT).show();
-////                            AppUtilits.displayMessage(RegisterActivity.this,  response.body().getPesan());
-//                        }
-//                    } else {
-//                    Toast.makeText(ProductDetailActivity.this, "rr"+response.body().getPesan(), Toast.LENGTH_SHORT).show();
-//
-////                        AppUtilits.displayMessage(RegisterActivity.this,   getString(R.string.failed_request));
-//                    }
-//                }
-//
-//                @Override
-//                public void onFailure(Call<ResKeranjang> call, Throwable t) {
-////                    Log.e(TAG, " failure " + t.toString());
-////                Toast.makeText(ProductDetailActivity.this, "rrr"+t, Toast.LENGTH_SHORT).show();
-//                    Log.d("ok", String.valueOf(t));
-//
-//
-////                    AppUtilits.displayMessage(RegisterActivity.this,   getString(R.string.failed_request));
-//                }
-//            });
-
-//        }
+        }
     }
 
     public void addWishlist() {
