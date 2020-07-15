@@ -275,7 +275,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
     }
 
-    private void ProgresDialog(){
+    private void ProgresDialog() {
         progressDialogHud.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
                 .setCancellable(false);
         progressDialogHud.show();
@@ -476,7 +476,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
         }
     }
-    
+
 
     public void addKeranjang() {
         if (!NetworkUtility.isNetworkConnected(ProductDetailActivity.this)) {
@@ -487,7 +487,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
             String hargaJual = st1.nextToken().trim();
             ProgresDialog();
             APIInterface apiKeranjang = ServiceGenerator.getRetrofit().create(APIInterface.class);
-            Call<ResKeranjang> sendData = apiKeranjang.simpanKeranjang(vid_produk, id_konsumen,  String.valueOf(1), hargaJual);
+            Call<ResKeranjang> sendData = apiKeranjang.simpanKeranjang(vid_produk, id_konsumen, String.valueOf(1), hargaJual);
             sendData.enqueue(new Callback<ResKeranjang>() {
                 @Override
                 public void onResponse(Call<ResKeranjang> call, Response<ResKeranjang> response) {
@@ -498,11 +498,11 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
                         } else {
                             progressDialogHud.dismiss();
-                        Toast.makeText(ProductDetailActivity.this, "Terdapat Kesalahan Silahkan Coba Lagi Nanti", Toast.LENGTH_SHORT).show();
-                       }
+                            Toast.makeText(ProductDetailActivity.this, "Terdapat Kesalahan Silahkan Coba Lagi Nanti", Toast.LENGTH_SHORT).show();
+                        }
                     } else {
                         progressDialogHud.dismiss();
-                   Toast.makeText(ProductDetailActivity.this, "Terdapat Kesalahan Silahkan Coba Lagi Nanti", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ProductDetailActivity.this, "Terdapat Kesalahan Silahkan Coba Lagi Nanti", Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -518,57 +518,39 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
     }
 
     public void addWishlist() {
-//        Toast.makeText(this, "klik", Toast.LENGTH_SHORT).show();
-//        if (!NetworkUtility.isNetworkConnected(RegisterActivity.this)) {
-//            AppUtilits.displayMessage(RegisterActivity.this, getString(R.string.network_not_connected));
-//
-//        }else if (spinProvinsi.getSelectedItem().toString().trim().equalsIgnoreCase("Pilih Provinsi")) {
-//            Toast.makeText(this, "Provinsi Belum  di Tentukan", Toast.LENGTH_SHORT).show();
-//
-//        } else if (spinProvinsi.getSelectedItemPosition() < 0 || spinkota.getSelectedItemPosition() < 0 || spinkota.getSelectedItem().toString().trim().equalsIgnoreCase("Pilih Kota")) {
-//            Toast.makeText(this, "Kota Belum  di Tentukan", Toast.LENGTH_SHORT).show();
-//        } else {
+        if (!NetworkUtility.isNetworkConnected(ProductDetailActivity.this)) {
+            AppUtilits.displayMessage(ProductDetailActivity.this, getString(R.string.network_not_connected));
+        } else {
+            ProgresDialog();
+            APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+            Call<ResWishlist> addWishlist = service.addWishlist(id_konsumen, vid_produk);
+            addWishlist.enqueue(new Callback<ResWishlist>() {
+                @Override
+                public void onResponse(Call<ResWishlist> call, Response<ResWishlist> response) {
+                    String getpesan = response.body().getPesan();
+                    Log.d("addwishlist", String.valueOf(response));
+                    if (response.body() != null && response.isSuccessful()) {
+                        if (getpesan.equalsIgnoreCase("Produk Sudah Ada Di Favorit")) {
+                            progressDialogHud.dismiss();
+                            AppUtilits.displayMessage(ProductDetailActivity.this, getString(R.string.add_to_wishlistval));
+                        } else {
+                            progressDialogHud.dismiss();
+                            AppUtilits.displayMessage(ProductDetailActivity.this, getString(R.string.add_to_wishlist));
+                        }
+                    } else {
+                        progressDialogHud.dismiss();
+                        Toast.makeText(ProductDetailActivity.this, "Terdapat Kesalahan Silahkan Coba Lagi Nanti", Toast.LENGTH_SHORT).show();
 
-
-//        final String statusA_ = "aktif";
-
-//            if (!validasi()) return;
-        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-//        Toast.makeText(this, "id "+id_konsumen+" prod "+vid_produk, Toast.LENGTH_SHORT).show();
-        Call<ResWishlist> addWishlist = service.addWishlist(id_konsumen,vid_produk );
-        addWishlist.enqueue(new Callback<ResWishlist>() {
-            @Override
-            public void onResponse(Call<ResWishlist> call, Response<ResWishlist> response) {
-                String getpesan = response.body().getPesan();
-//                Toast.makeText(RegisterActivity.this, "res" + response, Toast.LENGTH_SHORT).show();
-                Log.d("addwishlist", String.valueOf(response));
-
-                if (response.body() != null && response.isSuccessful()) {
-//                    response.body().getPesan();
-//                    Toast.makeText(ProductDetailActivity.this, "bedeh"+response.body().getPesan(), Toast.LENGTH_SHORT).show();
-//                    Toast.makeText(ProductDetailActivity.this, "Berhasil ditambahkan ke favorit", Toast.LENGTH_SHORT).show();
-                    if(getpesan.equalsIgnoreCase("Produk Sudah Ada Di Favorit")){
-                        AppUtilits.displayMessage(ProductDetailActivity.this,   getString(R.string.add_to_wishlistval));
-                    }else{
-                        AppUtilits.displayMessage(ProductDetailActivity.this,   getString(R.string.add_to_wishlist));
                     }
-
-
-//                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-//                    startActivity(intent);
-//                    finish();
-                } else {
-//                    Toast.makeText(RegisterActivity.this, "rr" + response.body().getPesan(), Toast.LENGTH_SHORT).show();
-//                        AppUtilits.displayMessage(RegisterActivity.this,   getString(R.string.failed_request));
                 }
-            }
 
-            @Override
-            public void onFailure(Call<ResWishlist> call, Throwable t) {
-                Log.e("addwishlistt", " failure" + t.toString());
-            }
-        });
+                @Override
+                public void onFailure(Call<ResWishlist> call, Throwable t) {
+                    progressDialogHud.dismiss();
+                    Toast.makeText(ProductDetailActivity.this, "Terdapat Kesalahan Silahkan Coba Lagi Nanti", Toast.LENGTH_SHORT).show();
+                }
+            });
 
-//        }
+        }
     }
 }
