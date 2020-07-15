@@ -36,7 +36,7 @@ import static com.sholeh.marketplacenj.util.MyApp.getContext;
 public class DetailPesananActivity extends AppCompatActivity {
 
     String namaproduk, namatoko, harga, foto;
-    TextView vnamaproduk, waktu, totalhargaproduk, total, vharga, toko, status, alamat, totalhargadetail;
+    TextView vnamaproduk, waktu, totalhargaproduk, total, vharga, toko, status, alamat, totalhargadetail, kurir;
     ImageView iproduk;
     private List<ItemDetailPesanan> dataPesanans;
     RecyclerView recyclerView;
@@ -65,22 +65,17 @@ public class DetailPesananActivity extends AppCompatActivity {
         totalhargaproduk = findViewById(R.id.tv_totalhargaproduk);
         total = findViewById(R.id.tv_total_detail_bayar);
         alamat = findViewById(R.id.tv_alamat_detail_pesanan);
+        kurir = findViewById(R.id.tv_kurir);
         Intent i = getIntent();
         kode = i.getStringExtra("kode");
+
 
         getData();
 
     }
-    private String formatRupiah(Double number){
-        Locale localeID = new Locale("in", "ID");
-        NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
-        return formatRupiah.format(number);
-    }
+
 
     public void getData() {
-        String id_konsumen;
-        Preferences preferences = new Preferences(getContext());
-        id_konsumen = preferences.getIdKonsumen();
         layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
