@@ -20,6 +20,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.sholeh.marketplacenj.activities.keranjang.KeranjangDetailActivity;
 import com.sholeh.marketplacenj.respon.ResDetailKeranjang;
 import com.sholeh.marketplacenj.respon.ResHapusKeranjang;
@@ -59,6 +60,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
     StringTokenizer st, st2;
     private static final String TAG = "MyExpandAdapter";
     String CUSTOM_ACTION = "com.example.YOUR_ACTION";
+    private KProgressHUD progressHud;
 
 
     public ExpandListScanAdapter(Context context, List<HeaderModel> listHeader, HashMap<HeaderModel, List<ChildModel>> listChild) {
@@ -113,31 +115,22 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.desain_parent, null);
         }
-
-
         final TextView nama_kk, no_pelanggan;
         final CheckBox cbparent;
 
         nama_kk = convertView.findViewById(R.id.txNamaToko);
         no_pelanggan = convertView.findViewById(R.id.tvxIdToko);
         cbparent = convertView.findViewById(R.id.cb_select_parent);
-
         nama_kk.setText(model.getNama_toko());
         no_pelanggan.setText(model.getId_toko());
-
         cbparent.setChecked(headerModel.isChecked());
         final boolean nowBeanChecked = headerModel.isChecked();
 
         cbparent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-
-
                 setupOneParentAllChildChecked(!nowBeanChecked, groupPosition);
                 valueCheckboxParent();
-
             }
         });
 
@@ -268,7 +261,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
                                 AppUtilits.displayMessage(context, "Gagal hapus produk dari keranjang");
                             }
                         } else {
-//                            AppUtilits.displayMessage(mContext, mContext.getString(R.string.network_error));
+                            AppUtilits.displayMessage(context, context.getString(R.string.network_error));
                         }
 
                     }
@@ -448,63 +441,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
                 if (childModel.isChecked()) {
                     jumlahProduk++;
                     totalHarga += p * jumlah;
-
-
-//                    list = new ArrayList<String>();
-//                    list.add(getid);
                     myArray.add(String.valueOf(getid));
-
-//                    String line = getid+" ";
-//                    //using String split function
-//                    words = line.split(" ");
-//                    System.out.println(Arrays.toString(words));
-//                    //using java.util.regex Pattern
-//                    Pattern pattern = Pattern.compile(" ");
-//                    words = pattern.split(line);
-//                    Toast.makeText(context, ""+Arrays.toString(words), Toast.LENGTH_SHORT).show();
-
-
-
-//                    Log.d("array", String.valueOf(myArray));
-//                    Toast.makeText(context, ""+list, Toast.LENGTH_SHORT).show();
-
-
-
-//                    int []id_keranjang = {Integer.parseInt(getid)};
-//                    Toast.makeText(context, "g"+id_keranjang.length, Toast.LENGTH_SHORT).show();
-//
-
-
-//                    for (int a =0; a < myArray.size(); a++){
-////                        idK = id_keranjang[a];
-//                        sum = String.valueOf(myArray.get(i));
-////                        Toast.makeText(context, ""+sum, Toast.LENGTH_SHORT).show();
-//
-//                    }
-
-//                    Toast.makeText(context, "f"+getid, Toast.LENGTH_SHORT).show();
-//                    Log.d("idkeranjang", idK);
-//                    Intent intent = new Intent("custom-idk");
-//                    intent.putExtra("array-idkeranjang", String.valueOf(idK));
-
-
-//
-//                    Toast.makeText(context, "s"+sum, Toast.LENGTH_SHORT).show();
-//
-//                    Intent in = new Intent("custom-idk");
-////                    intent.putExtra("idkeranjang",String.valueOf(sum+",")) ;
-//                    in.putExtra("idkeranjang",String.valueOf(getid)) ;
-//                    LocalBroadcastManager.getInstance(context).sendBroadcast(in);
-
-//                    Toast.makeText(context, ""+myArray.size(), Toast.LENGTH_SHORT).show();
-//                    Log.d("array", String.valueOf(sum));
-
-
-
-
-
-
-
                 }
 
             }
@@ -513,17 +450,11 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
         intent.putExtra("total", String.valueOf(totalHarga));
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
 
-//        Toast.makeText(context, "m"+myArray, Toast.LENGTH_SHORT).show();
-//        Log.d("array", String.valueOf(myArray));
 
         Intent i = new Intent("custom-idk");
 //        i.putExtra("idkeranjang",String.valueOf(myArray)) ;
         i.putExtra("idkeranjang",String.valueOf(myArray)) ;
         LocalBroadcastManager.getInstance(context).sendBroadcast(i);
 //        Toast.makeText(context, ""+String.valueOf(myArray), Toast.LENGTH_SHORT).show();
-
-
-
-
     }
 }
