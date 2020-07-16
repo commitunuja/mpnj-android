@@ -2,6 +2,7 @@ package com.sholeh.marketplacenj.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,7 +13,9 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.sholeh.marketplacenj.activities.alamat.PilihAlamatCheckout;
 import com.sholeh.marketplacenj.model.subdistrict.ItemKec;
+import com.sholeh.marketplacenj.util.AppUtilits;
 import com.sholeh.marketplacenj.util.api.APIInterface;
 import com.sholeh.marketplacenj.util.CONSTANTS;
 import com.sholeh.marketplacenj.R;
@@ -351,32 +354,29 @@ public class AddAlamat extends AppCompatActivity implements View.OnClickListener
                     if (response.body() != null && response.isSuccessful()) {
                         if (response.body().getPesan().equalsIgnoreCase("Sukses!")) {
                             Toast.makeText(AddAlamat.this, "Berhasil Menambah Alamat", Toast.LENGTH_SHORT).show();
-
-                                // start home activity
-//                                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-//                                //intent.putExtra("userid", "sdfsd");
-//                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
-//                                        Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                                startActivity(intent);
+                                Intent intent = new Intent(AddAlamat.this, PilihAlamatCheckout.class);
+                                startActivity(intent);
                                 finish();
 
 
 
                         } else {
-                            Toast.makeText(AddAlamat.this, "r"+response.body().getPesan(), Toast.LENGTH_SHORT).show();
+                            AppUtilits.displayMessage(getApplication(), getString(R.string.failed_request));
+//                            Toast.makeText(AddAlamat.this, "r"+response.body().getPesan(), Toast.LENGTH_SHORT).show();
 //                            AppUtilits.displayMessage(RegisterActivity.this,  response.body().getPesan());
                         }
                     } else {
-                        Toast.makeText(AddAlamat.this, "rr"+response.body().getPesan(), Toast.LENGTH_SHORT).show();
-
+//                        Toast.makeText(AddAlamat.this, "rr"+response.body().getPesan(), Toast.LENGTH_SHORT).show();
+                        AppUtilits.displayMessage(getApplication(), getString(R.string.network_error));
 //                        AppUtilits.displayMessage(RegisterActivity.this,   getString(R.string.failed_request));
                     }
                 }
 
                 @Override
                 public void onFailure(Call<ResAlamat> call, Throwable t) {
+                    AppUtilits.displayMessage(getApplication(), getString(R.string.network_error));
 //                    Log.e(TAG, " failure " + t.toString());
-                    Toast.makeText(AddAlamat.this, "rrr"+t, Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(AddAlamat.this, "rrr"+t, Toast.LENGTH_SHORT).show();
 
 
 //                    AppUtilits.displayMessage(RegisterActivity.this,   getString(R.string.failed_request));

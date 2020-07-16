@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/crMain"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg"
@@ -59,7 +60,7 @@
                             android:layout_marginRight="10dp"
                             android:gravity="center"
                             android:text="Pilih Opsi Pengiriman"
-                            android:textSize="16dp"
+                            android:textSize="16sp"
                             android:textStyle="bold" />
 
 
@@ -89,7 +90,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="20dp"
                         android:background="@drawable/round_spinner"
                         android:orientation="vertical">
 
@@ -157,8 +158,47 @@
 
             </LinearLayout>
 
-            <LinearLayout
 
+            <FrameLayout
+                android:layout_marginBottom="10dp"
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/font_16"
+                android:layout_marginRight="@dimen/font_16"
+                android:layout_marginTop="@dimen/font_8"
+                android:layout_marginStart="@dimen/font_16"
+                android:layout_marginEnd="@dimen/font_16">
+
+                <customfonts.MyTextView_Roboto_Regular
+                    android:id="@+id/tvSave"
+                    android:padding="12dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/ic_sign_up_border"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/value_5"
+                    android:paddingLeft="@dimen/font_16"
+                    android:paddingRight="@dimen/font_12"
+                    android:paddingTop="@dimen/value_5"
+                    android:text="Konfirmasi"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:paddingEnd="@dimen/font_12"
+                    android:paddingStart="@dimen/font_16" />
+
+                <ImageView
+                    android:id="@+id/ivGo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|center"
+                    android:paddingRight="@dimen/value_10"
+                    app:srcCompat="@drawable/ic_icon_arrow_right"
+                    android:paddingEnd="@dimen/value_10" />
+
+            </FrameLayout>
+            <LinearLayout
+                android:visibility="gone"
                 android:id="@+id/llButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -175,7 +215,7 @@
 
 
                 <TextView
-                    android:id="@+id/tvSave"
+
                     style="@style/txt_white_medium"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

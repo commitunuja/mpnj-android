@@ -1,6 +1,7 @@
 package com.sholeh.marketplacenj.adapter.checkout;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -125,7 +126,6 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
 
 
         final List<ChildCheckout> childModel = listChild.get(listHeaderFilter.get(groupPosition));
-
         convertView = LayoutInflater.from(context).inflate(R.layout.desain_parent_checkout, null);
         final Dialog myDialog;
         final TextView nama_kk, no_pelanggan, idKabPenjual, tvx_OpsiKurir1, tvxkurir, tvxservice, tvxongkos, tvxetd, vOngkos;
@@ -140,17 +140,11 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
         tvxetd = convertView.findViewById(R.id.tvxetd);
         lnkurir = convertView.findViewById(R.id.ln_Kurir);
 //        tvxAkanditerima = convertView.findViewById(R.id.tvAkanditerima);
-        myDialog = new Dialog(context);
-
-
-
 //        getSubOngkir(model);
 
+        myDialog = new Dialog(context);
         nama_kk.setText(model.getNama_toko());
         no_pelanggan.setText(model.getId_toko());
-
-//        Toast.makeText(context, "ongkos"+model.getOngkir(), Toast.LENGTH_SHORT).show();
-
         String getresetKurir = ((CheckoutActivity) context).resetKurir();
 
 
@@ -173,11 +167,10 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
 ////                lnkurir.setVisibility(View.VISIBLE);
 //        }else { // jika tidak mengubah alamat utama
 ////            Toast.makeText(context, "null", Toast.LENGTH_SHORT).show();
-            int ongkir = Integer.parseInt(model.getOngkir());
+        int ongkir = Integer.parseInt(model.getOngkir());
         StringTokenizer konvert;
         konvert = new StringTokenizer(formatRupiah.format(ongkir), ",");
         String hargaOngkir = konvert.nextToken().trim();
-
 
         String kurir = model.getKurir();
             tvxkurir.setText(kurir);
@@ -190,9 +183,6 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
 //
 ////            cekOngkos = tvxongkos.getText().toString(); // 0
 ////            Log.d("cekongkos2", cekOngkos);
-//
-//
-//
 ////            lnkurir.setVisibility(View.VISIBLE);
 //////            Toast.makeText(context, " null", Toast.LENGTH_SHORT).show();
 //        }
@@ -218,48 +208,20 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
 ////            tvxetd.setVisibility(View.GONE);
 ////            tvxAkanditerima.setVisibility(View.GONE);
         }
-//
-
-
-
-
-
-//        Toast.makeText(context, "cekO "+cekOngkos, Toast.LENGTH_SHORT).show();
-
-//        Log.d("idkecpembeli checkout", String.valueOf(model.get));
-
         linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                klikOpsipengiriman +=1;
-
-
-//                Log.d("klik", String.valueOf(klikOpsipengiriman));
-
                 HeaderCheckout myNewsheader = listHeaderFilter.get(groupPosition);
                 Context context = v.getContext();
-//                listChild.get(listHeaderFilter.get(groupPosition)).get(childPosition);
-
-//                for (int i = groupPosition; i < getChildrenCount(groupPosition); i++) {
-////                    idk.add(getChild(groupPosition, ));
-//                }
-
-//                Log.d("Child Position", String.valueOf(getChildrenCount(groupPosition)));
                 ResDetailKeranjang bs = ((CheckoutActivity) context).getbs();
-//                Log.d("ikdo", String.valueOf());
                 ArrayList<String> id = ((CheckoutActivity) context).listIdKeranjang();
                 ArrayList<String> idByParent = new ArrayList<String>();
 
                 for (int i = 0; i < bs.getDataKeranjang().get(groupPosition).getItem().size(); i++) {
                     idByParent.add(bs.getDataKeranjang().get(groupPosition).getItem().get(i).getIdKeranjang());
                 }
-
                 String idKabPenjual = bs.getDataKeranjang().get(groupPosition).getIdKabupaten();
-               String idKecPembeli = bs.getPembeli().getIdKecamatan();
-
-
-
-//                Toast.makeText(context, "idkec"+idKecPembeli, Toast.LENGTH_SHORT).show();
+                String idKecPembeli = bs.getPembeli().getIdKecamatan();
 
                 String nama_kota = bs.getDataKeranjang().get(groupPosition).getNamaKota();
                 String weight = bs.getDataKeranjang().get(groupPosition).getTotalBerat();
@@ -269,11 +231,12 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
                 intent.putExtra("weight", String.valueOf(weight));
                 intent.putStringArrayListExtra("idcheckout", id);
                 intent.putStringArrayListExtra("idByParent", idByParent);
-                context.startActivity(intent);
-//                ((CheckoutActivity) context).finish();
                 myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 myDialog.show();
-//
+                context.startActivity(intent);
+                ((Activity) context).finish();
+
+//                Toast.makeText(context, "coba pakek custompopup", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -320,8 +283,6 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
         double diskon = Double.parseDouble(String.valueOf(Integer.parseInt(String.valueOf(childCheckout.getDiskon()))));
         tvx_jumlahproduk.setText(String.valueOf(jumlahProduk));
 
-
-
         double h = diskon / 100 * hargaawal;
         double p = hargaawal - h;
         double hitungTotal = jumlahProduk * p;
@@ -335,8 +296,6 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
 
 
 //        int hitungJumHarga = jumlahProduk * hargaProduk;
-//
-//
 //        tvx_totharga.setText(hargajum);
 
         Glide.with(convertView.getContext())
@@ -429,16 +388,11 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
         int valP = 0;
 
         for (int i = 0; i < listHeaderFilter.size(); i++) {
-
             HeaderCheckout headerCheckout = listHeaderFilter.get(i);
-
             double hargaPengiriman = Double.parseDouble(headerCheckout.getOngkir());
             valP = (int) hargaPengiriman;
             myArrayOngkir.add(String.valueOf(valP));
-
-         
             subPengiriman +=hargaPengiriman;
-
 
             List<ChildCheckout> childMapList = listChild.get(listHeaderFilter.get(i));
             for (int j = 0; j < childMapList.size(); j++) {
@@ -449,13 +403,9 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
                 double h = diskonHarga / 100 * Harga;
                 double p = Harga - h;
                 subtotalHarga += p * jumlah;
-
-
 //                Intent intent = new Intent("custom-message");
 //                intent.putExtra("total", String.valueOf(p));
 //                LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
-
-
             }
         }
         Intent intent = new Intent("custom-message");
@@ -470,15 +420,6 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
         Intent intent3 = new Intent("custom-total");
         intent3.putExtra("totalbayar", String.valueOf(totalbayar));
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent3);
-
-
-
-//        Log.d("myongkir", String.valueOf(myArrayOngkir));
-//        if ()
-
-//        Toast.makeText(context, ""+valP, Toast.LENGTH_SHORT).show();
-//
-//        Log.d("getval", String.valueOf(valP));
 
         String konval = String.valueOf(valP);
         if (konval.equals("0")){ // lengkapi pengiriman produk anda

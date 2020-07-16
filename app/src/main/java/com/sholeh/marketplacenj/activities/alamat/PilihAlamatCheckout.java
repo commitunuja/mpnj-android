@@ -1,6 +1,7 @@
 package com.sholeh.marketplacenj.activities.alamat;
 
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -8,8 +9,10 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
@@ -22,6 +25,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.sholeh.marketplacenj.activities.AddAlamat;
 import com.sholeh.marketplacenj.activities.AlamatActivity;
+import com.sholeh.marketplacenj.activities.checkout.CheckoutActivity;
 import com.sholeh.marketplacenj.adapter.alamat.AddressCheckoutAdapter;
 import com.sholeh.marketplacenj.respon.ResDetailKeranjang;
 import com.sholeh.marketplacenj.util.api.APIInterface;
@@ -131,13 +135,22 @@ public class PilihAlamatCheckout extends AppCompatActivity implements View.OnCli
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.fab_alamat:
-                startActivity(new Intent(this, AddAlamat.class));
+                Intent go = new Intent(this, AddAlamat.class);
+                startActivity(go);
+                finish();
+
                 break;
 
 
             default:
                 break;
         }
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        onBack();
     }
 
 
@@ -212,6 +225,22 @@ public class PilihAlamatCheckout extends AppCompatActivity implements View.OnCli
 
         }
     }
+
+    public void onBack() {
+        new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Exit")
+                .setMessage("Apakah Anda yakin ingin membatalkan ubah alamat?")
+                .setPositiveButton("Iya", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(getApplication(), CheckoutActivity.class);
+                        intent.putExtra("reset_kurir", "Silahkan Pilih Pengiriman Produk Anda");
+                        intent.putStringArrayListExtra("idcheckout", idK);
+                        startActivity(intent);
+                        finish();
+                    }
+                }).setNegativeButton("Tidak", null).show();
+    }
+
 
 //    private BroadcastReceiver receiveridkeranjang = new BroadcastReceiver() {
 //        @Override

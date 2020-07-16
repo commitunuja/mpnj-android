@@ -168,7 +168,6 @@ public class AddressCheckoutAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                                 intent.putExtra("reset_kurir", "Silahkan Pilih Pengiriman Produk Anda");
                                 intent.putStringArrayListExtra("idcheckout", id);
                                 mContext.startActivity(intent);
-
                                 ((Activity) mContext).finish();
 //                        Toast.makeText(mContext, "sukses"+ id_konsumen+" "+id_alamat, Toast.LENGTH_SHORT).show();
                             } else {
@@ -188,12 +187,6 @@ public class AddressCheckoutAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
 //                }
 
-
-//                Toast.makeText(context, "klik idkeranjang"+id, Toast.LENGTH_SHORT).show();
-
-//                Toast.makeText(mContext, "id alamat " + id_alamat+ " id kec"+idkec, Toast.LENGTH_SHORT).show();
-
-
             }
         });
 
@@ -210,9 +203,4 @@ public class AddressCheckoutAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         id_konsumen = preferences.getIdKonsumen();
 
     }
-
-//    public void ubahAlamatUtama() {
-//
-//
-//    }
 }

@@ -200,7 +200,11 @@ public class KonfirmasiPembayaranActivity extends AppCompatActivity implements V
                 .setPositiveButton("Iya", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        batalPesanan();
+                        Toast.makeText(KonfirmasiPembayaranActivity.this, "Segera Selesaikan Api Batal Pesanan !!!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(KonfirmasiPembayaranActivity.this, KeranjangDetailActivity.class);
+                        startActivity(intent);
+                        finish();
+//                        batalPesanan();
                     }
                 }).setNegativeButton("Tidak", null).show();
     }
