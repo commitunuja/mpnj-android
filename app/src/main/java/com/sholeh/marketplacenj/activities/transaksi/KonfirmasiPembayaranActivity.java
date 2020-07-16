@@ -28,10 +28,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.activities.checkout.CheckoutActivity;
 import com.sholeh.marketplacenj.activities.keranjang.KeranjangDetailActivity;
@@ -39,6 +41,7 @@ import com.sholeh.marketplacenj.adapter.adapterspin;
 import com.sholeh.marketplacenj.respon.ResBank;
 import com.sholeh.marketplacenj.respon.ResKonfirmasi;
 import com.sholeh.marketplacenj.respon.ResRekAdmin;
+import com.sholeh.marketplacenj.util.AppUtilits;
 import com.sholeh.marketplacenj.util.Preferences;
 import com.sholeh.marketplacenj.util.ServiceGenerator;
 import com.sholeh.marketplacenj.util.api.APIInterface;
@@ -61,7 +64,7 @@ import retrofit2.Response;
 public class KonfirmasiPembayaranActivity extends AppCompatActivity implements View.OnClickListener {
 
     String total, namaPengirim;
-    TextView tvxtotalbayar, tvxNorek, tvxAn, tvnorek, tvnamarek, tvidRekAdmin, tvKonfirmasi;
+    TextView toolbar, tvxtotalbayar, tvxNorek, tvxAn, tvnorek, tvnamarek, tvidRekAdmin, tvKonfirmasi;
     EditText edKodeTransaksi, edNamaPengirim, edTotalbayar;
     Locale localeID = new Locale("in", "ID");
     NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
@@ -69,7 +72,7 @@ public class KonfirmasiPembayaranActivity extends AppCompatActivity implements V
     int id_transaksi, kodetransaksi;
 
 
-    ImageView imgBuktiTf;
+    ImageView imgBuktiTf, imgbackKeranjang;
     Button btnChooseImg;
 
     Spinner spin_rek;
@@ -79,7 +82,7 @@ public class KonfirmasiPembayaranActivity extends AppCompatActivity implements V
     adapterspin adapterspinner;
     Preferences preferences;
     String id_konsumen;
-    String idrekAdmin, nomorRek, anRek, total_bayar, tgl_pemesanan, batas_pembayaran ;
+    String idrekAdmin, nomorRek, anRek, total_bayar, tgl_pemesanan, batas_pembayaran;
     LinearLayout lnrek;
     private List<ResBank> listResBank;
 
@@ -90,14 +93,20 @@ public class KonfirmasiPembayaranActivity extends AppCompatActivity implements V
     private static final int PICK_Camera_IMAGE = 2;
     private static final int PERMISSION_STORAGE = 2;
     double totalbayar;
+    Toolbar toolBarisi;
+    private KProgressHUD progressHUD;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_konfirmasi_pembayaran);
+        progressHUD = KProgressHUD.create(this);
         getDataPref();
+        toolbar = findViewById(R.id.txt_toolbarKeranjang);
+        toolbar.setText("Konfirmasi Pembayaran");
         spin_rek = findViewById(R.id.spin_rek);
+        imgbackKeranjang = findViewById(R.id.imgBackKeranjang);
         perizinan();
 
 
@@ -131,6 +140,7 @@ public class KonfirmasiPembayaranActivity extends AppCompatActivity implements V
         edNamaPengirim.setText(String.valueOf(namaPengirim));
 
         btnChooseImg.setOnClickListener(this);
+        imgbackKeranjang.setOnClickListener(this);
         tvKonfirmasi.setOnClickListener(this);
 
         tampilBank();
@@ -164,6 +174,14 @@ public class KonfirmasiPembayaranActivity extends AppCompatActivity implements V
 
     }
 
+    private void ProgresDialog() {
+        progressHUD.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setCancellable(false);
+
+        progressHUD.show();
+    }
+
+
     @Override
     public void onBackPressed() {
         onBack();
@@ -179,6 +197,9 @@ public class KonfirmasiPembayaranActivity extends AppCompatActivity implements V
             case R.id.tvxKonfirmasi:
                 simpanKonfirmasi();
 //                Toast.makeText(this, "kkkkk", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.imgBackKeranjang:
+                onBack();
                 break;
 
             default:
@@ -441,65 +462,71 @@ public class KonfirmasiPembayaranActivity extends AppCompatActivity implements V
     }
 
     public void simpanKonfirmasi() {
-        int bayar = (int) Math.round(totalbayar);
-        File file = new File(imagePath);
-        RequestBody reqFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-        MultipartBody.Part imageBody_ = MultipartBody.Part.createFormData("file", file.getName(), reqFile);
-        RequestBody ImageName = RequestBody.create(MediaType.parse("text/plain"), file.getName());
-//        Toast.makeText(this, ""+kodetransaksi, Toast.LENGTH_SHORT).show();
-
+        if (imagePath == null) {
+            Toast.makeText(this, "Upload Foto Bukti Pembayaran Anda", Toast.LENGTH_SHORT).show();
+        } else {
+//            Toast.makeText(this, "Oke", Toast.LENGTH_SHORT).show();
+            ProgresDialog();
+            int bayar = (int) Math.round(totalbayar);
+            File file = new File(imagePath);
+            RequestBody reqFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+            MultipartBody.Part imageBody_ = MultipartBody.Part.createFormData("file", file.getName(), reqFile);
+            RequestBody ImageName = RequestBody.create(MediaType.parse("text/plain"), file.getName());
 //        Toast.makeText(this, ""+kodetransaksi+" "+bayar+" "+idrekAdmin+" "+namaPengirim+" "+imagePath, Toast.LENGTH_SHORT).show();
-
-        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-        RequestBody kodetransaksi_ = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(kodetransaksi));
-        RequestBody bayar_ = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(bayar));
-        RequestBody idrekAdmin_ = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(idrekAdmin));
-        RequestBody namaPengirim_ = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(namaPengirim));
-        Call<ResKonfirmasi> call = service.simpanKonfirmasi(kodetransaksi_,bayar_, idrekAdmin_, namaPengirim_,imageBody_);
-        call.enqueue(new Callback<ResKonfirmasi>() {
-            @Override
-            public void onResponse(Call<ResKonfirmasi> call, Response<ResKonfirmasi> response) {
-                Log.d("reskonfirmasi", String.valueOf(response));
+            APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+            RequestBody kodetransaksi_ = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(kodetransaksi));
+            RequestBody bayar_ = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(bayar));
+            RequestBody idrekAdmin_ = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(idrekAdmin));
+            RequestBody namaPengirim_ = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(namaPengirim));
+            Call<ResKonfirmasi> call = service.simpanKonfirmasi(kodetransaksi_, bayar_, idrekAdmin_, namaPengirim_, imageBody_);
+            call.enqueue(new Callback<ResKonfirmasi>() {
+                @Override
+                public void onResponse(Call<ResKonfirmasi> call, Response<ResKonfirmasi> response) {
+                    Log.d("reskonfirmasi", String.valueOf(response));
 //                Toast.makeText(KonfirmasiPembayaranActivity.this, ""+response, Toast.LENGTH_SHORT).show();
-                if (response.body() != null && response.isSuccessful()) {
-                    Intent intent = new Intent(KonfirmasiPembayaranActivity.this, StatusPembayaran.class);
-                    intent.putExtra("kodetransaksi", kodetransaksi);
-                    intent.putExtra("namapengirim", namaPengirim);
-                    intent.putExtra("waktutransaksi", tgl_pemesanan);
-                    intent.putExtra("totalbayar", edTotalbayar.getText().toString());
-                    startActivity(intent);
-                    finish();
-
-
-                } else {
-                    Log.d("reskonfirmasii", String.valueOf(response));
-
+                    if (response.body() != null && response.isSuccessful()) {
+                        Intent intent = new Intent(KonfirmasiPembayaranActivity.this, StatusPembayaran.class);
+                        intent.putExtra("kodetransaksi", kodetransaksi);
+                        intent.putExtra("namapengirim", namaPengirim);
+                        intent.putExtra("waktutransaksi", tgl_pemesanan);
+                        intent.putExtra("totalbayar", edTotalbayar.getText().toString());
+                        startActivity(intent);
+                        finish();
+                        progressHUD.dismiss();
+                    } else {
+                        AppUtilits.displayMessage(getApplication(), getString(R.string.network_error));
+                        Log.d("reskonfirmasii", String.valueOf(response));
+                        progressHUD.dismiss();
 //                    Toast.makeText(KonfirmasiPembayaranActivity.this, "gagal", Toast.LENGTH_SHORT).show();
+                    }
+
                 }
 
-            }
+                @Override
+                public void onFailure(Call<ResKonfirmasi> call, Throwable t) {
+                    Log.e("reskonfirmasiii", t.toString());
+                    AppUtilits.displayMessage(getApplication(), getString(R.string.network_error));
+                    progressHUD.dismiss();
+//                Toast.makeText(KonfirmasiPembayaranActivity.this, "res"+t, Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
 
-            @Override
-            public void onFailure(Call<ResKonfirmasi> call, Throwable t) {
-                  Log.e("reskonfirmasiii", t.toString());
-                Toast.makeText(KonfirmasiPembayaranActivity.this, "res"+t, Toast.LENGTH_SHORT).show();
 
-//                    AppUtilits.displayMessage(UbahPassword.this,  getString(R.string.failed_request));
-            }
-        });
+//
     }
 
 
     public void batalPesanan() {
         //Toast.makeText(this, ""+id_transaksi, Toast.LENGTH_SHORT).show();
-        
+
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
         Call<JsonObject> call = service.batalPesanan(String.valueOf(id_transaksi));
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                Log.d("gagalp", String.valueOf(response.body()+"\n"+response.message()));
-                Toast.makeText(KonfirmasiPembayaranActivity.this, "batalpp"+response.body()+"\n"+response.message(), Toast.LENGTH_SHORT).show();
+                Log.d("gagalp", String.valueOf(response.body() + "\n" + response.message()));
+                Toast.makeText(KonfirmasiPembayaranActivity.this, "batalpp" + response.body() + "\n" + response.message(), Toast.LENGTH_SHORT).show();
 
 //                if (response.isSuccessful()) {
 //

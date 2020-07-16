@@ -209,7 +209,7 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
 
             case R.id.imgBackKeranjang:
                 onBack();
-                finish();
+//                finish();
                 break;
 
             case R.id.tvxBayar:

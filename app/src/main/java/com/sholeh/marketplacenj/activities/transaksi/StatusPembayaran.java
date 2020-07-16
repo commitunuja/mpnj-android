@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.mfragment.homepage.HomepageFragment;
@@ -63,12 +64,13 @@ public class StatusPembayaran extends AppCompatActivity implements View.OnClickL
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnselesai:
-                Intent intent = new Intent(StatusPembayaran.this, DetailPesanan.class);
-                intent.putExtra("kodetransaksi", kodetransaksi);
+//                Intent intent = new Intent(StatusPembayaran.this, DetailPesanan.class);
+//                intent.putExtra("kodetransaksi", kodetransaksi);
 //                intent.putExtra("namapengirim", namaPengirim);
 //                intent.putExtra("waktutransaksi", tgl_pemesanan);
 //                intent.putExtra("totalbayar", edTotalbayar.getText().toString());
-                startActivity(intent);
+//                startActivity(intent);
+                Toast.makeText(this, "Belum Selesai", Toast.LENGTH_SHORT).show();
                 finish();
                 break;
 
