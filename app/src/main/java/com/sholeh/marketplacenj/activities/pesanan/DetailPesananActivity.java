@@ -36,7 +36,7 @@ import static com.sholeh.marketplacenj.util.MyApp.getContext;
 public class DetailPesananActivity extends AppCompatActivity {
 
     String namaproduk, namatoko, harga, foto;
-    TextView vnamaproduk, waktu, totalhargaproduk, total, vharga, toko, status, alamat, totalhargadetail, kurir;
+    TextView vnamaproduk, waktu, totalhargaproduk, total, vharga, toko, status, alamat, totalhargadetail, kurir, tongkir;
     ImageView iproduk;
     private List<ItemDetailPesanan> dataPesanans;
     RecyclerView recyclerView;
