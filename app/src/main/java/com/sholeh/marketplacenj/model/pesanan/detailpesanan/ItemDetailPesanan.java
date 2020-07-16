@@ -50,7 +50,7 @@ public class ItemDetailPesanan {
     @Expose
     private String statusOrder;
 
-    public ItemDetailPesanan(String namaToko, String namaProduk, String jumlah, String totalBayar, String harga, String fotoProduk, String statusOrder, String bayarSebelum, Integer idTransaksiDetail, Object kurir, Object ongkir, String waktuPesan) {
+    public ItemDetailPesanan(String namaToko, String namaProduk, String jumlah, String totalBayar, String harga, String fotoProduk, String statusOrder, String bayarSebelum, Integer idTransaksiDetail, Object kurir, String ongkir, String waktuPesan) {
    this.namaToko = namaToko;
     this.namaProduk = namaProduk;
     this.jumlah = jumlah;
