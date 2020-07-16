@@ -137,11 +137,11 @@ public class ItemDetailPesanan {
         this.kurir = kurir;
     }
 
-    public Object getOngkir() {
+    public String getOngkir() {
         return ongkir;
     }
 
-    public void setOngkir(Object ongkir) {
+    public void setOngkir(String ongkir) {
         this.ongkir = ongkir;
     }
 
