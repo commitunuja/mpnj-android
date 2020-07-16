@@ -42,7 +42,7 @@
             android:name=".activities.pesanan.MyPesananActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activities.wishlist.WishlistActivity"></activity>
+
         <activity android:name=".activities.dashboard.ProdukTerpopulerActivity" />
         <activity android:name=".activities.details.DiskripsiActivity" />
         <activity

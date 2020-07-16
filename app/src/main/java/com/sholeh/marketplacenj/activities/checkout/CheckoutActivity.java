@@ -281,6 +281,7 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                Log.d("simpantransaksi", String.valueOf(response));
 //                Toast.makeText(CheckoutActivity.this, ""+response, Toast.LENGTH_SHORT).show();
                 try {
                     JSONObject jsonObject;
@@ -317,7 +318,7 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
 
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
-                Log.d("YOLO", String.valueOf(t));
+                Log.d("simpantransaksi", String.valueOf(t));
                 progressHUD.dismiss();
             }
         });

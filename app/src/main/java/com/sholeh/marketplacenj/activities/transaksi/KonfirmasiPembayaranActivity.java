@@ -442,7 +442,7 @@ public class KonfirmasiPembayaranActivity extends AppCompatActivity implements V
         RequestBody reqFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
         MultipartBody.Part imageBody_ = MultipartBody.Part.createFormData("file", file.getName(), reqFile);
         RequestBody ImageName = RequestBody.create(MediaType.parse("text/plain"), file.getName());
-
+//        Toast.makeText(this, ""+kodetransaksi, Toast.LENGTH_SHORT).show();
 
 //        Toast.makeText(this, ""+kodetransaksi+" "+bayar+" "+idrekAdmin+" "+namaPengirim+" "+imagePath, Toast.LENGTH_SHORT).show();
 
@@ -459,19 +459,25 @@ public class KonfirmasiPembayaranActivity extends AppCompatActivity implements V
 //                Toast.makeText(KonfirmasiPembayaranActivity.this, ""+response, Toast.LENGTH_SHORT).show();
                 if (response.body() != null && response.isSuccessful()) {
                     Intent intent = new Intent(KonfirmasiPembayaranActivity.this, StatusPembayaran.class);
+                    intent.putExtra("kodetransaksi", kodetransaksi);
+                    intent.putExtra("namapengirim", namaPengirim);
+                    intent.putExtra("waktutransaksi", tgl_pemesanan);
+                    intent.putExtra("totalbayar", edTotalbayar.getText().toString());
                     startActivity(intent);
                     finish();
 
 
                 } else {
-                    Toast.makeText(KonfirmasiPembayaranActivity.this, "gagal", Toast.LENGTH_SHORT).show();
+                    Log.d("reskonfirmasii", String.valueOf(response));
+
+//                    Toast.makeText(KonfirmasiPembayaranActivity.this, "gagal", Toast.LENGTH_SHORT).show();
                 }
 
             }
 
             @Override
             public void onFailure(Call<ResKonfirmasi> call, Throwable t) {
-                  Log.e("reskonfirmasi2", t.toString());
+                  Log.e("reskonfirmasiii", t.toString());
                 Toast.makeText(KonfirmasiPembayaranActivity.this, "res"+t, Toast.LENGTH_SHORT).show();
 
 //                    AppUtilits.displayMessage(UbahPassword.this,  getString(R.string.failed_request));

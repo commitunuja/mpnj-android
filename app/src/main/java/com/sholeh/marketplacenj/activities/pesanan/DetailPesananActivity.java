@@ -69,7 +69,6 @@ public class DetailPesananActivity extends AppCompatActivity {
         Intent i = getIntent();
         kode = i.getStringExtra("kode");
 
-
         getData();
 
     }

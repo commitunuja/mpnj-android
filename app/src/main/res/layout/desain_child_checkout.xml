@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#ffffff"
-    android:layout_marginTop="5dp"
     android:orientation="vertical">
 
     <LinearLayout
@@ -18,7 +17,6 @@
 
 
         <LinearLayout
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -27,8 +25,8 @@
             <ImageView
                 android:id="@+id/img_gambarkeranjang"
                 android:background="@color/grey"
-                android:layout_width="66.2dp"
-                android:layout_height="66.7dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:layout_marginLeft="12dp"
                 android:layout_marginTop="5dp" />
 
@@ -40,7 +38,7 @@
                 android:orientation="vertical">
 
 
-                <customfonts.MyTextView_Roboto_Medium
+                <customfonts.MyTextView_Roboto_Regular
                     android:id="@+id/txtnamaPRODUK"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -50,23 +48,30 @@
                     android:text="Iphone X | 128 GB, Black | 6 GB ram |
 12000 mAh battry"
                     android:textColor="@color/black"
-                    android:textSize="13.3sp" />
+                    android:textSize="12sp" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <customfonts.MyTextView_Roboto_Regular
+                        android:id="@+id/tvx_hargacheckout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="false"
+                        android:layout_marginRight="12dp"
+                        android:text="Rp. 15.000"
+                        android:textColor="@color/black"
+                        android:textSize="11sp" />
+                </RelativeLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <!--                    <customfonts.MyTextView_Roboto_Medium-->
-                    <!--                        android:layout_width="wrap_content"-->
-                    <!--                        android:layout_height="wrap_content"-->
-                    <!--                        android:layout_weight="1"-->
-                    <!--                        android:letterSpacing="0.03"-->
-                    <!--                        android:text="x"-->
-                    <!--                        android:textColor="@color/black"-->
-                    <!--                        android:textSize="13.3sp" />-->
 
-                    <customfonts.MyTextView_Roboto_Medium
+                    <customfonts.MyTextView_Roboto_Regular
                         android:id="@+id/tvxJumlahProduk"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -74,9 +79,9 @@
                         android:letterSpacing="0.03"
                         android:text="2"
                         android:textColor="@color/black"
-                        android:textSize="13.3sp" />
+                        android:textSize="12sp" />
 
-                    <customfonts.MyTextView_Roboto_Medium
+                    <customfonts.MyTextView_Roboto_Regular
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
@@ -84,26 +89,12 @@
                         android:letterSpacing="0.03"
                         android:text="Produk"
                         android:textColor="@color/black"
-                        android:textSize="13.3sp" />
+                        android:textSize="11sp" />
 
 
                 </LinearLayout>
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
 
-                    <customfonts.MyTextView_Roboto_Medium
-                        android:id="@+id/tvx_hargacheckout"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginRight="12dp"
-                        android:text="Rp. 15.000"
-                        android:textColor="@color/black"
-                        android:textSize="15sp" />
-                </RelativeLayout>
 
 
 
@@ -114,10 +105,10 @@
 
         </LinearLayout>
         <LinearLayout
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="13dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10.3dp"
+            android:layout_marginTop="2dp"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -125,15 +116,15 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <customfonts.MyTextView_Roboto_Medium
+                <customfonts.MyTextView_Roboto_Regular
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="24.3dp"
-                    android:text="Total Bayar"
+                    android:text="Total Harga"
                     android:textColor="@color/black"
-                    android:textSize="15sp" />
+                    android:textSize="12sp" />
 
-                <customfonts.MyTextView_Roboto_Medium
+                <customfonts.MyTextView_Roboto_Regular
                     android:id="@+id/tvx_totalhargacheckout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -141,7 +132,7 @@
                     android:gravity="end"
                     android:text="Rp 20.000.000"
                     android:textColor="@color/orange"
-                    android:textSize="15sp"
+                    android:textSize="12sp"
                     android:textStyle="bold" />
 
 
@@ -245,12 +236,7 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/viewline"
-            android:layout_width="match_parent"
-            android:layout_height="0.7dp"
-            android:layout_marginTop="20dp"
-            android:orientation="vertical" />
+
 
     </LinearLayout>
 </LinearLayout>
