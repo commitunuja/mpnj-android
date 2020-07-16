@@ -62,8 +62,9 @@ public class DetailPesananActivity extends AppCompatActivity {
         status = findViewById(R.id.tv_status_order_detail);
         totalhargaproduk = findViewById(R.id.tv_totalhargaproduk);
         total = findViewById(R.id.tv_total_detail_bayar);
-        alamat = findViewById(R.id.tv_alamat_detail_pesanan);
+        alamat = findViewById(R.id.tv_alamat_kirim);
         kurir = findViewById(R.id.tv_kurir);
+        tongkir = findViewById(R.id.tv_ongkir);
         Intent i = getIntent();
         kode = i.getStringExtra("kode");
 
