@@ -33,7 +33,7 @@ public class ItemDetailPesanan {
     private Object kurir;
     @SerializedName("ongkir")
     @Expose
-    private Object ongkir;
+    private String ongkir;
     @SerializedName("tujuan")
     @Expose
     private String tujuan;
