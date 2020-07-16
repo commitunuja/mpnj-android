@@ -75,7 +75,7 @@ public class KeranjangDetailActivity extends AppCompatActivity implements View.O
     ArrayList<String> arrayIdKeranjang;
     String idkk;
 
-    LinearLayout lnKosong;
+    LinearLayout lnKosong, lnTotalKeranjang;
     TextView tvxDesainKosong;
     private ProgressBar progress_bar;
 
@@ -87,6 +87,7 @@ public class KeranjangDetailActivity extends AppCompatActivity implements View.O
         preferences = new Preferences(getApplication());
         id_konsumen = preferences.getIdKonsumen();
         lnKosong = findViewById(R.id.lnKosong);
+        lnTotalKeranjang= findViewById(R.id.lnTotalKeranjang);
         tvxDesainKosong = findViewById(R.id.tvDataKosong);
         progress_bar = findViewById(R.id.progress_bar);
 
@@ -224,6 +225,7 @@ public class KeranjangDetailActivity extends AppCompatActivity implements View.O
                             }
                             lnKosong.setVisibility(View.GONE);
                             listView.setVisibility(View.VISIBLE);
+                            lnTotalKeranjang.setVisibility(View.VISIBLE);
                             progress_bar.setVisibility(View.GONE);
 
 
@@ -232,12 +234,14 @@ public class KeranjangDetailActivity extends AppCompatActivity implements View.O
                             listView.setVisibility(View.GONE);
                             lnKosong.setVisibility(View.VISIBLE);
                             tvxDesainKosong.setText("Barang Keranjangmu Belum Ada");
+                            lnTotalKeranjang.setVisibility(View.GONE);
                             progress_bar.setVisibility(View.GONE);
 
                         }
                     } else {
 //                        Toast.makeText(KeranjangDetailActivity.this, "1", Toast.LENGTH_SHORT).show();
                         listView.setVisibility(View.GONE);
+                        lnTotalKeranjang.setVisibility(View.GONE);
                         lnKosong.setVisibility(View.VISIBLE);
                         tvxDesainKosong.setText(R.string.network_error);
                         progress_bar.setVisibility(View.GONE);
@@ -249,6 +253,7 @@ public class KeranjangDetailActivity extends AppCompatActivity implements View.O
                 @Override
                 public void onFailure(Call<ResDetailKeranjang> call, Throwable t) {
                     listView.setVisibility(View.GONE);
+                    lnTotalKeranjang.setVisibility(View.GONE);
                     lnKosong.setVisibility(View.VISIBLE);
                     tvxDesainKosong.setText("Barang Keranjangmu Belum Ada");
                     progress_bar.setVisibility(View.GONE);
@@ -331,10 +336,12 @@ public class KeranjangDetailActivity extends AppCompatActivity implements View.O
                             tvx_total.setText(splitotal);
                             lnKosong.setVisibility(View.GONE);
                             listView.setVisibility(View.VISIBLE);
+                            lnTotalKeranjang.setVisibility(View.VISIBLE);
                             progress_bar.setVisibility(View.GONE);
 
                         } else {
                             listView.setVisibility(View.GONE);
+                            lnTotalKeranjang.setVisibility(View.GONE);
                             lnKosong.setVisibility(View.VISIBLE);
                             tvxDesainKosong.setText("Barang Keranjangmu Belum Ada");
                             progress_bar.setVisibility(View.GONE);
@@ -343,6 +350,7 @@ public class KeranjangDetailActivity extends AppCompatActivity implements View.O
                     } else {
 //                        AppUtilits.displayMessage(KeranjangDetailActivity.this, getString(R.string.network_error));
                         listView.setVisibility(View.GONE);
+                        lnTotalKeranjang.setVisibility(View.GONE);
                         lnKosong.setVisibility(View.VISIBLE);
                         tvxDesainKosong.setText(R.string.network_error);
                         progress_bar.setVisibility(View.GONE);
@@ -353,6 +361,7 @@ public class KeranjangDetailActivity extends AppCompatActivity implements View.O
                 @Override
                 public void onFailure(Call<ResDetailKeranjang> call, Throwable t) {
                     listView.setVisibility(View.GONE);
+                    lnTotalKeranjang.setVisibility(View.GONE);
                     lnKosong.setVisibility(View.VISIBLE);
                     tvxDesainKosong.setText("Barang Keranjangmu Belum Ada");
                     progress_bar.setVisibility(View.GONE);
