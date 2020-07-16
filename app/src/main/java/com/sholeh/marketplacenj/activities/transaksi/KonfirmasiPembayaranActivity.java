@@ -110,6 +110,7 @@ public class KonfirmasiPembayaranActivity extends AppCompatActivity implements V
         perizinan();
 
 
+
         tvxtotalbayar = findViewById(R.id.tv_totalbayar);
         tvxNorek = findViewById(R.id.tvxNomoRek);
         tvxAn = findViewById(R.id.tvxAnRek);
@@ -368,6 +369,7 @@ public class KonfirmasiPembayaranActivity extends AppCompatActivity implements V
         o2.inSampleSize = scale;
         bitmap = BitmapFactory.decodeFile(filePath, o2);
         imgBuktiTf.setImageBitmap(bitmap);
+        imgBuktiTf.setVisibility(View.VISIBLE);
     }
 
     public String getStringImage(Bitmap bmp) {
@@ -494,7 +496,7 @@ public class KonfirmasiPembayaranActivity extends AppCompatActivity implements V
                         finish();
                         progressHUD.dismiss();
                     } else {
-                        AppUtilits.displayMessage(getApplication(), getString(R.string.network_error));
+//                        AppUtilits.displayMessage(getApplication(), getString(R.string.network_error));
                         Log.d("reskonfirmasii", String.valueOf(response));
                         progressHUD.dismiss();
 //                    Toast.makeText(KonfirmasiPembayaranActivity.this, "gagal", Toast.LENGTH_SHORT).show();

@@ -260,9 +260,12 @@
                                     android:layout_marginBottom="5dp"/>
 
                                 <ImageView
-                                    android:id="@+id/imgBukti"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"/>
+                                    android:visibility="gone"
+                                    android:layout_width="370dp"
+                                    android:layout_height="350dp"
+                                    android:layout_gravity="center"
+                                    android:layout_centerInParent="true"
+                                    android:id="@+id/imgBukti" />
 
                                 <Button
                                     android:textAppearance="?android:textAppearanceSmall"
