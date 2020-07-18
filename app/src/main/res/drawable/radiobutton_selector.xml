@@ -7,9 +7,11 @@
         android:state_checked="false"
         android:state_focused="false" />
     <item android:drawable="@drawable/radio_checked"
+        android:state_pressed="true"
         android:state_checked="true"
         android:state_focused="true" />
     <item android:drawable="@drawable/radio_checked"
+        android:state_pressed="true"
         android:state_checked="true"
         android:state_focused="false" />
 </selector>
