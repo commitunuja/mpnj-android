@@ -4,13 +4,17 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -23,6 +27,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,21 +35,34 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.sholeh.marketplacenj.R;
-import com.sholeh.marketplacenj.activities.checkout.CheckoutActivity;
+import com.sholeh.marketplacenj.activities.AkunActivity;
+import com.sholeh.marketplacenj.activities.AlamatActivity;
 import com.sholeh.marketplacenj.activities.keranjang.KeranjangDetailActivity;
-import com.sholeh.marketplacenj.adapter.adapterspin;
+import com.sholeh.marketplacenj.adapter.AlamatAdapter;
+import com.sholeh.marketplacenj.adapter.bank.adapterspin;
+import com.sholeh.marketplacenj.adapter.transaksi.AdapterBank;
+import com.sholeh.marketplacenj.model.AlamatModel;
+import com.sholeh.marketplacenj.model.transaksi.ModelBank;
 import com.sholeh.marketplacenj.respon.ResBank;
 import com.sholeh.marketplacenj.respon.ResKonfirmasi;
+import com.sholeh.marketplacenj.respon.ResProfil;
 import com.sholeh.marketplacenj.respon.ResRekAdmin;
 import com.sholeh.marketplacenj.util.AppUtilits;
+import com.sholeh.marketplacenj.util.CONSTANTS;
+import com.sholeh.marketplacenj.util.NetworkUtility;
 import com.sholeh.marketplacenj.util.Preferences;
 import com.sholeh.marketplacenj.util.ServiceGenerator;
 import com.sholeh.marketplacenj.util.api.APIInterface;
+import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -61,16 +79,18 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.sholeh.marketplacenj.util.MyApp.getContext;
+
 public class KonfirmasiPembayaranActivity extends AppCompatActivity implements View.OnClickListener {
 
     String total, namaPengirim;
-    TextView toolbar, tvxtotalbayar, tvxNorek, tvxAn, tvnorek, tvnamarek, tvidRekAdmin, tvKonfirmasi;
-    EditText edKodeTransaksi, edNamaPengirim, edTotalbayar;
+    TextView toolbar, tvxtotalbayar, tvxNorek, tvxAn, tvnorek, tvnamarek, tvidRekAdmin, tvKonfirmasi, edKodeTransaksi,  edNamaPengirim, edTotalbayar, tvxWaktuTransaksi, tvxBatasBayar;
+
     Locale localeID = new Locale("in", "ID");
     NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
     StringTokenizer st, stsub, sttotal;
     int id_transaksi, kodetransaksi;
-
+    String idBank = null;
 
     ImageView imgBuktiTf, imgbackKeranjang;
     Button btnChooseImg;
@@ -96,18 +116,30 @@ public class KonfirmasiPembayaranActivity extends AppCompatActivity implements V
     Toolbar toolBarisi;
     private KProgressHUD progressHUD;
 
+    RadioButton button1,button2;
+    LinearLayout radio1,radio2;
+
+    private ArrayList<ModelBank> modellist = new ArrayList<>();
+    private RecyclerView recyclerbank;
+    private AdapterBank adapterBank;
+
+    String paymentType[]={"Credit / Debit Card","Cash On Delivery","PAYTM","Google Wallet"};
+    Integer logoImage[]={R.drawable.credit, R.drawable.cash, R.drawable.paytm, R.drawable.googlewallet};
+
+    private ResProfil tvDataProfil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_konfirmasi_pembayaran);
         progressHUD = KProgressHUD.create(this);
-        getDataPref();
         toolbar = findViewById(R.id.txt_toolbarKeranjang);
         toolbar.setText("Konfirmasi Pembayaran");
         spin_rek = findViewById(R.id.spin_rek);
         imgbackKeranjang = findViewById(R.id.imgBackKeranjang);
         perizinan();
+        getDataPref();
+        getDataProfil();
 
 
 
@@ -123,6 +155,8 @@ public class KonfirmasiPembayaranActivity extends AppCompatActivity implements V
         imgBuktiTf = findViewById(R.id.imgBukti);
         btnChooseImg = findViewById(R.id.btnChooseImg);
         tvKonfirmasi = findViewById(R.id.tvxKonfirmasi);
+        tvxWaktuTransaksi = findViewById(R.id.tvx_waktuTransaksi);
+        tvxBatasBayar = findViewById(R.id.tvx_batasPembayaran);
         lnrek = findViewById(R.id.lnrek);
         lnrek.setVisibility(View.GONE);
 
@@ -137,8 +171,11 @@ public class KonfirmasiPembayaranActivity extends AppCompatActivity implements V
         sttotal = new StringTokenizer(formatRupiah.format(totalbayar), ",");
         String harganya = sttotal.nextToken().trim();
         edTotalbayar.setText(harganya);
-        edKodeTransaksi.setText(String.valueOf(kodetransaksi));
-        edNamaPengirim.setText(String.valueOf(namaPengirim));
+        edKodeTransaksi.setTypeface(null, Typeface.BOLD);
+        edKodeTransaksi.setText("KODE TRANSAKSI : "+kodetransaksi);
+
+        tvxWaktuTransaksi.setText(String.valueOf(tgl_pemesanan));
+        tvxBatasBayar.setText(String.valueOf(batas_pembayaran));
 
         btnChooseImg.setOnClickListener(this);
         imgbackKeranjang.setOnClickListener(this);
@@ -172,6 +209,31 @@ public class KonfirmasiPembayaranActivity extends AppCompatActivity implements V
 
             }
         });
+
+
+        recyclerbank= (RecyclerView)findViewById(R.id.recyclerbank);
+        LinearLayoutManager mLayoutManger3 = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        recyclerbank.setLayoutManager(mLayoutManger3);
+        recyclerbank.setItemAnimator(new DefaultItemAnimator());
+        adapterBank = new AdapterBank(KonfirmasiPembayaranActivity.this, modellist);
+        recyclerbank.setAdapter(adapterBank);
+        tampilBankRecycler();
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
+                new IntentFilter("custom-pesan"));
+
+
+//        navigationModelClasses2 = new ArrayList<>();
+//        for (int i = 0; i < paymentType.length; i++) {
+//           ModelBank beanClassForRecyclerView_contacts = new ModelBank(paymentType[i],logoImage[i]);
+//
+//            navigationModelClasses2.add(beanClassForRecyclerView_contacts);
+//        }
+//        cAdapter = new AdapterBank(KonfirmasiPembayaranActivity.this,navigationModelClasses2);
+//        RecyclerView.LayoutManager cLayoutManager = new LinearLayoutManager(KonfirmasiPembayaranActivity.this);
+//        recyclerView2.setLayoutManager(cLayoutManager);
+//        recyclerView2.setItemAnimator(new DefaultItemAnimator());
+//        recyclerView2.setAdapter(cAdapter);
 
     }
 
@@ -209,10 +271,43 @@ public class KonfirmasiPembayaranActivity extends AppCompatActivity implements V
 
     }
 
+    public void getDataProfil(){
+
+        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+        Call<ResProfil> call = service.getDataProfil(id_konsumen);
+
+        call.enqueue(new Callback<ResProfil>() {
+            @Override
+            public void onResponse(Call<ResProfil> call, Response<ResProfil> response) {
+
+                tvDataProfil = response.body();
+                String namaLengkap = tvDataProfil.getData().getNamaLengkap();
+                edNamaPengirim.setText(String.valueOf(namaLengkap));
+//                String noHP = tvDataProfil.getData().getNomorHp();
+//                String email = tvDataProfil.getData().getEmail();
+//                ed_username.setText(userName);
+//                ed_nama.setText(namaLengkap);
+//                ed_nohp.setText(noHP);
+//                ed_email.setText(email);
+//                Picasso.with(getContext()).load(CONSTANTS.BASE_URL + "assets/foto_profil_konsumen/"+tvDataProfil.getData().getFotoProfil()).into(imgAkun);
+
+
+            }
+
+            @Override
+            public void onFailure(Call<ResProfil> call, Throwable t) {
+//                Toast.makeText(AkunActivity.this, "no connection"+t, Toast.LENGTH_LONG).show();
+
+                //  Log.e(TAG, " failure "+ t.toString());
+//                    AppUtilits.displayMessage(UbahPassword.this,  getString(R.string.failed_request));
+            }
+        });
+    }
+
     public void getDataPref() {
         preferences = new Preferences(getApplication());
         id_konsumen = preferences.getIdKonsumen();
-        namaPengirim = preferences.getNamaLengkap();
+//        namaPengirim = preferences.getNamaLengkap();
 
     }
 
@@ -380,6 +475,74 @@ public class KonfirmasiPembayaranActivity extends AppCompatActivity implements V
         return encodedImage;
     }
 
+    public void tampilBankRecycler() {
+        if (!NetworkUtility.isNetworkConnected(KonfirmasiPembayaranActivity.this)) {
+            AppUtilits.displayMessage(KonfirmasiPembayaranActivity.this, getString(R.string.network_not_connected));
+        } else {
+            ProgresDialog();
+            APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+            Call<ResBank> call = service.getBank();
+            call.enqueue(new Callback<ResBank>() {
+                @Override
+                public void onResponse(Call<ResBank> call, Response<ResBank> response) {
+
+                    if (response.body() != null && response.isSuccessful()) {
+
+//                        if (response.body().getPesan().equalsIgnoreCase("Sukses!!")) {
+
+
+                            Log.d("cekbank", String.valueOf(response.body().getData().size()));
+
+                            if (response.body().getData().size() > 0) {
+                                modellist.clear();
+                                for (int i = 0; i < response.body().getData().size(); i++) {
+                                    modellist.add(new ModelBank(response.body().getData().get(i).getIdBank(),
+                                            response.body().getData().get(i).getNamaBank(),
+                                            response.body().getData().get(i).getRekening(),
+                                            response.body().getData().get(i).getAtasNama(),
+                                            response.body().getData().get(i).getFotoBank()));
+
+
+                                }
+
+                                adapterBank.notifyDataSetChanged();
+                                recyclerbank.setVisibility(View.VISIBLE);
+                                progressHUD.dismiss();
+                                idBank = String.valueOf(response.body().getData().get(0).getIdBank());
+                                getBank(idBank);
+
+
+                            } else {
+                                Toast.makeText(KonfirmasiPembayaranActivity.this, "Terdapat Kesalahan Bank, Silahkan Di Coba Lagi Nanti", Toast.LENGTH_SHORT).show();
+                                recyclerbank.setVisibility(View.GONE);
+                                progressHUD.dismiss();
+                            }
+//                        } else {
+////                            AppUtilits.displayMessage(AlamatActivity.this, response.body().getPesan() );
+//                            recyclerAlamat.setVisibility(View.GONE);
+//                            ln_kosong.setVisibility(View.VISIBLE);
+//                            progressDialogHud.dismiss();
+//                        }
+                    } else {
+                        Toast.makeText(KonfirmasiPembayaranActivity.this, ""+getString(R.string.network_error), Toast.LENGTH_SHORT).show();
+                        recyclerbank.setVisibility(View.GONE);
+                        progressHUD.dismiss();
+
+                    }
+
+                }
+
+                @Override
+                public void onFailure(Call<ResBank> call, Throwable t) {
+                    AppUtilits.displayMessage(KonfirmasiPembayaranActivity.this, getString(R.string.fail_togetbankadmin));
+                    recyclerbank.setVisibility(View.GONE);
+                    progressHUD.dismiss();
+
+
+                }
+            });
+        }
+    }
 
     public void tampilBank() {
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
@@ -424,8 +587,6 @@ public class KonfirmasiPembayaranActivity extends AppCompatActivity implements V
     public void getBank(String id_bank) {
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
         Call<ResRekAdmin> call = service.getDataBank(id_bank);
-
-
         call.enqueue(new Callback<ResRekAdmin>() {
             @Override
             public void onResponse(Call<ResRekAdmin> call, Response<ResRekAdmin> response) {
@@ -464,12 +625,14 @@ public class KonfirmasiPembayaranActivity extends AppCompatActivity implements V
     }
 
     public void simpanKonfirmasi() {
+
         if (imagePath == null) {
             Toast.makeText(this, "Upload Foto Bukti Pembayaran Anda", Toast.LENGTH_SHORT).show();
         } else {
 //            Toast.makeText(this, "Oke", Toast.LENGTH_SHORT).show();
             ProgresDialog();
             int bayar = (int) Math.round(totalbayar);
+            namaPengirim = edNamaPengirim.getText().toString();
             File file = new File(imagePath);
             RequestBody reqFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
             MultipartBody.Part imageBody_ = MultipartBody.Part.createFormData("file", file.getName(), reqFile);
@@ -528,7 +691,7 @@ public class KonfirmasiPembayaranActivity extends AppCompatActivity implements V
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 Log.d("gagalp", String.valueOf(response.body() + "\n" + response.message()));
-                Toast.makeText(KonfirmasiPembayaranActivity.this, "batalpp" + response.body() + "\n" + response.message(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(KonfirmasiPembayaranActivity.this, "batalpp" + response.body() + "\n" + response.message(), Toast.LENGTH_SHORT).show();
 
 //                if (response.isSuccessful()) {
 //
@@ -544,8 +707,17 @@ public class KonfirmasiPembayaranActivity extends AppCompatActivity implements V
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
                 Log.d("gagalpp", String.valueOf(t));
-                Toast.makeText(KonfirmasiPembayaranActivity.this, "Message : Error " + t.getMessage(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(KonfirmasiPembayaranActivity.this, "Message : Error " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
+
+    public BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            idBank = intent.getStringExtra("idbank");
+            getBank(idBank);
+        }
+    };
+
 }
