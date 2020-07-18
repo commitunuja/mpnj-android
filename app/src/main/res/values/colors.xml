@@ -12,7 +12,7 @@
 
     <color name="transparentBlack">#96000000</color>
     <color name="green_semi_transparent">#00b517</color>
-
+    <color name="text_color">#272928</color>
    <!-- detail-->
     <color name="whitebureng">#E7E7E7</color>
     <color name="Titletext">#000000</color>
