@@ -86,8 +86,10 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
     //produk
     private ProdukAdapter produkAdapter;
     private ProdukAdapter produkDiskonAdapter;
+    private ProdukAdapter produkTerlarisAdapter;
     private List<Model> tvDataProduk;
     private List<Model> tvDataProdukDiskon;
+    private List<Model> tvDataProdukTerlaris;
     private TextView produkterpopuler;
     private ArrayList<TopTenModelClass> topTenModelClasses;
     private RecyclerView top_ten_crecyclerview;
@@ -106,13 +108,14 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
     private Integer image2[] = {R.drawable.mobile1, R.drawable.mobile2, R.drawable.mobile1, R.drawable.mobile2};
     private String title2[] = {"Samsung On Mask 2GB Ram", "Samsung Galaxy 8 6GB Ram", "Samsung On Mask 2GB Ram", "Samsung Galaxy 8 6GB Ram"};
     private String type2[] = {"Phones", "Phones", "Phones", "Phones"};
-
+    private SearchFragment searchFragment;
 
     RecyclerView.LayoutManager dataapi;
     RecyclerView.LayoutManager dataapiDiskon;
+    RecyclerView.LayoutManager dataapiTerlaris;
     MaterialSearchBar searchBar;
 
-    private SearchFragment searchFragment;
+
 
     @Nullable
     @Override
@@ -146,9 +149,9 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
 //        produksearch();
 
         likeproduk();
-        produkTerbaru();
         produkDiskon();
-        recentproduk();
+        produkTerbaru();
+        produkTerlaris();
 
         fiturpencarian();
 
@@ -185,45 +188,6 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
 //            super.onBackPressed();
 //        }
 //    }
-    private void produkTerbaru() {
-
-        topTenModelClasses1 = new ArrayList<>();
-
-        for (int i = 0; i < image3.length; i++) {
-            TopTenModelClass beanClassForRecyclerView_contacts = new TopTenModelClass(image3[i], title3[i], type[i]);
-
-            topTenModelClasses1.add(beanClassForRecyclerView_contacts);
-        }
-
-        produkAdapter = new ProdukAdapter(getContext(), tvDataProduk);
-        dataapi = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-
-        toprate.setLayoutManager(dataapi);
-        toprate.setItemAnimator(new DefaultItemAnimator());
-        toprate.setHasFixedSize(true);
-
-        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-        Call<List<Model>> call = service.getProduk();
-
-        call.enqueue(new Callback<List<Model>>() {
-            @Override
-            public void onResponse(Call<List<Model>> call, Response<List<Model>> response) {
-                if (response.body() != null && response.isSuccessful()) {
-                    tvDataProduk = response.body();
-                    produkAdapter = new ProdukAdapter(getContext(), tvDataProduk);
-                    toprate.setAdapter(produkAdapter);
-                } else {
-                    Toast.makeText(getContext(), "gagal", Toast.LENGTH_SHORT).show();
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<List<Model>> call, Throwable t) {
-                Toast.makeText(getContext(), String.valueOf(t), Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
 
     private void produkDiskon() {
 
@@ -271,28 +235,93 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
 //        like_recyclerview.setItemAnimator(new DefaultItemAnimator());
 //        like_recyclerview.setAdapter(mAdapter3);
     }
+    private void produkTerbaru() {
 
-    private void recentproduk() {
+        topTenModelClasses1 = new ArrayList<>();
+
+        for (int i = 0; i < image3.length; i++) {
+            TopTenModelClass beanClassForRecyclerView_contacts = new TopTenModelClass(image3[i], title3[i], type[i]);
+
+            topTenModelClasses1.add(beanClassForRecyclerView_contacts);
+        }
+
+        produkAdapter = new ProdukAdapter(getContext(), tvDataProduk);
+        dataapi = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+
+        toprate.setLayoutManager(dataapi);
+        toprate.setItemAnimator(new DefaultItemAnimator());
+        toprate.setHasFixedSize(true);
+
+        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+        Call<List<Model>> call = service.getProduk();
+
+        call.enqueue(new Callback<List<Model>>() {
+            @Override
+            public void onResponse(Call<List<Model>> call, Response<List<Model>> response) {
+                if (response.body() != null && response.isSuccessful()) {
+                    tvDataProduk = response.body();
+                    produkAdapter = new ProdukAdapter(getContext(), tvDataProduk);
+                    toprate.setAdapter(produkAdapter);
+                } else {
+                    Toast.makeText(getContext(), "gagal", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Model>> call, Throwable t) {
+                Toast.makeText(getContext(), String.valueOf(t), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
 
+
+    private void produkTerlaris() {
         topTenModelClasses = new ArrayList<>();
-
-
         for (int i = 0; i < image1.length; i++) {
             TopTenModelClass beanClassForRecyclerView_contacts = new TopTenModelClass(image1[i], title1[i], type[i]);
 
             topTenModelClasses.add(beanClassForRecyclerView_contacts);
         }
 
+        produkTerlarisAdapter = new ProdukAdapter(getContext(), tvDataProdukTerlaris);
+        dataapiTerlaris = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
 
-        mAdapter2 = new RecycleAdapteTopTenHome(getContext(), topTenModelClasses);
-        RecyclerView.LayoutManager mLayoutManager4 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        top_ten_crecyclerview.setLayoutManager(mLayoutManager4);
-
-
-        top_ten_crecyclerview.setLayoutManager(mLayoutManager4);
+        top_ten_crecyclerview.setLayoutManager(dataapiTerlaris);
         top_ten_crecyclerview.setItemAnimator(new DefaultItemAnimator());
-        top_ten_crecyclerview.setAdapter(mAdapter2);
+        top_ten_crecyclerview.setHasFixedSize(true);
+
+        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+        Call<List<Model>> call = service.getProdukTerpopuler();
+
+        call.enqueue(new Callback<List<Model>>() {
+            @Override
+            public void onResponse(Call<List<Model>> call, Response<List<Model>> response) {
+                if (response.body() != null && response.isSuccessful()) {
+                    tvDataProdukTerlaris = response.body();
+                    produkTerlarisAdapter = new ProdukAdapter(getContext(), tvDataProdukTerlaris);
+                    top_ten_crecyclerview.setAdapter(produkTerlarisAdapter);
+                } else {
+                    Toast.makeText(getContext(), "gagal", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Model>> call, Throwable t) {
+                Toast.makeText(getContext(), String.valueOf(t), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+//        mAdapter2 = new RecycleAdapteTopTenHome(getContext(), topTenModelClasses);
+//        RecyclerView.LayoutManager mLayoutManager4 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+//        top_ten_crecyclerview.setLayoutManager(mLayoutManager4);
+//
+//
+//        top_ten_crecyclerview.setLayoutManager(mLayoutManager4);
+//        top_ten_crecyclerview.setItemAnimator(new DefaultItemAnimator());
+//        top_ten_crecyclerview.setAdapter(mAdapter2);
     }
 
 
