@@ -42,11 +42,111 @@
         <ImageView android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_gravity="center"
-            android:layout_marginTop="42dp"
-            android:layout_marginBottom="62dp"
+            android:layout_marginTop="15dp"
+
+
             android:src="@drawable/correct1"/>
 
-        <LinearLayout android:layout_width="wrap_content"
+        <customfonts.TextViewSFProDisplayRegular
+            android:id="@+id/tvxtotalbayar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimary"
+            android:text="Rp. 50.000.000"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:layout_marginBottom="62dp"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center">
+
+            <LinearLayout
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="6dp">
+
+                <customfonts.TextViewSFProDisplayRegular
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/black"
+                    android:text="Kode Transaksi"
+                    android:textSize="14dp"
+                    android:gravity="center" />
+
+
+                <customfonts.TextViewSFProDisplayRegular
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/tvx_kodetransaksi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/black"
+                    android:text="AD105"
+                    android:textSize="14dp"
+                    android:gravity="center"
+
+                    />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="6dp"
+                >
+
+                <customfonts.TextViewSFProDisplayRegular
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/black"
+                    android:text="Pengirim"
+                    android:textSize="14dp" />
+
+
+                <customfonts.TextViewSFProDisplayRegular
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/tvx_namapengirim"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/black"
+                    android:text="Muhammad Solehudin"
+                    android:textSize="14dp"
+                    android:gravity="center"
+                    />
+
+
+            </LinearLayout>
+
+
+
+
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:visibility="gone"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_gravity="center">
@@ -68,7 +168,7 @@
 
 
                 <customfonts.TextViewSFProDisplayRegular
-                    android:id="@+id/tvx_kodetransaksi"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
@@ -101,7 +201,6 @@
 
 
                 <customfonts.TextViewSFProDisplayRegular
-                    android:id="@+id/tvx_namapengirim"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
@@ -167,7 +266,6 @@
 
 
                 <customfonts.TextViewSFProDisplayRegular
-                    android:id="@+id/tvxtotalbayar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
