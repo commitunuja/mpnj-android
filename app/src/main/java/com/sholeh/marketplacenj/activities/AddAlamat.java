@@ -20,7 +20,7 @@ import com.sholeh.marketplacenj.util.api.APIInterface;
 import com.sholeh.marketplacenj.util.CONSTANTS;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.util.ServiceGenerator;
-import com.sholeh.marketplacenj.adapter.adapterspin;
+import com.sholeh.marketplacenj.adapter.bank.adapterspin;
 import com.sholeh.marketplacenj.model.city.ItemCity;
 import com.sholeh.marketplacenj.model.province.ItemProvince;
 import com.sholeh.marketplacenj.respon.ResAlamat;
