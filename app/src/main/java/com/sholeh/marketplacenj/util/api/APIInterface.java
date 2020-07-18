@@ -45,6 +45,16 @@ import retrofit2.http.Query;
 
 
 public interface APIInterface {
+    // Diskon
+    @GET("api/produk/diskon")
+    abstract Call<List<Model>> getProdukDiskon();
+
+    // Terpopuler
+    @GET("api/produk/laris")
+    abstract Call<List<Model>> getProdukTerpopuler();
+
+
+    // Terbaru
     @GET("api/produk")
     abstract Call<List<Model>> getProduk();
 
