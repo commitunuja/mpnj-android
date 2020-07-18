@@ -43,7 +43,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <activity android:name=".activities.dashboard.ProdukTerpopulerActivity" />
+        <activity android:name=".activities.dashboard.ProdukTerbaruActivity" />
         <activity android:name=".activities.details.DiskripsiActivity" />
         <activity
             android:name=".activities.kurir.OpsiPengirimanActivity"

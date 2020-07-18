@@ -26,7 +26,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ProdukTerpopulerActivity extends AppCompatActivity {
+public class ProdukTerbaruActivity extends AppCompatActivity {
 
      RecyclerView rv_populer, rv_searchproduk;
      SearchAdapter produkAdapter;
@@ -54,8 +54,8 @@ public class ProdukTerpopulerActivity extends AppCompatActivity {
         produksearch();
         pencariandata();
 
-        produkAdapter = new SearchAdapter(ProdukTerpopulerActivity.this, tvDataProduk);
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(ProdukTerpopulerActivity.this, 2);
+        produkAdapter = new SearchAdapter(ProdukTerbaruActivity.this, tvDataProduk);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(ProdukTerbaruActivity.this, 2);
         rv_populer.setLayoutManager(layoutManager);
         rv_populer.setItemAnimator(new DefaultItemAnimator());
         rv_populer.setNestedScrollingEnabled(false);
@@ -99,7 +99,7 @@ public class ProdukTerpopulerActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
 //                rv_populer.setVisibility(View.VISIBLE);
-                ProdukTerpopulerActivity.this.filterQuery(s.toString());
+                ProdukTerbaruActivity.this.filterQuery(s.toString());
                 status = "yes";
 
             }
@@ -118,8 +118,8 @@ public class ProdukTerpopulerActivity extends AppCompatActivity {
     }
 
     private void produksearch() {
-        searchAdapter = new SearchAdapter(ProdukTerpopulerActivity.this, datapencarian);
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(ProdukTerpopulerActivity.this, 2);
+        searchAdapter = new SearchAdapter(ProdukTerbaruActivity.this, datapencarian);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(ProdukTerbaruActivity.this, 2);
         rv_populer.setLayoutManager(layoutManager);
         rv_populer.setItemAnimator(new DefaultItemAnimator());
         rv_populer.setNestedScrollingEnabled(false);

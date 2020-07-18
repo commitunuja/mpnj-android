@@ -173,6 +173,7 @@
                                 android:textSize="14sp" />
 
                             <customfonts.MyTextView_Roboto_Medium
+                                android:id="@+id/tv_AllProdukDiskon"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="20dp"
@@ -181,10 +182,8 @@
                                 android:textSize="13sp" />
                         </LinearLayout>
 
-                        <!--Like Recyclerview-->
-
                         <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/top_ten_recyclerview"
+                            android:id="@+id/recycler_produkDiskon"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:clipToPadding="false"
@@ -198,7 +197,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="24dp"
-
                             android:orientation="horizontal">
 
                             <customfonts.MyTextView_Roboto_Medium
@@ -210,7 +208,7 @@
                                 android:textSize="14sp" />
 
                             <customfonts.MyTextView_Roboto_Medium
-                                android:id="@+id/tv_produkterpopuler"
+                                android:id="@+id/tv_Allprodukterbaru"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="20dp"
@@ -222,7 +220,7 @@
                         <!--Top Rated Recyclerview-->
 
                         <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/rv_toprate"
+                            android:id="@+id/rv_produkTerbaru"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:clipToPadding="false"
@@ -281,6 +279,7 @@
                                 android:textSize="14sp" />
 
                             <customfonts.MyTextView_Roboto_Medium
+                                android:id="@+id/tv_AllProdukTerlaris"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="20dp"
@@ -292,7 +291,7 @@
                         <!--Top Rated Recyclerview-->
 
                         <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/recent_recyclerview"
+                            android:id="@+id/rv_produkterlaris"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:clipToPadding="false"
