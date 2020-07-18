@@ -251,7 +251,6 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
         namaLengkap = preferences.getNamaLengkap();
         email = preferences.getEmailnya();
         nomorHP = preferences.getNomorHp();
-        tvx_namaCustomter.setText(namaLengkap);
         tvx_username.setText(username);
         tvx_email.setText(email);
         tvx_Hp.setText(nomorHP);
@@ -268,12 +267,15 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
             @Override
             public void onResponse(Call<ResProfil> call, Response<ResProfil> response) {
                 tvDataProfil = response.body();
+
                 Log.d("cekimg", String.valueOf(tvDataProfil));
               // validasi error null asset foto
             //    Toast.makeText(getActivity(), ""+tvDataProfil.getPesan(), Toast.LENGTH_SHORT).show();
                 if (tvDataProfil.getData().getFotoProfil() == null){
+
                    // Picasso.with(getContext()).load(R.drawable.man).into(imageProfil);
                 }else{
+                    tvx_namaCustomter.setText(String.valueOf(tvDataProfil.getData().getNamaLengkap()));
                     Picasso.with(getContext()).load(CONSTANTS.BASE_URL + "assets/foto_profil_konsumen/"+tvDataProfil.getData().getFotoProfil()).into(imageProfil);
                 }
 //                Toast.makeText(getActivity(), tvDataProfil.getData().getFotoProfil(), Toast.LENGTH_LONG).show();
