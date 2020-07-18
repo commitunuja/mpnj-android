@@ -1,4 +1,4 @@
-package com.sholeh.marketplacenj.adapter;
+package com.sholeh.marketplacenj.adapter.bank;
 
 import android.content.Context;
 
