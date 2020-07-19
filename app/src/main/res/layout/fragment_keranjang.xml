@@ -1,14 +1,191 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/crMain"
     android:layout_height="match_parent"
-    tools:context=".mfragment.Keranjang.KeranjangFragment">
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:orientation="vertical">
 
-</FrameLayout>
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay">
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:id="@+id/toolbar"
+                android:background="@color/colorAccent"
+                app:popupTheme="@style/AppTheme.PopupOverlay">
+            </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:paddingRight="@dimen/padding_small_5"
+            android:paddingLeft="@dimen/padding_small_5">
+
+
+
+
+            <include layout="@layout/desain_kosong"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+                <ProgressBar
+                    android:id="@+id/progress_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp" />
+
+
+                <LinearLayout
+                    android:layout_marginBottom="178dp"
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rect_recycler">
+
+
+                    <ExpandableListView
+                        android:id="@+id/expListhistori"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#ffffff"
+                        android:childDivider="@color/green_semi_transparent"
+                        android:clipToPadding="false"
+                        android:divider="@color/green_semi_transparent"
+                        android:groupIndicator="@null" />
+
+
+
+                </LinearLayout>
+
+
+
+
+
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:id="@+id/lnTotalKeranjang"
+        android:paddingBottom="60dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@drawable/shadow">
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginTop="12dp"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="15.7dp">
+                        <customfonts.TextViewSFProDisplayRegular
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Total Pesanan"
+                            android:letterSpacing="0.03"
+                            android:textSize="17sp"
+                            android:textColor="@color/black"/>
+                        <customfonts.TextViewSFProDisplayMedium
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="#99000000"
+                            android:textSize="12sp"
+                            android:letterSpacing="0.02"
+                            android:text="Belum termasuk biaya pengiriman"/>
+                    </LinearLayout>
+                    <customfonts.MyTextView_Roboto_Medium
+                        android:id="@+id/total"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Rp0"
+                        android:textSize="18.3sp"
+                        android:letterSpacing="0"
+                        android:textColor="@color/black"
+                        android:layout_marginTop="21dp"
+                        android:layout_marginRight="21dp"/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="13.3dp"
+            android:orientation="horizontal">
+
+            <CheckBox
+
+                android:id="@+id/cb_select_all"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:background="@null"
+                android:text=" Pilih semua" />
+
+            <customfonts.MyTextView_Roboto_Medium
+                android:visibility="gone"
+                android:id="@+id/txtmetode"
+                android:layout_width="158dp"
+                android:layout_height="40dp"
+                android:background="@drawable/button_rect2"
+                android:gravity="center"
+                android:letterSpacing="0.03"
+                android:text="Metode Pembayaran"
+                android:textColor="@color/black"
+                android:textSize="13.3sp" />
+
+            <customfonts.MyTextView_Roboto_Medium
+                android:id="@+id/tvx_checkout"
+                android:layout_marginRight="21dp"
+                android:layout_alignParentEnd="true"
+                android:layout_width="108dp"
+                android:layout_height="40dp"
+                android:background="@drawable/button_rect_transparant"
+                android:gravity="center"
+                android:letterSpacing="0.03"
+                android:text="Checkout"
+                android:textColor="@color/white"
+                android:textSize="13.3sp" />
+        </RelativeLayout>
+    </LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
