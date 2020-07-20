@@ -155,7 +155,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
         final ImageView delete_item, img_gambar;
         final CheckBox cbchild;
             final ChildModel childModel = listChild.get(listHeaderFilter.get(groupPosition)).get(childPosition);
-//        progressHUD = KProgressHUD.create(context);
+        progressHUD = KProgressHUD.create(context);
 
         tvx_nama = convertView.findViewById(R.id.txtnamaPRODUK);
         tvx_idKeranjang = convertView.findViewById(R.id.txtIdkerenjang);
@@ -264,7 +264,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
         delete_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                ProgresDialog();
+                ProgresDialog();
 //                progressBar.setVisibility(View.VISIBLE);
                 String id_keranjang = childModel.getId_keranjang();
                 APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
@@ -274,7 +274,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
                     public void onResponse(Call<ResHapusKeranjang> call, Response<ResHapusKeranjang> response) {
                         if (response.body() != null && response.isSuccessful()) {
                             if (response.body().getPesan().equalsIgnoreCase("sukses")) {
-//                                progressHUD.dismiss();
+                                progressHUD.dismiss();
 //                                progressBar.setVisibility(View.GONE);
 //                                AppUtilits.displayMessage(context, "Sukses hapus produk dari keranjang");
 //                                Toast.makeText(context, "Sukses Hapus", Toast.LENGTH_SHORT).show();
@@ -283,11 +283,11 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 
                             } else {
 //                                progressBar.setVisibility(View.GONE);
-//                                progressHUD.dismiss();
+                                progressHUD.dismiss();
                                 AppUtilits.displayMessage(context, "Gagal hapus produk dari keranjang");
                             }
                         } else {
-//                            progressHUD.dismiss();
+                            progressHUD.dismiss();
 //                            progressBar.setVisibility(View.GONE);
                             AppUtilits.displayMessage(context, context.getString(R.string.network_error));
                         }
@@ -296,7 +296,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 
                     @Override
                     public void onFailure(Call<ResHapusKeranjang> call, Throwable t) {
-//                        progressHUD.dismiss();
+                        progressHUD.dismiss();
 //                        progressBar.setVisibility(View.GONE);
                         AppUtilits.displayMessage(context, context.getString(R.string.failed_request));
 
@@ -490,7 +490,6 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 
     private void ProgresDialog() {
         progressHUD.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
-                .setLabel("Proses...")
                 .setCancellable(false);
         progressHUD.show();
     }
