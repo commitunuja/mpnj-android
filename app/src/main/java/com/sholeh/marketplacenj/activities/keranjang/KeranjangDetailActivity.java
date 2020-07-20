@@ -206,17 +206,17 @@ public class KeranjangDetailActivity extends AppCompatActivity implements View.O
                                 List<ItemKeranjang> childLink = array.get(i).getItem();
                                 for (int j = 0; j < childLink.size(); j++) {
                                     String idKeranjang = childLink.get(j).getIdKeranjang();
+                                    String idProduk = childLink.get(j).getIdProduk();
                                     String namaProduk = childLink.get(j).getNamaProduk();
-//                                    String kategori = childLink.get(j).getKategori().getNamaKategori();
+                                    String kategori = childLink.get(j).getKategori().getNamaKategori();
                                     String keterangan = childLink.get(j).getKeterangan();
                                     hargaJual = Integer.parseInt(String.valueOf(childLink.get(j).getHargaJual()));
                                     int diskon = Integer.parseInt((childLink.get(j).getDiskon()));
                                     int jumlah = Integer.parseInt(String.valueOf(childLink.get(j).getJumlah()));
                                     String foto = childLink.get(j).getFoto();
                                     int stok = Integer.parseInt(String.valueOf(childLink.get(j).getStok()));
-//                                    int terjual = Integer.parseInt(String.valueOf(childLink.get(j).getTerjual()));
                                     String terjual = childLink.get(j).getTerjual();
-                                    child.add(new ChildModel(idKeranjang, namaProduk , keterangan, hargaJual, diskon, jumlah, foto, stok, terjual, false));
+                                    child.add(new ChildModel(idKeranjang, idProduk, namaProduk, kategori, keterangan, hargaJual, diskon, jumlah, foto, stok, terjual, false));
                                 }
                                 listChild.put(listHeader.get(i), child);
                             }
@@ -304,18 +304,19 @@ public class KeranjangDetailActivity extends AppCompatActivity implements View.O
                                 List<ItemKeranjang> childLink = array.get(i).getItem();
                                 for (int j = 0; j < childLink.size(); j++) {
                                     idKeranjang = childLink.get(j).getIdKeranjang();
+                                    String idProduk = childLink.get(j).getIdProduk();
                                     String namaProduk = childLink.get(j).getNamaProduk();
-//                                    String kategori = childLink.get(j).getKategori().getNamaKategori();
+                                    String kategori = childLink.get(j).getKategori().getNamaKategori();
                                     String keterangan = childLink.get(j).getKeterangan();
                                     hargaJual = Integer.parseInt(String.valueOf(childLink.get(j).getHargaJual()));
                                     int diskon = Integer.parseInt((childLink.get(j).getDiskon()));
                                     int jumlah = Integer.parseInt(String.valueOf(childLink.get(j).getJumlah()));
                                     String foto = childLink.get(j).getFoto();
                                     int stok = Integer.parseInt(String.valueOf(childLink.get(j).getStok()));
-//                                    int terjual = Integer.parseInt(String.valueOf(childLink.get(j).getTerjual()));
                                     String terjual = childLink.get(j).getTerjual();
+
                                     myIdkCball.add(idKeranjang);
-                                    child.add(new ChildModel(idKeranjang, namaProduk, keterangan ,hargaJual, diskon, jumlah, foto, stok, terjual,true));
+                                    child.add(new ChildModel(idKeranjang, idProduk, namaProduk, kategori, keterangan, hargaJual, diskon, jumlah, foto, stok, terjual, true));
                                 }
                                 listChild.put(listHeader.get(i), child);
                             }
