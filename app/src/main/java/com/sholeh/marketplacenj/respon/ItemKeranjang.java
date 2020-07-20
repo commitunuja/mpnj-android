@@ -12,23 +12,6 @@ public class ItemKeranjang {
     @SerializedName("jumlah")
     @Expose
     private String jumlah;
-
-    public String getJumlah() {
-        return jumlah;
-    }
-
-    public void setJumlah(String jumlah) {
-        this.jumlah = jumlah;
-    }
-
-    public String getIdKeranjang() {
-        return idKeranjang;
-    }
-
-    public void setIdKeranjang(String idKeranjang) {
-        this.idKeranjang = idKeranjang;
-    }
-
     @SerializedName("id_produk")
     @Expose
     private Integer idProduk;
@@ -193,6 +176,22 @@ public class ItemKeranjang {
 
     public void setPelapak(Pelapak pelapak) {
         this.pelapak = pelapak;
+    }
+
+    public String getJumlah() {
+        return jumlah;
+    }
+
+    public void setJumlah(String jumlah) {
+        this.jumlah = jumlah;
+    }
+
+    public String getIdKeranjang() {
+        return idKeranjang;
+    }
+
+    public void setIdKeranjang(String idKeranjang) {
+        this.idKeranjang = idKeranjang;
     }
 
 }

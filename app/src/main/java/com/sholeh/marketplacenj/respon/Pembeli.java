@@ -3,9 +3,9 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Pembeli {
-    @SerializedName("id_konsumen")
+    @SerializedName("id_user")
     @Expose
-    private Integer idKonsumen;
+    private Integer idUser;
     @SerializedName("nama_lengkap")
     @Expose
     private String namaLengkap;
@@ -39,11 +39,11 @@ public class Pembeli {
     private String idKecamatan;
 
     public Integer getIdKonsumen() {
-        return idKonsumen;
+        return idUser;
     }
 
     public void setIdKonsumen(Integer idKonsumen) {
-        this.idKonsumen = idKonsumen;
+        this.idUser = idKonsumen;
     }
 
     public String getNamaLengkap() {
