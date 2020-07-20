@@ -1,5 +1,6 @@
 package com.sholeh.marketplacenj.activities.dashboard;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -38,7 +39,7 @@ public class ProdukTerbaruActivity extends AppCompatActivity {
 //    EditText edpencarian;
 
     EditText search;
-    String status;
+    String status, allproduk;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,43 +47,53 @@ public class ProdukTerbaruActivity extends AppCompatActivity {
         setContentView(R.layout.activity_produk_terpopuler);
         rv_populer = (RecyclerView) findViewById(R.id.rv_produkterpopuler);
         progressBar = findViewById(R.id.progressBar);
-
-
+        Intent i = getIntent();
+        allproduk = i.getStringExtra("all");
         search = findViewById(R.id.etsearchterpopuler);
+        if (allproduk.equalsIgnoreCase("alldiskon")){
+             produkDiskon();
+        }else if (allproduk.equalsIgnoreCase("allterbaru")){
+            produkTerbaru();
+        }else if (allproduk.equalsIgnoreCase("allterlaris")){
+             produkTerlaris();
+        }else{
+            progressBar.setVisibility(View.GONE);
+            Toast.makeText(getBaseContext(), "Tidak ada data pada kategori ini.", Toast.LENGTH_LONG).show();
+        }
 
 
-        produksearch();
-        pencariandata();
 
-        produkAdapter = new SearchAdapter(ProdukTerbaruActivity.this, tvDataProduk);
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(ProdukTerbaruActivity.this, 2);
-        rv_populer.setLayoutManager(layoutManager);
-        rv_populer.setItemAnimator(new DefaultItemAnimator());
-        rv_populer.setNestedScrollingEnabled(false);
-        rv_populer.setFocusableInTouchMode(false);
+//        pencariandata();
 
-        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-        Call<List<Model>> call = service.getProduk();
-
-        call.enqueue(new Callback<List<Model>>() {
-            @Override
-            public void onResponse(Call<List<Model>> call, Response<List<Model>> response) {
-                if (response.body().size() > 0) {
-                    progressBar.setVisibility(View.GONE);
-                    tvDataProduk = response.body();
-                    produkAdapter = new SearchAdapter(getBaseContext(), tvDataProduk);
-                    rv_populer.setAdapter(produkAdapter);
-                } else {
-                    progressBar.setVisibility(View.GONE);
-                    Toast.makeText(getBaseContext(), "Tidak ada data pada kategori ini.", Toast.LENGTH_LONG).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Model>> call, Throwable t) {
-                Toast.makeText(getBaseContext(), String.valueOf(t), Toast.LENGTH_SHORT).show();
-            }
-        });
+//        produkAdapter = new SearchAdapter(ProdukTerbaruActivity.this, tvDataProduk);
+//        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(ProdukTerbaruActivity.this, 2);
+//        rv_populer.setLayoutManager(layoutManager);
+//        rv_populer.setItemAnimator(new DefaultItemAnimator());
+//        rv_populer.setNestedScrollingEnabled(false);
+//        rv_populer.setFocusableInTouchMode(false);
+//
+//        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+//        Call<List<Model>> call = service.getProduk();
+//
+//        call.enqueue(new Callback<List<Model>>() {
+//            @Override
+//            public void onResponse(Call<List<Model>> call, Response<List<Model>> response) {
+//                if (response.body().size() > 0) {
+//                    progressBar.setVisibility(View.GONE);
+//                    tvDataProduk = response.body();
+//                    produkAdapter = new SearchAdapter(getBaseContext(), tvDataProduk);
+//                    rv_populer.setAdapter(produkAdapter);
+//                } else {
+//                    progressBar.setVisibility(View.GONE);
+//                    Toast.makeText(getBaseContext(), "Tidak ada data pada kategori ini.", Toast.LENGTH_LONG).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<Model>> call, Throwable t) {
+//                Toast.makeText(getBaseContext(), String.valueOf(t), Toast.LENGTH_SHORT).show();
+//            }
+//        });
     }
 
     private void pencariandata() {
@@ -117,7 +128,49 @@ public class ProdukTerbaruActivity extends AppCompatActivity {
         this.searchAdapter.setFilter(filter);
     }
 
-    private void produksearch() {
+    private void produkDiskon() {
+        searchAdapter = new SearchAdapter(ProdukTerbaruActivity.this, datapencarian);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(ProdukTerbaruActivity.this, 2);
+        rv_populer.setLayoutManager(layoutManager);
+        rv_populer.setItemAnimator(new DefaultItemAnimator());
+        rv_populer.setNestedScrollingEnabled(false);
+        rv_populer.setFocusableInTouchMode(false);
+
+
+        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+        Call<List<Model>> call = service.getProdukDiskon();
+
+        call.enqueue(new Callback<List<Model>>() {
+            @Override
+            public void onResponse(Call<List<Model>> call, Response<List<Model>> response) {
+                if (response.body() != null && response.isSuccessful()) {
+                    if (response.body().size() > 0) {
+                        datapencarian = response.body();
+                        searchAdapter = new SearchAdapter(getBaseContext(), datapencarian);
+                        rv_populer.setAdapter(searchAdapter);
+                        progressBar.setVisibility(View.GONE);
+                    }else {
+
+                     progressBar.setVisibility(View.GONE);
+                    Toast.makeText(getBaseContext(), "Tidak ada data pada kategori ini", Toast.LENGTH_LONG).show();
+                    }
+
+                }else{
+                    Toast.makeText(getApplication(), "Tidak ada data pada kategori ini", Toast.LENGTH_SHORT).show();
+                }
+
+
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Model>> call, Throwable t) {
+                Toast.makeText(getApplication(), "Terdapat Kesalahan Jaringan. Silahkan Coba Lagi Nanti", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void produkTerbaru() {
         searchAdapter = new SearchAdapter(ProdukTerbaruActivity.this, datapencarian);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(ProdukTerbaruActivity.this, 2);
         rv_populer.setLayoutManager(layoutManager);
@@ -132,16 +185,71 @@ public class ProdukTerbaruActivity extends AppCompatActivity {
         call.enqueue(new Callback<List<Model>>() {
             @Override
             public void onResponse(Call<List<Model>> call, Response<List<Model>> response) {
+                if (response.body() != null && response.isSuccessful()) {
+                    if (response.body().size() > 0) {
+                        datapencarian = response.body();
+                        searchAdapter = new SearchAdapter(getBaseContext(), datapencarian);
+                        rv_populer.setAdapter(searchAdapter);
+                        progressBar.setVisibility(View.GONE);
+                    }else {
 
-                datapencarian = response.body();
-                searchAdapter = new SearchAdapter(getBaseContext(), datapencarian);
-                rv_populer.setAdapter(searchAdapter);
+                        progressBar.setVisibility(View.GONE);
+                        Toast.makeText(getBaseContext(), "Tidak ada data pada kategori ini", Toast.LENGTH_LONG).show();
+                    }
+
+                }else{
+                    Toast.makeText(getApplication(), "Tidak ada data pada kategori ini", Toast.LENGTH_SHORT).show();
+                }
+
+
 
             }
 
             @Override
             public void onFailure(Call<List<Model>> call, Throwable t) {
-                Toast.makeText(getBaseContext(), String.valueOf(t), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplication(), "Terdapat Kesalahan Jaringan. Silahkan Coba Lagi Nanti", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void produkTerlaris() {
+        searchAdapter = new SearchAdapter(ProdukTerbaruActivity.this, datapencarian);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(ProdukTerbaruActivity.this, 2);
+        rv_populer.setLayoutManager(layoutManager);
+        rv_populer.setItemAnimator(new DefaultItemAnimator());
+        rv_populer.setNestedScrollingEnabled(false);
+        rv_populer.setFocusableInTouchMode(false);
+
+
+        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+        Call<List<Model>> call = service.getProdukTerpopuler();
+
+        call.enqueue(new Callback<List<Model>>() {
+            @Override
+            public void onResponse(Call<List<Model>> call, Response<List<Model>> response) {
+                if (response.body() != null && response.isSuccessful()) {
+                    if (response.body().size() > 0) {
+                        datapencarian = response.body();
+                        searchAdapter = new SearchAdapter(getBaseContext(), datapencarian);
+                        rv_populer.setAdapter(searchAdapter);
+                        progressBar.setVisibility(View.GONE);
+                    }else {
+
+                        progressBar.setVisibility(View.GONE);
+                        Toast.makeText(getBaseContext(), "Tidak ada data pada kategori ini", Toast.LENGTH_LONG).show();
+                    }
+
+                }else{
+                    Toast.makeText(getApplication(), "Tidak ada data pada kategori ini", Toast.LENGTH_SHORT).show();
+                }
+
+
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Model>> call, Throwable t) {
+                Toast.makeText(getApplication(), "Terdapat Kesalahan Jaringan. Silahkan Coba Lagi Nanti", Toast.LENGTH_SHORT).show();
             }
         });
     }
