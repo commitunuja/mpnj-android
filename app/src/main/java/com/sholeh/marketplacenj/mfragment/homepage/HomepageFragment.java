@@ -21,6 +21,10 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.daimajia.slider.library.Animations.DescriptionAnimation;
+import com.daimajia.slider.library.SliderLayout;
+import com.daimajia.slider.library.SliderTypes.BaseSliderView;
+import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.mancj.materialsearchbar.MaterialSearchBar;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.activities.dashboard.ProdukAllActivity;
@@ -36,8 +40,12 @@ import com.sholeh.marketplacenj.model.Model;
 import com.sholeh.marketplacenj.model.dashboard.HomeBannerModelClass;
 import com.sholeh.marketplacenj.model.dashboard.HomeCategoryModelClass;
 import com.sholeh.marketplacenj.model.dashboard.TopTenModelClass;
+import com.sholeh.marketplacenj.respon.ResBanner;
+import com.sholeh.marketplacenj.respon.ResProfil;
+import com.sholeh.marketplacenj.util.CONSTANTS;
 import com.sholeh.marketplacenj.util.ServiceGenerator;
 import com.sholeh.marketplacenj.util.api.APIInterface;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +53,9 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import ss.com.bannerslider.banners.Banner;
+import ss.com.bannerslider.banners.RemoteBanner;
+import ss.com.bannerslider.views.BannerSlider;
 
 //import com.mancj.materialsearchbar.MaterialSearchBar;
 
@@ -114,6 +125,10 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
     RecyclerView.LayoutManager dataapiDiskon;
     RecyclerView.LayoutManager dataapiTerlaris;
     MaterialSearchBar searchBar;
+    SliderLayout sliderHome;
+
+    private BannerSlider bannerSlider;
+    private List<Banner> remoteBanners=new ArrayList<>();
 
 
 
@@ -131,6 +146,8 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
         searchBar = view.findViewById(R.id.searchBar);
         searchBar.setOnSearchActionListener(this);
         searchBar.setOnClickListener(this);
+//        sliderHome = view.findViewById(R.id.sliderhome);
+        bannerSlider =view.findViewById(R.id.sliderhome);
         tvx_allProdukTerbaru = view.findViewById(R.id.tv_Allprodukterbaru);
         tvx_allProdukDiskon = view.findViewById(R.id.tv_AllProdukDiskon);
         tvx_allProdukTerpopuler = view.findViewById(R.id.tv_AllProdukTerlaris);
@@ -149,6 +166,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
 
 
         Banner();
+        getDataBanner();
         kategori();
 //        produksearch();
 
@@ -595,5 +613,76 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
         recyclerbanner.setItemAnimator(new DefaultItemAnimator());
         recyclerbanner.setAdapter(mAdapter);
 
+    }
+
+    public void getDataBanner(){
+        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+        Call<ResBanner> call = service.getBanner();
+
+
+        call.enqueue(new Callback<ResBanner>() {
+            @Override
+            public void onResponse(Call<ResBanner> call, Response<ResBanner> response) {
+                if (response.body() != null && response.isSuccessful()) {
+                    if (response.body().getData().size() > 0) {
+                        for(int i = 0; i <response.body().getData().size(); i++){
+                            String idBanner = response.body().getData().get(i).getIdBanner();
+                            String namaBanner = response.body().getData().get(i).getNamaBanner();
+                            String fotoBanner = CONSTANTS.ASSETBANNER+response.body().getData().get(i).getFotoBanner();
+
+                            remoteBanners.add(new RemoteBanner(fotoBanner));
+
+
+//                            TextSliderView textSliderView = new TextSliderView(getActivity());
+//                            textSliderView
+//                                    .description(namaBanner)
+//                                    .image(CONSTANTS.ASSETBANNER+fotoBanner)
+//                                    .setScaleType(BaseSliderView.ScaleType.Fit);
+////                                          .setOnSliderClickListener(this);
+//                            Log.d("kocor", "onResponse: "+namaBanner);
+//                            textSliderView.bundle(new Bundle());
+//                            textSliderView.getBundle().putString("judul",namaBanner);
+//                            sliderHome.addSlider(textSliderView);
+
+                        }
+                        bannerSlider.setBanners(remoteBanners);
+//                        sliderHome.setPresetTransformer(SliderLayout.Transformer.Accordion);
+//                        sliderHome.setPresetIndicator(SliderLayout.PresetIndicators.Right_Top);
+//                        sliderHome.setCustomAnimation(new DescriptionAnimation());
+//                        sliderHome.setDuration(5000);
+
+                    }else{
+
+                    }
+
+                }else{
+
+                }
+
+//                tvDataProfil = response.body();
+//
+//                Log.d("cekimg", String.valueOf(tvDataProfil));
+//                // validasi error null asset foto
+//                //    Toast.makeText(getActivity(), ""+tvDataProfil.getPesan(), Toast.LENGTH_SHORT).show();
+//                if (tvDataProfil.getData().getFotoProfil() == null){
+//
+//                    // Picasso.with(getContext()).load(R.drawable.man).into(imageProfil);
+//                }else{
+//                    tvx_namaCustomter.setText(String.valueOf(tvDataProfil.getData().getNamaLengkap()));
+//                    Picasso.with(getContext()).load(CONSTANTS.BASE_URL + "assets/foto_profil_konsumen/"+tvDataProfil.getData().getFotoProfil()).into(imageProfil);
+//                }
+//                Toast.makeText(getActivity(), tvDataProfil.getData().getFotoProfil(), Toast.LENGTH_LONG).show();
+//                Glide.with(getActivity()).load(foto).into(imageProfil);
+
+            }
+
+            @Override
+            public void onFailure(Call<ResBanner> call, Throwable t) {
+                Toast.makeText(getActivity(), "no connection"+t, Toast.LENGTH_SHORT).show();
+
+                //  Log.e(TAG, " failure "+ t.toString());
+//                    AppUtilits.displayMessage(UbahPassword.this,  getString(R.string.failed_request));
+            }
+        });
     }
 }
