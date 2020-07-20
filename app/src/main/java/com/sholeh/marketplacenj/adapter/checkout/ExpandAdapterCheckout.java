@@ -208,6 +208,7 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
                 HeaderCheckout myNewsheader = listHeaderFilter.get(groupPosition);
                 Context context = v.getContext();
                 ResCheckout bs = ((CheckoutActivity) context).getbs();
+                String nilaiIntent =((CheckoutActivity) context).Icheckout();
                 ArrayList<String> id = ((CheckoutActivity) context).listIdKeranjang();
                 ArrayList<String> idByParent = new ArrayList<String>();
 
@@ -223,6 +224,7 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
                 intent.putExtra("idkab_toko", String.valueOf(idKabPenjual));
                 intent.putExtra("idkec_pembeli", String.valueOf(idKecPembeli));
                 intent.putExtra("weight", String.valueOf(weight));
+                intent.putExtra("icheckout", nilaiIntent);
                 intent.putStringArrayListExtra("idcheckout", id);
                 intent.putStringArrayListExtra("idByParent", idByParent);
                 myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));

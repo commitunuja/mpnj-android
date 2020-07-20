@@ -153,9 +153,11 @@ public class AddressCheckoutAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                         public void onResponse(Call<ResAlamat> call, Response<ResAlamat> response) {
                             Log.d("Ubah alamat", String.valueOf(response));
                             if (response.body() != null && response.isSuccessful()) { // true
+                                String nilaiIntent =((PilihAlamatCheckout) context).getNilai();
                                 Intent intent = new Intent(mContext, CheckoutActivity.class);
                                 intent.putExtra("id_kecpembeli", String.valueOf(model.getIdKec()));
                                 intent.putExtra("reset_kurir", "Silahkan Pilih Pengiriman Produk Anda");
+                                intent.putExtra("icheckout", nilaiIntent);
                                 intent.putStringArrayListExtra("idcheckout", id);
                                 mContext.startActivity(intent);
                                 ((Activity) mContext).finish();

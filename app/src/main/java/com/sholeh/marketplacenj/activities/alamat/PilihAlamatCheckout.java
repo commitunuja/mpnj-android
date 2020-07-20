@@ -43,7 +43,7 @@ public class PilihAlamatCheckout extends AppCompatActivity implements View.OnCli
     private String TAG = "PilihAlamatCheckout";
 
     Preferences preferences;
-    String cekOngkir;
+    String cekOngkir,  nilaiIntent;
 
 
     private AddressCheckoutAdapter alamatAdapter;
@@ -59,6 +59,7 @@ public class PilihAlamatCheckout extends AppCompatActivity implements View.OnCli
     String id_konsumen, idkeranjang;
     List<String> list;
     ArrayList<String> idK;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +91,8 @@ public class PilihAlamatCheckout extends AppCompatActivity implements View.OnCli
         Intent i = getIntent();
         idK = i.getStringArrayListExtra("idcheckout");
         cekOngkir = i.getStringExtra("cekongkir");
+        nilaiIntent = i.getStringExtra("icheckout");
+
 //        Toast.makeText(this, "c "+cekOngkir, Toast.LENGTH_SHORT).show();
 //        idK = getIntent().getStringExtra("id_checkout");
 //        Toast.makeText(this, ""+idK, Toast.LENGTH_SHORT).show();
@@ -117,6 +120,11 @@ public class PilihAlamatCheckout extends AppCompatActivity implements View.OnCli
     public String getOngkir() {
 
         return cekOngkir;
+    }
+
+    public String getNilai() {
+
+        return nilaiIntent;
     }
     public ArrayList<String> listIdKeranjang() {
         return idK;

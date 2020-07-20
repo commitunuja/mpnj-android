@@ -55,6 +55,7 @@ public class OpsiPengirimanActivity extends AppCompatActivity {
     int idx;
     String idkk;
     String newidKecCheckoout = null;
+    String nilaiIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +73,7 @@ public class OpsiPengirimanActivity extends AppCompatActivity {
         Intent i = getIntent();
         arrayIdKeranjang = i.getStringArrayListExtra("idcheckout");
         arrayIdByParent = i.getStringArrayListExtra("idByParent");
+        nilaiIntent = i.getStringExtra("icheckout");
         Log.d("YOLO", String.valueOf(arrayIdKeranjang));
 
         spinnerKurir.add("JNE");
@@ -130,6 +132,7 @@ public class OpsiPengirimanActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent lagi = new Intent(OpsiPengirimanActivity.this, CheckoutActivity.class);
                 lagi.putExtra("ongkir", String.valueOf(ongkir));
+                lagi.putExtra("icheckout", nilaiIntent);
                 lagi.putStringArrayListExtra("idcheckout", arrayIdKeranjang);
                 startActivity(lagi);
                 finish();
@@ -202,6 +205,7 @@ public class OpsiPengirimanActivity extends AppCompatActivity {
 //                Log.d("YOLO", String.valueOf(response.body()));
                     Intent i = new Intent(OpsiPengirimanActivity.this, CheckoutActivity.class);
                     i.putStringArrayListExtra("idcheckout", arrayIdKeranjang);
+                    i.putExtra("icheckout", nilaiIntent);
                     startActivity(i);
                     finish();
 

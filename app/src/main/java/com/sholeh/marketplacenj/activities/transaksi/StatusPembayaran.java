@@ -84,6 +84,10 @@ public class StatusPembayaran extends AppCompatActivity implements View.OnClickL
         }
 
     }
+    @Override
+    public void onBackPressed() {
+        
+    }
 
 
 }

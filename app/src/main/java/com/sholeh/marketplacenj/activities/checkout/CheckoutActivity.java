@@ -193,6 +193,10 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
         return resCheckout;
     }
 
+    public String Icheckout(){
+        return nilaiIntent;
+    }
+
     public ArrayList<String> listIdKeranjang() {
         return idK;
     }
@@ -230,6 +234,7 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
         Intent goPilihAlamat = new Intent(this, PilihAlamatCheckout.class);
         goPilihAlamat.putStringArrayListExtra("idcheckout", idK);
         goPilihAlamat.putExtra("cekongkir", cekOngkir);
+        goPilihAlamat.putExtra("icheckout", nilaiIntent);
         startActivity(goPilihAlamat);
         finish();
 
@@ -281,6 +286,7 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
                         b.putString("total", total_bayar);
                         b.putString("tanggal_pemesanan", tgl_pemesanan);
                         b.putString("batas_pembayaran", batasPembayaran);
+                        b.putString("icheckout", nilaiIntent);
                         intent.putExtras(b);
                         startActivity(intent);
                         finish();

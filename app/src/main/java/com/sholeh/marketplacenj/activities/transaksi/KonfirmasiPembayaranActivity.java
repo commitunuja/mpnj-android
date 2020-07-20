@@ -46,6 +46,7 @@ import com.kaopiz.kprogresshud.KProgressHUD;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.activities.AkunActivity;
 import com.sholeh.marketplacenj.activities.AlamatActivity;
+import com.sholeh.marketplacenj.activities.checkout.CheckoutActivity;
 import com.sholeh.marketplacenj.activities.keranjang.KeranjangDetailActivity;
 import com.sholeh.marketplacenj.adapter.AlamatAdapter;
 import com.sholeh.marketplacenj.adapter.bank.adapterspin;
@@ -91,6 +92,7 @@ public class KonfirmasiPembayaranActivity extends AppCompatActivity implements V
     StringTokenizer st, stsub, sttotal;
     int id_transaksi, kodetransaksi;
     String idBank = null;
+    String nilaiIntent;
 
     ImageView imgBuktiTf, imgbackKeranjang;
     Button btnChooseImg;
@@ -167,6 +169,7 @@ public class KonfirmasiPembayaranActivity extends AppCompatActivity implements V
 //        total_bayar = b.getString("total");
         tgl_pemesanan = b.getString("tanggal_pemesanan");
         batas_pembayaran = b.getString("batas_pembayaran");
+        nilaiIntent = b.getString("icheckout");
 
         sttotal = new StringTokenizer(formatRupiah.format(totalbayar), ",");
         String harganya = sttotal.nextToken().trim();
@@ -684,33 +687,53 @@ public class KonfirmasiPembayaranActivity extends AppCompatActivity implements V
 
 
     public void batalPesanan() {
-//        Toast.makeText(this, ""+id_transaksi, Toast.LENGTH_SHORT).show();
+        if (!NetworkUtility.isNetworkConnected(KonfirmasiPembayaranActivity.this)) {
+            AppUtilits.displayMessage(KonfirmasiPembayaranActivity.this, getString(R.string.network_not_connected));
 
-        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-        Call<JsonObject> call = service.batalPesanan(String.valueOf(id_transaksi));
-        call.enqueue(new Callback<JsonObject>() {
-            @Override
-            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                Log.d("gagalp", String.valueOf(response.body()));
+        } else {
+//        Toast.makeText(this, ""+id_transaksi, Toast.LENGTH_SHORT).show();
+            ProgresDialog();
+            APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+            Call<JsonObject> call = service.batalPesanan(String.valueOf(id_transaksi));
+            call.enqueue(new Callback<JsonObject>() {
+                @Override
+                public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                    Log.d("gagalp", String.valueOf(response.body()));
 //                Toast.makeText(KonfirmasiPembayaranActivity.this, "batalpp" + response.body() + "\n" + response.message(), Toast.LENGTH_SHORT).show();
 
 //                if (response.isSuccessful()) {
+                    if (response.body() != null && response.isSuccessful()) {
+                        progressHUD.dismiss();
+
+                        if (nilaiIntent.equalsIgnoreCase("activity")) {
+                            Intent intent = new Intent(KonfirmasiPembayaranActivity.this, KeranjangDetailActivity.class);
+                            startActivity(intent);
+                            finish();
+
+                        } else {
+                            finish();
+                        }
+
+                    }else{
+                        progressHUD.dismiss();
+                        AppUtilits.displayMessage(getApplication(), getString(R.string.network_error));
+                    }
+
 //
-                Intent intent = new Intent(KonfirmasiPembayaranActivity.this, KeranjangDetailActivity.class);
-                startActivity(intent);
-                finish();
+
 //                } else {
 //                    String error = "Error Retrive DataProfil from Server !!!";
 //                    Toast.makeText(CheckoutActivity.this, "gagal", Toast.LENGTH_SHORT).show();
 //                }
-            }
+                }
 
-            @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
-                Log.d("gagalpp", String.valueOf(t));
+                @Override
+                public void onFailure(Call<JsonObject> call, Throwable t) {
+                    Log.d("gagalpp", String.valueOf(t));
 //                Toast.makeText(KonfirmasiPembayaranActivity.this, "Message : Error " + t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+                }
+            });
+        }
     }
 
     public BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
