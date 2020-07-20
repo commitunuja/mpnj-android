@@ -54,7 +54,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
     FrameLayout frameLayout;
     EditText search;
     private ArrayList<HomeBannerModelClass> homeBannerModelClasses;
-    private RecyclerView recyclerView;
+    private RecyclerView recyclerbanner;
     private RecycleAdapteHomeBanner mAdapter;
     private Integer image[] = {R.drawable.banner, R.drawable.banner, R.drawable.banner, R.drawable.banner};
 
@@ -138,7 +138,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
         recyclerProdukTerbaru = view.findViewById(R.id.rv_produkTerbaru);
         recyclerProdukTerlaris = view.findViewById(R.id.rv_produkterlaris);
         category_recyclerView = view.findViewById(R.id.category_recyclerview);
-        recyclerView = view.findViewById(R.id.recyclerview);
+        recyclerbanner = view.findViewById(R.id.recyclerviewBanner);
 //        edpencarian = view.findViewById(R.id.etsearch);
         frameLayout = view.findViewById(R.id.frag_container);
 //        search = view.findViewById(R.id.etsearch);
@@ -422,26 +422,6 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
 //        });
 //    }
 
-    private void Banner() {
-
-
-        homeBannerModelClasses = new ArrayList<>();
-
-        for (int i = 0; i < image.length; i++) {
-            HomeBannerModelClass beanClassForRecyclerView_contacts = new HomeBannerModelClass(image[i]);
-            homeBannerModelClasses.add(beanClassForRecyclerView_contacts);
-        }
-
-        mAdapter = new RecycleAdapteHomeBanner(getContext(), homeBannerModelClasses);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        recyclerView.setLayoutManager(mLayoutManager);
-
-
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(mAdapter);
-
-    }
 
 //    public void filterQuery(String text) {
 //        ArrayList<Model> filterdNames = new ArrayList<>();
@@ -593,5 +573,27 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
 //                Toast.makeText(getContext(), String.valueOf(t), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+
+    private void Banner() {
+
+
+        homeBannerModelClasses = new ArrayList<>();
+
+        for (int i = 0; i < image.length; i++) {
+            HomeBannerModelClass beanClassForRecyclerView_contacts = new HomeBannerModelClass(image[i]);
+            homeBannerModelClasses.add(beanClassForRecyclerView_contacts);
+        }
+
+        mAdapter = new RecycleAdapteHomeBanner(getContext(), homeBannerModelClasses);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        recyclerbanner.setLayoutManager(mLayoutManager);
+
+
+        recyclerbanner.setLayoutManager(mLayoutManager);
+        recyclerbanner.setItemAnimator(new DefaultItemAnimator());
+        recyclerbanner.setAdapter(mAdapter);
+
     }
 }
