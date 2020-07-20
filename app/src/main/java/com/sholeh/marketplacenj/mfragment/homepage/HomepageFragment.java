@@ -23,7 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mancj.materialsearchbar.MaterialSearchBar;
 import com.sholeh.marketplacenj.R;
-import com.sholeh.marketplacenj.activities.dashboard.ProdukTerbaruActivity;
+import com.sholeh.marketplacenj.activities.dashboard.ProdukAllActivity;
 import com.sholeh.marketplacenj.activities.dashboard.SearchActivity;
 import com.sholeh.marketplacenj.adapter.ProdukByKategoriAdapter;
 import com.sholeh.marketplacenj.adapter.dashboard.ProdukAdapter;
@@ -180,19 +180,19 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
 //                Toast.makeText(getActivity(), "cari ", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.tv_AllProdukDiskon:
-                Intent intent1 = new Intent(getContext(), ProdukTerbaruActivity.class);
+                Intent intent1 = new Intent(getContext(), ProdukAllActivity.class);
                 intent1.putExtra("all","alldiskon");
                 startActivity(intent1);
                 break;
 
             case R.id.tv_Allprodukterbaru:
-                Intent intent2 = new Intent(getContext(), ProdukTerbaruActivity.class);
+                Intent intent2 = new Intent(getContext(), ProdukAllActivity.class);
                 intent2.putExtra("all", "allterbaru");
                 startActivity(intent2);
                 break;
 
             case R.id.tv_AllProdukTerlaris:
-                Intent intent3 = new Intent(getContext(), ProdukTerbaruActivity.class);
+                Intent intent3 = new Intent(getContext(), ProdukAllActivity.class);
                 intent3.putExtra("all", "allterlaris");
                 startActivity(intent3);
                 break;

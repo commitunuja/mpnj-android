@@ -390,7 +390,7 @@ public class Homepage extends AppCompatActivity implements View.OnClickListener 
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.tv_produkterpopuler:
-                Intent intent = new Intent(this, ProdukTerbaruActivity.class);
+                Intent intent = new Intent(this, ProdukAllActivity.class);
                 startActivity(intent);
         }
     }
