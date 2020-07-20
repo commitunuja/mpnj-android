@@ -90,7 +90,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
     private List<Model> tvDataProdukTerbaru;
     private List<Model> tvDataProdukDiskon;
     private List<Model> tvDataProdukTerlaris;
-    private TextView produkterbaru;
+    private TextView tvx_allProdukTerbaru, tvx_allProdukDiskon, tvx_allProdukTerpopuler;
     private ArrayList<TopTenModelClass> topTenModelClasses;
 //    private RecyclerView top_ten_crecyclerview;
     private RecycleAdapteTopTenHome mAdapter2;
@@ -131,7 +131,9 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
         searchBar = view.findViewById(R.id.searchBar);
         searchBar.setOnSearchActionListener(this);
         searchBar.setOnClickListener(this);
-        produkterbaru = view.findViewById(R.id.tv_Allprodukterbaru);
+        tvx_allProdukTerbaru = view.findViewById(R.id.tv_Allprodukterbaru);
+        tvx_allProdukDiskon = view.findViewById(R.id.tv_AllProdukDiskon);
+        tvx_allProdukTerpopuler = view.findViewById(R.id.tv_AllProdukTerlaris);
         recyclerProdukDiskon = view.findViewById(R.id.recycler_produkDiskon);
         recyclerProdukTerbaru = view.findViewById(R.id.rv_produkTerbaru);
         recyclerProdukTerlaris = view.findViewById(R.id.rv_produkterlaris);
@@ -141,7 +143,9 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
         frameLayout = view.findViewById(R.id.frag_container);
 //        search = view.findViewById(R.id.etsearch);
 //        search.setOnClickListener(this);
-        produkterbaru.setOnClickListener(this);
+        tvx_allProdukTerbaru.setOnClickListener(this);
+        tvx_allProdukDiskon.setOnClickListener(this);
+        tvx_allProdukTerpopuler.setOnClickListener(this);
 
 
         Banner();
@@ -175,9 +179,22 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
                 startActivity(search);
 //                Toast.makeText(getActivity(), "cari ", Toast.LENGTH_SHORT).show();
                 break;
+            case R.id.tv_AllProdukDiskon:
+                Intent intent1 = new Intent(getContext(), ProdukTerbaruActivity.class);
+                intent1.putExtra("all","alldiskon");
+                startActivity(intent1);
+                break;
+
             case R.id.tv_Allprodukterbaru:
-                Intent intent = new Intent(getContext(), ProdukTerbaruActivity.class);
-                startActivity(intent);
+                Intent intent2 = new Intent(getContext(), ProdukTerbaruActivity.class);
+                intent2.putExtra("all", "allterbaru");
+                startActivity(intent2);
+                break;
+
+            case R.id.tv_AllProdukTerlaris:
+                Intent intent3 = new Intent(getContext(), ProdukTerbaruActivity.class);
+                intent3.putExtra("all", "allterlaris");
+                startActivity(intent3);
                 break;
 
             case R.id.etsearch:
@@ -511,12 +528,14 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
                     produkDiskonAdapter = new ProdukAdapter(getContext(), tvDataProdukDiskon);
                     recyclerProdukDiskon.setAdapter(produkDiskonAdapter);
                 } else {
-                    Toast.makeText(getContext(), "gagal", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Data Belum Ada", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getContext(), "gagal", Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
             public void onFailure(Call<List<Model>> call, Throwable t) {
-                Toast.makeText(getContext(), String.valueOf(t), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Data Belum Ada", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), String.valueOf(t), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -537,13 +556,14 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
                     produkTerbaruAdapter = new ProdukAdapter(getContext(), tvDataProdukTerbaru);
                     recyclerProdukTerbaru.setAdapter(produkTerbaruAdapter);
                 } else {
-                    Toast.makeText(getContext(), "gagal", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Data Belum Ada", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<List<Model>> call, Throwable t) {
-                Toast.makeText(getContext(), String.valueOf(t), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Data Belum Ada", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), String.valueOf(t), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -563,13 +583,14 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
                     produkTerlarisAdapter = new ProdukAdapter(getContext(), tvDataProdukTerlaris);
                     recyclerProdukTerlaris.setAdapter(produkTerlarisAdapter);
                 } else {
-                    Toast.makeText(getContext(), "gagal", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Data Belum Ada", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<List<Model>> call, Throwable t) {
-                Toast.makeText(getContext(), String.valueOf(t), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Data Belum Ada", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), String.valueOf(t), Toast.LENGTH_SHORT).show();
             }
         });
     }
