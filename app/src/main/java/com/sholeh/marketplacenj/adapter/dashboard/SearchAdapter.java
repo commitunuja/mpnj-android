@@ -71,7 +71,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         if(diskon == 0){
            viewHolder.diskon.setVisibility(View.GONE);
         }else{
-//            viewHolder.diskon.setText(modelpencarian.getDiskon()+"%");
+            viewHolder.diskon.setText(modelpencarian.getDiskon()+"%");
             viewHolder.diskon.setVisibility(View.VISIBLE);
         }
     }
