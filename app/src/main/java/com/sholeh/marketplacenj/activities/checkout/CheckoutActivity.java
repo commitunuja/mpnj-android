@@ -87,6 +87,7 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
     private Rajaongkir rajaongkircost;
     String harganya;
     public String getidKec;
+    String nilaiIntent;
     private Intent i;
     //    List<ResDetailKeranjang> resDetailKeranjangs;
     ResDetailKeranjang resDetailKeranjang;
@@ -133,6 +134,7 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
         Intent i = getIntent();
 //        ongkir = i.getStringExtra("ongkir"); // from opsi pengiriman
         resetKurir = i.getStringExtra("reset_kurir");
+        nilaiIntent = i.getStringExtra("icheckout");
         idK = i.getStringArrayListExtra("idcheckout"); //from keranjang detail
         arrayIdKeranjang = String.valueOf(i.getStringArrayListExtra("idcheckout"));
         String[] nomor = arrayIdKeranjang.split("\\[");
@@ -252,58 +254,58 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
         if (subval1.equals("Rp0")) {
             Toast.makeText(this, "Lengkapi Pengiriman Produk Anda", Toast.LENGTH_SHORT).show();
         } else {
-        ProgresDialog();
-        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-        Call<JsonObject> call = service.simpanTransaksi(id_konsumen, totalbayar, list);
+            ProgresDialog();
+            APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+            Call<JsonObject> call = service.simpanTransaksi(id_konsumen, totalbayar, list);
 
-        call.enqueue(new Callback<JsonObject>() {
-            @Override
-            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                Log.d("simpantransaksi", String.valueOf(response));
-                try {
-                    JSONObject jsonObject;
-                    jsonObject = new JSONObject(String.valueOf(response.body()));
-                    Integer id_transaksi = (Integer) jsonObject.get("id_transaksi");
-                    Integer kodetransaksi = (Integer) jsonObject.get("kode_transaksi");
-                    String total_bayar = (String) jsonObject.get("total_bayar");
-                    String tgl_pemesanan = (String) jsonObject.get("tanggal_pemesanan");
-                    String batasPembayaran = (String) jsonObject.get("batas_pembayaran");
-                    Log.d("kodetransaksi", String.valueOf(id_transaksi)+"/t"+kodetransaksi+"/t"+totalbayar+"/t"+tgl_pemesanan+"/t"+batasPembayaran);
-                    progressHUD.dismiss();
-                    Intent intent = new Intent(CheckoutActivity.this, KonfirmasiPembayaranActivity.class);
-                    Bundle b = new Bundle();
-                    b.putDouble("totalbayar", totalbayar);
+            call.enqueue(new Callback<JsonObject>() {
+                @Override
+                public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                    Log.d("simpantransaksi", String.valueOf(response));
+                    try {
+                        JSONObject jsonObject;
+                        jsonObject = new JSONObject(String.valueOf(response.body()));
+                        Integer id_transaksi = (Integer) jsonObject.get("id_transaksi");
+                        Integer kodetransaksi = (Integer) jsonObject.get("kode_transaksi");
+                        String total_bayar = (String) jsonObject.get("total_bayar");
+                        String tgl_pemesanan = (String) jsonObject.get("tanggal_pemesanan");
+                        String batasPembayaran = (String) jsonObject.get("batas_pembayaran");
+                        Log.d("kodetransaksi", String.valueOf(id_transaksi) + "/t" + kodetransaksi + "/t" + totalbayar + "/t" + tgl_pemesanan + "/t" + batasPembayaran);
+                        progressHUD.dismiss();
+                        Intent intent = new Intent(CheckoutActivity.this, KonfirmasiPembayaranActivity.class);
+                        Bundle b = new Bundle();
+                        b.putDouble("totalbayar", totalbayar);
 
-                    b.putInt("id_transaksi", id_transaksi);
-                    b.putInt("kodetransaksi", kodetransaksi);
-                    b.putString("total", total_bayar);
-                    b.putString("tanggal_pemesanan", tgl_pemesanan);
-                    b.putString("batas_pembayaran", batasPembayaran);
-                    intent.putExtras(b);
-                    startActivity(intent);
-                    finish();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    progressHUD.dismiss();
+                        b.putInt("id_transaksi", id_transaksi);
+                        b.putInt("kodetransaksi", kodetransaksi);
+                        b.putString("total", total_bayar);
+                        b.putString("tanggal_pemesanan", tgl_pemesanan);
+                        b.putString("batas_pembayaran", batasPembayaran);
+                        intent.putExtras(b);
+                        startActivity(intent);
+                        finish();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        progressHUD.dismiss();
+                    }
+
+
                 }
 
-
-            }
-
-            @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
-                Log.d("simpantransaksi", String.valueOf(t));
-                progressHUD.dismiss();
-            }
-        });
+                @Override
+                public void onFailure(Call<JsonObject> call, Throwable t) {
+                    Log.d("simpantransaksi", String.valueOf(t));
+                    progressHUD.dismiss();
+                }
+            });
         }
     }
 
     public void batalChekout() {
-        if (!NetworkUtility.isNetworkConnected(CheckoutActivity.this)){
-            AppUtilits.displayMessage(CheckoutActivity.this,  getString(R.string.network_not_connected));
+        if (!NetworkUtility.isNetworkConnected(CheckoutActivity.this)) {
+            AppUtilits.displayMessage(CheckoutActivity.this, getString(R.string.network_not_connected));
 
-        }else {
+        } else {
             ProgresDialog();
             APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
             Call<JsonObject> call = service.batalCheckout(id_konsumen);
@@ -315,10 +317,16 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
 
                     if (response.body() != null && response.isSuccessful()) {
                         progressHUD.dismiss();
-                        Intent intent = new Intent(CheckoutActivity.this, KeranjangDetailActivity.class);
-                        startActivity(intent);
-                        finish();
-                    }else{
+//                        Toast.makeText(CheckoutActivity.this, ""+nilaiIntent, Toast.LENGTH_SHORT).show();
+                        if (nilaiIntent.equalsIgnoreCase("fragment")) {
+                            finish();
+                        } else {
+                            Intent intent = new Intent(CheckoutActivity.this, KeranjangDetailActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+
+                    } else {
                         progressHUD.dismiss();
                         AppUtilits.displayMessage(getApplication(), getString(R.string.network_error));
                     }
