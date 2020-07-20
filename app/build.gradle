@@ -89,6 +89,7 @@ dependencies {
     implementation 'br.com.mauker.materialsearchview:materialsearchview:1.2.3'
     implementation 'com.github.iammert:MultiSearchView:0.1'
     implementation 'com.kaopiz:kprogresshud:1.2.0'
+    implementation 'com.daimajia.slider:library:1.1.5@aar'
 
 
 
