@@ -14,7 +14,7 @@ public class ItemKeranjang {
     private String jumlah;
     @SerializedName("id_produk")
     @Expose
-    private Integer idProduk;
+    private String idProduk;
     @SerializedName("nama_produk")
     @Expose
     private String namaProduk;
@@ -58,11 +58,11 @@ public class ItemKeranjang {
     @Expose
     private Pelapak pelapak;
 
-    public Integer getIdProduk() {
+    public String getIdProduk() {
         return idProduk;
     }
 
-    public void setIdProduk(Integer idProduk) {
+    public void setIdProduk(String idProduk) {
         this.idProduk = idProduk;
     }
 
