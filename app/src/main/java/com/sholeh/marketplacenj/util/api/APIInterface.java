@@ -11,6 +11,7 @@ import com.sholeh.marketplacenj.model.province.ItemProvince;
 import com.sholeh.marketplacenj.model.subdistrict.ItemKec;
 import com.sholeh.marketplacenj.respon.ResAlamat;
 import com.sholeh.marketplacenj.respon.ResBank;
+import com.sholeh.marketplacenj.respon.ResBanner;
 import com.sholeh.marketplacenj.respon.ResDetailAlamat;
 import com.sholeh.marketplacenj.respon.ResDetailKeranjang;
 import com.sholeh.marketplacenj.respon.ResHapusKeranjang;
@@ -323,6 +324,8 @@ public interface APIInterface {
     Call<ResTampilWishlist> cariWishlist(@Field("id_user") String userId,
                                   @Field("nama_produk") String namaProduk);
 
+    @GET("api/banner")
+    Call<ResBanner> getBanner();
 
 }
 
