@@ -1,23 +1,48 @@
 package com.sholeh.marketplacenj.model.keranjang;
 
 public class ChildModel {
-    String id_keranjang,  nama_produk, subtotal, gambar;
+    String id_keranjang,  nama_produk,  gambar, keterangan, kategori, terjual;
     int harga, diskon , stok, jumlah;
-    public static final  int STATUS_INVALID=0;
-    public static final  int STATUS_VALID=1;
 
     private boolean isChecked;
 
-    public ChildModel(String id_keranjang, String nama_produk, int harga, int diskon , int jumlah, String gambar, int stok,  boolean isChecked) {
+    public ChildModel(String id_keranjang, String nama_produk,String keterangan , int harga, int diskon , int jumlah, String gambar, int stok, String terjual,  boolean isChecked) {
         this.id_keranjang = id_keranjang;
 //        this.id_produk = id_produk;
         this.nama_produk = nama_produk;
+//        this.kategori = kategori;
+        this.keterangan = keterangan;
         this.harga = harga;
         this.diskon = diskon;
         this.jumlah = jumlah;
         this.gambar = gambar;
         this.stok = stok;
+        this.terjual = terjual;
         this.isChecked = isChecked;
+    }
+
+    public String getKategori() {
+        return kategori;
+    }
+
+    public void setKategori(String kategori) {
+        this.kategori = kategori;
+    }
+
+    public String getKeterangan() {
+        return keterangan;
+    }
+
+    public void setKeterangan(String keterangan) {
+        this.keterangan = keterangan;
+    }
+
+    public String getTerjual() {
+        return terjual;
+    }
+
+    public void setTerjual(String terjual) {
+        this.terjual = terjual;
     }
 
     public String getGambar() {
