@@ -4,19 +4,13 @@ package com.sholeh.marketplacenj.activities.alamat;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Activity;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -24,10 +18,9 @@ import android.widget.Toast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.sholeh.marketplacenj.activities.AddAlamat;
-import com.sholeh.marketplacenj.activities.AlamatActivity;
 import com.sholeh.marketplacenj.activities.checkout.CheckoutActivity;
 import com.sholeh.marketplacenj.adapter.alamat.AddressCheckoutAdapter;
-import com.sholeh.marketplacenj.respon.ResDetailKeranjang;
+import com.sholeh.marketplacenj.respon.ResCheckout;
 import com.sholeh.marketplacenj.util.api.APIInterface;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.util.ServiceGenerator;
@@ -38,7 +31,6 @@ import com.sholeh.marketplacenj.util.NetworkUtility;
 import com.sholeh.marketplacenj.util.Preferences;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import retrofit2.Call;
@@ -61,7 +53,7 @@ public class PilihAlamatCheckout extends AppCompatActivity implements View.OnCli
     private KProgressHUD progressDialogHud;
     LinearLayout lnKosong;
 
-    ResDetailKeranjang resDetailKeranjang;
+    ResCheckout resCheckout;
     ArrayList<String> arrayIdKeranjang;
     String idkk;
     String id_konsumen, idkeranjang;

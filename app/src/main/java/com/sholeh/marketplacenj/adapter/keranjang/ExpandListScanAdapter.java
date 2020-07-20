@@ -13,6 +13,7 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,8 +24,6 @@ import com.bumptech.glide.request.RequestOptions;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.sholeh.marketplacenj.activities.details.ProductDetailActivity;
 import com.sholeh.marketplacenj.activities.keranjang.KeranjangDetailActivity;
-import com.sholeh.marketplacenj.model.wishlist.modelWishlist;
-import com.sholeh.marketplacenj.respon.ResDetailKeranjang;
 import com.sholeh.marketplacenj.respon.ResHapusKeranjang;
 import com.sholeh.marketplacenj.respon.ResUbahJumlahProduk;
 import com.sholeh.marketplacenj.util.AppUtilits;
@@ -62,7 +61,8 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
     StringTokenizer st, st2;
     private static final String TAG = "MyExpandAdapter";
     String CUSTOM_ACTION = "com.example.YOUR_ACTION";
-    private KProgressHUD progressHud;
+    private KProgressHUD progressHUD;
+    private ProgressBar progressBar;
 
 
     public ExpandListScanAdapter(Context context, List<HeaderModel> listHeader, HashMap<HeaderModel, List<ChildModel>> listChild) {
@@ -155,6 +155,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
         final ImageView delete_item, img_gambar;
         final CheckBox cbchild;
             final ChildModel childModel = listChild.get(listHeaderFilter.get(groupPosition)).get(childPosition);
+//        progressHUD = KProgressHUD.create(context);
 
         tvx_nama = convertView.findViewById(R.id.txtnamaPRODUK);
         tvx_idKeranjang = convertView.findViewById(R.id.txtIdkerenjang);
@@ -215,17 +216,16 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(context, ProductDetailActivity.class);
-//                intent.putExtra("id_produk", String.valueOf(childModel.getId_keranjang()));
-//                intent.putExtra("nama_produk", childModel.getNama_produk());
-//                intent.putExtra("harga_jual", String.valueOf(childModel.getHarga()));
-//                intent.putExtra("stok", String.valueOf(childModel.getStok()));
-//                intent.putExtra("terjual", String.valueOf(childModel.getTerjual()));
-//                intent.putExtra("keterangan", childModel.getKeterangan());
-//                intent.putExtra("kategori", childModel.getKategori());
-//                intent.putExtra("diskon", String.valueOf(childModel.getDiskon()));
-//                intent.putExtra("foto_produk", CONSTANTS.SUB_DOMAIN + childModel.getGambar());
-//                context.startActivity(intent);
+                Intent intent = new Intent(context, ProductDetailActivity.class);
+                intent.putExtra("id_produk", String.valueOf(childModel.getId_produk()));
+                intent.putExtra("nama_produk", childModel.getNama_produk());
+                intent.putExtra("harga_jual", String.valueOf(childModel.getHarga()));
+                intent.putExtra("stok", String.valueOf(childModel.getStok()));
+                intent.putExtra("terjual", String.valueOf(childModel.getTerjual()));
+                intent.putExtra("keterangan", childModel.getKeterangan());
+                intent.putExtra("kategori", childModel.getKategori());
+                intent.putExtra("diskon", String.valueOf(childModel.getDiskon()));
+                context.startActivity(intent);
             }
         });
 
@@ -264,6 +264,8 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
         delete_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                ProgresDialog();
+//                progressBar.setVisibility(View.VISIBLE);
                 String id_keranjang = childModel.getId_keranjang();
                 APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
                 Call<ResHapusKeranjang> call = service.hapusProdukKeranjang(id_keranjang);
@@ -272,14 +274,21 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
                     public void onResponse(Call<ResHapusKeranjang> call, Response<ResHapusKeranjang> response) {
                         if (response.body() != null && response.isSuccessful()) {
                             if (response.body().getPesan().equalsIgnoreCase("sukses")) {
-                                AppUtilits.displayMessage(context, "Sukses hapus produk dari keranjang");
+//                                progressHUD.dismiss();
+//                                progressBar.setVisibility(View.GONE);
+//                                AppUtilits.displayMessage(context, "Sukses hapus produk dari keranjang");
+//                                Toast.makeText(context, "Sukses Hapus", Toast.LENGTH_SHORT).show();
 
                                 ((KeranjangDetailActivity) context).getDetailKeranjang();
 
                             } else {
+//                                progressBar.setVisibility(View.GONE);
+//                                progressHUD.dismiss();
                                 AppUtilits.displayMessage(context, "Gagal hapus produk dari keranjang");
                             }
                         } else {
+//                            progressHUD.dismiss();
+//                            progressBar.setVisibility(View.GONE);
                             AppUtilits.displayMessage(context, context.getString(R.string.network_error));
                         }
 
@@ -287,6 +296,8 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 
                     @Override
                     public void onFailure(Call<ResHapusKeranjang> call, Throwable t) {
+//                        progressHUD.dismiss();
+//                        progressBar.setVisibility(View.GONE);
                         AppUtilits.displayMessage(context, context.getString(R.string.failed_request));
 
                     }
@@ -475,5 +486,12 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
         i.putExtra("idkeranjang",String.valueOf(myArray)) ;
         LocalBroadcastManager.getInstance(context).sendBroadcast(i);
 //        Toast.makeText(context, ""+String.valueOf(myArray), Toast.LENGTH_SHORT).show();
+    }
+
+    private void ProgresDialog() {
+        progressHUD.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setLabel("Proses...")
+                .setCancellable(false);
+        progressHUD.show();
     }
 }

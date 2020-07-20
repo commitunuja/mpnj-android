@@ -201,6 +201,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
 
         vid_produk = getIntent().getStringExtra("id_produk");
+
         namaproduk = getIntent().getExtras().getString("nama_produk");
         vhargaproduk = parseInt(getIntent().getStringExtra("harga_jual"));
         vstok = parseInt(getIntent().getStringExtra("stok"));
@@ -321,7 +322,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                     myProgressBar.setVisibility(View.GONE);
                 } catch (JSONException e) {
                     myProgressBar.setVisibility(View.GONE);
-                    Toast.makeText(ProductDetailActivity.this, "Terdapat Kesalahan Silahkan Coba Lagi Nanti", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ProductDetailActivity.this, "Terdapat Kesalahan. Silahkan Coba Lagi Nanti", Toast.LENGTH_SHORT).show();
 
                     e.printStackTrace();
                 }

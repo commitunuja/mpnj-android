@@ -6,11 +6,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,9 +15,7 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
@@ -31,11 +26,10 @@ import com.sholeh.marketplacenj.activities.checkout.CheckoutActivity;
 import com.sholeh.marketplacenj.activities.kurir.OpsiPengirimanActivity;
 import com.sholeh.marketplacenj.model.checkout.ChildCheckout;
 import com.sholeh.marketplacenj.model.checkout.HeaderCheckout;
-import com.sholeh.marketplacenj.respon.ResDetailKeranjang;
+import com.sholeh.marketplacenj.respon.ResCheckout;
 import com.sholeh.marketplacenj.util.CONSTANTS;
 import com.sholeh.marketplacenj.util.Preferences;
 
-import java.io.Serializable;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -213,18 +207,18 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
             public void onClick(View v) {
                 HeaderCheckout myNewsheader = listHeaderFilter.get(groupPosition);
                 Context context = v.getContext();
-                ResDetailKeranjang bs = ((CheckoutActivity) context).getbs();
+                ResCheckout bs = ((CheckoutActivity) context).getbs();
                 ArrayList<String> id = ((CheckoutActivity) context).listIdKeranjang();
                 ArrayList<String> idByParent = new ArrayList<String>();
 
-                for (int i = 0; i < bs.getDataKeranjang().get(groupPosition).getItem().size(); i++) {
-                    idByParent.add(bs.getDataKeranjang().get(groupPosition).getItem().get(i).getIdKeranjang());
+                for (int i = 0; i < bs.getDataCheckout().get(groupPosition).getItem().size(); i++) {
+                    idByParent.add(bs.getDataCheckout().get(groupPosition).getItem().get(i).getIdKeranjang());
                 }
-                String idKabPenjual = bs.getDataKeranjang().get(groupPosition).getIdKabupaten();
+                String idKabPenjual = bs.getDataCheckout().get(groupPosition).getIdKabupaten();
                 String idKecPembeli = bs.getPembeli().getIdKecamatan();
 
-                String nama_kota = bs.getDataKeranjang().get(groupPosition).getNamaKota();
-                String weight = bs.getDataKeranjang().get(groupPosition).getTotalBerat();
+                String nama_kota = bs.getDataCheckout().get(groupPosition).getNamaKota();
+                String weight = bs.getDataCheckout().get(groupPosition).getTotalBerat();
                 Intent intent = new Intent(context, OpsiPengirimanActivity.class);
                 intent.putExtra("idkab_toko", String.valueOf(idKabPenjual));
                 intent.putExtra("idkec_pembeli", String.valueOf(idKecPembeli));

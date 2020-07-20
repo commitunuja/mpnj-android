@@ -2,10 +2,7 @@ package com.sholeh.marketplacenj.adapter.pesanan;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Paint;
-import android.graphics.Typeface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,20 +15,12 @@ import android.widget.Toast;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.sholeh.marketplacenj.R;
-import com.sholeh.marketplacenj.activities.keranjang.KeranjangDetailActivity;
 import com.sholeh.marketplacenj.model.keranjang.ChildModel;
-import com.sholeh.marketplacenj.model.keranjang.HeaderModel;
 import com.sholeh.marketplacenj.model.pesanan.DataPesanan;
 import com.sholeh.marketplacenj.model.pesanan.Item;
-import com.sholeh.marketplacenj.model.pesanan.Pesanan;
-import com.sholeh.marketplacenj.respon.ResDetailKeranjang;
-import com.sholeh.marketplacenj.respon.ResHapusKeranjang;
+import com.sholeh.marketplacenj.respon.ResCheckout;
 import com.sholeh.marketplacenj.respon.ResUbahJumlahProduk;
-import com.sholeh.marketplacenj.util.AppUtilits;
-import com.sholeh.marketplacenj.util.CONSTANTS;
 import com.sholeh.marketplacenj.util.Preferences;
 import com.sholeh.marketplacenj.util.ServiceGenerator;
 import com.sholeh.marketplacenj.util.api.APIInterface;
@@ -295,76 +284,76 @@ public class ExpandListPesananAdapter extends BaseExpandableListAdapter {
 
 
 
-    public void addJumlah(ChildModel childModel) {
-        int jumlahProduk = childModel.getJumlah();
-        int stokProduk = childModel.getStok();
-        String idKeranjang = childModel.getId_keranjang();
-        if (jumlahProduk == stokProduk) {
-            Toast.makeText(context, "Stok Barang Hanya Tersedia " + stokProduk, Toast.LENGTH_SHORT).show();
-            return;
-        }
-        jumlahProduk++;
-        childModel.setJumlah(jumlahProduk);
-        notifyDataSetChanged();
-        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-        Call<ResDetailKeranjang> call = service.getDataDetailKeranjang(id_konsumen);
-        call.enqueue(new Callback<ResDetailKeranjang>() {
-            @Override
-            public void onResponse(Call<ResDetailKeranjang> call, Response<ResDetailKeranjang> response) {
-                if (response.body() != null && response.isSuccessful()) {
-                    getTotal();
-
-                } else {
-                    Toast.makeText(context, "gagal " + response.body(), Toast.LENGTH_SHORT).show();
-//                                AppUtilits.displayMessage(mContext, mContext.getString(R.string.network_error));
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResDetailKeranjang> call, Throwable t) {
-                Toast.makeText(context, "gagal " + t, Toast.LENGTH_SHORT).show();
-//                            Log.e(TAG, " edit fail "+ t.toString());
-//                            AppUtilits.displayMessage(mContext,  mContext.getString(R.string.fail_toeditcart));
-            }
-        });
-    }
-
-    public void kurangiJumlah(ChildModel childModel) {
-        int jumlahProduk = childModel.getJumlah();
-        int stokProduk = childModel.getStok();
-        String idKeranjang = childModel.getId_keranjang();
-        if (jumlahProduk == 1) {
-            Toast.makeText(context, "Stok Barang Tersedia " + stokProduk, Toast.LENGTH_SHORT).show();
-            return;
-        }
-        jumlahProduk--;
-        childModel.setJumlah(jumlahProduk);
-        notifyDataSetChanged();
-
-        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-        Call<ResUbahJumlahProduk> call = service.updateJumlah(idKeranjang, String.valueOf(jumlahProduk));
-        call.enqueue(new Callback<ResUbahJumlahProduk>() {
-            @Override
-            public void onResponse(Call<ResUbahJumlahProduk> call, Response<ResUbahJumlahProduk> response) {
-                if (response.body() != null && response.isSuccessful()) {
-                    getTotal();
-
+//    public void addJumlah(ChildModel childModel) {
+//        int jumlahProduk = childModel.getJumlah();
+//        int stokProduk = childModel.getStok();
+//        String idKeranjang = childModel.getId_keranjang();
+//        if (jumlahProduk == stokProduk) {
+//            Toast.makeText(context, "Stok Barang Hanya Tersedia " + stokProduk, Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+//        jumlahProduk++;
+//        childModel.setJumlah(jumlahProduk);
+//        notifyDataSetChanged();
+//        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+//        Call<ResCheckout> call = service.getDataDetailKeranjang(id_konsumen);
+//        call.enqueue(new Callback<ResCheckout>() {
+//            @Override
+//            public void onResponse(Call<ResCheckout> call, Response<ResCheckout> response) {
+//                if (response.body() != null && response.isSuccessful()) {
+//                    getTotal();
 //
-                } else {
-                    Toast.makeText(context, "gagal " + response.body(), Toast.LENGTH_SHORT).show();
-//                                AppUtilits.displayMessage(mContext, mContext.getString(R.string.network_error));
-                }
-            }
+//                } else {
+//                    Toast.makeText(context, "gagal " + response.body(), Toast.LENGTH_SHORT).show();
+////                                AppUtilits.displayMessage(mContext, mContext.getString(R.string.network_error));
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ResCheckout> call, Throwable t) {
+//                Toast.makeText(context, "gagal " + t, Toast.LENGTH_SHORT).show();
+////                            Log.e(TAG, " edit fail "+ t.toString());
+////                            AppUtilits.displayMessage(mContext,  mContext.getString(R.string.fail_toeditcart));
+//            }
+//        });
+//    }
 
-
-            @Override
-            public void onFailure(Call<ResUbahJumlahProduk> call, Throwable t) {
-                Toast.makeText(context, "gagal " + t, Toast.LENGTH_SHORT).show();
-//                            Log.e(TAG, " edit fail "+ t.toString());
-//                            AppUtilits.displayMessage(mContext,  mContext.getString(R.string.fail_toeditcart));
-            }
-        });
-    }
+//    public void kurangiJumlah(ChildModel childModel) {
+//        int jumlahProduk = childModel.getJumlah();
+//        int stokProduk = childModel.getStok();
+//        String idKeranjang = childModel.getId_keranjang();
+//        if (jumlahProduk == 1) {
+//            Toast.makeText(context, "Stok Barang Tersedia " + stokProduk, Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+//        jumlahProduk--;
+//        childModel.setJumlah(jumlahProduk);
+//        notifyDataSetChanged();
+//
+//        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+//        Call<ResUbahJumlahProduk> call = service.updateJumlah(idKeranjang, String.valueOf(jumlahProduk));
+//        call.enqueue(new Callback<ResUbahJumlahProduk>() {
+//            @Override
+//            public void onResponse(Call<ResUbahJumlahProduk> call, Response<ResUbahJumlahProduk> response) {
+//                if (response.body() != null && response.isSuccessful()) {
+//                    getTotal();
+//
+////
+//                } else {
+//                    Toast.makeText(context, "gagal " + response.body(), Toast.LENGTH_SHORT).show();
+////                                AppUtilits.displayMessage(mContext, mContext.getString(R.string.network_error));
+//                }
+//            }
+//
+//
+//            @Override
+//            public void onFailure(Call<ResUbahJumlahProduk> call, Throwable t) {
+//                Toast.makeText(context, "gagal " + t, Toast.LENGTH_SHORT).show();
+////                            Log.e(TAG, " edit fail "+ t.toString());
+////                            AppUtilits.displayMessage(mContext,  mContext.getString(R.string.fail_toeditcart));
+//            }
+//        });
+//    }
 
     private void setupOneParentAllChildChecked(boolean isChecked, int groupPosition) { //b
         DataPesanan headerModel = listHeaderFilter.get(groupPosition);

@@ -1,7 +1,10 @@
-package com.sholeh.marketplacenj.respon;
-import java.util.List;
+package com.sholeh.marketplacenj.model;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.sholeh.marketplacenj.respon.ItemCheckout;
+
+import java.util.List;
 
 public class DataKeranjang {
 

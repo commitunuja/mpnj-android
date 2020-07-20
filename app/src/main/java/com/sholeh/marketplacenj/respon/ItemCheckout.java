@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 import com.sholeh.marketplacenj.model.Kategori;
 import com.sholeh.marketplacenj.model.Pelapak;
 
-public class ItemKeranjang {
+public class ItemCheckout {
 
     @SerializedName("id_keranjang")
     @Expose

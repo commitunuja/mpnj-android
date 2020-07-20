@@ -248,18 +248,16 @@ public class AdapterExpandKeranjang extends BaseExpandableListAdapter {
             public void onClick(View v) {
 //                Toast.makeText(context, "coba child", Toast.LENGTH_SHORT).show();
 
-//                Intent intent = new Intent(context, ProductDetailActivity.class);
-//                intent.putExtra("id_produk", String.valueOf(childModel.getId_keranjang()));
-//                intent.putExtra("nama_produk", childModel.getNama_produk());
-//                intent.putExtra("harga_jual", String.valueOf(childModel.getHarga()));
-//                intent.putExtra("stok", String.valueOf(childModel.getStok()));
-//                intent.putExtra("terjual", String.valueOf(childModel.getTerjual()));
-//                intent.putExtra("keterangan", childModel.getKeterangan());
-//                intent.putExtra("kategori", childModel.getKategori());
-//                intent.putExtra("diskon", String.valueOf(childModel.getDiskon()));
-//                intent.putExtra("foto_produk", CONSTANTS.SUB_DOMAIN + childModel.getGambar());
-////                    Toast.makeText(context, "id_produk"+myNewsmodel.getIdProduk(), Toast.LENGTH_SHORT).show();
-//                context.startActivity(intent);
+                Intent intent = new Intent(context, ProductDetailActivity.class);
+                intent.putExtra("id_produk", String.valueOf(childModel.getId_produk()));
+                intent.putExtra("nama_produk", childModel.getNama_produk());
+                intent.putExtra("harga_jual", String.valueOf(childModel.getHarga()));
+                intent.putExtra("stok", String.valueOf(childModel.getStok()));
+                intent.putExtra("terjual", String.valueOf(childModel.getTerjual()));
+                intent.putExtra("keterangan", childModel.getKeterangan());
+                intent.putExtra("kategori", childModel.getKategori());
+                intent.putExtra("diskon", String.valueOf(childModel.getDiskon()));
+                context.startActivity(intent);
             }
         });
 

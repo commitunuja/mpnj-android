@@ -9,25 +9,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sholeh.marketplacenj.R;
-import com.sholeh.marketplacenj.activities.DetailAlamat;
-import com.sholeh.marketplacenj.activities.UbahPassword;
 import com.sholeh.marketplacenj.activities.alamat.PilihAlamatCheckout;
 import com.sholeh.marketplacenj.activities.checkout.CheckoutActivity;
-import com.sholeh.marketplacenj.activities.details.ProductDetailActivity;
 import com.sholeh.marketplacenj.model.AlamatModel;
 import com.sholeh.marketplacenj.respon.ResAlamat;
-import com.sholeh.marketplacenj.respon.ResDetailKeranjang;
-import com.sholeh.marketplacenj.respon.ResNewPassword;
-import com.sholeh.marketplacenj.util.AppUtilits;
-import com.sholeh.marketplacenj.util.CONSTANTS;
-import com.sholeh.marketplacenj.util.NetworkUtility;
 import com.sholeh.marketplacenj.util.Preferences;
 import com.sholeh.marketplacenj.util.ServiceGenerator;
 import com.sholeh.marketplacenj.util.api.APIInterface;

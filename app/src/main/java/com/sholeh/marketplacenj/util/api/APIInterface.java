@@ -3,6 +3,7 @@ package com.sholeh.marketplacenj.util.api;
 import com.google.gson.JsonObject;
 import com.sholeh.marketplacenj.model.Kategori;
 import com.sholeh.marketplacenj.model.Model;
+import com.sholeh.marketplacenj.model.ResDetailKeranjang;
 import com.sholeh.marketplacenj.model.city.ItemCity;
 import com.sholeh.marketplacenj.model.cost.ItemCost;
 import com.sholeh.marketplacenj.model.pesanan.Pesanan;
@@ -13,7 +14,7 @@ import com.sholeh.marketplacenj.respon.ResAlamat;
 import com.sholeh.marketplacenj.respon.ResBank;
 import com.sholeh.marketplacenj.respon.ResBanner;
 import com.sholeh.marketplacenj.respon.ResDetailAlamat;
-import com.sholeh.marketplacenj.respon.ResDetailKeranjang;
+import com.sholeh.marketplacenj.respon.ResCheckout;
 import com.sholeh.marketplacenj.respon.ResHapusKeranjang;
 import com.sholeh.marketplacenj.respon.ResKeranjang;
 import com.sholeh.marketplacenj.respon.ResKonfirmasi;
@@ -25,7 +26,6 @@ import com.sholeh.marketplacenj.respon.ResRekAdmin;
 import com.sholeh.marketplacenj.respon.ResTampilWishlist;
 import com.sholeh.marketplacenj.respon.ResUbahJumlahProduk;
 import com.sholeh.marketplacenj.respon.ResWishlist;
-import com.sholeh.marketplacenj.respon.RestCost;
 
 import java.util.List;
 
@@ -223,7 +223,7 @@ public interface APIInterface {
 
     @FormUrlEncoded
     @POST("api/transaksi")
-    Call<ResDetailKeranjang> getDataTransaksi(
+    Call<ResCheckout> getDataTransaksi(
             @Query("id") String id,
             @Field("id_keranjang[]") List<String> id_keranjang);
 
@@ -258,7 +258,7 @@ public interface APIInterface {
     // ubah status keranjang
     @FormUrlEncoded
     @PUT("api/keranjang/{id_user}/go_checkout")
-    Call<ResDetailKeranjang> ubahStatusKeranjang(
+    Call<ResCheckout> ubahStatusKeranjang(
             @Path("id_user") String id_user,
             @Field("id_keranjang[]") List<String> id_keranjang
 

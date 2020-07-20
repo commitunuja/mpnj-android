@@ -1,13 +1,17 @@
-package com.sholeh.marketplacenj.respon;
-import java.util.List;
+package com.sholeh.marketplacenj.model;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.sholeh.marketplacenj.respon.DataCheckout;
+import com.sholeh.marketplacenj.respon.Pembeli;
+
+import java.util.List;
 
 public class ResDetailKeranjang {
     @SerializedName("data_keranjang")
     @Expose
 
-    private List<DataKeranjang> dataKeranjang = null;
+    private List<DataKeranjang> dataCheckout = null;
     @SerializedName("pembeli")
     @Expose
 
@@ -16,12 +20,12 @@ public class ResDetailKeranjang {
     @Expose
     private Integer totalHarganya;
 
-    public List<DataKeranjang> getDataKeranjang() {
-        return dataKeranjang;
+    public List<DataKeranjang> getDataCheckout() {
+        return dataCheckout;
     }
 
-    public void setDataKeranjang(List<DataKeranjang> dataKeranjang) {
-        this.dataKeranjang = dataKeranjang;
+    public void setDataCheckout(List<DataKeranjang> dataCheckout) {
+        this.dataCheckout = dataCheckout;
     }
 
     public Pembeli getPembeli() {

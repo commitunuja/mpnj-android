@@ -23,7 +23,6 @@ import com.google.gson.JsonObject;
 //import com.kaopiz.kprogresshud.KProgressHUD;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.sholeh.marketplacenj.R;
-import com.sholeh.marketplacenj.activities.AlamatActivity;
 import com.sholeh.marketplacenj.activities.alamat.PilihAlamatCheckout;
 import com.sholeh.marketplacenj.activities.keranjang.KeranjangDetailActivity;
 import com.sholeh.marketplacenj.activities.transaksi.KonfirmasiPembayaranActivity;
@@ -31,9 +30,9 @@ import com.sholeh.marketplacenj.adapter.checkout.ExpandAdapterCheckout;
 import com.sholeh.marketplacenj.model.checkout.ChildCheckout;
 import com.sholeh.marketplacenj.model.checkout.HeaderCheckout;
 import com.sholeh.marketplacenj.model.cost.Rajaongkir;
-import com.sholeh.marketplacenj.respon.DataKeranjang;
-import com.sholeh.marketplacenj.respon.ItemKeranjang;
-import com.sholeh.marketplacenj.respon.ResDetailKeranjang;
+import com.sholeh.marketplacenj.respon.DataCheckout;
+import com.sholeh.marketplacenj.respon.ItemCheckout;
+import com.sholeh.marketplacenj.respon.ResCheckout;
 import com.sholeh.marketplacenj.util.AppUtilits;
 import com.sholeh.marketplacenj.util.NetworkUtility;
 import com.sholeh.marketplacenj.util.Preferences;
@@ -90,7 +89,7 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
     String nilaiIntent;
     private Intent i;
     //    List<ResDetailKeranjang> resDetailKeranjangs;
-    ResDetailKeranjang resDetailKeranjang;
+    ResCheckout resCheckout;
     ProgressBar pbCheckout;
     String ongkir, resetKurir;
 
@@ -190,8 +189,8 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
         progressHUD.show();
     }
 
-    public ResDetailKeranjang getbs() {
-        return resDetailKeranjang;
+    public ResCheckout getbs() {
+        return resCheckout;
     }
 
     public ArrayList<String> listIdKeranjang() {
@@ -345,16 +344,16 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
 
     public void getDetailKeranjang() {
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-        Call<ResDetailKeranjang> call = service.getDataTransaksi(id_konsumen, list);
+        Call<ResCheckout> call = service.getDataTransaksi(id_konsumen, list);
 
         listHeader = new ArrayList<>();
         listChild = new HashMap<>();
-        call.enqueue(new Callback<ResDetailKeranjang>() {
+        call.enqueue(new Callback<ResCheckout>() {
             @Override
-            public void onResponse(Call<ResDetailKeranjang> call, retrofit2.Response<ResDetailKeranjang> response) {
+            public void onResponse(Call<ResCheckout> call, retrofit2.Response<ResCheckout> response) {
                 Log.d("cekkk", String.valueOf(response));
                 if (response.body() != null && response.isSuccessful()) {
-                    if (response.body().getDataKeranjang().size() > 0) {
+                    if (response.body().getDataCheckout().size() > 0) {
                         response.body().getTotalHarganya();
                         listHeader.clear();
                         listChild.clear();
@@ -362,22 +361,22 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
                         tvxSetAlamat.setText(alamatCheckout);
                         String idKecPembeli = String.valueOf(response.body().getPembeli().getIdKecamatan());
                         tvx_idKecPembeli.setText(idKecPembeli);
-                        List<DataKeranjang> array = response.body().getDataKeranjang();
-                        resDetailKeranjang = response.body();
+                        List<DataCheckout> array = response.body().getDataCheckout();
+                        resCheckout = response.body();
 
                         for (int i = 0; i < array.size(); i++) {
                             listHeader.add(new HeaderCheckout(
-                                    response.body().getDataKeranjang().get(i).getIdToko(),
-                                    response.body().getDataKeranjang().get(i).getNamaToko(),
-                                    response.body().getDataKeranjang().get(i).getIdKabupaten(),
-                                    response.body().getDataKeranjang().get(i).getKurir(),
-                                    response.body().getDataKeranjang().get(i).getService(),
-                                    response.body().getDataKeranjang().get(i).getOngkir(),
-                                    response.body().getDataKeranjang().get(i).getEtd()));
+                                    response.body().getDataCheckout().get(i).getIdToko(),
+                                    response.body().getDataCheckout().get(i).getNamaToko(),
+                                    response.body().getDataCheckout().get(i).getIdKabupaten(),
+                                    response.body().getDataCheckout().get(i).getKurir(),
+                                    response.body().getDataCheckout().get(i).getService(),
+                                    response.body().getDataCheckout().get(i).getOngkir(),
+                                    response.body().getDataCheckout().get(i).getEtd()));
 
-                            cekOngkir = response.body().getDataKeranjang().get(i).getKurir();
+                            cekOngkir = response.body().getDataCheckout().get(i).getKurir();
                             child = new ArrayList<>();
-                            List<ItemKeranjang> childLink = array.get(i).getItem();
+                            List<ItemCheckout> childLink = array.get(i).getItem();
                             for (int j = 0; j < childLink.size(); j++) {
                                 String idKeranjang = childLink.get(j).getIdKeranjang();
                                 String namaProduk = childLink.get(j).getNamaProduk();
@@ -408,7 +407,7 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
             }
 
             @Override
-            public void onFailure(Call<ResDetailKeranjang> call, Throwable t) {
+            public void onFailure(Call<ResCheckout> call, Throwable t) {
 //                AppUtilits.displayMessage(KeranjangDetailActivity.this, getString(R.string.fail_toGetcart));
                 Log.d("cekkk", String.valueOf(t));
             }

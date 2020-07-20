@@ -1,12 +1,8 @@
 package com.sholeh.marketplacenj.activities.kurir;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -26,7 +22,6 @@ import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.activities.checkout.CheckoutActivity;
 import com.sholeh.marketplacenj.model.cost.Cost;
 import com.sholeh.marketplacenj.model.cost.ItemCost;
-import com.sholeh.marketplacenj.respon.ResDetailKeranjang;
 import com.sholeh.marketplacenj.util.CONSTANTS;
 import com.sholeh.marketplacenj.util.ServiceGenerator;
 import com.sholeh.marketplacenj.util.api.APIInterface;

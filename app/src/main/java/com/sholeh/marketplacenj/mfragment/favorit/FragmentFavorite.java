@@ -1,7 +1,6 @@
 package com.sholeh.marketplacenj.mfragment.favorit;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -19,25 +18,13 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.sholeh.marketplacenj.R;
-import com.sholeh.marketplacenj.activities.AkunActivity;
-import com.sholeh.marketplacenj.activities.AlamatActivity;
-import com.sholeh.marketplacenj.activities.ImageProfilActivity;
-import com.sholeh.marketplacenj.activities.PengaturanAkun;
-import com.sholeh.marketplacenj.activities.keranjang.KeranjangDetailActivity;
-import com.sholeh.marketplacenj.activities.pesanan.MyPesananActivity;
 import com.sholeh.marketplacenj.adapter.wishlist.AdapterWishlist;
-import com.sholeh.marketplacenj.model.AlamatModel;
-import com.sholeh.marketplacenj.model.Foto;
-import com.sholeh.marketplacenj.model.Pelapak;
 import com.sholeh.marketplacenj.model.wishlist.modelWishlist;
-import com.sholeh.marketplacenj.respon.ItemKeranjang;
-import com.sholeh.marketplacenj.respon.ResProfil;
 import com.sholeh.marketplacenj.respon.ResTampilWishlist;
 import com.sholeh.marketplacenj.util.AppUtilits;
 import com.sholeh.marketplacenj.util.NetworkUtility;
@@ -46,7 +33,6 @@ import com.sholeh.marketplacenj.util.ServiceGenerator;
 import com.sholeh.marketplacenj.util.api.APIInterface;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;

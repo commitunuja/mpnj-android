@@ -16,7 +16,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,17 +24,16 @@ import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.sholeh.marketplacenj.R;
-import com.sholeh.marketplacenj.activities.PengaturanAkun;
 import com.sholeh.marketplacenj.activities.checkout.CheckoutActivity;
-import com.sholeh.marketplacenj.activities.keranjang.KeranjangDetailActivity;
 import com.sholeh.marketplacenj.adapter.keranjang.AdapterExpandKeranjang;
-import com.sholeh.marketplacenj.adapter.keranjang.ExpandListScanAdapter;
-import com.sholeh.marketplacenj.model.Kategori;
+import com.sholeh.marketplacenj.model.DataKeranjang;
+import com.sholeh.marketplacenj.model.ItemKeranjang;
+import com.sholeh.marketplacenj.model.ResDetailKeranjang;
 import com.sholeh.marketplacenj.model.keranjang.ChildModel;
 import com.sholeh.marketplacenj.model.keranjang.HeaderModel;
-import com.sholeh.marketplacenj.respon.DataKeranjang;
-import com.sholeh.marketplacenj.respon.ItemKeranjang;
-import com.sholeh.marketplacenj.respon.ResDetailKeranjang;
+import com.sholeh.marketplacenj.respon.DataCheckout;
+import com.sholeh.marketplacenj.respon.ItemCheckout;
+import com.sholeh.marketplacenj.respon.ResCheckout;
 import com.sholeh.marketplacenj.util.AppUtilits;
 import com.sholeh.marketplacenj.util.NetworkUtility;
 import com.sholeh.marketplacenj.util.Preferences;
@@ -48,7 +46,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 import java.util.StringTokenizer;
 
 import retrofit2.Call;
@@ -196,14 +193,14 @@ public class KeranjangFragment extends Fragment implements View.OnClickListener 
                 @Override
                 public void onResponse(Call<ResDetailKeranjang> call, retrofit2.Response<ResDetailKeranjang> response) {
                     if (response.body() != null && response.isSuccessful()) {
-                        if (response.body().getDataKeranjang().size() > 0) {
+                        if (response.body().getDataCheckout().size() > 0) {
                             response.body().getTotalHarganya();
                             listHeader.clear();
                             listChild.clear();
-                            List<DataKeranjang> array = response.body().getDataKeranjang();
+                            List<DataKeranjang> array = response.body().getDataCheckout();
                             for (int i = 0; i < array.size(); i++) {
-                                listHeader.add(new HeaderModel(response.body().getDataKeranjang().get(i).getIdToko(),
-                                        response.body().getDataKeranjang().get(i).getNamaToko(), false));
+                                listHeader.add(new HeaderModel(response.body().getDataCheckout().get(i).getIdToko(),
+                                        response.body().getDataCheckout().get(i).getNamaToko(), false));
 
                                 child = new ArrayList<>();
                                 List<ItemKeranjang> childLink = array.get(i).getItem();
@@ -216,7 +213,7 @@ public class KeranjangFragment extends Fragment implements View.OnClickListener 
                                     hargaJual = Integer.parseInt(String.valueOf(childLink.get(j).getHargaJual()));
                                     int diskon = Integer.parseInt((childLink.get(j).getDiskon()));
                                     int jumlah = Integer.parseInt(String.valueOf(childLink.get(j).getJumlah()));
-                                    String foto = childLink.get(j).getFoto();
+                                    String foto = childLink.get(j).getFoto().get(0).getFotoProduk();
                                     int stok = Integer.parseInt(String.valueOf(childLink.get(j).getStok()));
                                     String terjual = childLink.get(j).getTerjual();
                                     child.add(new ChildModel(idKeranjang, idProduk, namaProduk, kategori, keterangan, hargaJual, diskon, jumlah, foto, stok, terjual, false));
@@ -293,15 +290,15 @@ public class KeranjangFragment extends Fragment implements View.OnClickListener 
                     String idKeranjang = null;
                     ArrayList<String> myIdkCball = new ArrayList<>();
                     if (response.body() != null && response.isSuccessful()) {
-                        if (response.body().getDataKeranjang().size() > 0) {
+                        if (response.body().getDataCheckout().size() > 0) {
                             response.body().getTotalHarganya();
 
                             listHeader.clear();
                             listChild.clear();
-                            List<DataKeranjang> array = response.body().getDataKeranjang();
+                            List<DataKeranjang> array = response.body().getDataCheckout();
                             for (int i = 0; i < array.size(); i++) {
-                                listHeader.add(new HeaderModel(response.body().getDataKeranjang().get(i).getIdToko(),
-                                        response.body().getDataKeranjang().get(i).getNamaToko(), true));
+                                listHeader.add(new HeaderModel(response.body().getDataCheckout().get(i).getIdToko(),
+                                        response.body().getDataCheckout().get(i).getNamaToko(), true));
 
                                 child = new ArrayList<>();
                                 List<ItemKeranjang> childLink = array.get(i).getItem();
@@ -314,7 +311,7 @@ public class KeranjangFragment extends Fragment implements View.OnClickListener 
                                     hargaJual = Integer.parseInt(String.valueOf(childLink.get(j).getHargaJual()));
                                     int diskon = Integer.parseInt((childLink.get(j).getDiskon()));
                                     int jumlah = Integer.parseInt(String.valueOf(childLink.get(j).getJumlah()));
-                                    String foto = childLink.get(j).getFoto();
+                                    String foto = childLink.get(j).getFoto().get(0).getFotoProduk();
                                     int stok = Integer.parseInt(String.valueOf(childLink.get(j).getStok()));
                                     String terjual = childLink.get(j).getTerjual();
 
