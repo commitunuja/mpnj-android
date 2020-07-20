@@ -318,12 +318,13 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
 
                     if (response.body() != null && response.isSuccessful()) {
                         progressHUD.dismiss();
-//                        Toast.makeText(CheckoutActivity.this, ""+nilaiIntent, Toast.LENGTH_SHORT).show();
-                        if (nilaiIntent.equalsIgnoreCase("fragment")) {
-                            finish();
-                        } else {
+
+                        if (nilaiIntent.equalsIgnoreCase("activity")) {
                             Intent intent = new Intent(CheckoutActivity.this, KeranjangDetailActivity.class);
                             startActivity(intent);
+                            finish();
+
+                        } else {
                             finish();
                         }
 
