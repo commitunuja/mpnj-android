@@ -254,9 +254,10 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
         if (subval1.equals("Rp0")) {
             Toast.makeText(this, "Lengkapi Pengiriman Produk Anda", Toast.LENGTH_SHORT).show();
         } else {
+            int total = (int) totalbayar;
             ProgresDialog();
             APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-            Call<JsonObject> call = service.simpanTransaksi(id_konsumen, totalbayar, list);
+            Call<JsonObject> call = service.simpanTransaksi(id_konsumen, total, list);
 
             call.enqueue(new Callback<JsonObject>() {
                 @Override
