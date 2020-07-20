@@ -173,10 +173,10 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
         String hargaOngkir = konvert.nextToken().trim();
 
         String kurir = model.getKurir();
-            tvxkurir.setText(kurir);
-            tvxservice.setText(model.getService());
-            tvxongkos.setText(hargaOngkir);
-            tvxetd.setText("Diterima dalam "+model.getEtd()+" Hari");
+        tvxkurir.setText(kurir);
+        tvxservice.setText(model.getService());
+        tvxongkos.setText(hargaOngkir);
+        tvxetd.setText("Diterima dalam " + model.getEtd() + " Hari");
 //            Intent intent5 = new Intent("custom-validasiopsi2");
 //            intent5.putExtra("validasiopsi2", String.valueOf("Oke"));
 //            LocalBroadcastManager.getInstance(context).sendBroadcast(intent5);
@@ -188,20 +188,20 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
 //        }
 
 
-//        Toast.makeText(context, "kurir "+kurir, Toast.LENGTH_SHORT).show();
-        if (kurir != null ) {
+
+        if (ongkir != 0) {
             lnkurir.setVisibility(View.VISIBLE);
             vOngkos.setVisibility(View.VISIBLE);
-
 ////            tvxkurir.setVisibility(View.VISIBLE);
 ////            tvxservice.setVisibility(View.VISIBLE);
 ////            tvxongkos.setVisibility(View.VISIBLE);
 ////            tvxetd.setVisibility(View.VISIBLE);
 ////            tvxAkanditerima.setVisibility(View.VISIBLE);
-        }else if(kurir == null){
+
+
+         }else if(ongkir == 0){
             lnkurir.setVisibility(View.GONE);
             vOngkos.setVisibility(View.GONE);
-
 ////            tvxkurir.setVisibility(View.GONE);
 ////            tvxservice.setVisibility(View.GONE);
 ////            tvxongkos.setVisibility(View.GONE);
