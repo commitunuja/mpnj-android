@@ -231,7 +231,7 @@ public interface APIInterface {
     @POST("api/transaksi/simpan")
     Call<JsonObject> simpanTransaksi(
             @Field("user_id") String user_id,
-            @Field("totalBayar") Double totalBayar,
+            @Field("totalBayar") Integer totalBayar,
             @Field("id_keranjang[]") List<String> id_keranjang);
 
     @FormUrlEncoded
