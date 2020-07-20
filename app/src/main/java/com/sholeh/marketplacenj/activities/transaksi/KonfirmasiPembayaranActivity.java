@@ -317,10 +317,11 @@ public class KonfirmasiPembayaranActivity extends AppCompatActivity implements V
                 .setPositiveButton("Iya", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(KonfirmasiPembayaranActivity.this, "Segera Selesaikan Api Batal Pesanan !!!", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(KonfirmasiPembayaranActivity.this, KeranjangDetailActivity.class);
-                        startActivity(intent);
-                        finish();
+                        batalPesanan();
+//                        Toast.makeText(KonfirmasiPembayaranActivity.this, "Segera Selesaikan Api Batal Pesanan !!!", Toast.LENGTH_SHORT).show();
+//                        Intent intent = new Intent(KonfirmasiPembayaranActivity.this, KeranjangDetailActivity.class);
+//                        startActivity(intent);
+//                        finish();
 //                        batalPesanan();
                     }
                 }).setNegativeButton("Tidak", null).show();
@@ -631,7 +632,7 @@ public class KonfirmasiPembayaranActivity extends AppCompatActivity implements V
         } else {
 //            Toast.makeText(this, "Oke", Toast.LENGTH_SHORT).show();
             ProgresDialog();
-            int bayar = (int) Math.round(totalbayar);
+            int bayar = (int) (totalbayar);
             namaPengirim = edNamaPengirim.getText().toString();
             File file = new File(imagePath);
             RequestBody reqFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
@@ -683,21 +684,21 @@ public class KonfirmasiPembayaranActivity extends AppCompatActivity implements V
 
 
     public void batalPesanan() {
-        //Toast.makeText(this, ""+id_transaksi, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, ""+id_transaksi, Toast.LENGTH_SHORT).show();
 
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
         Call<JsonObject> call = service.batalPesanan(String.valueOf(id_transaksi));
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                Log.d("gagalp", String.valueOf(response.body() + "\n" + response.message()));
+                Log.d("gagalp", String.valueOf(response.body()));
 //                Toast.makeText(KonfirmasiPembayaranActivity.this, "batalpp" + response.body() + "\n" + response.message(), Toast.LENGTH_SHORT).show();
 
 //                if (response.isSuccessful()) {
 //
-//                Intent intent = new Intent(CheckoutActivity.this, KeranjangDetailActivity.class);
-//                startActivity(intent);
-//                finish();
+                Intent intent = new Intent(KonfirmasiPembayaranActivity.this, KeranjangDetailActivity.class);
+                startActivity(intent);
+                finish();
 //                } else {
 //                    String error = "Error Retrive DataProfil from Server !!!";
 //                    Toast.makeText(CheckoutActivity.this, "gagal", Toast.LENGTH_SHORT).show();
