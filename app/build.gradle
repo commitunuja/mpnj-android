@@ -90,6 +90,7 @@ dependencies {
     implementation 'com.github.iammert:MultiSearchView:0.1'
     implementation 'com.kaopiz:kprogresshud:1.2.0'
     implementation 'com.daimajia.slider:library:1.1.5@aar'
+    implementation 'com.ss.bannerslider:bannerslider:1.8.0'
 
 
 
