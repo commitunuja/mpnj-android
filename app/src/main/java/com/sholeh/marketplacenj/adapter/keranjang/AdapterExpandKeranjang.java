@@ -22,6 +22,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.sholeh.marketplacenj.R;
+import com.sholeh.marketplacenj.activities.details.ProductDetailActivity;
 import com.sholeh.marketplacenj.activities.keranjang.KeranjangDetailActivity;
 import com.sholeh.marketplacenj.model.keranjang.ChildModel;
 import com.sholeh.marketplacenj.model.keranjang.HeaderModel;
@@ -44,6 +45,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+//fragment
 public class AdapterExpandKeranjang extends BaseExpandableListAdapter {
     int jumlahProduk = 0;
     double totalHarga = 0;
@@ -238,6 +240,27 @@ public class AdapterExpandKeranjang extends BaseExpandableListAdapter {
             @Override
             public void onClick(View v) {
                 kurangiJumlah(childModel);
+            }
+        });
+
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Toast.makeText(context, "coba child", Toast.LENGTH_SHORT).show();
+
+
+//                Intent intent = new Intent(context, ProductDetailActivity.class);
+//                intent.putExtra("id_produk", String.valueOf(childModel.getId_keranjang()));
+//                intent.putExtra("nama_produk", childModel.getNama_produk());
+//                intent.putExtra("harga_jual", String.valueOf(childModel.getHarga()));
+//                intent.putExtra("stok", String.valueOf(childModel.getStok()));
+////                intent.putExtra("terjual", String.valueOf(childModel.getTerjual()));
+//                intent.putExtra("keterangan", childModel.getKeterangan());
+////                intent.putExtra("kategori", childModel.getKategori());
+//                intent.putExtra("diskon", String.valueOf(childModel.getDiskon()));
+//                intent.putExtra("foto_produk", CONSTANTS.SUB_DOMAIN + childModel.getGambar());
+////                    Toast.makeText(context, "id_produk"+myNewsmodel.getIdProduk(), Toast.LENGTH_SHORT).show();
+//                context.startActivity(intent);
             }
         });
 
