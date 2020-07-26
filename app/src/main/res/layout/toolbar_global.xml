@@ -39,6 +39,7 @@
                 android:layout_marginBottom="@dimen/value_2" />
 
             <customfonts.MyTextView_Roboto_Bold
+                android:textSize="18sp"
                 android:textStyle="bold"
                 android:id="@+id/tvTitleglobal"
                 android:textColor="@color/white"
@@ -49,7 +50,7 @@
                 android:text="Pesananku" />
 
             <ImageView
-                android:id="@+id/ivBackglobal"
+                android:id="@+id/imgBackglobal"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="@dimen/value_8"
