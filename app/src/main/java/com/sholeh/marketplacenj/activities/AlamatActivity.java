@@ -147,7 +147,7 @@ public class AlamatActivity extends AppCompatActivity implements View.OnClickLis
 
 
                             } else {
-                                Toast.makeText(AlamatActivity.this, "Data Belum Ada", Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(AlamatActivity.this, "Data Belum Ada", Toast.LENGTH_SHORT).show();
                                 recyclerAlamat.setVisibility(View.GONE);
 //                            ln_kosong.setVisibility(View.VISIBLE);
                                 progressDialogHud.dismiss();

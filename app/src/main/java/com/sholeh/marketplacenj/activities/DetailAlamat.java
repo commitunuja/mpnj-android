@@ -694,12 +694,12 @@ public class DetailAlamat extends AppCompatActivity implements View.OnClickListe
 //
 //
                     } else {
-                        Toast.makeText(DetailAlamat.this, "Alamat gagal di perbarui" + response.body().getPesan(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(DetailAlamat.this, "Alamat gagal di perbarui" , Toast.LENGTH_LONG).show();
 
 //                            AppUtilits.displayMessage(UbahPassword.this,  response.body().getPesan());
                     }
                 } else {
-                    Toast.makeText(DetailAlamat.this, "Alamat gagal di perbarui" + response.body(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(DetailAlamat.this, "Alamat gagal di perbarui" , Toast.LENGTH_LONG).show();
 
 //                        AppUtilits.displayMessage(UbahPassword.this,  getString(R.string.failed_request));
 
@@ -728,7 +728,7 @@ public class DetailAlamat extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onResponse(Call<ResAlamat> call, Response<ResAlamat> response) {
 
-                Toast.makeText(DetailAlamat.this, "res"+response, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(DetailAlamat.this, "res"+response, Toast.LENGTH_SHORT).show();
                 Log.d("hapus", String.valueOf(response));
 
                 if (response.body() != null && response.isSuccessful()) {
@@ -739,12 +739,12 @@ public class DetailAlamat extends AppCompatActivity implements View.OnClickListe
 //
 //
                     } else {
-                        Toast.makeText(DetailAlamat.this, "Alamat gagal di hapus" + response.body().getPesan(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(DetailAlamat.this, "Alamat gagal di hapus" , Toast.LENGTH_LONG).show();
 
 //                            AppUtilits.displayMessage(UbahPassword.this,  response.body().getPesan());
                     }
                 } else {
-                    Toast.makeText(DetailAlamat.this, "Alamat gagal di hapus" + response.body(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(DetailAlamat.this, "Alamat gagal di hapus" , Toast.LENGTH_LONG).show();
 
 //                        AppUtilits.displayMessage(UbahPassword.this,  getString(R.string.failed_request));
 
@@ -754,7 +754,7 @@ public class DetailAlamat extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onFailure(Call<ResAlamat> call, Throwable t) {
 
-                Toast.makeText(DetailAlamat.this, "" + t, Toast.LENGTH_SHORT).show();
+                Toast.makeText(DetailAlamat.this, "Alamat Gagal di Hapus" , Toast.LENGTH_SHORT).show();
 
             }
         });
