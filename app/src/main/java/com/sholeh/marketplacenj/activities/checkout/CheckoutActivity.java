@@ -124,6 +124,7 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
         tvxBayar = findViewById(R.id.tvxBayar);
 
         tvxtolbar.setText("Checkout");
+
         listView = findViewById(R.id.expand_checkout);
 
         preferences = new Preferences(getApplication());
@@ -154,6 +155,7 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
         tvxUbahAlamat.setOnClickListener(this);
         imgBack.setOnClickListener(this);
         tvxBayar.setOnClickListener(this);
+
 //        tvxPilihBank.setOnClickListener(this);
 //        getDetailKeranjang();
 
@@ -185,6 +187,8 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
 
         cekAlamat();
 
+
+
     }
 
     private void ProgresDialog() {
@@ -199,6 +203,9 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
     }
 
     public String Icheckout(){
+        return nilaiIntent;
+    }
+    public String getAlamat(){
         return nilaiIntent;
     }
 
