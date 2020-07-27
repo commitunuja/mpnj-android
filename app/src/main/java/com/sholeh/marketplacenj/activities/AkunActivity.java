@@ -8,6 +8,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.kaopiz.kprogresshud.KProgressHUD;
+import com.sholeh.marketplacenj.activities.alamat.PilihAlamatCheckout;
+import com.sholeh.marketplacenj.util.AppUtilits;
+import com.sholeh.marketplacenj.util.NetworkUtility;
 import com.sholeh.marketplacenj.util.api.APIInterface;
 import com.sholeh.marketplacenj.util.CONSTANTS;
 import com.sholeh.marketplacenj.R;
@@ -31,8 +35,8 @@ public class AkunActivity extends AppCompatActivity implements View.OnClickListe
     private ResProfil tvDataProfil;
     Preferences preferences;
     String id_konsumen;
-
     ImageView imgAkun, imgBack;
+    private KProgressHUD progressDialogHud;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +44,7 @@ public class AkunActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_akun);
         preferences = new Preferences(getApplication());
         id_konsumen = preferences.getIdKonsumen();
+        progressDialogHud = KProgressHUD.create(AkunActivity.this);
 
 
         ed_username = findViewById(R.id.edUsername);
@@ -75,6 +80,11 @@ public class AkunActivity extends AppCompatActivity implements View.OnClickListe
                 default:
                     break;
         }
+    }
+    private void ProgresDialog(){
+        progressDialogHud.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setCancellable(false);
+        progressDialogHud.show();
     }
 
     public void getDataProfi(){
@@ -113,11 +123,12 @@ public class AkunActivity extends AppCompatActivity implements View.OnClickListe
 
     public void updateProfil() {
 
-//        if (!NetworkUtility.isNetworkConnected(UbahPassword.this)){
-//            AppUtilits.displayMessage(UbahPassword.this,  getString(R.string.network_not_connected));
-//
-//        }else {
+        if (!NetworkUtility.isNetworkConnected(AkunActivity.this)){
+            AppUtilits.displayMessage(AkunActivity.this,  getString(R.string.network_not_connected));
+
+        }else {
 //            if (!validasi()) return;
+            ProgresDialog();
             APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
             Call<ResRegristasi> call = service.updateKonsumen(id_konsumen,ed_nama.getText().toString(), ed_nohp.getText().toString(), ed_email.getText().toString(),"aktif" );
 
@@ -129,16 +140,19 @@ public class AkunActivity extends AppCompatActivity implements View.OnClickListe
                     if (response.body()!= null && response.isSuccessful()){ // true
                         if (response.body().getPesan().equalsIgnoreCase("Sukses!")){
                             Toast.makeText(AkunActivity.this, "Berhasil diperbarui", Toast.LENGTH_LONG).show();
+                            progressDialogHud.dismiss();
                             finish();
 ////
 ////
                         }else {
                             Toast.makeText(AkunActivity.this, "Gagal diperbarui", Toast.LENGTH_LONG).show();
+                            progressDialogHud.dismiss();
 
 //                            AppUtilits.displayMessage(UbahPassword.this,  response.body().getPesan());
                         }
                     }else {
                         Toast.makeText(AkunActivity.this, "Gagal diperbarui", Toast.LENGTH_LONG).show();
+                        progressDialogHud.dismiss();
 
 //                        AppUtilits.displayMessage(UbahPassword.this,  getString(R.string.failed_request));
 
@@ -147,13 +161,16 @@ public class AkunActivity extends AppCompatActivity implements View.OnClickListe
 
                 @Override
                 public void onFailure(Call<ResRegristasi> call, Throwable t) {
-                    Toast.makeText(AkunActivity.this, "Gagal diperbarui"+t, Toast.LENGTH_LONG).show();
+                    AppUtilits.displayMessage(AkunActivity.this,  getString(R.string.network_not_connected));
+                    progressDialogHud.dismiss();
+
+//                    Toast.makeText(AkunActivity.this, "Gagal diperbarui"+t, Toast.LENGTH_LONG).show();
 
                     //  Log.e(TAG, " failure "+ t.toString());
 //                    AppUtilits.displayMessage(UbahPassword.this,  getString(R.string.failed_request));
                 }
             });
-//        }
+        }
     }
 
 //    public void getData(){

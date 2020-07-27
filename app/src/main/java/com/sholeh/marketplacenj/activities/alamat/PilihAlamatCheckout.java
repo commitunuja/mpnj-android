@@ -106,7 +106,7 @@ public class PilihAlamatCheckout extends AppCompatActivity implements View.OnCli
 
     private void ProgresDialog(){
         progressDialogHud.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
-                .setLabel("Loading...")
+//                .setLabel("Loading...")
                 .setCancellable(false);
         progressDialogHud.show();
     }
