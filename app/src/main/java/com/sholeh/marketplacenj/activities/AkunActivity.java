@@ -89,35 +89,47 @@ public class AkunActivity extends AppCompatActivity implements View.OnClickListe
 
     public void getDataProfi(){
 
-        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-        Call<ResProfil> call = service.getDataProfil(id_konsumen);
+        if (!NetworkUtility.isNetworkConnected(AkunActivity.this)){
+            AppUtilits.displayMessage(AkunActivity.this,  getString(R.string.network_not_connected));
 
-        call.enqueue(new Callback<ResProfil>() {
-            @Override
-            public void onResponse(Call<ResProfil> call, Response<ResProfil> response) {
+        }else {
 
-                tvDataProfil = response.body();
-                String userName = tvDataProfil.getData().getUsername();
-                String namaLengkap = tvDataProfil.getData().getNamaLengkap();
-                String noHP = tvDataProfil.getData().getNomorHp();
-                String email = tvDataProfil.getData().getEmail();
-                ed_username.setText(userName);
-                ed_nama.setText(namaLengkap);
-                ed_nohp.setText(noHP);
-                ed_email.setText(email);
-                Picasso.with(getContext()).load(CONSTANTS.BASE_URL + "assets/foto_profil_konsumen/"+tvDataProfil.getData().getFotoProfil()).into(imgAkun);
+            APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+            Call<ResProfil> call = service.getDataProfil(id_konsumen);
+            call.enqueue(new Callback<ResProfil>() {
+                @Override
+                public void onResponse(Call<ResProfil> call, Response<ResProfil> response) {
+                    if (response.body()!= null && response.isSuccessful()){
+                        tvDataProfil = response.body();
+                        String userName = tvDataProfil.getData().getUsername();
+                        String namaLengkap = tvDataProfil.getData().getNamaLengkap();
+                        String noHP = tvDataProfil.getData().getNomorHp();
+                        String email = tvDataProfil.getData().getEmail();
+                        ed_username.setText(userName);
+                        ed_nama.setText(namaLengkap);
+                        ed_nohp.setText(noHP);
+                        ed_email.setText(email);
+                        Picasso.with(getContext()).load(CONSTANTS.BASE_URL + "assets/foto_profil_konsumen/" + tvDataProfil.getData().getFotoProfil()).into(imgAkun);
+                        progressDialogHud.dismiss();
+                    }else{
+                        AppUtilits.displayMessage(AkunActivity.this, "Terdapat Kesalahan. Silahkan Coba Lagi Nanti.");
+                        progressDialogHud.dismiss();
+                    }
 
+                }
 
-            }
+                @Override
+                public void onFailure(Call<ResProfil> call, Throwable t) {
+                    AppUtilits.displayMessage(AkunActivity.this,  getString(R.string.network_not_connected));
+                    progressDialogHud.dismiss();
 
-            @Override
-            public void onFailure(Call<ResProfil> call, Throwable t) {
-                Toast.makeText(AkunActivity.this, "no connection"+t, Toast.LENGTH_LONG).show();
+//                    Toast.makeText(AkunActivity.this, "no connection" + t, Toast.LENGTH_LONG).show();
 
-                //  Log.e(TAG, " failure "+ t.toString());
+                    //  Log.e(TAG, " failure "+ t.toString());
 //                    AppUtilits.displayMessage(UbahPassword.this,  getString(R.string.failed_request));
-            }
-        });
+                }
+            });
+        }
     }
 
 
