@@ -21,6 +21,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,7 +55,9 @@ import retrofit2.Response;
 public class FragmentProfil extends Fragment implements View.OnClickListener {
     private ImageView btnImgProfil, nav_home, nav_notifikasi, nav_transaksi, navprofile;
     TextView tvx_login, tvx_namaCustomter, tvx_title, tvx_logout,tvx_edit, tvx_username,
-              tvx_Hp, tvx_profil, tvx_alamat, tvx_setting, tvx_email, tvx_pesananku;
+              tvx_Hp, tvx_profil, tvx_alamat, tvx_setting, tvx_email;
+
+    LinearLayout tvx_pesananku;
 
 
 
