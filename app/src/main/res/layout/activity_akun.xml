@@ -23,6 +23,7 @@
         android:padding="10dp">
 
         <ImageView
+            android:id="@+id/imgBackProfil"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:padding="10dp"
@@ -91,26 +92,25 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
                     <EditText
+                        android:inputType="textAutoComplete"
                         android:background="@drawable/custom_edittext"
                         android:id="@+id/edNama"
                         android:gravity="center"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:fontFamily="@fonts/proximanovaregular"
                         android:text="Sholeh"
                         android:textColor="#424242"
                         android:textSize="21sp"
                         android:textStyle="bold" />
                     <requestFocus/>
 
-                    <TextView
+                    <customfonts.TextViewSFProDisplaySemibold
                         android:textColor="@color/colorPrimary"
                         android:textStyle="bold"
                         android:id="@+id/edUsername"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@fonts/proximanovaregular"
                         android:gravity="center"
                         android:text="user sholeh"
                         android:textSize="16sp" />
@@ -298,11 +298,11 @@
                         android:layout_height="wrap_content">
 
                         <TextView
+                            android:textColor="#424242"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Kontak"
                             android:textSize="17sp"
-                            android:fontFamily="@fonts/proximanovaregular"
                             android:textStyle="bold" />
 
                         <Space
@@ -339,7 +339,7 @@
                                 android:padding="10dp"
                                 android:src="@drawable/ic_call_24dp" />
 
-                            <EditText
+                            <customfonts.EditText_SF_Pro_Display_Medium
                                 android:inputType="number"
                                 android:background="@drawable/custom_edittext"
                                 android:id="@+id/edNohp"
@@ -347,8 +347,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="20dp"
                                 android:textSize="15sp"
-                                android:textColor="@color/goodgrey"
-                                android:fontFamily="@fonts/proximanovaregular" />
+                                android:textColor="@color/goodgrey" />
                         </LinearLayout>
 
 
@@ -372,6 +371,7 @@
                         android:layout_height="wrap_content">
 
                         <TextView
+                            android:textColor="#424242"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Email"
@@ -415,9 +415,8 @@
                                 android:padding="10dp"
                                 android:src="@drawable/ic_email_black" />
 
-                            <EditText
+                            <customfonts.EditText_SF_Pro_Display_Medium
                                 android:inputType="textEmailAddress"
-                                android:fontFamily="@fonts/proximanovaregular"
                                 android:background="@drawable/custom_edittext"
                                 android:id="@+id/edEmail"
                                 android:layout_width="wrap_content"

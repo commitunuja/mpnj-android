@@ -25,14 +25,14 @@ import static com.sholeh.marketplacenj.util.MyApp.getContext;
 
 public class AkunActivity extends AppCompatActivity implements View.OnClickListener {
     EditText  ed_nama;
-    TextView ed_nohp, ed_email, btn_UpdateProfil, ed_username;
+    TextView ed_nohp, ed_email, btn_UpdateProfil, btn_Batal, ed_username;
 
 
     private ResProfil tvDataProfil;
     Preferences preferences;
     String id_konsumen;
 
-    ImageView imgAkun;
+    ImageView imgAkun, imgBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,9 +47,13 @@ public class AkunActivity extends AppCompatActivity implements View.OnClickListe
         ed_nohp = findViewById(R.id.edNohp);
         ed_email = findViewById(R.id.edEmail);
         imgAkun = findViewById(R.id.profile_image);
-
+        imgBack = findViewById(R.id.imgBackProfil);
         btn_UpdateProfil = findViewById(R.id.btnUpdateProfil);
+        btn_Batal = findViewById(R.id.tvBatal);
         btn_UpdateProfil.setOnClickListener(this);
+        btn_Batal.setOnClickListener(this);
+        imgBack.setOnClickListener(this);
+
         getDataProfi();
 
     }
@@ -59,6 +63,13 @@ public class AkunActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()){
             case R.id.btnUpdateProfil:
                 updateProfil();
+                break;
+
+            case R.id.tvBatal:
+                finish();
+                break;
+            case R.id.imgBackProfil:
+                finish();
                 break;
 
                 default:
