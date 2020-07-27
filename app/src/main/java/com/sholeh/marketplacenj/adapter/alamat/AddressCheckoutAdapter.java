@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.activities.alamat.PilihAlamatCheckout;
 import com.sholeh.marketplacenj.activities.checkout.CheckoutActivity;
+import com.sholeh.marketplacenj.adapter.AlamatAdapter;
 import com.sholeh.marketplacenj.model.AlamatModel;
 import com.sholeh.marketplacenj.respon.ResAlamat;
 import com.sholeh.marketplacenj.util.Preferences;
@@ -50,7 +51,7 @@ public class AddressCheckoutAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     }
 
     private class AlamatItemView extends RecyclerView.ViewHolder {
-        TextView tvxidAlamat, tvxnamaCustomer, tvxNoHP, tvxAlamat, tvxKec, tvxKab, tvxProvinsi, tvxKodePos, tvxStatusAlamat;
+        TextView tvxidAlamat, tvxnamaCustomer, tvxNoHP, tvxAlamat, tvxKec, tvxKab, tvxProvinsi, tvxKodePos, tvxStatusAlamat, tvxSetAlamat;
         ImageView imageselect;
         CardView cvAlamat;
 
@@ -58,6 +59,7 @@ public class AddressCheckoutAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         public AlamatItemView(View itemView) {
             super(itemView);
             tvxnamaCustomer = itemView.findViewById(R.id.tvx_namaCustomer);
+            tvxSetAlamat= itemView.findViewById(R.id.tvx_setAlamat);
             tvxNoHP = itemView.findViewById(R.id.tvx_nohp);
             tvxAlamat = itemView.findViewById(R.id.tvx_alamat);
             tvxKec = itemView.findViewById(R.id.tvx_kec);
@@ -89,18 +91,28 @@ public class AddressCheckoutAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
 
         ((AlamatItemView) holder).tvxnamaCustomer.setText(model.getNamaLengkap());
-        ((AlamatItemView) holder).tvxNoHP.setText(model.getNomorHP());
-        ((AlamatItemView) holder).tvxAlamat.setText(model.getAlamatLengkap());
-        ((AlamatItemView) holder).tvxKec.setText("Kec. " + model.getNamaKec());
-        ((AlamatItemView) holder).tvxKab.setText("Kab. " + model.getNamaKota());
-        ((AlamatItemView) holder).tvxProvinsi.setText("Prov. " + model.getNamaProvinsi());
-        ((AlamatItemView) holder).tvxKodePos.setText(model.getKodePos());
+        String noHp = model.getNomorHP();
+        String alamatLengkap = model.getAlamatLengkap();
+        String Kecamatan = model.getNamaKec();
+        String Kota = model.getNamaKota();
+        String Provinsi = model.getNamaProvinsi();
+        String KodePos = model.getKodePos();
+        String alamatgabung = noHp+", "+alamatLengkap+", "+Kecamatan+", "+Kota+", "+Provinsi+", "+"ID "+KodePos;
+        ((AlamatItemView) holder).tvxnamaCustomer.setText(model.getNamaLengkap());
+        ((AlamatItemView) holder).tvxSetAlamat.setText(alamatgabung);
+
+//        ((AlamatItemView) holder).tvxNoHP.setText(model.getNomorHP());
+//        ((AlamatItemView) holder).tvxAlamat.setText(model.getAlamatLengkap());
+//        ((AlamatItemView) holder).tvxKec.setText("Kec. " + model.getNamaKec());
+//        ((AlamatItemView) holder).tvxKab.setText("Kab. " + model.getNamaKota());
+//        ((AlamatItemView) holder).tvxProvinsi.setText("Prov. " + model.getNamaProvinsi());
+//        ((AlamatItemView) holder).tvxKodePos.setText(model.getKodePos());
 
 
         if (model.getStatus().equalsIgnoreCase("utama")) {
             ((AlamatItemView) holder).tvxStatusAlamat.setText("[Utama]");
             ((AlamatItemView) holder).cvAlamat.setBackgroundResource(R.drawable.boarder_green_rounder_white);
-            ((AlamatItemView) holder).imageselect.setVisibility(View.VISIBLE);
+            ((AlamatItemView) holder).imageselect.setVisibility(View.GONE);
 
         } else {
             ((AlamatItemView) holder).cvAlamat.setBackgroundResource(R.drawable.boarder_black_rounder_white);
