@@ -1,7 +1,9 @@
 package com.sholeh.marketplacenj.activities;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +16,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.sholeh.marketplacenj.activities.alamat.PilihAlamatCheckout;
+import com.sholeh.marketplacenj.activities.checkout.CheckoutActivity;
 import com.sholeh.marketplacenj.model.subdistrict.ItemKec;
 import com.sholeh.marketplacenj.util.AppUtilits;
 import com.sholeh.marketplacenj.util.api.APIInterface;
@@ -51,6 +54,8 @@ public class AddAlamat extends AppCompatActivity implements View.OnClickListener
     ArrayList<String> listID_Kec = new ArrayList<>();
 
     Preferences preferences;
+    String valalamat, cekOngkir,  nilaiIntent;
+    ArrayList<String> idK;
 
 
     @Override
@@ -70,6 +75,12 @@ public class AddAlamat extends AppCompatActivity implements View.OnClickListener
 
         simpanAlamat = findViewById(R.id.btnSimpanAlamat);
         simpanAlamat.setOnClickListener(this);
+        Intent i = getIntent();
+        valalamat = i.getStringExtra("alamat");
+        idK = i.getStringArrayListExtra("idcheckout");
+        cekOngkir = i.getStringExtra("cekongkir");
+        nilaiIntent = i.getStringExtra("icheckout");
+//        Toast.makeText(this, ""+alamat, Toast.LENGTH_SHORT).show();
 
         spinProvinsi.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -146,6 +157,26 @@ public class AddAlamat extends AppCompatActivity implements View.OnClickListener
                 break;
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        onBack();
+    }
+
+    public void onBack() {
+        if (valalamat.equalsIgnoreCase("activity")){
+            finish();
+        }else{
+            Intent intent = new Intent(AddAlamat.this, PilihAlamatCheckout.class);
+            intent.putExtra("reset_kurir", "Silahkan Pilih Pengiriman Produk Anda");
+            intent.putExtra("icheckout", nilaiIntent);
+            intent.putStringArrayListExtra("idcheckout", idK);
+            startActivity(intent);
+            finish();
+        }
+
+    }
+
 
 
     public void getProvince() {
@@ -354,9 +385,20 @@ public class AddAlamat extends AppCompatActivity implements View.OnClickListener
                     if (response.body() != null && response.isSuccessful()) {
                         if (response.body().getPesan().equalsIgnoreCase("Sukses!")) {
                             Toast.makeText(AddAlamat.this, "Berhasil Menambah Alamat", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(AddAlamat.this, PilihAlamatCheckout.class);
+
+                            if (valalamat.equalsIgnoreCase("activity")){
+                                Intent intent = new Intent(AddAlamat.this, AlamatActivity.class);
                                 startActivity(intent);
                                 finish();
+                            }else{
+                                Intent intent = new Intent(AddAlamat.this, PilihAlamatCheckout.class);
+                                intent.putExtra("reset_kurir", "Silahkan Pilih Pengiriman Produk Anda");
+                                intent.putExtra("icheckout", nilaiIntent);
+                                intent.putStringArrayListExtra("idcheckout", idK);
+                                startActivity(intent);
+                                finish();
+                            }
+
 
 
 
@@ -385,4 +427,6 @@ public class AddAlamat extends AppCompatActivity implements View.OnClickListener
 
 //        }
     }
+
+
 }

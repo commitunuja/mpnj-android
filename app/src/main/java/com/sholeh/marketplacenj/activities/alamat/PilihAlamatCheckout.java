@@ -93,6 +93,7 @@ public class PilihAlamatCheckout extends AppCompatActivity implements View.OnCli
         cekOngkir = i.getStringExtra("cekongkir");
         nilaiIntent = i.getStringExtra("icheckout");
 
+
 //        Toast.makeText(this, "c "+cekOngkir, Toast.LENGTH_SHORT).show();
 //        idK = getIntent().getStringExtra("id_checkout");
 //        Toast.makeText(this, ""+idK, Toast.LENGTH_SHORT).show();
@@ -136,6 +137,10 @@ public class PilihAlamatCheckout extends AppCompatActivity implements View.OnCli
         switch (v.getId()) {
             case R.id.fab_alamat:
                 Intent go = new Intent(this, AddAlamat.class);
+                go.putExtra("alamat","checkout");
+                go.putExtra("reset_kurir","Silahkan Pilih Pengiriman Produk Anda");
+                go.putExtra("icheckout", nilaiIntent);
+                go.putExtra("idcheckout",idK);
                 startActivity(go);
                 finish();
 
@@ -234,6 +239,7 @@ public class PilihAlamatCheckout extends AppCompatActivity implements View.OnCli
                     public void onClick(DialogInterface dialog, int which) {
                         Intent intent = new Intent(getApplication(), CheckoutActivity.class);
                         intent.putExtra("reset_kurir", "Silahkan Pilih Pengiriman Produk Anda");
+                        intent.putExtra("icheckout", nilaiIntent);
                         intent.putStringArrayListExtra("idcheckout", idK);
                         startActivity(intent);
                         finish();

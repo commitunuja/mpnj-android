@@ -95,7 +95,10 @@ public class AlamatActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.fab_alamat:
-                startActivity(new Intent(this, AddAlamat.class));
+                Intent pindah = new Intent(this, AddAlamat.class);
+                pindah.putExtra("alamat", "activity");
+                startActivity(pindah);
+                finish();
 //                Toast.makeText(this, "kll", Toast.LENGTH_SHORT).show();
                 break;
 
