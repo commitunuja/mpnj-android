@@ -6,6 +6,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
@@ -761,7 +762,14 @@ public class DetailAlamat extends AppCompatActivity implements View.OnClickListe
 
     }
 
-
+//    @Override
+//    public void finish() {
+//        Intent returnIntent = new Intent();
+//        returnIntent.putExtra("passed_item", );
+//        // setResult(RESULT_OK);
+//        setResult(RESULT_OK, returnIntent); //By not passing the intent in the result, the calling activity will get null data.
+//        super.finish();
+//    }
 }
 
 

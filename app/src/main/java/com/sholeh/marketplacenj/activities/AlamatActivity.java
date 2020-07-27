@@ -73,13 +73,32 @@ public class AlamatActivity extends AppCompatActivity implements View.OnClickLis
         alamatAdapter = new AlamatAdapter(AlamatActivity.this, modellist);
         recyclerAlamat.setAdapter(alamatAdapter);
 
-        getAlamat();
+
 
     }
+    @Override
+    public void onResume()
+    {
+        getAlamat();
+
+        super.onResume();
+        // Load data and do stuff
+    }
+
+
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
+//            YourItem passedItem = data.getExtras().get("passed_item");
+//            // deal with the item yourself
+//
+//        }
+//    }
 
     private void ProgresDialog() {
         progressDialogHud.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
-                .setLabel("Loading...")
+//                .setLabel("Loading...")
                 .setCancellable(false);
         progressDialogHud.show();
     }
