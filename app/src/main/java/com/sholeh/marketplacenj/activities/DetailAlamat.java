@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.sholeh.marketplacenj.adapter.KecAdapter;
 import com.sholeh.marketplacenj.model.subdistrict.ItemKec;
 import com.sholeh.marketplacenj.util.api.APIInterface;
@@ -82,6 +83,8 @@ public class DetailAlamat extends AppCompatActivity implements View.OnClickListe
     private ProgressDialog progressDialog;
     Preferences preferences;
     String id_konsumen;
+    private KProgressHUD progressDialogHud;
+
 
 
     @Override
@@ -90,6 +93,7 @@ public class DetailAlamat extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_detail_alamat);
         preferences = new Preferences(getApplication());
         id_konsumen = preferences.getIdKonsumen();
+        progressDialogHud = KProgressHUD.create(DetailAlamat.this);
 
         edNama = findViewById(R.id.ed_nama);
         edNoHP = findViewById(R.id.ed_nohp);
@@ -127,6 +131,12 @@ public class DetailAlamat extends AppCompatActivity implements View.OnClickListe
     public boolean onSupportNavigateUp() {
         finish();
         return true;
+    }
+
+    private void ProgresDialog() {
+        progressDialogHud.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setCancellable(false);
+        progressDialogHud.show();
     }
 
     @Override
@@ -680,6 +690,7 @@ public class DetailAlamat extends AppCompatActivity implements View.OnClickListe
 
 
 //            if (!validasi()) return;
+        ProgresDialog();
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
         Call<ResAlamat> call = service.KonsumenUbahAlamat(alamatId, namalengkap_, nomorHp_, idprov_, namaProv_, idkota_, namakota_,idkec_, namakec_, kodepos_, alamat_, id_konsumen);
 
@@ -692,15 +703,18 @@ public class DetailAlamat extends AppCompatActivity implements View.OnClickListe
 //
                         Toast.makeText(DetailAlamat.this, "Alamat berhasil di perbarui", Toast.LENGTH_LONG).show();
                         finish();
+                        progressDialogHud.dismiss();
 //
 //
                     } else {
                         Toast.makeText(DetailAlamat.this, "Alamat gagal di perbarui" , Toast.LENGTH_LONG).show();
+                        progressDialogHud.dismiss();
 
 //                            AppUtilits.displayMessage(UbahPassword.this,  response.body().getPesan());
                     }
                 } else {
                     Toast.makeText(DetailAlamat.this, "Alamat gagal di perbarui" , Toast.LENGTH_LONG).show();
+                    progressDialogHud.dismiss();
 
 //                        AppUtilits.displayMessage(UbahPassword.this,  getString(R.string.failed_request));
 
@@ -711,6 +725,7 @@ public class DetailAlamat extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onFailure(Call<ResAlamat> call, Throwable t) {
                 Toast.makeText(DetailAlamat.this, "Koneksi Gagal", Toast.LENGTH_SHORT).show();
+                progressDialogHud.dismiss();
                 //  Log.e(TAG, " failure "+ t.toString());
 //                    AppUtilits.displayMessage(UbahPassword.this,  getString(R.string.failed_request));
             }
@@ -721,10 +736,10 @@ public class DetailAlamat extends AppCompatActivity implements View.OnClickListe
     }
 
     public void deleteAlamat() {
-
+        ProgresDialog();
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
 
-        Call<ResAlamat> call = service.hapusItemAlamat(alamatId);
+        Call<ResAlamat> call = service.hapusItemAlamat(alamatId, id_konsumen);
         call.enqueue(new Callback<ResAlamat>() {
             @Override
             public void onResponse(Call<ResAlamat> call, Response<ResAlamat> response) {
@@ -733,19 +748,31 @@ public class DetailAlamat extends AppCompatActivity implements View.OnClickListe
                 Log.d("hapus", String.valueOf(response));
 
                 if (response.body() != null && response.isSuccessful()) {
-                    if (response.body().getPesan().equalsIgnoreCase("Sukses!")) {
-//
+                    if (response.body().getPesan().equalsIgnoreCase("Alamat Utama Tidak Dapat Dihapus")){
+                        Toast.makeText(DetailAlamat.this, "Alamat Utama Tidak Dapat Dihapus", Toast.LENGTH_LONG).show();
+                        progressDialogHud.dismiss();
+                        
+                    }else{
                         Toast.makeText(DetailAlamat.this, "Alamat berhasil di hapus", Toast.LENGTH_LONG).show();
                         finish();
-//
-//
-                    } else {
-                        Toast.makeText(DetailAlamat.this, "Alamat gagal di hapus" , Toast.LENGTH_LONG).show();
-
-//                            AppUtilits.displayMessage(UbahPassword.this,  response.body().getPesan());
+                        progressDialogHud.dismiss();
                     }
+//                    Toast.makeText(DetailAlamat.this, ""+response.body().getPesan(), Toast.LENGTH_SHORT).show();
+//                    if (response.body().getPesan().equalsIgnoreCase("Sukses!")) {
+
+////
+//                        Toast.makeText(DetailAlamat.this, "Alamat berhasil di hapus", Toast.LENGTH_LONG).show();
+//                        finish();
+////
+////
+//                    } else {
+//                        Toast.makeText(DetailAlamat.this, "Alamat gagal di hapus" , Toast.LENGTH_LONG).show();
+//
+////                            AppUtilits.displayMessage(UbahPassword.this,  response.body().getPesan());
+//                    }
                 } else {
                     Toast.makeText(DetailAlamat.this, "Alamat gagal di hapus" , Toast.LENGTH_LONG).show();
+                    progressDialogHud.dismiss();
 
 //                        AppUtilits.displayMessage(UbahPassword.this,  getString(R.string.failed_request));
 
@@ -756,6 +783,7 @@ public class DetailAlamat extends AppCompatActivity implements View.OnClickListe
             public void onFailure(Call<ResAlamat> call, Throwable t) {
 
                 Toast.makeText(DetailAlamat.this, "Alamat Gagal di Hapus" , Toast.LENGTH_SHORT).show();
+                progressDialogHud.dismiss();
 
             }
         });
