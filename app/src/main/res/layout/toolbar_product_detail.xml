@@ -35,6 +35,7 @@
                         android:src="@drawable/ic_back_black" />
 
                     <customfonts.MyTextView_Roboto_Bold
+                        android:textSize="18sp"
                         android:textStyle="bold"
                         android:id="@+id/tvTitleglobal"
                         android:textColor="@color/white"
