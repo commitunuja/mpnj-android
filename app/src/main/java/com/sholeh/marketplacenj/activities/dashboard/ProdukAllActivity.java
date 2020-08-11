@@ -6,7 +6,9 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,21 +42,28 @@ public class ProdukAllActivity extends AppCompatActivity {
 
     EditText search;
     String status, allproduk;
+    TextView tvxToolbar;
+    ImageView imgBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_produk_all);
-        rv_populer = (RecyclerView) findViewById(R.id.rv_produkterpopuler);
+        rv_populer = findViewById(R.id.rv_produkterpopuler);
+        tvxToolbar =  findViewById(R.id.tvTitleglobal);
+        imgBack = findViewById(R.id.imgBackglobal);
         progressBar = findViewById(R.id.progressBar);
         Intent i = getIntent();
         allproduk = i.getStringExtra("all");
         search = findViewById(R.id.etsearchterpopuler);
         if (allproduk.equalsIgnoreCase("alldiskon")){
+            tvxToolbar.setText("Produk Diskon");
              produkDiskon();
         }else if (allproduk.equalsIgnoreCase("allterbaru")){
+            tvxToolbar.setText("Produk Terbaru");
             produkTerbaru();
         }else if (allproduk.equalsIgnoreCase("allterlaris")){
+            tvxToolbar.setText("Produk Terlaris");
              produkTerlaris();
         }else{
             progressBar.setVisibility(View.GONE);
@@ -62,6 +71,12 @@ public class ProdukAllActivity extends AppCompatActivity {
         }
 
         pencariandata();
+        imgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void pencariandata() {

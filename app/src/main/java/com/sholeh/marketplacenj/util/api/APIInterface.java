@@ -166,8 +166,10 @@ public interface APIInterface {
             @Field("user_id") String userId);
 
     //  delete alamat
-    @DELETE("api/konsumen/hapus/alamat/{id_alamat}")
-    Call<ResAlamat> hapusItemAlamat(@Path("id_alamat") String idAlamat);
+
+    @DELETE("api/konsumen/hapus/alamat/{id_alamat}/{id_user}")
+    Call<ResAlamat> hapusItemAlamat(@Path("id_alamat") String idAlamat,
+                                    @Path("id_user") String idUser);
 
     //  ubah alamat
     @FormUrlEncoded

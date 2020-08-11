@@ -21,16 +21,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.sholeh.marketplacenj.activities.AkunActivity;
 import com.sholeh.marketplacenj.activities.AlamatActivity;
 import com.sholeh.marketplacenj.activities.PengaturanAkun;
+import com.sholeh.marketplacenj.activities.alamat.PilihAlamatCheckout;
 import com.sholeh.marketplacenj.activities.pesanan.MyPesananActivity;
+import com.sholeh.marketplacenj.util.AppUtilits;
 import com.sholeh.marketplacenj.util.CONSTANTS;
+import com.sholeh.marketplacenj.util.NetworkUtility;
 import com.sholeh.marketplacenj.util.api.APIInterface;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.util.ServiceGenerator;
@@ -50,7 +55,9 @@ import retrofit2.Response;
 public class FragmentProfil extends Fragment implements View.OnClickListener {
     private ImageView btnImgProfil, nav_home, nav_notifikasi, nav_transaksi, navprofile;
     TextView tvx_login, tvx_namaCustomter, tvx_title, tvx_logout,tvx_edit, tvx_username,
-              tvx_Hp, tvx_profil, tvx_alamat, tvx_setting, tvx_email, tvx_pesananku;
+              tvx_Hp, tvx_profil, tvx_alamat, tvx_setting, tvx_email;
+
+    LinearLayout tvx_pesananku;
 
 
 
@@ -71,6 +78,7 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
     private static final int PICK_Camera_IMAGE = 2;
     private static final int REQUEST_GALLERY_CODE = 200;
     private static final int READ_REQUEST_CODE = 300;
+    private KProgressHUD progressDialogHud;
 
 
     @Override
@@ -87,6 +95,7 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_profil,container,false);
+        progressDialogHud = KProgressHUD.create(getActivity());
 
         tvx_namaCustomter = rootView.findViewById(R.id.tvCustomerName);
         tvx_username = rootView.findViewById(R.id.tvx_username);
@@ -244,53 +253,74 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
         }
     }
 
+    private void ProgresDialog(){
+        progressDialogHud.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setCancellable(false);
+        progressDialogHud.show();
+    }
+
     public void getDataPref(){
         preferences = new Preferences(getActivity());
         id_konsumen = preferences.getIdKonsumen();
         username = preferences.getUsername();
-        namaLengkap = preferences.getNamaLengkap();
-        email = preferences.getEmailnya();
-        nomorHP = preferences.getNomorHp();
+//        namaLengkap = preferences.getNamaLengkap();
+//        email = preferences.getEmailnya();
+//        nomorHP = preferences.getNomorHp();
         tvx_username.setText(username);
-        tvx_email.setText(email);
-        tvx_Hp.setText(nomorHP);
+
 
     }
 
 
     public void getDataProfil(){
+        if (!NetworkUtility.isNetworkConnected(getActivity())){
+            AppUtilits.displayMessage(getActivity(),  getString(R.string.network_not_connected));
+        }else {
+//            ProgresDialog();
+            APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+            Call<ResProfil> call = service.getDataProfil(id_konsumen);
+            call.enqueue(new Callback<ResProfil>() {
+                @Override
+                public void onResponse(Call<ResProfil> call, Response<ResProfil> response) {
+                    if (response.body() != null && response.isSuccessful()) {
+                        tvDataProfil = response.body();
+                        email = response.body().getData().getEmail();
+                        nomorHP = response.body().getData().getNomorHp();
+                        tvx_email.setText(email);
+                        tvx_Hp.setText(nomorHP);
+                        Log.d("cekimg", String.valueOf(tvDataProfil));
+//                        progressDialogHud.dismiss();
+                        // validasi error null asset foto
+                        //    Toast.makeText(getActivity(), ""+tvDataProfil.getPesan(), Toast.LENGTH_SHORT).show();
+                        if (tvDataProfil.getData().getFotoProfil() == null) {
+//                            progressDialogHud.dismiss();
+                            // Picasso.with(getContext()).load(R.drawable.man).into(imageProfil);
+                        } else {
+                            tvx_namaCustomter.setText(String.valueOf(tvDataProfil.getData().getNamaLengkap()));
+                            Picasso.with(getContext()).load(CONSTANTS.BASE_URL + "assets/foto_profil_konsumen/" + tvDataProfil.getData().getFotoProfil()).into(imageProfil);
+//                            progressDialogHud.dismiss();
+                        }
+                    }else {
+                        AppUtilits.displayMessage(getActivity(), getString(R.string.network_error));
+//                        progressDialogHud.dismiss();
+                    }
 
-        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-        Call<ResProfil> call = service.getDataProfil(id_konsumen);
-
-        call.enqueue(new Callback<ResProfil>() {
-            @Override
-            public void onResponse(Call<ResProfil> call, Response<ResProfil> response) {
-                tvDataProfil = response.body();
-
-                Log.d("cekimg", String.valueOf(tvDataProfil));
-              // validasi error null asset foto
-            //    Toast.makeText(getActivity(), ""+tvDataProfil.getPesan(), Toast.LENGTH_SHORT).show();
-                if (tvDataProfil.getData().getFotoProfil() == null){
-
-                   // Picasso.with(getContext()).load(R.drawable.man).into(imageProfil);
-                }else{
-                    tvx_namaCustomter.setText(String.valueOf(tvDataProfil.getData().getNamaLengkap()));
-                    Picasso.with(getContext()).load(CONSTANTS.BASE_URL + "assets/foto_profil_konsumen/"+tvDataProfil.getData().getFotoProfil()).into(imageProfil);
-                }
 //                Toast.makeText(getActivity(), tvDataProfil.getData().getFotoProfil(), Toast.LENGTH_LONG).show();
 //                Glide.with(getActivity()).load(foto).into(imageProfil);
 
-            }
+                }
 
-            @Override
-            public void onFailure(Call<ResProfil> call, Throwable t) {
-                Toast.makeText(getActivity(), "no connection"+t, Toast.LENGTH_SHORT).show();
+                @Override
+                public void onFailure(Call<ResProfil> call, Throwable t) {
+                    AppUtilits.displayMessage(getActivity(),  getString(R.string.network_not_connected));
+//                    progressDialogHud.dismiss();
+//                    Toast.makeText(getActivity(), "no connection" + t, Toast.LENGTH_SHORT).show();
 
-                //  Log.e(TAG, " failure "+ t.toString());
+                    //  Log.e(TAG, " failure "+ t.toString());
 //                    AppUtilits.displayMessage(UbahPassword.this,  getString(R.string.failed_request));
-            }
-        });
+                }
+            });
+        }
     }
 
     private void selectImage() {
@@ -332,11 +362,13 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
         builder.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                ProgresDialog();
                 preferences.saveSPBoolean(preferences.SP_SUDAH_LOGIN, false);
                 startActivity(new Intent(getActivity(), LoginActivity.class)
                         .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
                 getActivity().finish();
                 Toast.makeText(getActivity(), "Berhasil Keluar", Toast.LENGTH_LONG).show();
+                progressDialogHud.dismiss();
             }
         });
         builder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {

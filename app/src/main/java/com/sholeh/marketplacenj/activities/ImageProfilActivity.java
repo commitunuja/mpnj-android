@@ -22,6 +22,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.kaopiz.kprogresshud.KProgressHUD;
+import com.sholeh.marketplacenj.activities.alamat.PilihAlamatCheckout;
 import com.sholeh.marketplacenj.respon.ResRegristasi;
 import com.sholeh.marketplacenj.util.api.APIInterface;
 import com.sholeh.marketplacenj.util.CONSTANTS;
@@ -72,7 +74,7 @@ public class ImageProfilActivity extends AppCompatActivity implements View.OnCli
 
     private Snackbar mSnackbar;
     private ResProfil tvDataProfil;
-
+    private KProgressHUD progressDialogHud;
 
 
 
@@ -87,6 +89,7 @@ public class ImageProfilActivity extends AppCompatActivity implements View.OnCli
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         preferences = new Preferences(getApplication());
         id_konsumen = preferences.getIdKonsumen();
+        progressDialogHud = KProgressHUD.create(ImageProfilActivity.this);
 //        preferences = new Preferences(getApplication());
 //        layImg= findViewById(R.id.layProfil);
 //        layImg.setVisibility(View.GONE);
@@ -112,11 +115,16 @@ public class ImageProfilActivity extends AppCompatActivity implements View.OnCli
         return true;
     }
 
+    private void ProgresDialog(){
+        progressDialogHud.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setCancellable(false);
+        progressDialogHud.show();
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_ubahfoto_profile:
-
                 uploadImage();
                 break;
             case R.id.btn_pilih_gambar:
@@ -130,16 +138,15 @@ public class ImageProfilActivity extends AppCompatActivity implements View.OnCli
     }
 
     public void getDataProfil(){
-
+        ProgresDialog();
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
         Call<ResProfil> call = service.getDataProfil(id_konsumen);
 
         call.enqueue(new Callback<ResProfil>() {
             @Override
             public void onResponse(Call<ResProfil> call, Response<ResProfil> response) {
+                progressDialogHud.dismiss();
                 tvDataProfil = response.body();
-
-
                 Picasso.with(getContext()).load(CONSTANTS.BASE_URL + "assets/foto_profil_konsumen/"+tvDataProfil.getData().getFotoProfil()).into(imgProfil);
 
 
@@ -147,7 +154,8 @@ public class ImageProfilActivity extends AppCompatActivity implements View.OnCli
 
             @Override
             public void onFailure(Call<ResProfil> call, Throwable t) {
-                Toast.makeText(ImageProfilActivity.this, "no connection"+t, Toast.LENGTH_SHORT).show();
+                Toast.makeText(ImageProfilActivity.this, "Terdapat Kesalahan. Silahkan Coba Lagi Nanti", Toast.LENGTH_SHORT).show();
+                progressDialogHud.dismiss();
 
                 //  Log.e(TAG, " failure "+ t.toString());
 //                    AppUtilits.displayMessage(UbahPassword.this,  getString(R.string.failed_request));
@@ -221,6 +229,8 @@ public class ImageProfilActivity extends AppCompatActivity implements View.OnCli
 
 
     private void uploadImage() {
+        if (selectImagePath !=null){ // foto ada
+        ProgresDialog();
         File file = new File(selectImagePath);
         RequestBody reqFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
         MultipartBody.Part imageBody = MultipartBody.Part.createFormData("file", file.getName(), reqFile);
@@ -234,17 +244,24 @@ public class ImageProfilActivity extends AppCompatActivity implements View.OnCli
                 Log.d("resimgs", String.valueOf(response));
                 Toast.makeText(ImageProfilActivity.this, "Sukses", Toast.LENGTH_SHORT).show();
                 finish();
+                progressDialogHud.dismiss();
             }
 
             @Override
             public void onFailure(Call<ResRegristasi> call, Throwable t) {
-//                Toast.makeText(ImageProfilActivity.this, "Gagal"+t, Toast.LENGTH_LONG).show();
+                Toast.makeText(ImageProfilActivity.this, "Terdapat Kesalahan Jaringan. Silahkan Coba Lagi Nanti", Toast.LENGTH_LONG).show();
                 Log.d("resimgg", String.valueOf(t));
+                progressDialogHud.dismiss();
+
 
                 //  Log.e(TAG, " failure "+ t.toString());
 //                    AppUtilits.displayMessage(UbahPassword.this,  getString(R.string.failed_request));
             }
         });
+        }else{
+            Toast.makeText(this, "Pilih Foto Terlebih Dahulu", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
 

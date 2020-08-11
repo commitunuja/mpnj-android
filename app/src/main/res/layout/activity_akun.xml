@@ -23,6 +23,7 @@
         android:padding="10dp">
 
         <ImageView
+            android:id="@+id/imgBackProfil"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:padding="10dp"
@@ -72,15 +73,15 @@
                 android:padding="16dp">
 
                 <androidx.cardview.widget.CardView
-                    android:layout_width="150dp"
-                    android:layout_height="90dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     app:cardCornerRadius="6dp"
                     app:cardElevation="0dp">
 
                     <ImageView
                         android:id="@+id/profile_image"
-                        android:layout_width="150dp"
-                        android:layout_height="100dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:scaleType="centerCrop"
                        />
 
@@ -91,25 +92,26 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
                     <EditText
+                        android:inputType="textAutoComplete"
                         android:background="@drawable/custom_edittext"
                         android:id="@+id/edNama"
                         android:gravity="center"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:fontFamily="@fonts/proximanovaregular"
                         android:text="Sholeh"
                         android:textColor="#424242"
                         android:textSize="21sp"
                         android:textStyle="bold" />
                     <requestFocus/>
 
-                    <TextView
+                    <customfonts.TextViewSFProDisplaySemibold
+                        android:textColor="@color/colorPrimary"
+                        android:textStyle="bold"
                         android:id="@+id/edUsername"
-                        android:gravity="center"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@fonts/proximanovaregular"
+                        android:gravity="center"
                         android:text="user sholeh"
                         android:textSize="16sp" />
 
@@ -132,6 +134,7 @@
 
 
                 <LinearLayout
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -201,6 +204,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -294,11 +298,11 @@
                         android:layout_height="wrap_content">
 
                         <TextView
+                            android:textColor="#424242"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Kontak"
                             android:textSize="17sp"
-                            android:fontFamily="@fonts/proximanovaregular"
                             android:textStyle="bold" />
 
                         <Space
@@ -307,6 +311,7 @@
                             android:layout_weight="1" />
 
                         <TextView
+                            android:visibility="gone"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Edit"
@@ -334,15 +339,15 @@
                                 android:padding="10dp"
                                 android:src="@drawable/ic_call_24dp" />
 
-                            <TextView
+                            <customfonts.EditText_SF_Pro_Display_Medium
+                                android:inputType="number"
+                                android:background="@drawable/custom_edittext"
                                 android:id="@+id/edNohp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="20dp"
-                                android:text="+91 7999193854"
                                 android:textSize="15sp"
-                                android:textColor="@color/goodgrey"
-                                android:fontFamily="@fonts/proximanovaregular" />
+                                android:textColor="@color/goodgrey" />
                         </LinearLayout>
 
 
@@ -366,6 +371,7 @@
                         android:layout_height="wrap_content">
 
                         <TextView
+                            android:textColor="#424242"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Email"
@@ -379,6 +385,7 @@
 
 
                         <TextView
+                            android:visibility="gone"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Edit"
@@ -408,7 +415,9 @@
                                 android:padding="10dp"
                                 android:src="@drawable/ic_email_black" />
 
-                            <TextView
+                            <customfonts.EditText_SF_Pro_Display_Medium
+                                android:inputType="textEmailAddress"
+                                android:background="@drawable/custom_edittext"
                                 android:id="@+id/edEmail"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -424,21 +433,22 @@
             </LinearLayout>
 
             <LinearLayout
-
                 android:id="@+id/llButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="@dimen/value_5"
                 android:layout_marginRight="@dimen/value_5"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
                 android:background="@color/colorPrimary"
                 android:gravity="center"
-                android:padding="@dimen/value_5"
+                android:padding="10dp"
                 android:layout_marginEnd="@dimen/value_5"
                 android:layout_marginStart="@dimen/value_5">
 
                 <TextView
+                    android:textSize="14sp"
                     android:id="@+id/tvBatal"
                     style="@style/txt_white_medium"
                     android:layout_width="0dp"
@@ -453,6 +463,7 @@
                     android:background="@color/white" />
 
                 <TextView
+                    android:textSize="14sp"
                     android:id="@+id/btnUpdateProfil"
                     style="@style/txt_white_medium"
                     android:layout_width="0dp"

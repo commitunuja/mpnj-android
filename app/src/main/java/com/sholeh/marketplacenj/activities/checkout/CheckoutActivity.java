@@ -23,16 +23,19 @@ import com.google.gson.JsonObject;
 //import com.kaopiz.kprogresshud.KProgressHUD;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.sholeh.marketplacenj.R;
+import com.sholeh.marketplacenj.activities.AlamatActivity;
 import com.sholeh.marketplacenj.activities.alamat.PilihAlamatCheckout;
 import com.sholeh.marketplacenj.activities.keranjang.KeranjangDetailActivity;
 import com.sholeh.marketplacenj.activities.transaksi.KonfirmasiPembayaranActivity;
 import com.sholeh.marketplacenj.adapter.checkout.ExpandAdapterCheckout;
+import com.sholeh.marketplacenj.model.AlamatModel;
 import com.sholeh.marketplacenj.model.checkout.ChildCheckout;
 import com.sholeh.marketplacenj.model.checkout.HeaderCheckout;
 import com.sholeh.marketplacenj.model.cost.Rajaongkir;
 import com.sholeh.marketplacenj.respon.DataCheckout;
 import com.sholeh.marketplacenj.respon.ItemCheckout;
 import com.sholeh.marketplacenj.respon.ResCheckout;
+import com.sholeh.marketplacenj.respon.ResProfil;
 import com.sholeh.marketplacenj.util.AppUtilits;
 import com.sholeh.marketplacenj.util.NetworkUtility;
 import com.sholeh.marketplacenj.util.Preferences;
@@ -95,7 +98,7 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
 
     private KProgressHUD progressHUD;
     LinearLayout lnEmpty;
-
+    String cekalamatUtama;
     String alamatCheckout;
 
 
@@ -121,6 +124,7 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
         tvxBayar = findViewById(R.id.tvxBayar);
 
         tvxtolbar.setText("Checkout");
+
         listView = findViewById(R.id.expand_checkout);
 
         preferences = new Preferences(getApplication());
@@ -151,8 +155,9 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
         tvxUbahAlamat.setOnClickListener(this);
         imgBack.setOnClickListener(this);
         tvxBayar.setOnClickListener(this);
+
 //        tvxPilihBank.setOnClickListener(this);
-        getDetailKeranjang();
+//        getDetailKeranjang();
 
         listView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
@@ -180,6 +185,10 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageValidasiOpsi,
                 new IntentFilter("custom-validasiopsi2"));
 
+        cekAlamat();
+
+
+
     }
 
     private void ProgresDialog() {
@@ -194,6 +203,9 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
     }
 
     public String Icheckout(){
+        return nilaiIntent;
+    }
+    public String getAlamat(){
         return nilaiIntent;
     }
 
@@ -349,6 +361,9 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
     }
 
     public void getDetailKeranjang() {
+//        cekAlamat();
+//        Toast.makeText(this, "cek "+cekalamatUtama, Toast.LENGTH_SHORT).show();
+
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
         Call<ResCheckout> call = service.getDataTransaksi(id_konsumen, list);
 
@@ -357,8 +372,13 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
         call.enqueue(new Callback<ResCheckout>() {
             @Override
             public void onResponse(Call<ResCheckout> call, retrofit2.Response<ResCheckout> response) {
+//                String alamatUtama = response.body().getPembeli().getAlamatUtama();
+//                Toast.makeText(CheckoutActivity.this, "alamat "+alamatUtama, Toast.LENGTH_SHORT).show();
                 Log.d("cekkk", String.valueOf(response));
+
                 if (response.body() != null && response.isSuccessful()) {
+
+
                     if (response.body().getDataCheckout().size() > 0) {
                         response.body().getTotalHarganya();
                         listHeader.clear();
@@ -405,10 +425,11 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
                         }
 
                     } else {
-                        Toast.makeText(CheckoutActivity.this, "" + response.body(), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(CheckoutActivity.this, "" + response.body(), Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(CheckoutActivity.this, "" + response.body(), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(CheckoutActivity.this, "" + response.body(), Toast.LENGTH_SHORT).show();
+
                 }
             }
 
@@ -421,6 +442,104 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
 //        }
     }
 
+    public void cekAlamat() {
+        if (!NetworkUtility.isNetworkConnected(CheckoutActivity.this)) {
+            AppUtilits.displayMessage(CheckoutActivity.this, getString(R.string.network_not_connected));
+        } else {
+            ProgresDialog();
+            APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+            Call<ResProfil> call = service.getDataProfil(id_konsumen);
+            call.enqueue(new Callback<ResProfil>() {
+                @Override
+                public void onResponse(Call<ResProfil> call, Response<ResProfil> response) {
+
+                    if (response.body() != null && response.isSuccessful()) {
+
+//                        if (response.body().getPesan().equalsIgnoreCase("Sukses!!")) {
+
+
+//                            Log.d("cekalamat", String.valueOf(response.body().getData().getDaftarAlamat().size()));
+                            if (response.body().getData().getDaftarAlamat().size() > 0) {
+//                                modellist.clear();
+                                for (int i = 0; i < response.body().getData().getDaftarAlamat().size(); i++) {
+                                    cekalamatUtama = String.valueOf(response.body().getData().getAlamatUtama());
+//                                    Toast.makeText(CheckoutActivity.this, "alamat "+alamat, Toast.LENGTH_SHORT).show();
+//                                    modellist.add(new AlamatModel(response.body().getData().getDaftarAlamat().get(i).getIdAlamat(),
+//                                            response.body().getData().getDaftarAlamat().get(i).getNama(),
+//                                            response.body().getData().getDaftarAlamat().get(i).getNomorTelepon(),
+//                                            response.body().getData().getDaftarAlamat().get(i).getAlamatLengkap(),
+//                                            response.body().getData().getDaftarAlamat().get(i).getKecamatanId(),
+//                                            response.body().getData().getDaftarAlamat().get(i).getNamaKecamatan(),
+//                                            response.body().getData().getDaftarAlamat().get(i).getNamaKota(),
+//                                            response.body().getData().getDaftarAlamat().get(i).getNamaProvinsi(),
+//                                            response.body().getData().getDaftarAlamat().get(i).getKodePos(),
+//                                            response.body().getData().getDaftarAlamat().get(i).getStatus()));
+
+
+                                }
+                                if (cekalamatUtama == null ) {
+//                                    Toast.makeText(CheckoutActivity.this, "Alamat Belum Ada", Toast.LENGTH_SHORT).show();
+                                    progressHUD.dismiss();
+                                    tvxSetAlamat.setText("Mohon Pilih Alamat Pengiriman Anda");
+                                    Toast.makeText(CheckoutActivity.this, "Alamat Pengiriman Tidak Boleh Kosong", Toast.LENGTH_SHORT).show();
+
+                                }else if (cekalamatUtama.equalsIgnoreCase("null")){
+                                     tvxSetAlamat.setText("Mohon Pilih Alamat Pengiriman Anda");
+                                    Toast.makeText(CheckoutActivity.this, "Alamat Pengiriman Tidak Boleh Kosong", Toast.LENGTH_SHORT).show();
+
+//                                    Toast.makeText(CheckoutActivity.this, "Alamat tadek"+cekalamatUtama, Toast.LENGTH_SHORT).show();
+                                    progressHUD.dismiss();
+                                }else{
+
+//                                    Toast.makeText(CheckoutActivity.this, "Alamat Ada " + cekalamatUtama, Toast.LENGTH_SHORT).show();
+                                    getDetailKeranjang();
+
+                                    progressHUD.dismiss();
+                                }
+
+//                                Toast.makeText(CheckoutActivity.this, "cek "+cekalamatUtama, Toast.LENGTH_SHORT).show();
+
+//                                alamatAdapter.notifyDataSetChanged();
+//                                recyclerAlamat.setVisibility(View.VISIBLE);
+////                            ln_kosong.setVisibility(View.GONE);
+//                                progressDialogHud.dismiss();
+
+
+                            } else {
+                                Toast.makeText(CheckoutActivity.this, "Data Alamat Belum Ada", Toast.LENGTH_SHORT).show();
+                                progressHUD.dismiss();
+//                                recyclerAlamat.setVisibility(View.GONE);
+////                            ln_kosong.setVisibility(View.VISIBLE);
+//                                progressDialogHud.dismiss();
+                            }
+//                        } else {
+////                            AppUtilits.displayMessage(AlamatActivity.this, response.body().getPesan() );
+//                            recyclerAlamat.setVisibility(View.GONE);
+//                            ln_kosong.setVisibility(View.VISIBLE);
+//                            progressDialogHud.dismiss();
+//                        }
+                    } else {
+                        AppUtilits.displayMessage(CheckoutActivity.this, getString(R.string.network_error));
+                        progressHUD.dismiss();
+//                        recyclerAlamat.setVisibility(View.GONE);
+//                        ln_kosong.setVisibility(View.VISIBLE);
+//                        progressDialogHud.dismiss();
+                    }
+
+                }
+
+                @Override
+                public void onFailure(Call<ResProfil> call, Throwable t) {
+                    AppUtilits.displayMessage(CheckoutActivity.this, getString(R.string.fail_togetaddress));
+//                    recyclerAlamat.setVisibility(View.GONE);
+//                    ln_kosong.setVisibility(View.VISIBLE);
+                    progressHUD.dismiss();
+
+
+                }
+            });
+        }
+    }
 
     public BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override

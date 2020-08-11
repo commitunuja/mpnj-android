@@ -46,7 +46,7 @@ public class OpsiPengirimanActivity extends AppCompatActivity {
     String origin, destination, originType, destinationType, weight, idkec_pembeli;
     //    List<Cost_> cost_s = new ArrayList<>();
     List<Cost> costs = new ArrayList<>();
-    TextView tvSave, tvidkecPembeli;
+    TextView tvSave, tvidkecPembeli, tvxalamat;
     Integer ongkir;
     String idkab_toko;
     ImageView clear;
@@ -63,6 +63,7 @@ public class OpsiPengirimanActivity extends AppCompatActivity {
         setContentView(R.layout.activity_opsi_pengiriman);
 
         tvidkecPembeli = findViewById(R.id.tvxidkecpembeli);
+        tvxalamat = findViewById(R.id.tvx_setAlamat);
 //        setTheme(android.R.style.Theme_DeviceDefault_Light_Dialog_NoActionBar);
         final DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
@@ -74,6 +75,9 @@ public class OpsiPengirimanActivity extends AppCompatActivity {
         arrayIdKeranjang = i.getStringArrayListExtra("idcheckout");
         arrayIdByParent = i.getStringArrayListExtra("idByParent");
         nilaiIntent = i.getStringExtra("icheckout");
+        String alamat = i.getStringExtra("alamatpengiriman");
+        tvxalamat.setText(alamat);
+
         Log.d("YOLO", String.valueOf(arrayIdKeranjang));
 
         spinnerKurir.add("JNE");
@@ -261,6 +265,8 @@ public class OpsiPengirimanActivity extends AppCompatActivity {
             }
         });
     }
+
+
 
 //    public BroadcastReceiver mMessageNewIdKec = new BroadcastReceiver() {
 //        @Override

@@ -30,10 +30,10 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
                         android:text="Nama"
                         android:textColor="#000"
-                        android:textSize="16dp"
-                        android:layout_marginBottom="5dp"/>
+                        android:textSize="16dp" />
 
                     <EditText
                         android:paddingLeft="10dp"

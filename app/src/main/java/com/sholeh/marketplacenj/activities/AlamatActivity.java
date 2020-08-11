@@ -73,13 +73,32 @@ public class AlamatActivity extends AppCompatActivity implements View.OnClickLis
         alamatAdapter = new AlamatAdapter(AlamatActivity.this, modellist);
         recyclerAlamat.setAdapter(alamatAdapter);
 
-        getAlamat();
+
 
     }
+    @Override
+    public void onResume()
+    {
+        getAlamat();
+
+        super.onResume();
+        // Load data and do stuff
+    }
+
+
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
+//            YourItem passedItem = data.getExtras().get("passed_item");
+//            // deal with the item yourself
+//
+//        }
+//    }
 
     private void ProgresDialog() {
         progressDialogHud.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
-                .setLabel("Loading...")
+//                .setLabel("Loading...")
                 .setCancellable(false);
         progressDialogHud.show();
     }
@@ -95,7 +114,10 @@ public class AlamatActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.fab_alamat:
-                startActivity(new Intent(this, AddAlamat.class));
+                Intent pindah = new Intent(this, AddAlamat.class);
+                pindah.putExtra("alamat", "activity");
+                startActivity(pindah);
+                finish();
 //                Toast.makeText(this, "kll", Toast.LENGTH_SHORT).show();
                 break;
 
@@ -147,7 +169,7 @@ public class AlamatActivity extends AppCompatActivity implements View.OnClickLis
 
 
                             } else {
-                                Toast.makeText(AlamatActivity.this, "Data Belum Ada", Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(AlamatActivity.this, "Data Belum Ada", Toast.LENGTH_SHORT).show();
                                 recyclerAlamat.setVisibility(View.GONE);
 //                            ln_kosong.setVisibility(View.VISIBLE);
                                 progressDialogHud.dismiss();

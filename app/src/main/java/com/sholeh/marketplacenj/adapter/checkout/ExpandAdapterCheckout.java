@@ -15,6 +15,7 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -217,6 +218,8 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
                 }
                 String idKabPenjual = bs.getDataCheckout().get(groupPosition).getIdKabupaten();
                 String idKecPembeli = bs.getPembeli().getIdKecamatan();
+                String alamatPengiriman = bs.getPembeli().getAlamatUtama();
+
 
                 String nama_kota = bs.getDataCheckout().get(groupPosition).getNamaKota();
                 String weight = bs.getDataCheckout().get(groupPosition).getTotalBerat();
@@ -225,6 +228,7 @@ public class ExpandAdapterCheckout extends BaseExpandableListAdapter {
                 intent.putExtra("idkec_pembeli", String.valueOf(idKecPembeli));
                 intent.putExtra("weight", String.valueOf(weight));
                 intent.putExtra("icheckout", nilaiIntent);
+                intent.putExtra("alamatpengiriman", alamatPengiriman);
                 intent.putStringArrayListExtra("idcheckout", id);
                 intent.putStringArrayListExtra("idByParent", idByParent);
                 myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));

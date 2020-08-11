@@ -14,17 +14,100 @@
     app:cardElevation="5dp"
     android:id="@+id/cvlistAlamat">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <RelativeLayout
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/ln1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_margin="10dp">
+
+
+
+                <customfonts.TextViewSFProDisplaySemibold
+                    android:textSize="12sp"
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/tvx_nohp"
+                    android:text="+6282336181538"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <customfonts.TextViewSFProDisplaySemibold
+                    android:textSize="12sp"
+                    android:id="@+id/tvx_alamat"
+                    android:layout_below="@+id/tvx_nohp"
+                    android:text="JL. Kyai Haji Zaini Mun'im, Karang Anyar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <customfonts.TextViewSFProDisplaySemibold
+                    android:textSize="12sp"
+                    android:id="@+id/tvx_kec"
+                    android:layout_below="@+id/tvx_alamat"
+                    android:text="Kec. Paiton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <customfonts.TextViewSFProDisplaySemibold
+                    android:textSize="12sp"
+                    android:id="@+id/tvx_kab"
+                    android:layout_below="@+id/tvx_kec"
+                    android:text="Kab. Probolinggo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <customfonts.TextViewSFProDisplaySemibold
+                    android:textSize="12sp"
+                    android:id="@+id/tvx_prov"
+                    android:layout_below="@+id/tvx_kab"
+                    android:text="Provinsi. Jawa Timur"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <customfonts.TextViewSFProDisplaySemibold
+                    android:textSize="12sp"
+                    android:id="@+id/tvx_kodepos"
+                    android:layout_below="@+id/tvx_prov"
+                    android:text="ID 67291"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+
+                <ImageView
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageselect"
+                    android:src="@mipmap/ic_select_done"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/paddinng_large_15"
+                    />
+
+
+
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_below="@+id/ln1"
+            android:id="@+id/lnmain1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="4dp"
             android:orientation="vertical"
-            android:gravity="center"
-            android:layout_margin="10dp">
+            android:padding="12dp">
 
             <LinearLayout
                 android:id="@+id/lnName"
@@ -32,7 +115,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <TextView
+                <customfonts.TextViewSFProDisplaySemibold
+                    android:textSize="15sp"
+                    android:textColor="#424242"
                     android:layout_weight="1"
                     android:textStyle="bold"
                     android:id="@+id/tvx_namaCustomer"
@@ -40,7 +125,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
-                <TextView
+                <customfonts.TextViewSFProDisplaySemibold
+                    android:textStyle="bold"
+                    android:textSize="13sp"
                     android:gravity="right"
                     android:layout_weight="1"
                     android:textColor="#F44336"
@@ -52,67 +139,92 @@
 
             </LinearLayout>
 
-            <TextView
-                android:layout_marginTop="5dp"
-                android:id="@+id/tvx_nohp"
-                android:layout_below="@+id/lnName"
-                android:text="+6282336181538"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/tvx_alamat"
-                android:layout_below="@+id/tvx_nohp"
-                android:text="JL. Kyai Haji Zaini Mun'im, Karang Anyar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/tvx_kec"
-                android:layout_below="@+id/tvx_alamat"
-                android:text="Kec. Paiton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/tvx_kab"
-                android:layout_below="@+id/tvx_kec"
-                android:text="Kab. Probolinggo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/tvx_prov"
-                android:layout_below="@+id/tvx_kab"
-                android:text="Provinsi. Jawa Timur"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/tvx_kodepos"
-                android:layout_below="@+id/tvx_prov"
-                android:text="ID 67291"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-
-            <ImageView
-                android:visibility="gone"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/imageselect"
-                android:src="@mipmap/ic_select_done"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/paddinng_large_15"
-                />
+                android:orientation="horizontal">
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+
+                            android:elevation="3dp"
+                            android:orientation="vertical">
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
 
 
 
+                                <customfonts.MyTextView_Roboto_Regular
+                                    android:id="@+id/tvx_idKecPembeli"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="18dp"
+                                    android:layout_marginTop="20dp"
+                                    android:layout_marginBottom="17dp"
+                                    android:layout_weight="1"
+                                    android:letterSpacing="0.03"
+                                    android:lineSpacingExtra="1dp"
+                                    android:textColor="@color/black"
+                                    android:textSize="13sp"
+                                    android:visibility="gone" />
 
-        </RelativeLayout>
 
-    </LinearLayout>
+                                <customfonts.MyTextView_Roboto_Regular
+                                    android:id="@+id/tvx_setAlamat"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:letterSpacing="0.03"
+                                    android:lineSpacingExtra="1dp"
+                                    android:text="Muhammad Solehudin, Jl Rest Area Tongas, Dusun CUrah Pondok, Kecamatan Tongas, Kabupaten Probolinggo jawa timut, 088996412224. 68845"
+                                    android:textSize="13sp" />
+
+                                <ImageView
+                                    android:layout_gravity="center"
+                                    android:layout_width="50dp"
+                                    android:layout_height="40dp"
+                                    android:layout_marginRight="15.7dp"
+                                    android:scaleType="fitXY"
+                                    android:src="@drawable/ic_delivery_route" />
+
+
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+
 
 
 
