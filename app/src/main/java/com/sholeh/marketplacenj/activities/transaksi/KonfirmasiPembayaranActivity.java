@@ -629,11 +629,9 @@ public class KonfirmasiPembayaranActivity extends AppCompatActivity implements V
     }
 
     public void simpanKonfirmasi() {
-
         if (imagePath == null) {
             Toast.makeText(this, "Upload Foto Bukti Pembayaran Anda", Toast.LENGTH_SHORT).show();
         } else {
-//            Toast.makeText(this, "Oke", Toast.LENGTH_SHORT).show();
             ProgresDialog();
             int bayar = (int) (totalbayar);
             namaPengirim = edNamaPengirim.getText().toString();
@@ -641,8 +639,7 @@ public class KonfirmasiPembayaranActivity extends AppCompatActivity implements V
             RequestBody reqFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
             MultipartBody.Part imageBody_ = MultipartBody.Part.createFormData("file", file.getName(), reqFile);
             RequestBody ImageName = RequestBody.create(MediaType.parse("text/plain"), file.getName());
-//        Toast.makeText(this, ""+kodetransaksi+" "+bayar+" "+idrekAdmin+" "+namaPengirim+" "+imagePath, Toast.LENGTH_SHORT).show();
-            APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+           APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
             RequestBody kodetransaksi_ = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(kodetransaksi));
             RequestBody bayar_ = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(bayar));
             RequestBody idrekAdmin_ = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(idrekAdmin));
@@ -652,7 +649,6 @@ public class KonfirmasiPembayaranActivity extends AppCompatActivity implements V
                 @Override
                 public void onResponse(Call<ResKonfirmasi> call, Response<ResKonfirmasi> response) {
                     Log.d("reskonfirmasi", String.valueOf(response));
-//                Toast.makeText(KonfirmasiPembayaranActivity.this, ""+response, Toast.LENGTH_SHORT).show();
                     if (response.body() != null && response.isSuccessful()) {
                         Intent intent = new Intent(KonfirmasiPembayaranActivity.this, StatusPembayaran.class);
                         intent.putExtra("kodetransaksi", kodetransaksi);
@@ -663,12 +659,9 @@ public class KonfirmasiPembayaranActivity extends AppCompatActivity implements V
                         finish();
                         progressHUD.dismiss();
                     } else {
-//                        AppUtilits.displayMessage(getApplication(), getString(R.string.network_error));
-                        Log.d("reskonfirmasii", String.valueOf(response));
+                       Log.d("reskonfirmasii", String.valueOf(response));
                         progressHUD.dismiss();
-//                    Toast.makeText(KonfirmasiPembayaranActivity.this, "gagal", Toast.LENGTH_SHORT).show();
                     }
-
                 }
 
                 @Override
@@ -676,13 +669,9 @@ public class KonfirmasiPembayaranActivity extends AppCompatActivity implements V
                     Log.e("reskonfirmasiii", t.toString());
                     AppUtilits.displayMessage(getApplication(), getString(R.string.network_error));
                     progressHUD.dismiss();
-//                Toast.makeText(KonfirmasiPembayaranActivity.this, "res"+t, Toast.LENGTH_SHORT).show();
                 }
             });
         }
-
-
-//
     }
 
 

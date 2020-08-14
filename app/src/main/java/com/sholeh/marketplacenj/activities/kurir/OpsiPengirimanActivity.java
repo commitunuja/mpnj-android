@@ -22,6 +22,7 @@ import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.activities.checkout.CheckoutActivity;
 import com.sholeh.marketplacenj.model.cost.Cost;
 import com.sholeh.marketplacenj.model.cost.ItemCost;
+import com.sholeh.marketplacenj.util.AppUtilits;
 import com.sholeh.marketplacenj.util.CONSTANTS;
 import com.sholeh.marketplacenj.util.ServiceGenerator;
 import com.sholeh.marketplacenj.util.api.APIInterface;
@@ -230,15 +231,11 @@ public class OpsiPengirimanActivity extends AppCompatActivity {
                 .baseUrl(CONSTANTS.URL_RAJAONGKIR)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-
-//        String newdestination = tvidkecPembeli.getText().toString();
-
         APIInterface service = retrofit.create(APIInterface.class);
         Call<ItemCost> callOngkir = service.hitungOngkir(origin, "city", destination, "subdistrict", Integer.parseInt(weight), kurir);
         callOngkir.enqueue(new Callback<ItemCost>() {
             @Override
             public void onResponse(Call<ItemCost> call, Response<ItemCost> response) {
-//                cost = (Cost) response.body().getRajaongkir().getResults().get(0).getCosts().get(0).getCost();
                 costs.clear();
                 for (int i = 0; i < response.body().getRajaongkir().getResults().get(0).getCosts().size(); i++) {
                     RadioButton radioButtonView = new RadioButton(OpsiPengirimanActivity.this);
@@ -247,21 +244,14 @@ public class OpsiPengirimanActivity extends AppCompatActivity {
                                     response.body().getRajaongkir().getResults().get(0).getCosts().get(i).getCost().get(0).getValue() + " - " +
                                     response.body().getRajaongkir().getResults().get(0).getCosts().get(i).getCost().get(0).getEtd() + " hari");
                     radioGroupKurir.addView(radioButtonView);
-
-//                    Cost_ cost_ = response.body().getRajaongkir().getResults().get(0).getCosts().get(i).getCost().get(0);
                     List<Cost> cost = response.body().getRajaongkir().getResults().get(0).getCosts();
                     costs.add(new Cost(cost.get(i).getService(), cost.get(i).getDescription(), cost.get(i).getCost()));
                 }
                 progressBar.setVisibility(View.GONE);
             }
-
             @Override
             public void onFailure(Call<ItemCost> call, Throwable t) {
-//                    Log.e(TAG, " failure " + t.toString());
-                Toast.makeText(OpsiPengirimanActivity.this, "rrr" + t, Toast.LENGTH_SHORT).show();
-
-
-//                    AppUtilits.displayMessage(RegisterActivity.this,   getString(R.string.failed_request));
+                    AppUtilits.displayMessage(OpsiPengirimanActivity.this,  "Terdapat Kesalahan. Silahkan Coba Lagi Nanti");
             }
         });
     }

@@ -188,7 +188,6 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
         cekAlamat();
 
 
-
     }
 
     private void ProgresDialog() {
@@ -202,10 +201,11 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
         return resCheckout;
     }
 
-    public String Icheckout(){
+    public String Icheckout() {
         return nilaiIntent;
     }
-    public String getAlamat(){
+
+    public String getAlamat() {
         return nilaiIntent;
     }
 
@@ -361,24 +361,15 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
     }
 
     public void getDetailKeranjang() {
-//        cekAlamat();
-//        Toast.makeText(this, "cek "+cekalamatUtama, Toast.LENGTH_SHORT).show();
-
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
         Call<ResCheckout> call = service.getDataTransaksi(id_konsumen, list);
-
         listHeader = new ArrayList<>();
         listChild = new HashMap<>();
         call.enqueue(new Callback<ResCheckout>() {
             @Override
             public void onResponse(Call<ResCheckout> call, retrofit2.Response<ResCheckout> response) {
-//                String alamatUtama = response.body().getPembeli().getAlamatUtama();
-//                Toast.makeText(CheckoutActivity.this, "alamat "+alamatUtama, Toast.LENGTH_SHORT).show();
                 Log.d("cekkk", String.valueOf(response));
-
                 if (response.body() != null && response.isSuccessful()) {
-
-
                     if (response.body().getDataCheckout().size() > 0) {
                         response.body().getTotalHarganya();
                         listHeader.clear();
@@ -389,7 +380,6 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
                         tvx_idKecPembeli.setText(idKecPembeli);
                         List<DataCheckout> array = response.body().getDataCheckout();
                         resCheckout = response.body();
-
                         for (int i = 0; i < array.size(); i++) {
                             listHeader.add(new HeaderCheckout(
                                     response.body().getDataCheckout().get(i).getIdToko(),
@@ -410,36 +400,30 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
                                 int diskon = Integer.parseInt((childLink.get(j).getDiskon()));
                                 int jumlah = Integer.parseInt(String.valueOf(childLink.get(j).getJumlah()));
                                 String foto = childLink.get(j).getFoto();
-
                                 child.add(new ChildCheckout(idKeranjang, namaProduk, hargaJual, diskon, jumlah, foto));
                             }
                             listChild.put(listHeader.get(i), child);
                         }
                         expanAdapter = new ExpandAdapterCheckout(CheckoutActivity.this, listHeader, listChild);
                         listView.setAdapter(expanAdapter);
-
-
                         int count = expanAdapter.getGroupCount();
                         for (int i = 0; i < count; i++) {
                             listView.expandGroup(i);
                         }
-
                     } else {
-//                        Toast.makeText(CheckoutActivity.this, "" + response.body(), Toast.LENGTH_SHORT).show();
+                        AppUtilits.displayMessage(CheckoutActivity.this, "Terdapat Kesalahan. Silahkan Coba Lagi Nanti");
                     }
                 } else {
-//                    Toast.makeText(CheckoutActivity.this, "" + response.body(), Toast.LENGTH_SHORT).show();
-
+                    AppUtilits.displayMessage(CheckoutActivity.this, "Terdapat Kesalahan. Silahkan Coba Lagi Nanti");
                 }
             }
 
             @Override
             public void onFailure(Call<ResCheckout> call, Throwable t) {
-//                AppUtilits.displayMessage(KeranjangDetailActivity.this, getString(R.string.fail_toGetcart));
+                AppUtilits.displayMessage(CheckoutActivity.this, "Terdapat Kesalahan. Silahkan Coba Lagi Nanti");
                 Log.d("cekkk", String.valueOf(t));
             }
         });
-//        }
     }
 
     public void cekAlamat() {
@@ -459,10 +443,10 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
 
 
 //                            Log.d("cekalamat", String.valueOf(response.body().getData().getDaftarAlamat().size()));
-                            if (response.body().getData().getDaftarAlamat().size() > 0) {
+                        if (response.body().getData().getDaftarAlamat().size() > 0) {
 //                                modellist.clear();
-                                for (int i = 0; i < response.body().getData().getDaftarAlamat().size(); i++) {
-                                    cekalamatUtama = String.valueOf(response.body().getData().getAlamatUtama());
+                            for (int i = 0; i < response.body().getData().getDaftarAlamat().size(); i++) {
+                                cekalamatUtama = String.valueOf(response.body().getData().getAlamatUtama());
 //                                    Toast.makeText(CheckoutActivity.this, "alamat "+alamat, Toast.LENGTH_SHORT).show();
 //                                    modellist.add(new AlamatModel(response.body().getData().getDaftarAlamat().get(i).getIdAlamat(),
 //                                            response.body().getData().getDaftarAlamat().get(i).getNama(),
@@ -476,26 +460,26 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
 //                                            response.body().getData().getDaftarAlamat().get(i).getStatus()));
 
 
-                                }
-                                if (cekalamatUtama == null ) {
+                            }
+                            if (cekalamatUtama == null) {
 //                                    Toast.makeText(CheckoutActivity.this, "Alamat Belum Ada", Toast.LENGTH_SHORT).show();
-                                    progressHUD.dismiss();
-                                    tvxSetAlamat.setText("Mohon Pilih Alamat Pengiriman Anda");
-                                    Toast.makeText(CheckoutActivity.this, "Alamat Pengiriman Tidak Boleh Kosong", Toast.LENGTH_SHORT).show();
+                                progressHUD.dismiss();
+                                tvxSetAlamat.setText("Mohon Pilih Alamat Pengiriman Anda");
+                                Toast.makeText(CheckoutActivity.this, "Alamat Pengiriman Tidak Boleh Kosong", Toast.LENGTH_SHORT).show();
 
-                                }else if (cekalamatUtama.equalsIgnoreCase("null")){
-                                     tvxSetAlamat.setText("Mohon Pilih Alamat Pengiriman Anda");
-                                    Toast.makeText(CheckoutActivity.this, "Alamat Pengiriman Tidak Boleh Kosong", Toast.LENGTH_SHORT).show();
+                            } else if (cekalamatUtama.equalsIgnoreCase("null")) {
+                                tvxSetAlamat.setText("Mohon Pilih Alamat Pengiriman Anda");
+                                Toast.makeText(CheckoutActivity.this, "Alamat Pengiriman Tidak Boleh Kosong", Toast.LENGTH_SHORT).show();
 
 //                                    Toast.makeText(CheckoutActivity.this, "Alamat tadek"+cekalamatUtama, Toast.LENGTH_SHORT).show();
-                                    progressHUD.dismiss();
-                                }else{
+                                progressHUD.dismiss();
+                            } else {
 
 //                                    Toast.makeText(CheckoutActivity.this, "Alamat Ada " + cekalamatUtama, Toast.LENGTH_SHORT).show();
-                                    getDetailKeranjang();
+                                getDetailKeranjang();
 
-                                    progressHUD.dismiss();
-                                }
+                                progressHUD.dismiss();
+                            }
 
 //                                Toast.makeText(CheckoutActivity.this, "cek "+cekalamatUtama, Toast.LENGTH_SHORT).show();
 
@@ -505,13 +489,13 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
 //                                progressDialogHud.dismiss();
 
 
-                            } else {
-                                Toast.makeText(CheckoutActivity.this, "Data Alamat Belum Ada", Toast.LENGTH_SHORT).show();
-                                progressHUD.dismiss();
+                        } else {
+                            Toast.makeText(CheckoutActivity.this, "Data Alamat Belum Ada", Toast.LENGTH_SHORT).show();
+                            progressHUD.dismiss();
 //                                recyclerAlamat.setVisibility(View.GONE);
 ////                            ln_kosong.setVisibility(View.VISIBLE);
 //                                progressDialogHud.dismiss();
-                            }
+                        }
 //                        } else {
 ////                            AppUtilits.displayMessage(AlamatActivity.this, response.body().getPesan() );
 //                            recyclerAlamat.setVisibility(View.GONE);
