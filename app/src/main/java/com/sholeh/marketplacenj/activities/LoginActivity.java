@@ -52,68 +52,56 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.tvNewUser:
                 Intent pindah = new Intent(this, RegisterActivity.class);
                 startActivity(pindah);
                 break;
             case R.id.tvSignIn:
-                loginKonsumen();
+                Login();
                 break;
             case R.id.tvForgetPass:
                 Intent pindah2 = new Intent(this, ForgotPassword.class);
                 startActivity(pindah2);
                 break;
 
-                default:
-                    break;
+            default:
+                break;
         }
     }
 
-    public void loginKonsumen(){
-        final String username_ = edUserName.getText ().toString ();
-        final String password_ = edPass.getText ().toString ();
-//        ServiceWrapper serviceWrapper = new ServiceWrapper(null);
+    public void Login() {
+        final String username_ = edUserName.getText().toString();
+        final String password_ = edPass.getText().toString();
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
         Call<ResLogin> userSigninCall = service.loginKonsumenCall(username_, password_);
         userSigninCall.enqueue(new Callback<ResLogin>() {
             @Override
             public void onResponse(Call<ResLogin> call, Response<ResLogin> response) {
-
                 Log.d(TAG, "resLogin" + response.toString());
                 if (response.body() != null && response.isSuccessful()) {
-
-                    if (response.body().getPesan().equalsIgnoreCase("Login Sukses!")){
-
-                       preferences.saveSPString(Preferences.SP_IdKonsumen,String.valueOf(response.body().getIdKonsumen()));
-                       preferences.saveSPString(Preferences.SP_UserName,String.valueOf(response.body().getUsername()));
-                       preferences.saveSPString(Preferences.SP_NamaLengkap,String.valueOf(response.body().getNamaLengkap()));
-                       preferences.saveSPString(Preferences.SP_NomorHP,String.valueOf(response.body().getNomorHp()));
-                       preferences.saveSPString(Preferences.SP_Email,String.valueOf(response.body().getEmail()));
-//                       preferences.saveSPString(Preferences.SP_FotoAkun,String.valueOf(response.body().getFoto()));
-                       preferences.saveSPBoolean(Preferences.SP_SUDAH_LOGIN, true);
-
-
-
+                    if (response.body().getPesan().equalsIgnoreCase("Login Sukses!")) {
+                        preferences.saveSPString(Preferences.SP_IdKonsumen, String.valueOf(response.body().getIdKonsumen()));
+                        preferences.saveSPString(Preferences.SP_UserName, String.valueOf(response.body().getUsername()));
+                        preferences.saveSPString(Preferences.SP_NamaLengkap, String.valueOf(response.body().getNamaLengkap()));
+                        preferences.saveSPString(Preferences.SP_NomorHP, String.valueOf(response.body().getNomorHp()));
+                        preferences.saveSPString(Preferences.SP_Email, String.valueOf(response.body().getEmail()));
+                        preferences.saveSPBoolean(Preferences.SP_SUDAH_LOGIN, true);
                         Toast.makeText(LoginActivity.this, "Sukses", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(LoginActivity.this, Utama.class);
                         startActivity(intent);
                         finish();
-
-
-                    }else{
+                    } else {
                         Toast.makeText(LoginActivity.this, "User Name dan Password Salah", Toast.LENGTH_SHORT).show();
                     }
-
-                }else {
+                } else {
                     Toast.makeText(LoginActivity.this, "User Name dan Password Salah", Toast.LENGTH_LONG).show();
-
                 }
             }
 
             @Override
             public void onFailure(Call<ResLogin> call, Throwable t) {
-                Toast.makeText(LoginActivity.this, "Try Again", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "Mohon Maaf Terdapat Kesalahan. Silahkan Coba Lagi Nanti", Toast.LENGTH_SHORT).show();
             }
         });
 
