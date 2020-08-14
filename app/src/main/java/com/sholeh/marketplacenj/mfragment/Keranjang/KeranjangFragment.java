@@ -52,7 +52,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 
 
-public class KeranjangFragment extends Fragment implements View.OnClickListener  {
+public class KeranjangFragment extends Fragment implements View.OnClickListener {
     private ExpandableListView listView;
     private AdapterExpandKeranjang expanAdapter;
     private List<HeaderModel> listHeader;
@@ -88,12 +88,10 @@ public class KeranjangFragment extends Fragment implements View.OnClickListener 
     Toolbar toolBarisi;
 
 
-
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_keranjang,container,false);
+        View rootView = inflater.inflate(R.layout.fragment_keranjang, container, false);
         preferences = new Preferences(getActivity());
         AppCompatActivity appCompatActivity = (AppCompatActivity) getActivity();
         toolBarisi = rootView.findViewById(R.id.toolbar);
@@ -101,7 +99,7 @@ public class KeranjangFragment extends Fragment implements View.OnClickListener 
         appCompatActivity.setSupportActionBar(toolBarisi);
         id_konsumen = preferences.getIdKonsumen();
         lnKosong = rootView.findViewById(R.id.lnKosong);
-        lnTotalKeranjang= rootView.findViewById(R.id.lnTotalKeranjang);
+        lnTotalKeranjang = rootView.findViewById(R.id.lnTotalKeranjang);
         tvxDesainKosong = rootView.findViewById(R.id.tvDataKosong);
         progress_bar = rootView.findViewById(R.id.progress_bar);
 
@@ -161,6 +159,7 @@ public class KeranjangFragment extends Fragment implements View.OnClickListener 
 
         return rootView;
     }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -180,11 +179,11 @@ public class KeranjangFragment extends Fragment implements View.OnClickListener 
                 break;
         }
     }
+
     public void getDetailKeranjang() {
         if (!NetworkUtility.isNetworkConnected(getActivity())) {
             AppUtilits.displayMessage(getActivity(), getString(R.string.network_not_connected));
         } else {
-//            ProgresDialog();
             APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
             Call<ResDetailKeranjang> call = service.getDataDetailKeranjang(id_konsumen);
             listHeader = new ArrayList<>();
@@ -201,7 +200,6 @@ public class KeranjangFragment extends Fragment implements View.OnClickListener 
                             for (int i = 0; i < array.size(); i++) {
                                 listHeader.add(new HeaderModel(response.body().getDataCheckout().get(i).getIdToko(),
                                         response.body().getDataCheckout().get(i).getNamaToko(), false));
-
                                 child = new ArrayList<>();
                                 List<ItemKeranjang> childLink = array.get(i).getItem();
                                 for (int j = 0; j < childLink.size(); j++) {
@@ -220,7 +218,7 @@ public class KeranjangFragment extends Fragment implements View.OnClickListener 
                                 }
                                 listChild.put(listHeader.get(i), child);
                             }
-//                        Log.d("sholceng", new Gson().toJson(listChild));
+//                        Log.d("sholeh", new Gson().toJson(listChild));
                             expanAdapter = new AdapterExpandKeranjang(getActivity(), listHeader, listChild);
                             listView.setAdapter(expanAdapter);
                             int count = expanAdapter.getGroupCount();
@@ -231,10 +229,7 @@ public class KeranjangFragment extends Fragment implements View.OnClickListener 
                             listView.setVisibility(View.VISIBLE);
                             lnTotalKeranjang.setVisibility(View.VISIBLE);
                             progress_bar.setVisibility(View.GONE);
-
-
                         } else {
-//                        AppUtilits.displayMessage(KeranjangDetailActivity.this, getString(R.string.network_error));
                             listView.setVisibility(View.GONE);
                             lnKosong.setVisibility(View.VISIBLE);
                             tvxDesainKosong.setText("Barang Keranjangmu Belum Ada");
@@ -249,8 +244,6 @@ public class KeranjangFragment extends Fragment implements View.OnClickListener 
                         lnKosong.setVisibility(View.VISIBLE);
                         tvxDesainKosong.setText(R.string.network_error);
                         progress_bar.setVisibility(View.GONE);
-
-//                        AppUtilits.displayMessage(KeranjangDetailActivity.this, getString(R.string.network_error));
                     }
                 }
 
@@ -261,12 +254,6 @@ public class KeranjangFragment extends Fragment implements View.OnClickListener 
                     lnKosong.setVisibility(View.VISIBLE);
                     tvxDesainKosong.setText("Barang Keranjangmu Belum Ada");
                     progress_bar.setVisibility(View.GONE);
-
-//                    Toast.makeText(KeranjangDetailActivity.this, "2", Toast.LENGTH_SHORT).show();
-//                    listView.setVisibility(View.GONE);
-//                    lnKosong.setVisibility(View.VISIBLE);
-//                    tvxDesainKosong.setText(R.string.network_error);
-//                    AppUtilits.displayMessage(KeranjangDetailActivity.this, getString(R.string.network_error));
                     Log.d("cekkk", String.valueOf(t));
                 }
             });
@@ -275,10 +262,10 @@ public class KeranjangFragment extends Fragment implements View.OnClickListener 
 
 
     public void getTotal() {
-        if (!NetworkUtility.isNetworkConnected(getActivity())){
-            AppUtilits.displayMessage(getActivity(),  getString(R.string.network_not_connected));
+        if (!NetworkUtility.isNetworkConnected(getActivity())) {
+            AppUtilits.displayMessage(getActivity(), getString(R.string.network_not_connected));
 
-        }else {
+        } else {
 //            ProgresDialog();
             APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
             Call<ResDetailKeranjang> call = service.getDataDetailKeranjang(id_konsumen);
@@ -429,7 +416,6 @@ public class KeranjangFragment extends Fragment implements View.OnClickListener 
             list = Arrays.asList(yolo);
         }
     };
-
 
 
     private void goChekout() {
