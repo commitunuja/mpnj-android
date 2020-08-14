@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -38,7 +39,7 @@ public class TabDikirim extends Fragment {
     List<Item> itemdata;
     PesananAdapter recyclerPesananAdapter;
     String status;
-
+    LinearLayout linearLayout;
     RecyclerView.LayoutManager dataapi;
 
     public static TabDikirim newInstance(int index) {
@@ -55,6 +56,8 @@ public class TabDikirim extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_pesanan, container, false);
         recyclerView = view.findViewById(R.id.recycler_pesanan1);
+        linearLayout = view.findViewById(R.id.ldatakosong);
+
 
 
         getData();
@@ -109,7 +112,8 @@ public class TabDikirim extends Fragment {
                             }
                         }
                     } else {
-
+                        recyclerView.setVisibility(View.GONE);
+                        linearLayout.setVisibility(View.VISIBLE);
                     }
                     recyclerPesananAdapter = new PesananAdapter(getContext(), dataPesanans, item);
                     recyclerView.setAdapter(recyclerPesananAdapter);

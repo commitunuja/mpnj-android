@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -37,6 +38,7 @@ public class PesananFragment extends Fragment {
     List<Item> itemdata;
     PesananAdapter recyclerPesananAdapter;
     String status;
+    LinearLayout linearLayout;
 
     RecyclerView.LayoutManager dataapi;
 
@@ -54,6 +56,7 @@ public class PesananFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_pesanan, container, false);
         recyclerView = view.findViewById(R.id.recycler_pesanan1);
+        linearLayout = view.findViewById(R.id.ldatakosong);
 
 
         getData();
@@ -108,7 +111,8 @@ public class PesananFragment extends Fragment {
                             }
                         }
                     } else {
-
+                        linearLayout.setVisibility(View.VISIBLE);
+                        recyclerView.setVisibility(View.GONE);
                     }
                     recyclerPesananAdapter = new PesananAdapter(getContext(), dataPesanans, item);
                     recyclerView.setAdapter(recyclerPesananAdapter);
