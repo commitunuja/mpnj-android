@@ -123,71 +123,69 @@ public class FragmentFavorite extends Fragment implements View.OnClickListener {
 
     }
 
+    @Override
+    public void onResume() {
+        getWishlish();
+        super.onResume();
+    }
+
     public void getWishlish() {
         if (!NetworkUtility.isNetworkConnected(getActivity())) {
             AppUtilits.displayMessage(getActivity(), getString(R.string.network_not_connected));
         } else {
-        ProgresDialog();
-        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-        Call<ResTampilWishlist> call = service.getDataWishlist(id_konsumen);
-        call.enqueue(new Callback<ResTampilWishlist>() {
-            @Override
-            public void onResponse(Call<ResTampilWishlist> call, Response<ResTampilWishlist> response) {
-
-                if (response.body() != null && response.isSuccessful()) {
-                    if (response.body().getData().size() > 0) {
-                        modellist.clear();
-                        for (int i = 0; i < response.body().getData().size(); i++) {
-                            modellist.add(new modelWishlist(
-                                    response.body().getData().get(i).getIdWishlist(),
-                                    response.body().getData().get(i).getIdUser(),
-                                    response.body().getData().get(i).getIdProduk(),
-                                    response.body().getData().get(i).getNamaProduk(),
-                                    response.body().getData().get(i).getHargaJual(),
-                                    response.body().getData().get(i).getDiskon(),
-                                    response.body().getData().get(i).getStok(),
-                                    response.body().getData().get(i).getKategori(),
-                                    response.body().getData().get(i).getKeterangan(),
-                                    response.body().getData().get(i).getTerjual(),
-                                    response.body().getData().get(i).getPelapak().getKabupaten(),
-                                    response.body().getData().get(i).getFoto().get(0).getFotoProduk()));
-
-
-
+            ProgresDialog();
+            APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+            Call<ResTampilWishlist> call = service.getDataWishlist(id_konsumen);
+            call.enqueue(new Callback<ResTampilWishlist>() {
+                @Override
+                public void onResponse(Call<ResTampilWishlist> call, Response<ResTampilWishlist> response) {
+                    if (response.body() != null && response.isSuccessful()) {
+                        if (response.body().getData().size() > 0) {
+                            modellist.clear();
+                            for (int i = 0; i < response.body().getData().size(); i++) {
+                                modellist.add(new modelWishlist(
+                                        response.body().getData().get(i).getIdWishlist(),
+                                        response.body().getData().get(i).getIdUser(),
+                                        response.body().getData().get(i).getIdProduk(),
+                                        response.body().getData().get(i).getNamaProduk(),
+                                        response.body().getData().get(i).getHargaJual(),
+                                        response.body().getData().get(i).getDiskon(),
+                                        response.body().getData().get(i).getStok(),
+                                        response.body().getData().get(i).getKategori(),
+                                        response.body().getData().get(i).getKeterangan(),
+                                        response.body().getData().get(i).getTerjual(),
+                                        response.body().getData().get(i).getPelapak().getKabupaten(),
+                                        response.body().getData().get(i).getFoto().get(0).getFotoProduk()));
+                            }
+                            adapter = new AdapterWishlist(getActivity(), modellist);
+                            mGridView.setAdapter(adapter);
+                            lnKosong.setVisibility(View.GONE);
+                            mGridView.setVisibility(View.VISIBLE);
+                            progressHud.dismiss();
+                        } else {
+                            mGridView.setVisibility(View.GONE);
+                            lnKosong.setVisibility(View.VISIBLE);
+                            progressHud.dismiss();
+                            tvxDesainKosong.setText("Barang Favoritmu Belum Ada");
                         }
-                        adapter = new AdapterWishlist(getActivity(), modellist);
-                        mGridView.setAdapter(adapter);
-                        lnKosong.setVisibility(View.GONE);
-                        mGridView.setVisibility(View.VISIBLE);
-                        progressHud.dismiss();
                     } else {
                         mGridView.setVisibility(View.GONE);
                         lnKosong.setVisibility(View.VISIBLE);
                         progressHud.dismiss();
-                        tvxDesainKosong.setText("Barang Favoritmu Belum Ada");
-
+                        tvxDesainKosong.setText(R.string.network_error);
+                        AppUtilits.displayMessage(getActivity(), getString(R.string.network_error));
                     }
+                }
 
-                } else {
+                @Override
+                public void onFailure(Call<ResTampilWishlist> call, Throwable t) {
                     mGridView.setVisibility(View.GONE);
                     lnKosong.setVisibility(View.VISIBLE);
                     progressHud.dismiss();
-                    tvxDesainKosong.setText(R.string.network_error);
+                    tvxDesainKosong.setText("Barang Favoritmu Belum Ada");
                     AppUtilits.displayMessage(getActivity(), getString(R.string.network_error));
                 }
-
-            }
-
-            @Override
-            public void onFailure(Call<ResTampilWishlist> call, Throwable t) {
-                mGridView.setVisibility(View.GONE);
-                lnKosong.setVisibility(View.VISIBLE);
-                progressHud.dismiss();
-                tvxDesainKosong.setText("Barang Favoritmu Belum Ada");
-                AppUtilits.displayMessage(getActivity(), getString(R.string.network_error));
-//                Toast.makeText(getActivity(), "Silakan coba lagi. Jaringan tidak merespon", Toast.LENGTH_SHORT).show();
-            }
-        });
+            });
         }
     }
 
@@ -195,65 +193,65 @@ public class FragmentFavorite extends Fragment implements View.OnClickListener {
         if (!NetworkUtility.isNetworkConnected(getActivity())) {
             AppUtilits.displayMessage(getActivity(), getString(R.string.network_not_connected));
         } else {
-        ProgresDialog();
-        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-        Call<ResTampilWishlist> call = service.cariWishlist(id_konsumen, search);
+            ProgresDialog();
+            APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+            Call<ResTampilWishlist> call = service.cariWishlist(id_konsumen, search);
 
-        call.enqueue(new Callback<ResTampilWishlist>() {
-            @Override
-            public void onResponse(Call<ResTampilWishlist> call, Response<ResTampilWishlist> response) {
-                Log.d("cariwishlist", "onResponse: " + response);
-                if (response.body() != null && response.isSuccessful()) {
-                    if (response.body().getData().size() > 0) {
-                        modellist.clear();
-                        for (int i = 0; i < response.body().getData().size(); i++) {
-                            response.body().getData().get(i).getNamaProduk();
-                            modellist.add(new modelWishlist(
-                                    response.body().getData().get(i).getIdWishlist(),
-                                    response.body().getData().get(i).getIdUser(),
-                                    response.body().getData().get(i).getIdProduk(),
-                                    response.body().getData().get(i).getNamaProduk(),
-                                    response.body().getData().get(i).getHargaJual(),
-                                    response.body().getData().get(i).getDiskon(),
-                                    response.body().getData().get(i).getStok(),
-                                    response.body().getData().get(i).getKategori(),
-                                    response.body().getData().get(i).getKeterangan(),
-                                    response.body().getData().get(i).getTerjual(),
-                                    response.body().getData().get(i).getPelapak().getKabupaten(),
-                                    response.body().getData().get(i).getFoto().get(0).getFotoProduk()));
+            call.enqueue(new Callback<ResTampilWishlist>() {
+                @Override
+                public void onResponse(Call<ResTampilWishlist> call, Response<ResTampilWishlist> response) {
+                    Log.d("cariwishlist", "onResponse: " + response);
+                    if (response.body() != null && response.isSuccessful()) {
+                        if (response.body().getData().size() > 0) {
+                            modellist.clear();
+                            for (int i = 0; i < response.body().getData().size(); i++) {
+                                response.body().getData().get(i).getNamaProduk();
+                                modellist.add(new modelWishlist(
+                                        response.body().getData().get(i).getIdWishlist(),
+                                        response.body().getData().get(i).getIdUser(),
+                                        response.body().getData().get(i).getIdProduk(),
+                                        response.body().getData().get(i).getNamaProduk(),
+                                        response.body().getData().get(i).getHargaJual(),
+                                        response.body().getData().get(i).getDiskon(),
+                                        response.body().getData().get(i).getStok(),
+                                        response.body().getData().get(i).getKategori(),
+                                        response.body().getData().get(i).getKeterangan(),
+                                        response.body().getData().get(i).getTerjual(),
+                                        response.body().getData().get(i).getPelapak().getKabupaten(),
+                                        response.body().getData().get(i).getFoto().get(0).getFotoProduk()));
+                            }
+                            adapter = new AdapterWishlist(getActivity(), modellist);
+                            mGridView.setAdapter(adapter);
+                            lnKosong.setVisibility(View.GONE);
+                            mGridView.setVisibility(View.VISIBLE);
+                            progressHud.dismiss();
+
+                        } else {
+                            mGridView.setVisibility(View.GONE);
+                            lnKosong.setVisibility(View.VISIBLE);
+                            progressHud.dismiss();
+                            tvxDesainKosong.setText("Tidak Ada");
                         }
-                        adapter = new AdapterWishlist(getActivity(), modellist);
-                        mGridView.setAdapter(adapter);
-                        lnKosong.setVisibility(View.GONE);
-                        mGridView.setVisibility(View.VISIBLE);
-                        progressHud.dismiss();
-
                     } else {
                         mGridView.setVisibility(View.GONE);
                         lnKosong.setVisibility(View.VISIBLE);
                         progressHud.dismiss();
-                        tvxDesainKosong.setText("Tidak Ada");
+                        tvxDesainKosong.setText(R.string.network_error);
+                        AppUtilits.displayMessage(getActivity(), getString(R.string.network_error));
                     }
-                } else {
+
+                }
+
+                @Override
+                public void onFailure(Call<ResTampilWishlist> call, Throwable t) {
+                    Log.d("cariwishlist", "onError: " + t);
                     mGridView.setVisibility(View.GONE);
                     lnKosong.setVisibility(View.VISIBLE);
                     progressHud.dismiss();
-                    tvxDesainKosong.setText(R.string.network_error);
+                    tvxDesainKosong.setText("Tidak Ada");
                     AppUtilits.displayMessage(getActivity(), getString(R.string.network_error));
                 }
-
-            }
-
-            @Override
-            public void onFailure(Call<ResTampilWishlist> call, Throwable t) {
-                Log.d("cariwishlist", "onError: " + t);
-                mGridView.setVisibility(View.GONE);
-                lnKosong.setVisibility(View.VISIBLE);
-                progressHud.dismiss();
-                tvxDesainKosong.setText("Tidak Ada");
-                AppUtilits.displayMessage(getActivity(), getString(R.string.network_error));
-            }
-        });
+            });
         }
     }
 
