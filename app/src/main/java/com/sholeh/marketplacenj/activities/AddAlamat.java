@@ -380,8 +380,6 @@ public class AddAlamat extends AppCompatActivity implements View.OnClickListener
             callNewAlamat.enqueue(new Callback<ResAlamat>() {
                 @Override
                 public void onResponse(Call<ResAlamat> call, Response<ResAlamat> response) {
-
-
                     if (response.body() != null && response.isSuccessful()) {
                         if (response.body().getPesan().equalsIgnoreCase("Sukses!")) {
                             Toast.makeText(AddAlamat.this, "Berhasil Menambah Alamat", Toast.LENGTH_SHORT).show();
@@ -398,9 +396,6 @@ public class AddAlamat extends AppCompatActivity implements View.OnClickListener
                                 startActivity(intent);
                                 finish();
                             }
-
-
-
 
                         } else {
                             AppUtilits.displayMessage(getApplication(), getString(R.string.failed_request));
