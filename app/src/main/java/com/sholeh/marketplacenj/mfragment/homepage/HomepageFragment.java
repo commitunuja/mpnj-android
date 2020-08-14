@@ -392,7 +392,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
 
             @Override
             public void onFailure(Call<List<Kategori>> call, Throwable t) {
-                Toast.makeText(getContext(), String.valueOf(t), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), String.valueOf(t), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -526,13 +526,13 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
                     produkDiskonAdapter = new ProdukAdapter(getContext(), tvDataProdukDiskon);
                     recyclerProdukDiskon.setAdapter(produkDiskonAdapter);
                 } else {
-                    Toast.makeText(getContext(), "Data Belum Ada", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getContext(), "Data Belum Ada", Toast.LENGTH_SHORT).show();
 //                    Toast.makeText(getContext(), "gagal", Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
             public void onFailure(Call<List<Model>> call, Throwable t) {
-                Toast.makeText(getContext(), "Data Belum Ada", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), "Data Belum Ada", Toast.LENGTH_SHORT).show();
 //                Toast.makeText(getContext(), String.valueOf(t), Toast.LENGTH_SHORT).show();
             }
         });
@@ -554,13 +554,13 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
                     produkTerbaruAdapter = new ProdukAdapter(getContext(), tvDataProdukTerbaru);
                     recyclerProdukTerbaru.setAdapter(produkTerbaruAdapter);
                 } else {
-                    Toast.makeText(getContext(), "Data Belum Ada", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getContext(), "Data Belum Ada", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<List<Model>> call, Throwable t) {
-                Toast.makeText(getContext(), "Data Belum Ada", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), "Data Belum Ada", Toast.LENGTH_SHORT).show();
 //                Toast.makeText(getContext(), String.valueOf(t), Toast.LENGTH_SHORT).show();
             }
         });
@@ -581,13 +581,13 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
                     produkTerlarisAdapter = new ProdukAdapter(getContext(), tvDataProdukTerlaris);
                     recyclerProdukTerlaris.setAdapter(produkTerlarisAdapter);
                 } else {
-                    Toast.makeText(getContext(), "Data Belum Ada", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getContext(), "Data Belum Ada", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<List<Model>> call, Throwable t) {
-                Toast.makeText(getContext(), "Data Belum Ada", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), "Data Belum Ada", Toast.LENGTH_SHORT).show();
 //                Toast.makeText(getContext(), String.valueOf(t), Toast.LENGTH_SHORT).show();
             }
         });
@@ -618,70 +618,28 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
     public void getDataBanner(){
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
         Call<ResBanner> call = service.getBanner();
-
-
         call.enqueue(new Callback<ResBanner>() {
             @Override
             public void onResponse(Call<ResBanner> call, Response<ResBanner> response) {
                 if (response.body() != null && response.isSuccessful()) {
                     if (response.body().getData().size() > 0) {
                         for(int i = 0; i <response.body().getData().size(); i++){
-                            String idBanner = response.body().getData().get(i).getIdBanner();
-                            String namaBanner = response.body().getData().get(i).getNamaBanner();
                             String fotoBanner = CONSTANTS.ASSETBANNER+response.body().getData().get(i).getFotoBanner();
-
                             remoteBanners.add(new RemoteBanner(fotoBanner));
-
-
-//                            TextSliderView textSliderView = new TextSliderView(getActivity());
-//                            textSliderView
-//                                    .description(namaBanner)
-//                                    .image(CONSTANTS.ASSETBANNER+fotoBanner)
-//                                    .setScaleType(BaseSliderView.ScaleType.Fit);
-////                                          .setOnSliderClickListener(this);
-//                            Log.d("kocor", "onResponse: "+namaBanner);
-//                            textSliderView.bundle(new Bundle());
-//                            textSliderView.getBundle().putString("judul",namaBanner);
-//                            sliderHome.addSlider(textSliderView);
-
                         }
                         bannerSlider.setBanners(remoteBanners);
-//                        sliderHome.setPresetTransformer(SliderLayout.Transformer.Accordion);
-//                        sliderHome.setPresetIndicator(SliderLayout.PresetIndicators.Right_Top);
-//                        sliderHome.setCustomAnimation(new DescriptionAnimation());
-//                        sliderHome.setDuration(5000);
-
                     }else{
-
+                        Log.d("cekbanner", String.valueOf(response.body()));
                     }
 
                 }else{
-
+                    Log.d("cekbanner", String.valueOf(response.body()));
                 }
-
-//                tvDataProfil = response.body();
-//
-//                Log.d("cekimg", String.valueOf(tvDataProfil));
-//                // validasi error null asset foto
-//                //    Toast.makeText(getActivity(), ""+tvDataProfil.getPesan(), Toast.LENGTH_SHORT).show();
-//                if (tvDataProfil.getData().getFotoProfil() == null){
-//
-//                    // Picasso.with(getContext()).load(R.drawable.man).into(imageProfil);
-//                }else{
-//                    tvx_namaCustomter.setText(String.valueOf(tvDataProfil.getData().getNamaLengkap()));
-//                    Picasso.with(getContext()).load(CONSTANTS.BASE_URL + "assets/foto_profil_konsumen/"+tvDataProfil.getData().getFotoProfil()).into(imageProfil);
-//                }
-//                Toast.makeText(getActivity(), tvDataProfil.getData().getFotoProfil(), Toast.LENGTH_LONG).show();
-//                Glide.with(getActivity()).load(foto).into(imageProfil);
-
             }
 
             @Override
             public void onFailure(Call<ResBanner> call, Throwable t) {
-                Toast.makeText(getActivity(), "no connection"+t, Toast.LENGTH_SHORT).show();
-
-                //  Log.e(TAG, " failure "+ t.toString());
-//                    AppUtilits.displayMessage(UbahPassword.this,  getString(R.string.failed_request));
+                Log.d("cekbanner", String.valueOf(t));
             }
         });
     }
