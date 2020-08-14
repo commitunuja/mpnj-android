@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.sholeh.marketplacenj.util.AppUtilits;
 import com.sholeh.marketplacenj.util.api.APIInterface;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.util.ServiceGenerator;
@@ -103,90 +104,33 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     public void newRegistrasi() {
-//        if (!NetworkUtility.isNetworkConnected(RegisterActivity.this)) {
-//            AppUtilits.displayMessage(RegisterActivity.this, getString(R.string.network_not_connected));
-//
-//        }else if (spinProvinsi.getSelectedItem().toString().trim().equalsIgnoreCase("Pilih Provinsi")) {
-//            Toast.makeText(this, "Provinsi Belum  di Tentukan", Toast.LENGTH_SHORT).show();
-//
-//        } else if (spinProvinsi.getSelectedItemPosition() < 0 || spinkota.getSelectedItemPosition() < 0 || spinkota.getSelectedItem().toString().trim().equalsIgnoreCase("Pilih Kota")) {
-//            Toast.makeText(this, "Kota Belum  di Tentukan", Toast.LENGTH_SHORT).show();
-//        } else {
-
         final String namalengkap_ = ed_nama.getText().toString();
         final String username_ = ed_username.getText().toString();
         final String password_ = ed_password.getText().toString();
-        final String konpassword_ = ed_konfirmasiPass.getText().toString();
         final String nomorHp_ = ed_nomorHP.getText().toString();
         final String email_ = ed_email.getText().toString();
-//        final String statusA_ = "aktif";
-
-//            if (!validasi()) return;
+        if (!validasi()) return;
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-
-//            ServiceWrapper serviceWrapper = new ServiceWrapper(null);
         Call<ResRegristasi> callNewREgistration = service.registerKonsumenCall(
                 namalengkap_, username_, password_, nomorHp_, email_);
         callNewREgistration.enqueue(new Callback<ResRegristasi>() {
             @Override
             public void onResponse(Call<ResRegristasi> call, Response<ResRegristasi> response) {
-//                Toast.makeText(RegisterActivity.this, "res" + response, Toast.LENGTH_SHORT).show();
-
-                Log.d("regristasi", "1"+String.valueOf(response));
-
                 if (response.body() != null && response.isSuccessful()) {
                     Toast.makeText(RegisterActivity.this, "Berhasil", Toast.LENGTH_SHORT).show();
-
                     Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                            startActivity(intent);
-                            finish();
-//
-//                    Toast.makeText(RegisterActivity.this, "sukses", Toast.LENGTH_SHORT).show();
-//                    if (response.body().getPesan().equalsIgnoreCase("Sukses!")) {
-//                        for (int a = 0; a < response.body().getData().size(); a++) {
-////                                SharedPreferences preferences = getSharedPreferences("App", Context.MODE_PRIVATE);
-////                                SharedPreferences.Editor edit = preferences.edit();
-////                                edit.putString("id_konsumen", String.valueOf(response.body().getData().get(a).getIdKonsumen()));
-////                                edit.putString("nama_lengkap", String.valueOf(response.body().getData().get(a).getNamaLengkap()));
-////
-////                                edit.putBoolean("bg",true);
-////                                edit.commit();
-//
-////                            Preferences.getInstance().getString(CONSTANTS.ID_KONSUMEN, String.valueOf(response.body().getData().get(a).getIdKonsumen()));
-////                            Preferences.getInstance().getString(CONSTANTS.USER_NAME, String.valueOf(response.body().getData().get(a).getUsername()));
-////                            Preferences.getInstance().getString(CONSTANTS.NAMA_LENGKAP, String.valueOf(response.body().getData().get(a).getNamaLengkap()));
-////                            Preferences.getInstance().getString(CONSTANTS.PHONE, String.valueOf(response.body().getData().get(a).getNomorHp()));
-////                            Preferences.getInstance().getString(CONSTANTS.EMAIL, String.valueOf(response.body().getData().get(a).getEmail()));
-//
-//
-//
-//
-//                        }
-//
-//
-//                    } else {
-//                        Toast.makeText(RegisterActivity.this, "r" + response.body().getPesan(), Toast.LENGTH_SHORT).show();
-////                            AppUtilits.displayMessage(RegisterActivity.this,  response.body().getPesan());
-////                    }
+                    startActivity(intent);
+                    finish();
                 } else {
-                    Log.d("regristasi", "2"+String.valueOf(response.body()));
-//                    Toast.makeText(RegisterActivity.this, "rr" + response.body().getPesan(), Toast.LENGTH_SHORT).show();
-
-//                        AppUtilits.displayMessage(RegisterActivity.this,   getString(R.string.failed_request));
+                    AppUtilits.displayMessage(RegisterActivity.this, getString(R.string.failed_request));
                 }
             }
 
             @Override
             public void onFailure(Call<ResRegristasi> call, Throwable t) {
-                Log.d("regristasi", "3"+ String.valueOf(t));
-//                Toast.makeText(RegisterActivity.this, "rrr" + t, Toast.LENGTH_SHORT).show();
-
-
-//                    AppUtilits.displayMessage(RegisterActivity.this,   getString(R.string.failed_request));
+                AppUtilits.displayMessage(RegisterActivity.this, getString(R.string.failed_request));
             }
         });
-
-//        }
     }
 
 
@@ -378,8 +322,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         final String username_ = ed_username.getText().toString();
         final String password_ = ed_password.getText().toString();
         final String konpassword_ = ed_konfirmasiPass.getText().toString();
-        final String alamat_ = ed_alamat.getText().toString();
-        final String kodepos_ = ed_kodepos.getText().toString();
+//        final String alamat_ = ed_alamat.getText().toString();
+//        final String kodepos_ = ed_kodepos.getText().toString();
         final String nomorHp_ = ed_nomorHP.getText().toString();
         final String email_ = ed_email.getText().toString();
         final String statusA_ = "aktif";
@@ -416,32 +360,36 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         } else if (!ed_password.getText().toString().equals(ed_konfirmasiPass.getText().toString())) {
             Toast.makeText(RegisterActivity.this, "kata sandi tidak cocok", Toast.LENGTH_SHORT).show();
             valid = false;
-        } else if (password_.length() < 7) {
+        } else if (password_.length() < 6) {
             Toast.makeText(RegisterActivity.this, "password minimal 6 digit", Toast.LENGTH_SHORT).show();
             valid = false;
         } else {
             ed_password.setError(null);
         }
-        if (alamat_.isEmpty()) {
-            ed_alamat.setError("alamat wajib di isi");
-            Toast.makeText(RegisterActivity.this, "alamat wajib di isi", Toast.LENGTH_SHORT).show();
-            valid = false;
-        } else {
-            ed_alamat.setError(null);
-        }
-
-        if (kodepos_.isEmpty()) {
-            ed_kodepos.setError("kode pos wajib di isi");
-            Toast.makeText(RegisterActivity.this, "kode pos wajib di isi", Toast.LENGTH_SHORT).show();
-            valid = false;
-        } else {
-            ed_kodepos.setError(null);
-        }
+//        if (alamat_.isEmpty()) {
+//            ed_alamat.setError("alamat wajib di isi");
+//            Toast.makeText(RegisterActivity.this, "alamat wajib di isi", Toast.LENGTH_SHORT).show();
+//            valid = false;
+//        } else {
+//            ed_alamat.setError(null);
+//        }
+//
+//        if (kodepos_.isEmpty()) {
+//            ed_kodepos.setError("kode pos wajib di isi");
+//            Toast.makeText(RegisterActivity.this, "kode pos wajib di isi", Toast.LENGTH_SHORT).show();
+//            valid = false;
+//        } else {
+//            ed_kodepos.setError(null);
+//        }
 
         if (nomorHp_.isEmpty()) {
             ed_nomorHP.setError("nomor hp wajib di isi");
             Toast.makeText(RegisterActivity.this, "nomor hp wajib di isi", Toast.LENGTH_SHORT).show();
             valid = false;
+        } else if (nomorHp_.length() < 12) {
+                 ed_nomorHP.setError("nomor hp tidak valid");
+                Toast.makeText(RegisterActivity.this, "nomor hp tidak valid", Toast.LENGTH_SHORT).show();
+                valid = false;
         } else {
             ed_nomorHP.setError(null);
         }
