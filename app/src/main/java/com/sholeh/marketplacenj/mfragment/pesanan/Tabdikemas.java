@@ -35,12 +35,9 @@ public class Tabdikemas extends Fragment {
     private HashMap<DataPesanan, List<Item>> item;
     List<Item> itemdata;
     PesananAdapter recyclerPesananAdapter;
-<<<<<<< HEAD
-    String status;
-    LinearLayout linearLayout;
-=======
+
     LinearLayout datakosong;
->>>>>>> detail_pesanan
+
 
     RecyclerView.LayoutManager dataapi;
 
@@ -58,12 +55,8 @@ public class Tabdikemas extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_pesanan, container, false);
         recyclerView = view.findViewById(R.id.recycler_pesanan1);
-<<<<<<< HEAD
-        linearLayout = view.findViewById(R.id.ldatakosong);
-
-=======
         datakosong = view.findViewById(R.id.ldatakosong);
->>>>>>> detail_pesanan
+
 
         getData();
         return view;
@@ -119,11 +112,8 @@ public class Tabdikemas extends Fragment {
 
                     } else {
                         recyclerView.setVisibility(View.GONE);
-<<<<<<< HEAD
-                        linearLayout.setVisibility(View.VISIBLE);
-=======
                         datakosong.setVisibility(View.VISIBLE);
->>>>>>> detail_pesanan
+
 
                     }
                     recyclerPesananAdapter = new PesananAdapter(getContext(), dataPesanans, item);
