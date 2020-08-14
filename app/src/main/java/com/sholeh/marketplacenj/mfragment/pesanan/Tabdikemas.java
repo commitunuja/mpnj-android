@@ -39,6 +39,7 @@ public class Tabdikemas extends Fragment {
     List<Item> itemdata;
     PesananAdapter recyclerPesananAdapter;
     String status;
+    LinearLayout linearLayout;
 
     RecyclerView.LayoutManager dataapi;
 
@@ -56,6 +57,7 @@ public class Tabdikemas extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_pesanan, container, false);
         recyclerView = view.findViewById(R.id.recycler_pesanan1);
+        linearLayout = view.findViewById(R.id.ldatakosong);
 
 
         getData();
@@ -110,6 +112,8 @@ public class Tabdikemas extends Fragment {
                             }
                         }
                     } else {
+                        recyclerView.setVisibility(View.GONE);
+                        linearLayout.setVisibility(View.VISIBLE);
 
                     }
                     recyclerPesananAdapter = new PesananAdapter(getContext(), dataPesanans, item);
