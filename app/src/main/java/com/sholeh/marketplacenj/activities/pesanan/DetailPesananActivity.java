@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -17,7 +16,6 @@ import com.sholeh.marketplacenj.model.pesanan.DataPesanan;
 import com.sholeh.marketplacenj.model.pesanan.Item;
 import com.sholeh.marketplacenj.model.pesanan.detailpesanan.DetailPesanan;
 import com.sholeh.marketplacenj.model.pesanan.detailpesanan.ItemDetailPesanan;
-import com.sholeh.marketplacenj.util.Preferences;
 import com.sholeh.marketplacenj.util.ServiceGenerator;
 import com.sholeh.marketplacenj.util.api.APIInterface;
 
@@ -36,7 +34,7 @@ import static com.sholeh.marketplacenj.util.MyApp.getContext;
 public class DetailPesananActivity extends AppCompatActivity {
 
     String namaproduk, namatoko, harga, foto;
-    TextView vnamaproduk, waktu, totalhargaproduk, total, vharga, toko, status, alamat, totalhargadetail;
+    TextView vnamaproduk, waktu, totalhargaproduk, total, vharga, toko, status, alamat, totalhargadetail, kurir, tongkir;
     ImageView iproduk;
     private List<ItemDetailPesanan> dataPesanans;
     RecyclerView recyclerView;
@@ -64,25 +62,18 @@ public class DetailPesananActivity extends AppCompatActivity {
         status = findViewById(R.id.tv_status_order_detail);
         totalhargaproduk = findViewById(R.id.tv_totalhargaproduk);
         total = findViewById(R.id.tv_total_detail_bayar);
-        alamat = findViewById(R.id.tv_alamat_detail_pesanan);
+        alamat = findViewById(R.id.tv_alamat_kirim);
+        kurir = findViewById(R.id.tv_kurir);
+        tongkir = findViewById(R.id.tv_ongkir);
         Intent i = getIntent();
         kode = i.getStringExtra("kode");
-
-//        Toast.makeText(this, "kode "+kode, Toast.LENGTH_SHORT).show();
 
         getData();
 
     }
-    private String formatRupiah(Double number){
-        Locale localeID = new Locale("in", "ID");
-        NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
-        return formatRupiah.format(number);
-    }
+
 
     public void getData() {
-        String id_konsumen;
-        Preferences preferences = new Preferences(getContext());
-        id_konsumen = preferences.getIdKonsumen();
         layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -121,6 +112,12 @@ public class DetailPesananActivity extends AppCompatActivity {
                             toko.setText(response.body().getData().get(i).getNamaToko());
                             waktu.setText(response.body().getData().get(i).getWaktuPesan());
                             status.setText(response.body().getData().get(i).getStatusOrder());
+                            kurir.setText(response.body().getData().get(i).getKurir().toString());
+
+                            int ongkir = Integer.parseInt((response.body().getData().get(i).getOngkir()));
+                            stringTokenizer = new StringTokenizer(formatRupiah.format(ongkir), ",");
+                            String hargaongkir = stringTokenizer.nextToken().trim();
+                            tongkir.setText(hargaongkir);
 
                             int total1 = Integer.parseInt(response.body().getData().get(i).getTotalBayar());
                             stringTokenizer = new StringTokenizer(formatRupiah.format(total1),",");
