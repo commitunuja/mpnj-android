@@ -54,21 +54,19 @@ import retrofit2.Response;
 
 public class FragmentProfil extends Fragment implements View.OnClickListener {
     private ImageView btnImgProfil, nav_home, nav_notifikasi, nav_transaksi, navprofile;
-    TextView tvx_login, tvx_namaCustomter, tvx_title, tvx_logout,tvx_edit, tvx_username,
-              tvx_Hp, tvx_profil, tvx_alamat, tvx_setting, tvx_email;
+    TextView tvx_login, tvx_namaCustomter, tvx_title, tvx_logout, tvx_edit, tvx_username,
+            tvx_Hp, tvx_profil, tvx_alamat, tvx_setting, tvx_email;
 
     LinearLayout tvx_pesananku;
-
 
 
     private CircleImageView imageProfil;
 
 
-
     FloatingActionButton fb_favourite;
     Toolbar toolBarisi;
     Preferences preferences;
-   public String id_konsumen, username, namaLengkap, nomorHP, email;
+    public String id_konsumen, username, namaLengkap, nomorHP, email;
     String sfoto = null;
     private ResProfil tvDataProfil;
 
@@ -80,10 +78,10 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
     private static final int READ_REQUEST_CODE = 300;
     private KProgressHUD progressDialogHud;
 
+    ImageView imgtoolbar;
 
     @Override
-    public void onResume()
-    {
+    public void onResume() {
         getDataProfil();
 
         super.onResume();
@@ -94,7 +92,7 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_profil,container,false);
+        View rootView = inflater.inflate(R.layout.fragment_profil, container, false);
         progressDialogHud = KProgressHUD.create(getActivity());
 
         tvx_namaCustomter = rootView.findViewById(R.id.tvCustomerName);
@@ -105,6 +103,7 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
         tvx_alamat = rootView.findViewById(R.id.tvAlamat);
         tvx_setting = rootView.findViewById(R.id.tvSetting);
         tvx_pesananku = rootView.findViewById(R.id.tvMyPesanan);
+        imgtoolbar = rootView.findViewById(R.id.imgtoolbarF);
 
 
         btnImgProfil = rootView.findViewById(R.id.imgProfil);
@@ -115,6 +114,7 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
         tvx_alamat.setOnClickListener(this);
         tvx_setting.setOnClickListener(this);
         tvx_pesananku.setOnClickListener(this);
+        imgtoolbar.setOnClickListener(this);
 
 
         tvx_title = rootView.findViewById(R.id.title);
@@ -135,7 +135,7 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
 //
 //
 
-        TabLayout tabLayout =  rootView.findViewById(R.id.tab_layout);
+        TabLayout tabLayout = rootView.findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("AKUN PEMBELI"));
         tabLayout.addTab(tabLayout.newTab().setText("AKUN PELAPAK"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
@@ -171,7 +171,7 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.imgProfil:
                 Intent intent = new Intent(getActivity(), ImageProfilActivity.class);
                 getActivity().startActivity(intent);
@@ -205,7 +205,7 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
 
             case R.id.tvMyPesanan:
                 Intent i = new Intent(getActivity(), MyPesananActivity.class);
-               getActivity().startActivity(i);
+                getActivity().startActivity(i);
 //                Bundle bundle = new Bundle();
 //                bundle.putString("edttext", id_konsumen);
 //                TabSemua fragobj = new TabSemua();
@@ -214,9 +214,12 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
                 break;
 
             case R.id.logout_akun:
-              logoutAkun();
+                logoutAkun();
                 break;
 
+            case R.id.imgtoolbarF:
+                getActivity().finish();
+                break;
 
 
             default:
@@ -253,13 +256,13 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
         }
     }
 
-    private void ProgresDialog(){
+    private void ProgresDialog() {
         progressDialogHud.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
                 .setCancellable(false);
         progressDialogHud.show();
     }
 
-    public void getDataPref(){
+    public void getDataPref() {
         preferences = new Preferences(getActivity());
         id_konsumen = preferences.getIdKonsumen();
         username = preferences.getUsername();
@@ -272,11 +275,10 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
     }
 
 
-    public void getDataProfil(){
-        if (!NetworkUtility.isNetworkConnected(getActivity())){
-            AppUtilits.displayMessage(getActivity(),  getString(R.string.network_not_connected));
-        }else {
-//            ProgresDialog();
+    public void getDataProfil() {
+        if (!NetworkUtility.isNetworkConnected(getActivity())) {
+            AppUtilits.displayMessage(getActivity(), getString(R.string.network_not_connected));
+        } else {
             APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
             Call<ResProfil> call = service.getDataProfil(id_konsumen);
             call.enqueue(new Callback<ResProfil>() {
@@ -289,35 +291,18 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
                         tvx_email.setText(email);
                         tvx_Hp.setText(nomorHP);
                         Log.d("cekimg", String.valueOf(tvDataProfil));
-//                        progressDialogHud.dismiss();
-                        // validasi error null asset foto
-                        //    Toast.makeText(getActivity(), ""+tvDataProfil.getPesan(), Toast.LENGTH_SHORT).show();
                         if (tvDataProfil.getData().getFotoProfil() == null) {
-//                            progressDialogHud.dismiss();
-                            // Picasso.with(getContext()).load(R.drawable.man).into(imageProfil);
                         } else {
                             tvx_namaCustomter.setText(String.valueOf(tvDataProfil.getData().getNamaLengkap()));
                             Picasso.with(getContext()).load(CONSTANTS.BASE_URL + "assets/foto_profil_konsumen/" + tvDataProfil.getData().getFotoProfil()).into(imageProfil);
-//                            progressDialogHud.dismiss();
                         }
-                    }else {
+                    } else {
                         AppUtilits.displayMessage(getActivity(), getString(R.string.network_error));
-//                        progressDialogHud.dismiss();
                     }
-
-//                Toast.makeText(getActivity(), tvDataProfil.getData().getFotoProfil(), Toast.LENGTH_LONG).show();
-//                Glide.with(getActivity()).load(foto).into(imageProfil);
-
                 }
-
                 @Override
                 public void onFailure(Call<ResProfil> call, Throwable t) {
-                    AppUtilits.displayMessage(getActivity(),  getString(R.string.network_not_connected));
-//                    progressDialogHud.dismiss();
-//                    Toast.makeText(getActivity(), "no connection" + t, Toast.LENGTH_SHORT).show();
-
-                    //  Log.e(TAG, " failure "+ t.toString());
-//                    AppUtilits.displayMessage(UbahPassword.this,  getString(R.string.failed_request));
+                    AppUtilits.displayMessage(getActivity(), getString(R.string.network_not_connected));
                 }
             });
         }
@@ -328,7 +313,6 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
         openGalleryIntent.setType("image/*");
         startActivityForResult(openGalleryIntent, REQUEST_GALLERY_CODE);
     }
-
 
 
 //    private void uploadToServer(String filePath) {
@@ -355,7 +339,7 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
 //    }
 
 
-    public  void logoutAkun(){
+    public void logoutAkun() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage("Apakah anda yakin, ingin logout?");
         builder.setCancelable(true);
