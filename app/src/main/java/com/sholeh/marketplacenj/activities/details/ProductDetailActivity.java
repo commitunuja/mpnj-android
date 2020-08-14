@@ -30,8 +30,10 @@ import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.activities.LoginActivity;
 import com.sholeh.marketplacenj.activities.RegisterActivity;
 import com.sholeh.marketplacenj.activities.alamat.PilihAlamatCheckout;
+import com.sholeh.marketplacenj.activities.dashboard.ProdukAllActivity;
 import com.sholeh.marketplacenj.activities.keranjang.KeranjangDetailActivity;
 import com.sholeh.marketplacenj.activities.pelapak.ProfilPelapakActivity;
+import com.sholeh.marketplacenj.adapter.dashboard.ProdukAdapter;
 import com.sholeh.marketplacenj.adapter.dashboard.RecycleAdapteTopTenHome;
 import com.sholeh.marketplacenj.adapter.details.ViewPagerAdapter;
 import com.sholeh.marketplacenj.custom.MainActivity2;
@@ -61,6 +63,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.sholeh.marketplacenj.util.MyApp.getContext;
 import static java.lang.Integer.parseInt;
 import static java.lang.String.valueOf;
 
@@ -72,7 +75,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
     ViewPagerAdapter viewPagerAdapter;
 
     LinearLayout linear1, linear2, linear3, linear4;
-    TextView txt1, txt2, txt3, txt4, idkeranjang, nama, harga, kategori, jumlahproduk, offer, namapelapak, readmore;
+    TextView txt1, txt2, txt3, txt4, idkeranjang, nama, harga, kategori, jumlahproduk, offer, namapelapak, readmore, allterkait;
     JustifiedTextView diskripsi;
 
     LinearLayout right1, right2, right3;
@@ -108,6 +111,11 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
     private KProgressHUD progressDialogHud;
     ProgressBar myProgressBar;
 
+    private ProdukAdapter produkTerbaruAdapter;
+    private List<Model> tvDataProdukTerbaru;
+    RecyclerView.LayoutManager dataapiTerbaru;
+    ImageView imgToolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -115,7 +123,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         preferences = new Preferences(getApplication());
         id_konsumen = preferences.getIdKonsumen();
         progressDialogHud = KProgressHUD.create(ProductDetailActivity.this);
-        myProgressBar= findViewById(R.id.myProgressBar);
+        myProgressBar = findViewById(R.id.myProgressBar);
         myProgressBar.setIndeterminate(true);
         myProgressBar.setVisibility(View.VISIBLE);
 
@@ -124,6 +132,8 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         right1 = findViewById(R.id.right1);
         right2 = findViewById(R.id.right2);
         right3 = findViewById(R.id.right3);
+        imgToolbar = findViewById(R.id.imgtoolbar);
+        imgToolbar.setOnClickListener(this);
 
      /*   relative1 = findViewById(R.id.relative1);
         relative2 = findViewById(R.id.relative2);
@@ -144,19 +154,21 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         right3_imag = findViewById(R.id.right3_img);
         keranjang = findViewById(R.id.imgkeranjang);
         readmore = findViewById(R.id.tv_readmore);
+        allterkait = findViewById(R.id.tvx_allterkait);
+
 
         offer = findViewById(R.id.txtdiskon);
         offer.setPaintFlags(offer.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
-        linear1 = (LinearLayout) findViewById(R.id.linear1);
-        linear2 = (LinearLayout) findViewById(R.id.linear2);
-        linear3 = (LinearLayout) findViewById(R.id.linear3);
-        linear4 = (LinearLayout) findViewById(R.id.linear4);
+        linear1 = findViewById(R.id.linear1);
+        linear2 = findViewById(R.id.linear2);
+        linear3 = findViewById(R.id.linear3);
+        linear4 = findViewById(R.id.linear4);
 
-        txt1 = (TextView) findViewById(R.id.txt1);
-        txt2 = (TextView) findViewById(R.id.txt2);
-        txt3 = (TextView) findViewById(R.id.txt3);
-        txt4 = (TextView) findViewById(R.id.txt4);
+        txt1 = findViewById(R.id.txt1);
+        txt2 = findViewById(R.id.txt2);
+        txt3 = findViewById(R.id.txt3);
+        txt4 = findViewById(R.id.txt4);
 
         linear1.setOnClickListener(this);
         linear2.setOnClickListener(this);
@@ -166,8 +178,9 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         fotopelapak.setOnClickListener(this);
         readmore.setOnClickListener(this);
 
-        rightNav = (RelativeLayout) findViewById(R.id.rightNav);
-        viewPager = (ViewPager) findViewById(R.id.viewpager_product_detail);
+
+        rightNav = findViewById(R.id.rightNav);
+        viewPager = findViewById(R.id.viewpager_product_detail);
 
         ViewGroup.LayoutParams params = viewPager.getLayoutParams();
         params.width = ViewGroup.LayoutParams.MATCH_PARENT;
@@ -198,6 +211,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
         tambah.setOnClickListener(this);
         btnAddWishlist.setOnClickListener(this);
+        allterkait.setOnClickListener(this);
 
 
         vid_produk = getIntent().getStringExtra("id_produk");
@@ -209,7 +223,6 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         kategoriproduk = getIntent().getStringExtra("kategori");
         vdiskon = Double.valueOf(parseInt(getIntent().getStringExtra("diskon")));
         fotoproduk = getIntent().getStringExtra("foto_produk");
-
         vdeskripsi = getIntent().getExtras().getString("keterangan");
 
         nama.setText(namaproduk);
@@ -256,7 +269,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         kategori.setText(kategoriproduk);
 
 
-        top_ten_crecyclerview = (RecyclerView) findViewById(R.id.top_ten_recyclerview);
+        top_ten_crecyclerview = findViewById(R.id.top_ten_recyclerview);
 
         topTenModelClasses = new ArrayList<>();
 
@@ -268,16 +281,17 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         }
 
 
-        mAdapter2 = new RecycleAdapteTopTenHome(ProductDetailActivity.this, topTenModelClasses);
-        RecyclerView.LayoutManager mLayoutManager2 = new LinearLayoutManager(ProductDetailActivity.this, LinearLayoutManager.HORIZONTAL, false);
-        top_ten_crecyclerview.setLayoutManager(mLayoutManager2);
+//        mAdapter2 = new RecycleAdapteTopTenHome(ProductDetailActivity.this, topTenModelClasses);
+//        RecyclerView.LayoutManager mLayoutManager2 = new LinearLayoutManager(ProductDetailActivity.this, LinearLayoutManager.HORIZONTAL, false);
+//        top_ten_crecyclerview.setLayoutManager(mLayoutManager2);
+//
+//
+//        top_ten_crecyclerview.setLayoutManager(mLayoutManager2);
+//        top_ten_crecyclerview.setItemAnimator(new DefaultItemAnimator());
+//        top_ten_crecyclerview.setAdapter(mAdapter2);
 
-
-        top_ten_crecyclerview.setLayoutManager(mLayoutManager2);
-        top_ten_crecyclerview.setItemAnimator(new DefaultItemAnimator());
-        top_ten_crecyclerview.setAdapter(mAdapter2);
-
-        getProdukId();
+        getDetail();
+        produkTerbaru();
 
     }
 
@@ -287,56 +301,6 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         progressDialogHud.show();
     }
 
-
-    public void getProdukId() {
-
-        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-        Call<JsonObject> call = service.getProdukId(vid_produk);
-
-        call.enqueue(new Callback<JsonObject>() {
-            @Override
-            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                try {
-                    JSONObject jsonObject;
-                    jsonObject = new JSONObject(valueOf(response.body()));
-                    JSONArray jsonArray = jsonObject.getJSONArray("data");
-                    Log.d("YOLO", "getNama          -->  " + jsonArray.getJSONObject(0).getString("id_produk"));
-                    for (int i = 0; i < jsonArray.getJSONObject(0).getJSONArray("foto").length(); i++) {
-                        JSONObject c = jsonArray.getJSONObject(0).getJSONArray("foto").getJSONObject(i);
-                        Foto foto = new Foto(c.getString("id_foto_poroduk"), c.getString("foto_produk"));
-                        tampil.add(foto);
-                    }
-//                    Pelapak pelapak = new Pelapak();
-
-                    foto_pelapak = jsonArray.getJSONObject(0).getJSONObject("pelapak").getString("foto_pelapak");
-//                    iduser =
-                    Glide.with(getBaseContext())
-                            .load(foto_pelapak)
-                            .into(fotopelapak);
-                    pelapak = jsonArray.getJSONObject(0).getJSONObject("pelapak").getString("nama_toko");
-                    namapelapak.setText(pelapak);
-                    id_pelapak = jsonArray.getJSONObject(0).getJSONObject("pelapak").getString("id_pelapak");
-                    Log.d("CEK", "error" + fotopelapak);
-                    viewPagerAdapter = new ViewPagerAdapter(getApplicationContext(), tampil);
-                    viewPager.setAdapter(viewPagerAdapter);
-                    myProgressBar.setVisibility(View.GONE);
-                } catch (JSONException e) {
-                    myProgressBar.setVisibility(View.GONE);
-                    Toast.makeText(ProductDetailActivity.this, "Terdapat Kesalahan. Silahkan Coba Lagi Nanti", Toast.LENGTH_SHORT).show();
-
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
-                myProgressBar.setVisibility(View.GONE);
-                Toast.makeText(ProductDetailActivity.this, "Internet Anda Kurang Stabil. Silahkan Coba Lagi", Toast.LENGTH_SHORT).show();
-
-
-            }
-        });
-    }
 
     @Override
     public void onClick(View v) {
@@ -393,6 +357,17 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
 //                Toast.makeText(this, "" + vdeskripsi, Toast.LENGTH_SHORT).show();
                 startActivity(intent2);
+                break;
+
+            case R.id.tvx_allterkait:
+                Intent i = new Intent(getContext(), ProdukAllActivity.class);
+                i.putExtra("all", "allterbaru");
+                startActivity(i);
+              break;
+
+            case R.id.imgtoolbar:
+                finish();
+                break;
 
             case R.id.linear1:
 
@@ -492,6 +467,48 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
     }
 
 
+    public void getDetail() {
+        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+        Call<JsonObject> call = service.getProdukId(vid_produk);
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                try {
+                    JSONObject jsonObject;
+                    jsonObject = new JSONObject(valueOf(response.body()));
+                    JSONArray jsonArray = jsonObject.getJSONArray("data");
+                    Log.d("YOLO", "getNama          -->  " + jsonArray.getJSONObject(0).getString("id_produk"));
+                    for (int i = 0; i < jsonArray.getJSONObject(0).getJSONArray("foto").length(); i++) {
+                        JSONObject c = jsonArray.getJSONObject(0).getJSONArray("foto").getJSONObject(i);
+                        Foto foto = new Foto(c.getString("id_foto_poroduk"), c.getString("foto_produk"));
+                        tampil.add(foto);
+                    }
+                    foto_pelapak = jsonArray.getJSONObject(0).getJSONObject("pelapak").getString("foto_pelapak");
+                    Glide.with(getBaseContext())
+                            .load(foto_pelapak)
+                            .into(fotopelapak);
+                    pelapak = jsonArray.getJSONObject(0).getJSONObject("pelapak").getString("nama_toko");
+                    namapelapak.setText(pelapak);
+                    id_pelapak = jsonArray.getJSONObject(0).getJSONObject("pelapak").getString("id_pelapak");
+                    Log.d("CEK", "error" + fotopelapak);
+                    viewPagerAdapter = new ViewPagerAdapter(getApplicationContext(), tampil);
+                    viewPager.setAdapter(viewPagerAdapter);
+                    myProgressBar.setVisibility(View.GONE);
+                } catch (JSONException e) {
+                    myProgressBar.setVisibility(View.GONE);
+                    Toast.makeText(ProductDetailActivity.this, "Terdapat Kesalahan. Silahkan Coba Lagi Nanti", Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                myProgressBar.setVisibility(View.GONE);
+                Toast.makeText(ProductDetailActivity.this, "Internet Anda Kurang Stabil. Silahkan Coba Lagi", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     public void addKeranjang() {
         if (!NetworkUtility.isNetworkConnected(ProductDetailActivity.this)) {
             AppUtilits.displayMessage(ProductDetailActivity.this, getString(R.string.network_not_connected));
@@ -566,5 +583,34 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
             });
 
         }
+    }
+
+    private void produkTerbaru() {
+        produkTerbaruAdapter = new ProdukAdapter(getContext(), tvDataProdukTerbaru);
+        dataapiTerbaru = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        top_ten_crecyclerview.setLayoutManager(dataapiTerbaru);
+        top_ten_crecyclerview.setItemAnimator(new DefaultItemAnimator());
+        top_ten_crecyclerview.setHasFixedSize(true);
+        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+        Call<List<Model>> call = service.getProduk();
+
+        call.enqueue(new Callback<List<Model>>() {
+            @Override
+            public void onResponse(Call<List<Model>> call, Response<List<Model>> response) {
+                if (response.body() != null && response.isSuccessful()) {
+                    tvDataProdukTerbaru = response.body();
+                    produkTerbaruAdapter = new ProdukAdapter(getContext(), tvDataProdukTerbaru);
+                    top_ten_crecyclerview.setAdapter(produkTerbaruAdapter);
+                } else {
+                    Toast.makeText(getContext(), "Data Belum Ada", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Model>> call, Throwable t) {
+                Toast.makeText(getContext(), "Data Belum Ada", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), String.valueOf(t), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
