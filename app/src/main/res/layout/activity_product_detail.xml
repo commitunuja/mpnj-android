@@ -747,15 +747,16 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Top Rated Products"
+                        android:text="Produk Terkait"
                         android:textColor="@color/black"
                         android:textSize="14sp" />
 
                     <customfonts.MyTextView_Roboto_Medium
+                        android:id="@+id/tvx_allterkait"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="20dp"
-                        android:text="View More"
+                        android:text="Lihat Semua"
                         android:textColor="@color/red"
                         android:textSize="13sp" />
                 </LinearLayout>
