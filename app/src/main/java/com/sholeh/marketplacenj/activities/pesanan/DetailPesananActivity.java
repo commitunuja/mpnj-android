@@ -1,24 +1,39 @@
 package com.sholeh.marketplacenj.activities.pesanan;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Base64;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.adapter.pesanan.DetailPesananAdapter;
 import com.sholeh.marketplacenj.model.pesanan.DataPesanan;
 import com.sholeh.marketplacenj.model.pesanan.Item;
 import com.sholeh.marketplacenj.model.pesanan.detailpesanan.DetailPesanan;
 import com.sholeh.marketplacenj.model.pesanan.detailpesanan.ItemDetailPesanan;
+import com.sholeh.marketplacenj.util.CONSTANTS;
 import com.sholeh.marketplacenj.util.ServiceGenerator;
 import com.sholeh.marketplacenj.util.api.APIInterface;
 
+import java.io.ByteArrayOutputStream;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,27 +46,30 @@ import retrofit2.Callback;
 
 import static com.sholeh.marketplacenj.util.MyApp.getContext;
 
-public class DetailPesananActivity extends AppCompatActivity {
+public class DetailPesananActivity extends AppCompatActivity implements View.OnClickListener {
 
-    String namaproduk, namatoko, harga, foto;
-    TextView vnamaproduk, waktu, totalhargaproduk, total, vharga, toko, status, alamat, totalhargadetail, kurir, tongkir;
-    ImageView iproduk;
+    String namaproduk, namatoko, harga, foto, fotokirimwa, bitmpath;
+    TextView vnamaproduk, waktu, totalhargaproduk, total, vharga, toko, status, alamat, totalhargadetail, kurir, tongkir, tanya;
+    ImageView iproduk, imgcoba;
     private List<ItemDetailPesanan> dataPesanans;
     RecyclerView recyclerView;
     private HashMap<DataPesanan, List<Item>> item;
-    String kode;
+    String kode, pack;
     DetailPesananAdapter recyclerdetailpesanan;
     RecyclerView.LayoutManager layoutManager;
-
+    Bitmap bitmap;
     Locale localeID = new Locale("in", "ID");
     NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
     StringTokenizer stringTokenizer;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_pesanan);
-
+        pack = "tanya";
+        imgcoba = findViewById(R.id.img);
+        tanya = findViewById(R.id.tv_tanya);
         totalhargadetail = findViewById(R.id.totalhargadetail);
         vnamaproduk = findViewById(R.id.tv_nama_produk_detail);
         vharga = findViewById(R.id.tv_harga_produk_detail);
@@ -67,6 +85,7 @@ public class DetailPesananActivity extends AppCompatActivity {
         tongkir = findViewById(R.id.tv_ongkir);
         Intent i = getIntent();
         kode = i.getStringExtra("kode");
+        tanya.setOnClickListener(this);
 
         getData();
 
@@ -109,6 +128,19 @@ public class DetailPesananActivity extends AppCompatActivity {
                                     response.body().getData().get(i).getOngkir(),
                                     response.body().getData().get(i).getWaktuPesan()));
 
+
+                            fotokirimwa = response.body().getData().get(i).getFotoProduk();
+                            Glide.with(getApplication()).asBitmap().load("https://www.google.es/images/srpr/logo11w.png").into(new CustomTarget<Bitmap>() {
+                                @Override
+                                public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                                    imgcoba.setImageBitmap(resource);
+                                }
+
+                                @Override
+                                public void onLoadCleared(@Nullable Drawable placeholder) {
+                                }
+                            });
+
                             toko.setText(response.body().getData().get(i).getNamaToko());
                             waktu.setText(response.body().getData().get(i).getWaktuPesan());
                             status.setText(response.body().getData().get(i).getStatusOrder());
@@ -120,15 +152,19 @@ public class DetailPesananActivity extends AppCompatActivity {
                             tongkir.setText(hargaongkir);
 
                             int total1 = Integer.parseInt(response.body().getData().get(i).getTotalBayar());
-                            stringTokenizer = new StringTokenizer(formatRupiah.format(total1),",");
+                            stringTokenizer = new StringTokenizer(formatRupiah.format(total1), ",");
                             String totalbayar = stringTokenizer.nextToken().trim();
                             total.setText(totalbayar);
                             alamat.setText(response.body().getData().get(i).getTujuan());
                             int harga = Integer.parseInt(response.body().getData().get(i).getHarga());
-                            stringTokenizer = new StringTokenizer(formatRupiah.format(harga),",");
+                            stringTokenizer = new StringTokenizer(formatRupiah.format(harga), ",");
                             String harga1 = stringTokenizer.nextToken().trim();
                             totalhargadetail.setText(harga1);
 
+                            if (status.equals("Selesai")) {
+                                tanya.setText("Tulis Review");
+                            }
+                            tanya.setText("Tanya Pelapak");
 
                         }
 
@@ -146,5 +182,54 @@ public class DetailPesananActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public Bitmap StringToBitMap(String fotokirimwa){
+        try{
+            byte [] encodeByte=Base64.decode(fotokirimwa,Base64.DEFAULT);
+            Bitmap bitmap=BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            imgcoba.setImageBitmap(bitmap);
+            return bitmap;
+        }catch(Exception e){
+            e.getMessage();
+            return null;
+        }
+    }
+
+    public void onClickApp(String fotokirimwa) {
+
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        byte[] imageBytes = byteArrayOutputStream.toByteArray();
+        String imageString = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+        imageBytes = Base64.decode(imageString, Base64.DEFAULT);
+        Bitmap decodedImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+        imgcoba.setImageBitmap(decodedImage);
+//            byte [] encodeByte= Base64.decode(fotokirimwa,Base64.DEFAULT);
+//            bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+//
+        bitmpath = MediaStore.Images.Media.insertImage(getContentResolver(), decodedImage, "whatsApp", null);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+
+        Uri uri = Uri.parse(bitmpath);
+        Intent share = new Intent(Intent.ACTION_SEND);
+        share.setType("image/jpeg");
+        share.setPackage("com.whatsapp");
+        share.putExtra(Intent.EXTRA_TEXT, "Apakah Bisa Dikirim Hari Ini ?");
+//        share.putExtra(Intent.EXTRA_STREAM, uri);
+        share.putExtra(Intent.EXTRA_STREAM, uri);
+        startActivity(Intent.createChooser(share, "share into "));
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tv_tanya:
+                onClickApp(fotokirimwa);
+//                StringToBitMap(fotokirimwa);
+        }
     }
 }
