@@ -68,7 +68,6 @@ public class DetailPesananActivity extends AppCompatActivity implements View.OnC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_pesanan);
         pack = "tanya";
-        imgcoba = findViewById(R.id.img);
         tanya = findViewById(R.id.tv_tanya);
         totalhargadetail = findViewById(R.id.totalhargadetail);
         vnamaproduk = findViewById(R.id.tv_nama_produk_detail);
@@ -129,18 +128,6 @@ public class DetailPesananActivity extends AppCompatActivity implements View.OnC
                                     response.body().getData().get(i).getWaktuPesan()));
 
 
-                            fotokirimwa = response.body().getData().get(i).getFotoProduk();
-                            Glide.with(getApplication()).asBitmap().load("https://www.google.es/images/srpr/logo11w.png").into(new CustomTarget<Bitmap>() {
-                                @Override
-                                public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                                    imgcoba.setImageBitmap(resource);
-                                }
-
-                                @Override
-                                public void onLoadCleared(@Nullable Drawable placeholder) {
-                                }
-                            });
-
                             toko.setText(response.body().getData().get(i).getNamaToko());
                             waktu.setText(response.body().getData().get(i).getWaktuPesan());
                             status.setText(response.body().getData().get(i).getStatusOrder());
@@ -198,20 +185,20 @@ public class DetailPesananActivity extends AppCompatActivity implements View.OnC
 
     public void onClickApp(String fotokirimwa) {
 
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-        byte[] imageBytes = byteArrayOutputStream.toByteArray();
-        String imageString = Base64.encodeToString(imageBytes, Base64.DEFAULT);
-        imageBytes = Base64.decode(imageString, Base64.DEFAULT);
-        Bitmap decodedImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
-        imgcoba.setImageBitmap(decodedImage);
-//            byte [] encodeByte= Base64.decode(fotokirimwa,Base64.DEFAULT);
-//            bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
-//
-        bitmpath = MediaStore.Images.Media.insertImage(getContentResolver(), decodedImage, "whatsApp", null);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+//        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+//        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+//        byte[] imageBytes = byteArrayOutputStream.toByteArray();
+//        String imageString = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+//        imageBytes = Base64.decode(imageString, Base64.DEFAULT);
+//        Bitmap decodedImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+//        imgcoba.setImageBitmap(decodedImage);
+////            byte [] encodeByte= Base64.decode(fotokirimwa,Base64.DEFAULT);
+////            bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+////
+//        bitmpath = MediaStore.Images.Media.insertImage(getContentResolver(), decodedImage, "whatsApp", null);
+////        } catch (Exception e) {
+////            e.printStackTrace();
+////        }
 
         Uri uri = Uri.parse(bitmpath);
         Intent share = new Intent(Intent.ACTION_SEND);

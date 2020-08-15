@@ -66,7 +66,7 @@ public class PesananAdapter extends RecyclerView.Adapter<PesananAdapter.ViewHold
         stringTokenizer = new StringTokenizer(formatRupiah.format(harga1),",");
         String harga2 = stringTokenizer.nextToken().trim();
 
-        holder.harga.setText(harga2);
+//        holder.harga.setText(harga2);
         holder.statusorder.setText(dataPesanan.getItem().get(0).getStatusOrder());
         holder.kode = dataPesanan.getKodeInvoice();
 
@@ -93,7 +93,7 @@ public class PesananAdapter extends RecyclerView.Adapter<PesananAdapter.ViewHold
             namaproduk = itemView.findViewById(R.id.tvxNamaProduk);
             namatoko = itemView.findViewById(R.id.tvxNamaToko);
             statusorder = itemView.findViewById(R.id.tv_status_order);
-            harga = itemView.findViewById(R.id.tvxHargaProd);
+//            harga = itemView.findViewById(R.id.tvhargapesan);
             totalbayar = itemView.findViewById(R.id.tv_total_bayar_pesanan);
             jumlahproduk = itemView.findViewById(R.id.tvxjumProd);
             fotoproduk = itemView.findViewById(R.id.img_foto_pesanan);
