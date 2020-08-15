@@ -87,6 +87,11 @@ public class KeranjangFragment extends Fragment implements View.OnClickListener 
     private ProgressBar progress_bar;
     Toolbar toolBarisi;
 
+    @Override
+    public void onResume() {
+        getDetailKeranjang();
+        super.onResume();
+    }
 
     @Nullable
     @Override
