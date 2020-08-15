@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_alignBottom="@+id/lbatas"
-    android:paddingTop="@dimen/activity_vertical_margin"
+
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/app_bar_main">
 
@@ -331,7 +331,8 @@
                             android:paddingLeft="5dp"
                             android:paddingTop="15dp"
                             android:paddingRight="15dp"
-                            android:paddingBottom="25dp" />
+                            android:paddingBottom="25dp"
+                            android:layout_marginBottom="70dp"/>
                     </LinearLayout>
                 </FrameLayout>
             </LinearLayout>

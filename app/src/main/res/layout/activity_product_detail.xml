@@ -724,6 +724,7 @@
 
 
                             <customfonts.MyTextView_Roboto_Regular
+                                android:visibility="gone"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="13sp"
@@ -750,11 +751,12 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Produk Terkait"
+                        android:text="Produk Terbaru"
                         android:textColor="@color/black"
                         android:textSize="14sp" />
 
                     <customfonts.MyTextView_Roboto_Medium
+                        android:layout_marginTop="10dp"
                         android:id="@+id/tvx_allterkait"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

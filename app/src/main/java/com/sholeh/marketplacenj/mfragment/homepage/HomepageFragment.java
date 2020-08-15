@@ -127,6 +127,8 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
     MaterialSearchBar searchBar;
     SliderLayout sliderHome;
 
+    LinearLayout lnSearch;
+
     private BannerSlider bannerSlider;
     private List<Banner> remoteBanners=new ArrayList<>();
 
@@ -144,8 +146,12 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         searchBar = view.findViewById(R.id.searchBar);
+        edpencarian = view.findViewById(R.id.tvxCari);
         searchBar.setOnSearchActionListener(this);
         searchBar.setOnClickListener(this);
+        lnSearch = view.findViewById(R.id.lnseacrh);
+        lnSearch.setOnClickListener(this);
+        edpencarian.setOnClickListener(this);
 //        sliderHome = view.findViewById(R.id.sliderhome);
         bannerSlider =view.findViewById(R.id.sliderhome);
         tvx_allProdukTerbaru = view.findViewById(R.id.tv_Allprodukterbaru);
@@ -192,11 +198,23 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+
             case R.id.searchBar:
                 Intent search = new Intent(getContext(), SearchActivity.class);
                 startActivity(search);
 //                Toast.makeText(getActivity(), "cari ", Toast.LENGTH_SHORT).show();
                 break;
+//            case R.id.lnseacrh:
+//                Intent search = new Intent(getContext(), SearchActivity.class);
+//                startActivity(search);
+////                Toast.makeText(getActivity(), "cari ", Toast.LENGTH_SHORT).show();
+//                break;
+//
+//            case R.id.tvxCari:
+//                Intent sea = new Intent(getContext(), SearchActivity.class);
+//                startActivity(sea);
+////                Toast.makeText(getActivity(), "cari ", Toast.LENGTH_SHORT).show();
+//                break;
             case R.id.tv_AllProdukDiskon:
                 Intent intent1 = new Intent(getContext(), ProdukAllActivity.class);
                 intent1.putExtra("all","alldiskon");
