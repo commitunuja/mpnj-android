@@ -31,12 +31,12 @@
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/tv_kurir"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="56dp"
         android:text="JNT-Reguler"
-        android:textColor="@color/black"
+        android:textColor="@color/colorAccent"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
         app:layout_constraintTop_toTopOf="parent" />
@@ -72,7 +72,7 @@
         android:textColor="@color/black"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_kurir" />
 
     <TextView
         android:id="@+id/textView4"
@@ -103,7 +103,7 @@
         app:barrierDirection="left" />
 
     <TextView
-        android:id="@+id/tv_alamat_detail_pesanan"
+        android:id="@+id/tv_alamat_kirim"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
