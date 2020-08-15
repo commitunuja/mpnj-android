@@ -56,10 +56,13 @@ public class AdapterWishlist extends BaseAdapter {
     private List<modelWishlist> tvDataWishlist;
     private Context context;
     private KProgressHUD progressHud;
+    private Fragment fragment;
 
-    public AdapterWishlist(Context context, List<modelWishlist> tvDataWishlist) {
+
+    public AdapterWishlist(Context context, List<modelWishlist> tvDataWishlist, Fragment fragment) {
         this.context = context;
         this.tvDataWishlist = tvDataWishlist;
+        this.fragment = fragment;
     }
 
     @Override
@@ -186,7 +189,7 @@ public class AdapterWishlist extends BaseAdapter {
                         Log.d("deleteWishlist", "onResponse: "+response);
                         if (response.body() != null && response.isSuccessful()) {
                             progressHud.dismiss();
-                                AppUtilits.displayMessage(context, "Sukses hapus produk dari wishlist");
+                            ((FragmentFavorite) fragment).getWishlish();
                         } else {
                             progressHud.dismiss();
                             AppUtilits.displayMessage(context, String.valueOf((R.string.network_error)));

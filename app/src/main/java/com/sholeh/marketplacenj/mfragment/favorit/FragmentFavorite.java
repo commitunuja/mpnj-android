@@ -99,6 +99,8 @@ public class FragmentFavorite extends Fragment implements View.OnClickListener {
         return rootView;
     }
 
+
+
     private void ProgresDialog() {
         progressHud.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
                 .setLabel("Proses...")
@@ -157,7 +159,7 @@ public class FragmentFavorite extends Fragment implements View.OnClickListener {
                                         response.body().getData().get(i).getPelapak().getKabupaten(),
                                         response.body().getData().get(i).getFoto().get(0).getFotoProduk()));
                             }
-                            adapter = new AdapterWishlist(getActivity(), modellist);
+                            adapter = new AdapterWishlist(getActivity(), modellist, FragmentFavorite.this);
                             mGridView.setAdapter(adapter);
                             lnKosong.setVisibility(View.GONE);
                             mGridView.setVisibility(View.VISIBLE);
@@ -220,7 +222,7 @@ public class FragmentFavorite extends Fragment implements View.OnClickListener {
                                         response.body().getData().get(i).getPelapak().getKabupaten(),
                                         response.body().getData().get(i).getFoto().get(0).getFotoProduk()));
                             }
-                            adapter = new AdapterWishlist(getActivity(), modellist);
+                            adapter = new AdapterWishlist(getActivity(), modellist, FragmentFavorite.this);
                             mGridView.setAdapter(adapter);
                             lnKosong.setVisibility(View.GONE);
                             mGridView.setVisibility(View.VISIBLE);
