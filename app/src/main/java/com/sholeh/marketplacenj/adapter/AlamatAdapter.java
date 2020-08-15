@@ -71,9 +71,6 @@ public class AlamatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         //  Log.e(TAG, "bind view "+ position);
         final AlamatModel model =  alamat_models.get(position);
-
-
-
         String noHp = model.getNomorHP();
         String alamatLengkap = model.getAlamatLengkap();
         String Kecamatan = model.getNamaKec();

@@ -158,8 +158,6 @@ public class AlamatActivity extends AppCompatActivity implements View.OnClickLis
                                             response.body().getData().getDaftarAlamat().get(i).getNamaProvinsi(),
                                             response.body().getData().getDaftarAlamat().get(i).getKodePos(),
                                             response.body().getData().getDaftarAlamat().get(i).getStatus()));
-
-
                                 }
 
                                 alamatAdapter.notifyDataSetChanged();

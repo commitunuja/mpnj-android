@@ -103,7 +103,6 @@ public class FragmentFavorite extends Fragment implements View.OnClickListener {
 
     private void ProgresDialog() {
         progressHud.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
-                .setLabel("Proses...")
                 .setCancellable(false);
         progressHud.show();
     }
@@ -135,7 +134,7 @@ public class FragmentFavorite extends Fragment implements View.OnClickListener {
         if (!NetworkUtility.isNetworkConnected(getActivity())) {
             AppUtilits.displayMessage(getActivity(), getString(R.string.network_not_connected));
         } else {
-            ProgresDialog();
+//            ProgresDialog();
             APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
             Call<ResTampilWishlist> call = service.getDataWishlist(id_konsumen);
             call.enqueue(new Callback<ResTampilWishlist>() {
@@ -163,17 +162,17 @@ public class FragmentFavorite extends Fragment implements View.OnClickListener {
                             mGridView.setAdapter(adapter);
                             lnKosong.setVisibility(View.GONE);
                             mGridView.setVisibility(View.VISIBLE);
-                            progressHud.dismiss();
+//                            progressHud.dismiss();
                         } else {
                             mGridView.setVisibility(View.GONE);
                             lnKosong.setVisibility(View.VISIBLE);
-                            progressHud.dismiss();
+//                            progressHud.dismiss();
                             tvxDesainKosong.setText("Barang Favoritmu Belum Ada");
                         }
                     } else {
                         mGridView.setVisibility(View.GONE);
                         lnKosong.setVisibility(View.VISIBLE);
-                        progressHud.dismiss();
+//                        progressHud.dismiss();
                         tvxDesainKosong.setText(R.string.network_error);
                         AppUtilits.displayMessage(getActivity(), getString(R.string.network_error));
                     }
@@ -183,7 +182,7 @@ public class FragmentFavorite extends Fragment implements View.OnClickListener {
                 public void onFailure(Call<ResTampilWishlist> call, Throwable t) {
                     mGridView.setVisibility(View.GONE);
                     lnKosong.setVisibility(View.VISIBLE);
-                    progressHud.dismiss();
+//                    progressHud.dismiss();
                     tvxDesainKosong.setText("Barang Favoritmu Belum Ada");
                     AppUtilits.displayMessage(getActivity(), getString(R.string.network_error));
                 }

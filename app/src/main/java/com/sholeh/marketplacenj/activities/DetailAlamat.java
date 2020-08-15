@@ -194,21 +194,15 @@ public class DetailAlamat extends AppCompatActivity implements View.OnClickListe
         if (!NetworkUtility.isNetworkConnected(DetailAlamat.this)) {
             AppUtilits.displayMessage(DetailAlamat.this, getString(R.string.network_not_connected));
         } else {
-
             APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
             Call<ResDetailAlamat> call = service.getDetailAlamat(alamatId);
             call.enqueue(new Callback<ResDetailAlamat>() {
                 @Override
                 public void onResponse(Call<ResDetailAlamat> call, Response<ResDetailAlamat> response) {
-
 //                    tvDetailAlamat = response.body();
 //                    String nama = response.body().getData().getN;
-
-
                     if (response.body() != null && response.isSuccessful()) {
-//
                         if (response.body().getPesan().equalsIgnoreCase("Sukses!")) {
-
                             if (response.body().getData().size() > 0) {
 //                                    arrayKota.clear();
 //                                    listID_Kota.clear();
@@ -223,8 +217,6 @@ public class DetailAlamat extends AppCompatActivity implements View.OnClickListe
                                     edKec.setText(String.valueOf(response.body().getData().get(i).getNamaKecamatan()));
                                     edKodePos.setText(response.body().getData().get(i).getKodePos());
                                     edAlamatLengkap.setText(response.body().getData().get(i).getAlamatLengkap());
-
-
                                 }
 
                             }
@@ -243,7 +235,6 @@ public class DetailAlamat extends AppCompatActivity implements View.OnClickListe
                     AppUtilits.displayMessage(DetailAlamat.this, getString(R.string.fail_togetaddress));
                 }
             });
-
 
         }
 

@@ -146,6 +146,7 @@ public class AdapterExpandKeranjang extends BaseExpandableListAdapter {
     @Override
     public View getChildView(final int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         Log.d("sholeh", listHeaderFilter.get(groupPosition).getId_toko());
+        progressHud = KProgressHUD.create(context);
 
         preferences = new Preferences(context);
         id_konsumen = preferences.getIdKonsumen();
@@ -251,7 +252,6 @@ public class AdapterExpandKeranjang extends BaseExpandableListAdapter {
             @Override
             public void onClick(View v) {
 //                Toast.makeText(context, "coba child", Toast.LENGTH_SHORT).show();
-
                 Intent intent = new Intent(context, ProductDetailActivity.class);
                 intent.putExtra("id_produk", String.valueOf(childModel.getId_produk()));
                 intent.putExtra("nama_produk", childModel.getNama_produk());
@@ -268,6 +268,7 @@ public class AdapterExpandKeranjang extends BaseExpandableListAdapter {
         delete_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ProgresDialog();
                 String id_keranjang = childModel.getId_keranjang();
                 APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
                 Call<ResHapusKeranjang> call = service.hapusProdukKeranjang(id_keranjang);
@@ -277,12 +278,14 @@ public class AdapterExpandKeranjang extends BaseExpandableListAdapter {
                         if (response.body() != null && response.isSuccessful()) {
                             if (response.body().getPesan().equalsIgnoreCase("sukses")) {
                                 ((KeranjangFragment) fragment).getDetailKeranjang();
-
+                                progressHud.dismiss();
                             } else {
                                 AppUtilits.displayMessage(context, "Gagal hapus produk dari keranjang");
+                                progressHud.dismiss();
                             }
                         } else {
                             AppUtilits.displayMessage(context, context.getString(R.string.network_error));
+                            progressHud.dismiss();
                         }
 
                     }
@@ -290,6 +293,7 @@ public class AdapterExpandKeranjang extends BaseExpandableListAdapter {
                     @Override
                     public void onFailure(Call<ResHapusKeranjang> call, Throwable t) {
                         AppUtilits.displayMessage(context, context.getString(R.string.failed_request));
+                        progressHud.dismiss();
 
                     }
                 });
@@ -478,4 +482,11 @@ public class AdapterExpandKeranjang extends BaseExpandableListAdapter {
         LocalBroadcastManager.getInstance(context).sendBroadcast(i);
 //        Toast.makeText(context, ""+String.valueOf(myArray), Toast.LENGTH_SHORT).show();
     }
+
+    private void ProgresDialog() {
+        progressHud.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setCancellable(false);
+        progressHud.show();
+    }
+
 }
