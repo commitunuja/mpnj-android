@@ -1,39 +1,31 @@
 package com.sholeh.marketplacenj.activities.pesanan;
 
-import android.content.ContentValues;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Base64;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.CustomTarget;
-import com.bumptech.glide.request.transition.Transition;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.adapter.pesanan.DetailPesananAdapter;
 import com.sholeh.marketplacenj.model.pesanan.DataPesanan;
 import com.sholeh.marketplacenj.model.pesanan.Item;
 import com.sholeh.marketplacenj.model.pesanan.detailpesanan.DetailPesanan;
 import com.sholeh.marketplacenj.model.pesanan.detailpesanan.ItemDetailPesanan;
-import com.sholeh.marketplacenj.util.CONSTANTS;
 import com.sholeh.marketplacenj.util.ServiceGenerator;
 import com.sholeh.marketplacenj.util.api.APIInterface;
 
-import java.io.ByteArrayOutputStream;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -48,8 +40,8 @@ import static com.sholeh.marketplacenj.util.MyApp.getContext;
 
 public class DetailPesananActivity extends AppCompatActivity implements View.OnClickListener {
 
-    String namaproduk, namatoko, harga, foto, fotokirimwa, bitmpath;
-    TextView vnamaproduk, waktu, totalhargaproduk, total, vharga, toko, status, alamat, totalhargadetail, kurir, tongkir, tanya;
+    String statusorder, namatoko, harga, foto, fotokirimwa, bitmpath;
+    TextView vnamaproduk, waktu, totalhargaproduk, total, vharga, toko, status, alamat, totalhargadetail,lacak, tulis, kurir, tongkir, tanya;
     ImageView iproduk, imgcoba;
     private List<ItemDetailPesanan> dataPesanans;
     RecyclerView recyclerView;
@@ -67,7 +59,9 @@ public class DetailPesananActivity extends AppCompatActivity implements View.OnC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_pesanan);
-        pack = "tanya";
+
+        lacak = findViewById(R.id.tvlacak);
+        tulis = findViewById(R.id.tvtulis);
         tanya = findViewById(R.id.tv_tanya);
         totalhargadetail = findViewById(R.id.totalhargadetail);
         vnamaproduk = findViewById(R.id.tv_nama_produk_detail);
@@ -85,6 +79,8 @@ public class DetailPesananActivity extends AppCompatActivity implements View.OnC
         Intent i = getIntent();
         kode = i.getStringExtra("kode");
         tanya.setOnClickListener(this);
+        tulis.setOnClickListener(this);
+        lacak.setOnClickListener(this);
 
         getData();
 
@@ -132,12 +128,14 @@ public class DetailPesananActivity extends AppCompatActivity implements View.OnC
                             waktu.setText(response.body().getData().get(i).getWaktuPesan());
                             status.setText(response.body().getData().get(i).getStatusOrder());
                             kurir.setText(response.body().getData().get(i).getKurir().toString());
-
+//                            Toast.makeText(DetailPesananActivity.this, ""+status, Toast.LENGTH_SHORT).show();
                             int ongkir = Integer.parseInt((response.body().getData().get(i).getOngkir()));
                             stringTokenizer = new StringTokenizer(formatRupiah.format(ongkir), ",");
                             String hargaongkir = stringTokenizer.nextToken().trim();
                             tongkir.setText(hargaongkir);
 
+                            statusorder = response.body().getData().get(i).getStatusOrder();
+                            Toast.makeText(DetailPesananActivity.this, "" + statusorder, Toast.LENGTH_SHORT).show();
                             int total1 = Integer.parseInt(response.body().getData().get(i).getTotalBayar());
                             stringTokenizer = new StringTokenizer(formatRupiah.format(total1), ",");
                             String totalbayar = stringTokenizer.nextToken().trim();
@@ -149,11 +147,19 @@ public class DetailPesananActivity extends AppCompatActivity implements View.OnC
                             String harga1 = stringTokenizer.nextToken().trim();
                             totalhargadetail.setText(harga1);
 
-                            if (status.equals("Selesai")) {
-                                tanya.setText("Tulis Review");
-                            }
-                            tanya.setText("Tanya Pelapak");
+                            if (statusorder.equals("Telah Sampai")) {
+                                tanya.setVisibility(View.VISIBLE);
+                                tulis.setVisibility(View.VISIBLE);
+                            } else if (statusorder.equals("Dikirim")) {
+                                tanya.setVisibility(View.VISIBLE);
+                                tulis.setVisibility(View.VISIBLE);
+                                lacak.setVisibility(View.VISIBLE);
 
+                            } else {
+                                tanya.setVisibility(View.VISIBLE);
+                                tulis.setVisibility(View.GONE);
+
+                            }
                         }
 
                     } else {
@@ -172,43 +178,41 @@ public class DetailPesananActivity extends AppCompatActivity implements View.OnC
 
     }
 
-    public Bitmap StringToBitMap(String fotokirimwa){
-        try{
-            byte [] encodeByte=Base64.decode(fotokirimwa,Base64.DEFAULT);
-            Bitmap bitmap=BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+    public Bitmap StringToBitMap(String fotokirimwa) {
+        try {
+            byte[] encodeByte = Base64.decode(fotokirimwa, Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
             imgcoba.setImageBitmap(bitmap);
             return bitmap;
-        }catch(Exception e){
+        } catch (Exception e) {
             e.getMessage();
             return null;
         }
     }
 
-    public void onClickApp(String fotokirimwa) {
+    public void onClickWhatsApp(View view) {
 
-//        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-//        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-//        byte[] imageBytes = byteArrayOutputStream.toByteArray();
-//        String imageString = Base64.encodeToString(imageBytes, Base64.DEFAULT);
-//        imageBytes = Base64.decode(imageString, Base64.DEFAULT);
-//        Bitmap decodedImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
-//        imgcoba.setImageBitmap(decodedImage);
-////            byte [] encodeByte= Base64.decode(fotokirimwa,Base64.DEFAULT);
-////            bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
-////
-//        bitmpath = MediaStore.Images.Media.insertImage(getContentResolver(), decodedImage, "whatsApp", null);
-////        } catch (Exception e) {
-////            e.printStackTrace();
-////        }
+        PackageManager pm=getPackageManager();
+        try {
 
-        Uri uri = Uri.parse(bitmpath);
-        Intent share = new Intent(Intent.ACTION_SEND);
-        share.setType("image/jpeg");
-        share.setPackage("com.whatsapp");
-        share.putExtra(Intent.EXTRA_TEXT, "Apakah Bisa Dikirim Hari Ini ?");
-//        share.putExtra(Intent.EXTRA_STREAM, uri);
-        share.putExtra(Intent.EXTRA_STREAM, uri);
-        startActivity(Intent.createChooser(share, "share into "));
+            Intent waIntent = new Intent(Intent.ACTION_SEND);
+            waIntent.setType("text/plain");
+            String text = "YOUR TEXT HERE";
+
+
+            PackageInfo info=pm.getPackageInfo("com.whatsapp", PackageManager.GET_META_DATA);
+            //Check if package exists or not. If not then code
+            //in catch block will be called
+            waIntent.setPackage("com.whatsapp");
+
+            waIntent.putExtra(Intent.EXTRA_TEXT, text);
+            startActivity(Intent.createChooser(waIntent, "Share with"));
+
+        } catch (PackageManager.NameNotFoundException e) {
+            Toast.makeText(this, "WhatsApp not Installed", Toast.LENGTH_SHORT)
+                    .show();
+        }
+
     }
 
 
@@ -216,8 +220,10 @@ public class DetailPesananActivity extends AppCompatActivity implements View.OnC
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_tanya:
-                onClickApp(fotokirimwa);
-//                StringToBitMap(fotokirimwa);
+             onClickWhatsApp(v);
+
+            case R.id.tvtulis:
+                status.setText("Selesai");
         }
     }
 }
