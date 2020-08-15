@@ -141,9 +141,11 @@ public class DetailPesananActivity extends AppCompatActivity implements View.OnC
                             String totalbayar = stringTokenizer.nextToken().trim();
                             total.setText(totalbayar);
                             alamat.setText(response.body().getData().get(i).getTujuan());
-                            int harga = Integer.parseInt(response.body().getData().get(i).getHarga());
+
+                            int ongkirlagi = Integer.parseInt(response.body().getData().get(i).getOngkir());
                             int harga2 = Integer.parseInt(response.body().getData().get(i).getTotalBayar());
-                            stringTokenizer = new StringTokenizer(formatRupiah.format(harga2), ",");
+                            int harga = harga2-ongkirlagi;
+                            stringTokenizer = new StringTokenizer(formatRupiah.format(harga), ",");
                             String harga1 = stringTokenizer.nextToken().trim();
                             totalhargadetail.setText(harga1);
 
@@ -154,7 +156,10 @@ public class DetailPesananActivity extends AppCompatActivity implements View.OnC
                                 tanya.setVisibility(View.VISIBLE);
                                 tulis.setVisibility(View.VISIBLE);
                                 lacak.setVisibility(View.VISIBLE);
-
+                            }else if(statusorder.equals("Dibatalkan")){
+                                tanya.setVisibility(View.VISIBLE);
+                                lacak.setVisibility(View.GONE);
+                                tulis.setVisibility(View.GONE);
                             } else {
                                 tanya.setVisibility(View.VISIBLE);
                                 tulis.setVisibility(View.GONE);
