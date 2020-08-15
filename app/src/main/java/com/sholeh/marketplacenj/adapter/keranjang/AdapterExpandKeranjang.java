@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.bumptech.glide.Glide;
@@ -24,6 +25,7 @@ import com.kaopiz.kprogresshud.KProgressHUD;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.activities.details.ProductDetailActivity;
 import com.sholeh.marketplacenj.activities.keranjang.KeranjangDetailActivity;
+import com.sholeh.marketplacenj.mfragment.Keranjang.KeranjangFragment;
 import com.sholeh.marketplacenj.model.keranjang.ChildModel;
 import com.sholeh.marketplacenj.model.keranjang.HeaderModel;
 import com.sholeh.marketplacenj.respon.ResHapusKeranjang;
@@ -62,12 +64,14 @@ public class AdapterExpandKeranjang extends BaseExpandableListAdapter {
     private static final String TAG = "MyExpandAdapter";
     String CUSTOM_ACTION = "com.example.YOUR_ACTION";
     private KProgressHUD progressHud;
+    private Fragment fragment;
 
 
-    public AdapterExpandKeranjang(Context context, List<HeaderModel> listHeader, HashMap<HeaderModel, List<ChildModel>> listChild) {
+    public AdapterExpandKeranjang(Context context, List<HeaderModel> listHeader, HashMap<HeaderModel, List<ChildModel>> listChild, Fragment fragment) {
+        this.context = context;
         this.listHeaderFilter = listHeader;
         this.listChild = listChild;
-        this.context = context;
+        this.fragment = fragment;
     }
 
     @Override
@@ -272,9 +276,7 @@ public class AdapterExpandKeranjang extends BaseExpandableListAdapter {
                     public void onResponse(Call<ResHapusKeranjang> call, Response<ResHapusKeranjang> response) {
                         if (response.body() != null && response.isSuccessful()) {
                             if (response.body().getPesan().equalsIgnoreCase("sukses")) {
-                                AppUtilits.displayMessage(context, "Sukses hapus produk dari keranjang");
-
-//                                ((KeranjangDetailActivity) context).getDetailKeranjang();
+                                ((KeranjangFragment) fragment).getDetailKeranjang();
 
                             } else {
                                 AppUtilits.displayMessage(context, "Gagal hapus produk dari keranjang");

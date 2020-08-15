@@ -224,7 +224,7 @@ public class KeranjangFragment extends Fragment implements View.OnClickListener 
                                 listChild.put(listHeader.get(i), child);
                             }
 //                        Log.d("sholeh", new Gson().toJson(listChild));
-                            expanAdapter = new AdapterExpandKeranjang(getActivity(), listHeader, listChild);
+                            expanAdapter = new AdapterExpandKeranjang(getActivity(), listHeader, listChild, KeranjangFragment.this);
                             listView.setAdapter(expanAdapter);
                             int count = expanAdapter.getGroupCount();
                             for (int i = 0; i < count; i++) {
@@ -313,7 +313,7 @@ public class KeranjangFragment extends Fragment implements View.OnClickListener 
                                 listChild.put(listHeader.get(i), child);
                             }
 //                        Log.d("sholceng", new Gson().toJson(listChild));
-                            expanAdapter = new AdapterExpandKeranjang(getActivity(), listHeader, listChild);
+                            expanAdapter = new AdapterExpandKeranjang(getActivity(), listHeader, listChild, KeranjangFragment.this);
                             listView.setAdapter(expanAdapter);
                             int count = expanAdapter.getGroupCount();
                             for (int i = 0; i < count; i++) {
