@@ -49,8 +49,7 @@ public class DetailPesananAdapter extends RecyclerView.Adapter<DetailPesananAdap
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         dataPesanan = dataPesanans.get(position);
-//        stringTokenizer = new StringTokenizer(formatRupiah.format(dataPesanan.getHarga()),",");
-//        String hargabarang = stringTokenizer.nextToken().trim();
+
         int harga1 = Integer.parseInt(dataPesanan.getHarga());
         holder.jumlahproduk.setText("" + dataPesanan.getJumlah());
         holder.namaproduk.setText(dataPesanan.getNamaProduk());

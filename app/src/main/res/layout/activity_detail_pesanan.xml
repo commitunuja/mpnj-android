@@ -80,6 +80,11 @@
                                     android:textSize="13sp"
                                     android:textStyle="bold" />
 
+                                <ImageView
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:id="@+id/img"/>
+
                                 <Space
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -199,7 +204,7 @@
                 </androidx.core.widget.NestedScrollView>
 
                 <customfonts.MyTextView_Roboto_Bold
-                    android:id="@+id/tvxBayarSekarang"
+                    android:id="@+id/tv_tanya"
                     style="@style/txt_white_medium"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
