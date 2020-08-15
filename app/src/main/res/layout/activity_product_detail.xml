@@ -299,6 +299,7 @@
                                     android:src="@drawable/img" />
 
                                 <customfonts.MyTextView_Roboto_Black
+                                    android:padding="5dp"
                                     android:id="@+id/tv_nama_pelapak"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -306,7 +307,7 @@
                                     android:layout_marginStart="10dp"
                                     android:gravity="center"
                                     android:text="nama pelapak"
-                                    android:textSize="10sp" />
+                                    android:textSize="12sp" />
                             </LinearLayout>
 
                             <View
@@ -317,6 +318,7 @@
                                 android:background="@color/viewline" />
 
                             <LinearLayout
+                                android:visibility="gone"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="20dp"
@@ -735,7 +737,7 @@
 
                 <!--        <include layout="@layout/diskripsi" />-->
 
-                <include layout="@layout/delivery_and_review_layout" />
+<!--                <include layout="@layout/delivery_and_review_layout" />-->
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -744,6 +746,7 @@
                     android:orientation="horizontal">
 
                     <customfonts.MyTextView_Roboto_Medium
+                        android:layout_marginTop="10dp"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
