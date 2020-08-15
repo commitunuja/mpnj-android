@@ -389,6 +389,7 @@
                             android:text="Alamat"/>
 
                         <customfonts.MyTextView_Roboto_Medium
+                            android:layout_marginBottom="23dp"
                             android:id="@+id/tvSetting"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -396,10 +397,11 @@
                             android:textSize="14sp"
                             android:layout_marginLeft="23dp"
                             android:layout_marginTop="23dp"
-                            android:text="Pengaturan"/>
+                            android:text="Password"/>
 
 
                         <customfonts.MyTextView_Roboto_Medium
+                            android:visibility="gone"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/black"

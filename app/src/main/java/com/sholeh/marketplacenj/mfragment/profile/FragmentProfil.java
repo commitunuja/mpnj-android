@@ -31,6 +31,7 @@ import com.kaopiz.kprogresshud.KProgressHUD;
 import com.sholeh.marketplacenj.activities.AkunActivity;
 import com.sholeh.marketplacenj.activities.AlamatActivity;
 import com.sholeh.marketplacenj.activities.PengaturanAkun;
+import com.sholeh.marketplacenj.activities.UbahPassword;
 import com.sholeh.marketplacenj.activities.alamat.PilihAlamatCheckout;
 import com.sholeh.marketplacenj.activities.pesanan.MyPesananActivity;
 import com.sholeh.marketplacenj.util.AppUtilits;
@@ -199,7 +200,9 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
                 break;
 
             case R.id.tvSetting:
-                Intent intent5 = new Intent(getActivity(), PengaturanAkun.class);
+//                Intent intent5 = new Intent(getActivity(), PengaturanAkun.class);
+//                getActivity().startActivity(intent5);
+                Intent intent5 = new Intent(getActivity(), UbahPassword.class);
                 getActivity().startActivity(intent5);
                 break;
 
