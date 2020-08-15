@@ -64,7 +64,7 @@ public class PesananAdapter extends RecyclerView.Adapter<PesananAdapter.ViewHold
 
         int harga1 = Integer.parseInt(dataPesanan.getItem().get(0).getHargaJual());
         stringTokenizer = new StringTokenizer(formatRupiah.format(harga1),",");
-        String harga2 = stringTokenizer.nextToken().trim();
+//        String harga2 = stringTokenizer.nextToken().trim();
 
 //        holder.harga.setText(harga2);
         holder.statusorder.setText(dataPesanan.getItem().get(0).getStatusOrder());

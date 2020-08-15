@@ -144,7 +144,8 @@ public class DetailPesananActivity extends AppCompatActivity implements View.OnC
                             total.setText(totalbayar);
                             alamat.setText(response.body().getData().get(i).getTujuan());
                             int harga = Integer.parseInt(response.body().getData().get(i).getHarga());
-                            stringTokenizer = new StringTokenizer(formatRupiah.format(harga), ",");
+                            int harga2 = Integer.parseInt(response.body().getData().get(i).getTotalBayar());
+                            stringTokenizer = new StringTokenizer(formatRupiah.format(harga2), ",");
                             String harga1 = stringTokenizer.nextToken().trim();
                             totalhargadetail.setText(harga1);
 
