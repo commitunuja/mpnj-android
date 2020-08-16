@@ -19,6 +19,7 @@ import com.sholeh.marketplacenj.activities.alamat.PilihAlamatCheckout;
 import com.sholeh.marketplacenj.activities.checkout.CheckoutActivity;
 import com.sholeh.marketplacenj.model.subdistrict.ItemKec;
 import com.sholeh.marketplacenj.util.AppUtilits;
+import com.sholeh.marketplacenj.util.NetworkUtility;
 import com.sholeh.marketplacenj.util.api.APIInterface;
 import com.sholeh.marketplacenj.util.CONSTANTS;
 import com.sholeh.marketplacenj.R;
@@ -54,7 +55,7 @@ public class AddAlamat extends AppCompatActivity implements View.OnClickListener
     ArrayList<String> listID_Kec = new ArrayList<>();
 
     Preferences preferences;
-    String valalamat, cekOngkir,  nilaiIntent;
+    String valalamat, cekOngkir, nilaiIntent;
     ArrayList<String> idK;
 
 
@@ -164,9 +165,9 @@ public class AddAlamat extends AppCompatActivity implements View.OnClickListener
     }
 
     public void onBack() {
-        if (valalamat.equalsIgnoreCase("activity")){
+        if (valalamat.equalsIgnoreCase("activity")) {
             finish();
-        }else{
+        } else {
             Intent intent = new Intent(AddAlamat.this, PilihAlamatCheckout.class);
             intent.putExtra("reset_kurir", "Silahkan Pilih Pengiriman Produk Anda");
             intent.putExtra("icheckout", nilaiIntent);
@@ -176,7 +177,6 @@ public class AddAlamat extends AppCompatActivity implements View.OnClickListener
         }
 
     }
-
 
 
     public void getProvince() {
@@ -311,7 +311,6 @@ public class AddAlamat extends AppCompatActivity implements View.OnClickListener
                                 response.body().getRajaongkir().getResults().get(a).getSubdistrictName()
 
 
-
                         );
 
                         arrayKec.add(response.body().getRajaongkir().getResults().get(a).getSubdistrictName());
@@ -342,29 +341,26 @@ public class AddAlamat extends AppCompatActivity implements View.OnClickListener
     }
 
     public void sendAlamat() {
-//        if (!NetworkUtility.isNetworkConnected(RegisterActivity.this)) {
-//            AppUtilits.displayMessage(RegisterActivity.this, getString(R.string.network_not_connected));
-//
-//        }else if (spinProvinsi.getSelectedItem().toString().trim().equalsIgnoreCase("Pilih Provinsi")) {
+//        if (!NetworkUtility.isNetworkConnected(AddAlamat.this)) {
+//            AppUtilits.displayMessage(AddAlamat.this, getString(R.string.network_not_connected));
+//        } else if (spinProvinsi.getSelectedItem().toString().trim().equalsIgnoreCase("Pilih Provinsi")) {
 //            Toast.makeText(this, "Provinsi Belum  di Tentukan", Toast.LENGTH_SHORT).show();
-//
 //        } else if (spinProvinsi.getSelectedItemPosition() < 0 || spinkota.getSelectedItemPosition() < 0 || spinkota.getSelectedItem().toString().trim().equalsIgnoreCase("Pilih Kota")) {
 //            Toast.makeText(this, "Kota Belum  di Tentukan", Toast.LENGTH_SHORT).show();
+//        } else if (spinKec.getSelectedItemPosition() < 0 || spinKec.getSelectedItem().toString().trim().equalsIgnoreCase("Pilih Kecamatan")) {
+//            Toast.makeText(this, "Kecamatan Belum  di Tentukan", Toast.LENGTH_SHORT).show();
 //        } else {
-
-
-
-        final String namalengkap_ = ed_nama.getText().toString();
-        final String nomorHp_ = ed_nomorHP.getText().toString();
-        final String idprov_ = listID_prov.get(spinProvinsi.getSelectedItemPosition());
-        final String namaProv_ = spinProvinsi.getSelectedItem().toString();
-        final String idkota_ = listID_Kota.get(spinkota.getSelectedItemPosition());
-        final String namaKota_ = spinkota.getSelectedItem().toString();
-        final String idkec_ = listID_Kec.get(spinKec.getSelectedItemPosition());
-        final String namaKec_ = spinKec.getSelectedItem().toString();
-        final String kodepos_ = ed_kodepos.getText().toString();
-        final String alamat_ = ed_alamat.getText().toString();
-        // userid
+            final String namalengkap_ = ed_nama.getText().toString();
+            final String nomorHp_ = ed_nomorHP.getText().toString();
+            final String idprov_ = listID_prov.get(spinProvinsi.getSelectedItemPosition());
+            final String namaProv_ = spinProvinsi.getSelectedItem().toString();
+            final String idkota_ = listID_Kota.get(spinkota.getSelectedItemPosition());
+            final String namaKota_ = spinkota.getSelectedItem().toString();
+            final String idkec_ = listID_Kec.get(spinKec.getSelectedItemPosition());
+            final String namaKec_ = spinKec.getSelectedItem().toString();
+            final String kodepos_ = ed_kodepos.getText().toString();
+            final String alamat_ = ed_alamat.getText().toString();
+            // userid
 
 //
 //
@@ -372,11 +368,11 @@ public class AddAlamat extends AppCompatActivity implements View.OnClickListener
 //            final String email_ = ed_email.getText().toString();
 //            final String statusA_ = "aktif";
 //
-////            if (!validasi()) return;
+//            if (!validasi()) return;
 //            ServiceWrapper serviceWrapper = new ServiceWrapper(null);
             APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-            Call<ResAlamat> callNewAlamat= service.addAlamatCall(
-                    namalengkap_, nomorHp_,idprov_, namaProv_, idkota_,namaKota_,idkec_, namaKec_, kodepos_, alamat_, userId);
+            Call<ResAlamat> callNewAlamat = service.addAlamatCall(
+                    namalengkap_, nomorHp_, idprov_, namaProv_, idkota_, namaKota_, idkec_, namaKec_, kodepos_, alamat_, userId);
             callNewAlamat.enqueue(new Callback<ResAlamat>() {
                 @Override
                 public void onResponse(Call<ResAlamat> call, Response<ResAlamat> response) {
@@ -384,11 +380,11 @@ public class AddAlamat extends AppCompatActivity implements View.OnClickListener
                         if (response.body().getPesan().equalsIgnoreCase("Sukses!")) {
                             Toast.makeText(AddAlamat.this, "Berhasil Menambah Alamat", Toast.LENGTH_SHORT).show();
 
-                            if (valalamat.equalsIgnoreCase("activity")){
+                            if (valalamat.equalsIgnoreCase("activity")) {
                                 Intent intent = new Intent(AddAlamat.this, AlamatActivity.class);
                                 startActivity(intent);
                                 finish();
-                            }else{
+                            } else {
                                 Intent intent = new Intent(AddAlamat.this, PilihAlamatCheckout.class);
                                 intent.putExtra("reset_kurir", "Silahkan Pilih Pengiriman Produk Anda");
                                 intent.putExtra("icheckout", nilaiIntent);
@@ -424,4 +420,41 @@ public class AddAlamat extends AppCompatActivity implements View.OnClickListener
     }
 
 
+    private boolean validasi() {
+        boolean valid = true;
+        final String namalengkap_ = ed_nama.getText().toString();
+        final String nomorHp_ = ed_nomorHP.getText().toString();
+        final String kodepos_ = ed_kodepos.getText().toString();
+        final String alamat_ = ed_alamat.getText().toString();
+
+        if (namalengkap_.isEmpty()) {
+            ed_nama.setError("isi nama lengkap anda");
+            Toast.makeText(AddAlamat.this, "isi nama lengkap anda", Toast.LENGTH_SHORT).show();
+            valid = false;
+        } else if (namalengkap_.length() < 2) {
+            Toast.makeText(AddAlamat.this, "nama lengkap setidaknya minimal 2", Toast.LENGTH_SHORT).show();
+            valid = false;
+        } else {
+            ed_nama.setError(null);
+        }
+        if (kodepos_.isEmpty()) {
+            ed_kodepos.setError("kode pos wajib di isi");
+            Toast.makeText(AddAlamat.this, "kode pos wajib di isi", Toast.LENGTH_SHORT).show();
+            valid = false;
+        } else {
+            ed_kodepos.setError(null);
+        }
+        if (nomorHp_.isEmpty()) {
+            ed_nomorHP.setError("nomor hp wajib di isi");
+            Toast.makeText(AddAlamat.this, "nomor hp wajib di isi", Toast.LENGTH_SHORT).show();
+            valid = false;
+        } else if (nomorHp_.length() < 12) {
+            ed_nomorHP.setError("nomor hp tidak valid");
+            Toast.makeText(AddAlamat.this, "nomor hp tidak valid", Toast.LENGTH_SHORT).show();
+            valid = false;
+        } else {
+            ed_nomorHP.setError(null);
+        }
+        return valid;
+    }
 }
