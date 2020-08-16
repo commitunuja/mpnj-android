@@ -662,67 +662,65 @@ public class DetailAlamat extends AppCompatActivity implements View.OnClickListe
 
 
     public void ubahAlamat() {
-
-//        if (!NetworkUtility.isNetworkConnected(UbahPassword.this)){
-//            AppUtilits.displayMessage(UbahPassword.this,  getString(R.string.network_not_connected));
-//
-//        }else {
-        final String namalengkap_ = edNama.getText().toString();
-        final String nomorHp_ = edNoHP.getText().toString();
-        final String idprov_ = edIdProv.getText().toString();
-        final String namaProv_ = edProv.getText().toString();
-        final String idkota_ = edIdKota.getText().toString();
-        final String namakota_ = edKota.getText().toString();
-        final String idkec_ = edIdKec.getText().toString();
-        final String namakec_ = edKec.getText().toString();
-        final String alamat_ = edAlamatLengkap.getText().toString();
-        final String kodepos_ = edKodePos.getText().toString();
-        // userid
+        if (!NetworkUtility.isNetworkConnected(DetailAlamat.this)){
+            AppUtilits.displayMessage(DetailAlamat.this,  getString(R.string.network_not_connected));
+        }else {
+            final String namalengkap_ = edNama.getText().toString();
+            final String nomorHp_ = edNoHP.getText().toString();
+            final String idprov_ = edIdProv.getText().toString();
+            final String namaProv_ = edProv.getText().toString();
+            final String idkota_ = edIdKota.getText().toString();
+            final String namakota_ = edKota.getText().toString();
+            final String idkec_ = edIdKec.getText().toString();
+            final String namakec_ = edKec.getText().toString();
+            final String alamat_ = edAlamatLengkap.getText().toString();
+            final String kodepos_ = edKodePos.getText().toString();
+            // userid
 
 
 //            if (!validasi()) return;
-        ProgresDialog();
-        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-        Call<ResAlamat> call = service.KonsumenUbahAlamat(alamatId, namalengkap_, nomorHp_, idprov_, namaProv_, idkota_, namakota_,idkec_, namakec_, kodepos_, alamat_, id_konsumen);
+            ProgresDialog();
+            APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+            Call<ResAlamat> call = service.KonsumenUbahAlamat(alamatId, namalengkap_, nomorHp_, idprov_, namaProv_, idkota_, namakota_, idkec_, namakec_, kodepos_, alamat_, id_konsumen);
 
-        call.enqueue(new Callback<ResAlamat>() {
-            @Override
-            public void onResponse(Call<ResAlamat> call, Response<ResAlamat> response) {
+            call.enqueue(new Callback<ResAlamat>() {
+                @Override
+                public void onResponse(Call<ResAlamat> call, Response<ResAlamat> response) {
 
-                if (response.body() != null && response.isSuccessful()) {
-                    if (response.body().getPesan().equalsIgnoreCase("Sukses!")) {
+                    if (response.body() != null && response.isSuccessful()) {
+                        if (response.body().getPesan().equalsIgnoreCase("Sukses!")) {
 //
-                        Toast.makeText(DetailAlamat.this, "Alamat berhasil di perbarui", Toast.LENGTH_LONG).show();
-                        finish();
-                        progressDialogHud.dismiss();
+                            Toast.makeText(DetailAlamat.this, "Alamat berhasil di perbarui", Toast.LENGTH_LONG).show();
+                            finish();
+                            progressDialogHud.dismiss();
 //
 //
-                    } else {
-                        Toast.makeText(DetailAlamat.this, "Alamat gagal di perbarui" , Toast.LENGTH_LONG).show();
-                        progressDialogHud.dismiss();
+                        } else {
+                            Toast.makeText(DetailAlamat.this, "Alamat gagal di perbarui", Toast.LENGTH_LONG).show();
+                            progressDialogHud.dismiss();
 
 //                            AppUtilits.displayMessage(UbahPassword.this,  response.body().getPesan());
-                    }
-                } else {
-                    Toast.makeText(DetailAlamat.this, "Alamat gagal di perbarui" , Toast.LENGTH_LONG).show();
-                    progressDialogHud.dismiss();
+                        }
+                    } else {
+                        Toast.makeText(DetailAlamat.this, "Alamat gagal di perbarui", Toast.LENGTH_LONG).show();
+                        progressDialogHud.dismiss();
 
 //                        AppUtilits.displayMessage(UbahPassword.this,  getString(R.string.failed_request));
 
 
+                    }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<ResAlamat> call, Throwable t) {
-                Toast.makeText(DetailAlamat.this, "Koneksi Gagal", Toast.LENGTH_SHORT).show();
-                progressDialogHud.dismiss();
-                //  Log.e(TAG, " failure "+ t.toString());
+                @Override
+                public void onFailure(Call<ResAlamat> call, Throwable t) {
+                    Toast.makeText(DetailAlamat.this, "Koneksi Gagal", Toast.LENGTH_SHORT).show();
+                    progressDialogHud.dismiss();
+                    //  Log.e(TAG, " failure "+ t.toString());
 //                    AppUtilits.displayMessage(UbahPassword.this,  getString(R.string.failed_request));
-            }
+                }
 
-        });
-
+            });
+        }
 
     }
 
@@ -788,6 +786,95 @@ public class DetailAlamat extends AppCompatActivity implements View.OnClickListe
 //        // setResult(RESULT_OK);
 //        setResult(RESULT_OK, returnIntent); //By not passing the intent in the result, the calling activity will get null data.
 //        super.finish();
+//    }
+
+
+//    private boolean validasi() {
+//        boolean valid = true;
+//        final String namalengkap_ = ed_nama.getText().toString();
+//        final String username_ = ed_username.getText().toString();
+//        final String password_ = ed_password.getText().toString();
+//        final String konpassword_ = ed_konfirmasiPass.getText().toString();
+////        final String alamat_ = ed_alamat.getText().toString();
+////        final String kodepos_ = ed_kodepos.getText().toString();
+//        final String nomorHp_ = ed_nomorHP.getText().toString();
+//        final String email_ = ed_email.getText().toString();
+//        final String statusA_ = "aktif";
+//
+//
+//        if (namalengkap_.isEmpty()) {
+//            ed_nama.setError("isi nama lengkap anda");
+//            Toast.makeText(RegisterActivity.this, "isi nama lengkap anda", Toast.LENGTH_SHORT).show();
+//            valid = false;
+//        } else if (namalengkap_.length() < 2) {
+//            Toast.makeText(RegisterActivity.this, "nama lengkap setidaknya minimal 2", Toast.LENGTH_SHORT).show();
+//            valid = false;
+//        } else {
+//            ed_nama.setError(null);
+//        }
+//
+//        if (username_.isEmpty()) {
+//            ed_username.setError("username wajib di isi");
+//            Toast.makeText(RegisterActivity.this, "username wajib di isi", Toast.LENGTH_SHORT).show();
+//            valid = false;
+//        } else {
+//            ed_username.setError(null);
+//        }
+//
+//        if (password_.isEmpty()) {
+//            ed_password.setError("password wajib di isi");
+//            Toast.makeText(RegisterActivity.this, "password wajib di isi", Toast.LENGTH_SHORT).show();
+//            valid = false;
+//        } else if (konpassword_.isEmpty()) {
+//            ed_password.setError("konfirmasi password wajib di isi");
+//            Toast.makeText(RegisterActivity.this, "konfirmasi password wajib di isi", Toast.LENGTH_SHORT).show();
+//            valid = false;
+//
+//        } else if (!ed_password.getText().toString().equals(ed_konfirmasiPass.getText().toString())) {
+//            Toast.makeText(RegisterActivity.this, "kata sandi tidak cocok", Toast.LENGTH_SHORT).show();
+//            valid = false;
+//        } else if (password_.length() < 6) {
+//            Toast.makeText(RegisterActivity.this, "password minimal 6 digit", Toast.LENGTH_SHORT).show();
+//            valid = false;
+//        } else {
+//            ed_password.setError(null);
+//        }
+////        if (alamat_.isEmpty()) {
+////            ed_alamat.setError("alamat wajib di isi");
+////            Toast.makeText(RegisterActivity.this, "alamat wajib di isi", Toast.LENGTH_SHORT).show();
+////            valid = false;
+////        } else {
+////            ed_alamat.setError(null);
+////        }
+////
+////        if (kodepos_.isEmpty()) {
+////            ed_kodepos.setError("kode pos wajib di isi");
+////            Toast.makeText(RegisterActivity.this, "kode pos wajib di isi", Toast.LENGTH_SHORT).show();
+////            valid = false;
+////        } else {
+////            ed_kodepos.setError(null);
+////        }
+//
+//        if (nomorHp_.isEmpty()) {
+//            ed_nomorHP.setError("nomor hp wajib di isi");
+//            Toast.makeText(RegisterActivity.this, "nomor hp wajib di isi", Toast.LENGTH_SHORT).show();
+//            valid = false;
+//        } else if (nomorHp_.length() < 12) {
+//            ed_nomorHP.setError("nomor hp tidak valid");
+//            Toast.makeText(RegisterActivity.this, "nomor hp tidak valid", Toast.LENGTH_SHORT).show();
+//            valid = false;
+//        } else {
+//            ed_nomorHP.setError(null);
+//        }
+//
+//        if (email_.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email_).matches()) {
+//            ed_email.setError("email tidak valid");
+//            Toast.makeText(RegisterActivity.this, "email tidak valid", Toast.LENGTH_SHORT).show();
+//            valid = false;
+//        } else {
+//            ed_email.setError(null);
+//        }
+//        return valid;
 //    }
 }
 
