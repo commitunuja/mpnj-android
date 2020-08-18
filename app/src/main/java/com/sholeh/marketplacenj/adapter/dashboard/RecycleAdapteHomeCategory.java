@@ -82,6 +82,7 @@ public class RecycleAdapteHomeCategory extends RecyclerView.Adapter<RecycleAdapt
             public void onClick(View v) {
                 Intent intent = new Intent(context, ProdukByKategori.class);
                 intent.putExtra("id_kategori", String.valueOf(movie.getIdKategoriProduk()));
+                intent.putExtra("namakategori", String.valueOf(movie.getNamaKategori()));
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
             }
