@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context=".activities.ProdukByKategori">
 
-    <include layout="@layout/toolbar_kategori" />
+    <include layout="@layout/toolbar_global" />
 
     <ProgressBar
         android:id="@+id/progressBarProdukByKategori"

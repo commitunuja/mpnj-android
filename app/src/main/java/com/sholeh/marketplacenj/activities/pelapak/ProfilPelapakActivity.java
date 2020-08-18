@@ -2,23 +2,20 @@ package com.sholeh.marketplacenj.activities.pelapak;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.sholeh.marketplacenj.R;
-import com.sholeh.marketplacenj.activities.dashboard.Homepage;
-import com.sholeh.marketplacenj.adapter.dashboard.ProdukAdapter;
+import com.sholeh.marketplacenj.activities.details.ProductDetailActivity;
 import com.sholeh.marketplacenj.adapter.dashboard.RecycleAdapteTopTenHome;
-import com.sholeh.marketplacenj.adapter.dashboard.SearchAdapter;
 import com.sholeh.marketplacenj.adapter.profilpelapak.ProfilPelapakAdapter;
 import com.sholeh.marketplacenj.model.Model;
 import com.sholeh.marketplacenj.model.dashboard.TopTenModelClass;
@@ -35,11 +32,11 @@ import retrofit2.Response;
 
 public class ProfilPelapakActivity extends AppCompatActivity {
 
-    private Toolbar toolbar;
-    private TextView namapelapak, alamatpelapak;
-    ImageView fotopelapak;
+
+    private TextView namapelapak, alamatpelapak, toolbar;
+    ImageView fotopelapak, back;
     RecyclerView recprodukpelapak;
-    String id_pelapak, pelapak, foto_pelapak, iduser;
+    String id_pelapak, pelapak, foto_pelapak;
     private ArrayList<TopTenModelClass> topTenModelClasses1;
     int pelapakId;
     private RecycleAdapteTopTenHome mAdapter3;
@@ -52,11 +49,23 @@ public class ProfilPelapakActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profil_pelapak);
+
+        toolbar = findViewById(R.id.tvTitleglobal);
+        back = findViewById(R.id.imgBackglobal);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ProfilPelapakActivity.this, ProductDetailActivity.class);
+                startActivity(intent);
+            }
+        });
+
         id_pelapak = getIntent().getStringExtra("id_user");
         pelapak = getIntent().getStringExtra("namapelapak");
         foto_pelapak = getIntent().getStringExtra("foto_pelapak");
         recprodukpelapak = findViewById(R.id.recyclerviewprodukpelapak);
 //        iduser = getIntent().getStringExtra("id_user");
+        toolbar.setText(pelapak);
 
         init();
         getDataProdukPelapak();
@@ -105,11 +114,11 @@ public class ProfilPelapakActivity extends AppCompatActivity {
 
         namapelapak.setText(pelapak);
 
-
-        if (getSupportActionBar() != null) {
-            setSupportActionBar(toolbar);
-            getSupportActionBar().setHomeButtonEnabled(true);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
+//
+//        if (getSupportActionBar() != null) {
+//            setSupportActionBar(toolbar);
+//            getSupportActionBar().setHomeButtonEnabled(true);
+//            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        }
     }
 }
