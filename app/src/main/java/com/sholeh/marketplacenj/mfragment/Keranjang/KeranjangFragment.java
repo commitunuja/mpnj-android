@@ -187,7 +187,7 @@ public class KeranjangFragment extends Fragment implements View.OnClickListener 
 
     public void getDetailKeranjang() {
         if (!NetworkUtility.isNetworkConnected(getActivity())) {
-            AppUtilits.displayMessage(getActivity(), getString(R.string.network_not_connected));
+//            AppUtilits.displayMessage(getActivity(), getString(R.string.network_not_connected));
         } else {
             APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
             Call<ResDetailKeranjang> call = service.getDataDetailKeranjang(id_konsumen);
@@ -268,7 +268,7 @@ public class KeranjangFragment extends Fragment implements View.OnClickListener 
 
     public void getTotal() {
         if (!NetworkUtility.isNetworkConnected(getActivity())) {
-            AppUtilits.displayMessage(getActivity(), getString(R.string.network_not_connected));
+//            AppUtilits.displayMessage(getActivity(), getString(R.string.network_not_connected));
 
         } else {
 //            ProgresDialog();

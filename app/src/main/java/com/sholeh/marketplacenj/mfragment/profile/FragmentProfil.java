@@ -84,7 +84,6 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
     @Override
     public void onResume() {
         getDataProfil();
-
         super.onResume();
         // Load data and do stuff
     }
@@ -280,7 +279,7 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
 
     public void getDataProfil() {
         if (!NetworkUtility.isNetworkConnected(getActivity())) {
-            AppUtilits.displayMessage(getActivity(), getString(R.string.network_not_connected));
+//            AppUtilits.displayMessage(getActivity(), getString(R.string.network_not_connected));
         } else {
             APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
             Call<ResProfil> call = service.getDataProfil(id_konsumen);
@@ -300,12 +299,12 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
                             Picasso.with(getContext()).load(CONSTANTS.BASE_URL + "assets/foto_profil_konsumen/" + tvDataProfil.getData().getFotoProfil()).into(imageProfil);
                         }
                     } else {
-                        AppUtilits.displayMessage(getActivity(), getString(R.string.network_error));
+//                        AppUtilits.displayMessage(getActivity(), getString(R.string.network_error));
                     }
                 }
                 @Override
                 public void onFailure(Call<ResProfil> call, Throwable t) {
-                    AppUtilits.displayMessage(getActivity(), getString(R.string.network_not_connected));
+//                    AppUtilits.displayMessage(getActivity(), getString(R.string.network_not_connected));
                 }
             });
         }

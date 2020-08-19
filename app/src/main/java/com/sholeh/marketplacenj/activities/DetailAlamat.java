@@ -624,7 +624,6 @@ public class DetailAlamat extends AppCompatActivity implements View.OnClickListe
                 etKec.setError(null);
                 etKec.setText(cn.getSubdistrictName());
                 etKec.setTag(cn.getSubdistrictId());
-
                 ad.dismiss();
             }
         });

@@ -79,16 +79,13 @@ public class FragmentFavorite extends Fragment implements View.OnClickListener {
         edCariWishlist.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-
                     if (edCariWishlist.getText().toString().trim().isEmpty()) {
                         Toast.makeText(appCompatActivity, "Pencarian Tidak Boleh Kosong", Toast.LENGTH_SHORT).show();
                     } else {
 //                        Toast.makeText(appCompatActivity, ""+edCariWishlist.getText().toString(), Toast.LENGTH_SHORT).show();
                         cariWishlish(edCariWishlist.getText().toString().trim());
                     }
-
                 }
 
                 return false;
@@ -132,7 +129,7 @@ public class FragmentFavorite extends Fragment implements View.OnClickListener {
 
     public void getWishlish() {
         if (!NetworkUtility.isNetworkConnected(getActivity())) {
-            AppUtilits.displayMessage(getActivity(), getString(R.string.network_not_connected));
+//            AppUtilits.displayMessage(getActivity(), getString(R.string.network_not_connected));
         } else {
 //            ProgresDialog();
             APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
@@ -174,7 +171,7 @@ public class FragmentFavorite extends Fragment implements View.OnClickListener {
                         lnKosong.setVisibility(View.VISIBLE);
 //                        progressHud.dismiss();
                         tvxDesainKosong.setText(R.string.network_error);
-                        AppUtilits.displayMessage(getActivity(), getString(R.string.network_error));
+//                        AppUtilits.displayMessage(getActivity(), getString(R.string.network_error));
                     }
                 }
 
@@ -184,7 +181,7 @@ public class FragmentFavorite extends Fragment implements View.OnClickListener {
                     lnKosong.setVisibility(View.VISIBLE);
 //                    progressHud.dismiss();
                     tvxDesainKosong.setText("Barang Favoritmu Belum Ada");
-                    AppUtilits.displayMessage(getActivity(), getString(R.string.network_error));
+//                    AppUtilits.displayMessage(getActivity(), getString(R.string.network_error));
                 }
             });
         }
@@ -192,7 +189,7 @@ public class FragmentFavorite extends Fragment implements View.OnClickListener {
 
     public void cariWishlish(String search) {
         if (!NetworkUtility.isNetworkConnected(getActivity())) {
-            AppUtilits.displayMessage(getActivity(), getString(R.string.network_not_connected));
+//            AppUtilits.displayMessage(getActivity(), getString(R.string.network_not_connected));
         } else {
             ProgresDialog();
             APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
@@ -238,7 +235,7 @@ public class FragmentFavorite extends Fragment implements View.OnClickListener {
                         lnKosong.setVisibility(View.VISIBLE);
                         progressHud.dismiss();
                         tvxDesainKosong.setText(R.string.network_error);
-                        AppUtilits.displayMessage(getActivity(), getString(R.string.network_error));
+//                        AppUtilits.displayMessage(getActivity(), getString(R.string.network_error));
                     }
 
                 }
@@ -250,7 +247,7 @@ public class FragmentFavorite extends Fragment implements View.OnClickListener {
                     lnKosong.setVisibility(View.VISIBLE);
                     progressHud.dismiss();
                     tvxDesainKosong.setText("Tidak Ada");
-                    AppUtilits.displayMessage(getActivity(), getString(R.string.network_error));
+//                    AppUtilits.displayMessage(getActivity(), getString(R.string.network_error));
                 }
             });
         }

@@ -266,7 +266,6 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
 
 
     private void fiturpencarian() {
-
         searchBar.setSpeechMode(true);
 //        searchBar.setText("Hello Zainal!");
         Log.d("LOG_TAG", getClass().getSimpleName() + ": text " + searchBar.getText());
@@ -384,17 +383,13 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
 //    }
 
     private void kategori() {
-
         homeCategoryModelClasses = new ArrayList<>();
         semua = new ArrayList<>();
-
         for (int i = 0; i < lihatsemua.length; i++) {
             HomeCategoryModelClass beanClassForRecyclerView_contacts = new HomeCategoryModelClass(lihatsemua[i]);
 
             semua.add(beanClassForRecyclerView_contacts);
         }
-
-
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
         Call<List<Kategori>> call = service.getKategori();
 
@@ -405,9 +400,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
                 recycleAdapteHomeCategory = new RecycleAdapteHomeCategory(getContext(), homeCategoryModelClasses);
                 category_recyclerView.setAdapter(recycleAdapteHomeCategory);
 //                homeCategoryModelClasses.add());
-
             }
-
             @Override
             public void onFailure(Call<List<Kategori>> call, Throwable t) {
 //                Toast.makeText(getContext(), String.valueOf(t), Toast.LENGTH_SHORT).show();
@@ -473,19 +466,15 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
 
     @Override
     public void onSearchStateChanged(boolean enabled) {
-
     }
 
     @Override
     public void onSearchConfirmed(CharSequence text) {
 //        produksearch(searchBar.getText());
-
-
     }
 
     @Override
     public void onButtonClicked(int buttonCode) {
-
     }
 
 //    public void kategoriById() {
@@ -613,24 +602,17 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
 
 
     private void Banner() {
-
-
         homeBannerModelClasses = new ArrayList<>();
-
         for (int i = 0; i < image.length; i++) {
             HomeBannerModelClass beanClassForRecyclerView_contacts = new HomeBannerModelClass(image[i]);
             homeBannerModelClasses.add(beanClassForRecyclerView_contacts);
         }
-
         mAdapter = new RecycleAdapteHomeBanner(getContext(), homeBannerModelClasses);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerbanner.setLayoutManager(mLayoutManager);
-
-
         recyclerbanner.setLayoutManager(mLayoutManager);
         recyclerbanner.setItemAnimator(new DefaultItemAnimator());
         recyclerbanner.setAdapter(mAdapter);
-
     }
 
     public void getDataBanner(){
