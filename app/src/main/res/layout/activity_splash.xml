@@ -5,21 +5,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/colorPrimary"
+    android:background="@drawable/bg"
     tools:context=".activities.Splash">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+
+        <ImageView
+            android:id="@+id/ic_logo"
+            android:layout_marginTop="200dp"
+            android:layout_width="match_parent"
+            android:layout_height="135dp"
+            android:src="@drawable/logo1"
+            android:layout_gravity="center"
+           />
+
         <com.romainpiel.shimmer.ShimmerTextView
+            android:layout_below="@+id/ic_logo"
             android:id="@+id/shimmerText"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="MarketPlace NJ"
+            android:text="Belanj"
             android:textColor="#615959"
-            android:textSize="40sp"
+            android:textSize="50sp"
             android:textStyle="bold"/>
     </RelativeLayout>
 
