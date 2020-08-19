@@ -33,7 +33,7 @@ public class ItemDetailPesanan {
     private Object kurir;
     @SerializedName("ongkir")
     @Expose
-    private Object ongkir;
+    private String ongkir;
     @SerializedName("tujuan")
     @Expose
     private String tujuan;
@@ -50,7 +50,7 @@ public class ItemDetailPesanan {
     @Expose
     private String statusOrder;
 
-    public ItemDetailPesanan(String namaToko, String namaProduk, String jumlah, String totalBayar, String harga, String fotoProduk, String statusOrder, String bayarSebelum, Integer idTransaksiDetail, Object kurir, Object ongkir, String waktuPesan) {
+    public ItemDetailPesanan(String namaToko, String namaProduk, String jumlah, String totalBayar, String harga, String fotoProduk, String statusOrder, String bayarSebelum, Integer idTransaksiDetail, Object kurir, String ongkir, String waktuPesan) {
    this.namaToko = namaToko;
     this.namaProduk = namaProduk;
     this.jumlah = jumlah;
@@ -137,11 +137,11 @@ public class ItemDetailPesanan {
         this.kurir = kurir;
     }
 
-    public Object getOngkir() {
+    public String getOngkir() {
         return ongkir;
     }
 
-    public void setOngkir(Object ongkir) {
+    public void setOngkir(String ongkir) {
         this.ongkir = ongkir;
     }
 

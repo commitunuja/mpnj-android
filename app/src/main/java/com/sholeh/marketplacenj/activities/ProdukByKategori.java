@@ -1,17 +1,18 @@
 package com.sholeh.marketplacenj.activities;
 
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Bundle;
-import android.view.View;
-import android.widget.ProgressBar;
-import android.widget.Toast;
-
 import com.sholeh.marketplacenj.R;
-import com.sholeh.marketplacenj.activities.dashboard.Homepage;
 import com.sholeh.marketplacenj.adapter.ProdukByKategoriAdapter;
 import com.sholeh.marketplacenj.model.Model;
 import com.sholeh.marketplacenj.util.ServiceGenerator;
@@ -23,12 +24,14 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ProdukByKategori extends AppCompatActivity {
-    String id_kategori;
+public class ProdukByKategori extends AppCompatActivity implements View.OnClickListener {
+    String id_kategori, namakategori;
     private RecyclerView recyclerViewProdukByKategori;
     private List<Model> dataProdukByKategori;
     private ProdukByKategoriAdapter produkByKategoriAdapter;
     private ProgressBar progressBarProdukByKategori;
+    TextView toolbar;
+    ImageView imgback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +39,13 @@ public class ProdukByKategori extends AppCompatActivity {
         setContentView(R.layout.activity_produk_by_kategori);
 
         id_kategori = getIntent().getStringExtra("id_kategori");
+        namakategori = getIntent().getStringExtra("namakategori");
 
+        toolbar = findViewById(R.id.tvTitleglobal);
+
+        toolbar.setText(namakategori);
+        imgback = findViewById(R.id.imgBackglobal);
+        imgback.setOnClickListener(this);
         recyclerViewProdukByKategori = (RecyclerView) findViewById(R.id.recyclerprodukbykategori);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(ProdukByKategori.this, 2);
         recyclerViewProdukByKategori.setLayoutManager(layoutManager);
@@ -74,5 +83,13 @@ public class ProdukByKategori extends AppCompatActivity {
                 Toast.makeText(getBaseContext(), String.valueOf(t), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.imgBackglobal:
+                finish();
+        }
     }
 }

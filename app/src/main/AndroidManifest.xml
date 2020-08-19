@@ -33,29 +33,26 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-
-        <activity android:name=".activities.transaksi.StatusPembayaran"></activity>
+        <activity android:name=".activities.pesanan.TrackingActivity"></activity>
+        <activity android:name=".activities.transaksi.StatusPembayaran" />
         <activity android:name=".activities.transaksi.KonfirmasiPembayaranActivity" />
-        <activity android:name=".activities.pesanan.DetailPesananActivity"></activity>
+        <activity android:name=".activities.pesanan.DetailPesananActivity" />
         <activity android:name=".activities.pesanan.SearchPesanankuActivity" />
         <activity
             android:name=".activities.pesanan.MyPesananActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity android:name=".activities.dashboard.ProdukAllActivity" />
         <activity android:name=".activities.details.DiskripsiActivity" />
         <activity
             android:name=".activities.kurir.OpsiPengirimanActivity"
-            android:theme="@style/AppTheme.CustomTheme"></activity>
-
+            android:theme="@style/AppTheme.CustomTheme" />
         <activity android:name=".activities.pelapak.ProfilPelapakActivity" />
         <activity android:name=".activities.dashboard.SearchActivity" />
         <activity android:name=".activities.ProdukByKategori" />
         <activity android:name=".activities.ImageProfilActivity" />
         <activity android:name=".activities.checkout.CheckoutActivity" />
         <activity android:name=".custom.MainActivity2" />
-
         <activity
             android:name=".activities.DetailAlamat"
             android:theme="@style/AppBlack" />
@@ -84,9 +81,7 @@
         <activity android:name=".activities.keranjang.KeranjangDetailActivity" />
         <activity
             android:name=".activities.Utama"
-            android:launchMode="singleTop">
-
-        </activity>
+            android:launchMode="singleTop"></activity>
         <activity
             android:name=".activities.Splash"
             android:launchMode="singleTop"
@@ -94,6 +89,7 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

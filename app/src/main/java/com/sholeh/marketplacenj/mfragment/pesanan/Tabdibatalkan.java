@@ -39,8 +39,7 @@ public class Tabdibatalkan extends Fragment {
     private HashMap<DataPesanan, List<Item>> item;
     List<Item> itemdata;
     PesananAdapter recyclerPesananAdapter;
-    String status;
-    LinearLayout linearLayout;
+   LinearLayout datakosong;
 
     RecyclerView.LayoutManager dataapi;
 
@@ -58,7 +57,7 @@ public class Tabdibatalkan extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_pesanan, container, false);
         recyclerView = view.findViewById(R.id.recycler_pesanan1);
-        linearLayout = view.findViewById(R.id.ldatakosong);
+        datakosong = view.findViewById(R.id.ldatakosong);
 
         getData();
         return view;
@@ -110,10 +109,11 @@ public class Tabdibatalkan extends Fragment {
 
                                 itemdata.add(new Item(namaproduk, hargajual, foto, status));
                             }
+
                         }
                     } else {
-                        linearLayout.setVisibility(View.VISIBLE);
                         recyclerView.setVisibility(View.GONE);
+                        datakosong.setVisibility(View.VISIBLE);
 
 
                     }
