@@ -59,7 +59,7 @@ import java.util.regex.Pattern;
 import static com.google.android.gms.common.AccountPicker.AccountChooserOptions.*;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener, View.OnTouchListener, GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener{
+        GoogleApiClient.OnConnectionFailedListener {
     private String TAG = "RegisterActivity";
 
     EditText ed_nama, ed_username, ed_password, ed_konfirmasiPass, ed_alamat, ed_kodepos, ed_nomorHP, ed_email;
@@ -71,6 +71,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     int ACCOUNT_PICKER_REQUEST_CODE = 102;
 
+    private static final String PASSWORD_PATTERN = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{8,16})";
 
 
 //    Spinner spinProvinsi, spinkota;
@@ -102,7 +103,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         simpank.setOnClickListener(this);
         ed_email.setOnTouchListener(this);
         ed_nomorHP.setOnTouchListener(this);
-
 
 
 //        ed_email.setOnTouchListener(new View.OnTouchListener() {
@@ -149,8 +149,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 //        getProvince();
 
 
-
-
     }
 
 
@@ -170,15 +168,14 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     public boolean onTouch(View v, MotionEvent event) {
         switch (v.getId()) {
             case R.id.edNomorHP:
-                if(MotionEvent.ACTION_UP == event.getAction())
+                if (MotionEvent.ACTION_UP == event.getAction())
                     getNomorHP();
                 break;
 
 
-
             case R.id.edEmail:
-                if(MotionEvent.ACTION_UP == event.getAction())
-                getEmail();
+                if (MotionEvent.ACTION_UP == event.getAction())
+                    getEmail();
                 break;
             default:
                 break;
@@ -199,19 +196,23 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         callNewREgistration.enqueue(new Callback<ResRegristasi>() {
             @Override
             public void onResponse(Call<ResRegristasi> call, Response<ResRegristasi> response) {
+                Log.d("cekregister", String.valueOf(response.message()));
                 if (response.body() != null && response.isSuccessful()) {
                     Toast.makeText(RegisterActivity.this, "Berhasil", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                     startActivity(intent);
                     finish();
                 } else {
-                    AppUtilits.displayMessage(RegisterActivity.this, getString(R.string.failed_request));
+
+//                    Toast.makeText(context, "Gagal "+response, Toast.LENGTH_SHORT).show();
+//                    AppUtilits.displayMessage(RegisterActivity.this, getString(R.string.failed_request));
                 }
             }
 
             @Override
             public void onFailure(Call<ResRegristasi> call, Throwable t) {
-                AppUtilits.displayMessage(RegisterActivity.this, getString(R.string.failed_request));
+//                Toast.makeText(context, "Koneksi Gagal "+t, Toast.LENGTH_SHORT).show();
+//                AppUtilits.displayMessage(RegisterActivity.this, getString(R.string.failed_request));
             }
         });
     }
@@ -415,7 +416,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
 
-    public void getEmail(){
+    public void getEmail() {
 //        Intent intent = AccountPicker.newChooseAccountIntent(null, null, new String[]{"com.google"},
 //                false, null, null, null, null);
 //        startActivityForResult(intent, REQ_ID);
@@ -429,9 +430,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 false, null, null, null, null).
                 putExtra("overrideTheme", 1);
         startActivityForResult(intent, REQ_ID);
-
-
-
 
 
 //
@@ -450,8 +448,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 //        intent.putExtra("overrideCustomTheme", 0);
 
 
-
-
 //        Intent googlePicker = AccountPicker.newChooseAccountIntent(null, null, new String[]{GoogleAuthUtil.GOOGLE_ACCOUNT_TYPE}, true, null, null, null, null);
 //        startActivityForResult(googlePicker, REQ_ID);
 
@@ -461,10 +457,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
 
-
-
-
-    public void getNomorHP(){
+    public void getNomorHP() {
         GoogleApiClient googleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(Auth.CREDENTIALS_API)
                 .addConnectionCallbacks((GoogleApiClient.ConnectionCallbacks) RegisterActivity.this)
@@ -499,7 +492,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 //            ed_email.setText(String.valueOf(email));
 
 
-
         }
         if (requestCode == RESOLVE_HINT) {
             if (resultCode == RESULT_OK) {
@@ -516,7 +508,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
+    public boolean validate(final String password) {
 
+        return PASSWORD_PATTERN.matches(password);
+    }
 
     private boolean validasi() {
         boolean valid = true;
@@ -531,13 +526,18 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         final String statusA_ = "aktif";
 
 
+        Pattern UpperCasePatten = Pattern.compile("[A-Z ]");
+        Pattern lowerCasePatten = Pattern.compile("[a-z ]");
+        Pattern digitCasePatten = Pattern.compile("[0-9 ]");
+
+
         if (namalengkap_.isEmpty()) {
             ed_nama.setError("isi nama lengkap anda");
             Toast.makeText(RegisterActivity.this, "isi nama lengkap anda", Toast.LENGTH_SHORT).show();
             valid = false;
-        } else if (namalengkap_.length() < 2) {
-            Toast.makeText(RegisterActivity.this, "nama lengkap setidaknya minimal 2", Toast.LENGTH_SHORT).show();
-            valid = false;
+//        } else if (namalengkap_.length() < 2) {
+//            Toast.makeText(RegisterActivity.this, "nama lengkap setidaknya minimal 2", Toast.LENGTH_SHORT).show();
+//            valid = false;
         } else {
             ed_nama.setError(null);
         }
@@ -552,45 +552,41 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         if (password_.isEmpty()) {
             ed_password.setError("password wajib di isi");
-            Toast.makeText(RegisterActivity.this, "password wajib di isi", Toast.LENGTH_SHORT).show();
-            valid = false;
-        } else if (konpassword_.isEmpty()) {
-            ed_password.setError("konfirmasi password wajib di isi");
-            Toast.makeText(RegisterActivity.this, "konfirmasi password wajib di isi", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(RegisterActivity.this, "password wajib di isi", Toast.LENGTH_SHORT).show();
             valid = false;
 
-        } else if (!ed_password.getText().toString().equals(ed_konfirmasiPass.getText().toString())) {
-            Toast.makeText(RegisterActivity.this, "kata sandi tidak cocok", Toast.LENGTH_SHORT).show();
+        } else if (password_.length() < 8 || 16 < password_.length()) {
+            ed_password.setError("Password panjangnya harus 8-16 karakter, dan mengandung min 1 huruf besar dan 1 huruf kecil karakter");
             valid = false;
-        } else if (password_.length() < 6) {
-            Toast.makeText(RegisterActivity.this, "password minimal 6 digit", Toast.LENGTH_SHORT).show();
+
+        } else if (!UpperCasePatten.matcher(password_).find()) {
+            ed_password.setError("Password panjangnya harus 8-16 karakter, dan mengandung min 1 huruf besar dan 1 huruf kecil karakter");
+            valid = false;
+
+        } else if (!lowerCasePatten.matcher(password_).find()) {
+            ed_password.setError("Password panjangnya harus 8-16 karakter, dan mengandung min 1 huruf besar dan 1 huruf kecil karakter");
             valid = false;
         } else {
             ed_password.setError(null);
         }
-//        if (alamat_.isEmpty()) {
-//            ed_alamat.setError("alamat wajib di isi");
-//            Toast.makeText(RegisterActivity.this, "alamat wajib di isi", Toast.LENGTH_SHORT).show();
-//            valid = false;
-//        } else {
-//            ed_alamat.setError(null);
-//        }
-//
-//        if (kodepos_.isEmpty()) {
-//            ed_kodepos.setError("kode pos wajib di isi");
-//            Toast.makeText(RegisterActivity.this, "kode pos wajib di isi", Toast.LENGTH_SHORT).show();
-//            valid = false;
-//        } else {
-//            ed_kodepos.setError(null);
-//        }
+
+        if (konpassword_.isEmpty()) {
+            ed_konfirmasiPass.setError("konfirmasi password wajib di isi");
+            valid = false;
+        } else if (!ed_password.getText().toString().equals(ed_konfirmasiPass.getText().toString())) {
+            ed_konfirmasiPass.setError("kata sandi tidak cocok");
+            valid = false;
+        } else {
+             ed_konfirmasiPass.setError(null);
+        }
 
         if (nomorHp_.isEmpty()) {
             ed_nomorHP.setError("nomor hp wajib di isi");
-            Toast.makeText(RegisterActivity.this, "nomor hp wajib di isi", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(RegisterActivity.this, "nomor hp wajib di isi", Toast.LENGTH_SHORT).show();
             valid = false;
-        } else if (nomorHp_.length() < 12) {
+        } else if (nomorHp_.length() < 12 || 15 < nomorHp_.length()) {
             ed_nomorHP.setError("nomor hp tidak valid");
-            Toast.makeText(RegisterActivity.this, "nomor hp tidak valid", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(RegisterActivity.this, "nomor hp tidak valid", Toast.LENGTH_SHORT).show();
             valid = false;
         } else {
             ed_nomorHP.setError(null);
@@ -598,7 +594,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         if (email_.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email_).matches()) {
             ed_email.setError("email tidak valid");
-            Toast.makeText(RegisterActivity.this, "email tidak valid", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(RegisterActivity.this, "email tidak valid", Toast.LENGTH_SHORT).show();
             valid = false;
         } else {
             ed_email.setError(null);
