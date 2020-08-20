@@ -24,6 +24,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -64,6 +65,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     EditText ed_nama, ed_username, ed_password, ed_konfirmasiPass, ed_alamat, ed_kodepos, ed_nomorHP, ed_email;
     Button simpank;
+    TextView signinHere;
 
     private static final int REQ_ID = 9001;
     private static final int RESOLVE_HINT = 007;
@@ -98,6 +100,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         ed_kodepos = findViewById(R.id.edKodePos);
         ed_nomorHP = findViewById(R.id.edNomorHP);
         ed_email = findViewById(R.id.edEmail);
+        signinHere = findViewById(R.id.signin_here);
 //        ed_email.setOnClickListener(this);
         simpank = findViewById(R.id.btnSimpank);
         simpank.setOnClickListener(this);
@@ -157,6 +160,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         switch (v.getId()) {
             case R.id.btnSimpank:
                 newRegistrasi();
+                break;
+
+            case R.id.signin_here:
+                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
                 break;
 
             default:
