@@ -106,6 +106,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         simpank.setOnClickListener(this);
         ed_email.setOnTouchListener(this);
         ed_nomorHP.setOnTouchListener(this);
+        signinHere.setOnTouchListener(this);
 
 
 //        ed_email.setOnTouchListener(new View.OnTouchListener() {
@@ -542,7 +543,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         if (namalengkap_.isEmpty()) {
             ed_nama.setError("isi nama lengkap anda");
-            Toast.makeText(RegisterActivity.this, "isi nama lengkap anda", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(RegisterActivity.this, "isi nama lengkap anda", Toast.LENGTH_SHORT).show();
             valid = false;
 //        } else if (namalengkap_.length() < 2) {
 //            Toast.makeText(RegisterActivity.this, "nama lengkap setidaknya minimal 2", Toast.LENGTH_SHORT).show();
@@ -553,7 +554,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         if (username_.isEmpty()) {
             ed_username.setError("username wajib di isi");
-            Toast.makeText(RegisterActivity.this, "username wajib di isi", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(RegisterActivity.this, "username wajib di isi", Toast.LENGTH_SHORT).show();
             valid = false;
         } else {
             ed_username.setError(null);

@@ -17,6 +17,8 @@ import com.sholeh.marketplacenj.util.ServiceGenerator;
 import com.sholeh.marketplacenj.respon.ResLogin;
 import com.sholeh.marketplacenj.util.Preferences;
 
+import java.util.regex.Pattern;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -73,6 +75,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void Login() {
         final String username_ = edUserName.getText().toString();
         final String password_ = edPass.getText().toString();
+        if (!validasi()) return;
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
         Call<ResLogin> userSigninCall = service.loginKonsumenCall(username_, password_);
         userSigninCall.enqueue(new Callback<ResLogin>() {
@@ -104,6 +107,26 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Toast.makeText(LoginActivity.this, "Mohon Maaf Terdapat Kesalahan. Silahkan Coba Lagi Nanti", Toast.LENGTH_SHORT).show();
             }
         });
+    }
 
+    private boolean validasi() {
+        boolean valid = true;
+        final String username_ = edUserName.getText().toString();
+        final String password_ = edPass.getText().toString();
+        if (username_.isEmpty()) {
+            edUserName.setError("username wajib di isi");
+            valid = false;
+        } else {
+            edUserName.setError(null);
+        }
+        if (password_.isEmpty()) {
+            edPass.setError("password tidak boleh kosong");
+            valid = false;
+        } else {
+            edPass.setError(null);
+        }
+
+
+        return valid;
     }
 }
