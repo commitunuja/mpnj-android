@@ -1,15 +1,46 @@
 package com.sholeh.marketplacenj.activities;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
+import android.annotation.SuppressLint;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentSender;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
 import android.util.Log;
+import android.util.Patterns;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+
+import com.google.android.gms.auth.GoogleAuthUtil;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.credentials.Credential;
+import com.google.android.gms.auth.api.credentials.HintRequest;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.AccountPicker;
+import com.google.android.gms.common.AccountPicker.AccountChooserOptions;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.tasks.Task;
 import com.sholeh.marketplacenj.util.AppUtilits;
 import com.sholeh.marketplacenj.util.api.APIInterface;
 import com.sholeh.marketplacenj.R;
@@ -20,11 +51,27 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
+
+import org.json.JSONObject;
+
+import java.util.regex.Pattern;
+
+import static com.google.android.gms.common.AccountPicker.AccountChooserOptions.*;
+
+public class RegisterActivity extends AppCompatActivity implements View.OnClickListener, View.OnTouchListener, GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener{
     private String TAG = "RegisterActivity";
 
     EditText ed_nama, ed_username, ed_password, ed_konfirmasiPass, ed_alamat, ed_kodepos, ed_nomorHP, ed_email;
     Button simpank;
+
+    private static final int REQ_ID = 9001;
+    private static final int RESOLVE_HINT = 007;
+    Context context;
+
+    int ACCOUNT_PICKER_REQUEST_CODE = 102;
+
+
 
 //    Spinner spinProvinsi, spinkota;
 //    adapterspin adapterspinner;
@@ -50,8 +97,22 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         ed_kodepos = findViewById(R.id.edKodePos);
         ed_nomorHP = findViewById(R.id.edNomorHP);
         ed_email = findViewById(R.id.edEmail);
+//        ed_email.setOnClickListener(this);
         simpank = findViewById(R.id.btnSimpank);
         simpank.setOnClickListener(this);
+        ed_email.setOnTouchListener(this);
+        ed_nomorHP.setOnTouchListener(this);
+
+
+
+//        ed_email.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                if(MotionEvent.ACTION_UP == event.getAction())
+//                  getEmail();
+//                return false;
+//            }
+//        });
 
 //        spinProvinsi.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 //            @Override
@@ -87,6 +148,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
 //        getProvince();
 
+
+
+
     }
 
 
@@ -94,13 +158,32 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnSimpank:
-//                Toast.makeText(this, "klik", Toast.LENGTH_SHORT).show();
                 newRegistrasi();
                 break;
 
             default:
                 break;
         }
+    }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        switch (v.getId()) {
+            case R.id.edNomorHP:
+                if(MotionEvent.ACTION_UP == event.getAction())
+                    getNomorHP();
+                break;
+
+
+
+            case R.id.edEmail:
+                if(MotionEvent.ACTION_UP == event.getAction())
+                getEmail();
+                break;
+            default:
+                break;
+        }
+        return false;
     }
 
     public void newRegistrasi() {
@@ -316,6 +399,125 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 //        }
 //    }
 
+    public void onUsername(View view) {
+
+    }
+
+    private void requestHint() {
+//        HintRequest hintRequest = new HintRequest.Builder()
+//                .setPhoneNumberIdentifierSupported(true)
+//                .build();
+//
+//        PendingIntent intent = Auth.CredentialsApi.getHintPickerIntent(
+//                apiClient, hintRequest);
+//        startIntentSenderForResult(intent.getIntentSender(),
+//                RESOLVE_HINT, null, 0, 0, 0);
+    }
+
+
+    public void getEmail(){
+//        Intent intent = AccountPicker.newChooseAccountIntent(null, null, new String[]{"com.google"},
+//                false, null, null, null, null);
+//        startActivityForResult(intent, REQ_ID);
+//
+//        String[] accountTypes = new String[]{"com.google"};
+//        Intent intent = AccountPicker.zza(null, null, accountTypes, false, null, null, null, null, false, 1, 0);
+//        startActivityForResult(intent, REQUEST_CODE_PICK_ACCOUNT);
+
+        Intent intent = AccountPicker.newChooseAccountIntent(null, null,
+                new String[]{GoogleAuthUtil.GOOGLE_ACCOUNT_TYPE},
+                false, null, null, null, null).
+                putExtra("overrideTheme", 1);
+        startActivityForResult(intent, REQ_ID);
+
+
+
+
+
+//
+//        String[] accountTypes = new String[]{GoogleAuthUtil.GOOGLE_ACCOUNT_TYPE};
+//        Intent intent = AccountPicker.newChooseAccountIntent(null, null, accountTypes, false, null, null, null, null);
+//
+////        AccountPicker.zza(null, null,
+////                accountTypes, false, null, null, null, null, false, 1, 0);
+//        // set the style
+//        int zza ;
+//        if ( isItDarkTheme ) {
+//            intent.putExtra("overrideTheme", 0);
+//        } else {
+//            intent.putExtra("overrideTheme", 1);
+//        }
+//        intent.putExtra("overrideCustomTheme", 0);
+
+
+
+
+//        Intent googlePicker = AccountPicker.newChooseAccountIntent(null, null, new String[]{GoogleAuthUtil.GOOGLE_ACCOUNT_TYPE}, true, null, null, null, null);
+//        startActivityForResult(googlePicker, REQ_ID);
+
+
+//        getEmailId(getApplicationContext())
+
+    }
+
+
+
+
+
+    public void getNomorHP(){
+        GoogleApiClient googleApiClient = new GoogleApiClient.Builder(this)
+                .addApi(Auth.CREDENTIALS_API)
+                .addConnectionCallbacks((GoogleApiClient.ConnectionCallbacks) RegisterActivity.this)
+                .addOnConnectionFailedListener((GoogleApiClient.OnConnectionFailedListener) RegisterActivity.this)
+                .build();
+        googleApiClient.connect();
+        HintRequest hintRequest = new HintRequest.Builder()
+                .setPhoneNumberIdentifierSupported(true)
+                .build();
+        PendingIntent intent = Auth.CredentialsApi.getHintPickerIntent(googleApiClient, hintRequest);
+        try {
+            startIntentSenderForResult(intent.getIntentSender(),
+                    RESOLVE_HINT, null, 0, 0, 0);
+        } catch (IntentSender.SendIntentException e) {
+            e.printStackTrace();
+        }
+    }
+
+    protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQ_ID && resultCode == RESULT_OK) {
+//            Toast.makeText(context, "s", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(context, "email ", Toast.LENGTH_SHORT).show();
+            String accountName = data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);
+            ed_email.setText(String.valueOf(accountName));
+
+//                GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+//            GoogleSignInAccount acct = result.getSignInAccount();
+//
+//            String personName = acct.getDisplayName();
+//            String email = acct.getEmail();
+//            ed_email.setText(String.valueOf(email));
+
+
+
+        }
+        if (requestCode == RESOLVE_HINT) {
+            if (resultCode == RESULT_OK) {
+                com.google.android.gms.auth.api.credentials.Credential credential = data.getParcelableExtra(Credential.EXTRA_KEY);
+                if (credential != null) {
+                    String mobNumber = credential.getId();
+                    String newString = mobNumber.replace("+91", "");
+                    ed_nomorHP.setText(newString);
+
+                } else {
+                    Toast.makeText(this, "err", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+    }
+
+
+
     private boolean validasi() {
         boolean valid = true;
         final String namalengkap_ = ed_nama.getText().toString();
@@ -387,9 +589,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             Toast.makeText(RegisterActivity.this, "nomor hp wajib di isi", Toast.LENGTH_SHORT).show();
             valid = false;
         } else if (nomorHp_.length() < 12) {
-                 ed_nomorHP.setError("nomor hp tidak valid");
-                Toast.makeText(RegisterActivity.this, "nomor hp tidak valid", Toast.LENGTH_SHORT).show();
-                valid = false;
+            ed_nomorHP.setError("nomor hp tidak valid");
+            Toast.makeText(RegisterActivity.this, "nomor hp tidak valid", Toast.LENGTH_SHORT).show();
+            valid = false;
         } else {
             ed_nomorHP.setError(null);
         }
@@ -405,4 +607,18 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
 
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
 }

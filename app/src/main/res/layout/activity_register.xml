@@ -36,6 +36,8 @@
                         android:textSize="16dp" />
 
                     <EditText
+                        android:maxLength="30"
+                        android:inputType="textPersonName"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:layout_width="match_parent"
@@ -55,14 +57,18 @@
                         android:layout_marginBottom="5dp"/>
 
                     <EditText
+                        android:onClick="onUsername"
+                        android:inputType="textAutoComplete"
+                        android:maxLength="30"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
                         android:id="@+id/edUsername"
                         android:layout_marginBottom="15dp"
-                        android:background="@drawable/round_spinner"/>
-                    <requestFocus/>
+                        android:background="@drawable/round_spinner"
+                        tools:ignore="OnClick" />
+
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -73,6 +79,7 @@
                         android:layout_marginBottom="5dp"/>
 
                     <EditText
+                        android:maxLength="15"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:inputType="number"
@@ -81,7 +88,6 @@
                         android:id="@+id/edNomorHP"
                         android:layout_marginBottom="15dp"
                         android:background="@drawable/round_spinner"/>
-                    <requestFocus/>
 
 
                     <TextView
@@ -92,6 +98,8 @@
                         android:textSize="16dp"
                         android:layout_marginBottom="5dp"/>
 
+
+
                     <EditText
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
@@ -100,8 +108,8 @@
                         android:layout_height="45dp"
                         android:id="@+id/edEmail"
                         android:layout_marginBottom="15dp"
-                        android:background="@drawable/round_spinner"/>
-                    <requestFocus/>
+                        android:background="@drawable/round_spinner"
+                         />
 
 
                     <TextView
@@ -120,7 +128,6 @@
                         android:id="@+id/edPassword"
                         android:layout_marginBottom="15dp"
                         android:background="@drawable/round_spinner"/>
-                    <requestFocus/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -138,7 +145,7 @@
                         android:id="@+id/edKonfirmasiPassword"
                         android:layout_marginBottom="15dp"
                         android:background="@drawable/round_spinner"/>
-                    <requestFocus/>
+
 
                 </LinearLayout>
                 <!--//-->

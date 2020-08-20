@@ -33,7 +33,6 @@ public class Splash extends AppCompatActivity {
     }
 
     public void init(){
-
         new Handler().postDelayed( new Runnable() {
             @Override
             public void run() {
