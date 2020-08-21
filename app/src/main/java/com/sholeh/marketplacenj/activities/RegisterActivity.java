@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -20,10 +21,12 @@ import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.util.Patterns;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +45,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.sholeh.marketplacenj.util.AppUtilits;
 import com.sholeh.marketplacenj.util.api.APIInterface;
 import com.sholeh.marketplacenj.R;
@@ -62,6 +66,8 @@ import static com.google.android.gms.common.AccountPicker.AccountChooserOptions.
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener, View.OnTouchListener, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
     private String TAG = "RegisterActivity";
+
+    CoordinatorLayout coordinatorLayout;
 
     EditText ed_nama, ed_username, ed_password, ed_konfirmasiPass, ed_alamat, ed_kodepos, ed_nomorHP, ed_email;
     Button simpank;
@@ -106,7 +112,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         simpank.setOnClickListener(this);
         ed_email.setOnTouchListener(this);
         ed_nomorHP.setOnTouchListener(this);
-        signinHere.setOnTouchListener(this);
+        signinHere.setOnClickListener(this);
 
 
 //        ed_email.setOnTouchListener(new View.OnTouchListener() {
@@ -410,8 +416,17 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 //        }
 //    }
 
-    public void onUsername(View view) {
-
+    public void onUsername(View vi) {
+        View parentLayout = findViewById(android.R.id.content);
+        Snackbar snack = Snackbar.make(parentLayout, "Klik Nomor HP", Snackbar.LENGTH_SHORT);
+        View view = snack.getView();
+        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams)view.getLayoutParams();
+        params.gravity = Gravity.TOP;
+        view.setLayoutParams(params);
+        TextView tv = view.findViewById(com.google.android.material.R.id.snackbar_text);
+        tv.setTextColor(ContextCompat.getColor(this,R.color.black));
+        view.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
+        snack.show();
     }
 
     private void requestHint() {
@@ -518,10 +533,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
-    public boolean validate(final String password) {
 
-        return PASSWORD_PATTERN.matches(password);
-    }
 
     private boolean validasi() {
         boolean valid = true;
