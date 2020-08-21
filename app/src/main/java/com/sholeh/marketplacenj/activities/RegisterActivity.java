@@ -418,7 +418,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     public void onUsername(View vi) {
         View parentLayout = findViewById(android.R.id.content);
-        Snackbar snack = Snackbar.make(parentLayout, "Klik Nomor HP", Snackbar.LENGTH_SHORT);
+        Snackbar snack = Snackbar.make(parentLayout, "Selanjutnya klik nomor hp", Snackbar.LENGTH_SHORT);
         View view = snack.getView();
         FrameLayout.LayoutParams params = (FrameLayout.LayoutParams)view.getLayoutParams();
         params.gravity = Gravity.TOP;
