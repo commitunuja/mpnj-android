@@ -136,4 +136,6 @@
     <color name="vieb_black_transparant">#08000000</color>
     <color name="medium_text">#7e7e7e</color>
 
+    <color name="title_color">#000</color>
+
 </resources>
