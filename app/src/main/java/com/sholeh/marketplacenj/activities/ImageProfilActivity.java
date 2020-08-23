@@ -281,6 +281,8 @@ public class ImageProfilActivity extends AppCompatActivity implements View.OnCli
                         intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
                         intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
                         startActivityForResult(intent, PICK_Camera_IMAGE);
+
+
                     } else if (options[item].equals("Gallery")) {
                         Intent intent = new Intent(Intent.ACTION_PICK);
                         intent.setType("image/*");
@@ -476,9 +478,7 @@ public class ImageProfilActivity extends AppCompatActivity implements View.OnCli
 
 
     private void uploadImage() {
-//        if ( !=null){ // foto ada
-
-
+        if (imagePath !=null){ // foto ada
         ProgresDialog();
         File file = new File(imagePath);
 //        long lenght = file.length();
@@ -539,9 +539,9 @@ public class ImageProfilActivity extends AppCompatActivity implements View.OnCli
 //                    AppUtilits.displayMessage(UbahPassword.this,  getString(R.string.failed_request));
             }
         });
-//        }else{
-//            Toast.makeText(this, "Pilih Foto Terlebih Dahulu", Toast.LENGTH_SHORT).show();
-//        }
+        }else{
+            Toast.makeText(this, "Pilih Foto Terlebih Dahulu", Toast.LENGTH_SHORT).show();
+        }
 
     }
 
