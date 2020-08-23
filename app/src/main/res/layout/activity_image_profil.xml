@@ -20,13 +20,17 @@
 
 
     <ImageView
+
+        android:layout_margin="10dp"
+        android:screenOrientation="portrait"
+        android:id="@+id/img_profile"
         android:layout_centerInParent="true"
         android:layout_gravity="center"
-        android:id="@+id/img_profile"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         tools:srcCompat="@tools:sample/backgrounds/scenic[1]" />
+
 
     <Button
         android:textColor="#fff"
