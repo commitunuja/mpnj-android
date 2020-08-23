@@ -292,10 +292,12 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
                         nomorHP = response.body().getData().getNomorHp();
                         tvx_email.setText(email);
                         tvx_Hp.setText(nomorHP);
+                        String namaLengkap =tvDataProfil.getData().getNamaLengkap();
+                        tvx_namaCustomter.setText(String.valueOf(namaLengkap));
                         Log.d("cekimg", String.valueOf(tvDataProfil));
                         if (tvDataProfil.getData().getFotoProfil() == null) {
+                            Picasso.with(getContext()).load(R.drawable.man).into(imageProfil);
                         } else {
-                            tvx_namaCustomter.setText(String.valueOf(tvDataProfil.getData().getNamaLengkap()));
                             Picasso.with(getContext()).load(CONSTANTS.BASE_URL + "assets/foto_profil_konsumen/" + tvDataProfil.getData().getFotoProfil()).into(imageProfil);
                         }
                     } else {
