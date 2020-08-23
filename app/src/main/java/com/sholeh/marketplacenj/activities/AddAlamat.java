@@ -436,15 +436,17 @@ public class AddAlamat extends AppCompatActivity implements View.OnClickListener
             ed_nama.setError("nama lengkap tidak boleh kosong");
 //            Toast.makeText(AddAlamat.this, "isi nama lengkap anda", Toast.LENGTH_SHORT).show();
             valid = false;
-//        } else if (namalengkap_.length() < 2) {
-//            Toast.makeText(AddAlamat.this, "nama lengkap setidaknya minimal 2", Toast.LENGTH_SHORT).show();
-//            valid = false;
+        } else if (namalengkap_.length() < 3) {
+            ed_nama.setError("nama lengkap tidak valid");
+            valid = false;
         } else {
             ed_nama.setError(null);
         }
         if (kodepos_.isEmpty()) {
             ed_kodepos.setError("kode pos wajib di isi");
-            Toast.makeText(AddAlamat.this, "kode pos wajib di isi", Toast.LENGTH_SHORT).show();
+            valid = false;
+        } else if (kodepos_.length() < 5) {
+            ed_kodepos.setError("kode pos 5 digit");
             valid = false;
         } else {
             ed_kodepos.setError(null);
@@ -459,6 +461,13 @@ public class AddAlamat extends AppCompatActivity implements View.OnClickListener
             valid = false;
         } else {
             ed_nomorHP.setError(null);
+        }
+
+        if (alamat_.isEmpty()) {
+            ed_alamat.setError("alamat lengkap tidak boleh kosong");
+            valid = false;
+        } else {
+            ed_alamat.setError(null);
         }
         return valid;
     }
