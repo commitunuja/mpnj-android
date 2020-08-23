@@ -28,20 +28,16 @@ import com.google.gson.JsonObject;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.activities.LoginActivity;
-import com.sholeh.marketplacenj.activities.RegisterActivity;
-import com.sholeh.marketplacenj.activities.alamat.PilihAlamatCheckout;
 import com.sholeh.marketplacenj.activities.dashboard.ProdukAllActivity;
 import com.sholeh.marketplacenj.activities.keranjang.KeranjangDetailActivity;
 import com.sholeh.marketplacenj.activities.pelapak.ProfilPelapakActivity;
 import com.sholeh.marketplacenj.adapter.dashboard.ProdukAdapter;
 import com.sholeh.marketplacenj.adapter.dashboard.RecycleAdapteTopTenHome;
 import com.sholeh.marketplacenj.adapter.details.ViewPagerAdapter;
-import com.sholeh.marketplacenj.custom.MainActivity2;
 import com.sholeh.marketplacenj.model.Foto;
 import com.sholeh.marketplacenj.model.Model;
 import com.sholeh.marketplacenj.model.dashboard.TopTenModelClass;
 import com.sholeh.marketplacenj.respon.ResKeranjang;
-import com.sholeh.marketplacenj.respon.ResRegristasi;
 import com.sholeh.marketplacenj.respon.ResWishlist;
 import com.sholeh.marketplacenj.util.AppUtilits;
 import com.sholeh.marketplacenj.util.NetworkUtility;
@@ -75,11 +71,11 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
     ViewPagerAdapter viewPagerAdapter;
 
     LinearLayout linear1, linear2, linear3, linear4;
-    TextView txt1, txt2, txt3, txt4, idkeranjang, nama, harga, kategori, jumlahproduk, offer, namapelapak, readmore, allterkait;
+    TextView txt1, txt2, txt3, txt4, idkeranjang, nama, harga, kategori, jumlahproduk,offer, namapelapak, readmore, allterkait;
     JustifiedTextView diskripsi;
 
     LinearLayout right1, right2, right3;
-    ImageView right1_imag, right2_imag, right3_imag, tambah, keranjang;
+    ImageView right1_imag, right2_imag, right3_imag, keranjang;
 
     String namaproduk, kategoriproduk, vdeskripsi, vid_produk, pelapak, foto_pelapak, id_pelapak, fotoproduk, hargaJual;
 
@@ -88,10 +84,11 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
     int vterjual;
     Double vdiskon, p;
 
-    ImageView fotopelapak;
+    ImageView fotopelapak, tokeranjang;
     private ViewPager viewPager;
     Locale localeID = new Locale("in", "ID");
     NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
+    Button tambah;
 
     private ArrayList<TopTenModelClass> topTenModelClasses;
     private RecyclerView top_ten_crecyclerview;
@@ -110,7 +107,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
     ImageView btnAddWishlist;
     private KProgressHUD progressDialogHud;
     ProgressBar myProgressBar;
-
+    boolean login;
     private ProdukAdapter produkTerbaruAdapter;
     private List<Model> tvDataProdukTerbaru;
     RecyclerView.LayoutManager dataapiTerbaru;
@@ -132,6 +129,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         right1 = findViewById(R.id.right1);
         right2 = findViewById(R.id.right2);
         right3 = findViewById(R.id.right3);
+        tokeranjang = findViewById(R.id.imgtambah);
         imgToolbar = findViewById(R.id.imgtoolbar);
         imgToolbar.setOnClickListener(this);
 
@@ -204,11 +202,12 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         harga = findViewById(R.id.txtharga);
         kategori = findViewById(R.id.txtkategoriproduk);
         diskripsi = findViewById(R.id.txtdiskripsi);
-        tambah = findViewById(R.id.imgtambah);
+        tambah = findViewById(R.id.btntambah);
         jumlahproduk = findViewById(R.id.txtjumlah);
         idkeranjang = findViewById(R.id.txtidkerenjang);
         btnAddWishlist = findViewById(R.id.btn_addtowishlist);
 
+        tokeranjang.setOnClickListener(this);
         tambah.setOnClickListener(this);
         btnAddWishlist.setOnClickListener(this);
         allterkait.setOnClickListener(this);
@@ -240,7 +239,13 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 //        String dStr = String.valueOf(p);
 //        String value = dStr.matches("\\d+\\.\\d*[1-9]\\d*") ? dStr : dStr.substring(0, dStr.indexOf("."));
 
-
+        login = preferences.getSPSudahLogin();
+        if (login) {
+            tokeranjang.setVisibility(View.VISIBLE);
+            tambah.setVisibility(View.GONE);
+        }else {
+            tambah.setText("LOGIN");
+        }
         kategori.setText(kategoriproduk);
         if (kategoriproduk.equals("Sepatu")) {
 //            Toast.makeText(this, kategoriproduk, Toast.LENGTH_SHORT).show();
@@ -304,17 +309,15 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
     @Override
     public void onClick(View v) {
-        boolean login = preferences.getSPSudahLogin();
 
         switch (v.getId()) {
-            case R.id.imgtambah:
+            case R.id.btntambah:
                 if (login) {
                     addKeranjang();
                 } else {
                     startActivity(new Intent(this, LoginActivity.class));
                     finish();
                 }
-
                 break;
             case R.id.imgkeranjang:
                 if (login) {
@@ -332,6 +335,10 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
             case R.id.btn_addtowishlist:
                 addWishlist();
                 break;
+            case R.id.imgtambah:
+                addKeranjang();
+                break;
+
             case R.id.img_foto_pelapak:
                 if (login) {
                     Intent intent = new Intent(this, ProfilPelapakActivity.class);
@@ -363,7 +370,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                 Intent i = new Intent(getContext(), ProdukAllActivity.class);
                 i.putExtra("all", "allterbaru");
                 startActivity(i);
-              break;
+                break;
 
             case R.id.imgtoolbar:
                 finish();
