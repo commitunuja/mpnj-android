@@ -113,7 +113,7 @@ public class KonfirmasiPembayaranActivity extends AppCompatActivity implements V
     String imagePath;
     private static final int PICK_IMAGE = 1;
     private static final int PICK_Camera_IMAGE = 2;
-    private static final int PERMISSION_STORAGE = 2;
+
     double totalbayar;
     Toolbar toolBarisi;
     private KProgressHUD progressHUD;
@@ -350,7 +350,6 @@ public class KonfirmasiPembayaranActivity extends AppCompatActivity implements V
         }
     }
 
-
     private void selectImage() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             final CharSequence[] options = {"Ambil Foto", "Gallery", "Kembali"};
@@ -381,8 +380,7 @@ public class KonfirmasiPembayaranActivity extends AppCompatActivity implements V
             builder.show();
         }else{
             final CharSequence[] options = {"Ambil Foto", "Gallery", "Kembali"};
-            AlertDialog.Builder builder = new AlertDialog.Builder(
-                    KonfirmasiPembayaranActivity.this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(KonfirmasiPembayaranActivity.this);
             builder.setItems(options, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int item) {
