@@ -313,6 +313,7 @@ public class AddAlamat extends AppCompatActivity implements View.OnClickListener
 
                         );
 
+
                         arrayKec.add(response.body().getRajaongkir().getResults().get(a).getSubdistrictName());
                         listID_Kec.add(response.body().getRajaongkir().getResults().get(a).getSubdistrictId());
 
@@ -341,15 +342,15 @@ public class AddAlamat extends AppCompatActivity implements View.OnClickListener
     }
 
     public void sendAlamat() {
-//        if (!NetworkUtility.isNetworkConnected(AddAlamat.this)) {
+        if (!NetworkUtility.isNetworkConnected(AddAlamat.this)) {
 //            AppUtilits.displayMessage(AddAlamat.this, getString(R.string.network_not_connected));
-//        } else if (spinProvinsi.getSelectedItem().toString().trim().equalsIgnoreCase("Pilih Provinsi")) {
-//            Toast.makeText(this, "Provinsi Belum  di Tentukan", Toast.LENGTH_SHORT).show();
-//        } else if (spinProvinsi.getSelectedItemPosition() < 0 || spinkota.getSelectedItemPosition() < 0 || spinkota.getSelectedItem().toString().trim().equalsIgnoreCase("Pilih Kota")) {
-//            Toast.makeText(this, "Kota Belum  di Tentukan", Toast.LENGTH_SHORT).show();
-//        } else if (spinKec.getSelectedItemPosition() < 0 || spinKec.getSelectedItem().toString().trim().equalsIgnoreCase("Pilih Kecamatan")) {
-//            Toast.makeText(this, "Kecamatan Belum  di Tentukan", Toast.LENGTH_SHORT).show();
-//        } else {
+        } else if (spinProvinsi.getSelectedItem().toString().trim().equalsIgnoreCase("Pilih Provinsi")) {
+            Toast.makeText(this, "Provinsi Belum  di Tentukan", Toast.LENGTH_SHORT).show();
+        } else if (spinProvinsi.getSelectedItemPosition() < 0 || spinkota.getSelectedItemPosition() < 0 || spinkota.getSelectedItem().toString().trim().equalsIgnoreCase("Pilih Kota")) {
+            Toast.makeText(this, "Kota Belum  di Tentukan", Toast.LENGTH_SHORT).show();
+        } else if (spinKec.getSelectedItemPosition() < 0 || spinKec.getSelectedItem().toString().trim().equalsIgnoreCase("Pilih Kecamatan")) {
+            Toast.makeText(this, "Kecamatan Belum  di Tentukan", Toast.LENGTH_SHORT).show();
+        } else {
             final String namalengkap_ = ed_nama.getText().toString();
             final String nomorHp_ = ed_nomorHP.getText().toString();
             final String idprov_ = listID_prov.get(spinProvinsi.getSelectedItemPosition());
@@ -368,7 +369,7 @@ public class AddAlamat extends AppCompatActivity implements View.OnClickListener
 //            final String email_ = ed_email.getText().toString();
 //            final String statusA_ = "aktif";
 //
-//            if (!validasi()) return;
+            if (!validasi()) return;
 //            ServiceWrapper serviceWrapper = new ServiceWrapper(null);
             APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
             Call<ResAlamat> callNewAlamat = service.addAlamatCall(
@@ -376,7 +377,9 @@ public class AddAlamat extends AppCompatActivity implements View.OnClickListener
             callNewAlamat.enqueue(new Callback<ResAlamat>() {
                 @Override
                 public void onResponse(Call<ResAlamat> call, Response<ResAlamat> response) {
+                    Log.d("addalamat", String.valueOf(response));
                     if (response.body() != null && response.isSuccessful()) {
+
                         if (response.body().getPesan().equalsIgnoreCase("Sukses!")) {
                             Toast.makeText(AddAlamat.this, "Berhasil Menambah Alamat", Toast.LENGTH_SHORT).show();
 
@@ -394,20 +397,23 @@ public class AddAlamat extends AppCompatActivity implements View.OnClickListener
                             }
 
                         } else {
-                            AppUtilits.displayMessage(getApplication(), getString(R.string.failed_request));
+                            Log.d("addalamat", String.valueOf(response));
+//                            AppUtilits.displayMessage(getApplication(), getString(R.string.failed_request));
 //                            Toast.makeText(AddAlamat.this, "r"+response.body().getPesan(), Toast.LENGTH_SHORT).show();
 //                            AppUtilits.displayMessage(RegisterActivity.this,  response.body().getPesan());
                         }
                     } else {
+                        Log.d("addalamat", String.valueOf(response));
 //                        Toast.makeText(AddAlamat.this, "rr"+response.body().getPesan(), Toast.LENGTH_SHORT).show();
-                        AppUtilits.displayMessage(getApplication(), getString(R.string.network_error));
+//                        AppUtilits.displayMessage(getApplication(), getString(R.string.network_error));
 //                        AppUtilits.displayMessage(RegisterActivity.this,   getString(R.string.failed_request));
                     }
                 }
 
                 @Override
                 public void onFailure(Call<ResAlamat> call, Throwable t) {
-                    AppUtilits.displayMessage(getApplication(), getString(R.string.network_error));
+                    Log.d("addalamat", String.valueOf(t));
+//                    AppUtilits.displayMessage(getApplication(), getString(R.string.network_error));
 //                    Log.e(TAG, " failure " + t.toString());
 //                    Toast.makeText(AddAlamat.this, "rrr"+t, Toast.LENGTH_SHORT).show();
 
@@ -415,8 +421,7 @@ public class AddAlamat extends AppCompatActivity implements View.OnClickListener
 //                    AppUtilits.displayMessage(RegisterActivity.this,   getString(R.string.failed_request));
                 }
             });
-
-//        }
+        }
     }
 
 
@@ -428,12 +433,12 @@ public class AddAlamat extends AppCompatActivity implements View.OnClickListener
         final String alamat_ = ed_alamat.getText().toString();
 
         if (namalengkap_.isEmpty()) {
-            ed_nama.setError("isi nama lengkap anda");
-            Toast.makeText(AddAlamat.this, "isi nama lengkap anda", Toast.LENGTH_SHORT).show();
+            ed_nama.setError("nama lengkap tidak boleh kosong");
+//            Toast.makeText(AddAlamat.this, "isi nama lengkap anda", Toast.LENGTH_SHORT).show();
             valid = false;
-        } else if (namalengkap_.length() < 2) {
-            Toast.makeText(AddAlamat.this, "nama lengkap setidaknya minimal 2", Toast.LENGTH_SHORT).show();
-            valid = false;
+//        } else if (namalengkap_.length() < 2) {
+//            Toast.makeText(AddAlamat.this, "nama lengkap setidaknya minimal 2", Toast.LENGTH_SHORT).show();
+//            valid = false;
         } else {
             ed_nama.setError(null);
         }

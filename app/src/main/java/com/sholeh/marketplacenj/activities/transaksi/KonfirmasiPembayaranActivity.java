@@ -757,14 +757,14 @@ public class KonfirmasiPembayaranActivity extends AppCompatActivity implements V
             length = length / 1024;
 
             if (length >= 512) {
-//                Toast.makeText(this, "Ukuran File Maksimal 500kb ", Toast.LENGTH_SHORT).show();
-                View parentLayout = findViewById(android.R.id.content);
-                Snackbar snack = Snackbar.make(parentLayout, "Ukuran File Maksimal 500kb ", Snackbar.LENGTH_SHORT);
-                View view = snack.getView();
-                FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) view.getLayoutParams();
-                params.gravity = Gravity.BOTTOM;
-                view.setLayoutParams(params);
-                snack.show();
+                Toast.makeText(this, "Ukuran File Maksimal 500kb ", Toast.LENGTH_SHORT).show();
+//                View parentLayout = findViewById(android.R.id.content);
+//                Snackbar snack = Snackbar.make(parentLayout, "Ukuran File Maksimal 500kb ", Snackbar.LENGTH_SHORT);
+//                View view = snack.getView();
+//                FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) view.getLayoutParams();
+//                params.gravity = Gravity.BOTTOM;
+//                view.setLayoutParams(params);
+//                snack.show();
             } else {
                 ProgresDialog();
 //                Toast.makeText(this, "oke "+length, Toast.LENGTH_SHORT).show();
