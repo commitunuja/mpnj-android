@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -71,9 +72,9 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ViewHolder
                 .into(viewHolder.foto_produk);
 
         if (tvDataProduk.getDiskon() == 0){
-            viewHolder.tvxdiskon.setVisibility(View.GONE);
+            viewHolder.relativeDiskon.setVisibility(View.GONE);
         }else{
-            viewHolder.tvxdiskon.setVisibility(View.VISIBLE);
+            viewHolder.relativeDiskon.setVisibility(View.VISIBLE);
         }
     }
 
@@ -91,6 +92,7 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ViewHolder
         private TextView namaProduk, hargaProduk, tvxdiskon, stok, terjual, deskripsi, type;
 //        private ImageView foto_produk;
         private SmartImageView foto_produk;
+        RelativeLayout relativeDiskon;
 
 
         public ViewHolder(View itemView) {
@@ -101,6 +103,7 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ViewHolder
             tvxdiskon = itemView.findViewById(R.id.tvxdiskon);
             type = itemView.findViewById(R.id.typeproduk);
             foto_produk = itemView.findViewById(R.id.imageproduk);
+            relativeDiskon = itemView.findViewById(R.id.relativediskon);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
