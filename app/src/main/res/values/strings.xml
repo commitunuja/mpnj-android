@@ -82,4 +82,9 @@
     <string name="selesai">SELESAI</string>
     <string name="batal">DIBATALKAN</string>
 
+
+
+    <string name="item_added_to_your_cart">Item Berhasil Ditambahkan ke Keranjang Anda</string>
+
+
 </resources>

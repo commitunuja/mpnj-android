@@ -1,10 +1,6 @@
-package com.sholeh.marketplacenj.custom;
+package com.sholeh.marketplacenj.customview;
 
 import com.mancj.materialsearchbar.MaterialSearchBar;
-
-/**
- * Created by mancj on 26.01.17.
- */
 
 public abstract class SimpleOnSearchActionListener implements MaterialSearchBar.OnSearchActionListener {
 

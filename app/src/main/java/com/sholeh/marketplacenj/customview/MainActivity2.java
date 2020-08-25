@@ -1,25 +1,18 @@
-package com.sholeh.marketplacenj.custom;
+package com.sholeh.marketplacenj.customview;
 
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
 
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mancj.materialsearchbar.MaterialSearchBar;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.adapter.dashboard.SearchAdapter;
 import com.sholeh.marketplacenj.model.Model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity2 extends AppCompatActivity
