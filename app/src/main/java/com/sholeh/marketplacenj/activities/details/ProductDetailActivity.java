@@ -130,6 +130,11 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         myProgressBar.setIndeterminate(true);
         myProgressBar.setVisibility(View.VISIBLE);
 
+        //review
+        namareview = findViewById(R.id.tvnamareview);
+        diskripsireview  = findViewById(R.id.tvdiskripsireview);
+        tanggalreview  =findViewById(R.id.tvtglreview);
+
         namapelapak = findViewById(R.id.tv_nama_pelapak);
         fotopelapak = findViewById(R.id.img_foto_pelapak);
         right1 = findViewById(R.id.right1);
