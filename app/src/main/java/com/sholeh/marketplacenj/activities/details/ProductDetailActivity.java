@@ -71,9 +71,9 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
     ViewPagerAdapter viewPagerAdapter;
 
     LinearLayout linear1, linear2, linear3, linear4;
-    TextView txt1, txt2, txt3, txt4, idkeranjang, nama, harga, kategori, jumlahproduk,offer, namapelapak, readmore, allterkait;
+    TextView namareview, tanggalreview, diskripsireview, txt1, txt2, txt3, txt4, idkeranjang, nama, harga, kategori, jumlahproduk, offer, namapelapak, readmore, allterkait;
     JustifiedTextView diskripsi;
-
+    RecyclerView.LayoutManager layoutManager;
     LinearLayout right1, right2, right3;
     ImageView right1_imag, right2_imag, right3_imag, keranjang;
 
@@ -91,13 +91,17 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
     Button tambah;
 
     private ArrayList<TopTenModelClass> topTenModelClasses;
-    private RecyclerView top_ten_crecyclerview;
+    private RecyclerView top_ten_crecyclerview, recyclerViewreview;
+    ReviewAdapter reviewAdapter;
     private RecycleAdapteTopTenHome mAdapter2;
     private Integer image1[] = {R.drawable.ac, R.drawable.headphones, R.drawable.ac, R.drawable.headphones};
     private String title1[] = {"Vigo Atom Personal Air Condi....", "Bosh Head Phone Blue Color", "Vigo Atom Personal Air Condi....", "Bosh Head Phone Blue Color",};
     private String type[] = {"Kitenid", "HeadPhones", "Kitenid", "HeadPhones"};
 
     RelativeLayout relative1, relative2, relative3, relative4;
+
+    List<ReviewModel> listreviews;
+    ReviewModel reviewModel;
 
     Preferences preferences;
     String id_konsumen, iduser;
