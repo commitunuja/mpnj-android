@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+          android:layout_margin="8dp"
+            android:orientation="vertical"
+            android:background="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+<!--            <customfonts.MyTextView_Roboto_Medium-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Top Review"-->
+<!--                android:textColor="#241f1f" />-->
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Oleh "-->
+<!--                    android:textSize="10dp" />-->
+
+                <customfonts.MyTextView_Roboto_Medium
+                    android:id="@+id/tvdiskripsireview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Didin Kurniawan"
+                    android:textColor="@color/cut_price"
+                    android:textSize="12.7sp" />
+
+<!--                <customfonts.MyTextView_Roboto_Medium-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Verifeid User"-->
+<!--                    android:textColor="@color/green"-->
+<!--                    android:textSize="11.3sp" />-->
+            </LinearLayout>
+
+
+            <customfonts.MyTextView_Roboto_Medium
+                android:id="@+id/tvtglreview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:text="By Guest on 24 March 2017"
+                android:textColor="@color/cut_price"
+                android:textSize="10.3sp" />
+
+
+            <customfonts.MyTextView_Roboto_Regular
+                android:id="@+id/tvnamareview"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="8dp"
+                android:text="Surprise Gift to my sister, she just jumped in air,loved it...."
+                android:textColor="#545d64"
+                android:textSize="11.3sp" />
+
+
+            <customfonts.MyTextView_Roboto_Regular
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="15dp"
+                android:text="View All Reviews"
+                android:textColor="@color/red"
+                android:paddingBottom="10dp"
+                android:textSize="12.7sp" />
+
+        </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
