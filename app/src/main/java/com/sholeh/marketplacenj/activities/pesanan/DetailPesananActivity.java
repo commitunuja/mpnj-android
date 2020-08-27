@@ -99,73 +99,73 @@ public class DetailPesananActivity extends AppCompatActivity implements View.OnC
             @Override
             public void onResponse(Call<DetailPesanan> call, retrofit2.Response<DetailPesanan> response) {
                 if (response.body() != null && response.isSuccessful()) {
-                    if (response.body().getData().size() > 0) {
+                        if (response.body().getData().size() > 0) {
 
-                        dataPesanans.clear();
-                        item.clear();
-                        List<ItemDetailPesanan> array = response.body().getData();
-                        for (int i = 0; i < array.size(); i++) {
+                            dataPesanans.clear();
+                            item.clear();
+                            List<ItemDetailPesanan> array = response.body().getData();
+                            for (int i = 0; i < array.size(); i++) {
 
-                            dataPesanans.add(new ItemDetailPesanan(response.body().getData().get(i).getNamaToko(),
-                                    response.body().getData().get(i).getNamaProduk(),
-                                    response.body().getData().get(i).getJumlah(),
-                                    response.body().getData().get(i).getTotalBayar(),
-                                    response.body().getData().get(i).getHarga(),
-                                    response.body().getData().get(i).getFotoProduk(),
-                                    response.body().getData().get(i).getStatusOrder(),
-                                    response.body().getData().get(i).getBayarSebelum(),
-                                    response.body().getData().get(i).getIdTransaksiDetail(),
-                                    response.body().getData().get(i).getKurir(),
-                                    response.body().getData().get(i).getOngkir(),
-                                    response.body().getData().get(i).getWaktuPesan()));
+                                dataPesanans.add(new ItemDetailPesanan(response.body().getData().get(i).getNamaToko(),
+                                        response.body().getData().get(i).getNamaProduk(),
+                                        response.body().getData().get(i).getJumlah(),
+                                        response.body().getData().get(i).getTotalBayar(),
+                                        response.body().getData().get(i).getHarga(),
+                                        response.body().getData().get(i).getFotoProduk(),
+                                        response.body().getData().get(i).getStatusOrder(),
+                                        response.body().getData().get(i).getBayarSebelum(),
+                                        response.body().getData().get(i).getIdTransaksiDetail(),
+                                        response.body().getData().get(i).getKurir(),
+                                        response.body().getData().get(i).getOngkir(),
+                                        response.body().getData().get(i).getWaktuPesan()));
 
 
 
-                            toko.setText(response.body().getData().get(i).getNamaToko());
-                            waktu.setText(response.body().getData().get(i).getWaktuPesan());
-                            status.setText(response.body().getData().get(i).getStatusOrder());
-                            kurir.setText(response.body().getData().get(i).getKurir().toString());
+                                toko.setText(response.body().getData().get(i).getNamaToko());
+                                waktu.setText(response.body().getData().get(i).getWaktuPesan());
+                                status.setText(response.body().getData().get(i).getStatusOrder());
+                                kurir.setText(response.body().getData().get(i).getKurir().toString());
 
-                            int ongkir = Integer.parseInt((response.body().getData().get(i).getOngkir()));
-                            stringTokenizer = new StringTokenizer(formatRupiah.format(ongkir), ",");
-                            String hargaongkir = stringTokenizer.nextToken().trim();
-                            tongkir.setText(hargaongkir);
+                                int ongkir = Integer.parseInt((response.body().getData().get(i).getOngkir()));
+                                stringTokenizer = new StringTokenizer(formatRupiah.format(ongkir), ",");
+                                String hargaongkir = stringTokenizer.nextToken().trim();
+                                tongkir.setText(hargaongkir);
 
-                            statusorder = response.body().getData().get(i).getStatusOrder();
-                            int total1 = Integer.parseInt(response.body().getData().get(i).getTotalBayar());
-                            stringTokenizer = new StringTokenizer(formatRupiah.format(total1), ",");
-                            String totalbayar = stringTokenizer.nextToken().trim();
-                            total.setText(totalbayar);
-                            alamat.setText(response.body().getData().get(i).getTujuan());
+                                statusorder = response.body().getData().get(i).getStatusOrder();
+                                int total1 = Integer.parseInt(response.body().getData().get(i).getTotalBayar());
+                                stringTokenizer = new StringTokenizer(formatRupiah.format(total1), ",");
+                                String totalbayar = stringTokenizer.nextToken().trim();
+                                total.setText(totalbayar);
+                                alamat.setText(response.body().getData().get(i).getTujuan());
 
-                            int ongkirlagi = Integer.parseInt(response.body().getData().get(i).getOngkir());
-                            int harga2 = Integer.parseInt(response.body().getData().get(i).getTotalBayar());
-                            int harga = harga2-ongkirlagi;
-                            stringTokenizer = new StringTokenizer(formatRupiah.format(harga), ",");
-                            String harga1 = stringTokenizer.nextToken().trim();
-                            totalhargadetail.setText(harga1);
+                                int ongkirlagi = Integer.parseInt(response.body().getData().get(i).getOngkir());
+                                int harga2 = Integer.parseInt(response.body().getData().get(i).getTotalBayar());
+                                int harga = harga2-ongkirlagi;
+                                stringTokenizer = new StringTokenizer(formatRupiah.format(harga), ",");
+                                String harga1 = stringTokenizer.nextToken().trim();
+                                totalhargadetail.setText(harga1);
 
-                            if (statusorder.equals("Telah Sampai")) {
-                                tanya.setVisibility(View.VISIBLE);
-                                tulis.setVisibility(View.VISIBLE);
-                            } else if (statusorder.equals("Dikirim")) {
-                                tanya.setVisibility(View.VISIBLE);
-                                tulis.setVisibility(View.VISIBLE);
-                                lacak.setVisibility(View.VISIBLE);
-                            }else if(statusorder.equals("Dibatalkan")){
-                                tanya.setVisibility(View.VISIBLE);
-                                lacak.setVisibility(View.GONE);
-                                tulis.setVisibility(View.GONE);
-                            } else {
-                                tanya.setVisibility(View.VISIBLE);
-                                tulis.setVisibility(View.GONE);
+                                if (statusorder.equals("Telah Sampai")) {
+                                    tanya.setVisibility(View.VISIBLE);
+                                    tulis.setVisibility(View.VISIBLE);
+                                } else if (statusorder.equals("Dikirim")) {
+                                    tanya.setVisibility(View.VISIBLE);
+                                    tulis.setVisibility(View.VISIBLE);
+                                    lacak.setVisibility(View.VISIBLE);
+                                }else if(statusorder.equals("Dibatalkan")){
+                                    tanya.setVisibility(View.VISIBLE);
+                                    lacak.setVisibility(View.GONE);
+                                    tulis.setVisibility(View.GONE);
+                                } else {
+                                    tanya.setVisibility(View.VISIBLE);
+                                    tulis.setVisibility(View.GONE);
 
+                                }
                             }
+
+                        } else {
+
                         }
-
-                    } else {
-
-                    }
                     recyclerdetailpesanan = new DetailPesananAdapter(getContext(), dataPesanans);
                     recyclerView.setAdapter(recyclerdetailpesanan);
                 }

@@ -33,10 +33,12 @@ import com.sholeh.marketplacenj.activities.keranjang.KeranjangDetailActivity;
 import com.sholeh.marketplacenj.activities.pelapak.ProfilPelapakActivity;
 import com.sholeh.marketplacenj.adapter.dashboard.ProdukAdapter;
 import com.sholeh.marketplacenj.adapter.dashboard.RecycleAdapteTopTenHome;
+import com.sholeh.marketplacenj.adapter.details.ReviewAdapter;
 import com.sholeh.marketplacenj.adapter.details.ViewPagerAdapter;
 import com.sholeh.marketplacenj.model.Foto;
 import com.sholeh.marketplacenj.model.Model;
 import com.sholeh.marketplacenj.model.dashboard.TopTenModelClass;
+import com.sholeh.marketplacenj.model.review.ReviewModel;
 import com.sholeh.marketplacenj.respon.ResKeranjang;
 import com.sholeh.marketplacenj.respon.ResWishlist;
 import com.sholeh.marketplacenj.util.AppUtilits;
@@ -71,9 +73,9 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
     ViewPagerAdapter viewPagerAdapter;
 
     LinearLayout linear1, linear2, linear3, linear4;
-    TextView txt1, txt2, txt3, txt4, idkeranjang, nama, harga, kategori, jumlahproduk,offer, namapelapak, readmore, allterkait;
+    TextView namareview, tanggalreview, diskripsireview, txt1, txt2, txt3, txt4, idkeranjang, nama, harga, kategori, jumlahproduk, offer, namapelapak, readmore, allterkait;
     JustifiedTextView diskripsi;
-
+    RecyclerView.LayoutManager layoutManager;
     LinearLayout right1, right2, right3;
     ImageView right1_imag, right2_imag, right3_imag, keranjang;
 
@@ -91,13 +93,17 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
     Button tambah;
 
     private ArrayList<TopTenModelClass> topTenModelClasses;
-    private RecyclerView top_ten_crecyclerview;
+    private RecyclerView top_ten_crecyclerview, recyclerViewreview;
+    ReviewAdapter reviewAdapter;
     private RecycleAdapteTopTenHome mAdapter2;
     private Integer image1[] = {R.drawable.ac, R.drawable.headphones, R.drawable.ac, R.drawable.headphones};
     private String title1[] = {"Vigo Atom Personal Air Condi....", "Bosh Head Phone Blue Color", "Vigo Atom Personal Air Condi....", "Bosh Head Phone Blue Color",};
     private String type[] = {"Kitenid", "HeadPhones", "Kitenid", "HeadPhones"};
 
     RelativeLayout relative1, relative2, relative3, relative4;
+
+    List<ReviewModel> listreviews;
+    ReviewModel reviewModel;
 
     Preferences preferences;
     String id_konsumen, iduser;
@@ -123,6 +129,11 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         myProgressBar = findViewById(R.id.myProgressBar);
         myProgressBar.setIndeterminate(true);
         myProgressBar.setVisibility(View.VISIBLE);
+
+        //review
+        namareview = findViewById(R.id.tvnamareview);
+        diskripsireview  = findViewById(R.id.tvdiskripsireview);
+        tanggalreview  =findViewById(R.id.tvtglreview);
 
         namapelapak = findViewById(R.id.tv_nama_pelapak);
         fotopelapak = findViewById(R.id.img_foto_pelapak);
@@ -167,6 +178,8 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         txt2 = findViewById(R.id.txt2);
         txt3 = findViewById(R.id.txt3);
         txt4 = findViewById(R.id.txt4);
+
+        recyclerViewreview = findViewById(R.id.rvreview);
 
         linear1.setOnClickListener(this);
         linear2.setOnClickListener(this);
@@ -243,7 +256,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         if (login) {
             tokeranjang.setVisibility(View.VISIBLE);
             tambah.setVisibility(View.GONE);
-        }else {
+        } else {
             tambah.setText("LOGIN");
         }
         kategori.setText(kategoriproduk);
@@ -297,6 +310,45 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
         getDetail();
         produkTerbaru();
+        getReview();
+
+    }
+
+    private void getReview() {
+
+//        layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+//        recyclerViewreview.setLayoutManager(layoutManager);
+//        recyclerViewreview.setItemAnimator(new DefaultItemAnimator());
+//        recyclerViewreview.setHasFixedSize(true);
+
+
+        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+        Call<List<ReviewModel>> call = service.getDataReview("1", "1");
+
+//        listreviews = new ArrayList<>();
+
+        call.enqueue(new Callback<List<ReviewModel>>() {
+            @Override
+            public void onResponse(Call<List<ReviewModel>> call, retrofit2.Response<List<ReviewModel>> response) {
+
+                listreviews = response.body();
+                namareview.setText(listreviews.get(0).getReviewer());
+//                tanggalreview.setText(listreviews.get(0).getReviewer());
+                diskripsireview.setText(listreviews.get(0).getReview());
+//                reviewAdapter = new ReviewAdapter(ProductDetailActivity.this, listreviews);
+//                recyclerViewreview.setAdapter(reviewAdapter);
+//                Log.d("COBA", String.valueOf(response));
+                Toast.makeText(ProductDetailActivity.this, "" + listreviews.get(0).getReview(), Toast.LENGTH_SHORT).show();
+
+            }
+//            }
+
+            @Override
+            public void onFailure(Call<List<ReviewModel>> call, Throwable t) {
+                Log.d("GGG", String.valueOf(t));
+
+            }
+        });
 
     }
 
