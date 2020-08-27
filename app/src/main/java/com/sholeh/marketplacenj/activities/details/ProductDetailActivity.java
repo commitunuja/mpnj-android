@@ -256,7 +256,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         if (login) {
             tokeranjang.setVisibility(View.VISIBLE);
             tambah.setVisibility(View.GONE);
-        }else {
+        } else {
             tambah.setText("LOGIN");
         }
         kategori.setText(kategoriproduk);
@@ -310,6 +310,45 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
         getDetail();
         produkTerbaru();
+        getReview();
+
+    }
+
+    private void getReview() {
+
+//        layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+//        recyclerViewreview.setLayoutManager(layoutManager);
+//        recyclerViewreview.setItemAnimator(new DefaultItemAnimator());
+//        recyclerViewreview.setHasFixedSize(true);
+
+
+        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+        Call<List<ReviewModel>> call = service.getDataReview("1", "1");
+
+//        listreviews = new ArrayList<>();
+
+        call.enqueue(new Callback<List<ReviewModel>>() {
+            @Override
+            public void onResponse(Call<List<ReviewModel>> call, retrofit2.Response<List<ReviewModel>> response) {
+
+                listreviews = response.body();
+                namareview.setText(listreviews.get(0).getReviewer());
+//                tanggalreview.setText(listreviews.get(0).getReviewer());
+                diskripsireview.setText(listreviews.get(0).getReview());
+//                reviewAdapter = new ReviewAdapter(ProductDetailActivity.this, listreviews);
+//                recyclerViewreview.setAdapter(reviewAdapter);
+//                Log.d("COBA", String.valueOf(response));
+                Toast.makeText(ProductDetailActivity.this, "" + listreviews.get(0).getReview(), Toast.LENGTH_SHORT).show();
+
+            }
+//            }
+
+            @Override
+            public void onFailure(Call<List<ReviewModel>> call, Throwable t) {
+                Log.d("GGG", String.valueOf(t));
+
+            }
+        });
 
     }
 
