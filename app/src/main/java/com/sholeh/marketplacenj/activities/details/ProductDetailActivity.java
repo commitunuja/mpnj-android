@@ -179,6 +179,8 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         txt3 = findViewById(R.id.txt3);
         txt4 = findViewById(R.id.txt4);
 
+        recyclerViewreview = findViewById(R.id.rvreview);
+
         linear1.setOnClickListener(this);
         linear2.setOnClickListener(this);
         linear3.setOnClickListener(this);
