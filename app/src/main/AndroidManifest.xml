@@ -66,8 +66,7 @@
         <activity android:name=".activities.UbahPassword" />
         <activity android:name=".activities.PengaturanAkun" />
         <activity
-            android:name=".activities.AkunActivity"
-            android:theme="@style/AppBlack" />
+            android:name=".activities.AkunActivity" />
         <activity android:name=".activities.VerifikasiActivity" />
         <activity android:name=".activities.ForgotPassword" />
         <activity android:name=".activities.MainActivity" />

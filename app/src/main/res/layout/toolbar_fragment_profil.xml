@@ -43,15 +43,14 @@
     </FrameLayout>
 
     <customfonts.MyTextView_Roboto_Regular
+        android:visibility="gone"
+        android:background="@drawable/ic_exit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:textColor="@color/white"
-        android:text="Keluar"
         android:layout_gravity="right"
         android:layout_marginRight="20dp"
         android:id="@+id/logout_akun"
-        android:visibility="gone"/>
+      />
 
 
 
