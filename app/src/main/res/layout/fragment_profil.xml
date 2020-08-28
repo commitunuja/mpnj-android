@@ -77,16 +77,16 @@
                     </FrameLayout>
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:layout_gravity="center"
                         android:orientation="vertical">
 
                         <customfonts.MyTextView_Roboto_Medium
-                            android:text="Gautam Rokde"
+                            android:text="Muhammad Solehudin"
                             android:id="@+id/tvCustomerName"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textSize="14sp"
                             android:textColor="@color/white"/>
@@ -94,11 +94,11 @@
                         <customfonts.MyTextView_Roboto_Regular
                             android:layout_marginTop="5dp"
                             android:id="@+id/tvx_username"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="@color/white"
                             android:textSize="14sp"
-                            android:text="username"/>
+                            android:text="Sholeh"/>
                     </LinearLayout>
 
                 </LinearLayout>

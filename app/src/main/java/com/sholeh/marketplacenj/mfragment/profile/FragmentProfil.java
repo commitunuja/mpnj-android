@@ -115,6 +115,8 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
         tvx_setting.setOnClickListener(this);
         tvx_pesananku.setOnClickListener(this);
         imgtoolbar.setOnClickListener(this);
+        tvx_namaCustomter.setOnClickListener(this);
+        tvx_username.setOnClickListener(this);
 
 
         tvx_title = rootView.findViewById(R.id.title);
@@ -187,7 +189,16 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
             case R.id.tv_myprofil:
                 Intent intent3 = new Intent(getActivity(), AkunActivity.class);
                 getActivity().startActivity(intent3);
-//                selectImage();
+                break;
+
+            case R.id.tvCustomerName:
+                Intent i = new Intent(getActivity(), AkunActivity.class);
+                getActivity().startActivity(i);
+                break;
+
+            case R.id.tvx_username:
+                Intent in = new Intent(getActivity(), AkunActivity.class);
+                getActivity().startActivity(in);
                 break;
 
             case R.id.tvAlamat:
@@ -206,8 +217,8 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
                 break;
 
             case R.id.tvMyPesanan:
-                Intent i = new Intent(getActivity(), MyPesananActivity.class);
-                getActivity().startActivity(i);
+                Intent ii = new Intent(getActivity(), MyPesananActivity.class);
+                getActivity().startActivity(ii);
 //                Bundle bundle = new Bundle();
 //                bundle.putString("edttext", id_konsumen);
 //                TabSemua fragobj = new TabSemua();
