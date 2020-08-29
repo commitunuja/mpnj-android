@@ -104,7 +104,7 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
         tvx_setting = rootView.findViewById(R.id.tvSetting);
         tvx_pesananku = rootView.findViewById(R.id.tvMyPesanan);
         imgtoolbar = rootView.findViewById(R.id.imgtoolbarF);
-
+        tvx_title = rootView.findViewById(R.id.title);
 
         btnImgProfil = rootView.findViewById(R.id.imgProfil);
         btnImgProfil.setOnClickListener(this);
@@ -119,7 +119,7 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
         tvx_username.setOnClickListener(this);
 
 
-        tvx_title = rootView.findViewById(R.id.title);
+
         tvx_edit = rootView.findViewById(R.id.edit_txt);
         tvx_edit.setVisibility(View.GONE);
         tvx_logout = rootView.findViewById(R.id.logout_akun);
