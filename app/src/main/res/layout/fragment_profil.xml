@@ -83,7 +83,7 @@
                         android:layout_gravity="center"
                         android:orientation="vertical">
 
-                        <customfonts.MyTextView_Roboto_Medium
+                        <com.sholeh.marketplacenj.customview.textview.TextViewBold
                             android:text="Muhammad Solehudin"
                             android:id="@+id/tvCustomerName"
                             android:layout_width="match_parent"
@@ -91,7 +91,7 @@
                             android:textSize="14sp"
                             android:textColor="@color/white"/>
 
-                        <customfonts.MyTextView_Roboto_Regular
+                        <com.sholeh.marketplacenj.customview.textview.TextViewLight
                             android:layout_marginTop="5dp"
                             android:id="@+id/tvx_username"
                             android:layout_width="match_parent"
@@ -211,8 +211,7 @@
                             android:layout_gravity="center"
                             android:src="@drawable/ic_order_account"/>
 
-                        <customfonts.MyTextView_Roboto_Medium
-                            android:textColor="@color/black"
+                        <com.sholeh.marketplacenj.customview.textview.TextViewBold
                             android:layout_marginLeft="10dp"
                             android:padding="2dp"
                             android:layout_weight="1"
@@ -281,13 +280,12 @@
                             android:layout_gravity="center"
                             android:src="@drawable/ic_smartphone"/>
 
-                        <customfonts.MyTextView_Roboto_Medium
+                        <com.sholeh.marketplacenj.customview.textview.TextViewBold
                             android:id="@+id/tvx_nomorhp"
                             android:layout_weight="1"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:textSize="12sp"
-                            android:textColor="@color/black"
                             android:layout_marginLeft="10dp"
                             android:text="+6288233611111"/>
 
@@ -337,13 +335,13 @@
                                 android:layout_gravity="center"
                                 android:src="@drawable/ic_email_black"/>
 
-                            <customfonts.MyTextView_Roboto_Medium
+                            <com.sholeh.marketplacenj.customview.textview.TextViewBold
                                 android:id="@+id/tvx_Email"
                                 android:layout_weight="1"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:textSize="12sp"
-                                android:textColor="@color/black"
+
                                 android:layout_marginLeft="10dp"
                                 android:text="sholeh@gmail.com"/>
 
@@ -392,13 +390,13 @@
                                 android:layout_gravity="center"
                                 android:src="@drawable/ic_person_pin"/>
 
-                            <customfonts.MyTextView_Roboto_Medium
+                            <com.sholeh.marketplacenj.customview.textview.TextViewBold
                                 android:id="@+id/tv_myprofil"
                                 android:layout_weight="1"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:textSize="12sp"
-                                android:textColor="@color/black"
+
                                 android:layout_marginLeft="10dp"
                                 android:text="Profile"/>
 
@@ -429,13 +427,12 @@
                                 android:layout_gravity="center"
                                 android:src="@drawable/ic_pass" />
 
-                            <customfonts.MyTextView_Roboto_Medium
+                            <com.sholeh.marketplacenj.customview.textview.TextViewBold
                                 android:id="@+id/tvSetting"
                                 android:layout_weight="1"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:textSize="12sp"
-                                android:textColor="@color/black"
                                 android:layout_marginLeft="10dp"
                                 android:text="Password"/>
 
@@ -470,13 +467,12 @@
                                 android:layout_gravity="center"
                                 android:src="@drawable/ic_alamat2"/>
 
-                            <customfonts.MyTextView_Roboto_Medium
+                            <com.sholeh.marketplacenj.customview.textview.TextViewBold
                                 android:id="@+id/tvAlamat"
                                 android:layout_weight="1"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:textSize="12sp"
-                                android:textColor="@color/black"
                                 android:layout_marginLeft="10dp"
                                 android:text="Alamat"/>
 
