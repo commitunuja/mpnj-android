@@ -115,8 +115,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <customfonts.TextViewSFProDisplaySemibold
-                    android:textSize="15sp"
+                <com.sholeh.marketplacenj.customview.textview.TextViewRegular
+                    android:textSize="12sp"
                     android:textColor="#424242"
                     android:layout_weight="1"
                     android:textStyle="bold"
@@ -125,9 +125,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
-                <customfonts.TextViewSFProDisplaySemibold
+                <com.sholeh.marketplacenj.customview.textview.TextViewRegular
                     android:textStyle="bold"
-                    android:textSize="13sp"
+                    android:textSize="12sp"
                     android:gravity="right"
                     android:layout_weight="1"
                     android:textColor="#F44336"
@@ -187,7 +187,8 @@
                                     android:visibility="gone" />
 
 
-                                <customfonts.MyTextView_Roboto_Regular
+                                <com.sholeh.marketplacenj.customview.textview.TextViewRegular
+                                    android:layout_marginTop="5dp"
                                     android:id="@+id/tvx_setAlamat"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
@@ -195,7 +196,7 @@
                                     android:letterSpacing="0.03"
                                     android:lineSpacingExtra="1dp"
                                     android:text="Muhammad Solehudin, Jl Rest Area Tongas, Dusun CUrah Pondok, Kecamatan Tongas, Kabupaten Probolinggo jawa timut, 088996412224. 68845"
-                                    android:textSize="13sp" />
+                                    android:textSize="12sp" />
 
                                 <ImageView
                                     android:layout_gravity="center"
