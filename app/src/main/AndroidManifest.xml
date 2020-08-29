@@ -58,8 +58,7 @@
             android:theme="@style/AppBlack" />
         <activity android:name=".activities.AddAlamat" />
         <activity
-            android:name=".activities.AlamatActivity"
-            android:theme="@style/AppBlack" />
+            android:name=".activities.AlamatActivity" />
         <activity
             android:name=".activities.alamat.PilihAlamatCheckout"
             android:theme="@style/AppBlack" />
