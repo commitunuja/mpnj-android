@@ -10,7 +10,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -47,6 +49,8 @@ public class AlamatActivity extends AppCompatActivity implements View.OnClickLis
 
     private KProgressHUD progressDialogHud;
     LinearLayout ln_kosong;
+    TextView tvx_title;
+    ImageView imgtoolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +58,11 @@ public class AlamatActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_alamat);
         preferences = new Preferences(getApplication());
         id_konsumen = preferences.getIdKonsumen();
+        imgtoolbar = findViewById(R.id.imgtoolbarF);
+        tvx_title = findViewById(R.id.title);
+        tvx_title.setText("Ubah Profil");
+        tvx_title.setTextColor(getResources().getColor(R.color.white));
+        tvx_title.setVisibility(View.VISIBLE);
 
         progressDialogHud = KProgressHUD.create(AlamatActivity.this);
         ln_kosong = findViewById(R.id.lnKosong);
@@ -61,6 +70,7 @@ public class AlamatActivity extends AppCompatActivity implements View.OnClickLis
         fab_addAlamat = findViewById(R.id.fab_alamat);
         recyclerAlamat = findViewById(R.id.recycler_alamat);
         fab_addAlamat.setOnClickListener(this);
+        imgtoolbar.setOnClickListener(this);
 
         toolBarisi = findViewById(R.id.toolbar);
         toolBarisi.setTitle("Alamat Saya");
@@ -119,6 +129,10 @@ public class AlamatActivity extends AppCompatActivity implements View.OnClickLis
                 startActivity(pindah);
                 finish();
 //                Toast.makeText(this, "kll", Toast.LENGTH_SHORT).show();
+                break;
+
+            case  R.id.imgtoolbarF:
+                finish();
                 break;
 
 
