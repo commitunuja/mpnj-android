@@ -738,7 +738,7 @@
 
                 <!--        <include layout="@layout/diskripsi" />-->
 
-<!--                <include layout="@layout/delivery_and_review_layout" />-->
+                <include layout="@layout/item_review" />
 
                 <LinearLayout
                     android:layout_width="match_parent"

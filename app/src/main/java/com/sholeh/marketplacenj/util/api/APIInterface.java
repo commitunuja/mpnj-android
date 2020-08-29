@@ -9,6 +9,9 @@ import com.sholeh.marketplacenj.model.cost.ItemCost;
 import com.sholeh.marketplacenj.model.pesanan.Pesanan;
 import com.sholeh.marketplacenj.model.pesanan.detailpesanan.DetailPesanan;
 import com.sholeh.marketplacenj.model.province.ItemProvince;
+import com.sholeh.marketplacenj.model.review.HeaderReview;
+import com.sholeh.marketplacenj.model.review.Review;
+import com.sholeh.marketplacenj.model.review.ReviewModel;
 import com.sholeh.marketplacenj.model.subdistrict.ItemKec;
 import com.sholeh.marketplacenj.respon.ResAlamat;
 import com.sholeh.marketplacenj.respon.ResBank;
@@ -204,6 +207,9 @@ public interface APIInterface {
     @GET("api/pesanan")
     Call<Pesanan> getDataPesanan(@Query("id") String id, @Query("tab") String tab);
 
+    @GET("api/review/{id}")
+    Call<List<ReviewModel>> getDataReview(@Path("id") String id_produk, @Query("id") String id_user);
+
     @GET("api/pesanan/detail/{kode}")
     Call<DetailPesanan> getDataDetailPesanan(@Path("kode") String kode);
 
@@ -314,6 +320,8 @@ public interface APIInterface {
             @Path("id_user") String idUser
     );
 
+
+
     //  delete produk keranjang
     @DELETE("api/wishlist/hapus/{id_wishlist}")
     Call<ResHapusKeranjang> hapusProdukWishlist(
@@ -328,6 +336,7 @@ public interface APIInterface {
 
     @GET("api/banner")
     Call<ResBanner> getBanner();
+
 
 }
 
