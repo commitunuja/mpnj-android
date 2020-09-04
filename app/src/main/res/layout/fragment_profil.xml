@@ -199,7 +199,7 @@
 
                     <LinearLayout
                         android:padding="15dp"
-                        android:id="@+id/tvMyPesanan"
+                        android:id="@+id/lnMyPesanan"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
@@ -379,6 +379,7 @@
 
 
                         <LinearLayout
+                            android:id="@+id/lnprofile"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:padding="15dp"
@@ -396,7 +397,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:textSize="12sp"
-
+                                android:padding="2dp"
                                 android:layout_marginLeft="10dp"
                                 android:text="Profile"/>
 
@@ -416,6 +417,7 @@
                             android:background="@color/line_gray" />
 
                         <LinearLayout
+                            android:id="@+id/lnPassword"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:padding="15dp"
@@ -428,6 +430,7 @@
                                 android:src="@drawable/ic_pass" />
 
                             <customfonts.MyTextView_Roboto_Medium
+                                android:padding="2dp"
                                 android:id="@+id/tvSetting"
                                 android:layout_weight="1"
                                 android:layout_width="0dp"
@@ -456,6 +459,7 @@
 
 
                         <LinearLayout
+                            android:id="@+id/lnAlamat"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:padding="15dp"
@@ -468,6 +472,7 @@
                                 android:src="@drawable/ic_alamat2"/>
 
                             <customfonts.MyTextView_Roboto_Medium
+                                android:padding="2dp"
                                 android:id="@+id/tvAlamat"
                                 android:layout_weight="1"
                                 android:layout_width="0dp"

@@ -277,7 +277,7 @@
               >
 
                 <TextView
-                    android:textSize="14sp"
+                    android:textSize="12sp"
                     android:id="@+id/tvBatal"
                     style="@style/txt_white_medium"
                     android:layout_width="0dp"
@@ -292,7 +292,7 @@
                     android:background="@color/white" />
 
                 <TextView
-                    android:textSize="14sp"
+                    android:textSize="12sp"
                     android:id="@+id/btnUpdateProfil"
                     style="@style/txt_white_medium"
                     android:layout_width="0dp"

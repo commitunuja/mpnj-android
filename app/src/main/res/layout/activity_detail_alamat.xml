@@ -13,7 +13,10 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <include layout="@layout/toolbar_fragment_profil"/>
+
         <com.google.android.material.appbar.AppBarLayout
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:theme="@style/AppTheme.AppBarOverlay">
@@ -77,7 +80,7 @@
                             android:layout_height="20sp"
                             android:layout_weight="1"
                             android:text="Nama"
-                            android:textSize="14sp" />
+                            android:textSize="12sp" />
 
                         <customfonts.EditText_Roboto_Regular
                             android:id="@+id/ed_nama"
@@ -87,7 +90,7 @@
                             android:background="@drawable/custom_edittext"
                             android:gravity="right"
                             android:inputType="textAutoCorrect"
-                            android:textSize="14sp" />
+                            android:textSize="12sp" />
 
                         <requestFocus />
                     </LinearLayout>
@@ -121,7 +124,7 @@
                             android:layout_height="20sp"
                             android:layout_weight="1"
                             android:text="No. Hp"
-                            android:textSize="14sp" />
+                            android:textSize="12sp" />
 
                         <customfonts.EditText_Roboto_Regular
                             android:id="@+id/ed_nohp"
@@ -131,7 +134,7 @@
                             android:background="@drawable/custom_edittext"
                             android:gravity="right"
                             android:inputType="number"
-                            android:textSize="14sp" />
+                            android:textSize="12sp" />
 
 
                     </LinearLayout>
@@ -165,7 +168,7 @@
                             android:layout_height="20sp"
                             android:layout_weight="1"
                             android:text="Provinsi"
-                            android:textSize="14sp" />
+                            android:textSize="12sp" />
 
                         <TextView
                             android:visibility="gone"
@@ -182,7 +185,7 @@
                             android:background="@drawable/custom_edittext"
                             android:gravity="right"
                             android:inputType="textAutoCorrect"
-                            android:textSize="14sp"
+                            android:textSize="12sp"
                              />
 
 
@@ -218,7 +221,7 @@
                             android:layout_height="20sp"
                             android:layout_weight="1"
                             android:text="Kota/Kabupaten"
-                            android:textSize="14sp" />
+                            android:textSize="12sp" />
 
                         <TextView
                             android:visibility="gone"
@@ -236,7 +239,7 @@
                             android:background="@drawable/custom_edittext"
                             android:gravity="right"
                             android:inputType="textAutoCorrect"
-                            android:textSize="14sp" />
+                            android:textSize="12sp" />
 
 
 
@@ -274,7 +277,7 @@
                             android:layout_height="20sp"
                             android:layout_weight="1"
                             android:text="Kecamatan"
-                            android:textSize="14sp" />
+                            android:textSize="12sp" />
 
                         <TextView
                             android:visibility="gone"
@@ -291,7 +294,7 @@
                             android:background="@drawable/custom_edittext"
                             android:gravity="right"
                             android:inputType="textAutoCorrect"
-                            android:textSize="14sp" />
+                            android:textSize="12sp" />
 
 
                     </LinearLayout>
@@ -328,7 +331,7 @@
                             android:layout_height="20sp"
                             android:layout_weight="1"
                             android:text="Kode Pos"
-                            android:textSize="14sp" />
+                            android:textSize="12sp" />
 
                         <customfonts.EditText_Roboto_Regular
                             android:id="@+id/ed_kodepos"
@@ -338,7 +341,7 @@
                             android:layout_weight="1"
                             android:background="@drawable/custom_edittext"
                             android:gravity="right"
-                            android:textSize="14sp" />
+                            android:textSize="12sp" />
 
 
                     </LinearLayout>
@@ -373,7 +376,7 @@
                             android:layout_height="20sp"
                             android:layout_weight="1"
                             android:text="Alamat Lengkap"
-                            android:textSize="14sp" />
+                            android:textSize="12sp" />
 
                         <customfonts.EditText_Roboto_Regular
                             android:id="@+id/ed_alamat"
@@ -383,7 +386,7 @@
                             android:background="@drawable/custom_edittext"
                             android:gravity="left"
                             android:inputType="textAutoCorrect"
-                            android:textSize="14sp" />
+                            android:textSize="12sp" />
 
                     </LinearLayout>
 
@@ -408,19 +411,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginStart="@dimen/value_5"
-                android:layout_marginLeft="@dimen/value_5"
-                android:layout_marginTop="@dimen/value_5"
-                android:layout_marginEnd="@dimen/value_5"
-                android:layout_marginRight="@dimen/value_5"
-                android:layout_marginBottom="15dp"
+
+
                 android:background="@color/colorPrimary"
                 android:gravity="center"
-                android:padding="10dp">
+                android:padding="@dimen/value_5">
 
 
                 <customfonts.MyTextView_Roboto_Regular
-                    android:textSize="14sp"
+                    android:textSize="12sp"
                     android:id="@+id/tvHapus"
                     style="@style/txt_white_medium"
                     android:layout_width="0dp"
@@ -437,7 +436,7 @@
 
 
                 <customfonts.MyTextView_Roboto_Regular
-                    android:textSize="14sp"
+                    android:textSize="12sp"
                     android:id="@+id/tvSave"
                     style="@style/txt_white_medium"
                     android:layout_width="0dp"

@@ -115,9 +115,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <com.sholeh.marketplacenj.customview.textview.TextViewRegular
+                <customfonts.MyTextView_Roboto_Black
                     android:textSize="12sp"
-                    android:textColor="#424242"
+
                     android:layout_weight="1"
                     android:textStyle="bold"
                     android:id="@+id/tvx_namaCustomer"
@@ -187,8 +187,8 @@
                                     android:visibility="gone" />
 
 
-                                <com.sholeh.marketplacenj.customview.textview.TextViewRegular
-                                    android:layout_marginTop="5dp"
+                                <customfonts.MyTextView_Roboto_Medium
+                                    android:layout_marginTop="2dp"
                                     android:id="@+id/tvx_setAlamat"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
