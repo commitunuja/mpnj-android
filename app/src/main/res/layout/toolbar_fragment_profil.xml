@@ -16,25 +16,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <com.sholeh.marketplacenj.customview.textview.TextViewBold
+        <customfonts.MyTextView_Roboto_Medium
             android:visibility="gone"
             android:id="@+id/edit_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColorHint="@color/white"
-            android:textSize="14sp"
+            android:textSize="16sp"
             android:layout_marginLeft="15dp"
             android:background="#00000000"
             android:maxLines="1"
             android:textCursorDrawable="@drawable/color_cursor"
             android:hint="@string/searchproduk"/>
 
-        <com.sholeh.marketplacenj.customview.textview.TextViewBold
+        <customfonts.MyTextView_Roboto_Medium
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
-            android:textSize="14sp"
+            android:textSize="16sp"
             android:layout_marginLeft="20dp"
             android:background="#00000000"
             android:visibility="gone"
@@ -43,7 +43,7 @@
 
     </FrameLayout>
 
-    <customfonts.MyTextView_Roboto_Regular
+    <customfonts.MyTextView_Roboto_Medium
         android:visibility="gone"
         android:background="@drawable/ic_exit"
         android:layout_width="wrap_content"
