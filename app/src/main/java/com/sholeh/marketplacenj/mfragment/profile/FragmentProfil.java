@@ -58,7 +58,7 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
     TextView tvx_login, tvx_namaCustomter, tvx_title, tvx_logout, tvx_edit, tvx_username,
             tvx_Hp, tvx_profil, tvx_alamat, tvx_setting, tvx_email;
 
-    LinearLayout tvx_pesananku;
+    LinearLayout lnpesananku, lnprofil, lnpass, lnAlamat;
 
 
     private CircleImageView imageProfil;
@@ -102,7 +102,10 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
         tvx_profil = rootView.findViewById(R.id.tv_myprofil);
         tvx_alamat = rootView.findViewById(R.id.tvAlamat);
         tvx_setting = rootView.findViewById(R.id.tvSetting);
-        tvx_pesananku = rootView.findViewById(R.id.tvMyPesanan);
+        lnpesananku = rootView.findViewById(R.id.lnMyPesanan);
+        lnpass = rootView.findViewById(R.id.lnPassword);
+        lnAlamat = rootView.findViewById(R.id.lnAlamat);
+        lnprofil = rootView.findViewById(R.id.lnprofile);
         imgtoolbar = rootView.findViewById(R.id.imgtoolbarF);
         tvx_title = rootView.findViewById(R.id.title);
 
@@ -113,11 +116,13 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
         tvx_profil.setOnClickListener(this);
         tvx_alamat.setOnClickListener(this);
         tvx_setting.setOnClickListener(this);
-        tvx_pesananku.setOnClickListener(this);
         imgtoolbar.setOnClickListener(this);
         tvx_namaCustomter.setOnClickListener(this);
         tvx_username.setOnClickListener(this);
-
+        lnpesananku.setOnClickListener(this);
+        lnpass.setOnClickListener(this);
+        lnAlamat.setOnClickListener(this);
+        lnprofil.setOnClickListener(this);
 
 
         tvx_edit = rootView.findViewById(R.id.edit_txt);
@@ -186,10 +191,7 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
 //                selectImage();
                 break;
 
-            case R.id.tv_myprofil:
-                Intent intent3 = new Intent(getActivity(), AkunActivity.class);
-                getActivity().startActivity(intent3);
-                break;
+
 
             case R.id.tvCustomerName:
                 Intent i = new Intent(getActivity(), AkunActivity.class);
@@ -201,22 +203,20 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
                 getActivity().startActivity(in);
                 break;
 
-            case R.id.tvAlamat:
+            case R.id.lnAlamat:
                 Intent intent4 = new Intent(getActivity(), AlamatActivity.class);
                 getActivity().startActivity(intent4);
-//                Toast.makeText(getActivity(), "klik", Toast.LENGTH_SHORT).show();
-
-//                selectImage();
                 break;
 
-            case R.id.tvSetting:
-//                Intent intent5 = new Intent(getActivity(), PengaturanAkun.class);
-//                getActivity().startActivity(intent5);
-                Intent intent5 = new Intent(getActivity(), UbahPassword.class);
-                getActivity().startActivity(intent5);
+
+            case R.id.tvAlamat:
+                Intent intent3 = new Intent(getActivity(), AlamatActivity.class);
+                getActivity().startActivity(intent3);
                 break;
 
-            case R.id.tvMyPesanan:
+
+
+            case R.id.lnMyPesanan:
                 Intent ii = new Intent(getActivity(), MyPesananActivity.class);
                 getActivity().startActivity(ii);
 //                Bundle bundle = new Bundle();
@@ -225,6 +225,33 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
 //                fragobj.setArguments(bundle);
 //                Toast.makeText(getContext(), ""+id_konsumen, Toast.LENGTH_SHORT).show();
                 break;
+
+
+
+            case R.id.lnprofile:
+                Intent inten = new Intent(getActivity(), AkunActivity.class);
+                getActivity().startActivity(inten);
+                break;
+
+            case R.id.tv_myprofil:
+                Intent iii = new Intent(getActivity(), AkunActivity.class);
+                getActivity().startActivity(iii);
+                break;
+
+            case R.id.lnPassword:
+//                Intent intent5 = new Intent(getActivity(), PengaturanAkun.class);
+//                getActivity().startActivity(intent5);
+                Intent intent5 = new Intent(getActivity(), UbahPassword.class);
+                getActivity().startActivity(intent5);
+                break;
+
+            case R.id.tvSetting:
+//                Intent intent5 = new Intent(getActivity(), PengaturanAkun.class);
+//                getActivity().startActivity(intent5);
+                Intent intent6 = new Intent(getActivity(), UbahPassword.class);
+                getActivity().startActivity(intent6);
+                break;
+
 
             case R.id.logout_akun:
                 logoutAkun();

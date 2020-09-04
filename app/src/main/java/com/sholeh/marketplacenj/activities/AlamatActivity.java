@@ -60,7 +60,7 @@ public class AlamatActivity extends AppCompatActivity implements View.OnClickLis
         id_konsumen = preferences.getIdKonsumen();
         imgtoolbar = findViewById(R.id.imgtoolbarF);
         tvx_title = findViewById(R.id.title);
-        tvx_title.setText("Ubah Profil");
+        tvx_title.setText("Alamat Saya");
         tvx_title.setTextColor(getResources().getColor(R.color.white));
         tvx_title.setVisibility(View.VISIBLE);
 
@@ -144,7 +144,7 @@ public class AlamatActivity extends AppCompatActivity implements View.OnClickLis
 
     public void getAlamat() {
         if (!NetworkUtility.isNetworkConnected(AlamatActivity.this)) {
-            AppUtilits.displayMessage(AlamatActivity.this, getString(R.string.network_not_connected));
+//            AppUtilits.displayMessage(AlamatActivity.this, getString(R.string.network_not_connected));
         } else {
             ProgresDialog();
             APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
@@ -193,7 +193,7 @@ public class AlamatActivity extends AppCompatActivity implements View.OnClickLis
                             progressDialogHud.dismiss();
                         }
                     } else {
-                        AppUtilits.displayMessage(AlamatActivity.this, getString(R.string.network_error));
+//                        AppUtilits.displayMessage(AlamatActivity.this, getString(R.string.network_error));
                         recyclerAlamat.setVisibility(View.GONE);
                         ln_kosong.setVisibility(View.VISIBLE);
                         progressDialogHud.dismiss();
@@ -203,7 +203,7 @@ public class AlamatActivity extends AppCompatActivity implements View.OnClickLis
 
                 @Override
                 public void onFailure(Call<ResProfil> call, Throwable t) {
-                    AppUtilits.displayMessage(AlamatActivity.this, getString(R.string.fail_togetaddress));
+//                    AppUtilits.displayMessage(AlamatActivity.this, getString(R.string.fail_togetaddress));
                     recyclerAlamat.setVisibility(View.GONE);
                     ln_kosong.setVisibility(View.VISIBLE);
                     progressDialogHud.dismiss();
