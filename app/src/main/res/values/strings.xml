@@ -52,7 +52,7 @@
     <string name="_32_gb">32GB</string>
     <string name="_64_gb">64GB</string>
     <string name="Rs">\u20B9</string>
-    <string name="review">253 Ratings &amp; 50 Reviews</string>
+    <string name="review">42 Ulasan</string>
     <string name="_128_gb">128GB</string>
     <string name="kategori">Kategori</string>
     <string name="stock">Stok: </string>
@@ -81,5 +81,6 @@
     <string name="dikirim">DIKIRIM</string>
     <string name="selesai">SELESAI</string>
     <string name="batal">DIBATALKAN</string>
+    <string name="revieworang">pengiriman cepat dan semua nya berfungsi</string>
 
 </resources>
