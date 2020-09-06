@@ -133,7 +133,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         //review
         namareview = findViewById(R.id.tvnamareview);
         diskripsireview  = findViewById(R.id.tvdiskripsireview);
-        tanggalreview  =findViewById(R.id.tvtglreview);
+//        tanggalreview  =findViewById(R.id.tvtglreview);
 
         namapelapak = findViewById(R.id.tv_nama_pelapak);
         fotopelapak = findViewById(R.id.img_foto_pelapak);
@@ -179,7 +179,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         txt3 = findViewById(R.id.txt3);
         txt4 = findViewById(R.id.txt4);
 
-        recyclerViewreview = findViewById(R.id.rvreview);
+//        recyclerViewreview = findViewById(R.id.rvreview);
 
         linear1.setOnClickListener(this);
         linear2.setOnClickListener(this);
