@@ -90,7 +90,6 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ViewHolder
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView namaProduk, hargaProduk, tvxdiskon, stok, terjual, deskripsi, type;
-//        private ImageView foto_produk;
         private SmartImageView foto_produk;
         RelativeLayout relativeDiskon;
 

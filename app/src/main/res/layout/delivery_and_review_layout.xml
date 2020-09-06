@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f6f6f6"
+    android:background="#FFFFFF"
     android:orientation="vertical">
 
     <!--    <LinearLayout-->
@@ -129,32 +129,41 @@
                 android:layout_marginTop="15dp"
                 android:orientation="vertical">
 
-
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginEnd="10dp"
                     android:orientation="horizontal">
 
                     <customfonts.MyTextView_Roboto_Bold
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Customer Review And "
+                        android:text="Ulasan Pembeli"
+                        android:layout_weight="1"
                         android:textColor="@color/black"
-                        android:textSize="12.7sp" />
+                        android:textSize="12dp" />
+
+                    <Space
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
 
                     <customfonts.MyTextView_Roboto_Bold
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="error"
-                        android:textColor="@color/black"
-                        android:textSize="12.7sp" />
+                        android:text="Lihat Semua"
+                        android:layout_marginEnd="10dp"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="10sp" />
+
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="10dp"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -178,7 +187,7 @@
                                 android:layout_marginRight="5dp"
                                 android:text="4.4"
                                 android:textColor="@color/white"
-                                android:textSize="12.3dp" />
+                                android:textSize="11sp" />
 
                             <ImageView
                                 android:layout_width="12dp"
@@ -201,7 +210,7 @@
                         android:layout_weight="1"
                         android:text="@string/review"
                         android:textColor="@color/cut_price"
-                        android:textSize="12.3sp" />
+                        android:textSize="10sp" />
 
                     <ImageView
                         android:layout_width="17dp"
@@ -232,11 +241,87 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:layout_width="wrap_content"
-                    android:id="@+id/rvreview"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    tools:listitem="@layout/item_review" />
+                    android:layout_margin="8dp"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+
+                    <!--            <customfonts.MyTextView_Roboto_Medium-->
+                    <!--                android:layout_width="wrap_content"-->
+                    <!--                android:layout_height="wrap_content"-->
+                    <!--                android:text="Top Review"-->
+                    <!--                android:textColor="#241f1f" />-->
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="20dp"
+                        android:orientation="horizontal">
+
+                        <!--                <TextView-->
+                        <!--                    android:layout_width="wrap_content"-->
+                        <!--                    android:layout_height="wrap_content"-->
+                        <!--                    android:text="Oleh "-->
+                        <!--                    android:textSize="10dp" />-->
+
+                        <customfonts.MyTextView_Roboto_Medium
+                            android:id="@+id/tvdiskripsireview"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Surprise Gift to my sister, she just jumped in air,loved it...."
+                            android:textColor="#545d64"
+                            android:textSize="11.3sp" />
+
+                        <!--                <customfonts.MyTextView_Roboto_Medium-->
+                        <!--                    android:layout_width="wrap_content"-->
+                        <!--                    android:layout_height="wrap_content"-->
+                        <!--                    android:text="Verifeid User"-->
+                        <!--                    android:textColor="@color/green"-->
+                        <!--                    android:textSize="11.3sp" />-->
+                    </LinearLayout>
+
+
+                    <customfonts.MyTextView_Roboto_Medium
+                        android:id="@+id/tvnamareview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="5dp"
+                        android:text="By Guest on 24 March 2017"
+                        android:textColor="@color/cut_price"
+                        android:textSize="10.3sp" />
+
+
+                    <!--        <customfonts.MyTextView_Roboto_Regular-->
+                    <!--            android:id="@+id/tvnamareview"-->
+                    <!--            android:layout_width="wrap_content"-->
+                    <!--            android:layout_height="wrap_content"-->
+                    <!--            android:layout_marginLeft="10dp"-->
+                    <!--            android:layout_marginTop="8dp"-->
+                    <!--            android:text="Surprise Gift to my sister, she just jumped in air,loved it...."-->
+                    <!--            android:textColor="#545d64"-->
+                    <!--            android:textSize="11.3sp" />-->
+
+
+                    <!--        <customfonts.MyTextView_Roboto_Regular-->
+                    <!--            android:layout_width="wrap_content"-->
+                    <!--            android:layout_height="wrap_content"-->
+                    <!--            android:layout_marginLeft="8dp"-->
+                    <!--            android:layout_marginTop="15dp"-->
+                    <!--            android:paddingBottom="10dp"-->
+                    <!--            android:text="View All Reviews"-->
+                    <!--            android:textColor="@color/red"-->
+                    <!--            android:textSize="12.7sp" />-->
+
+                </LinearLayout>
 
             </LinearLayout>
         </LinearLayout>

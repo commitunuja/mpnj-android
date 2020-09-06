@@ -43,7 +43,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.Holder> {
     public void onBindViewHolder(@NonNull Holder holder, int position) {
         reviewModel = reviewModels.get(position);
         holder.nama.setText(reviewModel.getReviewer());
-        holder.tanggal.setText(reviewModel.getReview());
+        holder.diskripsi.setText(reviewModel.getReview());
     }
 
     @Override
@@ -59,7 +59,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.Holder> {
 
             nama = itemView.findViewById(R.id.tvnamareview);
             diskripsi  = itemView.findViewById(R.id.tvdiskripsireview);
-            tanggal  = itemView.findViewById(R.id.tvtglreview);
+//            tanggal  = itemView.findViewById(R.id.tvtglreview);
 
         }
     }
