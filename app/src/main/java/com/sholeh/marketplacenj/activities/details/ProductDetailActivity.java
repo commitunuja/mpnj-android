@@ -554,6 +554,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                             .into(fotopelapak);
                     pelapak = jsonArray.getJSONObject(0).getJSONObject("pelapak").getString("nama_toko");
                     namapelapak.setText(pelapak);
+                    kategori.setText(pelapak);
                     id_pelapak = jsonArray.getJSONObject(0).getJSONObject("pelapak").getString("id_pelapak");
                     Log.d("CEK", "error" + fotopelapak);
                     viewPagerAdapter = new ViewPagerAdapter(getApplicationContext(), tampil);
