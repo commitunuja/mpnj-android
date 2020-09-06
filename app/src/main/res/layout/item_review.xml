@@ -36,13 +36,14 @@
                 android:layout_height="wrap_content"
                 android:text="Surprise Gift to my sister, she just jumped in air,loved it...."
                 android:textColor="@color/cut_price"
-                android:textSize="11.3sp" />
+                android:textSize="12.3sp" />
 
 
-            <ImageView
-                android:layout_margin="10dp"
+            <com.github.siyamed.shapeimageview.RoundedImageView
+                android:id="@+id/img_fotoreview"
+                android:layout_margin="5dp"
                 android:layout_width="match_parent"
-                android:layout_height="220dp"
+                android:layout_height="150dp"
                 android:src="@drawable/laptop" />
 
         </LinearLayout>
