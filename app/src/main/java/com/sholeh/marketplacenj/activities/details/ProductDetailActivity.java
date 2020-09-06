@@ -265,11 +265,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         } else {
             tambah.setText("LOGIN");
         }
-        kategori.setText(kategoriproduk);
-        if (kategoriproduk.equals("Sepatu")) {
-//            Toast.makeText(this, kategoriproduk, Toast.LENGTH_SHORT).show();
-//            linear5.removeAllViews();
-        }
+
         if (vdiskon == 0) {
 
             st2 = new StringTokenizer(formatRupiah.format(vhargaproduk), ",");
@@ -290,7 +286,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
 
         diskripsi.setText(Html.fromHtml(vdeskripsi));
-        kategori.setText(kategoriproduk);
+
 
 
         top_ten_crecyclerview = findViewById(R.id.top_ten_recyclerview);
