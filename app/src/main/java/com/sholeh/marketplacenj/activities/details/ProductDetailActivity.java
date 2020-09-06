@@ -337,10 +337,14 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                 namareview.setText(listreviews.get(0).getReviewer());
 //                tanggalreview.setText(listreviews.get(0).getReviewer());
                 diskripsireview.setText(listreviews.get(0).getReview());
+                Glide.with(getContext())
+                        .load(listreviews.get(0).getFoto_review())
+                        .into(fotoreview);
+
 //                reviewAdapter = new ReviewAdapter(ProductDetailActivity.this, listreviews);
 //                recyclerViewreview.setAdapter(reviewAdapter);
 //                Log.d("COBA", String.valueOf(response));
-                Toast.makeText(ProductDetailActivity.this, "" + listreviews.get(0).getReview(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProductDetailActivity.this, "" + listreviews.get(0).getFoto_review(), Toast.LENGTH_SHORT).show();
 
             }
 //            }
