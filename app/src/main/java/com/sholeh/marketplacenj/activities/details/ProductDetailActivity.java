@@ -586,15 +586,19 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                 @Override
                 public void onResponse(Call<ResKeranjang> call, Response<ResKeranjang> response) {
                     if (response.body() != null && response.isSuccessful()) {
+//                        Toast.makeText(ProductDetailActivity.this, "oke "+response.body().getPesan(), Toast.LENGTH_SHORT).show();
+                        progressDialogHud.dismiss();
                         if (response.body().getPesan().equalsIgnoreCase("sukses")) {
                             progressDialogHud.dismiss();
-                            toast.showToast(getString(R.string.item_added_to_your_cart));
-                            toast.showBlackbg();
+                            Toast.makeText(ProductDetailActivity.this, "Item Berhasil Di Tambahkan Keranjang", Toast.LENGTH_SHORT).show();
+//                            toast.showToast(getString(R.string.item_added_to_your_cart));
+//                            toast.showBlackbg();
 //                            AppUtilits.displayMessage(ProductDetailActivity.this, getString(R.string.add_to_cart));
 
                         } else {
                             progressDialogHud.dismiss();
-                            Toast.makeText(ProductDetailActivity.this, "Opps Terjadi Kesalahan Jaringan. Silahkan Coba Lagi Nanti", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ProductDetailActivity.this, "Gagal menambahkan produk ke keranjang, jumlah sudah melebihi stok", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(ProductDetailActivity.this, "Opps Terjadi Kesalahan Jaringan. Silahkan Coba Lagi Nanti", Toast.LENGTH_SHORT).show();
                         }
                     } else {
                         progressDialogHud.dismiss();
