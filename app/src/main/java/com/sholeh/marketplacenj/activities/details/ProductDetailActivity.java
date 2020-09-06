@@ -42,6 +42,7 @@ import com.sholeh.marketplacenj.model.review.ReviewModel;
 import com.sholeh.marketplacenj.respon.ResKeranjang;
 import com.sholeh.marketplacenj.respon.ResWishlist;
 import com.sholeh.marketplacenj.util.AppUtilits;
+import com.sholeh.marketplacenj.util.CONSTANTS;
 import com.sholeh.marketplacenj.util.CustomToast;
 import com.sholeh.marketplacenj.util.NetworkUtility;
 import com.sholeh.marketplacenj.util.Preferences;
@@ -111,7 +112,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
     StringTokenizer st1, st2, st3, st4;
     private List<Model> tvDataProduks;
     private Model tvDataProduk;
-    ImageView btnAddWishlist;
+    ImageView btnAddWishlist, fotoreview;
     private KProgressHUD progressDialogHud;
     ProgressBar myProgressBar;
     boolean login;
