@@ -64,7 +64,8 @@ public class AkunActivity extends AppCompatActivity implements View.OnClickListe
     private static final int REQ_ID = 9001;
     private static final int RESOLVE_HINT = 007;
 
-
+    TextView tvx_title;
+    ImageView imgtoolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +74,12 @@ public class AkunActivity extends AppCompatActivity implements View.OnClickListe
         preferences = new Preferences(getApplication());
         id_konsumen = preferences.getIdKonsumen();
         progressDialogHud = KProgressHUD.create(AkunActivity.this);
+        imgtoolbar = findViewById(R.id.imgtoolbarF);
+        tvx_title = findViewById(R.id.title);
+        tvx_title.setText("Ubah Profil");
+        tvx_title.setTextColor(getResources().getColor(R.color.white));
+        tvx_title.setVisibility(View.VISIBLE);
+        imgtoolbar.setOnClickListener(this);
 
 
         ed_username = findViewById(R.id.edUsername);
@@ -114,9 +121,10 @@ public class AkunActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.tvBatal:
                 finish();
                 break;
-//            case R.id.imgBackProfil:
-//                finish();
-//                break;
+
+            case  R.id.imgtoolbarF:
+                finish();
+                break;
 
             default:
                 break;

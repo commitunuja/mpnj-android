@@ -1,6 +1,4 @@
 package com.sholeh.marketplacenj.mfragment.profile;
-
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -59,7 +57,6 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
             tvx_Hp, tvx_profil, tvx_alamat, tvx_setting, tvx_email;
 
     LinearLayout lnpesananku, lnprofil, lnpass, lnAlamat;
-
 
     private CircleImageView imageProfil;
 
@@ -171,8 +168,6 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
             }
         });
         getDataPref();
-
-
         return rootView;
     }
 

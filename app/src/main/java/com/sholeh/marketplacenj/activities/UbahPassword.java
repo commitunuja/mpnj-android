@@ -6,6 +6,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,12 +35,20 @@ public class UbahPassword extends AppCompatActivity implements View.OnClickListe
     Preferences preferences;
     String id_konsumen;
 
+    TextView tvx_title;
+    ImageView imgtoolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ubah_password);
         preferences = new Preferences(getApplication());
         id_konsumen = preferences.getIdKonsumen();
+        imgtoolbar = findViewById(R.id.imgtoolbarF);
+        tvx_title = findViewById(R.id.title);
+        tvx_title.setText("Ubah Password");
+        tvx_title.setTextColor(getResources().getColor(R.color.white));
+        tvx_title.setVisibility(View.VISIBLE);
+        imgtoolbar.setOnClickListener(this);
 
 
         toolBarisi = findViewById(R.id.toolbar);
@@ -74,6 +83,10 @@ public class UbahPassword extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.tvBatal:
+                finish();
+                break;
+
+            case  R.id.imgtoolbarF:
                 finish();
                 break;
 
