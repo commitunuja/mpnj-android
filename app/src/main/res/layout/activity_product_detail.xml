@@ -729,15 +729,15 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:layout_marginTop="10dp"
+                        android:paddingTop="15dp"
                         android:background="@color/white"
                         android:orientation="horizontal">
 
-                        <de.hdodenhof.circleimageview.CircleImageView
+                        <com.github.siyamed.shapeimageview.RoundedImageView
                             android:id="@+id/img_foto_pelapak"
                             android:layout_width="50dp"
                             android:layout_height="50dp"
-                            android:src="@drawable/img" />
+                            android:src="@drawable/boarder_green_rounder_white" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
