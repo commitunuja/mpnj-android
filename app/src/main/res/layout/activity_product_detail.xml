@@ -33,7 +33,6 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
                         android:orientation="vertical">
 
 
@@ -44,7 +43,7 @@
                             android:layout_height="wrap_content"
                             android:indeterminate="true"
                             android:indeterminateBehavior="cycle"
-                            android:visibility="gone"/>
+                            android:visibility="gone" />
 
 
                         <FrameLayout
@@ -77,28 +76,27 @@
                             </RelativeLayout>
 
                             <LinearLayout
-                                android:layout_gravity="bottom|right"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="bottom|right"
                                 android:layout_marginLeft="20dp"
                                 android:layout_marginRight="20dp"
                                 android:orientation="horizontal">
 
                                 <RelativeLayout
-                                    android:gravity="right"
-                                    android:layout_weight="1"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content">
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:gravity="right">
 
 
                                     <ImageView
+                                        android:id="@+id/btn_addtowishlist"
                                         android:layout_width="50dp"
                                         android:layout_height="50dp"
-                                        android:id="@+id/btn_addtowishlist"
                                         android:src="@mipmap/ic_like_fille_green_24dp" />
 
                                 </RelativeLayout>
-
 
 
                             </LinearLayout>
@@ -205,20 +203,13 @@
 
                          </LinearLayout>-->
 
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="0.5dp"
-                            android:layout_marginTop="5dp"
-                            android:background="@color/viewline" />
-
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="22dp"
                             android:orientation="vertical">
 
-                            <customfonts.MyTextView_Roboto_Medium
+                            <customfonts.MyTextView_Roboto_Bold
                                 android:id="@+id/txtnama"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -237,8 +228,8 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text=" 60,999"
-                                    android:textColor="@color/black"
-                                    android:textSize="16.7sp" />
+                                    android:textColor="@color/cut_price"
+                                    android:textSize="12.7sp" />
 
                                 <customfonts.MyTextView_Roboto_Medium
                                     android:id="@+id/txtdiskon"
@@ -278,51 +269,44 @@
 
                             </LinearLayout>
 
-                            <customfonts.MyTextView_Roboto_Bold
-                                android:id="@+id/txtkategoriproduk"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="5dp"
-                                android:text="( 9% off )"
-                                android:textColor="@color/green"
-                                android:textSize="12sp" />
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-                                <de.hdodenhof.circleimageview.CircleImageView
-                                    android:id="@+id/img_foto_pelapak"
-                                    android:layout_width="50dp"
-                                    android:layout_height="50dp"
-                                    android:src="@drawable/img" />
-
-                                <customfonts.MyTextView_Roboto_Black
-                                    android:padding="5dp"
-                                    android:id="@+id/tv_nama_pelapak"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:layout_marginStart="10dp"
-                                    android:gravity="center"
-                                    android:text="nama pelapak"
-                                    android:textSize="12sp" />
-                            </LinearLayout>
-
                             <View
                                 android:layout_width="match_parent"
                                 android:layout_height="0.5dp"
-                                android:layout_marginTop="15dp"
+                                android:layout_marginTop="5dp"
                                 android:layout_marginRight="21.5dp"
                                 android:background="@color/viewline" />
 
                             <LinearLayout
-                                android:visibility="gone"
+                                android:paddingTop="10dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <customfonts.MyTextView_Roboto_Bold
+
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:paddingBottom="10dp"
+                                    android:text="Dijual oleh "
+                                    android:textColor="@color/cut_price"
+                                    android:textSize="10sp" />
+
+                                <customfonts.MyTextView_Roboto_Bold
+                                    android:id="@+id/txtkategoriproduk"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:paddingBottom="10dp"
+                                    android:text="( 9% off )"
+                                    android:textColor="@color/green"
+                                    android:textSize="10sp" />
+                            </LinearLayout>
+
+                            <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="20dp"
-                                android:orientation="horizontal">
+                                android:orientation="horizontal"
+                                android:visibility="gone">
 
                                 <LinearLayout
                                     android:layout_width="wrap_content"
@@ -384,30 +368,30 @@
                     android:background="#d7d4d4" />
 
                 <LinearLayout
-                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:orientation="vertical"
-                    android:paddingTop="17dp">
+                    android:paddingTop="17dp"
+                    android:visibility="gone">
 
                     <customfonts.MyTextView_Roboto_Bold
-                        android:visibility="gone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="25dp"
                         android:text="Storage"
                         android:textColor="@color/storage"
-                        android:textSize="12.3sp" />
+                        android:textSize="12.3sp"
+                        android:visibility="gone" />
 
 
                     <LinearLayout
-                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="25dp"
                         android:layout_marginTop="15dp"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:visibility="gone">
 
 
                         <LinearLayout
@@ -659,10 +643,10 @@
                 </LinearLayout>
 
                 <View
-                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
-                    android:background="#d7d4d4" />
+                    android:background="#d7d4d4"
+                    android:visibility="gone" />
 
                 <LinearLayout
 
@@ -674,10 +658,8 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
                         android:layout_marginTop="15dp"
-                        android:layout_marginRight="10dp"
-                        android:background="@drawable/rect_gray"
+                        android:background="@color/white"
                         android:orientation="vertical">
 
 
@@ -697,20 +679,20 @@
                             android:layout_marginTop="18dp"
                             android:orientation="vertical">
 
-                                <com.codesgood.views.JustifiedTextView
-                                    android:id="@+id/txtdiskripsi"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginRight="10dp"
-                                    android:maxLines="8"
-                                    android:text="Usually delivered in 3-4 days"
-                                    android:textColor="#777b7e"
-                                    android:textSize="13sp"
-                                    app:colorClickableText="@color/colorutama"
-                                    app:trimCollapsedText="@string/read_less"
-                                    app:trimExpandedText="@string/read_more"
-                                    app:trimLength="10"
-                                    app:trimMode="trimModeLength" />
+                            <com.codesgood.views.JustifiedTextView
+                                android:id="@+id/txtdiskripsi"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="10dp"
+                                android:maxLines="8"
+                                android:text="Usually delivered in 3-4 days"
+                                android:textColor="#777b7e"
+                                android:textSize="13sp"
+                                app:colorClickableText="@color/colorutama"
+                                app:trimCollapsedText="@string/read_less"
+                                app:trimExpandedText="@string/read_more"
+                                app:trimLength="10"
+                                app:trimMode="trimModeLength" />
 
                             <customfonts.TextViewSFProDisplayMedium
                                 android:id="@+id/tv_readmore"
@@ -724,15 +706,102 @@
 
 
                             <customfonts.MyTextView_Roboto_Regular
-                                android:visibility="gone"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="13sp"
                                 android:text="Enter pincode for exact delivery dates/charges"
                                 android:textColor="@color/cut_price"
-                                android:textSize="11sp" />
+                                android:textSize="11sp"
+                                android:visibility="gone" />
 
                         </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/white"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:paddingTop="15dp"
+                        android:background="@color/white"
+                        android:orientation="horizontal">
+
+                        <com.github.siyamed.shapeimageview.RoundedImageView
+                            android:id="@+id/img_foto_pelapak"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:src="@drawable/boarder_green_rounder_white" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <customfonts.MyTextView_Roboto_Bold
+                                android:id="@+id/tv_nama_pelapak"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:padding="2dp"
+                                android:text="nama pelapak"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/tv_alamat_pelapak"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:padding="2dp"
+                                android:layout_marginTop="3dp"
+                                android:drawableLeft="@drawable/ic_map"
+                                android:text="Paiton"
+                                android:drawablePadding="3dp"
+                                android:textColor="@color/cut_price"
+                                android:textSize="10sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@color/white"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/btn_chatpelapak"
+                            android:layout_width="128dp"
+                            android:layout_height="44.56dp"
+                            android:layout_marginRight="10dp"
+                            android:background="@drawable/floating_button"
+                            android:maxLines="1"
+                            android:paddingLeft="10dp"
+                            android:text="Chat Pelapak"
+                            android:textAllCaps="false"
+                            android:textColor="#ffffff"
+                            android:textSize="14sp" />
+
+
+                        <Button
+                            android:id="@+id/btnfollow"
+                            android:layout_width="128dp"
+                            android:layout_height="44.56dp"
+                            android:background="@drawable/floating_button"
+                            android:maxLines="1"
+                            android:paddingLeft="10dp"
+                            android:text="+   Follow"
+                            android:textAllCaps="false"
+                            android:textColor="#ffffff"
+                            android:textSize="14sp" />
+
                     </LinearLayout>
                 </LinearLayout>
 
@@ -747,19 +816,19 @@
                     android:orientation="horizontal">
 
                     <customfonts.MyTextView_Roboto_Medium
-                        android:layout_marginTop="10dp"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
                         android:layout_weight="1"
                         android:text="Produk Terbaru"
                         android:textColor="@color/black"
                         android:textSize="14sp" />
 
                     <customfonts.MyTextView_Roboto_Medium
-                        android:layout_marginTop="10dp"
                         android:id="@+id/tvx_allterkait"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
                         android:layout_marginRight="20dp"
                         android:text="Lihat Semua"
                         android:textColor="@color/red"
@@ -789,21 +858,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:orientation="vertical"
         android:gravity="right"
+        android:orientation="vertical"
         android:paddingBottom="20dp">
 
         <Button
             android:id="@+id/btntambah"
             android:layout_width="128dp"
             android:layout_height="44.56dp"
-            android:textSize="14sp"
+            android:background="@drawable/floating_button"
             android:maxLines="1"
-            android:textColor="#ffffff"
-            android:text="+   Add To Cart"
             android:paddingLeft="10dp"
+            android:text="+   Add To Cart"
             android:textAllCaps="false"
-            android:background="@drawable/floating_button"/>
+            android:textColor="#ffffff"
+            android:textSize="14sp" />
 
     </LinearLayout>
 
@@ -814,9 +883,9 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_marginRight="15dp"
-        android:visibility="gone"
         android:layout_marginBottom="20dp"
-        android:src="@drawable/filter_plus" />
+        android:src="@drawable/filter_plus"
+        android:visibility="gone" />
 
 
 </RelativeLayout>

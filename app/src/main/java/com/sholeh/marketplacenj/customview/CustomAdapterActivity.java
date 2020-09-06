@@ -1,4 +1,4 @@
-package com.sholeh.marketplacenj.custom;
+package com.sholeh.marketplacenj.customview;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -13,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.mancj.materialsearchbar.MaterialSearchBar;
 import com.sholeh.marketplacenj.R;
-import com.sholeh.marketplacenj.model.Model;
 
 import java.util.ArrayList;
 import java.util.List;

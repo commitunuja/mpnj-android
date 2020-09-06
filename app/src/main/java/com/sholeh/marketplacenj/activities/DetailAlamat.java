@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -85,6 +86,8 @@ public class DetailAlamat extends AppCompatActivity implements View.OnClickListe
     String id_konsumen;
     private KProgressHUD progressDialogHud;
 
+    TextView tvx_title;
+    ImageView imgtoolbar;
 
 
     @Override
@@ -92,6 +95,14 @@ public class DetailAlamat extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_alamat);
         preferences = new Preferences(getApplication());
+        imgtoolbar = findViewById(R.id.imgtoolbarF);
+        tvx_title = findViewById(R.id.title);
+        tvx_title.setText("Detail Alamat");
+        tvx_title.setTextColor(getResources().getColor(R.color.white));
+        tvx_title.setVisibility(View.VISIBLE);
+        imgtoolbar.setOnClickListener(this);
+
+
         id_konsumen = preferences.getIdKonsumen();
         progressDialogHud = KProgressHUD.create(DetailAlamat.this);
 
@@ -181,6 +192,10 @@ public class DetailAlamat extends AppCompatActivity implements View.OnClickListe
             case R.id.tvHapus:
                 deleteAlamat();
 
+                break;
+
+            case  R.id.imgtoolbarF:
+                finish();
                 break;
 
             default:

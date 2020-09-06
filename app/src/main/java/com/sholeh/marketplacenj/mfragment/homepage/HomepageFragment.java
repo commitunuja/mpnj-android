@@ -170,7 +170,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
         kategori();
 //        produksearch();
 
-        likeproduk();
+
         produkDiskon();
         produkTerbaru();
         produkTerlaris();

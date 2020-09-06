@@ -6,6 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class CONSTANTS {
     public static final String BASE_URL = "http://belanj.id/"; //rubah dengan IP devicenya
     public static final String SUB_DOMAIN = "http://seller.belanj.id/assets/foto_produk/";
+    public static final String FOTO_TOKO = "http://seller.belanj.id/assets/foto_toko/";
     public static final String ASSETBANK = "http://belanj.id/assets/foto_bank/";
     public static final String ASSETBANNER = "https://admin.belanj.id/assets/banner/";
 //    public static final String BASE_URL="http://192.168.137.154/mpnj/public/"; //rubah dengan IP devicenya

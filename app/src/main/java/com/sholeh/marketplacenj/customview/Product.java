@@ -1,4 +1,4 @@
-package com.sholeh.marketplacenj.custom;
+package com.sholeh.marketplacenj.customview;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

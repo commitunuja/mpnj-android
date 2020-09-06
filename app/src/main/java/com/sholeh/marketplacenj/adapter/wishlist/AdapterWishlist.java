@@ -22,6 +22,7 @@ import java.util.StringTokenizer;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -90,16 +91,19 @@ public class AdapterWishlist extends BaseAdapter {
         double diskon;
         ImageView imageView, imgdeleteWishlist;
         progressHud = KProgressHUD.create(context);
+        RelativeLayout relativeDiskon;
 
-        TextView txtNamaProduk, txthargaNormal, txthargaDiskon, tvxJumterjual, tvterjual, tvx_kabPenjual;
+        TextView txtNamaProduk, txthargaNormal, txthargaDiskon, tvxJumterjual, tvterjual, tvx_kabPenjual, tvxJumlahDiskon;
         txtNamaProduk = view.findViewById(R.id.txtProdukW);
         txthargaNormal = view.findViewById(R.id.txthargaw);
         txthargaDiskon = view.findViewById(R.id.txtdiskonw);
+        tvxJumlahDiskon = view.findViewById(R.id.tvx_jumlahDiskon);
         tvxJumterjual= view.findViewById(R.id.tvx_jumterjual);
         tvterjual = view.findViewById(R.id.tvTerjual);
         tvx_kabPenjual = view.findViewById(R.id.tvxkabPenjual);
         imageView = view.findViewById(R.id.img_imagew);
         imgdeleteWishlist = view.findViewById(R.id.imgDeleteWishlist);
+        relativeDiskon = view.findViewById(R.id.rdiskon);
 
         final modelWishlist model = tvDataWishlist.get(position);
         txtNamaProduk.setText(String.valueOf(model.getNamaProduk()));
@@ -128,7 +132,8 @@ public class AdapterWishlist extends BaseAdapter {
 
         if (diskon == 0){
             txthargaDiskon.setVisibility(View.GONE);
-//            txthargaDiskon.setText(" ");
+            txthargaDiskon.setText(" ");
+            relativeDiskon.setVisibility(View.GONE);
 
         }else{
             double h = diskon / 100 * hargaProduk;
@@ -142,6 +147,9 @@ public class AdapterWishlist extends BaseAdapter {
             txthargaDiskon.setText(hargaNormal);
             txthargaDiskon.setTextSize(10);
             txthargaNormal.setText(harganya);
+            relativeDiskon.setVisibility(View.VISIBLE);
+            int jumDiskon = (int) diskon;
+            tvxJumlahDiskon.setText(jumDiskon+"%");
         }
 
         int terjual = model.getTerjual();

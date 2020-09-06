@@ -42,6 +42,8 @@ import com.sholeh.marketplacenj.model.review.ReviewModel;
 import com.sholeh.marketplacenj.respon.ResKeranjang;
 import com.sholeh.marketplacenj.respon.ResWishlist;
 import com.sholeh.marketplacenj.util.AppUtilits;
+import com.sholeh.marketplacenj.util.CONSTANTS;
+import com.sholeh.marketplacenj.util.CustomToast;
 import com.sholeh.marketplacenj.util.NetworkUtility;
 import com.sholeh.marketplacenj.util.Preferences;
 import com.sholeh.marketplacenj.util.ServiceGenerator;
@@ -110,7 +112,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
     StringTokenizer st1, st2, st3, st4;
     private List<Model> tvDataProduks;
     private Model tvDataProduk;
-    ImageView btnAddWishlist;
+    ImageView btnAddWishlist, fotoreview;
     private KProgressHUD progressDialogHud;
     ProgressBar myProgressBar;
     boolean login;
@@ -118,6 +120,8 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
     private List<Model> tvDataProdukTerbaru;
     RecyclerView.LayoutManager dataapiTerbaru;
     ImageView imgToolbar;
+
+    private CustomToast toast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,14 +133,16 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         myProgressBar = findViewById(R.id.myProgressBar);
         myProgressBar.setIndeterminate(true);
         myProgressBar.setVisibility(View.VISIBLE);
+        toast = new CustomToast(this);
 
         //review
         namareview = findViewById(R.id.tvnamareview);
         diskripsireview  = findViewById(R.id.tvdiskripsireview);
-        tanggalreview  =findViewById(R.id.tvtglreview);
+//        tanggalreview  =findViewById(R.id.tvtglreview);
 
         namapelapak = findViewById(R.id.tv_nama_pelapak);
         fotopelapak = findViewById(R.id.img_foto_pelapak);
+        fotoreview = findViewById(R.id.img_fotoreview);
         right1 = findViewById(R.id.right1);
         right2 = findViewById(R.id.right2);
         right3 = findViewById(R.id.right3);
@@ -179,7 +185,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         txt3 = findViewById(R.id.txt3);
         txt4 = findViewById(R.id.txt4);
 
-        recyclerViewreview = findViewById(R.id.rvreview);
+//        recyclerViewreview = findViewById(R.id.rvreview);
 
         linear1.setOnClickListener(this);
         linear2.setOnClickListener(this);
@@ -259,11 +265,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         } else {
             tambah.setText("LOGIN");
         }
-        kategori.setText(kategoriproduk);
-        if (kategoriproduk.equals("Sepatu")) {
-//            Toast.makeText(this, kategoriproduk, Toast.LENGTH_SHORT).show();
-//            linear5.removeAllViews();
-        }
+
         if (vdiskon == 0) {
 
             st2 = new StringTokenizer(formatRupiah.format(vhargaproduk), ",");
@@ -284,7 +286,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
 
         diskripsi.setText(Html.fromHtml(vdeskripsi));
-        kategori.setText(kategoriproduk);
+
 
 
         top_ten_crecyclerview = findViewById(R.id.top_ten_recyclerview);
@@ -335,10 +337,14 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                 namareview.setText(listreviews.get(0).getReviewer());
 //                tanggalreview.setText(listreviews.get(0).getReviewer());
                 diskripsireview.setText(listreviews.get(0).getReview());
+                Glide.with(getContext())
+                        .load(listreviews.get(0).getFoto_review())
+                        .into(fotoreview);
+
 //                reviewAdapter = new ReviewAdapter(ProductDetailActivity.this, listreviews);
 //                recyclerViewreview.setAdapter(reviewAdapter);
 //                Log.d("COBA", String.valueOf(response));
-                Toast.makeText(ProductDetailActivity.this, "" + listreviews.get(0).getReview(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProductDetailActivity.this, "" + listreviews.get(0).getFoto_review(), Toast.LENGTH_SHORT).show();
 
             }
 //            }
@@ -548,6 +554,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                             .into(fotopelapak);
                     pelapak = jsonArray.getJSONObject(0).getJSONObject("pelapak").getString("nama_toko");
                     namapelapak.setText(pelapak);
+                    kategori.setText(pelapak);
                     id_pelapak = jsonArray.getJSONObject(0).getJSONObject("pelapak").getString("id_pelapak");
                     Log.d("CEK", "error" + fotopelapak);
                     viewPagerAdapter = new ViewPagerAdapter(getApplicationContext(), tampil);
@@ -570,7 +577,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
     public void addKeranjang() {
         if (!NetworkUtility.isNetworkConnected(ProductDetailActivity.this)) {
-            AppUtilits.displayMessage(ProductDetailActivity.this, getString(R.string.network_not_connected));
+//            AppUtilits.displayMessage(ProductDetailActivity.this, getString(R.string.network_not_connected));
         } else {
             final String harga_jual = String.valueOf(vhargaproduk);
             StringTokenizer st1 = new StringTokenizer(harga_jual, "Rp");
@@ -582,17 +589,23 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                 @Override
                 public void onResponse(Call<ResKeranjang> call, Response<ResKeranjang> response) {
                     if (response.body() != null && response.isSuccessful()) {
+//                        Toast.makeText(ProductDetailActivity.this, "oke "+response.body().getPesan(), Toast.LENGTH_SHORT).show();
+                        progressDialogHud.dismiss();
                         if (response.body().getPesan().equalsIgnoreCase("sukses")) {
                             progressDialogHud.dismiss();
-                            AppUtilits.displayMessage(ProductDetailActivity.this, getString(R.string.add_to_cart));
+                            Toast.makeText(ProductDetailActivity.this, "Item Berhasil Di Tambahkan Keranjang", Toast.LENGTH_SHORT).show();
+//                            toast.showToast(getString(R.string.item_added_to_your_cart));
+//                            toast.showBlackbg();
+//                            AppUtilits.displayMessage(ProductDetailActivity.this, getString(R.string.add_to_cart));
 
                         } else {
                             progressDialogHud.dismiss();
-                            Toast.makeText(ProductDetailActivity.this, "Terdapat Kesalahan Silahkan Coba Lagi Nanti", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ProductDetailActivity.this, "Gagal menambahkan produk ke keranjang, jumlah sudah melebihi stok", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(ProductDetailActivity.this, "Opps Terjadi Kesalahan Jaringan. Silahkan Coba Lagi Nanti", Toast.LENGTH_SHORT).show();
                         }
                     } else {
                         progressDialogHud.dismiss();
-                        Toast.makeText(ProductDetailActivity.this, "Terdapat Kesalahan Silahkan Coba Lagi Nanti", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ProductDetailActivity.this, "Terdapat Kesalahan Jaringan. Silahkan Coba Lagi Nanti", Toast.LENGTH_SHORT).show();
                     }
                 }
 
