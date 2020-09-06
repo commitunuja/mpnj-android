@@ -48,6 +48,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.JsonObject;
 import com.sholeh.marketplacenj.activities.checkout.CheckoutActivity;
+import com.sholeh.marketplacenj.activities.details.ProductDetailActivity;
 import com.sholeh.marketplacenj.activities.transaksi.KonfirmasiPembayaranActivity;
 import com.sholeh.marketplacenj.util.AppUtilits;
 import com.sholeh.marketplacenj.util.api.APIInterface;
@@ -225,29 +226,31 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 //                Log.d("cekregister", String.valueOf(response.body()));
                 if (response.body() != null && response.isSuccessful()) {
 //                    Toast.makeText(RegisterActivity.this, "Berhasil "+response.message(), Toast.LENGTH_SHORT).show();
-//                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-//                    startActivity(intent);
-//                    finish();
-                    if (response.body().getPesan().equalsIgnoreCase("username, nomor_hp, email, sudah ada")){
-                        Toast.makeText(RegisterActivity.this, "ada ", Toast.LENGTH_SHORT).show();
+
+                    if (response.body().getPesan().equalsIgnoreCase("Sukses!")){
+                        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                        finish();
+//                        Toast.makeText(RegisterActivity.this, "ada ", Toast.LENGTH_SHORT).show();
 //                        Toast.makeText(DetailAlamat.this, "Alamat Utama Tidak Dapat Dihapus", Toast.LENGTH_LONG).show();
 //                        progressDialogHud.dismiss();
 
                     }else{
-                        Toast.makeText(RegisterActivity.this, "tidak ada", Toast.LENGTH_SHORT).show();
-//                        Toast.makeText(DetailAlamat.this, "Alamat berhasil di hapus", Toast.LENGTH_LONG).show();
-//                        finish();
-//                        progressDialogHud.dismiss();
+                        Toast.makeText(RegisterActivity.this, String.valueOf(response.body().getPesan()), Toast.LENGTH_SHORT).show();
+////                        Toast.makeText(DetailAlamat.this, "Alamat berhasil di hapus", Toast.LENGTH_LONG).show();
+////                        finish();
+////                        progressDialogHud.dismiss();
                     }
                 } else {
-
-                    Toast.makeText(RegisterActivity.this, "Gagal", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "Terdapat Kesalahan Jaringan. Silahkan Coba Lagi Nanti", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(RegisterActivity.this, "Gagal", Toast.LENGTH_SHORT).show();
 //                    AppUtilits.displayMessage(RegisterActivity.this, getString(R.string.failed_request));
                 }
             }
 
             @Override
             public void onFailure(Call<ResRegristasi> call, Throwable t) {
+                Toast.makeText(RegisterActivity.this, "Internet Anda Kurang Stabil. Silahkan Coba Lagi", Toast.LENGTH_SHORT).show();
 //                Toast.makeText(context, "Koneksi Gagal "+t, Toast.LENGTH_SHORT).show();
 //                AppUtilits.displayMessage(RegisterActivity.this, getString(R.string.failed_request));
             }
