@@ -46,6 +46,9 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.gson.JsonObject;
+import com.sholeh.marketplacenj.activities.checkout.CheckoutActivity;
+import com.sholeh.marketplacenj.activities.transaksi.KonfirmasiPembayaranActivity;
 import com.sholeh.marketplacenj.util.AppUtilits;
 import com.sholeh.marketplacenj.util.api.APIInterface;
 import com.sholeh.marketplacenj.R;
@@ -57,6 +60,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.regex.Pattern;
@@ -212,15 +216,32 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         callNewREgistration.enqueue(new Callback<ResRegristasi>() {
             @Override
             public void onResponse(Call<ResRegristasi> call, Response<ResRegristasi> response) {
-                Log.d("cekregister", String.valueOf(response.message()));
+
+
+
+//                String responPesan = response.body().getPesan();
+
+////                Toast.makeText(RegisterActivity.this, "c "+String.valueOf(response.body()), Toast.LENGTH_SHORT).show();
+//                Log.d("cekregister", String.valueOf(response.body()));
                 if (response.body() != null && response.isSuccessful()) {
-                    Toast.makeText(RegisterActivity.this, "Berhasil", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                    startActivity(intent);
-                    finish();
+//                    Toast.makeText(RegisterActivity.this, "Berhasil "+response.message(), Toast.LENGTH_SHORT).show();
+//                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+//                    startActivity(intent);
+//                    finish();
+                    if (response.body().getPesan().equalsIgnoreCase("username, nomor_hp, email, sudah ada")){
+                        Toast.makeText(RegisterActivity.this, "ada ", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(DetailAlamat.this, "Alamat Utama Tidak Dapat Dihapus", Toast.LENGTH_LONG).show();
+//                        progressDialogHud.dismiss();
+
+                    }else{
+                        Toast.makeText(RegisterActivity.this, "tidak ada", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(DetailAlamat.this, "Alamat berhasil di hapus", Toast.LENGTH_LONG).show();
+//                        finish();
+//                        progressDialogHud.dismiss();
+                    }
                 } else {
 
-//                    Toast.makeText(context, "Gagal "+response, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "Gagal", Toast.LENGTH_SHORT).show();
 //                    AppUtilits.displayMessage(RegisterActivity.this, getString(R.string.failed_request));
                 }
             }
