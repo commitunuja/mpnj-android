@@ -284,12 +284,12 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
                             } else {
 //                                progressBar.setVisibility(View.GONE);
                                 progressHUD.dismiss();
-                                AppUtilits.displayMessage(context, "Gagal hapus produk dari keranjang");
+//                                AppUtilits.displayMessage(context, "Gagal hapus produk dari keranjang");
                             }
                         } else {
                             progressHUD.dismiss();
 //                            progressBar.setVisibility(View.GONE);
-                            AppUtilits.displayMessage(context, context.getString(R.string.network_error));
+//                            AppUtilits.displayMessage(context, context.getString(R.string.network_error));
                         }
 
                     }
@@ -298,7 +298,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
                     public void onFailure(Call<ResHapusKeranjang> call, Throwable t) {
                         progressHUD.dismiss();
 //                        progressBar.setVisibility(View.GONE);
-                        AppUtilits.displayMessage(context, context.getString(R.string.failed_request));
+//                        AppUtilits.displayMessage(context, context.getString(R.string.failed_request));
 
                     }
                 });
@@ -337,7 +337,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
                     getTotal();
 
                 } else {
-                    Toast.makeText(context, "gagal " + response.body(), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(context, "gagal " + response.body(), Toast.LENGTH_SHORT).show();
 //                                AppUtilits.displayMessage(mContext, mContext.getString(R.string.network_error));
                 }
             }
@@ -375,7 +375,7 @@ public class ExpandListScanAdapter extends BaseExpandableListAdapter {
 
 //
                 } else {
-                    Toast.makeText(context, "gagal " + response.body(), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(context, "gagal " + response.body(), Toast.LENGTH_SHORT).show();
 //                                AppUtilits.displayMessage(mContext, mContext.getString(R.string.network_error));
                 }
             }

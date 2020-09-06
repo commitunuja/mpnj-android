@@ -50,7 +50,7 @@ import static com.sholeh.marketplacenj.util.MyApp.getContext;
 public class AkunActivity extends AppCompatActivity implements View.OnClickListener, View.OnTouchListener,  GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
     EditText ed_nama;
-    TextView ed_nohp, ed_email, btn_UpdateProfil, btn_Batal, ed_username;
+    TextView ed_nohp, ed_email, btn_UpdateProfil, btn_Batal, ed_username, tvx_titleToolbar;
 
 
     private ResProfil tvDataProfil;
@@ -63,6 +63,8 @@ public class AkunActivity extends AppCompatActivity implements View.OnClickListe
 
     private static final int REQ_ID = 9001;
     private static final int RESOLVE_HINT = 007;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +80,8 @@ public class AkunActivity extends AppCompatActivity implements View.OnClickListe
         ed_nohp = findViewById(R.id.edNohp);
         ed_email = findViewById(R.id.edEmail);
         imgAkun = findViewById(R.id.profile_image);
-        imgBack = findViewById(R.id.imgBackProfil);
+        imgBack = findViewById(R.id.imgtoolbarF);
+        tvx_titleToolbar = findViewById(R.id.edit_txt);
         btn_UpdateProfil = findViewById(R.id.btnUpdateProfil);
         btn_Batal = findViewById(R.id.tvBatal);
         btn_UpdateProfil.setOnClickListener(this);
@@ -88,6 +91,8 @@ public class AkunActivity extends AppCompatActivity implements View.OnClickListe
         ed_email.setOnTouchListener(this);
 
         getDataProfi();
+        tvx_titleToolbar.setText("Ubah Profil");
+        tvx_titleToolbar.setTextColor(getResources().getColor(R.color.white));
 
     }
 
@@ -109,9 +114,9 @@ public class AkunActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.tvBatal:
                 finish();
                 break;
-            case R.id.imgBackProfil:
-                finish();
-                break;
+//            case R.id.imgBackProfil:
+//                finish();
+//                break;
 
             default:
                 break;

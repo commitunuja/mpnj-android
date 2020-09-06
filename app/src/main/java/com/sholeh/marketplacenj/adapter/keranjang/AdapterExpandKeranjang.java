@@ -280,11 +280,11 @@ public class AdapterExpandKeranjang extends BaseExpandableListAdapter {
                                 ((KeranjangFragment) fragment).getDetailKeranjang();
                                 progressHud.dismiss();
                             } else {
-                                AppUtilits.displayMessage(context, "Gagal hapus produk dari keranjang");
+//                                AppUtilits.displayMessage(context, "Gagal hapus produk dari keranjang");
                                 progressHud.dismiss();
                             }
                         } else {
-                            AppUtilits.displayMessage(context, context.getString(R.string.network_error));
+//                            AppUtilits.displayMessage(context, context.getString(R.string.network_error));
                             progressHud.dismiss();
                         }
 
@@ -292,7 +292,7 @@ public class AdapterExpandKeranjang extends BaseExpandableListAdapter {
 
                     @Override
                     public void onFailure(Call<ResHapusKeranjang> call, Throwable t) {
-                        AppUtilits.displayMessage(context, context.getString(R.string.failed_request));
+//                        AppUtilits.displayMessage(context, context.getString(R.string.failed_request));
                         progressHud.dismiss();
 
                     }
@@ -332,7 +332,7 @@ public class AdapterExpandKeranjang extends BaseExpandableListAdapter {
                     getTotal();
 
                 } else {
-                    Toast.makeText(context, "gagal " + response.body(), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(context, "gagal " + response.body(), Toast.LENGTH_SHORT).show();
 //                                AppUtilits.displayMessage(mContext, mContext.getString(R.string.network_error));
                 }
             }
@@ -370,7 +370,7 @@ public class AdapterExpandKeranjang extends BaseExpandableListAdapter {
 
 //
                 } else {
-                    Toast.makeText(context, "gagal " + response.body(), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(context, "gagal " + response.body(), Toast.LENGTH_SHORT).show();
 //                                AppUtilits.displayMessage(mContext, mContext.getString(R.string.network_error));
                 }
             }

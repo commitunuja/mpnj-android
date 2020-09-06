@@ -42,6 +42,7 @@ import com.sholeh.marketplacenj.model.review.ReviewModel;
 import com.sholeh.marketplacenj.respon.ResKeranjang;
 import com.sholeh.marketplacenj.respon.ResWishlist;
 import com.sholeh.marketplacenj.util.AppUtilits;
+import com.sholeh.marketplacenj.util.CustomToast;
 import com.sholeh.marketplacenj.util.NetworkUtility;
 import com.sholeh.marketplacenj.util.Preferences;
 import com.sholeh.marketplacenj.util.ServiceGenerator;
@@ -119,6 +120,8 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
     RecyclerView.LayoutManager dataapiTerbaru;
     ImageView imgToolbar;
 
+    private CustomToast toast;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -129,6 +132,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         myProgressBar = findViewById(R.id.myProgressBar);
         myProgressBar.setIndeterminate(true);
         myProgressBar.setVisibility(View.VISIBLE);
+        toast = new CustomToast(this);
 
         //review
         namareview = findViewById(R.id.tvnamareview);
@@ -570,7 +574,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
     public void addKeranjang() {
         if (!NetworkUtility.isNetworkConnected(ProductDetailActivity.this)) {
-            AppUtilits.displayMessage(ProductDetailActivity.this, getString(R.string.network_not_connected));
+//            AppUtilits.displayMessage(ProductDetailActivity.this, getString(R.string.network_not_connected));
         } else {
             final String harga_jual = String.valueOf(vhargaproduk);
             StringTokenizer st1 = new StringTokenizer(harga_jual, "Rp");
@@ -584,15 +588,17 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                     if (response.body() != null && response.isSuccessful()) {
                         if (response.body().getPesan().equalsIgnoreCase("sukses")) {
                             progressDialogHud.dismiss();
-                            AppUtilits.displayMessage(ProductDetailActivity.this, getString(R.string.add_to_cart));
+                            toast.showToast(getString(R.string.item_added_to_your_cart));
+                            toast.showBlackbg();
+//                            AppUtilits.displayMessage(ProductDetailActivity.this, getString(R.string.add_to_cart));
 
                         } else {
                             progressDialogHud.dismiss();
-                            Toast.makeText(ProductDetailActivity.this, "Terdapat Kesalahan Silahkan Coba Lagi Nanti", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ProductDetailActivity.this, "Opps Terjadi Kesalahan Jaringan. Silahkan Coba Lagi Nanti", Toast.LENGTH_SHORT).show();
                         }
                     } else {
                         progressDialogHud.dismiss();
-                        Toast.makeText(ProductDetailActivity.this, "Terdapat Kesalahan Silahkan Coba Lagi Nanti", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ProductDetailActivity.this, "Terdapat Kesalahan Jaringan. Silahkan Coba Lagi Nanti", Toast.LENGTH_SHORT).show();
                     }
                 }
 

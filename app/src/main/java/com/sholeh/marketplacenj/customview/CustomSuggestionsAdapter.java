@@ -1,4 +1,4 @@
-package com.sholeh.marketplacenj.custom;
+package com.sholeh.marketplacenj.customview;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,10 +10,8 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.mancj.materialsearchbar.adapter.SuggestionsAdapter;
 import com.sholeh.marketplacenj.R;
-import com.sholeh.marketplacenj.model.Model;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by mancj on 27.01.17.

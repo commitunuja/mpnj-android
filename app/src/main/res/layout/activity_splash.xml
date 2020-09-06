@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/bg"
+    android:background="@color/white"
     tools:context=".activities.Splash">
 
     <RelativeLayout
@@ -24,6 +24,7 @@
            />
 
         <com.romainpiel.shimmer.ShimmerTextView
+            android:visibility="gone"
             android:layout_below="@+id/ic_logo"
             android:id="@+id/shimmerText"
             android:layout_width="match_parent"

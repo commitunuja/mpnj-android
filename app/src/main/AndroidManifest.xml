@@ -52,22 +52,20 @@
         <activity android:name=".activities.ProdukByKategori" />
         <activity android:name=".activities.ImageProfilActivity" />
         <activity android:name=".activities.checkout.CheckoutActivity" />
-        <activity android:name=".custom.MainActivity2" />
+        <activity android:name=".customview.MainActivity2" />
         <activity
             android:name=".activities.DetailAlamat"
             android:theme="@style/AppBlack" />
         <activity android:name=".activities.AddAlamat" />
         <activity
-            android:name=".activities.AlamatActivity"
-            android:theme="@style/AppBlack" />
+            android:name=".activities.AlamatActivity" />
         <activity
             android:name=".activities.alamat.PilihAlamatCheckout"
             android:theme="@style/AppBlack" />
         <activity android:name=".activities.UbahPassword" />
         <activity android:name=".activities.PengaturanAkun" />
         <activity
-            android:name=".activities.AkunActivity"
-            android:theme="@style/AppBlack" />
+            android:name=".activities.AkunActivity" />
         <activity android:name=".activities.VerifikasiActivity" />
         <activity android:name=".activities.ForgotPassword" />
         <activity android:name=".activities.MainActivity" />

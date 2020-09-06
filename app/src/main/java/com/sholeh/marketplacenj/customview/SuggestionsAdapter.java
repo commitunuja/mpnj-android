@@ -1,4 +1,4 @@
-package com.sholeh.marketplacenj.custom;
+package com.sholeh.marketplacenj.customview;
 
 import android.view.LayoutInflater;
 import android.view.View;
