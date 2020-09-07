@@ -13,27 +13,36 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.activities.checkout.CheckoutActivity;
-import com.sholeh.marketplacenj.activities.keranjang.KeranjangDetailActivity;
-import com.sholeh.marketplacenj.adapter.keranjang.ExpandListScanAdapter;
+import com.sholeh.marketplacenj.adapter.keranjang.AdapterExpandKeranjang;
+import com.sholeh.marketplacenj.model.DataKeranjang;
+import com.sholeh.marketplacenj.model.ItemKeranjang;
+import com.sholeh.marketplacenj.model.ResDetailKeranjang;
 import com.sholeh.marketplacenj.model.keranjang.ChildModel;
 import com.sholeh.marketplacenj.model.keranjang.HeaderModel;
-import com.sholeh.marketplacenj.respon.DataKeranjang;
-import com.sholeh.marketplacenj.respon.ItemKeranjang;
-import com.sholeh.marketplacenj.respon.ResDetailKeranjang;
+import com.sholeh.marketplacenj.respon.DataCheckout;
+import com.sholeh.marketplacenj.respon.ItemCheckout;
+import com.sholeh.marketplacenj.respon.ResCheckout;
 import com.sholeh.marketplacenj.util.AppUtilits;
+import com.sholeh.marketplacenj.util.NetworkUtility;
 import com.sholeh.marketplacenj.util.Preferences;
 import com.sholeh.marketplacenj.util.ServiceGenerator;
 import com.sholeh.marketplacenj.util.api.APIInterface;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -43,10 +52,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 
 
-public class KeranjangFragment extends Fragment  implements View.OnClickListener {
-    private Context KeranjangDetailActivity;
+public class KeranjangFragment extends Fragment implements View.OnClickListener {
     private ExpandableListView listView;
-    private ExpandListScanAdapter expanAdapter;
+    private AdapterExpandKeranjang expanAdapter;
     private List<HeaderModel> listHeader;
     private HashMap<HeaderModel, List<ChildModel>> listChild;
     private TextView tvx_total, tvx_checkout, tvx_idk;
@@ -54,15 +62,14 @@ public class KeranjangFragment extends Fragment  implements View.OnClickListener
     public CheckBox cb_select_all, cbchild;
 
     Preferences preferences;
-    String id_konsumen;
-    String idkeranjang;
-    String idker;
+    String id_konsumen, idkeranjang;
     int hargaJual;
     private double hargaTotal;
     Locale localeID = new Locale("in", "ID");
     NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
     StringTokenizer st;
     private boolean cbAll;
+    List<String> list;
     ImageView imgBack;
 
     String CUSTOM_ACTION = "com.example.YOUR_ACTION";
@@ -72,26 +79,42 @@ public class KeranjangFragment extends Fragment  implements View.OnClickListener
     String[] extras;
     ArrayList<List<String>> myArray = new ArrayList<>();
 
+    ArrayList<String> arrayIdKeranjang;
+    String idkk;
+
+    LinearLayout lnKosong, lnTotalKeranjang;
+    TextView tvxDesainKosong;
+    private ProgressBar progress_bar;
+    Toolbar toolBarisi;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.activity_keranjang_detail, container, false);
-        setHasOptionsMenu(true);
-//        return inflater.inflate(R.layout.fragment_keranjang, container, false);
+    public void onResume() {
+        getDetailKeranjang();
+        super.onResume();
+    }
 
-
-        preferences = new Preferences(getContext());
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_keranjang, container, false);
+        preferences = new Preferences(getActivity());
+        AppCompatActivity appCompatActivity = (AppCompatActivity) getActivity();
+        toolBarisi = rootView.findViewById(R.id.toolbar);
+        toolBarisi.setTitle("Keranjang Saya");
+        appCompatActivity.setSupportActionBar(toolBarisi);
         id_konsumen = preferences.getIdKonsumen();
+        lnKosong = rootView.findViewById(R.id.lnKosong);
+        lnTotalKeranjang = rootView.findViewById(R.id.lnTotalKeranjang);
+        tvxDesainKosong = rootView.findViewById(R.id.tvDataKosong);
+        progress_bar = rootView.findViewById(R.id.progress_bar);
+
         tvx_total = rootView.findViewById(R.id.total);
         tvx_checkout = rootView.findViewById(R.id.tvx_checkout);
 
         listView = rootView.findViewById(R.id.expListhistori);
-        imgBack = rootView.findViewById(R.id.imgBackKeranjang);
-        cb_select_all = rootView.findViewById(R.id.cb_select_all);
+//        imgBack = rootView.findViewById(R.id.imgBackKeranjang);
         tvx_checkout.setOnClickListener(this);
-        imgBack.setOnClickListener(this);
+//        imgBack.setOnClickListener(this);
 
 
         getDetailKeranjang();
@@ -105,15 +128,16 @@ public class KeranjangFragment extends Fragment  implements View.OnClickListener
         });
 
 
+        cb_select_all = rootView.findViewById(R.id.cb_select_all);
         cb_select_all.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String harganya = tvx_total.getText().toString();
                 if (harganya.equalsIgnoreCase("Rp0")) {
-                    Drawable d = getResources().getDrawable(R.drawable.button_rect);
+                    Drawable d = getActivity().getResources().getDrawable(R.drawable.button_rect);
                     tvx_checkout.setBackground(d);
                 } else if (!harganya.equalsIgnoreCase("Rp0")) {
-                    Drawable d = getResources().getDrawable(R.drawable.button_rect_transparant);
+                    Drawable d = getActivity().getResources().getDrawable(R.drawable.button_rect_transparant);
                     tvx_checkout.setBackground(d);
                 }
 
@@ -130,15 +154,14 @@ public class KeranjangFragment extends Fragment  implements View.OnClickListener
             }
         });
 
-        LocalBroadcastManager.getInstance(getContext()).registerReceiver(mMessageReceiver,
+
+        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(mMessageReceiver,
                 new IntentFilter("custom-message"));
-        LocalBroadcastManager.getInstance(getContext()).registerReceiver(Receivercheck,
+        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(Receivercheck,
                 new IntentFilter("custom-cball"));
-        LocalBroadcastManager.getInstance(getContext()).registerReceiver(receiveridkeranjang,
+        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(receiveridkeranjang,
                 new IntentFilter("custom-idk"));
-//
-//        LocalBroadcastManager.getInstance(this).registerReceiver(rec,
-//                new IntentFilter("custom"));
+
         return rootView;
     }
 
@@ -150,174 +173,205 @@ public class KeranjangFragment extends Fragment  implements View.OnClickListener
                 if (harganya.equalsIgnoreCase("Rp0")) {
 
                 } else if (!harganya.equalsIgnoreCase("Rp0")) {
-
-
                     goChekout();
-
-
-//                    startActivity(new Intent(this, CheckoutActivity.class));
-//                    finish();
-
-
                 }
                 break;
             case R.id.imgBackKeranjang:
-//                finish();
+                getActivity().finish();
                 break;
 
             default:
                 break;
         }
-
     }
 
-
     public void getDetailKeranjang() {
-
-        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-
-        Call<ResDetailKeranjang> call = service.getDataDetailKeranjang(id_konsumen);
-
-        listHeader = new ArrayList<>();
-        listChild = new HashMap<>();
-        call.enqueue(new Callback<ResDetailKeranjang>() {
-            @Override
-            public void onResponse(Call<ResDetailKeranjang> call, retrofit2.Response<ResDetailKeranjang> response) {
-
-                //   Log.e(TAG, "response is "+ response.body() + "  ---- "+ new Gson().toJson(response.body()));
-                //  Log.e(TAG, "  ss sixe 1 ");
-                if (response.body() != null && response.isSuccessful()) {
-                    if (response.body().getDataKeranjang().size() > 0) {
-                        response.body().getTotalHarganya();
-
-                        listHeader.clear();
-                        listChild.clear();
-                        List<DataKeranjang> array = response.body().getDataKeranjang();
-                        for (int i = 0; i < array.size(); i++) {
-                            listHeader.add(new HeaderModel(response.body().getDataKeranjang().get(i).getIdToko(),
-                                    response.body().getDataKeranjang().get(i).getNamaToko(), false));
-
-                            child = new ArrayList<>();
-                            List<ItemKeranjang> childLink = array.get(i).getItem();
-                            for (int j = 0; j < childLink.size(); j++) {
-                                String idKeranjang = childLink.get(j).getIdKeranjang();
-                                String namaProduk = childLink.get(j).getNamaProduk();
-                                hargaJual = Integer.parseInt(String.valueOf(childLink.get(j).getHargaJual()));
-                                int diskon = Integer.parseInt((childLink.get(j).getDiskon()));
-                                int jumlah = Integer.parseInt(String.valueOf(childLink.get(j).getJumlah()));
-                                String foto = childLink.get(j).getFoto();
-                                int stok = Integer.parseInt(String.valueOf(childLink.get(j).getStok()));
-
-
-                                child.add(new ChildModel(idKeranjang, namaProduk, hargaJual, diskon, jumlah, foto, stok, false));
+        if (!NetworkUtility.isNetworkConnected(getActivity())) {
+//            AppUtilits.displayMessage(getActivity(), getString(R.string.network_not_connected));
+        } else {
+            APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+            Call<ResDetailKeranjang> call = service.getDataDetailKeranjang(id_konsumen);
+            listHeader = new ArrayList<>();
+            listChild = new HashMap<>();
+            call.enqueue(new Callback<ResDetailKeranjang>() {
+                @Override
+                public void onResponse(Call<ResDetailKeranjang> call, retrofit2.Response<ResDetailKeranjang> response) {
+                    if (response.body() != null && response.isSuccessful()) {
+                        if (response.body().getDataCheckout().size() > 0) {
+                            response.body().getTotalHarganya();
+                            listHeader.clear();
+                            listChild.clear();
+                            List<DataKeranjang> array = response.body().getDataCheckout();
+                            for (int i = 0; i < array.size(); i++) {
+                                listHeader.add(new HeaderModel(response.body().getDataCheckout().get(i).getIdToko(),
+                                        response.body().getDataCheckout().get(i).getNamaToko(), false));
+                                child = new ArrayList<>();
+                                List<ItemKeranjang> childLink = array.get(i).getItem();
+                                for (int j = 0; j < childLink.size(); j++) {
+                                    String idKeranjang = childLink.get(j).getIdKeranjang();
+                                    String idProduk = childLink.get(j).getIdProduk();
+                                    String namaProduk = childLink.get(j).getNamaProduk();
+                                    String kategori = childLink.get(j).getKategori().getNamaKategori();
+                                    String keterangan = childLink.get(j).getKeterangan();
+                                    hargaJual = Integer.parseInt(String.valueOf(childLink.get(j).getHargaJual()));
+                                    int diskon = Integer.parseInt((childLink.get(j).getDiskon()));
+                                    int jumlah = Integer.parseInt(String.valueOf(childLink.get(j).getJumlah()));
+                                    String foto = childLink.get(j).getFoto().get(0).getFotoProduk();
+                                    int stok = Integer.parseInt(String.valueOf(childLink.get(j).getStok()));
+                                    String terjual = childLink.get(j).getTerjual();
+                                    child.add(new ChildModel(idKeranjang, idProduk, namaProduk, kategori, keterangan, hargaJual, diskon, jumlah, foto, stok, terjual, false));
+                                }
+                                listChild.put(listHeader.get(i), child);
                             }
-                            listChild.put(listHeader.get(i), child);
+//                        Log.d("sholeh", new Gson().toJson(listChild));
+                            expanAdapter = new AdapterExpandKeranjang(getActivity(), listHeader, listChild, KeranjangFragment.this);
+                            listView.setAdapter(expanAdapter);
+                            int count = expanAdapter.getGroupCount();
+                            for (int i = 0; i < count; i++) {
+                                listView.expandGroup(i);
+                            }
+                            lnKosong.setVisibility(View.GONE);
+                            listView.setVisibility(View.VISIBLE);
+                            lnTotalKeranjang.setVisibility(View.VISIBLE);
+                            progress_bar.setVisibility(View.GONE);
+                        } else {
+                            listView.setVisibility(View.GONE);
+                            lnKosong.setVisibility(View.VISIBLE);
+                            tvxDesainKosong.setText("Barang Keranjangmu Belum Ada");
+                            lnTotalKeranjang.setVisibility(View.GONE);
+                            progress_bar.setVisibility(View.GONE);
+
                         }
-//                        Log.d("sholceng", new Gson().toJson(listChild));
-                        expanAdapter = new ExpandListScanAdapter(getContext(), listHeader, listChild);
-                        listView.setAdapter(expanAdapter);
-
-
-                        int count = expanAdapter.getGroupCount();
-                        for (int i = 0; i < count; i++) {
-                            listView.expandGroup(i);
-                        }
-
                     } else {
-                        AppUtilits.displayMessage(getContext(), getString(R.string.network_error));
+//                        Toast.makeText(KeranjangDetailActivity.this, "1", Toast.LENGTH_SHORT).show();
+                        listView.setVisibility(View.GONE);
+                        lnTotalKeranjang.setVisibility(View.GONE);
+                        lnKosong.setVisibility(View.VISIBLE);
+                        tvxDesainKosong.setText(R.string.network_error);
+                        progress_bar.setVisibility(View.GONE);
                     }
-                } else {
-                    AppUtilits.displayMessage(getContext(), getString(R.string.network_error));
                 }
-            }
 
-            @Override
-            public void onFailure(Call<ResDetailKeranjang> call, Throwable t) {
-//                Toast.makeText(KeranjangDetailActivity.this, "e"+t, Toast.LENGTH_SHORT).show();
-                //  Log.e(TAG, "  fail- add to cart item "+ t.toString());
-//                AppUtilits.displayMessage(KeranjangDetailActivity.this, getString(R.string.fail_toGetcart));
-                Log.d("cekkk", String.valueOf(t));
-            }
-        });
-//        }
+                @Override
+                public void onFailure(Call<ResDetailKeranjang> call, Throwable t) {
+                    listView.setVisibility(View.GONE);
+                    lnTotalKeranjang.setVisibility(View.GONE);
+                    lnKosong.setVisibility(View.VISIBLE);
+                    tvxDesainKosong.setText("Barang Keranjangmu Belum Ada");
+                    progress_bar.setVisibility(View.GONE);
+                    Log.d("cekkk", String.valueOf(t));
+                }
+            });
+        }
     }
 
 
     public void getTotal() {
-//        if (!NetworkUtility.isNetworkConnected(KeranjangDetailActivity.this)){
-//            AppUtilits.displayMessage(KeranjangDetailActivity.this,  getString(R.string.network_not_connected));
-//
-//        }else {
-        //  Log.e(TAG, "  user value "+ SharePreferenceUtils.getInstance().getString(Constant.USER_DATA));
+        if (!NetworkUtility.isNetworkConnected(getActivity())) {
+//            AppUtilits.displayMessage(getActivity(), getString(R.string.network_not_connected));
 
-        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+        } else {
+//            ProgresDialog();
+            APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+            Call<ResDetailKeranjang> call = service.getDataDetailKeranjang(id_konsumen);
+            listHeader = new ArrayList<>();
+            listChild = new HashMap<>();
+            call.enqueue(new Callback<ResDetailKeranjang>() {
+                @Override
+                public void onResponse(Call<ResDetailKeranjang> call, retrofit2.Response<ResDetailKeranjang> response) {
+                    String idKeranjang = null;
+                    ArrayList<String> myIdkCball = new ArrayList<>();
+                    if (response.body() != null && response.isSuccessful()) {
+                        if (response.body().getDataCheckout().size() > 0) {
+                            response.body().getTotalHarganya();
 
-        Call<ResDetailKeranjang> call = service.getDataDetailKeranjang(id_konsumen);
+                            listHeader.clear();
+                            listChild.clear();
+                            List<DataKeranjang> array = response.body().getDataCheckout();
+                            for (int i = 0; i < array.size(); i++) {
+                                listHeader.add(new HeaderModel(response.body().getDataCheckout().get(i).getIdToko(),
+                                        response.body().getDataCheckout().get(i).getNamaToko(), true));
 
-        listHeader = new ArrayList<>();
-        listChild = new HashMap<>();
-        call.enqueue(new Callback<ResDetailKeranjang>() {
-            @Override
-            public void onResponse(Call<ResDetailKeranjang> call, retrofit2.Response<ResDetailKeranjang> response) {
+                                child = new ArrayList<>();
+                                List<ItemKeranjang> childLink = array.get(i).getItem();
+                                for (int j = 0; j < childLink.size(); j++) {
+                                    idKeranjang = childLink.get(j).getIdKeranjang();
+                                    String idProduk = childLink.get(j).getIdProduk();
+                                    String namaProduk = childLink.get(j).getNamaProduk();
+                                    String kategori = childLink.get(j).getKategori().getNamaKategori();
+                                    String keterangan = childLink.get(j).getKeterangan();
+                                    hargaJual = Integer.parseInt(String.valueOf(childLink.get(j).getHargaJual()));
+                                    int diskon = Integer.parseInt((childLink.get(j).getDiskon()));
+                                    int jumlah = Integer.parseInt(String.valueOf(childLink.get(j).getJumlah()));
+                                    String foto = childLink.get(j).getFoto().get(0).getFotoProduk();
+                                    int stok = Integer.parseInt(String.valueOf(childLink.get(j).getStok()));
+                                    String terjual = childLink.get(j).getTerjual();
 
-                //   Log.e(TAG, "response is "+ response.body() + "  ---- "+ new Gson().toJson(response.body()));
-                //  Log.e(TAG, "  ss sixe 1 ");
-                if (response.body() != null && response.isSuccessful()) {
-                    if (response.body().getDataKeranjang().size() > 0) {
-                        response.body().getTotalHarganya();
-
-                        listHeader.clear();
-                        listChild.clear();
-                        List<DataKeranjang> array = response.body().getDataKeranjang();
-                        for (int i = 0; i < array.size(); i++) {
-                            listHeader.add(new HeaderModel(response.body().getDataKeranjang().get(i).getIdToko(),
-                                    response.body().getDataKeranjang().get(i).getNamaToko(), true));
-
-                            child = new ArrayList<>();
-                            List<ItemKeranjang> childLink = array.get(i).getItem();
-                            for (int j = 0; j < childLink.size(); j++) {
-                                String idKeranjang = childLink.get(j).getIdKeranjang();
-                                String namaProduk = childLink.get(j).getNamaProduk();
-                                hargaJual = Integer.parseInt(String.valueOf(childLink.get(j).getHargaJual()));
-                                int diskon = Integer.parseInt((childLink.get(j).getDiskon()));
-                                int jumlah = Integer.parseInt(String.valueOf(childLink.get(j).getJumlah()));
-                                String foto = childLink.get(j).getFoto();
-                                int stok = Integer.parseInt(String.valueOf(childLink.get(j).getStok()));
-
-
-                                child.add(new ChildModel(idKeranjang, namaProduk, hargaJual, diskon, jumlah, foto, stok, true));
+                                    myIdkCball.add(idKeranjang);
+                                    child.add(new ChildModel(idKeranjang, idProduk, namaProduk, kategori, keterangan, hargaJual, diskon, jumlah, foto, stok, terjual, true));
+                                }
+                                listChild.put(listHeader.get(i), child);
                             }
-                            listChild.put(listHeader.get(i), child);
-                        }
 //                        Log.d("sholceng", new Gson().toJson(listChild));
-                        expanAdapter = new ExpandListScanAdapter(getContext(), listHeader, listChild);
-                        listView.setAdapter(expanAdapter);
-                        int count = expanAdapter.getGroupCount();
-                        for (int i = 0; i < count; i++) {
-                            listView.expandGroup(i);
+                            expanAdapter = new AdapterExpandKeranjang(getActivity(), listHeader, listChild, KeranjangFragment.this);
+                            listView.setAdapter(expanAdapter);
+                            int count = expanAdapter.getGroupCount();
+                            for (int i = 0; i < count; i++) {
+                                listView.expandGroup(i);
+                            }
+                            String id = String.valueOf(myIdkCball);
+                            String[] nomor = id.split("\\[");
+                            String[] nomor2 = nomor[1].split("]");
+                            String harIDK = "";
+
+                            for (int i = 0; i < nomor2.length; i++) {
+                                harIDK = harIDK + nomor2[i];
+                            }
+                            idkk = harIDK;
+//                        Log.d("id cball", idkk);
+                            double totalnya = response.body().getTotalHarganya();
+                            st = new StringTokenizer(formatRupiah.format(totalnya), ",");
+                            String splitotal = st.nextToken().trim();
+                            tvx_total.setText(splitotal);
+                            lnKosong.setVisibility(View.GONE);
+                            listView.setVisibility(View.VISIBLE);
+                            lnTotalKeranjang.setVisibility(View.VISIBLE);
+                            progress_bar.setVisibility(View.GONE);
+
+                        } else {
+                            listView.setVisibility(View.GONE);
+                            lnTotalKeranjang.setVisibility(View.GONE);
+                            lnKosong.setVisibility(View.VISIBLE);
+                            tvxDesainKosong.setText("Barang Keranjangmu Belum Ada");
+                            progress_bar.setVisibility(View.GONE);
+//                            AppUtilits.displayMessage(KeranjangDetailActivity.this, getString(R.string.network_error));
                         }
-
-                        double totalnya = response.body().getTotalHarganya();
-                        st = new StringTokenizer(formatRupiah.format(totalnya), ",");
-                        String splitotal = st.nextToken().trim();
-                        tvx_total.setText(splitotal);
-
                     } else {
-                        AppUtilits.displayMessage(getContext(), getString(R.string.network_error));
-                    }
-                } else {
-                    AppUtilits.displayMessage(getContext(), getString(R.string.network_error));
-                }
-            }
+//                        AppUtilits.displayMessage(KeranjangDetailActivity.this, getString(R.string.network_error));
+                        listView.setVisibility(View.GONE);
+                        lnTotalKeranjang.setVisibility(View.GONE);
+                        lnKosong.setVisibility(View.VISIBLE);
+                        tvxDesainKosong.setText(R.string.network_error);
+                        progress_bar.setVisibility(View.GONE);
 
-            @Override
-            public void onFailure(Call<ResDetailKeranjang> call, Throwable t) {
-//                Toast.makeText(KeranjangDetailActivity.this, "e"+t, Toast.LENGTH_SHORT).show();
-                //  Log.e(TAG, "  fail- add to cart item "+ t.toString());
-//                AppUtilits.displayMessage(KeranjangDetailActivity.this, getString(R.string.fail_toGetcart));
-                Log.d("cekkk", String.valueOf(t));
-            }
-        });
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResDetailKeranjang> call, Throwable t) {
+                    listView.setVisibility(View.GONE);
+                    lnTotalKeranjang.setVisibility(View.GONE);
+                    lnKosong.setVisibility(View.VISIBLE);
+                    tvxDesainKosong.setText("Barang Keranjangmu Belum Ada");
+                    progress_bar.setVisibility(View.GONE);
+//                    listView.setVisibility(View.GONE);
+//                    lnKosong.setVisibility(View.VISIBLE);
+//                    tvxDesainKosong.setText(R.string.network_error);
+//                    AppUtilits.displayMessage(KeranjangDetailActivity.this, getString(R.string.network_error));
+                    Log.d("cekkk", String.valueOf(t));
+                }
+            });
+        }
     }
 
     public BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
@@ -328,7 +382,6 @@ public class KeranjangFragment extends Fragment  implements View.OnClickListener
             st = new StringTokenizer(formatRupiah.format(hargaTotal), ",");
             String harganya = st.nextToken().trim();
             tvx_total.setText(harganya);
-
             if (harganya.equalsIgnoreCase("Rp0")) {
                 Drawable d = context.getResources().getDrawable(R.drawable.button_rect_transparant);
                 tvx_checkout.setBackground(d);
@@ -343,14 +396,11 @@ public class KeranjangFragment extends Fragment  implements View.OnClickListener
         @Override
         public void onReceive(Context context, Intent intent) {
             String valParent = intent.getStringExtra("valParent");
-//            Toast.makeText(context, "val "+valParent, Toast.LENGTH_SHORT).show();
             if (valParent.equalsIgnoreCase("false")) {
                 cb_select_all.setChecked(false);
             } else {
                 cb_select_all.setChecked(true);
             }
-
-
         }
     };
 
@@ -358,104 +408,38 @@ public class KeranjangFragment extends Fragment  implements View.OnClickListener
         @Override
         public void onReceive(Context context, Intent intent) {
             idkeranjang = intent.getStringExtra("idkeranjang");
+            String[] nomor = idkeranjang.split("\\[");
+            String[] nomor2 = nomor[1].split("]");
+            String harIDK = "";
 
-//          extras = intent.getStringArrayExtra("idkeranjang");
-//            Toast.makeText(context, ""+idkeranjang, Toast.LENGTH_SHORT).show();
-//
-
-//          id.append(idkeranjang);
-//
-            String[] arrayid = {idkeranjang};
-//
-            for (int a = 0; a < arrayid.length; a++) {
-//                idK = arrayid[a];
-
-
-                id.append(arrayid[a]);
-//                tvx_idk.setText(null);
-//              tvx_idk.setTex  tvx_idk.setText("");
-
-//                tvx_idk.append(arrayid[a]+", ");
-
+            for (int i = 0; i < nomor2.length; i++) {
+                harIDK = harIDK + nomor2[i];
             }
-//            tvx_idk.setText(id);
-//            String idk = tvx_idk.getText().toString();
-//            String[] nomor = idk.split(",");
-
-
-//            Toast.makeText(context, ""+nomor[0], Toast.LENGTH_SHORT).show();
-//            tvx_idk.append(idkeranjang);
-
-
-//            Toast.makeText(context, ""+idkeranjang, Toast.LENGTH_SHORT).show();
-
-
-//            Toast.makeText(context, ""+idK, Toast.LENGTH_SHORT).show();
-
-//            Toast.makeText(context, "id"+idkeranjang, Toast.LENGTH_SHORT).show();
-
-//           for(int i = 0; i <idkeranjang.length; i++){
-//               Toast.makeText(context, "indeks "+i+" id"+id[i], Toast.LENGTH_SHORT).show();
-//           }
-//            Toast.makeText(context, "id "+id, Toast.LENGTH_SHORT).show();
-//            Toast.makeText(context, ""+idkeranjang, Toast.LENGTH_SHORT).show();
-////////           String id = idkeranjang;
-//
-//            for (int i =0; i < i < idkeranjang.length(); i++){
-//
-//            }
-
-
-//            int id []= new int[Integer.parseInt(idkeranjang)];
-
-
-//            goChekout(id);
-//            for (int a =0; a < id.length; a++){
-//                idK = id[a];
-//            }
-
-//            Toast.makeText(context, ""+id, Toast.LENGTH_SHORT).show();
-
-
+            idkk = harIDK;
+            String[] yolo = idkk.split(",");
+            list = new ArrayList<String>();
+            list = Arrays.asList(yolo);
         }
     };
 
-//    private BroadcastReceiver rec = new BroadcastReceiver() {
-//        @Override
-//        public void onReceive(Context context, Intent intent) {
-//            idker =  intent.getStringExtra("idke");
-//            myArray.add(Arrays.asList(idker));
-//
-////            Toast.makeText(context, ""+myArray, Toast.LENGTH_SHORT).show();
-//            Log.d("idker",String.valueOf( myArray));
-//            tvx_idk.setText(String.valueOf(myArray));
-//            Toast.makeText(context, "id "+String.valueOf( myArray.), Toast.LENGTH_SHORT).show();
-//        }
-//    };
+
+    private void goChekout() {
+        String id[] = {idkk};
+        arrayIdKeranjang = new ArrayList<>();
+        for (int a = 0; a < id.length; a++) {
+            arrayIdKeranjang.add(id[a]);
+        }
+        Intent goCheckout = new Intent(getActivity(), CheckoutActivity.class);
+        goCheckout.putStringArrayListExtra("idcheckout", arrayIdKeranjang);
+        goCheckout.putExtra("icheckout", "fragment");
+        startActivity(goCheckout);
+//        getActivity().finish();
+    }
+
 
     @Override
     public void onPause() {
         super.onPause();
     }
 
-
-    private void goChekout() {
-
-        String id[] = {idkeranjang}; // lenght idk = 7 =id =1
-        String idK = null;
-        ArrayList<String> id_keranjang = new ArrayList<>();
-        String gas = "";
-
-        for (int a = 0; a < id.length; a++) {
-            idK = id[a];
-            id_keranjang.add(id[a]);
-            gas += id[a] + ",";
-        }
-//        Toast.makeText(this,gas, Toast.LENGTH_SHORT).show();
-//        Toast.makeText(this,"idkeranjang "+idK, Toast.LENGTH_SHORT).show();
-        Intent goCheckout = new Intent(getContext(), CheckoutActivity.class);
-//        goCheckout.putExtra("gas", gas);
-        goCheckout.putStringArrayListExtra("yolo", id_keranjang);
-        startActivity(goCheckout);
-    }
 }

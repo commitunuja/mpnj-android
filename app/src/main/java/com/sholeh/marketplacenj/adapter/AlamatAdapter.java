@@ -36,13 +36,14 @@ public class AlamatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     }
     private class AlamatItemView extends RecyclerView.ViewHolder {
-        TextView tvxidAlamat, tvxnamaCustomer,  tvxNoHP, tvxAlamat, tvxKec, tvxKab, tvxProvinsi, tvxKodePos, tvxStatusAlamat ;
+        TextView tvxidAlamat, tvxSetAlamat, tvxnamaCustomer,  tvxNoHP, tvxAlamat, tvxKec, tvxKab, tvxProvinsi, tvxKodePos, tvxStatusAlamat ;
         ImageView imageselect;
         CardView cvAlamat;
 
 
         public AlamatItemView(View itemView) {
             super(itemView);
+            tvxSetAlamat = itemView.findViewById(R.id.tvx_setAlamat);
             tvxnamaCustomer = itemView.findViewById(R.id.tvx_namaCustomer);
             tvxNoHP =  itemView.findViewById(R.id.tvx_nohp);
             tvxAlamat = itemView.findViewById(R.id.tvx_alamat);
@@ -70,21 +71,30 @@ public class AlamatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         //  Log.e(TAG, "bind view "+ position);
         final AlamatModel model =  alamat_models.get(position);
-
-
+        String noHp = model.getNomorHP();
+        String alamatLengkap = model.getAlamatLengkap();
+        String Kecamatan = model.getNamaKec();
+        String Kota = model.getNamaKota();
+        String Provinsi = model.getNamaProvinsi();
+        String KodePos = model.getKodePos();
+        String alamatgabung = noHp+", "+alamatLengkap+", "+Kecamatan+", "+Kota+", "+Provinsi+", "+"ID "+KodePos;
         ((AlamatItemView) holder).tvxnamaCustomer.setText(model.getNamaLengkap());
-        ((AlamatItemView) holder).tvxNoHP.setText(model.getNomorHP());
-        ((AlamatItemView) holder).tvxAlamat.setText(model.getAlamatLengkap());
-        ((AlamatItemView) holder).tvxKec.setText("Kec. "+model.getNamaKec());
-        ((AlamatItemView) holder).tvxKab.setText("Kab. "+model.getNamaKota());
-        ((AlamatItemView) holder).tvxProvinsi.setText("Prov. "+model.getNamaProvinsi());
-        ((AlamatItemView) holder).tvxKodePos.setText(model.getKodePos());
+        ((AlamatItemView) holder).tvxSetAlamat.setText(alamatgabung);
+
+//        ((AlamatItemView) holder).tvxNoHP.setText(model.getNomorHP());
+//        ((AlamatItemView) holder).tvxAlamat.setText(model.getAlamatLengkap());
+//        ((AlamatItemView) holder).tvxKec.setText("Kec. "+model.getNamaKec());
+//        ((AlamatItemView) holder).tvxKab.setText("Kab. "+model.getNamaKota());
+//        ((AlamatItemView) holder).tvxProvinsi.setText("Prov. "+model.getNamaProvinsi());
+//        ((AlamatItemView) holder).tvxKodePos.setText(model.getKodePos());
+
+
 
 
         if (model.getStatus().equalsIgnoreCase("utama")){
             ((AlamatItemView) holder).tvxStatusAlamat.setText("[Utama]");
             ((AlamatItemView) holder).cvAlamat.setBackgroundResource(R.drawable.boarder_green_rounder_white);
-            ((AlamatItemView) holder).imageselect.setVisibility(View.VISIBLE);
+            ((AlamatItemView) holder).imageselect.setVisibility(View.GONE);
 
         }else{
             ((AlamatItemView) holder).cvAlamat.setBackgroundResource(R.drawable.boarder_black_rounder_white);

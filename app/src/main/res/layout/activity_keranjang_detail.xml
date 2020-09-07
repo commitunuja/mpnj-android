@@ -13,6 +13,14 @@
 
         <include layout="@layout/toolbar_keranjang"/>
 
+        <include layout="@layout/desain_kosong"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
 
 
         <LinearLayout
@@ -21,6 +29,7 @@
             android:orientation="vertical"
             android:layout_height="wrap_content"
             android:background="@drawable/rect_recycler">
+
 
             <ExpandableListView
                 android:id="@+id/expListhistori"
@@ -31,6 +40,8 @@
                 android:clipToPadding="false"
                 android:divider="@color/green_semi_transparent"
                 android:groupIndicator="@null" />
+
+
 
         </LinearLayout>
 

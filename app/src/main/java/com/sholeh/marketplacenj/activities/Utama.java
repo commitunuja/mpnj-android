@@ -70,8 +70,11 @@ public class Utama extends AppCompatActivity implements BottomNavigationView.OnN
                     .commit();
         }
 
-        fm.beginTransaction().add(R.id.nav_host_fragment, favoritFragment, "2").hide(favoritFragment).commit();
+
+
         fm.beginTransaction().add(R.id.nav_host_fragment, fragmentProfil, "1").hide(fragmentProfil).commit();
+        fm.beginTransaction().add(R.id.nav_host_fragment, favoritFragment, "2").hide(favoritFragment).commit();
+        fm.beginTransaction().add(R.id.nav_host_fragment, keranjangFragment, "3").hide(keranjangFragment).commit();
 
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
 
@@ -152,8 +155,10 @@ public class Utama extends AppCompatActivity implements BottomNavigationView.OnN
                 Toast.makeText(this, "Ini hanya View", Toast.LENGTH_SHORT).show();
                 return true;
 
-            case R.id.navigation_transaksi:
-                Toast.makeText(this, "Ini hanya View", Toast.LENGTH_SHORT).show();
+            case R.id.navigation_keranjang:
+//                Toast.makeText(this, "Ini hanya View", Toast.LENGTH_SHORT).show();
+                fm.beginTransaction().hide(active).show(keranjangFragment).commit();
+                active = keranjangFragment;
                 return true;
 
             case R.id.navigation_account:

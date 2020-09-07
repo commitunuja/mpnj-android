@@ -13,7 +13,10 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <include layout="@layout/toolbar_fragment_profil"/>
+
         <com.google.android.material.appbar.AppBarLayout
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:theme="@style/AppTheme.AppBarOverlay">
@@ -66,19 +69,20 @@
                     android:orientation="vertical">
 
                     <LinearLayout
+                        android:padding="5dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:orientation="horizontal">
 
-                        <TextView
+                        <customfonts.MyTextView_Roboto_Regular
                             android:layout_width="match_parent"
                             android:layout_height="20sp"
                             android:layout_weight="1"
                             android:text="Nama"
                             android:textSize="12sp" />
 
-                        <EditText
+                        <customfonts.EditText_Roboto_Regular
                             android:id="@+id/ed_nama"
                             android:layout_width="match_parent"
                             android:layout_height="20sp"
@@ -109,19 +113,20 @@
                     android:orientation="vertical">
 
                     <LinearLayout
+                        android:padding="5dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:orientation="horizontal">
 
-                        <TextView
+                        <customfonts.MyTextView_Roboto_Regular
                             android:layout_width="match_parent"
                             android:layout_height="20sp"
                             android:layout_weight="1"
                             android:text="No. Hp"
                             android:textSize="12sp" />
 
-                        <EditText
+                        <customfonts.EditText_Roboto_Regular
                             android:id="@+id/ed_nohp"
                             android:layout_width="match_parent"
                             android:layout_height="20sp"
@@ -152,12 +157,13 @@
                     android:orientation="vertical">
 
                     <LinearLayout
+                        android:padding="5dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:orientation="horizontal">
 
-                        <TextView
+                        <customfonts.MyTextView_Roboto_Regular
                             android:layout_width="match_parent"
                             android:layout_height="20sp"
                             android:layout_weight="1"
@@ -170,7 +176,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
 
-                        <TextView
+                        <customfonts.MyTextView_Roboto_Regular
                             android:textColor="#000000"
                             android:id="@+id/ed_prov"
                             android:layout_width="match_parent"
@@ -204,12 +210,13 @@
                     android:orientation="vertical">
 
                     <LinearLayout
+                        android:padding="5dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:orientation="horizontal">
 
-                        <TextView
+                        <customfonts.MyTextView_Roboto_Regular
                             android:layout_width="match_parent"
                             android:layout_height="20sp"
                             android:layout_weight="1"
@@ -223,8 +230,7 @@
                             android:layout_height="wrap_content" />
 
 
-                        <TextView
-
+                        <customfonts.MyTextView_Roboto_Regular
                             android:textColor="#000000"
                             android:id="@+id/ed_kota"
                             android:layout_width="match_parent"
@@ -260,12 +266,13 @@
                     android:orientation="vertical">
 
                     <LinearLayout
+                        android:padding="5dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:orientation="horizontal">
 
-                        <TextView
+                        <customfonts.MyTextView_Roboto_Regular
                             android:layout_width="match_parent"
                             android:layout_height="20sp"
                             android:layout_weight="1"
@@ -278,7 +285,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
 
-                        <TextView
+                        <customfonts.MyTextView_Roboto_Regular
                             android:textColor="#000000"
                             android:id="@+id/ed_kec"
                             android:layout_width="match_parent"
@@ -313,19 +320,20 @@
                     android:orientation="vertical">
 
                     <LinearLayout
+                        android:padding="5dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:orientation="horizontal">
 
-                        <TextView
+                        <customfonts.MyTextView_Roboto_Regular
                             android:layout_width="match_parent"
                             android:layout_height="20sp"
                             android:layout_weight="1"
                             android:text="Kode Pos"
                             android:textSize="12sp" />
 
-                        <EditText
+                        <customfonts.EditText_Roboto_Regular
                             android:id="@+id/ed_kodepos"
                             android:inputType="number"
                             android:layout_width="match_parent"
@@ -357,19 +365,20 @@
                     android:orientation="vertical">
 
                     <LinearLayout
+                        android:padding="5dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:orientation="vertical">
 
-                        <TextView
+                        <customfonts.MyTextView_Roboto_Regular
                             android:layout_width="match_parent"
                             android:layout_height="20sp"
                             android:layout_weight="1"
                             android:text="Alamat Lengkap"
                             android:textSize="12sp" />
 
-                        <EditText
+                        <customfonts.EditText_Roboto_Regular
                             android:id="@+id/ed_alamat"
                             android:layout_width="match_parent"
                             android:layout_height="20sp"
@@ -402,18 +411,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginStart="@dimen/value_5"
-                android:layout_marginLeft="@dimen/value_5"
-                android:layout_marginTop="@dimen/value_5"
-                android:layout_marginEnd="@dimen/value_5"
-                android:layout_marginRight="@dimen/value_5"
-                android:layout_marginBottom="15dp"
+
+
                 android:background="@color/colorPrimary"
                 android:gravity="center"
                 android:padding="@dimen/value_5">
 
 
-                <TextView
+                <customfonts.MyTextView_Roboto_Regular
+                    android:textSize="12sp"
                     android:id="@+id/tvHapus"
                     style="@style/txt_white_medium"
                     android:layout_width="0dp"
@@ -429,7 +435,8 @@
                     android:background="@color/white" />
 
 
-                <TextView
+                <customfonts.MyTextView_Roboto_Regular
+                    android:textSize="12sp"
                     android:id="@+id/tvSave"
                     style="@style/txt_white_medium"
                     android:layout_width="0dp"

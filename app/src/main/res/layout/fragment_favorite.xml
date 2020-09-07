@@ -136,10 +136,8 @@
                         android:indeterminateBehavior="cycle"
                         android:visibility="gone" />
 
-
-
                     <GridView
-
+                        android:layout_marginBottom="45dp"
                         android:layout_below="@+id/myProgressBar"
                         android:id="@+id/grid_favorit"
                         android:layout_width="match_parent"

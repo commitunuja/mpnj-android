@@ -1,39 +1,27 @@
 package com.sholeh.marketplacenj.activities.pesanan;
 
-import android.content.ContentValues;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.util.Base64;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.CustomTarget;
-import com.bumptech.glide.request.transition.Transition;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.adapter.pesanan.DetailPesananAdapter;
 import com.sholeh.marketplacenj.model.pesanan.DataPesanan;
 import com.sholeh.marketplacenj.model.pesanan.Item;
 import com.sholeh.marketplacenj.model.pesanan.detailpesanan.DetailPesanan;
 import com.sholeh.marketplacenj.model.pesanan.detailpesanan.ItemDetailPesanan;
-import com.sholeh.marketplacenj.util.CONSTANTS;
 import com.sholeh.marketplacenj.util.ServiceGenerator;
 import com.sholeh.marketplacenj.util.api.APIInterface;
 
-import java.io.ByteArrayOutputStream;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -48,8 +36,8 @@ import static com.sholeh.marketplacenj.util.MyApp.getContext;
 
 public class DetailPesananActivity extends AppCompatActivity implements View.OnClickListener {
 
-    String namaproduk, namatoko, harga, foto, fotokirimwa, bitmpath;
-    TextView vnamaproduk, waktu, totalhargaproduk, total, vharga, toko, status, alamat, totalhargadetail, kurir, tongkir, tanya;
+    String statusorder, namatoko, harga, foto, fotokirimwa, bitmpath;
+    TextView vnamaproduk, waktu, totalhargaproduk, total, vharga, toko, status, alamat, totalhargadetail,lacak, tulis, kurir, tongkir, tanya;
     ImageView iproduk, imgcoba;
     private List<ItemDetailPesanan> dataPesanans;
     RecyclerView recyclerView;
@@ -67,8 +55,9 @@ public class DetailPesananActivity extends AppCompatActivity implements View.OnC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_pesanan);
-        pack = "tanya";
-        imgcoba = findViewById(R.id.img);
+
+        lacak = findViewById(R.id.tvlacak);
+        tulis = findViewById(R.id.tvtulis);
         tanya = findViewById(R.id.tv_tanya);
         totalhargadetail = findViewById(R.id.totalhargadetail);
         vnamaproduk = findViewById(R.id.tv_nama_produk_detail);
@@ -86,6 +75,8 @@ public class DetailPesananActivity extends AppCompatActivity implements View.OnC
         Intent i = getIntent();
         kode = i.getStringExtra("kode");
         tanya.setOnClickListener(this);
+        tulis.setOnClickListener(this);
+        lacak.setOnClickListener(this);
 
         getData();
 
@@ -108,69 +99,73 @@ public class DetailPesananActivity extends AppCompatActivity implements View.OnC
             @Override
             public void onResponse(Call<DetailPesanan> call, retrofit2.Response<DetailPesanan> response) {
                 if (response.body() != null && response.isSuccessful()) {
-                    if (response.body().getData().size() > 0) {
+                        if (response.body().getData().size() > 0) {
 
-                        dataPesanans.clear();
-                        item.clear();
-                        List<ItemDetailPesanan> array = response.body().getData();
-                        for (int i = 0; i < array.size(); i++) {
+                            dataPesanans.clear();
+                            item.clear();
+                            List<ItemDetailPesanan> array = response.body().getData();
+                            for (int i = 0; i < array.size(); i++) {
 
-                            dataPesanans.add(new ItemDetailPesanan(response.body().getData().get(i).getNamaToko(),
-                                    response.body().getData().get(i).getNamaProduk(),
-                                    response.body().getData().get(i).getJumlah(),
-                                    response.body().getData().get(i).getTotalBayar(),
-                                    response.body().getData().get(i).getHarga(),
-                                    response.body().getData().get(i).getFotoProduk(),
-                                    response.body().getData().get(i).getStatusOrder(),
-                                    response.body().getData().get(i).getBayarSebelum(),
-                                    response.body().getData().get(i).getIdTransaksiDetail(),
-                                    response.body().getData().get(i).getKurir(),
-                                    response.body().getData().get(i).getOngkir(),
-                                    response.body().getData().get(i).getWaktuPesan()));
+                                dataPesanans.add(new ItemDetailPesanan(response.body().getData().get(i).getNamaToko(),
+                                        response.body().getData().get(i).getNamaProduk(),
+                                        response.body().getData().get(i).getJumlah(),
+                                        response.body().getData().get(i).getTotalBayar(),
+                                        response.body().getData().get(i).getHarga(),
+                                        response.body().getData().get(i).getFotoProduk(),
+                                        response.body().getData().get(i).getStatusOrder(),
+                                        response.body().getData().get(i).getBayarSebelum(),
+                                        response.body().getData().get(i).getIdTransaksiDetail(),
+                                        response.body().getData().get(i).getKurir(),
+                                        response.body().getData().get(i).getOngkir(),
+                                        response.body().getData().get(i).getWaktuPesan()));
 
 
-                            fotokirimwa = response.body().getData().get(i).getFotoProduk();
-                            Glide.with(getApplication()).asBitmap().load("https://www.google.es/images/srpr/logo11w.png").into(new CustomTarget<Bitmap>() {
-                                @Override
-                                public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                                    imgcoba.setImageBitmap(resource);
+
+                                toko.setText(response.body().getData().get(i).getNamaToko());
+                                waktu.setText(response.body().getData().get(i).getWaktuPesan());
+                                status.setText(response.body().getData().get(i).getStatusOrder());
+                                kurir.setText(response.body().getData().get(i).getKurir().toString());
+
+                                int ongkir = Integer.parseInt((response.body().getData().get(i).getOngkir()));
+                                stringTokenizer = new StringTokenizer(formatRupiah.format(ongkir), ",");
+                                String hargaongkir = stringTokenizer.nextToken().trim();
+                                tongkir.setText(hargaongkir);
+
+                                statusorder = response.body().getData().get(i).getStatusOrder();
+                                int total1 = Integer.parseInt(response.body().getData().get(i).getTotalBayar());
+                                stringTokenizer = new StringTokenizer(formatRupiah.format(total1), ",");
+                                String totalbayar = stringTokenizer.nextToken().trim();
+                                total.setText(totalbayar);
+                                alamat.setText(response.body().getData().get(i).getTujuan());
+
+                                int ongkirlagi = Integer.parseInt(response.body().getData().get(i).getOngkir());
+                                int harga2 = Integer.parseInt(response.body().getData().get(i).getTotalBayar());
+                                int harga = harga2-ongkirlagi;
+                                stringTokenizer = new StringTokenizer(formatRupiah.format(harga), ",");
+                                String harga1 = stringTokenizer.nextToken().trim();
+                                totalhargadetail.setText(harga1);
+
+                                if (statusorder.equals("Telah Sampai")) {
+                                    tanya.setVisibility(View.VISIBLE);
+                                    tulis.setVisibility(View.VISIBLE);
+                                } else if (statusorder.equals("Dikirim")) {
+                                    tanya.setVisibility(View.VISIBLE);
+                                    tulis.setVisibility(View.VISIBLE);
+                                    lacak.setVisibility(View.VISIBLE);
+                                }else if(statusorder.equals("Dibatalkan")){
+                                    tanya.setVisibility(View.VISIBLE);
+                                    lacak.setVisibility(View.GONE);
+                                    tulis.setVisibility(View.GONE);
+                                } else {
+                                    tanya.setVisibility(View.VISIBLE);
+                                    tulis.setVisibility(View.GONE);
+
                                 }
-
-                                @Override
-                                public void onLoadCleared(@Nullable Drawable placeholder) {
-                                }
-                            });
-
-                            toko.setText(response.body().getData().get(i).getNamaToko());
-                            waktu.setText(response.body().getData().get(i).getWaktuPesan());
-                            status.setText(response.body().getData().get(i).getStatusOrder());
-                            kurir.setText(response.body().getData().get(i).getKurir().toString());
-
-                            int ongkir = Integer.parseInt((response.body().getData().get(i).getOngkir()));
-                            stringTokenizer = new StringTokenizer(formatRupiah.format(ongkir), ",");
-                            String hargaongkir = stringTokenizer.nextToken().trim();
-                            tongkir.setText(hargaongkir);
-
-                            int total1 = Integer.parseInt(response.body().getData().get(i).getTotalBayar());
-                            stringTokenizer = new StringTokenizer(formatRupiah.format(total1), ",");
-                            String totalbayar = stringTokenizer.nextToken().trim();
-                            total.setText(totalbayar);
-                            alamat.setText(response.body().getData().get(i).getTujuan());
-                            int harga = Integer.parseInt(response.body().getData().get(i).getHarga());
-                            stringTokenizer = new StringTokenizer(formatRupiah.format(harga), ",");
-                            String harga1 = stringTokenizer.nextToken().trim();
-                            totalhargadetail.setText(harga1);
-
-                            if (status.equals("Selesai")) {
-                                tanya.setText("Tulis Review");
                             }
-                            tanya.setText("Tanya Pelapak");
+
+                        } else {
 
                         }
-
-                    } else {
-
-                    }
                     recyclerdetailpesanan = new DetailPesananAdapter(getContext(), dataPesanans);
                     recyclerView.setAdapter(recyclerdetailpesanan);
                 }
@@ -184,52 +179,57 @@ public class DetailPesananActivity extends AppCompatActivity implements View.OnC
 
     }
 
-    public Bitmap StringToBitMap(String fotokirimwa){
-        try{
-            byte [] encodeByte=Base64.decode(fotokirimwa,Base64.DEFAULT);
-            Bitmap bitmap=BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
-            imgcoba.setImageBitmap(bitmap);
-            return bitmap;
-        }catch(Exception e){
-            e.getMessage();
-            return null;
-        }
+    public void openWA(View view) {
+        String number = "+6281236706224";
+//        String text = "coba lun";
+        String url = "https://api.whatsapp.com/send?phone="+number;
+//        String url = "https://api.whatsapp.com/send?phone=+&text=Halo%20mau%20order%20bajunya%20yang%20warna%20biru%20gan";
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setPackage("com.whatsapp");
+        i.setData(Uri.parse(url));
+        startActivity(i);
     }
-
-    public void onClickApp(String fotokirimwa) {
-
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-        byte[] imageBytes = byteArrayOutputStream.toByteArray();
-        String imageString = Base64.encodeToString(imageBytes, Base64.DEFAULT);
-        imageBytes = Base64.decode(imageString, Base64.DEFAULT);
-        Bitmap decodedImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
-        imgcoba.setImageBitmap(decodedImage);
-//            byte [] encodeByte= Base64.decode(fotokirimwa,Base64.DEFAULT);
-//            bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
 //
-        bitmpath = MediaStore.Images.Media.insertImage(getContentResolver(), decodedImage, "whatsApp", null);
-//        } catch (Exception e) {
-//            e.printStackTrace();
+//
+//    public void onClickWhatsApp(View view) {
+//
+//        PackageManager pm=getPackageManager();
+//        try {
+//
+//            Intent waIntent = new Intent(Intent.ACTION_SEND);
+//            waIntent.setType("text/plain");
+//            String text = "YOUR TEXT HERE";
+//
+//
+//            PackageInfo info=pm.getPackageInfo("com.whatsapp", PackageManager.GET_META_DATA);
+//            //Check if package exists or not. If not then code
+//            //in catch block will be called
+//            waIntent.setPackage("com.whatsapp");
+//
+//            waIntent.putExtra(Intent.EXTRA_TEXT, text);
+//            startActivity(Intent.createChooser(waIntent, "Share with"));
+//
+//        } catch (PackageManager.NameNotFoundException e) {
+//            Toast.makeText(this, "WhatsApp not Installed", Toast.LENGTH_SHORT)
+//                    .show();
 //        }
-
-        Uri uri = Uri.parse(bitmpath);
-        Intent share = new Intent(Intent.ACTION_SEND);
-        share.setType("image/jpeg");
-        share.setPackage("com.whatsapp");
-        share.putExtra(Intent.EXTRA_TEXT, "Apakah Bisa Dikirim Hari Ini ?");
-//        share.putExtra(Intent.EXTRA_STREAM, uri);
-        share.putExtra(Intent.EXTRA_STREAM, uri);
-        startActivity(Intent.createChooser(share, "share into "));
-    }
+//
+//    }
 
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_tanya:
-                onClickApp(fotokirimwa);
-//                StringToBitMap(fotokirimwa);
+             openWA(v);
+             break;
+            case R.id.tvtulis:
+                status.setText("Selesai");
+                break;
+            case R.id.tvlacak:
+                Intent intent = new Intent(DetailPesananActivity.this, TrackingActivity.class);
+                intent.putExtra("kode", kode);
+                startActivity(intent);
         }
     }
 }

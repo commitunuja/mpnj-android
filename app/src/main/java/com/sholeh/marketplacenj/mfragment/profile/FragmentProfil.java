@@ -1,6 +1,4 @@
 package com.sholeh.marketplacenj.mfragment.profile;
-
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -21,16 +19,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.sholeh.marketplacenj.activities.AkunActivity;
 import com.sholeh.marketplacenj.activities.AlamatActivity;
 import com.sholeh.marketplacenj.activities.PengaturanAkun;
+import com.sholeh.marketplacenj.activities.UbahPassword;
+import com.sholeh.marketplacenj.activities.alamat.PilihAlamatCheckout;
 import com.sholeh.marketplacenj.activities.pesanan.MyPesananActivity;
+import com.sholeh.marketplacenj.util.AppUtilits;
 import com.sholeh.marketplacenj.util.CONSTANTS;
+import com.sholeh.marketplacenj.util.NetworkUtility;
 import com.sholeh.marketplacenj.util.api.APIInterface;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.util.ServiceGenerator;
@@ -49,19 +53,18 @@ import retrofit2.Response;
 
 public class FragmentProfil extends Fragment implements View.OnClickListener {
     private ImageView btnImgProfil, nav_home, nav_notifikasi, nav_transaksi, navprofile;
-    TextView tvx_login, tvx_namaCustomter, tvx_title, tvx_logout,tvx_edit, tvx_username,
-              tvx_Hp, tvx_profil, tvx_alamat, tvx_setting, tvx_email, tvx_pesananku;
+    TextView tvx_login, tvx_namaCustomter, tvx_title, tvx_logout, tvx_edit, tvx_username,
+            tvx_Hp, tvx_profil, tvx_alamat, tvx_setting, tvx_email;
 
-
+    LinearLayout lnpesananku, lnprofil, lnpass, lnAlamat;
 
     private CircleImageView imageProfil;
-
 
 
     FloatingActionButton fb_favourite;
     Toolbar toolBarisi;
     Preferences preferences;
-   public String id_konsumen, username, namaLengkap, nomorHP, email;
+    public String id_konsumen, username, namaLengkap, nomorHP, email;
     String sfoto = null;
     private ResProfil tvDataProfil;
 
@@ -71,13 +74,13 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
     private static final int PICK_Camera_IMAGE = 2;
     private static final int REQUEST_GALLERY_CODE = 200;
     private static final int READ_REQUEST_CODE = 300;
+    private KProgressHUD progressDialogHud;
 
+    ImageView imgtoolbar;
 
     @Override
-    public void onResume()
-    {
+    public void onResume() {
         getDataProfil();
-
         super.onResume();
         // Load data and do stuff
     }
@@ -86,7 +89,8 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_profil,container,false);
+        View rootView = inflater.inflate(R.layout.fragment_profil, container, false);
+        progressDialogHud = KProgressHUD.create(getActivity());
 
         tvx_namaCustomter = rootView.findViewById(R.id.tvCustomerName);
         tvx_username = rootView.findViewById(R.id.tvx_username);
@@ -95,8 +99,12 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
         tvx_profil = rootView.findViewById(R.id.tv_myprofil);
         tvx_alamat = rootView.findViewById(R.id.tvAlamat);
         tvx_setting = rootView.findViewById(R.id.tvSetting);
-        tvx_pesananku = rootView.findViewById(R.id.tvMyPesanan);
-
+        lnpesananku = rootView.findViewById(R.id.lnMyPesanan);
+        lnpass = rootView.findViewById(R.id.lnPassword);
+        lnAlamat = rootView.findViewById(R.id.lnAlamat);
+        lnprofil = rootView.findViewById(R.id.lnprofile);
+        imgtoolbar = rootView.findViewById(R.id.imgtoolbarF);
+        tvx_title = rootView.findViewById(R.id.title);
 
         btnImgProfil = rootView.findViewById(R.id.imgProfil);
         btnImgProfil.setOnClickListener(this);
@@ -105,10 +113,15 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
         tvx_profil.setOnClickListener(this);
         tvx_alamat.setOnClickListener(this);
         tvx_setting.setOnClickListener(this);
-        tvx_pesananku.setOnClickListener(this);
+        imgtoolbar.setOnClickListener(this);
+        tvx_namaCustomter.setOnClickListener(this);
+        tvx_username.setOnClickListener(this);
+        lnpesananku.setOnClickListener(this);
+        lnpass.setOnClickListener(this);
+        lnAlamat.setOnClickListener(this);
+        lnprofil.setOnClickListener(this);
 
 
-        tvx_title = rootView.findViewById(R.id.title);
         tvx_edit = rootView.findViewById(R.id.edit_txt);
         tvx_edit.setVisibility(View.GONE);
         tvx_logout = rootView.findViewById(R.id.logout_akun);
@@ -126,7 +139,7 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
 //
 //
 
-        TabLayout tabLayout =  rootView.findViewById(R.id.tab_layout);
+        TabLayout tabLayout = rootView.findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("AKUN PEMBELI"));
         tabLayout.addTab(tabLayout.newTab().setText("AKUN PELAPAK"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
@@ -155,14 +168,12 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
             }
         });
         getDataPref();
-
-
         return rootView;
     }
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.imgProfil:
                 Intent intent = new Intent(getActivity(), ImageProfilActivity.class);
                 getActivity().startActivity(intent);
@@ -175,28 +186,34 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
 //                selectImage();
                 break;
 
-            case R.id.tv_myprofil:
-                Intent intent3 = new Intent(getActivity(), AkunActivity.class);
-                getActivity().startActivity(intent3);
-//                selectImage();
+
+
+            case R.id.tvCustomerName:
+                Intent i = new Intent(getActivity(), AkunActivity.class);
+                getActivity().startActivity(i);
                 break;
 
-            case R.id.tvAlamat:
+            case R.id.tvx_username:
+                Intent in = new Intent(getActivity(), AkunActivity.class);
+                getActivity().startActivity(in);
+                break;
+
+            case R.id.lnAlamat:
                 Intent intent4 = new Intent(getActivity(), AlamatActivity.class);
                 getActivity().startActivity(intent4);
-//                Toast.makeText(getActivity(), "klik", Toast.LENGTH_SHORT).show();
-
-//                selectImage();
                 break;
 
-            case R.id.tvSetting:
-                Intent intent5 = new Intent(getActivity(), PengaturanAkun.class);
-                getActivity().startActivity(intent5);
+
+            case R.id.tvAlamat:
+                Intent intent3 = new Intent(getActivity(), AlamatActivity.class);
+                getActivity().startActivity(intent3);
                 break;
 
-            case R.id.tvMyPesanan:
-                Intent i = new Intent(getActivity(), MyPesananActivity.class);
-               getActivity().startActivity(i);
+
+
+            case R.id.lnMyPesanan:
+                Intent ii = new Intent(getActivity(), MyPesananActivity.class);
+                getActivity().startActivity(ii);
 //                Bundle bundle = new Bundle();
 //                bundle.putString("edttext", id_konsumen);
 //                TabSemua fragobj = new TabSemua();
@@ -204,10 +221,40 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
 //                Toast.makeText(getContext(), ""+id_konsumen, Toast.LENGTH_SHORT).show();
                 break;
 
-            case R.id.logout_akun:
-              logoutAkun();
+
+
+            case R.id.lnprofile:
+                Intent inten = new Intent(getActivity(), AkunActivity.class);
+                getActivity().startActivity(inten);
                 break;
 
+            case R.id.tv_myprofil:
+                Intent iii = new Intent(getActivity(), AkunActivity.class);
+                getActivity().startActivity(iii);
+                break;
+
+            case R.id.lnPassword:
+//                Intent intent5 = new Intent(getActivity(), PengaturanAkun.class);
+//                getActivity().startActivity(intent5);
+                Intent intent5 = new Intent(getActivity(), UbahPassword.class);
+                getActivity().startActivity(intent5);
+                break;
+
+            case R.id.tvSetting:
+//                Intent intent5 = new Intent(getActivity(), PengaturanAkun.class);
+//                getActivity().startActivity(intent5);
+                Intent intent6 = new Intent(getActivity(), UbahPassword.class);
+                getActivity().startActivity(intent6);
+                break;
+
+
+            case R.id.logout_akun:
+                logoutAkun();
+                break;
+
+            case R.id.imgtoolbarF:
+                getActivity().finish();
+                break;
 
 
             default:
@@ -244,51 +291,58 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
         }
     }
 
-    public void getDataPref(){
+    private void ProgresDialog() {
+        progressDialogHud.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setCancellable(false);
+        progressDialogHud.show();
+    }
+
+    public void getDataPref() {
         preferences = new Preferences(getActivity());
         id_konsumen = preferences.getIdKonsumen();
         username = preferences.getUsername();
-        namaLengkap = preferences.getNamaLengkap();
-        email = preferences.getEmailnya();
-        nomorHP = preferences.getNomorHp();
-        tvx_namaCustomter.setText(namaLengkap);
+//        namaLengkap = preferences.getNamaLengkap();
+//        email = preferences.getEmailnya();
+//        nomorHP = preferences.getNomorHp();
         tvx_username.setText(username);
-        tvx_email.setText(email);
-        tvx_Hp.setText(nomorHP);
+
 
     }
 
 
-    public void getDataProfil(){
-
-        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-        Call<ResProfil> call = service.getDataProfil(id_konsumen);
-
-        call.enqueue(new Callback<ResProfil>() {
-            @Override
-            public void onResponse(Call<ResProfil> call, Response<ResProfil> response) {
-                tvDataProfil = response.body();
-                Log.d("cekimg", String.valueOf(tvDataProfil));
-              // validasi error null asset foto
-            //    Toast.makeText(getActivity(), ""+tvDataProfil.getPesan(), Toast.LENGTH_SHORT).show();
-                if (tvDataProfil.getData().getFotoProfil() == null){
-                   // Picasso.with(getContext()).load(R.drawable.man).into(imageProfil);
-                }else{
-                    Picasso.with(getContext()).load(CONSTANTS.BASE_URL + "assets/foto_profil_konsumen/"+tvDataProfil.getData().getFotoProfil()).into(imageProfil);
+    public void getDataProfil() {
+        if (!NetworkUtility.isNetworkConnected(getActivity())) {
+//            AppUtilits.displayMessage(getActivity(), getString(R.string.network_not_connected));
+        } else {
+            APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+            Call<ResProfil> call = service.getDataProfil(id_konsumen);
+            call.enqueue(new Callback<ResProfil>() {
+                @Override
+                public void onResponse(Call<ResProfil> call, Response<ResProfil> response) {
+                    if (response.body() != null && response.isSuccessful()) {
+                        tvDataProfil = response.body();
+                        email = response.body().getData().getEmail();
+                        nomorHP = response.body().getData().getNomorHp();
+                        tvx_email.setText(email);
+                        tvx_Hp.setText(nomorHP);
+                        String namaLengkap =tvDataProfil.getData().getNamaLengkap();
+                        tvx_namaCustomter.setText(String.valueOf(namaLengkap));
+                        Log.d("cekimg", String.valueOf(tvDataProfil));
+                        if (tvDataProfil.getData().getFotoProfil() == null) {
+                            Picasso.with(getContext()).load(R.drawable.man).into(imageProfil);
+                        } else {
+                            Picasso.with(getContext()).load(CONSTANTS.BASE_URL + "assets/foto_profil_konsumen/" + tvDataProfil.getData().getFotoProfil()).into(imageProfil);
+                        }
+                    } else {
+//                        AppUtilits.displayMessage(getActivity(), getString(R.string.network_error));
+                    }
                 }
-//                Toast.makeText(getActivity(), tvDataProfil.getData().getFotoProfil(), Toast.LENGTH_LONG).show();
-//                Glide.with(getActivity()).load(foto).into(imageProfil);
-
-            }
-
-            @Override
-            public void onFailure(Call<ResProfil> call, Throwable t) {
-                Toast.makeText(getActivity(), "no connection"+t, Toast.LENGTH_SHORT).show();
-
-                //  Log.e(TAG, " failure "+ t.toString());
-//                    AppUtilits.displayMessage(UbahPassword.this,  getString(R.string.failed_request));
-            }
-        });
+                @Override
+                public void onFailure(Call<ResProfil> call, Throwable t) {
+//                    AppUtilits.displayMessage(getActivity(), getString(R.string.network_not_connected));
+                }
+            });
+        }
     }
 
     private void selectImage() {
@@ -296,7 +350,6 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
         openGalleryIntent.setType("image/*");
         startActivityForResult(openGalleryIntent, REQUEST_GALLERY_CODE);
     }
-
 
 
 //    private void uploadToServer(String filePath) {
@@ -323,18 +376,20 @@ public class FragmentProfil extends Fragment implements View.OnClickListener {
 //    }
 
 
-    public  void logoutAkun(){
+    public void logoutAkun() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage("Apakah anda yakin, ingin logout?");
         builder.setCancelable(true);
         builder.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                ProgresDialog();
                 preferences.saveSPBoolean(preferences.SP_SUDAH_LOGIN, false);
                 startActivity(new Intent(getActivity(), LoginActivity.class)
                         .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
                 getActivity().finish();
                 Toast.makeText(getActivity(), "Berhasil Keluar", Toast.LENGTH_LONG).show();
+                progressDialogHud.dismiss();
             }
         });
         builder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {

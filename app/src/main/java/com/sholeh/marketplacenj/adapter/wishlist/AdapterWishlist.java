@@ -22,6 +22,7 @@ import java.util.StringTokenizer;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +31,7 @@ import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.activities.details.ProductDetailActivity;
 import com.sholeh.marketplacenj.activities.keranjang.KeranjangDetailActivity;
@@ -54,10 +56,14 @@ public class AdapterWishlist extends BaseAdapter {
     StringTokenizer st, st2;
     private List<modelWishlist> tvDataWishlist;
     private Context context;
+    private KProgressHUD progressHud;
+    private Fragment fragment;
 
-    public AdapterWishlist(Context context, List<modelWishlist> tvDataWishlist) {
+
+    public AdapterWishlist(Context context, List<modelWishlist> tvDataWishlist, Fragment fragment) {
         this.context = context;
         this.tvDataWishlist = tvDataWishlist;
+        this.fragment = fragment;
     }
 
     @Override
@@ -84,25 +90,24 @@ public class AdapterWishlist extends BaseAdapter {
         int hargaProduk;
         double diskon;
         ImageView imageView, imgdeleteWishlist;
+        progressHud = KProgressHUD.create(context);
+        RelativeLayout relativeDiskon;
 
-        TextView txtNamaProduk, txthargaNormal, txthargaDiskon, tvxJumterjual, tvterjual, tvx_kabPenjual;
+        TextView txtNamaProduk, txthargaNormal, txthargaDiskon, tvxJumterjual, tvterjual, tvx_kabPenjual, tvxJumlahDiskon;
         txtNamaProduk = view.findViewById(R.id.txtProdukW);
         txthargaNormal = view.findViewById(R.id.txthargaw);
         txthargaDiskon = view.findViewById(R.id.txtdiskonw);
+        tvxJumlahDiskon = view.findViewById(R.id.tvx_jumlahDiskon);
         tvxJumterjual= view.findViewById(R.id.tvx_jumterjual);
         tvterjual = view.findViewById(R.id.tvTerjual);
         tvx_kabPenjual = view.findViewById(R.id.tvxkabPenjual);
         imageView = view.findViewById(R.id.img_imagew);
         imgdeleteWishlist = view.findViewById(R.id.imgDeleteWishlist);
+        relativeDiskon = view.findViewById(R.id.rdiskon);
 
         final modelWishlist model = tvDataWishlist.get(position);
         txtNamaProduk.setText(String.valueOf(model.getNamaProduk()));
         tvx_kabPenjual.setText(String.valueOf(model.getKabPenjual()));
-
-
-
-
-//        txtNamaProduk.setText(model.getNamaProduk());
 
 
         int radius = 17;
@@ -127,7 +132,8 @@ public class AdapterWishlist extends BaseAdapter {
 
         if (diskon == 0){
             txthargaDiskon.setVisibility(View.GONE);
-//            txthargaDiskon.setText(" ");
+            txthargaDiskon.setText(" ");
+            relativeDiskon.setVisibility(View.GONE);
 
         }else{
             double h = diskon / 100 * hargaProduk;
@@ -141,6 +147,9 @@ public class AdapterWishlist extends BaseAdapter {
             txthargaDiskon.setText(hargaNormal);
             txthargaDiskon.setTextSize(10);
             txthargaNormal.setText(harganya);
+            relativeDiskon.setVisibility(View.VISIBLE);
+            int jumDiskon = (int) diskon;
+            tvxJumlahDiskon.setText(jumDiskon+"%");
         }
 
         int terjual = model.getTerjual();
@@ -157,12 +166,8 @@ public class AdapterWishlist extends BaseAdapter {
             public void onClick(View view) {
                 AppCompatActivity activity = (AppCompatActivity) view.getContext();
                 Fragment myFragment = new FragmentHome();
-//                activity.getSupportFragmentManager().beginTransaction().replace(R.id.fa, myFragment).addToBackStack(null).commit();
-
-//                Toast.makeText(context, model.getNamaProduk(), Toast.LENGTH_SHORT).show();
                 final modelWishlist model = tvDataWishlist.get(position);
                 Context context = view.getContext();
-//                Toast.makeText(context, "Intent belum selesai ", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(context, ProductDetailActivity.class);
                 intent.putExtra("id_produk", String.valueOf(model.getIdProduk()));
                 intent.putExtra("nama_produk", model.getNamaProduk());
@@ -181,9 +186,9 @@ public class AdapterWishlist extends BaseAdapter {
         imgdeleteWishlist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Toast.makeText(context, "delete", Toast.LENGTH_SHORT).show();
                 String id_produk = String.valueOf(model.getIdProduk());
                 String id_wishlist = String.valueOf(model.getIdWishlist());
+                ProgresDialog();
                 APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
                 Call<ResHapusKeranjang> call = service.hapusProdukWishlist(id_wishlist);
                 call.enqueue(new Callback<ResHapusKeranjang>() {
@@ -191,25 +196,20 @@ public class AdapterWishlist extends BaseAdapter {
                     public void onResponse(Call<ResHapusKeranjang> call, Response<ResHapusKeranjang> response) {
                         Log.d("deleteWishlist", "onResponse: "+response);
                         if (response.body() != null && response.isSuccessful()) {
-////                            if (response.body().getPesan().equalsIgnoreCase("sukses")) {
-                                AppUtilits.displayMessage(context, "Sukses hapus produk dari wishlist");
-//
-
-//                            ((FragmentFavorite) context).getWishlish();
-
-////                            } else {
-////                                AppUtilits.displayMessage(context, "Gagal hapus produk dari keranjang");
-////                            }
+                            progressHud.dismiss();
+                            ((FragmentFavorite) fragment).getWishlish();
                         } else {
-                            Toast.makeText(context, "Terdapat Kesalahan", Toast.LENGTH_SHORT).show();
-//                            AppUtilits.displayMessage(mContext, mContext.getString(R.string.network_error));
+                            progressHud.dismiss();
+                            AppUtilits.displayMessage(context, String.valueOf((R.string.network_error)));
+//                            Toast.makeText(context, "Terdapat Kesalahan Silahkan Coba Lagi Nanti", Toast.LENGTH_SHORT).show();
                         }
-
                     }
 
                     @Override
                     public void onFailure(Call<ResHapusKeranjang> call, Throwable t) {
                         Log.d("deleteWishlist", "onerr: "+t);
+                        progressHud.dismiss();
+                        Toast.makeText(context, "Silakan coba lagi. Jaringan tidak merespon", Toast.LENGTH_SHORT).show();
 //                        AppUtilits.displayMessage(context, context.getString(R.string.failed_request));
 
                     }
@@ -222,5 +222,10 @@ public class AdapterWishlist extends BaseAdapter {
         return view;
     }
 
+    private void ProgresDialog() {
+        progressHud.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setCancellable(false);
+        progressHud.show();
+    }
 
 }

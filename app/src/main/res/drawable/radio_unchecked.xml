@@ -4,13 +4,8 @@
         <shape android:shape="oval">
             <stroke android:width="2dp"
                 android:color="#babfb6"/>
-            <size android:width="20dp"
-                android:height="20dp"/>
+            <size android:width="5dp"
+                android:height="5dp"/>
         </shape>
     </item>
-    <!--<item android:top="5dp" android:bottom="5dp" android:left="5dp" android:right="5dp">-->
-        <!--<shape android:shape="oval">-->
-            <!--<size android:width="10dp" android:height="10dp"/>-->
-        <!--</shape>-->
-    <!--</item>-->
 </layer-list>

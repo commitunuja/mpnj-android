@@ -13,19 +13,23 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.activities.details.ProductDetailActivity;
-import com.sholeh.marketplacenj.custom.Product;
 import com.sholeh.marketplacenj.model.Model;
-import com.sholeh.marketplacenj.model.Produk;
 import com.sholeh.marketplacenj.util.CONSTANTS;
 import com.squareup.picasso.Picasso;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
+import java.util.StringTokenizer;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder> {
     private Context context;
     private List<Model> datapencarian;
 //    List<Model> datapencarian2;
     private Model modelpencarian;
+    Locale localeID = new Locale("in", "ID");
+    NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
+    StringTokenizer stringTokenizer;
 
 
     public SearchAdapter(Context context, List<Model> datapencarian) {
@@ -46,13 +50,28 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     public void onBindViewHolder(@NonNull SearchAdapter.ViewHolder viewHolder, int i) {
         modelpencarian = datapencarian.get(i);
         viewHolder.namaProduk.setText(modelpencarian.getNamaProduk()); // MODEL
-        viewHolder.hargaProduk.setText(String.valueOf("Rp " + modelpencarian.getHargaJual()));
         viewHolder.type.setText(modelpencarian.getKategori().getNamaKategori());
 
+        int hargaAwal = modelpencarian.getHargaJual();
+        double diskon = modelpencarian.getDiskon();
+        double h = diskon / 100 * hargaAwal;
+        double p = hargaAwal - h;
+
+        stringTokenizer = new StringTokenizer(formatRupiah.format(p), ",");
+        String hargajum = stringTokenizer.nextToken().trim();
+        viewHolder.hargaProduk.setText(hargajum);
+        
         Picasso.with(context)
                 .load(CONSTANTS.SUB_DOMAIN + modelpencarian.getFoto().get(0).getFotoProduk())
                 .resize(300, 300)
                 .into(viewHolder.foto_produk);
+
+        if(diskon == 0){
+           viewHolder.diskon.setVisibility(View.GONE);
+        }else{
+            viewHolder.diskon.setText(modelpencarian.getDiskon()+"%");
+            viewHolder.diskon.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -70,7 +89,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
 //    }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView namaProduk, hargaProduk, stok, terjual, deskripsi, type;
+        private TextView namaProduk, hargaProduk, stok, terjual, deskripsi, type, diskon;
         private ImageView foto_produk;
 
 
@@ -80,6 +99,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             namaProduk = itemView.findViewById(R.id.titleproduk);
             hargaProduk = itemView.findViewById(R.id.txthargaawal);
             type = itemView.findViewById(R.id.typeproduk);
+            diskon = itemView.findViewById(R.id.tvx_diskon);
             foto_produk = itemView.findViewById(R.id.imageproduk);
 
             itemView.setOnClickListener(new View.OnClickListener() {

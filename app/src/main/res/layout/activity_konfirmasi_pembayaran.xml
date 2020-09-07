@@ -9,6 +9,7 @@
     <include layout="@layout/toolbar_keranjang"></include>
 
     <LinearLayout
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -33,245 +34,656 @@
                     android:layout_height="0dp"
                     android:layout_weight="0.9">
 
+
                     <LinearLayout
+                        android:layout_marginTop="5dp"
+                        android:padding="5dp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_margin="@dimen/value_10"
                         android:orientation="vertical">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="5dp"
-                            android:text="Kode Transaksi"
-                            android:textColor="#000"
-                            android:textSize="16dp" />
-
-                        <EditText
-                            android:id="@+id/ed_kodetransaksi"
-                            android:layout_width="match_parent"
-                            android:layout_height="45dp"
-                            android:layout_marginBottom="15dp"
-                            android:background="@drawable/round_spinner"
-                            android:enabled="false"
-                            android:maxLength="10"
-                            android:saveEnabled="false" />
-
-                        <requestFocus />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="5dp"
-                            android:text="Nama Pengirim"
-                            android:textColor="#000"
-                            android:textSize="16dp" />
-
-                        <EditText
-                            android:id="@+id/namapengirim"
-                            android:layout_width="match_parent"
-                            android:layout_height="45dp"
-                            android:layout_marginBottom="15dp"
-                            android:background="@drawable/round_spinner"
-                            android:enabled="false"
-                            android:maxLength="10"
-                            android:saveEnabled="false" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="5dp"
-                            android:text="Total Bayar"
-                            android:textColor="#000"
-                            android:textSize="16dp" />
-
-                        <EditText
-                            android:id="@+id/ed_totalbayar"
-                            android:layout_width="match_parent"
-                            android:layout_height="45dp"
-                            android:layout_marginBottom="15dp"
-                            android:background="@drawable/round_spinner"
-                            android:enabled="false"
-                            android:maxLength="10"
-                            android:saveEnabled="false" />
-
-                        <requestFocus />
-
-
-                        <TextView
-                            android:visibility="gone"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="5dp"
-                            android:text="Total Bayar"
-                            android:textColor="#000"
-                            android:textSize="16dp" />
-
-
                         <LinearLayout
-                            android:visibility="gone"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
 
-                            <customfonts.TextViewSFProDisplayRegular
-                                style="@style/txt_gray_big"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Total Pembayaran" />
-
-                            <customfonts.MyTextView_Roboto_Regular
-                                android:id="@+id/tv_totalbayar"
-                                style="@style/txt_color_primary_big"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/value_5"
-                                android:text="Rp 50.000.000"
-                                android:textAlignment="viewEnd"
-                                android:textStyle="bold" />
-                        </LinearLayout>
-
-
-                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
 
-                            <customfonts.TextViewSFProDisplayRegular
-                                android:layout_marginBottom="5dp"
-                                android:textColor="#000"
-                                android:textSize="16dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Pilih Rekening" />
 
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="50dp"
-                                android:layout_marginBottom="15dp"
-                                android:background="@drawable/round_spinner">
 
-                                <Spinner
-                                    android:id="@+id/spin_rek"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="45dp"
-                                    android:gravity="center"></Spinner>
-                            </LinearLayout>
-
-                            <requestFocus />
-
-
-                        </LinearLayout>
-
-                        <LinearLayout
-
-                            android:id="@+id/lnrek"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="@dimen/value_20"
-                            android:orientation="vertical">
-
-                            <customfonts.TextViewSFProDisplayRegular
-                                android:id="@+id/tvrek"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="No. Rekening" />
-
-                            <customfonts.TextViewSFProDisplayRegular
+                            <customfonts.Regular_Textview
+                                android:layout_marginBottom="10dp"
                                 android:visibility="gone"
-                                android:id="@+id/idRekAdmin"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/value_5"
-                                android:text="" />
+                                android:layout_alignParentBottom="true"
+                                android:layout_centerHorizontal="true"
+                                android:gravity="center"
+                                android:text="Kode Transaksi : 15539473"
+                                android:textColor="@color/medium_text"
+                                android:textSize="14dp" />
 
-
-                            <customfonts.TextViewSFProDisplayRegular
-                                android:id="@+id/tvxNomoRek"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/value_5"
-                                android:text="6524-01-012368-53-2"
-                                android:textColor="@color/colorPrimary"
-                                android:textSize="20sp"
-                                android:textStyle="bold" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-
-                                android:orientation="vertical">
-
-                                <customfonts.TextViewSFProDisplayRegular
-                                    android:layout_width="match_parent"
-                                    android:layout_height="@dimen/value_0.5"
-                                    android:background="@color/gray_table" />
+                                android:layout_marginLeft="8.3dp"
+                                android:layout_marginRight="8.9dp"
+                                android:layout_marginBottom="8dp"
+                                android:background="@drawable/rect_recycler"
+                                android:orientation="vertical"
+                                android:elevation="4dp"
+                                android:padding="12dp">
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:orientation="horizontal">
 
-                                    <customfonts.TextViewSFProDisplayRegular
-                                        android:layout_width="@dimen/value_0.5"
-                                        android:layout_height="match_parent"
-                                        android:background="@color/gray_table" />
-
-                                    <customfonts.TextViewSFProDisplayRegular
-                                        android:id="@+id/tvnamarek"
+                                    <LinearLayout
                                         android:layout_width="0dp"
                                         android:layout_height="wrap_content"
-                                        android:layout_weight="0.2"
-
-                                        android:text="Nama Rekening"
-                                        android:textSize="12sp" />
-
-                                    <customfonts.TextViewSFProDisplayRegular
-                                        android:layout_width="@dimen/value_0.5"
-                                        android:layout_height="match_parent"
-                                        android:background="@color/gray_table" />
-
-                                    <customfonts.TextViewSFProDisplayRegular
-                                        android:id="@+id/tvxAnRek"
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="0.5"
-                                        android:padding="@dimen/value_5"
-                                        android:text="Nurul Jadid"
-                                        android:textStyle="bold" />
+                                        android:layout_weight="1"
+                                        android:orientation="vertical">
 
 
-                                    <customfonts.TextViewSFProDisplayRegular
-                                        android:layout_width="@dimen/value_0.5"
-                                        android:layout_height="match_parent"
-                                        android:background="@color/gray_table" />
+                                        <LinearLayout
+                                            android:layout_marginBottom="5dp"
+                                            android:layout_gravity="center"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:orientation="horizontal"
+                                            >
+
+                                            <customfonts.Regular_Textview
+                                                android:textStyle="bold"
+                                                android:textColor="#141414"
+                                                android:id="@+id/ed_kodetransaksi"
+                                                android:gravity="center"
+                                                android:layout_width="0dp"
+                                                android:layout_height="wrap_content"
+                                                android:layout_alignParentBottom="true"
+                                                android:layout_centerHorizontal="true"
+                                                android:layout_weight="1"
+                                                android:text="KODE TRANSAKSI : 153123232"
+                                                 android:textSize="12sp" />
+
+
+
+
+                                        </LinearLayout>
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:orientation="horizontal"
+                                            android:padding="4dp">
+
+                                            <customfonts.Regular_Textview
+                                                android:layout_width="0dp"
+                                                android:layout_height="wrap_content"
+                                                android:layout_alignParentBottom="true"
+                                                android:layout_centerHorizontal="true"
+                                                android:layout_weight="1"
+                                                android:text="Waktu Transaksi"
+                                                android:textColor="@color/medium_text"
+                                                android:textSize="12sp" />
+
+
+                                            <customfonts.Regular_Textview
+                                                android:id="@+id/tvx_waktuTransaksi"
+                                                android:textSize="12sp"
+                                                android:textColor="#141414"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_alignParentBottom="true"
+                                                android:layout_centerHorizontal="true"
+                                                android:gravity="center"
+                                                android:text="15-17-2020 21:54:28" />
+
+
+                                        </LinearLayout>
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:orientation="horizontal"
+                                            android:padding="4dp">
+
+                                            <customfonts.Regular_Textview
+                                                android:layout_width="0dp"
+                                                android:layout_height="wrap_content"
+                                                android:layout_alignParentBottom="true"
+                                                android:layout_centerHorizontal="true"
+                                                android:layout_weight="1"
+                                                android:text="Batas Pembayaran"
+                                                android:textColor="@color/medium_text"
+                                                android:textSize="12sp" />
+
+
+                                            <customfonts.Regular_Textview
+                                                android:id="@+id/tvx_batasPembayaran"
+                                                android:textSize="12sp"
+                                                android:textColor="#141414"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_alignParentBottom="true"
+                                                android:layout_centerHorizontal="true"
+                                                android:gravity="center"
+                                                android:text="15-17-2020 21:54:28" />
+
+
+                                        </LinearLayout>
+
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:orientation="horizontal"
+                                            android:padding="4dp">
+
+                                            <customfonts.Regular_Textview
+                                                android:layout_width="0dp"
+                                                android:layout_height="wrap_content"
+                                                android:layout_alignParentBottom="true"
+                                                android:layout_centerHorizontal="true"
+                                                android:layout_weight="1"
+                                                android:textColor="@color/medium_text"
+                                                android:textSize="12dp" />
+
+
+                                            <customfonts.Regular_Textview
+                                                android:id="@+id/ed_totalbayar"
+                                                android:textSize="14sp"
+                                                android:textColor="@color/green"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_alignParentBottom="true"
+                                                android:layout_centerHorizontal="true"
+                                                android:gravity="center"
+                                                android:text="Rp1.000.000" />
+
+
+                                        </LinearLayout>
+
+
+
+                                    </LinearLayout>
+
+
 
 
                                 </LinearLayout>
 
-                                <TextView
-                                    android:layout_marginTop="20dp"
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0.5dp"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginBottom="5dp"
+                                    android:background="#cfcfcf"></LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:padding="4dp">
+
+
+
+                                    <customfonts.Regular_Textview
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentBottom="true"
+                                        android:layout_centerHorizontal="true"
+                                        android:layout_weight="1"
+                                        android:text="Pengirim"
+                                        android:textColor="@color/medium_text"
+                                        android:textSize="12sp" />
+
+
+                                    <customfonts.Regular_Textview
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentBottom="true"
+                                        android:layout_centerHorizontal="true"
+                                        android:gravity="center"
+
+                                        android:textColor="@color/medium_text"
+                                        android:textSize="12dp" />
+
+
+                                </LinearLayout>
+
+                                <customfonts.Regular_Textview
+                                    android:id="@+id/namapengirim"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Bukti Transfer"
-                                    android:textColor="#000"
-                                    android:textSize="16dp"
-                                    android:layout_marginBottom="5dp"/>
+                                    android:layout_alignParentBottom="true"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_marginLeft="4dp"
+                                    android:gravity="center"
+                                    android:text="Solehudin"
+                                    android:textColor="@color/black"
+                                    android:textSize="14sp" />
 
-                                <ImageView
-                                    android:id="@+id/imgBukti"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"/>
 
-                                <Button
-                                    android:textAppearance="?android:textAppearanceSmall"
+
+                            </LinearLayout>
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+
+
+
+
+                                <customfonts.Regular_Textview
+                                    android:layout_marginBottom="5dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Pilih Metode Pembayaran"
+                                    android:textColor="@color/black"
+                                    android:textSize="13sp"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginLeft="11dp" />
+
+                                <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="Pilih File*.JPG/PNG"
-                                    android:id="@+id/btnChooseImg"
-                                    android:drawableRight="@android:drawable/ic_menu_gallery"/>
+                                    android:layout_marginLeft="8.3dp"
+                                    android:elevation="2dp"
+                                    android:layout_marginRight="8.9dp"
+                                    android:background="@drawable/rect_recycler">
+                                    <androidx.recyclerview.widget.RecyclerView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:nestedScrollingEnabled="false"
+                                        android:clipToPadding="false"
+                                        android:id="@+id/recyclerbank">
+                                    </androidx.recyclerview.widget.RecyclerView>
+                                </LinearLayout>
 
+                                <LinearLayout
+                                    android:padding="10dp"
+                                    android:id="@+id/lnrek"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical">
+
+                                    <customfonts.TextViewSFProDisplayRegular
+                                        android:id="@+id/tvrek"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="No. Rekening" />
+
+                                    <customfonts.TextViewSFProDisplayRegular
+                                        android:visibility="gone"
+                                        android:id="@+id/idRekAdmin"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="@dimen/value_5"
+                                        android:text="" />
+
+
+                                    <customfonts.TextViewSFProDisplayRegular
+                                        android:id="@+id/tvxNomoRek"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="6524-01-012368-53-2"
+                                        android:textColor="@color/colorPrimary"
+                                        android:textSize="16sp"
+                                        android:textStyle="bold" />
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+
+                                        android:orientation="vertical">
+
+                                        <customfonts.TextViewSFProDisplayRegular
+                                            android:layout_width="match_parent"
+                                            android:layout_height="@dimen/value_0.5"
+                                            android:background="@color/gray_table" />
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:orientation="horizontal">
+
+                                            <customfonts.TextViewSFProDisplayRegular
+                                                android:layout_width="@dimen/value_0.5"
+                                                android:layout_height="match_parent"
+                                                android:background="@color/gray_table" />
+
+                                            <customfonts.TextViewSFProDisplayRegular
+                                                android:id="@+id/tvnamarek"
+                                                android:layout_width="0dp"
+                                                android:layout_height="wrap_content"
+                                                android:layout_weight="0.2"
+
+                                                android:text="Atas Nama"
+                                                android:textSize="12sp" />
+
+                                            <customfonts.TextViewSFProDisplayRegular
+                                                android:layout_width="@dimen/value_0.5"
+                                                android:layout_height="match_parent"
+                                                android:background="@color/gray_table" />
+
+                                            <customfonts.TextViewSFProDisplayRegular
+                                                android:id="@+id/tvxAnRek"
+                                                android:layout_width="0dp"
+                                                android:layout_height="wrap_content"
+                                                android:layout_weight="0.5"
+                                                android:padding="@dimen/value_5"
+                                                android:text="Muhammad Solehudin"
+                                                android:textStyle="bold" />
+
+
+                                            <customfonts.TextViewSFProDisplayRegular
+                                                android:layout_width="@dimen/value_0.5"
+                                                android:layout_height="match_parent"
+                                                android:background="@color/gray_table" />
+
+
+                                        </LinearLayout>
+
+                                        <TextView
+                                            android:layout_marginTop="20dp"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="Bukti Transfer"
+                                            android:textColor="#000"
+                                            android:textSize="16dp"
+                                            android:layout_marginBottom="5dp"/>
+
+                                        <ImageView
+                                            android:visibility="gone"
+                                            android:layout_width="370dp"
+                                            android:layout_height="350dp"
+                                            android:layout_gravity="center"
+                                            android:layout_centerInParent="true"
+                                            android:id="@+id/imgBukti" />
+
+                                        <Button
+                                            android:textAppearance="?android:textAppearanceSmall"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="Pilih File*.JPG/PNG"
+                                            android:id="@+id/btnChooseImg"
+                                            android:drawableRight="@android:drawable/ic_menu_gallery"/>
+
+
+                                    </LinearLayout>
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_marginBottom="10dp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:gravity="center_horizontal">
+                                    <customfonts.TextViewSFProDisplayRegular
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Sesuaikan Pembayaran Anda Dengan Harga Total Di Atas"
+                                        android:textSize="10.7sp"
+                                        android:layout_gravity="center"
+                                        android:textColor="@color/black"/>
+                                    <ImageView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="20dp"
+                                        android:src="@mipmap/info"
+                                        android:layout_gravity="center"
+                                        android:layout_marginLeft="8dp"/>
+                                </LinearLayout>
+
+
+                            </LinearLayout>
+
+
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:visibility="gone"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="@dimen/value_10"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="5dp"
+                                android:text="Kode Transaksi"
+                                android:textColor="#000"
+                                android:textSize="16dp" />
+
+                            <EditText
+
+                                android:layout_width="match_parent"
+                                android:layout_height="45dp"
+                                android:layout_marginBottom="15dp"
+                                android:background="@drawable/round_spinner"
+                                android:enabled="false"
+                                android:maxLength="10"
+                                android:saveEnabled="false" />
+
+                            <requestFocus />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="5dp"
+                                android:text="Nama Pengirim"
+                                android:textColor="#000"
+                                android:textSize="16dp" />
+
+                            <EditText
+
+                                android:layout_width="match_parent"
+                                android:layout_height="45dp"
+                                android:layout_marginBottom="15dp"
+                                android:background="@drawable/round_spinner"
+                                android:enabled="false"
+                                android:maxLength="10"
+                                android:saveEnabled="false" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="5dp"
+                                android:text="Total Bayar"
+                                android:textColor="#000"
+                                android:textSize="16dp" />
+
+                            <EditText
+
+                                android:layout_width="match_parent"
+                                android:layout_height="45dp"
+                                android:layout_marginBottom="15dp"
+                                android:background="@drawable/round_spinner"
+                                android:enabled="false"
+                                android:maxLength="10"
+                                android:saveEnabled="false" />
+
+                            <requestFocus />
+
+
+                            <TextView
+                                android:visibility="gone"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="5dp"
+                                android:text="Total Bayar"
+                                android:textColor="#000"
+                                android:textSize="16dp" />
+
+
+                            <LinearLayout
+                                android:visibility="gone"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <customfonts.TextViewSFProDisplayRegular
+                                    style="@style/txt_gray_big"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Total Pembayaran" />
+
+                                <customfonts.MyTextView_Roboto_Regular
+                                    android:id="@+id/tv_totalbayar"
+                                    style="@style/txt_color_primary_big"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/value_5"
+                                    android:text="Rp 50.000.000"
+                                    android:textAlignment="viewEnd"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <customfonts.TextViewSFProDisplayRegular
+                                    android:layout_marginBottom="5dp"
+                                    android:textColor="#000"
+                                    android:textSize="16dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Pilih Rekening" />
+
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="50dp"
+                                    android:layout_marginBottom="15dp"
+                                    android:background="@drawable/round_spinner">
+
+                                    <Spinner
+                                        android:id="@+id/spin_rek"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="45dp"
+                                        android:gravity="center"></Spinner>
+                                </LinearLayout>
+
+                                <requestFocus />
+
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/value_20"
+                                android:orientation="vertical">
+
+                                <customfonts.TextViewSFProDisplayRegular
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="No. Rekening" />
+
+                                <customfonts.TextViewSFProDisplayRegular
+                                    android:visibility="gone"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/value_5"
+                                    android:text="" />
+
+
+                                <customfonts.TextViewSFProDisplayRegular
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/value_5"
+                                    android:text="6524-01-012368-53-2"
+                                    android:textColor="@color/colorPrimary"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+
+                                    android:orientation="vertical">
+
+                                    <customfonts.TextViewSFProDisplayRegular
+                                        android:layout_width="match_parent"
+                                        android:layout_height="@dimen/value_0.5"
+                                        android:background="@color/gray_table" />
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal">
+
+                                        <customfonts.TextViewSFProDisplayRegular
+                                            android:layout_width="@dimen/value_0.5"
+                                            android:layout_height="match_parent"
+                                            android:background="@color/gray_table" />
+
+                                        <customfonts.TextViewSFProDisplayRegular
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.2"
+                                            android:text="Nama Rekening"
+                                            android:textSize="12sp" />
+
+                                        <customfonts.TextViewSFProDisplayRegular
+                                            android:layout_width="@dimen/value_0.5"
+                                            android:layout_height="match_parent"
+                                            android:background="@color/gray_table" />
+
+                                        <customfonts.TextViewSFProDisplayRegular
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.5"
+                                            android:padding="@dimen/value_5"
+                                            android:text="Nurul Jadid"
+                                            android:textStyle="bold" />
+
+
+                                        <customfonts.TextViewSFProDisplayRegular
+                                            android:layout_width="@dimen/value_0.5"
+                                            android:layout_height="match_parent"
+                                            android:background="@color/gray_table" />
+
+
+                                    </LinearLayout>
+
+                                    <TextView
+                                        android:layout_marginTop="20dp"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Bukti Transfer"
+                                        android:textColor="#000"
+                                        android:textSize="16dp"
+                                        android:layout_marginBottom="5dp"/>
+
+                                    <ImageView
+                                        android:visibility="gone"
+                                        android:layout_width="370dp"
+                                        android:layout_height="350dp"
+                                        android:layout_gravity="center"
+                                        android:layout_centerInParent="true"/>
+
+
+                                    <Button
+                                        android:textAppearance="?android:textAppearanceSmall"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="Pilih File*.JPG/PNG"
+                                        android:drawableRight="@android:drawable/ic_menu_gallery"/>
+
+
+                                </LinearLayout>
 
                             </LinearLayout>
 

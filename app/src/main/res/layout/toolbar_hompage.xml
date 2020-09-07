@@ -32,4 +32,75 @@
         android:layout_margin="8dp"
         app:mt_navIconEnabled="true"
         app:mt_placeholder="Belanj" />
+
+    <LinearLayout
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+           >
+
+
+            <LinearLayout
+                android:id="@+id/lnseacrh"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:padding="10dp"
+                android:background="@drawable/search_rect"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:tint="#534a4a"
+                    android:layout_gravity="center"
+                    android:src="@drawable/search"/>
+
+                <customfonts.EditText_Roboto_Meidum
+                    android:padding="5dp"
+                    android:enabled="false"
+                    android:singleLine="true"
+                    android:inputType="text"
+                    android:imeOptions="actionSearch"
+                    android:id="@+id/tvxCari"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:maxLines="1"
+                    android:layout_gravity="center"
+                    android:textColor="@color/black"
+                    android:layout_marginLeft="15dp"
+                    android:hint="Cari di Belanj"
+                    android:background="#00000000"/>
+
+
+
+
+
+                <ImageView
+                    android:id="@+id/imgResetSearch"
+                    android:layout_width="13dp"
+                    android:layout_height="13dp"
+                    android:tint="#534a4a"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/ic_cancel"/>
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

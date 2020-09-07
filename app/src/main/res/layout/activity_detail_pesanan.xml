@@ -71,7 +71,7 @@
                                 android:layout_marginBottom="5dp"
                                 android:orientation="horizontal">
 
-                                <customfonts.MyTextView_Roboto_Bold
+                                <TextView
                                     android:id="@+id/tv_status_order_detail"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -79,11 +79,6 @@
                                     android:textColor="@color/colorutama"
                                     android:textSize="13sp"
                                     android:textStyle="bold" />
-
-                                <ImageView
-                                    android:layout_width="40dp"
-                                    android:layout_height="40dp"
-                                    android:id="@+id/img"/>
 
                                 <Space
                                     android:layout_width="wrap_content"
@@ -204,6 +199,31 @@
                 </androidx.core.widget.NestedScrollView>
 
                 <customfonts.MyTextView_Roboto_Bold
+                    android:id="@+id/tvtulis"
+                    style="@style/txt_white_medium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorutama"
+                    android:gravity="center"
+                    android:padding="@dimen/value_5"
+                    android:text="Selesai"
+                    android:layout_marginBottom="10dp"
+                    android:textSize="20sp" />
+
+                <customfonts.MyTextView_Roboto_Bold
+                    android:id="@+id/tvlacak"
+                    style="@style/txt_white_medium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/orange"
+                    android:gravity="center"
+                    android:padding="@dimen/value_5"
+                    android:text="Lacak"
+                    android:visibility="gone"
+                    android:layout_marginBottom="10dp"
+                    android:textSize="20sp" />
+
+                <customfonts.MyTextView_Roboto_Bold
                     android:id="@+id/tv_tanya"
                     style="@style/txt_white_medium"
                     android:layout_width="match_parent"
@@ -213,6 +233,7 @@
                     android:padding="@dimen/value_5"
                     android:text="Tanya Penjual"
                     android:textSize="20sp" />
+
             </LinearLayout>
 
 

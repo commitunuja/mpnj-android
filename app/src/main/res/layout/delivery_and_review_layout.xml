@@ -1,118 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#f6f6f6"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:background="#FFFFFF"
+    android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="15dp"
-        android:background="@drawable/rect_gray">
-
+    <!--    <LinearLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:orientation="vertical"-->
+    <!--        android:layout_marginLeft="10dp"-->
+    <!--        android:layout_marginRight="10dp"-->
+    <!--        android:layout_marginTop="15dp"-->
+    <!--        android:background="@drawable/rect_gray">-->
 
 
-        <customfonts.MyTextView_Roboto_Bold
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Delivery"
-            android:textSize="12.7sp"
-            android:layout_marginTop="17dp"
-            android:layout_marginLeft="18dp"
-            android:textColor="@color/black"/>
+    <!--        <customfonts.MyTextView_Roboto_Bold-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:text="Delivery"-->
+    <!--            android:textSize="12.7sp"-->
+    <!--            android:layout_marginTop="17dp"-->
+    <!--            android:layout_marginLeft="18dp"-->
+    <!--            android:textColor="@color/black"/>-->
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="18dp"
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal">
-
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="12dp"
-                        android:layout_height="12dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/map_marker"/>
-
-                    <customfonts.EditText_Roboto_Regular
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/black"
-                        android:textSize="13sp"
-                        android:background="#00000000"
-                        android:inputType="number"
-                        android:maxLength="6"
-                        android:layout_marginLeft="5dp"
-                        android:hint="Enter Delivery Pincode"/>
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:background="@color/viewline_ver"
-                    android:layout_marginTop="5dp"/>
-            </LinearLayout>
-
-            <customfonts.MyTextView_Roboto_Bold
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="12.7sp"
-                android:textColor="@color/red"
-                android:layout_marginLeft="15dp"
-                android:text="Check"/>
+    <!--        <LinearLayout-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_marginLeft="18dp"-->
+    <!--            android:layout_marginTop="20dp"-->
+    <!--            android:orientation="horizontal">-->
 
 
-        </LinearLayout>
+    <!--            <LinearLayout-->
+    <!--                android:layout_width="wrap_content"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:orientation="vertical">-->
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="18dp"
-            android:layout_marginTop="18dp"
-            android:orientation="vertical">
+    <!--                <LinearLayout-->
+    <!--                    android:layout_width="wrap_content"-->
+    <!--                    android:layout_height="wrap_content"-->
+    <!--                    android:orientation="horizontal">-->
 
-        <customfonts.MyTextView_Roboto_Medium
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#777b7e"
-            android:textSize="13sp"
-            android:text="Usually delivered in 3-4 days"/>
+    <!--                    <ImageView-->
+    <!--                        android:layout_width="12dp"-->
+    <!--                        android:layout_height="12dp"-->
+    <!--                        android:layout_gravity="center"-->
+    <!--                        android:src="@drawable/map_marker"/>-->
 
-            <customfonts.MyTextView_Roboto_Regular
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/cut_price"
-                android:textSize="11sp"
-                android:layout_marginBottom="13sp"
-                android:text="Enter pincode for exact delivery dates/charges"/>
+    <!--                    <customfonts.EditText_Roboto_Regular-->
+    <!--                        android:layout_width="wrap_content"-->
+    <!--                        android:layout_height="wrap_content"-->
+    <!--                        android:textColor="@color/black"-->
+    <!--                        android:textSize="13sp"-->
+    <!--                        android:background="#00000000"-->
+    <!--                        android:inputType="number"-->
+    <!--                        android:maxLength="6"-->
+    <!--                        android:layout_marginLeft="5dp"-->
+    <!--                        android:hint="Enter Delivery Pincode"/>-->
+    <!--                </LinearLayout>-->
 
-        </LinearLayout>
+    <!--                <View-->
+    <!--                    android:layout_width="match_parent"-->
+    <!--                    android:layout_height="0.5dp"-->
+    <!--                    android:background="@color/viewline_ver"-->
+    <!--                    android:layout_marginTop="5dp"/>-->
+    <!--            </LinearLayout>-->
 
-    </LinearLayout>
+    <!--            <customfonts.MyTextView_Roboto_Bold-->
+    <!--                android:layout_width="wrap_content"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:textSize="12.7sp"-->
+    <!--                android:textColor="@color/red"-->
+    <!--                android:layout_marginLeft="15dp"-->
+    <!--                android:text="Check"/>-->
+
+
+    <!--        </LinearLayout>-->
+
+    <!--        <LinearLayout-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_marginLeft="18dp"-->
+    <!--            android:layout_marginTop="18dp"-->
+    <!--            android:orientation="vertical">-->
+
+    <!--        <customfonts.MyTextView_Roboto_Medium-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:textColor="#777b7e"-->
+    <!--            android:textSize="13sp"-->
+    <!--            android:text="Usually delivered in 3-4 days"/>-->
+
+    <!--            <customfonts.MyTextView_Roboto_Regular-->
+    <!--                android:layout_width="wrap_content"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:textColor="@color/cut_price"-->
+    <!--                android:textSize="11sp"-->
+    <!--                android:layout_marginBottom="13sp"-->
+    <!--                android:text="Enter pincode for exact delivery dates/charges"/>-->
+
+    <!--        </LinearLayout>-->
+
+    <!--    </LinearLayout>-->
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="29dp"
-        app:cardElevation="2dp"
-        app:cardBackgroundColor="@color/white">
+        app:cardBackgroundColor="@color/white"
+        app:cardElevation="2dp">
 
 
         <LinearLayout
@@ -122,188 +122,211 @@
             android:orientation="vertical">
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginLeft="25dp"
-            android:orientation="vertical">
-
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-            <customfonts.MyTextView_Roboto_Bold
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="12.7sp"
-                android:textColor="@color/black"
-                android:text="Customer Review And "/>
-
-                <customfonts.MyTextView_Roboto_Bold
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="12.7sp"
-                    android:text="error"
-                    android:textColor="@color/black"/>
-
-            </LinearLayout>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:background="@drawable/green_rect">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="15dp"
-                        android:paddingRight="15dp"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp"
-                        android:orientation="horizontal">
-
-                        <customfonts.MyTextView_Roboto_Medium
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/white"
-                            android:text="4.4"
-                            android:layout_marginRight="5dp"
-                            android:textSize="12.3dp"/>
-
-                        <ImageView
-                            android:layout_width="12dp"
-                            android:layout_height="12dp"
-                            android:src="@drawable/star"
-                            android:layout_gravity="center"
-                            android:tint="@color/white"/>
-
-
-                    </LinearLayout>
-
-
-
-                </LinearLayout>
-
-                <customfonts.MyTextView_Roboto_Medium
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:textSize="12.3sp"
-                    android:text="@string/review"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="15dp"
-                    android:textColor="@color/cut_price"/>
-
-                <ImageView
-                    android:layout_width="17dp"
-                    android:layout_height="17dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/viewmore"/>
-
-            </LinearLayout>
-
-
-
-        </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@color/viewline"/>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"
+                android:layout_marginTop="15dp"
                 android:orientation="vertical">
-
-
-                <customfonts.MyTextView_Roboto_Medium
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#241f1f"
-                    android:text="Top Review"/>
-
-
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginEnd="10dp"
                     android:orientation="horizontal">
 
-
-                    <customfonts.MyTextView_Roboto_Medium
+                    <customfonts.MyTextView_Roboto_Bold
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ulasan Pembeli"
                         android:layout_weight="1"
+                        android:textColor="@color/black"
+                        android:textSize="12dp" />
+
+                    <Space
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Great Diwali Gift"
-                        android:textColor="@color/black"
-                        android:textSize="12.7sp"/>
+                        android:layout_weight="1" />
+
+                    <customfonts.MyTextView_Roboto_Bold
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Lihat Semua"
+                        android:layout_marginEnd="10dp"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="10sp" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/green_rect"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingLeft="15dp"
+                            android:paddingTop="5dp"
+                            android:paddingRight="15dp"
+                            android:paddingBottom="5dp">
+
+                            <customfonts.MyTextView_Roboto_Medium
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="5dp"
+                                android:text="4.4"
+                                android:textColor="@color/white"
+                                android:textSize="11sp" />
+
+                            <ImageView
+                                android:layout_width="12dp"
+                                android:layout_height="12dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/star"
+                                android:tint="@color/white" />
+
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
 
                     <customfonts.MyTextView_Roboto_Medium
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:textSize="11.3sp"
-                        android:textColor="@color/green"
-                        android:text="Verifeid User"/>
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="15dp"
+                        android:layout_weight="1"
+                        android:text="@string/review"
+                        android:textColor="@color/cut_price"
+                        android:textSize="10sp" />
+
+                    <ImageView
+                        android:layout_width="17dp"
+                        android:layout_height="17dp"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="20dp"
+                        android:src="@drawable/viewmore" />
+
                 </LinearLayout>
 
 
-                <customfonts.MyTextView_Roboto_Medium
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/cut_price"
-                    android:textSize="10.3sp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="5dp"
-                    android:text="By Guest on 24 March 2017"/>
-
-
-                <customfonts.MyTextView_Roboto_Regular
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="11.3sp"
-                    android:textColor="#545d64"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="8dp"
-                    android:text="Surprise Gift to my sister, she just jumped in air,loved it...."/>
-
-
-                <customfonts.MyTextView_Roboto_Regular
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="View All Reviews"
-                    android:textColor="@color/red"
-                    android:textSize="12.7sp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginTop="15dp"/>
-
             </LinearLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/viewline" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+
+                    <!--            <customfonts.MyTextView_Roboto_Medium-->
+                    <!--                android:layout_width="wrap_content"-->
+                    <!--                android:layout_height="wrap_content"-->
+                    <!--                android:text="Top Review"-->
+                    <!--                android:textColor="#241f1f" />-->
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="20dp"
+                        android:orientation="horizontal">
+
+                        <!--                <TextView-->
+                        <!--                    android:layout_width="wrap_content"-->
+                        <!--                    android:layout_height="wrap_content"-->
+                        <!--                    android:text="Oleh "-->
+                        <!--                    android:textSize="10dp" />-->
+
+                        <customfonts.MyTextView_Roboto_Medium
+                            android:id="@+id/tvdiskripsireview"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Surprise Gift to my sister, she just jumped in air,loved it...."
+                            android:textColor="#545d64"
+                            android:textSize="11.3sp" />
+
+                        <!--                <customfonts.MyTextView_Roboto_Medium-->
+                        <!--                    android:layout_width="wrap_content"-->
+                        <!--                    android:layout_height="wrap_content"-->
+                        <!--                    android:text="Verifeid User"-->
+                        <!--                    android:textColor="@color/green"-->
+                        <!--                    android:textSize="11.3sp" />-->
+                    </LinearLayout>
+
+
+                    <customfonts.MyTextView_Roboto_Medium
+                        android:id="@+id/tvnamareview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="5dp"
+                        android:text="By Guest on 24 March 2017"
+                        android:textColor="@color/cut_price"
+                        android:textSize="10.3sp" />
+
+
+                    <!--        <customfonts.MyTextView_Roboto_Regular-->
+                    <!--            android:id="@+id/tvnamareview"-->
+                    <!--            android:layout_width="wrap_content"-->
+                    <!--            android:layout_height="wrap_content"-->
+                    <!--            android:layout_marginLeft="10dp"-->
+                    <!--            android:layout_marginTop="8dp"-->
+                    <!--            android:text="Surprise Gift to my sister, she just jumped in air,loved it...."-->
+                    <!--            android:textColor="#545d64"-->
+                    <!--            android:textSize="11.3sp" />-->
+
+
+                    <!--        <customfonts.MyTextView_Roboto_Regular-->
+                    <!--            android:layout_width="wrap_content"-->
+                    <!--            android:layout_height="wrap_content"-->
+                    <!--            android:layout_marginLeft="8dp"-->
+                    <!--            android:layout_marginTop="15dp"-->
+                    <!--            android:paddingBottom="10dp"-->
+                    <!--            android:text="View All Reviews"-->
+                    <!--            android:textColor="@color/red"-->
+                    <!--            android:textSize="12.7sp" />-->
+
+                </LinearLayout>
+
+            </LinearLayout>
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
-
-
 
 
 </LinearLayout>

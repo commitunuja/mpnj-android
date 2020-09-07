@@ -34,6 +34,7 @@
     <string name="failed_request">Silakan coba lagi ...</string>
     <string name="network_error">Silakan coba lagi. Jaringan tidak merespon</string>
     <string name="fail_togetaddress">Gagal mendapatkan alamat pengguna, Silakan coba lagi.</string>
+    <string name="fail_togetbankadmin">Gagal mendapatkan bank admin, Silakan coba lagi.</string>
     <string name="keranjang">keranjang</string>
     <string name="nameproduct">nama produk</string>
     <string name="tambah_ke_keranjang">tambah ke keranjang</string>
@@ -51,7 +52,7 @@
     <string name="_32_gb">32GB</string>
     <string name="_64_gb">64GB</string>
     <string name="Rs">\u20B9</string>
-    <string name="review">253 Ratings &amp; 50 Reviews</string>
+    <string name="review">42 Ulasan</string>
     <string name="_128_gb">128GB</string>
     <string name="kategori">Kategori</string>
     <string name="stock">Stok: </string>
@@ -80,5 +81,11 @@
     <string name="dikirim">DIKIRIM</string>
     <string name="selesai">SELESAI</string>
     <string name="batal">DIBATALKAN</string>
+    <string name="revieworang">pengiriman cepat dan semua nya berfungsi</string>
+
+
+
+    <string name="item_added_to_your_cart">Item Berhasil Ditambahkan ke Keranjang Anda</string>
+
 
 </resources>

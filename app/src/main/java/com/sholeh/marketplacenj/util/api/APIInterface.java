@@ -3,16 +3,21 @@ package com.sholeh.marketplacenj.util.api;
 import com.google.gson.JsonObject;
 import com.sholeh.marketplacenj.model.Kategori;
 import com.sholeh.marketplacenj.model.Model;
+import com.sholeh.marketplacenj.model.ResDetailKeranjang;
 import com.sholeh.marketplacenj.model.city.ItemCity;
 import com.sholeh.marketplacenj.model.cost.ItemCost;
 import com.sholeh.marketplacenj.model.pesanan.Pesanan;
 import com.sholeh.marketplacenj.model.pesanan.detailpesanan.DetailPesanan;
 import com.sholeh.marketplacenj.model.province.ItemProvince;
+import com.sholeh.marketplacenj.model.review.HeaderReview;
+import com.sholeh.marketplacenj.model.review.Review;
+import com.sholeh.marketplacenj.model.review.ReviewModel;
 import com.sholeh.marketplacenj.model.subdistrict.ItemKec;
 import com.sholeh.marketplacenj.respon.ResAlamat;
 import com.sholeh.marketplacenj.respon.ResBank;
+import com.sholeh.marketplacenj.respon.ResBanner;
 import com.sholeh.marketplacenj.respon.ResDetailAlamat;
-import com.sholeh.marketplacenj.respon.ResDetailKeranjang;
+import com.sholeh.marketplacenj.respon.ResCheckout;
 import com.sholeh.marketplacenj.respon.ResHapusKeranjang;
 import com.sholeh.marketplacenj.respon.ResKeranjang;
 import com.sholeh.marketplacenj.respon.ResKonfirmasi;
@@ -24,7 +29,6 @@ import com.sholeh.marketplacenj.respon.ResRekAdmin;
 import com.sholeh.marketplacenj.respon.ResTampilWishlist;
 import com.sholeh.marketplacenj.respon.ResUbahJumlahProduk;
 import com.sholeh.marketplacenj.respon.ResWishlist;
-import com.sholeh.marketplacenj.respon.RestCost;
 
 import java.util.List;
 
@@ -45,6 +49,16 @@ import retrofit2.http.Query;
 
 
 public interface APIInterface {
+    // Diskon
+    @GET("api/produk/diskon")
+    abstract Call<List<Model>> getProdukDiskon();
+
+    // Terpopuler
+    @GET("api/produk/laris")
+    abstract Call<List<Model>> getProdukTerpopuler();
+
+
+    // Terbaru
     @GET("api/produk")
     abstract Call<List<Model>> getProduk();
 
@@ -155,8 +169,10 @@ public interface APIInterface {
             @Field("user_id") String userId);
 
     //  delete alamat
-    @DELETE("api/konsumen/hapus/alamat/{id_alamat}")
-    Call<ResAlamat> hapusItemAlamat(@Path("id_alamat") String idAlamat);
+
+    @DELETE("api/konsumen/hapus/alamat/{id_alamat}/{id_user}")
+    Call<ResAlamat> hapusItemAlamat(@Path("id_alamat") String idAlamat,
+                                    @Path("id_user") String idUser);
 
     //  ubah alamat
     @FormUrlEncoded
@@ -191,6 +207,9 @@ public interface APIInterface {
     @GET("api/pesanan")
     Call<Pesanan> getDataPesanan(@Query("id") String id, @Query("tab") String tab);
 
+    @GET("api/review/{id}")
+    Call<List<ReviewModel>> getDataReview(@Path("id") String id_produk, @Query("id") String id_user);
+
     @GET("api/pesanan/detail/{kode}")
     Call<DetailPesanan> getDataDetailPesanan(@Path("kode") String kode);
 
@@ -212,7 +231,7 @@ public interface APIInterface {
 
     @FormUrlEncoded
     @POST("api/transaksi")
-    Call<ResDetailKeranjang> getDataTransaksi(
+    Call<ResCheckout> getDataTransaksi(
             @Query("id") String id,
             @Field("id_keranjang[]") List<String> id_keranjang);
 
@@ -220,7 +239,7 @@ public interface APIInterface {
     @POST("api/transaksi/simpan")
     Call<JsonObject> simpanTransaksi(
             @Field("user_id") String user_id,
-            @Field("totalBayar") Double totalBayar,
+            @Field("totalBayar") Integer totalBayar,
             @Field("id_keranjang[]") List<String> id_keranjang);
 
     @FormUrlEncoded
@@ -247,7 +266,7 @@ public interface APIInterface {
     // ubah status keranjang
     @FormUrlEncoded
     @PUT("api/keranjang/{id_user}/go_checkout")
-    Call<ResDetailKeranjang> ubahStatusKeranjang(
+    Call<ResCheckout> ubahStatusKeranjang(
             @Path("id_user") String id_user,
             @Field("id_keranjang[]") List<String> id_keranjang
 
@@ -301,6 +320,8 @@ public interface APIInterface {
             @Path("id_user") String idUser
     );
 
+
+
     //  delete produk keranjang
     @DELETE("api/wishlist/hapus/{id_wishlist}")
     Call<ResHapusKeranjang> hapusProdukWishlist(
@@ -312,6 +333,9 @@ public interface APIInterface {
     @POST("api/wishlist/cari")
     Call<ResTampilWishlist> cariWishlist(@Field("id_user") String userId,
                                   @Field("nama_produk") String namaProduk);
+
+    @GET("api/banner")
+    Call<ResBanner> getBanner();
 
 
 }

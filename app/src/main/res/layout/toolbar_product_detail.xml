@@ -30,12 +30,24 @@
                     android:orientation="horizontal">
 
                     <ImageView
+                        android:id="@+id/imgtoolbar"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_back_black" />
 
+                    <customfonts.MyTextView_Roboto_Bold
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:id="@+id/tvTitleglobal"
+                        android:textColor="@color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="Detail Produk" />
 
                     <LinearLayout
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
@@ -81,7 +93,7 @@
             </FrameLayout>
             <LinearLayout
                 android:id="@+id/linear"
-                android:layout_marginTop="-50dp"
+                android:layout_marginTop="-35dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"

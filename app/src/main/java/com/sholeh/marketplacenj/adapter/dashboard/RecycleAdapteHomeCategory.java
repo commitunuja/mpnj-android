@@ -3,7 +3,6 @@ package com.sholeh.marketplacenj.adapter.dashboard;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,11 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.activities.ProdukByKategori;
-import com.sholeh.marketplacenj.activities.dashboard.Homepage;
 import com.sholeh.marketplacenj.model.Kategori;
-import com.sholeh.marketplacenj.model.dashboard.HomeCategoryModelClass;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class RecycleAdapteHomeCategory extends RecyclerView.Adapter<RecycleAdapteHomeCategory.MyViewHolder> {
@@ -82,6 +78,7 @@ public class RecycleAdapteHomeCategory extends RecyclerView.Adapter<RecycleAdapt
             public void onClick(View v) {
                 Intent intent = new Intent(context, ProdukByKategori.class);
                 intent.putExtra("id_kategori", String.valueOf(movie.getIdKategoriProduk()));
+                intent.putExtra("namakategori", String.valueOf(movie.getNamaKategori()));
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
             }

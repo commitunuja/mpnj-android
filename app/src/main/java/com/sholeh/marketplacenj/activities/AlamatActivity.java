@@ -10,7 +10,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -47,6 +49,8 @@ public class AlamatActivity extends AppCompatActivity implements View.OnClickLis
 
     private KProgressHUD progressDialogHud;
     LinearLayout ln_kosong;
+    TextView tvx_title;
+    ImageView imgtoolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +58,11 @@ public class AlamatActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_alamat);
         preferences = new Preferences(getApplication());
         id_konsumen = preferences.getIdKonsumen();
+        imgtoolbar = findViewById(R.id.imgtoolbarF);
+        tvx_title = findViewById(R.id.title);
+        tvx_title.setText("Alamat Saya");
+        tvx_title.setTextColor(getResources().getColor(R.color.white));
+        tvx_title.setVisibility(View.VISIBLE);
 
         progressDialogHud = KProgressHUD.create(AlamatActivity.this);
         ln_kosong = findViewById(R.id.lnKosong);
@@ -61,6 +70,7 @@ public class AlamatActivity extends AppCompatActivity implements View.OnClickLis
         fab_addAlamat = findViewById(R.id.fab_alamat);
         recyclerAlamat = findViewById(R.id.recycler_alamat);
         fab_addAlamat.setOnClickListener(this);
+        imgtoolbar.setOnClickListener(this);
 
         toolBarisi = findViewById(R.id.toolbar);
         toolBarisi.setTitle("Alamat Saya");
@@ -73,13 +83,32 @@ public class AlamatActivity extends AppCompatActivity implements View.OnClickLis
         alamatAdapter = new AlamatAdapter(AlamatActivity.this, modellist);
         recyclerAlamat.setAdapter(alamatAdapter);
 
-        getAlamat();
+
 
     }
+    @Override
+    public void onResume()
+    {
+        getAlamat();
+
+        super.onResume();
+        // Load data and do stuff
+    }
+
+
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
+//            YourItem passedItem = data.getExtras().get("passed_item");
+//            // deal with the item yourself
+//
+//        }
+//    }
 
     private void ProgresDialog() {
         progressDialogHud.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
-                .setLabel("Loading...")
+//                .setLabel("Loading...")
                 .setCancellable(false);
         progressDialogHud.show();
     }
@@ -95,8 +124,15 @@ public class AlamatActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.fab_alamat:
-                startActivity(new Intent(this, AddAlamat.class));
+                Intent pindah = new Intent(this, AddAlamat.class);
+                pindah.putExtra("alamat", "activity");
+                startActivity(pindah);
+                finish();
 //                Toast.makeText(this, "kll", Toast.LENGTH_SHORT).show();
+                break;
+
+            case  R.id.imgtoolbarF:
+                finish();
                 break;
 
 
@@ -108,7 +144,7 @@ public class AlamatActivity extends AppCompatActivity implements View.OnClickLis
 
     public void getAlamat() {
         if (!NetworkUtility.isNetworkConnected(AlamatActivity.this)) {
-            AppUtilits.displayMessage(AlamatActivity.this, getString(R.string.network_not_connected));
+//            AppUtilits.displayMessage(AlamatActivity.this, getString(R.string.network_not_connected));
         } else {
             ProgresDialog();
             APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
@@ -136,8 +172,6 @@ public class AlamatActivity extends AppCompatActivity implements View.OnClickLis
                                             response.body().getData().getDaftarAlamat().get(i).getNamaProvinsi(),
                                             response.body().getData().getDaftarAlamat().get(i).getKodePos(),
                                             response.body().getData().getDaftarAlamat().get(i).getStatus()));
-
-
                                 }
 
                                 alamatAdapter.notifyDataSetChanged();
@@ -147,7 +181,7 @@ public class AlamatActivity extends AppCompatActivity implements View.OnClickLis
 
 
                             } else {
-                                Toast.makeText(AlamatActivity.this, "Data Belum Ada", Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(AlamatActivity.this, "Data Belum Ada", Toast.LENGTH_SHORT).show();
                                 recyclerAlamat.setVisibility(View.GONE);
 //                            ln_kosong.setVisibility(View.VISIBLE);
                                 progressDialogHud.dismiss();
@@ -159,7 +193,7 @@ public class AlamatActivity extends AppCompatActivity implements View.OnClickLis
                             progressDialogHud.dismiss();
                         }
                     } else {
-                        AppUtilits.displayMessage(AlamatActivity.this, getString(R.string.network_error));
+//                        AppUtilits.displayMessage(AlamatActivity.this, getString(R.string.network_error));
                         recyclerAlamat.setVisibility(View.GONE);
                         ln_kosong.setVisibility(View.VISIBLE);
                         progressDialogHud.dismiss();
@@ -169,7 +203,7 @@ public class AlamatActivity extends AppCompatActivity implements View.OnClickLis
 
                 @Override
                 public void onFailure(Call<ResProfil> call, Throwable t) {
-                    AppUtilits.displayMessage(AlamatActivity.this, getString(R.string.fail_togetaddress));
+//                    AppUtilits.displayMessage(AlamatActivity.this, getString(R.string.fail_togetaddress));
                     recyclerAlamat.setVisibility(View.GONE);
                     ln_kosong.setVisibility(View.VISIBLE);
                     progressDialogHud.dismiss();

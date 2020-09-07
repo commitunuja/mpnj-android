@@ -46,17 +46,23 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center">
 
+
+
                         <de.hdodenhof.circleimageview.CircleImageView
-                            app:civ_border_color="@color/yellow"
-                            xmlns:app="http://schemas.android.com/apk/res-auto"
                             android:id="@+id/cirprofile_image"
-                            android:layout_width="70dp"
-                            android:layout_height="70dp"
-                            android:text="NJ"
+                            android:layout_width="90dp"
+                            android:layout_height="90dp"
                             android:textColor="@color/black"
                             android:background="@drawable/man"
                             android:gravity="center"
-                            android:textSize="30sp" />
+                            android:layout_centerHorizontal="true"
+                            android:layout_gravity="right"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/man"
+                            app:civ_border_color="#FFF75A"
+                            app:civ_border_width="1dp"
+
+                            />
 
                         <ImageView
                             android:id="@+id/imgProfil"
@@ -66,37 +72,39 @@
                             android:layout_marginEnd="@dimen/value_2"
                             android:layout_marginRight="@dimen/value_2"
                             android:background="@drawable/black_round_corner_button"
-
                             app:srcCompat="@drawable/ic_edit" />
+
                     </FrameLayout>
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginLeft="5dp"
                         android:layout_gravity="center"
                         android:orientation="vertical">
 
-                        <customfonts.MyTextView_Roboto_Medium
-                            android:text="Gautam Rokde"
+                        <com.sholeh.marketplacenj.customview.textview.TextViewBold
+                            android:text="Muhammad Solehudin"
                             android:id="@+id/tvCustomerName"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="15sp"
+                            android:textSize="14sp"
                             android:textColor="@color/white"/>
 
-                        <customfonts.MyTextView_Roboto_Regular
+                        <com.sholeh.marketplacenj.customview.textview.TextViewLight
+                            android:layout_marginTop="5dp"
                             android:id="@+id/tvx_username"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="@color/white"
-                            android:textSize="13.3sp"
-                            android:text="username"/>
+                            android:textSize="14sp"
+                            android:text="Sholeh"/>
                     </LinearLayout>
 
                 </LinearLayout>
 
                 <androidx.cardview.widget.CardView
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12sp"
@@ -107,15 +115,16 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
                         android:orientation="vertical">
 
                         <LinearLayout
+                            android:layout_marginRight="15dp"
+                            android:layout_marginLeft="15dp"
+                            android:padding="12sp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginTop="12dp"
-                            android:layout_marginRight="10dp"
                             android:orientation="horizontal">
 
                             <ImageView
@@ -130,14 +139,14 @@
                                 android:orientation="vertical">
 
                                 <customfonts.MyTextView_Roboto_Medium
-                                    android:id="@+id/tvMyPesanan"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textSize="13.3sp"
+                                    android:textSize="14sp"
                                     android:textColor="@color/black"
-                                    android:text="Pesananku"/>
+                                    android:text="Pesanan Saya"/>
 
                                 <View
+                                    android:visibility="gone"
                                     android:layout_width="match_parent"
                                     android:layout_height="0.7dp"
                                     android:layout_marginTop="12sp"
@@ -147,6 +156,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:visibility="gone"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
@@ -163,7 +173,6 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="20dp"
-
                                 android:orientation="vertical">
 
                                 <customfonts.MyTextView_Roboto_Medium
@@ -180,7 +189,6 @@
 
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
-
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -190,16 +198,86 @@
                     app:cardBackgroundColor="@color/white">
 
                     <LinearLayout
+                        android:padding="15dp"
+                        android:id="@+id/lnMyPesanan"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="12sp"
+                        android:orientation="horizontal">
+
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_order_account"/>
+
+                        <customfonts.MyTextView_Roboto_Medium
+                            android:layout_marginLeft="10dp"
+                            android:padding="2dp"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:textSize="12sp"
+                            android:text="Pesanan Saya"/>
+
+                        <customfonts.MyTextView_Roboto_Medium
+                            android:visibility="gone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="12.3sp"
+                            android:textColor="#89000000"
+                            android:layout_marginRight="3dp"
+                            android:text="Edit Nomor"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:visibility="gone"
+
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="12sp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="10dp"
+                                />
+
+
+
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="12sp"
+                    app:cardBackgroundColor="@color/white">
+
+                    <LinearLayout
+                        android:padding="15dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
                         <ImageView
                             android:layout_width="22dp"
                             android:layout_height="22dp"
                             android:layout_gravity="center"
-                            android:layout_marginLeft="10dp"
                             android:src="@drawable/ic_smartphone"/>
 
                         <customfonts.MyTextView_Roboto_Medium
@@ -207,9 +285,8 @@
                             android:layout_weight="1"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:textSize="13.3sp"
-                            android:textColor="@color/black"
-                            android:layout_marginLeft="20dp"
+                            android:textSize="12sp"
+                            android:layout_marginLeft="10dp"
                             android:text="+6288233611111"/>
 
                         <customfonts.MyTextView_Roboto_Medium
@@ -222,6 +299,7 @@
                             android:text="Edit Nomor"/>
                     </LinearLayout>
                     <LinearLayout
+
                         android:orientation="vertical"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
@@ -231,6 +309,8 @@
                             android:layout_height="wrap_content"
                             android:padding="12sp"
                             android:orientation="horizontal">
+
+
 
                             <ImageView
                                 android:layout_width="15dp"
@@ -244,17 +324,15 @@
 
                         </LinearLayout>
                         <LinearLayout
-
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:padding="12sp"
+                            android:padding="15dp"
                             android:orientation="horizontal">
 
                             <ImageView
-                                android:layout_width="22dp"
+                                android:layout_width="20dp"
                                 android:layout_height="22dp"
                                 android:layout_gravity="center"
-                                android:layout_marginLeft="10dp"
                                 android:src="@drawable/ic_email_black"/>
 
                             <customfonts.MyTextView_Roboto_Medium
@@ -262,9 +340,9 @@
                                 android:layout_weight="1"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:textSize="13.3sp"
-                                android:textColor="@color/black"
-                                android:layout_marginLeft="20dp"
+                                android:textSize="12sp"
+
+                                android:layout_marginLeft="10dp"
                                 android:text="sholeh@gmail.com"/>
 
                             <customfonts.MyTextView_Roboto_Medium
@@ -292,46 +370,172 @@
                     android:layout_marginTop="12sp"
                     app:cardBackgroundColor="@color/white">
 
+
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <customfonts.MyTextView_Roboto_Medium
-                            android:id="@+id/tv_myprofil"
-                            android:layout_width="wrap_content"
+
+                        <LinearLayout
+                            android:id="@+id/lnprofile"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="23dp"
-                            android:layout_marginTop="23dp"
+                            android:padding="15dp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="22dp"
+                                android:layout_height="22dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_person_pin"/>
+
+                            <customfonts.MyTextView_Roboto_Medium
+                                android:id="@+id/tv_myprofil"
+                                android:layout_weight="1"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:padding="2dp"
+                                android:layout_marginLeft="10dp"
+                                android:text="Profile"/>
+
+                            <customfonts.MyTextView_Roboto_Medium
+                                android:visibility="gone"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12.3sp"
+                                android:textColor="#89000000"
+                                android:layout_marginRight="3dp"
+                                android:text="Edit Email"/>
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/line_gray" />
+
+                        <LinearLayout
+                            android:id="@+id/lnPassword"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="15dp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="22dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_pass" />
+
+                            <customfonts.MyTextView_Roboto_Medium
+                                android:padding="2dp"
+                                android:id="@+id/tvSetting"
+                                android:layout_weight="1"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:layout_marginLeft="10dp"
+                                android:text="Password"/>
+
+                            <customfonts.MyTextView_Roboto_Medium
+                                android:visibility="gone"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12.3sp"
+                                android:textColor="#89000000"
+                                android:layout_marginRight="3dp"
+                                android:text="Edit Email"/>
+                        </LinearLayout>
+
+
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/line_gray" />
+
+
+                        <LinearLayout
+                            android:id="@+id/lnAlamat"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="15dp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_alamat2"/>
+
+                            <customfonts.MyTextView_Roboto_Medium
+                                android:padding="2dp"
+                                android:id="@+id/tvAlamat"
+                                android:layout_weight="1"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:layout_marginLeft="10dp"
+                                android:text="Alamat"/>
+
+                            <customfonts.MyTextView_Roboto_Medium
+                                android:visibility="gone"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12.3sp"
+                                android:textColor="#89000000"
+                                android:layout_marginRight="3dp"
+                                android:text="Edit Email"/>
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/line_gray" />
+
+
+
+
+
+                        <customfonts.MyTextView_Roboto_Medium
+                        android:visibility="gone"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:padding="10dp"
                             android:text="Profil"
                             android:textColor="@color/black"
-                            android:textSize="13sp" />
+                            android:textSize="14sp" />
                         <customfonts.MyTextView_Roboto_Medium
-                            android:id="@+id/tvAlamat"
+                            android:visibility="gone"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:text="Alamat"
+                            android:layout_marginLeft="5dp"
+                            android:padding="10dp"/>
+
+                        <customfonts.MyTextView_Roboto_Medium
+                            android:visibility="gone"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:layout_marginLeft="5dp"
+                            android:padding="10dp"
+                            android:text="Password"/>
+
+
+                        <customfonts.MyTextView_Roboto_Medium
+                            android:visibility="gone"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/black"
-                            android:textSize="13sp"
-                            android:layout_marginLeft="23dp"
-                            android:layout_marginTop="23dp"
-                            android:text="Alamat"/>
-
-                        <customfonts.MyTextView_Roboto_Medium
-                            android:id="@+id/tvSetting"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/black"
-                            android:textSize="13sp"
-                            android:layout_marginLeft="23dp"
-                            android:layout_marginTop="23dp"
-                            android:text="Pengaturan"/>
-
-
-                        <customfonts.MyTextView_Roboto_Medium
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/black"
-                            android:textSize="13sp"
+                            android:textSize="14sp"
                             android:layout_marginLeft="23dp"
                             android:layout_marginTop="23dp"
                             android:layout_marginBottom="20dp"

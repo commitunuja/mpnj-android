@@ -31,7 +31,67 @@
                         android:layout_height="match_parent"
                         android:layout_width="match_parent"
                         android:layout_margin="10dp"/>
+
+                    <LinearLayout
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:orientation="horizontal">
+
+                        <RelativeLayout
+                            android:id="@+id/relativediskon"
+                            android:layout_width="25dp"
+                            android:layout_height="33dp"
+                            android:gravity="center"
+                            android:layout_gravity="end"
+                            android:layout_marginEnd="5dp" >
+
+                            <ImageView
+                                android:id="@+id/product_tag_discount"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/ic_tag_bookmark"
+                                android:scaleType="fitXY"
+                                android:tint="@color/colorPrimaryDark" />
+
+                            <TextView
+                                android:id="@+id/tvxdiskon"
+                                android:layout_width="30dp"
+                                android:layout_height="wrap_content"
+                                android:text="10%"
+                                android:textSize="10sp"
+                                android:textColor="@color/white"
+                                android:gravity="center"
+                                android:paddingBottom="5dp"
+                                android:layout_centerInParent="true"/>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_weight="1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="right">
+
+
+                            <ImageView
+                                android:visibility="gone"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:id="@+id/add_to_wishlist"
+                                android:src="@mipmap/ic_like_fille_green_24dp" />
+
+                        </RelativeLayout>
+
+
+
+                    </LinearLayout>
+
+
                     <TextView
+                        android:visibility="gone"
                         android:textSize="12sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -42,7 +102,7 @@
                         android:layout_margin="10dp"
                         android:padding="2dp"
                         android:layout_gravity="right|end"
-                        android:id="@+id/tvxdiskon"/>
+                      />
 
 
 
@@ -52,7 +112,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginTop="22dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginRight="10dp"
                     android:orientation="horizontal">
 
@@ -87,6 +147,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_marginRight="10dp"
                     android:orientation="horizontal">
 

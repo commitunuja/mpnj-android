@@ -9,25 +9,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sholeh.marketplacenj.R;
-import com.sholeh.marketplacenj.activities.DetailAlamat;
-import com.sholeh.marketplacenj.activities.UbahPassword;
 import com.sholeh.marketplacenj.activities.alamat.PilihAlamatCheckout;
 import com.sholeh.marketplacenj.activities.checkout.CheckoutActivity;
-import com.sholeh.marketplacenj.activities.details.ProductDetailActivity;
+import com.sholeh.marketplacenj.adapter.AlamatAdapter;
 import com.sholeh.marketplacenj.model.AlamatModel;
 import com.sholeh.marketplacenj.respon.ResAlamat;
-import com.sholeh.marketplacenj.respon.ResDetailKeranjang;
-import com.sholeh.marketplacenj.respon.ResNewPassword;
-import com.sholeh.marketplacenj.util.AppUtilits;
-import com.sholeh.marketplacenj.util.CONSTANTS;
-import com.sholeh.marketplacenj.util.NetworkUtility;
 import com.sholeh.marketplacenj.util.Preferences;
 import com.sholeh.marketplacenj.util.ServiceGenerator;
 import com.sholeh.marketplacenj.util.api.APIInterface;
@@ -60,7 +51,7 @@ public class AddressCheckoutAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     }
 
     private class AlamatItemView extends RecyclerView.ViewHolder {
-        TextView tvxidAlamat, tvxnamaCustomer, tvxNoHP, tvxAlamat, tvxKec, tvxKab, tvxProvinsi, tvxKodePos, tvxStatusAlamat;
+        TextView tvxidAlamat, tvxnamaCustomer, tvxNoHP, tvxAlamat, tvxKec, tvxKab, tvxProvinsi, tvxKodePos, tvxStatusAlamat, tvxSetAlamat;
         ImageView imageselect;
         CardView cvAlamat;
 
@@ -68,6 +59,7 @@ public class AddressCheckoutAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         public AlamatItemView(View itemView) {
             super(itemView);
             tvxnamaCustomer = itemView.findViewById(R.id.tvx_namaCustomer);
+            tvxSetAlamat= itemView.findViewById(R.id.tvx_setAlamat);
             tvxNoHP = itemView.findViewById(R.id.tvx_nohp);
             tvxAlamat = itemView.findViewById(R.id.tvx_alamat);
             tvxKec = itemView.findViewById(R.id.tvx_kec);
@@ -99,18 +91,28 @@ public class AddressCheckoutAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
 
         ((AlamatItemView) holder).tvxnamaCustomer.setText(model.getNamaLengkap());
-        ((AlamatItemView) holder).tvxNoHP.setText(model.getNomorHP());
-        ((AlamatItemView) holder).tvxAlamat.setText(model.getAlamatLengkap());
-        ((AlamatItemView) holder).tvxKec.setText("Kec. " + model.getNamaKec());
-        ((AlamatItemView) holder).tvxKab.setText("Kab. " + model.getNamaKota());
-        ((AlamatItemView) holder).tvxProvinsi.setText("Prov. " + model.getNamaProvinsi());
-        ((AlamatItemView) holder).tvxKodePos.setText(model.getKodePos());
+        String noHp = model.getNomorHP();
+        String alamatLengkap = model.getAlamatLengkap();
+        String Kecamatan = model.getNamaKec();
+        String Kota = model.getNamaKota();
+        String Provinsi = model.getNamaProvinsi();
+        String KodePos = model.getKodePos();
+        String alamatgabung = noHp+", "+alamatLengkap+", "+Kecamatan+", "+Kota+", "+Provinsi+", "+"ID "+KodePos;
+        ((AlamatItemView) holder).tvxnamaCustomer.setText(model.getNamaLengkap());
+        ((AlamatItemView) holder).tvxSetAlamat.setText(alamatgabung);
+
+//        ((AlamatItemView) holder).tvxNoHP.setText(model.getNomorHP());
+//        ((AlamatItemView) holder).tvxAlamat.setText(model.getAlamatLengkap());
+//        ((AlamatItemView) holder).tvxKec.setText("Kec. " + model.getNamaKec());
+//        ((AlamatItemView) holder).tvxKab.setText("Kab. " + model.getNamaKota());
+//        ((AlamatItemView) holder).tvxProvinsi.setText("Prov. " + model.getNamaProvinsi());
+//        ((AlamatItemView) holder).tvxKodePos.setText(model.getKodePos());
 
 
         if (model.getStatus().equalsIgnoreCase("utama")) {
             ((AlamatItemView) holder).tvxStatusAlamat.setText("[Utama]");
             ((AlamatItemView) holder).cvAlamat.setBackgroundResource(R.drawable.boarder_green_rounder_white);
-            ((AlamatItemView) holder).imageselect.setVisibility(View.VISIBLE);
+            ((AlamatItemView) holder).imageselect.setVisibility(View.GONE);
 
         } else {
             ((AlamatItemView) holder).cvAlamat.setBackgroundResource(R.drawable.boarder_black_rounder_white);
@@ -163,12 +165,13 @@ public class AddressCheckoutAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                         public void onResponse(Call<ResAlamat> call, Response<ResAlamat> response) {
                             Log.d("Ubah alamat", String.valueOf(response));
                             if (response.body() != null && response.isSuccessful()) { // true
+                                String nilaiIntent =((PilihAlamatCheckout) context).getNilai();
                                 Intent intent = new Intent(mContext, CheckoutActivity.class);
                                 intent.putExtra("id_kecpembeli", String.valueOf(model.getIdKec()));
                                 intent.putExtra("reset_kurir", "Silahkan Pilih Pengiriman Produk Anda");
+                                intent.putExtra("icheckout", nilaiIntent);
                                 intent.putStringArrayListExtra("idcheckout", id);
                                 mContext.startActivity(intent);
-
                                 ((Activity) mContext).finish();
 //                        Toast.makeText(mContext, "sukses"+ id_konsumen+" "+id_alamat, Toast.LENGTH_SHORT).show();
                             } else {
@@ -188,12 +191,6 @@ public class AddressCheckoutAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
 //                }
 
-
-//                Toast.makeText(context, "klik idkeranjang"+id, Toast.LENGTH_SHORT).show();
-
-//                Toast.makeText(mContext, "id alamat " + id_alamat+ " id kec"+idkec, Toast.LENGTH_SHORT).show();
-
-
             }
         });
 
@@ -210,9 +207,4 @@ public class AddressCheckoutAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         id_konsumen = preferences.getIdKonsumen();
 
     }
-
-//    public void ubahAlamatUtama() {
-//
-//
-//    }
 }

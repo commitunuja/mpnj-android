@@ -7,6 +7,7 @@
 
 
     <ImageView
+        android:id="@+id/imgtoolbarF"
         android:layout_width="18dp"
         android:layout_height="18dp"
         android:src="@drawable/ic_back_arrow" />
@@ -15,25 +16,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <customfonts.EditText_Roboto_Meidum
+        <customfonts.MyTextView_Roboto_Medium
+            android:visibility="gone"
             android:id="@+id/edit_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColorHint="@color/white"
-            android:textSize="16.7sp"
-            android:layout_marginLeft="15dp"
+            android:textSize="16sp"
+            android:layout_marginLeft="10dp"
             android:background="#00000000"
             android:maxLines="1"
             android:textCursorDrawable="@drawable/color_cursor"
             android:hint="@string/searchproduk"/>
 
         <customfonts.MyTextView_Roboto_Medium
+
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
-            android:textSize="16.7sp"
-            android:layout_marginLeft="20dp"
+            android:textSize="16sp"
+            android:layout_marginLeft="10dp"
             android:background="#00000000"
             android:visibility="gone"
             android:textCursorDrawable="@drawable/color_cursor"
@@ -41,16 +44,15 @@
 
     </FrameLayout>
 
-    <customfonts.MyTextView_Roboto_Regular
+    <customfonts.MyTextView_Roboto_Medium
+        android:visibility="gone"
+        android:background="@drawable/ic_exit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:textColor="@color/white"
-        android:text="Keluar"
         android:layout_gravity="right"
         android:layout_marginRight="20dp"
         android:id="@+id/logout_akun"
-        android:visibility="gone"/>
+      />
 
 
 

@@ -1,19 +1,16 @@
 package com.sholeh.marketplacenj.activities.alamat;
 
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -21,9 +18,9 @@ import android.widget.Toast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.sholeh.marketplacenj.activities.AddAlamat;
-import com.sholeh.marketplacenj.activities.AlamatActivity;
+import com.sholeh.marketplacenj.activities.checkout.CheckoutActivity;
 import com.sholeh.marketplacenj.adapter.alamat.AddressCheckoutAdapter;
-import com.sholeh.marketplacenj.respon.ResDetailKeranjang;
+import com.sholeh.marketplacenj.respon.ResCheckout;
 import com.sholeh.marketplacenj.util.api.APIInterface;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.util.ServiceGenerator;
@@ -34,7 +31,6 @@ import com.sholeh.marketplacenj.util.NetworkUtility;
 import com.sholeh.marketplacenj.util.Preferences;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import retrofit2.Call;
@@ -47,7 +43,7 @@ public class PilihAlamatCheckout extends AppCompatActivity implements View.OnCli
     private String TAG = "PilihAlamatCheckout";
 
     Preferences preferences;
-    String cekOngkir;
+    String cekOngkir,  nilaiIntent;
 
 
     private AddressCheckoutAdapter alamatAdapter;
@@ -57,12 +53,13 @@ public class PilihAlamatCheckout extends AppCompatActivity implements View.OnCli
     private KProgressHUD progressDialogHud;
     LinearLayout lnKosong;
 
-    ResDetailKeranjang resDetailKeranjang;
+    ResCheckout resCheckout;
     ArrayList<String> arrayIdKeranjang;
     String idkk;
     String id_konsumen, idkeranjang;
     List<String> list;
     ArrayList<String> idK;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +91,9 @@ public class PilihAlamatCheckout extends AppCompatActivity implements View.OnCli
         Intent i = getIntent();
         idK = i.getStringArrayListExtra("idcheckout");
         cekOngkir = i.getStringExtra("cekongkir");
+        nilaiIntent = i.getStringExtra("icheckout");
+
+
 //        Toast.makeText(this, "c "+cekOngkir, Toast.LENGTH_SHORT).show();
 //        idK = getIntent().getStringExtra("id_checkout");
 //        Toast.makeText(this, ""+idK, Toast.LENGTH_SHORT).show();
@@ -106,7 +106,7 @@ public class PilihAlamatCheckout extends AppCompatActivity implements View.OnCli
 
     private void ProgresDialog(){
         progressDialogHud.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
-                .setLabel("Loading...")
+//                .setLabel("Loading...")
                 .setCancellable(false);
         progressDialogHud.show();
     }
@@ -122,6 +122,11 @@ public class PilihAlamatCheckout extends AppCompatActivity implements View.OnCli
 
         return cekOngkir;
     }
+
+    public String getNilai() {
+
+        return nilaiIntent;
+    }
     public ArrayList<String> listIdKeranjang() {
         return idK;
     }
@@ -131,13 +136,26 @@ public class PilihAlamatCheckout extends AppCompatActivity implements View.OnCli
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.fab_alamat:
-                startActivity(new Intent(this, AddAlamat.class));
+                Intent go = new Intent(this, AddAlamat.class);
+                go.putExtra("alamat","checkout");
+                go.putExtra("reset_kurir","Silahkan Pilih Pengiriman Produk Anda");
+                go.putExtra("icheckout", nilaiIntent);
+                go.putExtra("idcheckout",idK);
+                startActivity(go);
+                finish();
+
                 break;
 
 
             default:
                 break;
         }
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        onBack();
     }
 
 
@@ -212,6 +230,23 @@ public class PilihAlamatCheckout extends AppCompatActivity implements View.OnCli
 
         }
     }
+
+    public void onBack() {
+        new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Exit")
+                .setMessage("Apakah Anda yakin ingin membatalkan ubah alamat?")
+                .setPositiveButton("Iya", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(getApplication(), CheckoutActivity.class);
+                        intent.putExtra("reset_kurir", "Silahkan Pilih Pengiriman Produk Anda");
+                        intent.putExtra("icheckout", nilaiIntent);
+                        intent.putStringArrayListExtra("idcheckout", idK);
+                        startActivity(intent);
+                        finish();
+                    }
+                }).setNegativeButton("Tidak", null).show();
+    }
+
 
 //    private BroadcastReceiver receiveridkeranjang = new BroadcastReceiver() {
 //        @Override

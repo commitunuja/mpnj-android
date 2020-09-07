@@ -12,7 +12,6 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,9 +20,10 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.daimajia.slider.library.SliderLayout;
 import com.mancj.materialsearchbar.MaterialSearchBar;
 import com.sholeh.marketplacenj.R;
-import com.sholeh.marketplacenj.activities.dashboard.ProdukTerpopulerActivity;
+import com.sholeh.marketplacenj.activities.dashboard.ProdukAllActivity;
 import com.sholeh.marketplacenj.activities.dashboard.SearchActivity;
 import com.sholeh.marketplacenj.adapter.ProdukByKategoriAdapter;
 import com.sholeh.marketplacenj.adapter.dashboard.ProdukAdapter;
@@ -36,6 +36,8 @@ import com.sholeh.marketplacenj.model.Model;
 import com.sholeh.marketplacenj.model.dashboard.HomeBannerModelClass;
 import com.sholeh.marketplacenj.model.dashboard.HomeCategoryModelClass;
 import com.sholeh.marketplacenj.model.dashboard.TopTenModelClass;
+import com.sholeh.marketplacenj.respon.ResBanner;
+import com.sholeh.marketplacenj.util.CONSTANTS;
 import com.sholeh.marketplacenj.util.ServiceGenerator;
 import com.sholeh.marketplacenj.util.api.APIInterface;
 
@@ -45,6 +47,9 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import ss.com.bannerslider.banners.Banner;
+import ss.com.bannerslider.banners.RemoteBanner;
+import ss.com.bannerslider.views.BannerSlider;
 
 //import com.mancj.materialsearchbar.MaterialSearchBar;
 
@@ -54,7 +59,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
     FrameLayout frameLayout;
     EditText search;
     private ArrayList<HomeBannerModelClass> homeBannerModelClasses;
-    private RecyclerView recyclerView;
+    private RecyclerView recyclerbanner;
     private RecycleAdapteHomeBanner mAdapter;
     private Integer image[] = {R.drawable.banner, R.drawable.banner, R.drawable.banner, R.drawable.banner};
 
@@ -84,11 +89,15 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
     EditText edpencarian;
 
     //produk
-    private ProdukAdapter produkAdapter;
-    private List<Model> tvDataProduk;
-    private TextView produkterpopuler;
+    private ProdukAdapter produkTerbaruAdapter;
+    private ProdukAdapter produkDiskonAdapter;
+    private ProdukAdapter produkTerlarisAdapter;
+    private List<Model> tvDataProdukTerbaru;
+    private List<Model> tvDataProdukDiskon;
+    private List<Model> tvDataProdukTerlaris;
+    private TextView tvx_allProdukTerbaru, tvx_allProdukDiskon, tvx_allProdukTerpopuler;
     private ArrayList<TopTenModelClass> topTenModelClasses;
-    private RecyclerView top_ten_crecyclerview;
+//    private RecyclerView top_ten_crecyclerview;
     private RecycleAdapteTopTenHome mAdapter2;
     private RecycleAdapteTopTenHome mAdaper10;
     private Integer image1[] = {R.drawable.ac, R.drawable.headphones, R.drawable.ac, R.drawable.headphones};
@@ -99,17 +108,25 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
 
     String status, namaprodukpencarian;
     private ArrayList<TopTenModelClass> topTenModelClasses1;
-    private RecyclerView like_recyclerview, toprate;
+    private RecyclerView recyclerProdukDiskon, recyclerProdukTerbaru, recyclerProdukTerlaris;
     private RecycleAdapteTopTenHome mAdapter3;
     private Integer image2[] = {R.drawable.mobile1, R.drawable.mobile2, R.drawable.mobile1, R.drawable.mobile2};
     private String title2[] = {"Samsung On Mask 2GB Ram", "Samsung Galaxy 8 6GB Ram", "Samsung On Mask 2GB Ram", "Samsung Galaxy 8 6GB Ram"};
     private String type2[] = {"Phones", "Phones", "Phones", "Phones"};
-
-
-    RecyclerView.LayoutManager dataapi;
-    MaterialSearchBar searchBar;
-
     private SearchFragment searchFragment;
+
+    RecyclerView.LayoutManager dataapiTerbaru;
+    RecyclerView.LayoutManager dataapiDiskon;
+    RecyclerView.LayoutManager dataapiTerlaris;
+    MaterialSearchBar searchBar;
+    SliderLayout sliderHome;
+
+    LinearLayout lnSearch;
+
+    private BannerSlider bannerSlider;
+    private List<Banner> remoteBanners=new ArrayList<>();
+
+
 
     @Nullable
     @Override
@@ -123,29 +140,41 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         searchBar = view.findViewById(R.id.searchBar);
+        edpencarian = view.findViewById(R.id.tvxCari);
         searchBar.setOnSearchActionListener(this);
         searchBar.setOnClickListener(this);
-        produkterpopuler = view.findViewById(R.id.tv_produkterpopuler);
-        like_recyclerview = view.findViewById(R.id.top_ten_recyclerview);
-        toprate = view.findViewById(R.id.rv_toprate);
-        top_ten_crecyclerview = view.findViewById(R.id.recent_recyclerview);
+        lnSearch = view.findViewById(R.id.lnseacrh);
+        lnSearch.setOnClickListener(this);
+        edpencarian.setOnClickListener(this);
+//        sliderHome = view.findViewById(R.id.sliderhome);
+        bannerSlider =view.findViewById(R.id.sliderhome);
+        tvx_allProdukTerbaru = view.findViewById(R.id.tv_Allprodukterbaru);
+        tvx_allProdukDiskon = view.findViewById(R.id.tv_AllProdukDiskon);
+        tvx_allProdukTerpopuler = view.findViewById(R.id.tv_AllProdukTerlaris);
+        recyclerProdukDiskon = view.findViewById(R.id.recycler_produkDiskon);
+        recyclerProdukTerbaru = view.findViewById(R.id.rv_produkTerbaru);
+        recyclerProdukTerlaris = view.findViewById(R.id.rv_produkterlaris);
         category_recyclerView = view.findViewById(R.id.category_recyclerview);
-        recyclerView = view.findViewById(R.id.recyclerview);
+        recyclerbanner = view.findViewById(R.id.recyclerviewBanner);
 //        edpencarian = view.findViewById(R.id.etsearch);
         frameLayout = view.findViewById(R.id.frag_container);
 //        search = view.findViewById(R.id.etsearch);
 //        search.setOnClickListener(this);
-        produkterpopuler.setOnClickListener(this);
+        tvx_allProdukTerbaru.setOnClickListener(this);
+        tvx_allProdukDiskon.setOnClickListener(this);
+        tvx_allProdukTerpopuler.setOnClickListener(this);
 
 
         Banner();
+        getDataBanner();
         kategori();
 //        produksearch();
 
-        likeproduk();
-        produksamsung();
-        recentproduk();
-        produkapi();
+
+        produkDiskon();
+        produkTerbaru();
+        produkTerlaris();
+
         fiturpencarian();
 
 
@@ -161,6 +190,51 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
     }
 
     @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+
+            case R.id.searchBar:
+                Intent search = new Intent(getContext(), SearchActivity.class);
+                startActivity(search);
+//                Toast.makeText(getActivity(), "cari ", Toast.LENGTH_SHORT).show();
+                break;
+//            case R.id.lnseacrh:
+//                Intent search = new Intent(getContext(), SearchActivity.class);
+//                startActivity(search);
+////                Toast.makeText(getActivity(), "cari ", Toast.LENGTH_SHORT).show();
+//                break;
+//
+//            case R.id.tvxCari:
+//                Intent sea = new Intent(getContext(), SearchActivity.class);
+//                startActivity(sea);
+////                Toast.makeText(getActivity(), "cari ", Toast.LENGTH_SHORT).show();
+//                break;
+            case R.id.tv_AllProdukDiskon:
+                Intent intent1 = new Intent(getContext(), ProdukAllActivity.class);
+                intent1.putExtra("all","alldiskon");
+                startActivity(intent1);
+                break;
+
+            case R.id.tv_Allprodukterbaru:
+                Intent intent2 = new Intent(getContext(), ProdukAllActivity.class);
+                intent2.putExtra("all", "allterbaru");
+                startActivity(intent2);
+                break;
+
+            case R.id.tv_AllProdukTerlaris:
+                Intent intent3 = new Intent(getContext(), ProdukAllActivity.class);
+                intent3.putExtra("all", "allterlaris");
+                startActivity(intent3);
+                break;
+
+            case R.id.etsearch:
+                Intent pencarian = new Intent(getContext(), SearchActivity.class);
+                startActivity(pencarian);
+                break;
+        }
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
     }
@@ -171,7 +245,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
     }
 
 
-//    public void onBackPressed() {
+    //    public void onBackPressed() {
 //        if (status.equals("yes")) {
 //            recyclerViewpproduk.setVisibility(View.GONE);
 ////            linearLayoutkategori.setVisibility(View.GONE);
@@ -183,28 +257,9 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
 //    }
 
 
-    private void produksamsung() {
 
-        topTenModelClasses1 = new ArrayList<>();
-        for (int i = 0; i < image2.length; i++) {
-            TopTenModelClass beanClassForRecyclerView_contacts = new TopTenModelClass(image2[i], title2[i], type[i]);
-
-            topTenModelClasses1.add(beanClassForRecyclerView_contacts);
-        }
-
-
-        mAdapter3 = new RecycleAdapteTopTenHome(getContext(), topTenModelClasses1);
-        RecyclerView.LayoutManager mLayoutManager2 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        like_recyclerview.setLayoutManager(mLayoutManager2);
-
-
-        like_recyclerview.setLayoutManager(mLayoutManager2);
-        like_recyclerview.setItemAnimator(new DefaultItemAnimator());
-        like_recyclerview.setAdapter(mAdapter3);
-    }
 
     private void fiturpencarian() {
-
         searchBar.setSpeechMode(true);
 //        searchBar.setText("Hello Zainal!");
         Log.d("LOG_TAG", getClass().getSimpleName() + ": text " + searchBar.getText());
@@ -256,88 +311,27 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
 //        });
     }
 
-    private void produkapi() {
 
-        topTenModelClasses1 = new ArrayList<>();
-
-        for (int i = 0; i < image3.length; i++) {
-            TopTenModelClass beanClassForRecyclerView_contacts = new TopTenModelClass(image3[i], title3[i], type[i]);
-
-            topTenModelClasses1.add(beanClassForRecyclerView_contacts);
-        }
-
-        produkAdapter = new ProdukAdapter(getContext(), tvDataProduk);
-        dataapi = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-
-        toprate.setLayoutManager(dataapi);
-        toprate.setItemAnimator(new DefaultItemAnimator());
-        toprate.setHasFixedSize(true);
-
-        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-        Call<List<Model>> call = service.getProduk();
-
-        call.enqueue(new Callback<List<Model>>() {
-            @Override
-            public void onResponse(Call<List<Model>> call, Response<List<Model>> response) {
-                if (response.body() != null && response.isSuccessful()) {
-                    tvDataProduk = response.body();
-                    produkAdapter = new ProdukAdapter(getContext(), tvDataProduk);
-                    toprate.setAdapter(produkAdapter);
-                } else {
-                    Toast.makeText(getContext(), "gagal", Toast.LENGTH_SHORT).show();
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<List<Model>> call, Throwable t) {
-                Toast.makeText(getContext(), String.valueOf(t), Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void recentproduk() {
-
-
-        topTenModelClasses = new ArrayList<>();
-
-
-        for (int i = 0; i < image1.length; i++) {
-            TopTenModelClass beanClassForRecyclerView_contacts = new TopTenModelClass(image1[i], title1[i], type[i]);
-
-            topTenModelClasses.add(beanClassForRecyclerView_contacts);
-        }
-
-
-        mAdapter2 = new RecycleAdapteTopTenHome(getContext(), topTenModelClasses);
-        RecyclerView.LayoutManager mLayoutManager4 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        top_ten_crecyclerview.setLayoutManager(mLayoutManager4);
-
-
-        top_ten_crecyclerview.setLayoutManager(mLayoutManager4);
-        top_ten_crecyclerview.setItemAnimator(new DefaultItemAnimator());
-        top_ten_crecyclerview.setAdapter(mAdapter2);
-    }
 
 
     private void likeproduk() {
-
-        topTenModelClasses1 = new ArrayList<>();
-
-        for (int i = 0; i < image3.length; i++) {
-            TopTenModelClass beanClassForRecyclerView_contacts = new TopTenModelClass(image3[i], title3[i], type[i]);
-
-            topTenModelClasses1.add(beanClassForRecyclerView_contacts);
-        }
-
-
-        mAdapter3 = new RecycleAdapteTopTenHome(getContext(), topTenModelClasses1);
-        RecyclerView.LayoutManager mLayoutManager2 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        like_recyclerview.setLayoutManager(mLayoutManager2);
-
-        like_recyclerview.setLayoutManager(mLayoutManager2);
-        like_recyclerview.setItemAnimator(new DefaultItemAnimator());
-        like_recyclerview.setAdapter(mAdapter3);
+//
+//        topTenModelClasses1 = new ArrayList<>();
+//
+//        for (int i = 0; i < image3.length; i++) {
+//            TopTenModelClass beanClassForRecyclerView_contacts = new TopTenModelClass(image3[i], title3[i], type[i]);
+//
+//            topTenModelClasses1.add(beanClassForRecyclerView_contacts);
+//        }
+//
+//
+//        mAdapter3 = new RecycleAdapteTopTenHome(getContext(), topTenModelClasses1);
+//        RecyclerView.LayoutManager mLayoutManager2 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+//        like_recyclerview.setLayoutManager(mLayoutManager2);
+//
+//        like_recyclerview.setLayoutManager(mLayoutManager2);
+//        like_recyclerview.setItemAnimator(new DefaultItemAnimator());
+//        like_recyclerview.setAdapter(mAdapter3);
     }
 
 //    private void kategori2() {
@@ -383,17 +377,13 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
 //    }
 
     private void kategori() {
-
         homeCategoryModelClasses = new ArrayList<>();
         semua = new ArrayList<>();
-
         for (int i = 0; i < lihatsemua.length; i++) {
             HomeCategoryModelClass beanClassForRecyclerView_contacts = new HomeCategoryModelClass(lihatsemua[i]);
 
             semua.add(beanClassForRecyclerView_contacts);
         }
-
-
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
         Call<List<Kategori>> call = service.getKategori();
 
@@ -404,12 +394,10 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
                 recycleAdapteHomeCategory = new RecycleAdapteHomeCategory(getContext(), homeCategoryModelClasses);
                 category_recyclerView.setAdapter(recycleAdapteHomeCategory);
 //                homeCategoryModelClasses.add());
-
             }
-
             @Override
             public void onFailure(Call<List<Kategori>> call, Throwable t) {
-                Toast.makeText(getContext(), String.valueOf(t), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), String.valueOf(t), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -457,26 +445,6 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
 //        });
 //    }
 
-    private void Banner() {
-
-
-        homeBannerModelClasses = new ArrayList<>();
-
-        for (int i = 0; i < image.length; i++) {
-            HomeBannerModelClass beanClassForRecyclerView_contacts = new HomeBannerModelClass(image[i]);
-            homeBannerModelClasses.add(beanClassForRecyclerView_contacts);
-        }
-
-        mAdapter = new RecycleAdapteHomeBanner(getContext(), homeBannerModelClasses);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        recyclerView.setLayoutManager(mLayoutManager);
-
-
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(mAdapter);
-
-    }
 
 //    public void filterQuery(String text) {
 //        ArrayList<Model> filterdNames = new ArrayList<>();
@@ -488,41 +456,19 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
 //        this.searchAdapter.setFilter(filterdNames);
 //    }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.searchBar:
-                Intent search = new Intent(getContext(), SearchActivity.class);
-                startActivity(search);
-//                Toast.makeText(getActivity(), "cari ", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.tv_produkterpopuler:
-                Intent intent = new Intent(getContext(), ProdukTerpopulerActivity.class);
-                startActivity(intent);
-                break;
 
-            case R.id.etsearch:
-                Intent pencarian = new Intent(getContext(), SearchActivity.class);
-                startActivity(pencarian);
-                break;
-        }
-    }
 
     @Override
     public void onSearchStateChanged(boolean enabled) {
-
     }
 
     @Override
     public void onSearchConfirmed(CharSequence text) {
 //        produksearch(searchBar.getText());
-
-
     }
 
     @Override
     public void onButtonClicked(int buttonCode) {
-
     }
 
 //    public void kategoriById() {
@@ -564,4 +510,131 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
 //            }
 //        });
 //    }
+
+    private void produkDiskon() {
+        produkDiskonAdapter = new ProdukAdapter(getContext(), tvDataProdukDiskon);
+        dataapiDiskon = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        recyclerProdukDiskon.setLayoutManager(dataapiDiskon);
+        recyclerProdukDiskon.setItemAnimator(new DefaultItemAnimator());
+        recyclerProdukDiskon.setHasFixedSize(true);
+        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+        Call<List<Model>> call = service.getProdukDiskon();
+        call.enqueue(new Callback<List<Model>>() {
+            @Override
+            public void onResponse(Call<List<Model>> call, Response<List<Model>> response) {
+                if (response.body() != null && response.isSuccessful()) {
+                    tvDataProdukDiskon = response.body();
+                    produkDiskonAdapter = new ProdukAdapter(getContext(), tvDataProdukDiskon);
+                    recyclerProdukDiskon.setAdapter(produkDiskonAdapter);
+                } else {
+//                    Toast.makeText(getContext(), "Data Belum Ada", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getContext(), "gagal", Toast.LENGTH_SHORT).show();
+                }
+            }
+            @Override
+            public void onFailure(Call<List<Model>> call, Throwable t) {
+//                Toast.makeText(getContext(), "Data Belum Ada", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), String.valueOf(t), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    private void produkTerbaru() {
+        produkTerbaruAdapter = new ProdukAdapter(getContext(), tvDataProdukTerbaru);
+        dataapiTerbaru = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        recyclerProdukTerbaru.setLayoutManager(dataapiTerbaru);
+        recyclerProdukTerbaru.setItemAnimator(new DefaultItemAnimator());
+        recyclerProdukTerbaru.setHasFixedSize(true);
+        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+        Call<List<Model>> call = service.getProduk();
+
+        call.enqueue(new Callback<List<Model>>() {
+            @Override
+            public void onResponse(Call<List<Model>> call, Response<List<Model>> response) {
+                if (response.body() != null && response.isSuccessful()) {
+                    tvDataProdukTerbaru = response.body();
+                    produkTerbaruAdapter = new ProdukAdapter(getContext(), tvDataProdukTerbaru);
+                    recyclerProdukTerbaru.setAdapter(produkTerbaruAdapter);
+                } else {
+//                    Toast.makeText(getContext(), "Data Belum Ada", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Model>> call, Throwable t) {
+//                Toast.makeText(getContext(), "Data Belum Ada", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), String.valueOf(t), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    private void produkTerlaris() {
+        produkTerlarisAdapter = new ProdukAdapter(getContext(), tvDataProdukTerlaris);
+        dataapiTerlaris = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        recyclerProdukTerlaris.setLayoutManager(dataapiTerlaris);
+        recyclerProdukTerlaris.setItemAnimator(new DefaultItemAnimator());
+        recyclerProdukTerlaris.setHasFixedSize(true);
+        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+        Call<List<Model>> call = service.getProdukTerpopuler();
+        call.enqueue(new Callback<List<Model>>() {
+            @Override
+            public void onResponse(Call<List<Model>> call, Response<List<Model>> response) {
+                if (response.body() != null && response.isSuccessful()) {
+                    tvDataProdukTerlaris = response.body();
+                    produkTerlarisAdapter = new ProdukAdapter(getContext(), tvDataProdukTerlaris);
+                    recyclerProdukTerlaris.setAdapter(produkTerlarisAdapter);
+                } else {
+//                    Toast.makeText(getContext(), "Data Belum Ada", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Model>> call, Throwable t) {
+//                Toast.makeText(getContext(), "Data Belum Ada", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), String.valueOf(t), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
+    private void Banner() {
+        homeBannerModelClasses = new ArrayList<>();
+        for (int i = 0; i < image.length; i++) {
+            HomeBannerModelClass beanClassForRecyclerView_contacts = new HomeBannerModelClass(image[i]);
+            homeBannerModelClasses.add(beanClassForRecyclerView_contacts);
+        }
+        mAdapter = new RecycleAdapteHomeBanner(getContext(), homeBannerModelClasses);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        recyclerbanner.setLayoutManager(mLayoutManager);
+        recyclerbanner.setLayoutManager(mLayoutManager);
+        recyclerbanner.setItemAnimator(new DefaultItemAnimator());
+        recyclerbanner.setAdapter(mAdapter);
+    }
+
+    public void getDataBanner(){
+        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+        Call<ResBanner> call = service.getBanner();
+        call.enqueue(new Callback<ResBanner>() {
+            @Override
+            public void onResponse(Call<ResBanner> call, Response<ResBanner> response) {
+                if (response.body() != null && response.isSuccessful()) {
+                    if (response.body().getData().size() > 0) {
+                        for(int i = 0; i <response.body().getData().size(); i++){
+                            String fotoBanner = CONSTANTS.ASSETBANNER+response.body().getData().get(i).getFotoBanner();
+                            remoteBanners.add(new RemoteBanner(fotoBanner));
+                        }
+                        bannerSlider.setBanners(remoteBanners);
+                    }else{
+                        Log.d("cekbanner", String.valueOf(response.body()));
+                    }
+
+                }else{
+                    Log.d("cekbanner", String.valueOf(response.body()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResBanner> call, Throwable t) {
+                Log.d("cekbanner", String.valueOf(t));
+            }
+        });
+    }
 }

@@ -10,12 +10,16 @@ public class ValBank {
     @SerializedName("nama_bank")
     @Expose
     private String namaBank;
+
     @SerializedName("rekening")
     @Expose
     private String rekening;
     @SerializedName("atas_nama")
     @Expose
     private String atasNama;
+    @SerializedName("foto_bank")
+    @Expose
+    private String fotoBank;
 
     public String getIdBank() {
         return idBank;
@@ -47,5 +51,12 @@ public class ValBank {
 
     public void setAtasNama(String atasNama) {
         this.atasNama = atasNama;
+    }
+    public String getFotoBank() {
+        return fotoBank;
+    }
+
+    public void setFotoBank(String fotoBank) {
+        this.fotoBank = fotoBank;
     }
 }

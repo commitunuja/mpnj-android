@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:text="No result Found"
+        android:text="Belum Ada Pesanan"
         android:textColor="#89000000"
         android:textSize="16sp" />
 
@@ -44,7 +44,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:letterSpacing="0.03"
-        android:text="Please check your spelling"
+        android:text="Silahkan Melakukan Transaksi"
         android:textColor="#89000000"
         android:textSize="12.7dp" />
 </LinearLayout>

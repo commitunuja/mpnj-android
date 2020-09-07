@@ -42,7 +42,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
-                    android:maxLength="10"
+                    android:maxLength="30"
                     android:maxLines="1"
                     android:hint="Username"
                     android:letterSpacing="0.03"
@@ -69,12 +69,11 @@
                 android:layout_marginTop="3dp">
 
                 <customfonts.EditText_SF_Pro_Display_Medium
-
+                    android:maxLength="16"
                     android:drawableRight="@drawable/ic_visibility_off_black_24dp"
                     android:id="@+id/etPass"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:maxLength="10"
                     android:maxLines="1"
                     android:hint="Password"
                     android:letterSpacing="0.03"
@@ -118,6 +117,7 @@
                 android:background="@color/colorutama"/>
 
             <customfonts.TextViewSFProDisplayMedium
+                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="11.3sp"
@@ -144,6 +144,7 @@
 
 
             <LinearLayout
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"

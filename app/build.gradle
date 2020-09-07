@@ -89,6 +89,13 @@ dependencies {
     implementation 'br.com.mauker.materialsearchview:materialsearchview:1.2.3'
     implementation 'com.github.iammert:MultiSearchView:0.1'
     implementation 'com.kaopiz:kprogresshud:1.2.0'
+    implementation 'com.daimajia.slider:library:1.1.5@aar'
+    implementation 'com.ss.bannerslider:bannerslider:1.8.0'
+
+
+    implementation 'com.google.android.gms:play-services-auth:18.1.0'
+    implementation 'com.google.android.gms:play-services-identity:17.0.0'
+    implementation 'com.google.android.gms:play-services-auth-api-phone:17.4.0'
 
 
 

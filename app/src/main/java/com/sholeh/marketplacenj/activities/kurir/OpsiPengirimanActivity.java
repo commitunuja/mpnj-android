@@ -1,12 +1,8 @@
 package com.sholeh.marketplacenj.activities.kurir;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -26,7 +22,7 @@ import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.activities.checkout.CheckoutActivity;
 import com.sholeh.marketplacenj.model.cost.Cost;
 import com.sholeh.marketplacenj.model.cost.ItemCost;
-import com.sholeh.marketplacenj.respon.ResDetailKeranjang;
+import com.sholeh.marketplacenj.util.AppUtilits;
 import com.sholeh.marketplacenj.util.CONSTANTS;
 import com.sholeh.marketplacenj.util.ServiceGenerator;
 import com.sholeh.marketplacenj.util.api.APIInterface;
@@ -44,22 +40,23 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class OpsiPengirimanActivity extends AppCompatActivity {
 
     Spinner spinPilihKurir;
-    List<String> spinnerKurir =  new ArrayList<String>();
+    List<String> spinnerKurir = new ArrayList<String>();
 
     RadioGroup radioGroupKurir;
     ProgressBar progressBar;
     String origin, destination, originType, destinationType, weight, idkec_pembeli;
-//    List<Cost_> cost_s = new ArrayList<>();
+    //    List<Cost_> cost_s = new ArrayList<>();
     List<Cost> costs = new ArrayList<>();
-    TextView tvSave, tvidkecPembeli;
+    TextView tvSave, tvidkecPembeli, tvxalamat;
     Integer ongkir;
-    String  idkab_toko;
+    String idkab_toko;
     ImageView clear;
     ArrayList<String> arrayIdKeranjang;
     ArrayList<String> arrayIdByParent;
     int idx;
     String idkk;
     String newidKecCheckoout = null;
+    String nilaiIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,18 +64,21 @@ public class OpsiPengirimanActivity extends AppCompatActivity {
         setContentView(R.layout.activity_opsi_pengiriman);
 
         tvidkecPembeli = findViewById(R.id.tvxidkecpembeli);
+        tvxalamat = findViewById(R.id.tvx_setAlamat);
 //        setTheme(android.R.style.Theme_DeviceDefault_Light_Dialog_NoActionBar);
         final DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-
         int width = displayMetrics.widthPixels;
         int height = displayMetrics.heightPixels;
-
-        getWindow().setLayout((int)(width*.8), (int)(height*.6));
+//        getWindow().setLayout((int)(width*.8), (int)(height*.6)); //ATUR
 
         Intent i = getIntent();
         arrayIdKeranjang = i.getStringArrayListExtra("idcheckout");
         arrayIdByParent = i.getStringArrayListExtra("idByParent");
+        nilaiIntent = i.getStringExtra("icheckout");
+        String alamat = i.getStringExtra("alamatpengiriman");
+        tvxalamat.setText(alamat);
+
         Log.d("YOLO", String.valueOf(arrayIdKeranjang));
 
         spinnerKurir.add("JNE");
@@ -103,6 +103,7 @@ public class OpsiPengirimanActivity extends AppCompatActivity {
         radioGroupKurir.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
+
                 int radioId = radioGroupKurir.getCheckedRadioButtonId();
                 View radioBtn = radioGroupKurir.findViewById(radioId);
                 idx = radioGroupKurir.indexOfChild(radioBtn);
@@ -110,9 +111,6 @@ public class OpsiPengirimanActivity extends AppCompatActivity {
 //                ongkir = costs.get(idx).getCost().get(0).getValue();
             }
         });
-
-
-
 
 
 //        if(newidKecCheckoout !=null){
@@ -132,15 +130,18 @@ public class OpsiPengirimanActivity extends AppCompatActivity {
         Log.d("origin", origin);
         Log.d("weight", weight);
 
+
         clear = findViewById(R.id.img_clear);
         clear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent lagi = new Intent(OpsiPengirimanActivity.this, CheckoutActivity.class);
                 lagi.putExtra("ongkir", String.valueOf(ongkir));
+                lagi.putExtra("icheckout", nilaiIntent);
                 lagi.putStringArrayListExtra("idcheckout", arrayIdKeranjang);
                 startActivity(lagi);
                 finish();
+//                Toast.makeText(OpsiPengirimanActivity.this, "Pilih Opsi Pengiriman Produk Anda", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -153,7 +154,7 @@ public class OpsiPengirimanActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 this, android.R.layout.simple_spinner_item, spinnerKurir);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinPilihKurir  = findViewById(R.id.spin_pilihKurir);
+        spinPilihKurir = findViewById(R.id.spin_pilihKurir);
         spinPilihKurir.setAdapter(adapter);
 
         spinPilihKurir.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -164,18 +165,21 @@ public class OpsiPengirimanActivity extends AppCompatActivity {
                 String kurir = spinPilihKurir.getSelectedItem().toString().toLowerCase();
                 hitungOngkir(kurir);
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
         });
-
-
 //        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageNewIdKec,
 //                new IntentFilter("customnewidkec-checkout"));
     }
 
-
+    @Override
+    public void onBackPressed() {
+        Toast.makeText(OpsiPengirimanActivity.this, "Silahkan Pilih Opsi Pengiriman Produk Anda ", Toast.LENGTH_SHORT).show();
+        // Do Here what ever you want do on back press;
+    }
 
     private void simpanKurir() {
         String arrIdKeranjang = String.valueOf(arrayIdByParent);
@@ -190,71 +194,69 @@ public class OpsiPengirimanActivity extends AppCompatActivity {
         String[] yolo = idkk.split(",");
         List<String> list = new ArrayList<String>();
         list = Arrays.asList(yolo);
-
 //        Toast.makeText(this, "k"+spinPilihKurir.getSelectedItem().toString()+" service"+costs.get(idx).getService()+" cost"+ costs.get(idx).getCost().get(0).getValue() +" etd"+costs.get(idx).getCost().get(0).getEtd()+ " list"+list, Toast.LENGTH_SHORT).show();
+        if (radioGroupKurir.getCheckedRadioButtonId() == -1) {
+            Toast.makeText(OpsiPengirimanActivity.this, "Silahkan Pilih Opsi Pengiriman Produk Anda ", Toast.LENGTH_SHORT).show();
+            // no radio buttons are checked
+        } else {
+//            Toast.makeText(OpsiPengirimanActivity.this, "2", Toast.LENGTH_SHORT).show();
+            // one of the radio buttons is checked
+            APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+            Call<JsonObject> call = service.simpan_kurir(spinPilihKurir.getSelectedItem().toString(), costs.get(idx).getService(), costs.get(idx).getCost().get(0).getValue(), costs.get(idx).getCost().get(0).getEtd(), list);
 
-        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-        Call<JsonObject> call = service.simpan_kurir(spinPilihKurir.getSelectedItem().toString(), costs.get(idx).getService(), costs.get(idx).getCost().get(0).getValue(), costs.get(idx).getCost().get(0).getEtd(), list);
-
-        call.enqueue(new Callback<JsonObject>() {
-            @Override
-            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+            call.enqueue(new Callback<JsonObject>() {
+                @Override
+                public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
 //                Log.d("YOLO", String.valueOf(response.body()));
-                Intent i = new Intent(OpsiPengirimanActivity.this, CheckoutActivity.class);
-                i.putStringArrayListExtra("idcheckout", arrayIdKeranjang);
-                finish();
-                startActivity(i);
-            }
+                    Intent i = new Intent(OpsiPengirimanActivity.this, CheckoutActivity.class);
+                    i.putStringArrayListExtra("idcheckout", arrayIdKeranjang);
+                    i.putExtra("icheckout", nilaiIntent);
+                    startActivity(i);
+                    finish();
 
-            @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
-                Log.d("error", String.valueOf(t));
+                }
+
+                @Override
+                public void onFailure(Call<JsonObject> call, Throwable t) {
+                    Log.d("error", String.valueOf(t));
 //                Toast.makeText(OpsiPengirimanActivity.this, String.valueOf(t), Toast.LENGTH_SHORT).show();
-            }
-        });
+                }
+            });
+        }
+//
     }
 
-    public void hitungOngkir(final String kurir){
+    public void hitungOngkir(final String kurir) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(CONSTANTS.URL_RAJAONGKIR)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-
-//        String newdestination = tvidkecPembeli.getText().toString();
-
         APIInterface service = retrofit.create(APIInterface.class);
-        Call<ItemCost> callOngkir= service.hitungOngkir(origin,"city",destination,"subdistrict",Integer.parseInt(weight),kurir);
+        Call<ItemCost> callOngkir = service.hitungOngkir(origin, "city", destination, "subdistrict", Integer.parseInt(weight), kurir);
         callOngkir.enqueue(new Callback<ItemCost>() {
             @Override
             public void onResponse(Call<ItemCost> call, Response<ItemCost> response) {
-//                cost = (Cost) response.body().getRajaongkir().getResults().get(0).getCosts().get(0).getCost();
                 costs.clear();
-                for(int i =0; i < response.body().getRajaongkir().getResults().get(0).getCosts().size(); i++)
-                {
+                for (int i = 0; i < response.body().getRajaongkir().getResults().get(0).getCosts().size(); i++) {
                     RadioButton radioButtonView = new RadioButton(OpsiPengirimanActivity.this);
                     radioButtonView.setText(
                             response.body().getRajaongkir().getResults().get(0).getCosts().get(i).getService() + " - " +
-                            response.body().getRajaongkir().getResults().get(0).getCosts().get(i).getCost().get(0).getValue() + " - " +
+                                    response.body().getRajaongkir().getResults().get(0).getCosts().get(i).getCost().get(0).getValue() + " - " +
                                     response.body().getRajaongkir().getResults().get(0).getCosts().get(i).getCost().get(0).getEtd() + " hari");
                     radioGroupKurir.addView(radioButtonView);
-
-//                    Cost_ cost_ = response.body().getRajaongkir().getResults().get(0).getCosts().get(i).getCost().get(0);
                     List<Cost> cost = response.body().getRajaongkir().getResults().get(0).getCosts();
                     costs.add(new Cost(cost.get(i).getService(), cost.get(i).getDescription(), cost.get(i).getCost()));
                 }
                 progressBar.setVisibility(View.GONE);
             }
-
             @Override
             public void onFailure(Call<ItemCost> call, Throwable t) {
-//                    Log.e(TAG, " failure " + t.toString());
-                Toast.makeText(OpsiPengirimanActivity.this, "rrr"+t, Toast.LENGTH_SHORT).show();
-
-
-//                    AppUtilits.displayMessage(RegisterActivity.this,   getString(R.string.failed_request));
+                    AppUtilits.displayMessage(OpsiPengirimanActivity.this,  "Terdapat Kesalahan. Silahkan Coba Lagi Nanti");
             }
         });
     }
+
+
 
 //    public BroadcastReceiver mMessageNewIdKec = new BroadcastReceiver() {
 //        @Override

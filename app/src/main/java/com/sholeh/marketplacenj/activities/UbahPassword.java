@@ -6,6 +6,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,17 +30,25 @@ public class UbahPassword extends AppCompatActivity implements View.OnClickListe
     TextView tvbatal, tvSimpan;
 
 
-    private String TAG ="New_Password";
+    private String TAG = "New_Password";
 
     Preferences preferences;
     String id_konsumen;
 
+    TextView tvx_title;
+    ImageView imgtoolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ubah_password);
         preferences = new Preferences(getApplication());
         id_konsumen = preferences.getIdKonsumen();
+        imgtoolbar = findViewById(R.id.imgtoolbarF);
+        tvx_title = findViewById(R.id.title);
+        tvx_title.setText("Ubah Password");
+        tvx_title.setTextColor(getResources().getColor(R.color.white));
+        tvx_title.setVisibility(View.VISIBLE);
+        imgtoolbar.setOnClickListener(this);
 
 
         toolBarisi = findViewById(R.id.toolbar);
@@ -57,9 +66,6 @@ public class UbahPassword extends AppCompatActivity implements View.OnClickListe
         tvbatal.setOnClickListener(this);
 
 
-
-
-
     }
 
     @Override
@@ -71,7 +77,7 @@ public class UbahPassword extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.tvSave:
                 sendNewPasswordReq();
                 break;
@@ -80,67 +86,44 @@ public class UbahPassword extends AppCompatActivity implements View.OnClickListe
                 finish();
                 break;
 
-                default:
-                    break;
+            case  R.id.imgtoolbarF:
+                finish();
+                break;
+
+            default:
+                break;
         }
     }
 
 
     public void sendNewPasswordReq() {
-
-        if (!NetworkUtility.isNetworkConnected(UbahPassword.this)){
-            AppUtilits.displayMessage(UbahPassword.this,  getString(R.string.network_not_connected));
-
-        }else {
-//            if (!validasi()) return;
+        if (!NetworkUtility.isNetworkConnected(UbahPassword.this)) {
+            AppUtilits.displayMessage(UbahPassword.this, getString(R.string.network_not_connected));
+        } else {
+            if (!validasi()) return;
             APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-            Call<ResNewPassword> call = service.KonsumenUbahPassword(id_konsumen,edPasslama.getText().toString(), edNewPass.getText().toString() );
-
+            Call<ResNewPassword> call = service.KonsumenUbahPassword(id_konsumen, edPasslama.getText().toString(), edNewPass.getText().toString());
             call.enqueue(new Callback<ResNewPassword>() {
                 @Override
                 public void onResponse(Call<ResNewPassword> call, Response<ResNewPassword> response) {
-
-
-                    if (response.body()!= null && response.isSuccessful()){ // true
-
-                        if (response.body().getPesan().equalsIgnoreCase("Berhasil Diganti")){
-
-////
+                    if (response.body() != null && response.isSuccessful()) { // true
+                        if (response.body().getPesan().equalsIgnoreCase("Berhasil Diganti")) {
                             Toast.makeText(UbahPassword.this, "Password Berhasil di Rubah", Toast.LENGTH_LONG).show();
                             finish();
-////
-////
-                        }else {
+                        } else {
                             Toast.makeText(UbahPassword.this, "Password Sekarang Salah", Toast.LENGTH_LONG).show();
-
-//                            AppUtilits.displayMessage(UbahPassword.this,  response.body().getPesan());
-                           }
-                    }else {
-                        Toast.makeText(UbahPassword.this, "Password Gagal di Rubahh"+response.body(), Toast.LENGTH_LONG).show();
-
-//                        AppUtilits.displayMessage(UbahPassword.this,  getString(R.string.failed_request));
-
-
+                        }
+                    } else {
+                        Toast.makeText(UbahPassword.this, "Password Gagal di Rubahh" + response.body(), Toast.LENGTH_LONG).show();
                     }
                 }
-
                 @Override
                 public void onFailure(Call<ResNewPassword> call, Throwable t) {
-                    Toast.makeText(UbahPassword.this, "Password Gagal di Ubah"+t, Toast.LENGTH_LONG).show();
-
-                    //  Log.e(TAG, " failure "+ t.toString());
-//                    AppUtilits.displayMessage(UbahPassword.this,  getString(R.string.failed_request));
+//                    Toast.makeText(UbahPassword.this, "Password Gagal di Ubah", Toast.LENGTH_LONG).show();
+                    AppUtilits.displayMessage(UbahPassword.this, getString(R.string.failed_request));
                 }
             });
-
-
-
-
         }
-
-
-
-
     }
 
     private boolean validasi() {

@@ -6,6 +6,7 @@
     android:layout_alignParentBottom="true"
     android:background="@color/white"
     android:orientation="vertical"
+    android:id="@+id/lnTotalKeranjang"
     android:paddingBottom="10dp">
 
     <LinearLayout
