@@ -86,6 +86,10 @@
 
 
     <string name="item_added_to_your_cart">Item Berhasil Ditambahkan ke Keranjang Anda</string>
+    <string name="reset_your_world">Setel Ulang Password Anda</string>
+    <string name="forget_pass_desc"> Masukkan alamat email Anda di bawah ini dan klik tombol permintaan reset kata sandi. Kami akan menghubungi Anda dengan baik</string>
+    <string name="request_password_reset">PERMINTAAN RESET KATA SANDI</string>
+    <string name="enter_email_address">Masukkan alamat email</string>
 
 
 </resources>
