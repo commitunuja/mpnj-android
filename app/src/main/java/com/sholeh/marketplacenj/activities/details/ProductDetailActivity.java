@@ -42,6 +42,7 @@ import com.sholeh.marketplacenj.model.review.ReviewModel;
 import com.sholeh.marketplacenj.respon.ResKeranjang;
 import com.sholeh.marketplacenj.respon.ResWishlist;
 import com.sholeh.marketplacenj.util.AppUtilits;
+import com.sholeh.marketplacenj.util.CONSTANTS;
 import com.sholeh.marketplacenj.util.CustomToast;
 import com.sholeh.marketplacenj.util.NetworkUtility;
 import com.sholeh.marketplacenj.util.Preferences;
@@ -111,7 +112,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
     StringTokenizer st1, st2, st3, st4;
     private List<Model> tvDataProduks;
     private Model tvDataProduk;
-    ImageView btnAddWishlist;
+    ImageView btnAddWishlist, fotoreview;
     private KProgressHUD progressDialogHud;
     ProgressBar myProgressBar;
     boolean login;
@@ -141,6 +142,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
         namapelapak = findViewById(R.id.tv_nama_pelapak);
         fotopelapak = findViewById(R.id.img_foto_pelapak);
+        fotoreview = findViewById(R.id.img_fotoreview);
         right1 = findViewById(R.id.right1);
         right2 = findViewById(R.id.right2);
         right3 = findViewById(R.id.right3);
@@ -263,11 +265,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         } else {
             tambah.setText("LOGIN");
         }
-        kategori.setText(kategoriproduk);
-        if (kategoriproduk.equals("Sepatu")) {
-//            Toast.makeText(this, kategoriproduk, Toast.LENGTH_SHORT).show();
-//            linear5.removeAllViews();
-        }
+
         if (vdiskon == 0) {
 
             st2 = new StringTokenizer(formatRupiah.format(vhargaproduk), ",");
@@ -288,7 +286,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
 
         diskripsi.setText(Html.fromHtml(vdeskripsi));
-        kategori.setText(kategoriproduk);
+
 
 
         top_ten_crecyclerview = findViewById(R.id.top_ten_recyclerview);
@@ -339,10 +337,14 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                 namareview.setText(listreviews.get(0).getReviewer());
 //                tanggalreview.setText(listreviews.get(0).getReviewer());
                 diskripsireview.setText(listreviews.get(0).getReview());
+                Glide.with(getContext())
+                        .load(listreviews.get(0).getFoto_review())
+                        .into(fotoreview);
+
 //                reviewAdapter = new ReviewAdapter(ProductDetailActivity.this, listreviews);
 //                recyclerViewreview.setAdapter(reviewAdapter);
 //                Log.d("COBA", String.valueOf(response));
-                Toast.makeText(ProductDetailActivity.this, "" + listreviews.get(0).getReview(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(ProductDetailActivity.this, "" + listreviews.get(0).getFoto_review(), Toast.LENGTH_SHORT).show();
 
             }
 //            }
@@ -552,6 +554,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                             .into(fotopelapak);
                     pelapak = jsonArray.getJSONObject(0).getJSONObject("pelapak").getString("nama_toko");
                     namapelapak.setText(pelapak);
+                    kategori.setText(pelapak);
                     id_pelapak = jsonArray.getJSONObject(0).getJSONObject("pelapak").getString("id_pelapak");
                     Log.d("CEK", "error" + fotopelapak);
                     viewPagerAdapter = new ViewPagerAdapter(getApplicationContext(), tampil);

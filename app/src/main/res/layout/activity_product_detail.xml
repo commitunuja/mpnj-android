@@ -729,22 +729,22 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:layout_marginTop="10dp"
+                        android:paddingTop="15dp"
                         android:background="@color/white"
                         android:orientation="horizontal">
 
-                        <de.hdodenhof.circleimageview.CircleImageView
+                        <com.github.siyamed.shapeimageview.RoundedImageView
                             android:id="@+id/img_foto_pelapak"
                             android:layout_width="50dp"
                             android:layout_height="50dp"
-                            android:src="@drawable/img" />
+                            android:src="@drawable/boarder_green_rounder_white" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
 
-                            <customfonts.MyTextView_Roboto_Black
+                            <customfonts.MyTextView_Roboto_Bold
                                 android:id="@+id/tv_nama_pelapak"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -759,9 +759,11 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="10dp"
                                 android:padding="2dp"
+                                android:layout_marginTop="3dp"
                                 android:drawableLeft="@drawable/ic_map"
                                 android:text="Paiton"
-                                android:textColor="@color/grey"
+                                android:drawablePadding="3dp"
+                                android:textColor="@color/cut_price"
                                 android:textSize="10sp" />
                         </LinearLayout>
                     </LinearLayout>
@@ -778,7 +780,7 @@
                             android:id="@+id/btn_chatpelapak"
                             android:layout_width="128dp"
                             android:layout_height="44.56dp"
-                            android:layout_margin="10dp"
+                            android:layout_marginRight="10dp"
                             android:background="@drawable/floating_button"
                             android:maxLines="1"
                             android:paddingLeft="10dp"
