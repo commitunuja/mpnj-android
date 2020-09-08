@@ -344,7 +344,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 //                reviewAdapter = new ReviewAdapter(ProductDetailActivity.this, listreviews);
 //                recyclerViewreview.setAdapter(reviewAdapter);
 //                Log.d("COBA", String.valueOf(response));
-                Toast.makeText(ProductDetailActivity.this, "" + listreviews.get(0).getFoto_review(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(ProductDetailActivity.this, "" + listreviews.get(0).getFoto_review(), Toast.LENGTH_SHORT).show();
 
             }
 //            }

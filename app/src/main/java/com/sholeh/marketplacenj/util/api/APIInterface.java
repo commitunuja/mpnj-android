@@ -113,6 +113,11 @@ public interface APIInterface {
     Call<ResLogin> loginKonsumenCall(@Field("username") String username,
                                      @Field("password") String password);
 
+    //  user forget password
+    @FormUrlEncoded
+    @POST("api/forgot_password")
+    Call<ResLogin> requestForgetPass(@Field("email") String email);
+
     ///  ubah password
     @FormUrlEncoded
     @PUT("api/password/{id_konsumen}")
