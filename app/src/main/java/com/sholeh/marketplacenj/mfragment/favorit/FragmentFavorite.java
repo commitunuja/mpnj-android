@@ -56,6 +56,10 @@ public class FragmentFavorite extends Fragment implements View.OnClickListener {
     LinearLayout lnKosong;
     TextView tvxDesainKosong;
 
+    TextView tvx_title;
+    ImageView imgtoolbar;
+
+
 
     @Nullable
     @Override
@@ -73,6 +77,14 @@ public class FragmentFavorite extends Fragment implements View.OnClickListener {
         tvxDesainKosong = rootView.findViewById(R.id.tvDataKosong);
         imgreset = rootView.findViewById(R.id.imgResetSearch);
         imgreset.setOnClickListener(this);
+        imgtoolbar = rootView.findViewById(R.id.imgtoolbarF);
+        tvx_title =rootView.findViewById(R.id.title);
+        tvx_title.setText("Favorit Saya");
+        tvx_title.setTextColor(getResources().getColor(R.color.white));
+        tvx_title.setVisibility(View.VISIBLE);
+        imgtoolbar.setOnClickListener(this);
+        imgtoolbar.setVisibility(View.GONE);
+
 
         mGridView = rootView.findViewById(R.id.grid_favorit);
         edCariWishlist = rootView.findViewById(R.id.tvxCariWishlist);
@@ -111,7 +123,11 @@ public class FragmentFavorite extends Fragment implements View.OnClickListener {
             case R.id.imgResetSearch:
                 edCariWishlist.setText("");
                 getWishlish();
+                break;
 
+
+            case  R.id.imgtoolbarF:
+                getActivity().finish();
                 break;
 
 

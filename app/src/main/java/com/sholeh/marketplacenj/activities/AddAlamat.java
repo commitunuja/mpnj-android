@@ -11,7 +11,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -58,6 +60,9 @@ public class AddAlamat extends AppCompatActivity implements View.OnClickListener
     String valalamat, cekOngkir, nilaiIntent;
     ArrayList<String> idK;
 
+    TextView tvx_title;
+    ImageView imgtoolbar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +70,12 @@ public class AddAlamat extends AppCompatActivity implements View.OnClickListener
         setContentView(R.layout.activity_addalamat);
         preferences = new Preferences(getApplication());
         userId = preferences.getIdKonsumen();
+        imgtoolbar = findViewById(R.id.imgtoolbarF);
+        tvx_title = findViewById(R.id.title);
+        tvx_title.setText("Tambah Alamat");
+        tvx_title.setTextColor(getResources().getColor(R.color.white));
+        tvx_title.setVisibility(View.VISIBLE);
+        imgtoolbar.setOnClickListener(this);
 
         spinProvinsi = findViewById(R.id.spin_provinsi);
         spinkota = findViewById(R.id.spin_kota);
@@ -153,6 +164,11 @@ public class AddAlamat extends AppCompatActivity implements View.OnClickListener
             case R.id.btnSimpanAlamat:
                 sendAlamat();
                 break;
+
+            case  R.id.imgtoolbarF:
+                finish();
+                break;
+
 
             default:
                 break;

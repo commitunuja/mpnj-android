@@ -282,6 +282,9 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
                     try {
                         JSONObject jsonObject;
                         jsonObject = new JSONObject(String.valueOf(response.body()));
+//                        String pesan = (String) jsonObject.get("pesan");
+//                        Toast.makeText(CheckoutActivity.this, " "+pesan, Toast.LENGTH_SHORT).show();
+
                         Integer id_transaksi = (Integer) jsonObject.get("id_transaksi");
                         Integer kodetransaksi = (Integer) jsonObject.get("kode_transaksi");
                         String total_bayar = (String) jsonObject.get("total_bayar");

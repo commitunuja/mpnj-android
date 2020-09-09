@@ -97,6 +97,9 @@ public class ImageProfilActivity extends AppCompatActivity implements View.OnCli
     private Snackbar mSnackbar;
     private ResProfil tvDataProfil;
     private KProgressHUD progressDialogHud;
+    TextView tvx_title;
+    ImageView imgtoolbar;
+
 
 
     @Override
@@ -111,6 +114,12 @@ public class ImageProfilActivity extends AppCompatActivity implements View.OnCli
         preferences = new Preferences(getApplication());
         id_konsumen = preferences.getIdKonsumen();
         progressDialogHud = KProgressHUD.create(ImageProfilActivity.this);
+        imgtoolbar = findViewById(R.id.imgtoolbarF);
+        tvx_title = findViewById(R.id.title);
+        tvx_title.setText("Foto Profil");
+        tvx_title.setTextColor(getResources().getColor(R.color.white));
+        tvx_title.setVisibility(View.VISIBLE);
+        imgtoolbar.setOnClickListener(this);
 //        preferences = new Preferences(getApplication());
 //        layImg= findViewById(R.id.layProfil);
 //        layImg.setVisibility(View.GONE);
@@ -189,6 +198,10 @@ public class ImageProfilActivity extends AppCompatActivity implements View.OnCli
                 selectImage();
 //                Toast.makeText(this, "klik", Toast.LENGTH_SHORT).show();
 
+                break;
+
+            case  R.id.imgtoolbarF:
+                finish();
                 break;
             default:
                 break;
