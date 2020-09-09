@@ -9,7 +9,18 @@
     android:id="@+id/layProfil"
     tools:context=".activities.ImageProfilActivity">
 
-    <androidx.appcompat.widget.Toolbar
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/toolbar_img_profile"/>
+
+
+
+        <androidx.appcompat.widget.Toolbar
+        android:visibility="gone"
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
@@ -46,4 +57,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Selesai"/>
+
+    </LinearLayout>
 </LinearLayout>
