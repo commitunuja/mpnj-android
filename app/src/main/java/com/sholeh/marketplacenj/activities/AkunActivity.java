@@ -206,8 +206,8 @@ public class AkunActivity extends AppCompatActivity implements View.OnClickListe
                 com.google.android.gms.auth.api.credentials.Credential credential = data.getParcelableExtra(Credential.EXTRA_KEY);
                 if (credential != null) {
                     String mobNumber = credential.getId();
-                    String newString = mobNumber.replace("+91", "");
-                    ed_nohp.setText(newString);
+                    String newString = mobNumber.replace("+62", "");
+                    ed_nohp.setText("0"+newString);
 
                 } else {
                     Toast.makeText(this, "err", Toast.LENGTH_SHORT).show();
