@@ -258,6 +258,18 @@
         <item name="android:textSize">@dimen/font_7</item>
     </style>
 
+    <style name="txt_white_big">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textColorHint">@color/white</item>
+        <item name="android:textSize">@dimen/font_10</item>
+    </style>
+
+    <style name="txt_white_micro">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textColorHint">@color/white</item>
+        <item name="android:textSize">@dimen/font_6</item>
+    </style>
+
 
 
 

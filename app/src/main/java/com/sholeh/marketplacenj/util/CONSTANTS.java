@@ -26,6 +26,9 @@ public class CONSTANTS {
     public static final String EMAIL = "email";
     private static Retrofit retrofit;
 
+    public static String SECONDARY_COLOR = "#04d39f";
+    public static String SECOND_COLOR = "secondary_color";
+
 
     public static Retrofit getClient() {
         if (retrofit == null) {
