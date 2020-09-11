@@ -318,7 +318,6 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 //        top_ten_crecyclerview.setAdapter(mAdapter2);
 
         getDetail();
-        produkTerbaru();
         getReview();
 
 
@@ -434,7 +433,8 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
             case R.id.tvx_allterkait:
                 Intent i = new Intent(getContext(), ProdukAllActivity.class);
-                i.putExtra("all", "allterbaru");
+                i.putExtra("all", "alllain");
+                i.putExtra("id_toko", id_pelapak);
                 startActivity(i);
                 break;
 
@@ -579,6 +579,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                     namapelapak.setText(pelapak);
                     kategori.setText(pelapak);
                     id_pelapak = jsonArray.getJSONObject(0).getJSONObject("pelapak").getString("id_pelapak");
+                    produkLaindiToko(id_pelapak);
                     produkLain(id_pelapak);
 //                    Toast.makeText(ProductDetailActivity.this, "p "+id_pelapak, Toast.LENGTH_SHORT).show();
                     Log.d("CEK", "error" + fotopelapak);
@@ -682,14 +683,14 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         }
     }
 
-    private void produkTerbaru() {
+    private void produkLain(String idToko) {
         produkTerbaruAdapter = new ProdukAdapter(getContext(), tvDataProdukTerbaru);
         dataapiTerbaru = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         top_ten_crecyclerview.setLayoutManager(dataapiTerbaru);
         top_ten_crecyclerview.setItemAnimator(new DefaultItemAnimator());
         top_ten_crecyclerview.setHasFixedSize(true);
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-        Call<List<Model>> call = service.getProduk();
+        Call<List<Model>> call = service.getProdukLain(idToko);
 
         call.enqueue(new Callback<List<Model>>() {
             @Override
@@ -711,7 +712,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         });
     }
 
-    private void produkLain(String idPelapak){
+    private void produkLaindiToko(String idPelapak){
 //        Toast.makeText(this, "idpelapak"+idPelapak, Toast.LENGTH_SHORT).show();
         adapterproduklain = new ProdukAdapter(getContext(), tvDataProdukLain);
         dataapiProdukLain = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
