@@ -279,9 +279,13 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
                 @Override
                 public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                     Log.d("simpantransaksi", String.valueOf(response));
-                    try {
+                    if (response.code() == 200){
+//                        Toast.makeText(CheckoutActivity.this, "Sukses", Toast.LENGTH_SHORT).show();
+//                        progressHUD.dismiss();
+                        try {
                         JSONObject jsonObject;
                         jsonObject = new JSONObject(String.valueOf(response.body()));
+//                        Toast.makeText(CheckoutActivity.this, ""+jsonObject, Toast.LENGTH_SHORT).show();
 //                        String pesan = (String) jsonObject.get("pesan");
 //                        Toast.makeText(CheckoutActivity.this, " "+pesan, Toast.LENGTH_SHORT).show();
 
@@ -290,7 +294,7 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
                         String total_bayar = (String) jsonObject.get("total_bayar");
                         String tgl_pemesanan = (String) jsonObject.get("tanggal_pemesanan");
                         String batasPembayaran = (String) jsonObject.get("batas_pembayaran");
-                        Log.d("kodetransaksi", String.valueOf(id_transaksi) + "/t" + kodetransaksi + "/t" + totalbayar + "/t" + tgl_pemesanan + "/t" + batasPembayaran);
+//                        Log.d("kodetransaksi", String.valueOf(id_transaksi) + "/t" + kodetransaksi + "/t" + totalbayar + "/t" + tgl_pemesanan + "/t" + batasPembayaran);
                         progressHUD.dismiss();
                         Intent intent = new Intent(CheckoutActivity.this, KonfirmasiPembayaranActivity.class);
                         Bundle b = new Bundle();
@@ -307,15 +311,20 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
                         finish();
                     } catch (JSONException e) {
                         e.printStackTrace();
+                        Toast.makeText(CheckoutActivity.this, "e "+e, Toast.LENGTH_SHORT).show();
                         progressHUD.dismiss();
                     }
-
-
+                    }else{
+                        Toast.makeText(CheckoutActivity.this, "email anda belum di verifikasi", Toast.LENGTH_SHORT).show();
+                        progressHUD.dismiss();
+                    }
+//
                 }
 
                 @Override
                 public void onFailure(Call<JsonObject> call, Throwable t) {
                     Log.d("simpantransaksi", String.valueOf(t));
+                    Toast.makeText(CheckoutActivity.this, "t "+t, Toast.LENGTH_SHORT).show();
                     progressHUD.dismiss();
                 }
             });
@@ -371,7 +380,8 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
         call.enqueue(new Callback<ResCheckout>() {
             @Override
             public void onResponse(Call<ResCheckout> call, retrofit2.Response<ResCheckout> response) {
-                Log.d("cekkk", String.valueOf(response));
+                Log.d("checkout", String.valueOf(response));
+//                Toast.makeText(CheckoutActivity.this, "cek "+response, Toast.LENGTH_SHORT).show();
                 if (response.body() != null && response.isSuccessful()) {
                     if (response.body().getDataCheckout().size() > 0) {
                         response.body().getTotalHarganya();
@@ -414,17 +424,19 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
                             listView.expandGroup(i);
                         }
                     } else {
-                        AppUtilits.displayMessage(CheckoutActivity.this, "Terdapat Kesalahan. Silahkan Coba Lagi Nanti");
+                        Log.d("checkout", String.valueOf(response.message()));
+//                        AppUtilits.displayMessage(CheckoutActivity.this, "Terdapat Kesalahan. Silahkan Coba Lagi Nanti");
                     }
                 } else {
-                    AppUtilits.displayMessage(CheckoutActivity.this, "Terdapat Kesalahan. Silahkan Coba Lagi Nanti");
+                    Log.d("checkout", String.valueOf(response.message()));
+//                    AppUtilits.displayMessage(CheckoutActivity.this, "Terdapat Kesalahan. Silahkan Coba Lagi Nanti");
                 }
             }
 
             @Override
             public void onFailure(Call<ResCheckout> call, Throwable t) {
-                AppUtilits.displayMessage(CheckoutActivity.this, "Terdapat Kesalahan. Silahkan Coba Lagi Nanti");
-                Log.d("cekkk", String.valueOf(t));
+//                AppUtilits.displayMessage(CheckoutActivity.this, "Terdapat Kesalahan. Silahkan Coba Lagi Nanti");
+                Log.d("checkout", String.valueOf(t));
             }
         });
     }
