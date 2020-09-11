@@ -342,6 +342,12 @@ public interface APIInterface {
     @GET("api/banner")
     Call<ResBanner> getBanner();
 
+    //  tampil data produk lain di toko
+    @GET("api/produk/lain/{id_toko}")
+    Call<List<Model>> getProdukLain(
+            @Path("id_toko") String idToko);
+
+
 
 }
 
