@@ -41,7 +41,7 @@ public class ProdukAllActivity extends AppCompatActivity {
 //    EditText edpencarian;
 
     EditText search;
-    String status, allproduk;
+    String status, allproduk, idToko;
     TextView tvxToolbar;
     ImageView imgBack;
 
@@ -55,13 +55,19 @@ public class ProdukAllActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         Intent i = getIntent();
         allproduk = i.getStringExtra("all");
+        idToko = getIntent().getStringExtra("id_toko");
+
         search = findViewById(R.id.etsearchterpopuler);
-        if (allproduk.equalsIgnoreCase("alldiskon")){
+        if (allproduk.equalsIgnoreCase("alldiskon")) {
             tvxToolbar.setText("Produk Diskon");
-             produkDiskon();
-        }else if (allproduk.equalsIgnoreCase("allterbaru")){
-            tvxToolbar.setText("Produk Terbaru");
-            produkTerbaru();
+            produkDiskon();
+        } else if (allproduk.equalsIgnoreCase("allterbaru")){
+                tvxToolbar.setText("Produk Terbaru");
+                produkTerbaru();
+
+        }else if (allproduk.equalsIgnoreCase("alllain")){
+            tvxToolbar.setText("Produk Lain");
+            produkLain(idToko);
         }else if (allproduk.equalsIgnoreCase("allterlaris")){
             tvxToolbar.setText("Produk Terlaris");
              produkTerlaris();
@@ -164,6 +170,48 @@ public class ProdukAllActivity extends AppCompatActivity {
         });
     }
 
+    private void produkLain(String idToko) {
+        searchAdapter = new SearchAdapter(ProdukAllActivity.this, datapencarian);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(ProdukAllActivity.this, 2);
+        rv_populer.setLayoutManager(layoutManager);
+        rv_populer.setItemAnimator(new DefaultItemAnimator());
+        rv_populer.setNestedScrollingEnabled(false);
+        rv_populer.setFocusableInTouchMode(false);
+
+
+        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+        Call<List<Model>> call = service.getProdukLain(idToko);
+
+        call.enqueue(new Callback<List<Model>>() {
+            @Override
+            public void onResponse(Call<List<Model>> call, Response<List<Model>> response) {
+                if (response.body() != null && response.isSuccessful()) {
+                    if (response.body().size() > 0) {
+                        datapencarian = response.body();
+                        searchAdapter = new SearchAdapter(getBaseContext(), datapencarian);
+                        rv_populer.setAdapter(searchAdapter);
+                        progressBar.setVisibility(View.GONE);
+                    }else {
+
+                        progressBar.setVisibility(View.GONE);
+                        Toast.makeText(getBaseContext(), "Tidak ada data pada kategori ini", Toast.LENGTH_LONG).show();
+                    }
+
+                }else{
+                    Toast.makeText(getApplication(), "Tidak ada data pada kategori ini", Toast.LENGTH_SHORT).show();
+                }
+
+
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Model>> call, Throwable t) {
+                Toast.makeText(getApplication(), "Terdapat Kesalahan Jaringan. Silahkan Coba Lagi Nanti", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     private void produkTerbaru() {
         searchAdapter = new SearchAdapter(ProdukAllActivity.this, datapencarian);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(ProdukAllActivity.this, 2);
@@ -247,5 +295,7 @@ public class ProdukAllActivity extends AppCompatActivity {
             }
         });
     }
+
+
 
 }
