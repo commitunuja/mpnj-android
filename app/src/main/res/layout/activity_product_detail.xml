@@ -820,6 +820,45 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:layout_weight="1"
+                        android:text="Produk Lain Dari Toko Ini "
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+                    <customfonts.MyTextView_Roboto_Medium
+                        android:id="@+id/tvx_allproduklain"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="20dp"
+                        android:text="Lihat Semua"
+                        android:textColor="@color/red"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+                <!--Top Rated Recyclerview-->
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_produklain"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:nestedScrollingEnabled="false"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="15dp"
+                    android:paddingBottom="20dp" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="35dp"
+                    android:orientation="horizontal">
+
+                    <customfonts.MyTextView_Roboto_Medium
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
                         android:text="Produk Terbaru"
                         android:textColor="@color/black"
                         android:textSize="14sp" />
