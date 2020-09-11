@@ -859,7 +859,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:layout_weight="1"
-                        android:text="Produk Terbaru"
+                        android:text="Kamu Mungkin Juga Suka"
                         android:textColor="@color/black"
                         android:textSize="14sp" />
 
