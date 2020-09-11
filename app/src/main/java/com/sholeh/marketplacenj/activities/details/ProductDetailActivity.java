@@ -95,7 +95,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
     Button tambah;
 
     private ArrayList<TopTenModelClass> topTenModelClasses;
-    private RecyclerView top_ten_crecyclerview, recyclerViewreview;
+    private RecyclerView top_ten_crecyclerview, recyclerviewProdukLain;
     ReviewAdapter reviewAdapter;
     private RecycleAdapteTopTenHome mAdapter2;
     private Integer image1[] = {R.drawable.ac, R.drawable.headphones, R.drawable.ac, R.drawable.headphones};
@@ -119,6 +119,10 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
     private ProdukAdapter produkTerbaruAdapter;
     private List<Model> tvDataProdukTerbaru;
     RecyclerView.LayoutManager dataapiTerbaru;
+
+    private ProdukAdapter adapterproduklain;
+    private List<Model> tvDataProdukLain;
+    RecyclerView.LayoutManager dataapiProdukLain;
     ImageView imgToolbar;
 
     private CustomToast toast;
@@ -290,6 +294,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
 
         top_ten_crecyclerview = findViewById(R.id.top_ten_recyclerview);
+        recyclerviewProdukLain = findViewById(R.id.recycler_produklain);
 
         topTenModelClasses = new ArrayList<>();
 
@@ -313,6 +318,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         getDetail();
         produkTerbaru();
         getReview();
+
 
     }
 
@@ -556,6 +562,8 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                     namapelapak.setText(pelapak);
                     kategori.setText(pelapak);
                     id_pelapak = jsonArray.getJSONObject(0).getJSONObject("pelapak").getString("id_pelapak");
+                    produkLain(id_pelapak);
+//                    Toast.makeText(ProductDetailActivity.this, "p "+id_pelapak, Toast.LENGTH_SHORT).show();
                     Log.d("CEK", "error" + fotopelapak);
                     viewPagerAdapter = new ViewPagerAdapter(getApplicationContext(), tampil);
                     viewPager.setAdapter(viewPagerAdapter);
@@ -681,6 +689,36 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
             @Override
             public void onFailure(Call<List<Model>> call, Throwable t) {
                 Toast.makeText(getContext(), "Data Belum Ada", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), String.valueOf(t), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void produkLain(String idPelapak){
+//        Toast.makeText(this, "idpelapak"+idPelapak, Toast.LENGTH_SHORT).show();
+        adapterproduklain = new ProdukAdapter(getContext(), tvDataProdukLain);
+        dataapiProdukLain = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        recyclerviewProdukLain.setLayoutManager(dataapiProdukLain);
+        recyclerviewProdukLain.setItemAnimator(new DefaultItemAnimator());
+        recyclerviewProdukLain.setHasFixedSize(true);
+        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+        Call<List<Model>> call = service.getProdukPelapak(idPelapak);
+
+        call.enqueue(new Callback<List<Model>>() {
+            @Override
+            public void onResponse(Call<List<Model>> call, Response<List<Model>> response) {
+                if (response.body() != null && response.isSuccessful()) {
+                    tvDataProdukLain= response.body();
+                    adapterproduklain = new ProdukAdapter(getContext(), tvDataProdukLain);
+                    recyclerviewProdukLain.setAdapter(adapterproduklain);
+                } else {
+                    Toast.makeText(getContext(), "Data Belum Ada"+response, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Model>> call, Throwable t) {
+                Toast.makeText(getContext(), "Data Belum Ada s", Toast.LENGTH_SHORT).show();
 //                Toast.makeText(getContext(), String.valueOf(t), Toast.LENGTH_SHORT).show();
             }
         });
