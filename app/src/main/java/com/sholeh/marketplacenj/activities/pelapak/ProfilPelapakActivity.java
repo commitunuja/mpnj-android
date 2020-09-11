@@ -45,10 +45,19 @@ public class ProfilPelapakActivity extends AppCompatActivity {
     private ProfilPelapakAdapter profilPelapakAdapter;
     private List<Model> tvDataProduk;
 
+    TextView tvx_title;
+    ImageView imgtoolbar;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profil_pelapak);
+        imgtoolbar = findViewById(R.id.imgtoolbarF);
+        tvx_title = findViewById(R.id.title);
+        tvx_title.setTextColor(getResources().getColor(R.color.white));
+        tvx_title.setVisibility(View.VISIBLE);
+
 
         toolbar = findViewById(R.id.tvTitleglobal);
         back = findViewById(R.id.imgBackglobal);
@@ -60,12 +69,21 @@ public class ProfilPelapakActivity extends AppCompatActivity {
             }
         });
 
+        imgtoolbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         id_pelapak = getIntent().getStringExtra("id_user");
         pelapak = getIntent().getStringExtra("namapelapak");
         foto_pelapak = getIntent().getStringExtra("foto_pelapak");
         recprodukpelapak = findViewById(R.id.recyclerviewprodukpelapak);
 //        iduser = getIntent().getStringExtra("id_user");
         toolbar.setText(pelapak);
+        tvx_title.setText(pelapak);
+
 
         init();
         getDataProdukPelapak();
