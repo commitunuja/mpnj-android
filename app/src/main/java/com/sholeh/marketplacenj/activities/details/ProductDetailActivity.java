@@ -75,7 +75,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
     ViewPagerAdapter viewPagerAdapter;
 
     LinearLayout linear1, linear2, linear3, linear4;
-    TextView namareview, tanggalreview, diskripsireview, txt1, txt2, txt3, txt4, idkeranjang, nama, harga, kategori, jumlahproduk, offer, namapelapak, readmore, allterkait;
+    TextView namareview, tanggalreview, diskripsireview, txt1, txt2, txt3, txt4, idkeranjang, nama, harga, kategori, jumlahproduk, offer, namapelapak, readmore, allterkait, allprodukLain;
     JustifiedTextView diskripsi;
     RecyclerView.LayoutManager layoutManager;
     LinearLayout right1, right2, right3;
@@ -229,11 +229,13 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         jumlahproduk = findViewById(R.id.txtjumlah);
         idkeranjang = findViewById(R.id.txtidkerenjang);
         btnAddWishlist = findViewById(R.id.btn_addtowishlist);
+        allprodukLain = findViewById(R.id.tvx_allproduklain);
 
         tokeranjang.setOnClickListener(this);
         tambah.setOnClickListener(this);
         btnAddWishlist.setOnClickListener(this);
         allterkait.setOnClickListener(this);
+        allprodukLain.setOnClickListener(this);
 
 
         vid_produk = getIntent().getStringExtra("id_produk");
@@ -410,7 +412,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                     intent.putExtra("namapelapak", (pelapak));
                     intent.putExtra("foto_pelapak", foto_pelapak);
 
-                    Toast.makeText(this, "" + foto_pelapak, Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(this, "" + foto_pelapak, Toast.LENGTH_SHORT).show();
                     startActivity(intent);
                 } else {
                     startActivity(new Intent(this, LoginActivity.class));
@@ -511,6 +513,21 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                 right3_imag.setVisibility(View.VISIBLE);
                 right2_imag.setVisibility(View.GONE);
                 right1_imag.setVisibility(View.GONE);
+                break;
+
+            case  R.id.tvx_allproduklain:
+                if (login) {
+                    Intent intent = new Intent(this, ProfilPelapakActivity.class);
+                    intent.putExtra("id_user", id_pelapak);
+                    intent.putExtra("namapelapak", (pelapak));
+                    intent.putExtra("foto_pelapak", foto_pelapak);
+
+//                    Toast.makeText(this, "" + foto_pelapak, Toast.LENGTH_SHORT).show();
+                    startActivity(intent);
+                } else {
+                    startActivity(new Intent(this, LoginActivity.class));
+                    finish();
+                }
                 break;
 
          /*   case R.id.relative1:
