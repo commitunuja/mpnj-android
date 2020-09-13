@@ -44,10 +44,12 @@ import com.sholeh.marketplacenj.respon.ItemCheckout;
 import com.sholeh.marketplacenj.respon.ResCheckout;
 import com.sholeh.marketplacenj.respon.ResProfil;
 import com.sholeh.marketplacenj.util.AppUtilits;
+import com.sholeh.marketplacenj.util.CONSTANTS;
 import com.sholeh.marketplacenj.util.NetworkUtility;
 import com.sholeh.marketplacenj.util.Preferences;
 import com.sholeh.marketplacenj.util.ServiceGenerator;
 import com.sholeh.marketplacenj.util.api.APIInterface;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -113,6 +115,8 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
     private Dialog bottomDialog;
     private FrameLayout frameOk;
     private LinearLayout linearDialog;
+    private ResProfil tvDataProfil;
+    private String email;
 
 
 
@@ -217,6 +221,7 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
         tvx_email = bottomDialog.findViewById(R.id.tvEmail);
         frameOk= bottomDialog.findViewById(R.id.frameOk);
         linearDialog=bottomDialog.findViewById(R.id.linearDialog);
+        getDataProfil();
 
 //        bottomDialog.show();
 //        linearDialog.startAnimation(slideUpAnimation);
@@ -280,6 +285,31 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onBackPressed() {
         onBack();
+    }
+
+    public void getDataProfil() {
+        if (!NetworkUtility.isNetworkConnected(getApplication())) {
+//            AppUtilits.displayMessage(getActivity(), getString(R.string.network_not_connected));
+        } else {
+            APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+            Call<ResProfil> call = service.getDataProfil(id_konsumen);
+            call.enqueue(new Callback<ResProfil>() {
+                @Override
+                public void onResponse(Call<ResProfil> call, Response<ResProfil> response) {
+                    if (response.body() != null && response.isSuccessful()) {
+                        tvDataProfil = response.body();
+                        email = response.body().getData().getEmail();
+                        tvx_email.setText(email);
+                    } else {
+//                        AppUtilits.displayMessage(getActivity(), getString(R.string.network_error));
+                    }
+                }
+                @Override
+                public void onFailure(Call<ResProfil> call, Throwable t) {
+//                    AppUtilits.displayMessage(getActivity(), getString(R.string.network_not_connected));
+                }
+            });
+        }
     }
 
     private void goPilihAlamat() {

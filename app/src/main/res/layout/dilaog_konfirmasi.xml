@@ -49,7 +49,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/round_button_light"
-                android:text="emailpengguna@gmail.com"
+                android:text=""
                 android:textColor="@color/colorPrimary"
                 android:textSize="13sp" />
 
