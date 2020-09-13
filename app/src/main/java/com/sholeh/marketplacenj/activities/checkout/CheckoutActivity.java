@@ -1,5 +1,6 @@
 package com.sholeh.marketplacenj.activities.checkout;
 
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -7,8 +8,14 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ExpandableListView;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -61,7 +68,9 @@ import static java.lang.String.valueOf;
 
 public class CheckoutActivity extends AppCompatActivity implements View.OnClickListener {
 
-    TextView tvxtolbar, tvxUbahAlamat, tvxSetAlamat, tvxPilihBank, tvx_idKecPembeli, tvxtotalCheckout, tvxSubtotalProd, tvxsubPengiriman, tvxValsubOngkir1, tvxValsubOngkir2, tvxBayar;
+    TextView tvxtolbar, tvxUbahAlamat, tvxSetAlamat, tvxPilihBank,
+            tvx_idKecPembeli, tvxtotalCheckout, tvxSubtotalProd, tvxsubPengiriman,
+            tvxValsubOngkir1, tvxValsubOngkir2, tvxBayar, tvx_email;
     Preferences preferences;
     String id_konsumen, cekOngkir;
     private List<HeaderCheckout> listHeader;
@@ -100,6 +109,12 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
     LinearLayout lnEmpty;
     String cekalamatUtama;
     String alamatCheckout;
+    Animation slideUpAnimation;
+    private Dialog bottomDialog;
+    private FrameLayout frameOk;
+    private LinearLayout linearDialog;
+
+
 
 
     @Override
@@ -186,6 +201,31 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
                 new IntentFilter("custom-validasiopsi2"));
 
         cekAlamat();
+
+        slideUpAnimation= AnimationUtils.loadAnimation(CheckoutActivity.this, R.anim.slide_up_linear);
+        bottomDialog  = new Dialog(CheckoutActivity.this,R.style.BottomDialog);
+        bottomDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+        bottomDialog.getWindow().getAttributes().windowAnimations = R.style.CustomDialogAnimation;
+        layoutParams.copyFrom(bottomDialog.getWindow().getAttributes());
+        layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
+        layoutParams.height = WindowManager.LayoutParams.MATCH_PARENT;
+        layoutParams.gravity = Gravity.BOTTOM;
+        bottomDialog.getWindow().setAttributes(layoutParams);
+        bottomDialog.setCancelable(true);
+        bottomDialog.setContentView(R.layout.dilaog_konfirmasi);
+        tvx_email = bottomDialog.findViewById(R.id.tvEmail);
+        frameOk= bottomDialog.findViewById(R.id.frameOk);
+        linearDialog=bottomDialog.findViewById(R.id.linearDialog);
+
+//        bottomDialog.show();
+//        linearDialog.startAnimation(slideUpAnimation);
+//        frameOk.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                bottomDialog.dismiss();
+//            }
+//        });
 
 
     }
@@ -311,11 +351,12 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
                         finish();
                     } catch (JSONException e) {
                         e.printStackTrace();
-                        Toast.makeText(CheckoutActivity.this, "e "+e, Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(CheckoutActivity.this, "e "+e, Toast.LENGTH_SHORT).show();
                         progressHUD.dismiss();
                     }
                     }else{
-                        Toast.makeText(CheckoutActivity.this, "email anda belum di verifikasi", Toast.LENGTH_SHORT).show();
+
+//                        Toast.makeText(CheckoutActivity.this, "email anda belum di verifikasi", Toast.LENGTH_SHORT).show();
                         progressHUD.dismiss();
                     }
 //
