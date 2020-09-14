@@ -27,6 +27,8 @@ public class Preferences {
     public static  final String SP_NomorHP = "spNomorHp";
     public static  final String SP_Email = "spEmail";
     public static  final String SP_FotoAkun = "spFotoAkun";
+    public static final String SP_TOKEN = "token";
+
 
 
 
@@ -82,6 +84,7 @@ public class Preferences {
     public String getNomorHp(){return sp.getString(SP_NomorHP,"");}
     public String getEmailnya(){return sp.getString(SP_Email,"");}
     public String getFotoAkun(){return sp.getString(SP_FotoAkun,"");}
+    public String getSpToken() {return sp.getString(SP_TOKEN, "");}
 
 
 }
