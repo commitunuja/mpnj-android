@@ -86,6 +86,8 @@ public class KeranjangFragment extends Fragment implements View.OnClickListener 
     TextView tvxDesainKosong;
     private ProgressBar progress_bar;
     Toolbar toolBarisi;
+    TextView tvx_title;
+    ImageView imgtoolbar;
 
     @Override
     public void onResume() {
@@ -107,6 +109,13 @@ public class KeranjangFragment extends Fragment implements View.OnClickListener 
         lnTotalKeranjang = rootView.findViewById(R.id.lnTotalKeranjang);
         tvxDesainKosong = rootView.findViewById(R.id.tvDataKosong);
         progress_bar = rootView.findViewById(R.id.progress_bar);
+        imgtoolbar = rootView.findViewById(R.id.imgtoolbarF);
+        tvx_title =rootView.findViewById(R.id.title);
+        tvx_title.setText("Keranjang Saya");
+        tvx_title.setTextColor(getResources().getColor(R.color.white));
+        tvx_title.setVisibility(View.VISIBLE);
+        imgtoolbar.setOnClickListener(this);
+        imgtoolbar.setVisibility(View.GONE);
 
         tvx_total = rootView.findViewById(R.id.total);
         tvx_checkout = rootView.findViewById(R.id.tvx_checkout);
@@ -177,6 +186,10 @@ public class KeranjangFragment extends Fragment implements View.OnClickListener 
                 }
                 break;
             case R.id.imgBackKeranjang:
+                getActivity().finish();
+                break;
+
+            case  R.id.imgtoolbarF:
                 getActivity().finish();
                 break;
 

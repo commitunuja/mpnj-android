@@ -50,8 +50,17 @@
                 android:gravity="center"
                 android:text="Ubah Profil" />
 
+
             <ImageView
                 android:id="@+id/imgBackglobal"
+                android:layout_width="18dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/value_8"
+                android:layout_marginEnd="@dimen/value_1"
+                app:srcCompat="@drawable/ic_back_arrow" />
+
+            <ImageView
+                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="@dimen/value_8"

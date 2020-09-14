@@ -7,9 +7,16 @@
     android:fitsSystemWindows="true"
     tools:context=".activities.pelapak.ProfilPelapakActivity">
 
+
     <include
+        android:visibility="gone"
         android:id="@+id/include"
         layout="@layout/toolbar_global" />
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/toolbar_fragment_profil" />
+
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imgpelapak"

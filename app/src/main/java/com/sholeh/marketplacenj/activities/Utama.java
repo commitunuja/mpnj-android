@@ -156,10 +156,18 @@ public class Utama extends AppCompatActivity implements BottomNavigationView.OnN
                 return true;
 
             case R.id.navigation_keranjang:
+                boolean slogin = preferences.getSPSudahLogin();
+                if (slogin) {
+                    fm.beginTransaction().hide(active).show(keranjangFragment).commit();
+                    active = keranjangFragment;
+                    return true;
+                } else {
+                    startActivity(new Intent(this, LoginActivity.class));
+                    finish();
+                    return true;
+                }
 //                Toast.makeText(this, "Ini hanya View", Toast.LENGTH_SHORT).show();
-                fm.beginTransaction().hide(active).show(keranjangFragment).commit();
-                active = keranjangFragment;
-                return true;
+
 
             case R.id.navigation_account:
                 boolean login = preferences.getSPSudahLogin();

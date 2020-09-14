@@ -75,7 +75,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
     ViewPagerAdapter viewPagerAdapter;
 
     LinearLayout linear1, linear2, linear3, linear4;
-    TextView namareview, tanggalreview, diskripsireview, txt1, txt2, txt3, txt4, idkeranjang, nama, harga, kategori, jumlahproduk, offer, namapelapak, readmore, allterkait;
+    TextView namareview, tanggalreview, diskripsireview, txt1, txt2, txt3, txt4, idkeranjang, nama, harga, kategori, jumlahproduk, offer, namapelapak, readmore, allterkait, allprodukLain;
     JustifiedTextView diskripsi;
     RecyclerView.LayoutManager layoutManager;
     LinearLayout right1, right2, right3;
@@ -95,7 +95,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
     Button tambah;
 
     private ArrayList<TopTenModelClass> topTenModelClasses;
-    private RecyclerView top_ten_crecyclerview, recyclerViewreview;
+    private RecyclerView top_ten_crecyclerview, recyclerviewProdukLain;
     ReviewAdapter reviewAdapter;
     private RecycleAdapteTopTenHome mAdapter2;
     private Integer image1[] = {R.drawable.ac, R.drawable.headphones, R.drawable.ac, R.drawable.headphones};
@@ -119,6 +119,10 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
     private ProdukAdapter produkTerbaruAdapter;
     private List<Model> tvDataProdukTerbaru;
     RecyclerView.LayoutManager dataapiTerbaru;
+
+    private ProdukAdapter adapterproduklain;
+    private List<Model> tvDataProdukLain;
+    RecyclerView.LayoutManager dataapiProdukLain;
     ImageView imgToolbar;
 
     private CustomToast toast;
@@ -225,11 +229,13 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         jumlahproduk = findViewById(R.id.txtjumlah);
         idkeranjang = findViewById(R.id.txtidkerenjang);
         btnAddWishlist = findViewById(R.id.btn_addtowishlist);
+        allprodukLain = findViewById(R.id.tvx_allproduklain);
 
         tokeranjang.setOnClickListener(this);
         tambah.setOnClickListener(this);
         btnAddWishlist.setOnClickListener(this);
         allterkait.setOnClickListener(this);
+        allprodukLain.setOnClickListener(this);
 
 
         vid_produk = getIntent().getStringExtra("id_produk");
@@ -290,6 +296,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
 
         top_ten_crecyclerview = findViewById(R.id.top_ten_recyclerview);
+        recyclerviewProdukLain = findViewById(R.id.recycler_produklain);
 
         topTenModelClasses = new ArrayList<>();
 
@@ -311,8 +318,8 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 //        top_ten_crecyclerview.setAdapter(mAdapter2);
 
         getDetail();
-        produkTerbaru();
         getReview();
+
 
     }
 
@@ -404,7 +411,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                     intent.putExtra("namapelapak", (pelapak));
                     intent.putExtra("foto_pelapak", foto_pelapak);
 
-                    Toast.makeText(this, "" + foto_pelapak, Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(this, "" + foto_pelapak, Toast.LENGTH_SHORT).show();
                     startActivity(intent);
                 } else {
                     startActivity(new Intent(this, LoginActivity.class));
@@ -426,7 +433,8 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
             case R.id.tvx_allterkait:
                 Intent i = new Intent(getContext(), ProdukAllActivity.class);
-                i.putExtra("all", "allterbaru");
+                i.putExtra("all", "alllain");
+                i.putExtra("id_toko", id_pelapak);
                 startActivity(i);
                 break;
 
@@ -507,6 +515,21 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                 right1_imag.setVisibility(View.GONE);
                 break;
 
+            case  R.id.tvx_allproduklain:
+                if (login) {
+                    Intent intent = new Intent(this, ProfilPelapakActivity.class);
+                    intent.putExtra("id_user", id_pelapak);
+                    intent.putExtra("namapelapak", (pelapak));
+                    intent.putExtra("foto_pelapak", foto_pelapak);
+
+//                    Toast.makeText(this, "" + foto_pelapak, Toast.LENGTH_SHORT).show();
+                    startActivity(intent);
+                } else {
+                    startActivity(new Intent(this, LoginActivity.class));
+                    finish();
+                }
+                break;
+
          /*   case R.id.relative1:
                 viewPager.setCurrentItem(0);
                 break;
@@ -556,6 +579,9 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                     namapelapak.setText(pelapak);
                     kategori.setText(pelapak);
                     id_pelapak = jsonArray.getJSONObject(0).getJSONObject("pelapak").getString("id_pelapak");
+                    produkLaindiToko(id_pelapak);
+                    produkLain(id_pelapak);
+//                    Toast.makeText(ProductDetailActivity.this, "p "+id_pelapak, Toast.LENGTH_SHORT).show();
                     Log.d("CEK", "error" + fotopelapak);
                     viewPagerAdapter = new ViewPagerAdapter(getApplicationContext(), tampil);
                     viewPager.setAdapter(viewPagerAdapter);
@@ -657,14 +683,14 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         }
     }
 
-    private void produkTerbaru() {
+    private void produkLain(String idToko) {
         produkTerbaruAdapter = new ProdukAdapter(getContext(), tvDataProdukTerbaru);
         dataapiTerbaru = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         top_ten_crecyclerview.setLayoutManager(dataapiTerbaru);
         top_ten_crecyclerview.setItemAnimator(new DefaultItemAnimator());
         top_ten_crecyclerview.setHasFixedSize(true);
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-        Call<List<Model>> call = service.getProduk();
+        Call<List<Model>> call = service.getProdukLain(idToko);
 
         call.enqueue(new Callback<List<Model>>() {
             @Override
@@ -681,6 +707,36 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
             @Override
             public void onFailure(Call<List<Model>> call, Throwable t) {
                 Toast.makeText(getContext(), "Data Belum Ada", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), String.valueOf(t), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void produkLaindiToko(String idPelapak){
+//        Toast.makeText(this, "idpelapak"+idPelapak, Toast.LENGTH_SHORT).show();
+        adapterproduklain = new ProdukAdapter(getContext(), tvDataProdukLain);
+        dataapiProdukLain = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        recyclerviewProdukLain.setLayoutManager(dataapiProdukLain);
+        recyclerviewProdukLain.setItemAnimator(new DefaultItemAnimator());
+        recyclerviewProdukLain.setHasFixedSize(true);
+        APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
+        Call<List<Model>> call = service.getProdukPelapak(idPelapak);
+
+        call.enqueue(new Callback<List<Model>>() {
+            @Override
+            public void onResponse(Call<List<Model>> call, Response<List<Model>> response) {
+                if (response.body() != null && response.isSuccessful()) {
+                    tvDataProdukLain= response.body();
+                    adapterproduklain = new ProdukAdapter(getContext(), tvDataProdukLain);
+                    recyclerviewProdukLain.setAdapter(adapterproduklain);
+                } else {
+                    Toast.makeText(getContext(), "Data Belum Ada"+response, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Model>> call, Throwable t) {
+                Toast.makeText(getContext(), "Data Belum Ada s", Toast.LENGTH_SHORT).show();
 //                Toast.makeText(getContext(), String.valueOf(t), Toast.LENGTH_SHORT).show();
             }
         });

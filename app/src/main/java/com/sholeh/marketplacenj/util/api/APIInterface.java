@@ -342,6 +342,16 @@ public interface APIInterface {
     @GET("api/banner")
     Call<ResBanner> getBanner();
 
+    //  tampil data produk lain
+    @GET("api/produk/lain")
+    Call<List<Model>> getProdukLain(
+            @Query("id_toko") String idToko);
+
+    //  tampil data produk ter
+    @GET("api/produk/terkait")
+    Call<List<Model>> getProdukTerkait(
+            @Query("id_toko") String idToko);
+
 
 }
 

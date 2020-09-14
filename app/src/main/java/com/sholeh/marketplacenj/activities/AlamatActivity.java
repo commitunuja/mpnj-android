@@ -63,6 +63,7 @@ public class AlamatActivity extends AppCompatActivity implements View.OnClickLis
         tvx_title.setText("Alamat Saya");
         tvx_title.setTextColor(getResources().getColor(R.color.white));
         tvx_title.setVisibility(View.VISIBLE);
+        imgtoolbar.setOnClickListener(this);
 
         progressDialogHud = KProgressHUD.create(AlamatActivity.this);
         ln_kosong = findViewById(R.id.lnKosong);
@@ -70,7 +71,7 @@ public class AlamatActivity extends AppCompatActivity implements View.OnClickLis
         fab_addAlamat = findViewById(R.id.fab_alamat);
         recyclerAlamat = findViewById(R.id.recycler_alamat);
         fab_addAlamat.setOnClickListener(this);
-        imgtoolbar.setOnClickListener(this);
+
 
         toolBarisi = findViewById(R.id.toolbar);
         toolBarisi.setTitle("Alamat Saya");
@@ -127,7 +128,7 @@ public class AlamatActivity extends AppCompatActivity implements View.OnClickLis
                 Intent pindah = new Intent(this, AddAlamat.class);
                 pindah.putExtra("alamat", "activity");
                 startActivity(pindah);
-                finish();
+//                finish();
 //                Toast.makeText(this, "kll", Toast.LENGTH_SHORT).show();
                 break;
 
