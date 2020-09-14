@@ -16,6 +16,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.sholeh.marketplacenj.activities.customview.edittext.EditTextRegular;
 import com.sholeh.marketplacenj.activities.dashboard.Homepage;
@@ -109,12 +110,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Log.d(TAG, "resLogin" + response.toString());
                 if (response.body() != null && response.isSuccessful()) {
                     if (response.body().getPesan().equalsIgnoreCase("Login Sukses!")) {
+
                         preferences.saveSPString(Preferences.SP_IdKonsumen, String.valueOf(response.body().getIdKonsumen()));
                         preferences.saveSPString(Preferences.SP_UserName, String.valueOf(response.body().getUsername()));
                         preferences.saveSPString(Preferences.SP_NamaLengkap, String.valueOf(response.body().getNamaLengkap()));
                         preferences.saveSPString(Preferences.SP_NomorHP, String.valueOf(response.body().getNomorHp()));
                         preferences.saveSPString(Preferences.SP_Email, String.valueOf(response.body().getEmail()));
+                        preferences.saveSPString(Preferences.SP_TOKEN, String.valueOf(response.body().getToken()));
+
                         preferences.saveSPBoolean(Preferences.SP_SUDAH_LOGIN, true);
+                        Toast.makeText(LoginActivity.this, ""+response.body().getToken(), Toast.LENGTH_SHORT).show();
                         Toast.makeText(LoginActivity.this, "Sukses", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(LoginActivity.this, Utama.class);
                         startActivity(intent);
