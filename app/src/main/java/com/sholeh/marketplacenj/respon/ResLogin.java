@@ -4,7 +4,8 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 
-public class ResLogin {  // respon bg konsumen
+public class
+ResLogin {  // respon bg konsumen
 
     @SerializedName("pesan")
     @Expose
