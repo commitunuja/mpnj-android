@@ -67,6 +67,8 @@
 	<dimen name="app_bar_height">260dp</dimen>
 
 	<dimen name="value_1.5">1.75dp</dimen>
+    <dimen name="spacing_midium">10dp</dimen>
+	<dimen name="spacing_low">2dp</dimen>
 
 </resources>
 

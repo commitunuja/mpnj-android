@@ -90,6 +90,7 @@
     <string name="forget_pass_desc"> Masukkan alamat email Anda di bawah ini dan klik tombol permintaan reset kata sandi. Kami akan menghubungi Anda dengan baik</string>
     <string name="request_password_reset">PERMINTAAN RESET KATA SANDI</string>
     <string name="enter_email_address">Masukkan alamat email</string>
+    <string name="lbl_loading">Loading</string>
 
 
 </resources>
