@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.activities.details.ProductDetailActivity;
-import com.sholeh.marketplacenj.adapter.dashboard.SearchAdapter;
 import com.sholeh.marketplacenj.model.Model;
 import com.sholeh.marketplacenj.util.CONSTANTS;
 import com.squareup.picasso.Picasso;
