@@ -39,16 +39,18 @@
                 android:layout_marginBottom="@dimen/value_2" />
 
             <customfonts.EditText_Roboto_Meidum
-                android:background="#00000000"
-                android:textCursorDrawable="@drawable/color_cursor"
-                android:textSize="16.7sp"
                 android:id="@+id/tvTitleglobal"
-                android:textColor="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
+                android:background="#00000000"
+                android:editable="true"
                 android:gravity="center"
-                android:text="Ubah Profil" />
+                android:inputType="textWebEditText"
+                android:text="Ubah Profil"
+                android:textColor="@color/white"
+                android:textCursorDrawable="@drawable/color_cursor"
+                android:textSize="16.7sp" />
 
 
             <ImageView

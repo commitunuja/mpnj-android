@@ -3,6 +3,7 @@ package com.sholeh.marketplacenj.activities.dashboard;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
@@ -56,10 +57,13 @@ public class ProdukAllActivity extends AppCompatActivity {
         Intent i = getIntent();
         allproduk = i.getStringExtra("all");
         idToko = getIntent().getStringExtra("id_toko");
+        tvxToolbar.setInputType(InputType.TYPE_NULL);
+
 
         search = findViewById(R.id.etsearchterpopuler);
         if (allproduk.equalsIgnoreCase("alldiskon")) {
             tvxToolbar.setText("Produk Diskon");
+
             produkDiskon();
         } else if (allproduk.equalsIgnoreCase("allterbaru")){
                 tvxToolbar.setText("Produk Terbaru");
