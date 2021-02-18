@@ -1,6 +1,7 @@
 package com.sholeh.marketplacenj.activities;
 
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -44,6 +45,7 @@ public class ProdukByKategori extends AppCompatActivity implements View.OnClickL
         toolbar = findViewById(R.id.tvTitleglobal);
 
         toolbar.setText(namakategori);
+        toolbar.setInputType(InputType.TYPE_NULL);
         imgback = findViewById(R.id.imgBackglobal);
         imgback.setOnClickListener(this);
         recyclerViewProdukByKategori = (RecyclerView) findViewById(R.id.recyclerprodukbykategori);
