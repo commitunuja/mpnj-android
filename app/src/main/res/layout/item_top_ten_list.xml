@@ -171,6 +171,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
                         android:gravity="right"
+                        android:maxLines="1"
                         android:text="$288"
                         android:textColor="@color/green_light"
                         android:textSize="13.3sp" />
