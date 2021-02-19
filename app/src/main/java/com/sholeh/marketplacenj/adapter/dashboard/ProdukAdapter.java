@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -13,12 +12,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.loopj.android.image.SmartImageView;
-import com.sholeh.marketplacenj.model.Foto;
-import com.sholeh.marketplacenj.model.pesanan.DataPesanan;
-import com.sholeh.marketplacenj.util.CONSTANTS;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.activities.details.ProductDetailActivity;
 import com.sholeh.marketplacenj.model.Model;
+import com.sholeh.marketplacenj.util.CONSTANTS;
 import com.squareup.picasso.Picasso;
 
 import java.text.NumberFormat;
