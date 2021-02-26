@@ -18,6 +18,7 @@ import com.sholeh.marketplacenj.model.Model;
 import com.sholeh.marketplacenj.util.ServiceGenerator;
 import com.sholeh.marketplacenj.util.api.APIInterface;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -45,12 +46,50 @@ public class SearchActivity extends AppCompatActivity implements MaterialSearchB
         recyclerViewsearch = findViewById(R.id.recycler_search);
         openSearch = findViewById(R.id.searchBar2);
         openSearch.openSearch();
-        openSearch.setSpeechMode(true);
+//        openSearch.setSpeechMode(true);
         openSearch.getLastSuggestions();
         openSearch.setOnSearchActionListener(this);
+
 //        lastSearches = loadSearchSuggestionFromDisk();
 //        openSearch.setLastSuggestions(datapencarian);
 
+        apiservice = ServiceGenerator.getRetrofit().create(APIInterface.class);
+        Call<List<Model>> call = apiservice.getProduk();
+
+        call.enqueue(new Callback<List<Model>>() {
+            @Override
+            public void onResponse(Call<List<Model>> call, Response<List<Model>> response) {
+                if (response.body().size() > 0) {
+                    List<Model> array = response.body();
+
+                    List<String> convertdata = new ArrayList<>();
+                    for (int i = 0; i < array.size(); i++) {
+                        convertdata.add(i, array.get(i).getNamaProduk());
+                        namaproduk = convertdata.toArray(new String[0]);
+                        openSearch.setSuggestionsEnabled(true);
+                        openSearch.setSuggestionsClickListener(new SuggestionsAdapter.OnItemViewClickListener() {
+                            @Override
+                            public void OnItemClickListener(int position, View v) {
+                               String data = namaproduk.toString();
+                                Toast.makeText(SearchActivity.this, "proses", Toast.LENGTH_SHORT).show();
+                                openSearch.setText(data);
+                            }
+
+                            @Override
+                            public void OnItemDeleteListener(int position, View v) {
+
+                            }
+                        });
+
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Model>> call, Throwable t) {
+
+            }
+        });
     }
 
     //    private void fiturpencarian() {
@@ -144,6 +183,7 @@ public class SearchActivity extends AppCompatActivity implements MaterialSearchB
                 break;
             case MaterialSearchBar.BUTTON_BACK:
                 openSearch.closeSearch();
+                finish();
 
         }
     }
