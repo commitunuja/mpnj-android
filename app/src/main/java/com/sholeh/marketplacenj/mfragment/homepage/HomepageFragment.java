@@ -207,7 +207,8 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
             case R.id.searchBar:
                 Intent search = new Intent(getContext(), SearchActivity.class);
                 startActivity(search);
-//                Toast.makeText(getActivity(), "cari ", Toast.LENGTH_SHORT).show();
+//                openSearch.getLastSuggestions();
+                Toast.makeText(getActivity(), "cari ", Toast.LENGTH_SHORT).show();
                 break;
 //            case R.id.lnseacrh:
 //                Intent search = new Intent(getContext(), SearchActivity.class);
@@ -222,7 +223,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
 //                break;
             case R.id.tv_AllProdukDiskon:
                 Intent intent1 = new Intent(getContext(), ProdukAllActivity.class);
-                intent1.putExtra("all","alldiskon");
+                intent1.putExtra("all", "alldiskon");
                 startActivity(intent1);
                 break;
 
@@ -266,8 +267,6 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
 //            super.onBackPressed();
 //        }
 //    }
-
-
 
 
     private void fiturpencarian() {
@@ -321,8 +320,6 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
 //            }
 //        });
     }
-
-
 
 
     private void likeproduk() {
@@ -406,6 +403,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
                 category_recyclerView.setAdapter(recycleAdapteHomeCategory);
 //                homeCategoryModelClasses.add());
             }
+
             @Override
             public void onFailure(Call<List<Kategori>> call, Throwable t) {
 //                Toast.makeText(getContext(), String.valueOf(t), Toast.LENGTH_SHORT).show();
@@ -466,7 +464,6 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
 //        }
 //        this.searchAdapter.setFilter(filterdNames);
 //    }
-
 
 
     @Override
@@ -542,6 +539,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
 //                    Toast.makeText(getContext(), "gagal", Toast.LENGTH_SHORT).show();
                 }
             }
+
             @Override
             public void onFailure(Call<List<Model>> call, Throwable t) {
 //                Toast.makeText(getContext(), "Data Belum Ada", Toast.LENGTH_SHORT).show();
@@ -549,6 +547,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
             }
         });
     }
+
     private void produkTerbaru() {
         produkTerbaruAdapter = new ProdukAdapter(getContext(), tvDataProdukTerbaru);
         dataapiTerbaru = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
@@ -577,6 +576,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
             }
         });
     }
+
     private void produkTerlaris() {
         produkTerlarisAdapter = new ProdukAdapter(getContext(), tvDataProdukTerlaris);
         dataapiTerlaris = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
@@ -620,7 +620,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
         recyclerbanner.setAdapter(mAdapter);
     }
 
-    public void getDataBanner(){
+    public void getDataBanner() {
         APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
         Call<ResBanner> call = service.getBanner();
         call.enqueue(new Callback<ResBanner>() {
@@ -628,16 +628,16 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
             public void onResponse(Call<ResBanner> call, Response<ResBanner> response) {
                 if (response.body() != null && response.isSuccessful()) {
                     if (response.body().getData().size() > 0) {
-                        for(int i = 0; i <response.body().getData().size(); i++){
-                            String fotoBanner = CONSTANTS.ASSETBANNER+response.body().getData().get(i).getFotoBanner();
+                        for (int i = 0; i < response.body().getData().size(); i++) {
+                            String fotoBanner = CONSTANTS.ASSETBANNER + response.body().getData().get(i).getFotoBanner();
                             remoteBanners.add(new RemoteBanner(fotoBanner));
                         }
                         bannerSlider.setBanners(remoteBanners);
-                    }else{
+                    } else {
                         Log.d("cekbanner", String.valueOf(response.body()));
                     }
 
-                }else{
+                } else {
                     Log.d("cekbanner", String.valueOf(response.body()));
                 }
             }
