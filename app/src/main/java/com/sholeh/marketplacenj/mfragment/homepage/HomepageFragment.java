@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -97,7 +98,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
     private List<Model> tvDataProdukTerlaris;
     private TextView tvx_allProdukTerbaru, tvx_allProdukDiskon, tvx_allProdukTerpopuler;
     private ArrayList<TopTenModelClass> topTenModelClasses;
-//    private RecyclerView top_ten_crecyclerview;
+    //    private RecyclerView top_ten_crecyclerview;
     private RecycleAdapteTopTenHome mAdapter2;
     private RecycleAdapteTopTenHome mAdaper10;
     private Integer image1[] = {R.drawable.ac, R.drawable.headphones, R.drawable.ac, R.drawable.headphones};
@@ -115,6 +116,8 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
     private String type2[] = {"Phones", "Phones", "Phones", "Phones"};
     private SearchFragment searchFragment;
 
+    private MaterialSearchBar openSearch;
+
     RecyclerView.LayoutManager dataapiTerbaru;
     RecyclerView.LayoutManager dataapiDiskon;
     RecyclerView.LayoutManager dataapiTerlaris;
@@ -124,7 +127,10 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
     LinearLayout lnSearch;
 
     private BannerSlider bannerSlider;
-    private List<Banner> remoteBanners=new ArrayList<>();
+    private List<Banner> remoteBanners = new ArrayList<>();
+
+    //fitur pencarian re edit
+
 
 
 
@@ -147,7 +153,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
         lnSearch.setOnClickListener(this);
         edpencarian.setOnClickListener(this);
 //        sliderHome = view.findViewById(R.id.sliderhome);
-        bannerSlider =view.findViewById(R.id.sliderhome);
+        bannerSlider = view.findViewById(R.id.sliderhome);
         tvx_allProdukTerbaru = view.findViewById(R.id.tv_Allprodukterbaru);
         tvx_allProdukDiskon = view.findViewById(R.id.tv_AllProdukDiskon);
         tvx_allProdukTerpopuler = view.findViewById(R.id.tv_AllProdukTerlaris);
@@ -175,7 +181,12 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
         produkTerbaru();
         produkTerlaris();
 
-        fiturpencarian();
+
+
+//        String data = openSearch.getLastSuggestions().toString();
+//        Toast.makeText(getContext(), data, Toast.LENGTH_SHORT).show();
+
+//        fiturpencarian();
 
 
 //        FragmentManager fm = getFragmentManager();
