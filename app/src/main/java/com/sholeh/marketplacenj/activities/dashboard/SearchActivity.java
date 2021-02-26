@@ -29,12 +29,12 @@ import static com.sholeh.marketplacenj.util.MyApp.getContext;
 public class SearchActivity extends AppCompatActivity implements MaterialSearchBar.OnSearchActionListener {
     private MaterialSearchBar openSearch;
     RecyclerView recyclerViewsearch;
-    HomepageFragment homepageFragment;
     private SearchAdapter searchAdapter;
     private SearchAdapter kategoriAdapter;
     private List<Model> datapencarian;
-    private List<String> lastSearches;
-    ProgressDialog progressDialog;
+    private APIInterface apiservice;
+    private String namaproduk[];
+    private HomepageFragment homepageFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
