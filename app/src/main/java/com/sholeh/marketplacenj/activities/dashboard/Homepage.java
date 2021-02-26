@@ -421,7 +421,7 @@ public class Homepage extends AppCompatActivity implements View.OnClickListener,
         category_recyclerView.setAdapter(recycleAdapteHomeCategory);
     }
 
-    private void produksearch() {
+    private void produksearch(String text) {
         recyclerViewpproduk = findViewById(R.id.recyclersearch);
         searchAdapter = new SearchAdapter(Homepage.this, datapencarian);
 
