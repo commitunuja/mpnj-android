@@ -30,9 +30,11 @@ import com.sholeh.marketplacenj.model.Model;
 import com.sholeh.marketplacenj.model.dashboard.HomeBannerModelClass;
 import com.sholeh.marketplacenj.model.dashboard.HomeCategoryModelClass;
 import com.sholeh.marketplacenj.model.dashboard.TopTenModelClass;
+import com.sholeh.marketplacenj.util.ObjectSerializer;
 import com.sholeh.marketplacenj.util.ServiceGenerator;
 import com.sholeh.marketplacenj.util.api.APIInterface;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -89,6 +91,11 @@ public class Homepage extends AppCompatActivity implements View.OnClickListener,
     private String title3[] = {"Mohon Tunggu", "Mohon Tunggu", "Mohon Tunggu","Mohon Tunggu"};
     private String type[] = {"Mohon Tunggu", "Mohon Tunggu", "Mohon Tunggu", "Mohon Tunggu"};
 
+    APIInterface apiservice;
+    private String namaproduk[];
+    private MaterialSearchBar openSearch;
+
+
     String status;
     private ArrayList<TopTenModelClass> topTenModelClasses1;
     private RecyclerView like_recyclerview;
@@ -107,37 +114,126 @@ public class Homepage extends AppCompatActivity implements View.OnClickListener,
 
         Banner();
         kategori();
-        produksearch();
+//        produksearch();
         likeproduk();
         produksamsung();
         recentproduk();
         produkapi();
-        fiturpencarian();
+//        fiturpencarian();
         recyclerViewpproduk.setVisibility(View.GONE);
         frameLayout.setVisibility(View.VISIBLE);
+        openSearch.getLastSuggestions();
+
+
+        String data = openSearch.getLastSuggestions().toString();
+        Toast.makeText(this, data, Toast.LENGTH_SHORT).show();
+
+        SharedPreferences sharedPreferences = this.getSharedPreferences("SUGGESTIONS", Context.MODE_PRIVATE);
+        try {
+            sharedPreferences.edit().putString("history", ObjectSerializer.serialize(data)).apply();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 
     }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        openSearch.getLastSuggestions();
 
-    private void fiturpencarian() {
-        edpencarian = findViewById(R.id.etsearch);
-        frameLayout = findViewById(R.id.frag_container);
-        search = findViewById(R.id.etsearch);
-        search.addTextChangedListener(new TextWatcher() {
+
+
+    }
+    @Override
+    public void onSearchStateChanged(boolean enabled) {
+        Toast.makeText(this, "kita coba", Toast.LENGTH_SHORT).show();
+
+    }
+
+    @Override
+    public void onSearchConfirmed(CharSequence text) {
+//        produksearch(openSearch.getText());
+
+    }
+
+    @Override
+    public void onButtonClicked(int buttonCode) {
+        Toast.makeText(this, "onbutton", Toast.LENGTH_SHORT).show();
+
+    }
+
+//    private void fiturpencarian() {
+//        edpencarian = findViewById(R.id.etsearch);
+//        frameLayout = findViewById(R.id.frag_container);
+//        search = findViewById(R.id.etsearch);
+//
+////        search.addTextChangedListener(new TextWatcher() {
+////
+////            @Override
+////            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+////
+////            }
+////
+////            @Override
+////            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//////                getsuggestion();
+////                Toast.makeText(Homepage.this, "cekkak", Toast.LENGTH_SHORT).show();
+////            }
+////
+////            @Override
+////            public void afterTextChanged(Editable s) {
+//////                recyclerViewpproduk.setVisibility(View.VISIBLE);
+//////                frameLayout.setVisibility(View.GONE);
+//////                Homepage.this.filterQuery(s.toString());
+////
+//////                getsuggestion();
+////                status = "yes";
+////
+////            }
+////
+////        });
+//    }
+
+
+    public void getsuggestion(){
+
+        apiservice = ServiceGenerator.getRetrofit().create(APIInterface.class);
+        Call<List<Model>> call = apiservice.getProduk();
+
+        call.enqueue(new Callback<List<Model>>() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            public void onResponse(Call<List<Model>> call, Response<List<Model>> response) {
+                if (response.body().size() > 0) {
+                    List<Model> array = response.body();
+
+                    List<String> convertdata = new ArrayList<>();
+                    for (int i = 0; i < array.size(); i++) {
+                        convertdata.add(i, array.get(i).getNamaProduk());
+                        namaproduk = convertdata.toArray(new String[0]);
+
+                        Toast.makeText(Homepage.this, "pertama", Toast.LENGTH_SHORT).show();
+                        openSearch.setSuggestionsClickListener(new SuggestionsAdapter.OnItemViewClickListener() {
+
+                            @Override
+                            public void OnItemClickListener(int position, View v) {
+                                String data = namaproduk.toString();
+                                Toast.makeText(Homepage.this, "proses", Toast.LENGTH_SHORT).show();
+                                openSearch.setText(data);
+                            }
+
+                            @Override
+                            public void OnItemDeleteListener(int position, View v) {
+
+                            }
+                        });
+
+                    }
+                }
             }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                recyclerViewpproduk.setVisibility(View.VISIBLE);
-                frameLayout.setVisibility(View.GONE);
-                Homepage.this.filterQuery(s.toString());
-                status = "yes";
+            public void onFailure(Call<List<Model>> call, Throwable t) {
 
             }
         });
