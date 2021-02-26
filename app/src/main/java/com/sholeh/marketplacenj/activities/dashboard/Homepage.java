@@ -18,6 +18,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mancj.materialsearchbar.MaterialSearchBar;
+import com.mancj.materialsearchbar.adapter.SuggestionsAdapter;
 import com.sholeh.marketplacenj.R;
 import com.sholeh.marketplacenj.adapter.ProdukByKategoriAdapter;
 import com.sholeh.marketplacenj.adapter.dashboard.ProdukAdapter;
@@ -489,6 +491,8 @@ public class Homepage extends AppCompatActivity implements View.OnClickListener,
             case R.id.tv_produkterpopuler:
                 Intent intent = new Intent(this, ProdukAllActivity.class);
                 startActivity(intent);
+            case R.id.etsearch:
+                openSearch.getLastSuggestions();
         }
     }
 
