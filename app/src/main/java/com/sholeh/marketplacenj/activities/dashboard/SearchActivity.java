@@ -125,6 +125,7 @@ public class SearchActivity extends AppCompatActivity implements MaterialSearchB
 
     @Override
     public void onSearchStateChanged(boolean enabled) {
+        finish();
 
     }
 
