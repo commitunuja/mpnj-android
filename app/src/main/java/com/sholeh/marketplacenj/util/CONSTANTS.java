@@ -8,7 +8,8 @@ public class CONSTANTS {
     public static final String SUB_DOMAIN = "http://penjual.belanj.id/assets/foto_produk/";
     public static final String FOTO_TOKO = "http://penjual.belanj.id/assets/foto_toko/";
     public static final String ASSETBANK = "http://mp.comdev.id/assets/foto_bank/";
-    public static final String ASSETBANNER = "https://admin.comdev.id/assets/banner/";
+//    public static final String ASSETBANNER = "https://mnj.belanj.id/assets/banner/";
+    public static final String ASSETBANNER = "http://mnj.belanj.id/assets/banner/";
 //    public static final String BASE_URL="http://192.168.137.154/mpnj/public/"; //rubah dengan IP devicenya
 
     public static final String URL_RAJAONGKIR = "https://pro.rajaongkir.com/api/";
