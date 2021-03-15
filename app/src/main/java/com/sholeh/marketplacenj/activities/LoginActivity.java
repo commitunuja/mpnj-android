@@ -49,6 +49,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private KProgressHUD progressHud;
     private ProgressBar progress_bar;
 
+    boolean doubleBackToExitPressedOnce = false;
+    Fragment fragment;
+    final Fragment homeFragment = new HomepageFragment();
+    Fragment active = homeFragment;
+    final FragmentManager fm = getSupportFragmentManager();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
