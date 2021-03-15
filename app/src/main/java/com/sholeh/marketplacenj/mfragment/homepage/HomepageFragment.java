@@ -37,7 +37,6 @@ import com.sholeh.marketplacenj.model.dashboard.HomeBannerModelClass;
 import com.sholeh.marketplacenj.model.dashboard.HomeCategoryModelClass;
 import com.sholeh.marketplacenj.model.dashboard.TopTenModelClass;
 import com.sholeh.marketplacenj.respon.ResBanner;
-import com.sholeh.marketplacenj.util.CONSTANTS;
 import com.sholeh.marketplacenj.util.ServiceGenerator;
 import com.sholeh.marketplacenj.util.api.APIInterface;
 
@@ -176,6 +175,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
         produkTerlaris();
 
         fiturpencarian();
+
 
 
 //        FragmentManager fm = getFragmentManager();
@@ -618,7 +618,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
                 if (response.body() != null && response.isSuccessful()) {
                     if (response.body().getData().size() > 0) {
                         for(int i = 0; i <response.body().getData().size(); i++){
-                            String fotoBanner = CONSTANTS.ASSETBANNER+response.body().getData().get(i).getFotoBanner();
+                            String fotoBanner = response.body().getData().get(i).getFotoBanner();
                             remoteBanners.add(new RemoteBanner(fotoBanner));
                         }
                         bannerSlider.setBanners(remoteBanners);
