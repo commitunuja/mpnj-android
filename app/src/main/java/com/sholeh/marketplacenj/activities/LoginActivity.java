@@ -1,12 +1,10 @@
 package com.sholeh.marketplacenj.activities;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,28 +14,27 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+
 import com.kaopiz.kprogresshud.KProgressHUD;
-import com.sholeh.marketplacenj.activities.customview.edittext.EditTextRegular;
-import com.sholeh.marketplacenj.activities.dashboard.Homepage;
-import com.sholeh.marketplacenj.customview.textview.TextViewRegular;
-import com.sholeh.marketplacenj.util.AppUtilits;
-import com.sholeh.marketplacenj.util.CONSTANTS;
-import com.sholeh.marketplacenj.util.api.APIInterface;
 import com.sholeh.marketplacenj.R;
-import com.sholeh.marketplacenj.util.ServiceGenerator;
+import com.sholeh.marketplacenj.activities.customview.edittext.EditTextRegular;
+import com.sholeh.marketplacenj.customview.textview.TextViewRegular;
+import com.sholeh.marketplacenj.mfragment.homepage.HomepageFragment;
 import com.sholeh.marketplacenj.respon.ResLogin;
 import com.sholeh.marketplacenj.util.Preferences;
-
-import java.util.regex.Pattern;
-
+import com.sholeh.marketplacenj.util.ServiceGenerator;
+import com.sholeh.marketplacenj.util.api.APIInterface;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
-    private String TAG = "LoginActivity";
+    private final String TAG = "LoginActivity";
 
     TextView tv_usernow, tvSignin, tvLupaPass;
     EditText edUserName, edPass;
@@ -68,7 +65,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         edPass = findViewById(R.id.etPass);
         tvSignin = findViewById(R.id.tvSignIn);
         tvLupaPass = findViewById(R.id.tvForgetPass);
-
 
 
         tv_usernow.setOnClickListener(this);
@@ -104,6 +100,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
+
     public void Login() {
         final String username_ = edUserName.getText().toString();
         final String password_ = edPass.getText().toString();
@@ -125,7 +122,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         preferences.saveSPString(Preferences.SP_TOKEN, String.valueOf(response.body().getToken()));
 
                         preferences.saveSPBoolean(Preferences.SP_SUDAH_LOGIN, true);
-                        Toast.makeText(LoginActivity.this, ""+response.body().getToken(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "" + response.body().getToken(), Toast.LENGTH_SHORT).show();
                         Toast.makeText(LoginActivity.this, "Sukses", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(LoginActivity.this, Utama.class);
                         startActivity(intent);
@@ -150,11 +147,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         LayoutInflater inflater = this.getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.activity_forgot_password, null);
         dialogBuilder.setView(dialogView);
-        ProgressBar progressBar=(ProgressBar)dialogView.findViewById(R.id.progress_bar);
+        ProgressBar progressBar = dialogView.findViewById(R.id.progress_bar);
 
 
-        TextViewRegular tvRequestPasswordReset = (TextViewRegular) dialogView.findViewById(R.id.tvRequestPasswordReset);
-        final EditTextRegular etForgetPassEmail = (EditTextRegular) dialogView.findViewById(R.id.etForgetPassEmail);
+        TextViewRegular tvRequestPasswordReset = dialogView.findViewById(R.id.tvRequestPasswordReset);
+        final EditTextRegular etForgetPassEmail = dialogView.findViewById(R.id.etForgetPassEmail);
 
         alertDialog1 = dialogBuilder.create();
         alertDialog1.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -173,23 +170,23 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     etForgetPassEmail.setError("email tidak boleh kosong");
                 } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email_).matches()) {
                     etForgetPassEmail.setError("email tidak valid");
-                }else {
+                } else {
 
                     progressBar.setVisibility(View.VISIBLE);
                     tvRequestPasswordReset.setVisibility(View.GONE);
 
                     APIInterface service = ServiceGenerator.getRetrofit().create(APIInterface.class);
-                    Call<ResLogin> userForget= service.requestForgetPass(email_);
+                    Call<ResLogin> userForget = service.requestForgetPass(email_);
                     userForget.enqueue(new Callback<ResLogin>() {
                         @Override
                         public void onResponse(Call<ResLogin> call, Response<ResLogin> response) {
                             Log.d(TAG, "resLogin" + response.toString());
                             if (response.body() != null && response.isSuccessful()) {
-                                if (response.body().getPesan().equalsIgnoreCase("Email tidak ditemukan")){
+                                if (response.body().getPesan().equalsIgnoreCase("Email tidak ditemukan")) {
                                     Toast.makeText(LoginActivity.this, "Email tidak terdaftar", Toast.LENGTH_SHORT).show();
                                     progressBar.setVisibility(View.GONE);
                                     tvRequestPasswordReset.setVisibility(View.VISIBLE);
-                                }else{
+                                } else {
                                     alertDialog1.dismiss();
                                     Toast.makeText(LoginActivity.this, "Konfirmasi passwrod telah dikirim ke alamat email anda", Toast.LENGTH_LONG).show();
                                     progressBar.setVisibility(View.GONE);
@@ -216,6 +213,25 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
 
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+        this.doubleBackToExitPressedOnce = true;
+
+        Intent intent = new Intent(LoginActivity.this, Utama.class);
+        startActivity(intent);
+        Toast.makeText(this, "Tekan sekali lagi untuk keluar", Toast.LENGTH_SHORT).show();
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce = false;
+            }
+        }, 2000);
+    }
 
 
     private boolean validasi() {
